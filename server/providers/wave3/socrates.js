@@ -31,6 +31,13 @@ import { readCappedResponseText } from '../common/http.js';
 const CSV_URL = 'https://celestrak.org/SOCRATES/sort-minRange.csv';
 // Head-request size for the SOCRATES CSV (sorted by min range ascending).
 const CSV_HEAD_BYTES = 262144;
+// Snapshot: CelesTrak tarpits Cloudflare edge IPs on the SOCRATES CSV,
+// so the provider prefers the GitHub-release snapshot (refreshed every 6h
+// by scripts/conjunctions-snapshot.mjs) with live fetch as fallback.
+const SNAPSHOT_URL =
+  'https://github.com/Sheldondouthat/satwq-reality-os/releases/download/conjunctions-latest/conjunctions.json';
+const SNAPSHOT_TIMEOUT_MS = 20_000;
+const SNAPSHOT_MAX_BYTES = 4 * 1024 * 1024;
 const TLE_URL = (catnr) =>
   `https://celestrak.org/NORAD/elements/gp.php?CATNR=${encodeURIComponent(catnr)}&FORMAT=tle`;
 const UPSTREAM_TIMEOUT_MS = 25_000;
@@ -256,19 +263,45 @@ export function socratesProxy() {
     await Promise.all(Array.from({ length: CONCURRENCY }, worker));
   }
 
+/** Fetch the pre-computed snapshot from the GitHub release. */
+async function fetchSnapshot() {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), SNAPSHOT_TIMEOUT_MS);
+  try {
+    const res = await fetch(SNAPSHOT_URL, {
+      signal: controller.signal,
+      headers: { 'User-Agent': USER_AGENT, Accept: 'application/json' },
+    });
+    if (!res.ok) throw new Error(`snapshot HTTP ${res.status}`);
+    const { tooLarge, text } = await readCappedResponseText(res, SNAPSHOT_MAX_BYTES);
+    if (tooLarge) throw new Error('snapshot too large');
+    const snap = JSON.parse(text);
+    if (!Array.isArray(snap.events) || !snap.events.length)
+      throw new Error('snapshot has no events');
+    return snap.events.slice(0, MAX_EVENTS);
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
   async function getEvents({ enrich = false } = {}) {
     // Separate caches: the fast list (no TLE) and the enriched theater feed.
-    // Cold isolates fetch the 256KB CSV head either way; TLE enrichment
-    // (12 upstream fetches) only runs when the caller opts in, so the
-    // default list endpoint stays fast and reliable on the edge.
+    // The provider prefers the GitHub-release snapshot (CelesTrak tarpits
+    // Cloudflare edge); live CSV fetch is the fallback. TLE enrichment
+    // (12 upstream fetches) only runs when the caller opts in.
     const key = enrich ? 'enriched' : 'list';
     const nowMs = Date.now();
     if (caches[key] && nowMs - caches[key].at < CACHE_TTL_MS) return caches[key].events;
     if (inflight[key]) return inflight[key];
     inflight[key] = (async () => {
       try {
-        const text = await fetchText(CSV_URL, UPSTREAM_TIMEOUT_MS, true);
-        const events = parseSocratesCsv(text, MAX_EVENTS);
+        let events;
+        try {
+          events = await fetchSnapshot();
+        } catch {
+          const text = await fetchText(CSV_URL, UPSTREAM_TIMEOUT_MS, true);
+          events = parseSocratesCsv(text, MAX_EVENTS);
+        }
         if (enrich) {
           try { await enrichTles(events); } catch { /* arcs degrade, list survives */ }
         }
