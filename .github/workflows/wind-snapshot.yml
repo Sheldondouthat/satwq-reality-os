@@ -1,0 +1,27 @@
+name: Wind snapshot (GFS)
+
+on:
+  schedule:
+    - cron: '17 */6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          # Pinned to the Node major where the prebuilt eccodes-wasm binary is
+          # proven to instantiate: Node 22-latest (V8 12.x) rejects it with
+          # "invalid table elements limits flags"; Node 24 (V8 13.x) loads it.
+          node-version: '24'
+      - run: npm ci
+      - name: Build and publish wind snapshot
+        run: node scripts/wind-snapshot.mjs
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
