@@ -3,6 +3,7 @@ import { defineConfig, loadEnv } from 'vite';
 import { createBrowserViteConfig } from '../../build/vite.js';
 import { localProviderPlugins } from '../providers/local.js';
 import { apiNotFoundPlugin } from './api-not-found.js';
+import { cleanKey } from './keySentinel.mjs';
 
 const root = fileURLToPath(new URL('../../', import.meta.url));
 
@@ -14,8 +15,10 @@ export default defineConfig(({ command, mode }) => {
   }
   return createBrowserViteConfig({
     plugins: [...localProviderPlugins(), apiNotFoundPlugin()],
-    googleApiKey: process.env.GOOGLE_MAPS_API_KEY,
-    cesiumToken: process.env.CESIUM_ION_TOKEN,
+    // The Docker image runs `vite build` at build time: sanitize the
+    // NOT-CONFIGURED sentinel here too so it never lands in the bundle.
+    googleApiKey: cleanKey(process.env.GOOGLE_MAPS_API_KEY),
+    cesiumToken: cleanKey(process.env.CESIUM_ION_TOKEN),
     host: process.env.HOST,
     port: process.env.PORT,
     command,

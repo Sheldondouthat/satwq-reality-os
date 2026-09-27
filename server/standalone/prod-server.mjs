@@ -28,6 +28,7 @@ import { fileURLToPath } from 'node:url';
 
 import { localProviderPlugins } from '../providers/local.js';
 import { apiNotFoundPlugin } from './api-not-found.js';
+import { scrubKeySentinels } from './keySentinel.mjs';
 
 const ROOT = path.resolve(fileURLToPath(new URL('../../', import.meta.url)));
 const DIST = path.join(ROOT, 'dist');
@@ -246,6 +247,13 @@ async function serveStatic(req, res, pathname) {
 /* ------------------------------------------------------------------ */
 async function main() {
   await loadDotEnvFiles();
+
+  // SnapDeploy's wizard requires non-empty env values, so keyless deploys
+  // enter the NOT-CONFIGURED sentinel. Scrub it (and blanks) before any
+  // provider reads keys, so the sentinel behaves exactly like an absent key.
+  const scrubbed = scrubKeySentinels();
+  if (scrubbed.length)
+    console.log(`[prod-server] keyless sentinel scrubbed: ${scrubbed.join(', ')}`);
 
   const stack = createMiddlewareStack();
 
