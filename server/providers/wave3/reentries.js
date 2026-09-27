@@ -34,6 +34,12 @@ import {
 
 const GROUP_URL = (group) =>
   `https://celestrak.org/NORAD/elements/gp.php?GROUP=${encodeURIComponent(group)}&FORMAT=tle`;
+// Pre-computed snapshot (GitHub Actions, non-Cloudflare egress): CelesTrak
+// throttles bulk TLE fetches from the edge, so the provider prefers this.
+const SNAPSHOT_URL =
+  'https://github.com/Sheldondouthat/satwq-reality-os/releases/download/reentries-latest/reentries.json';
+const SNAPSHOT_TIMEOUT_MS = 20_000;
+const SNAPSHOT_MAX_BYTES = 4 * 1024 * 1024;
 // Debris-rich groups (VERIFIED live 2026-09-27 — "other" and "last-30-days"
 // are not valid TLE groups: "other" → "Invalid query", "last-30-days" is
 // CSV-only). These are the real breakup clouds (Iridium-33/Cosmos-2251
@@ -74,12 +80,47 @@ export function reentriesProxy() {
   let cache = null; // { at, candidates }
   let inflight = null;
 
+  async function getSnapshotCandidates() {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), SNAPSHOT_TIMEOUT_MS);
+    try {
+      const res = await fetch(SNAPSHOT_URL, {
+        signal: controller.signal,
+        headers: { 'User-Agent': USER_AGENT, Accept: 'application/json' },
+      });
+      if (!res.ok) throw new Error(`snapshot HTTP ${res.status}`);
+      const { tooLarge, text } = await readCappedResponseText(res, SNAPSHOT_MAX_BYTES);
+      if (tooLarge) throw new Error('snapshot too large');
+      const snap = JSON.parse(text);
+      if (!Array.isArray(snap.candidates) || !snap.candidates.length)
+        throw new Error('snapshot has no candidates');
+      // Validate shape: every candidate must carry real TLE lines.
+      for (const c of snap.candidates) {
+        if (!/^1 \d{5}/.test(c.line1 || '') || !/^2 \d{5}/.test(c.line2 || ''))
+          throw new Error('snapshot candidate TLE malformed');
+      }
+      return snap.candidates;
+    } finally {
+      clearTimeout(timer);
+    }
+  }
+
   async function getCandidates(maxDays) {
     const nowMs = Date.now();
     if (cache && nowMs - cache.at < CACHE_TTL_MS && cache.maxDays === maxDays) return cache.candidates;
     if (inflight) return inflight;
     inflight = (async () => {
       try {
+        // Prefer the pre-computed snapshot (reliable on the edge); fall back
+        // to live CelesTrak fetch when the snapshot is missing or invalid.
+        try {
+          const snapCandidates = await getSnapshotCandidates();
+          const filtered = snapCandidates.filter((c) => c.daysToDecay <= maxDays);
+          cache = { at: Date.now(), maxDays, candidates: filtered };
+          return filtered;
+        } catch {
+          /* snapshot unavailable — try live upstream */
+        }
         const settled = await Promise.allSettled(GROUPS.map((g) => fetchText(GROUP_URL(g))));
         let fulfilled = 0;
         const seen = new Set();
