@@ -314,7 +314,7 @@ export function weatherProxy({
     signal.throwIfAborted();
     const response = await fetchImpl(url, {
       signal,
-      redirect: 'follow',
+      redirect: 'error',
       headers: { Accept: image ? 'image/png' : 'application/xml,text/xml' },
     });
     if (

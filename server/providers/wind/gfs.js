@@ -71,7 +71,7 @@ export function windMessageRanges(
 
 /** Fetch a bounded text response as a Buffer. */
 export async function fetchText({ url, fetchImpl = fetch, signal }) {
-  const response = await fetchImpl(url, { signal, redirect: 'follow' });
+  const response = await fetchImpl(url, { signal, redirect: 'error' });
   if (!response.ok) {
     await response.body?.cancel();
     throw new Error('Wind upstream unavailable');
@@ -101,7 +101,7 @@ export async function fetchRange({
     throw new Error('range too large');
   const response = await fetchImpl(url, {
     signal,
-    redirect: 'follow',
+    redirect: 'error',
     headers: { Range: `bytes=${start}-${end}` },
   });
   const validStatus =
