@@ -19,7 +19,7 @@ import {
   summarizeTwin,
 } from './twin.js';
 import { fetchPrecipitation } from './precip.js';
-import { RIVERS } from './registry.js';
+import { RIVERS } from '../../../../shared/waterTwinRegistry.js';
 
 const API = '/api/water-twin';
 const REFRESH_MS = 30 * 60_000;

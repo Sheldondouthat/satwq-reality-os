@@ -70,6 +70,12 @@ import { initDartLayer } from './wave3/dart/index.js';
 import { initWaterTwin } from './wave3/waterTwin/index.js';
 import { initWatchReplay } from './wave3/watchReplay/index.js';
 import { initQuakeImpact } from './wave3/quakeImpact/index.js';
+import { init as initWave3Ripestat } from './wave3/ripestat/index.js';
+import { init as initWave3Feodo } from './wave3/feodo/index.js';
+import { init as initWave3Gdelt } from './wave3/gdelt/index.js';
+import { init as initWave3Meteors } from './wave3/meteors/index.js';
+import { init as initWave3Eibi } from './wave3/eibi/index.js';
+import { init as initWave3Aishub } from './wave3/aishub/index.js';
 
 const DOCK_ID = 'satwq-frontier-dock';
 
@@ -659,6 +665,42 @@ export function initFrontier({ viewer } = {}) {
     const handle = initQuakeImpact({ viewer, mount: (node) => s.appendChild(node) });
     dock.appendChild(s);
     return () => handle.destroy();
+  });
+
+  // — Wave 3 Track 2c / 2.11: RIPEstat routing-pulse arcs —
+  attempt('wave3-ripestat', () => {
+    const handle = initWave3Ripestat({ viewer });
+    return () => handle?.destroy?.();
+  });
+
+  // — Wave 3 Track 2c / 2.12: Feodo Tracker C2 map —
+  attempt('wave3-feodo', () => {
+    const handle = initWave3Feodo({ viewer });
+    return () => handle?.destroy?.();
+  });
+
+  // — Wave 3 Track 2c / 2.13: GDELT attention bubbles —
+  attempt('wave3-gdelt', () => {
+    const handle = initWave3Gdelt({ viewer, q: 'earthquake', timespan: 60 });
+    return () => handle?.destroy?.();
+  });
+
+  // — Wave 3 Track 2c / 2.14: GMN night-side meteors —
+  attempt('wave3-meteors', () => {
+    const handle = initWave3Meteors({ viewer });
+    return () => handle?.destroy?.();
+  });
+
+  // — Wave 3 Track 2c / 2.15: EiBi shortwave on-air —
+  attempt('wave3-eibi', () => {
+    const handle = initWave3Eibi({ viewer });
+    return () => handle?.destroy?.();
+  });
+
+  // — Wave 3 Track 2c / 2.16: AISHub receiver mesh —
+  attempt('wave3-aishub', () => {
+    const handle = initWave3Aishub({ viewer });
+    return () => handle?.destroy?.();
   });
 
   return {

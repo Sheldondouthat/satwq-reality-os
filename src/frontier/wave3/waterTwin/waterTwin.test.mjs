@@ -17,7 +17,7 @@ import {
   fetchPrecipitation,
   RAINVIEWER_TILE_HOST,
 } from './precip.js';
-import { RESERVOIRS, RIVERS } from './registry.js';
+import { RESERVOIRS, RIVERS } from '../../../../shared/waterTwinRegistry.js';
 
 const mapsFixture = {
   version: '1.0',

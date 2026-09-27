@@ -22,12 +22,11 @@
  * Keyless, global fetch only, capped reads, Pages-safe (no node: imports).
  * Follows the cyclones.js factory pattern.
  *
- * doseBand lives in the client model (src/frontier/wave3/radiation/model.js)
- * and is re-exported here — the server→src direction matches the existing
- * invisibleOceanProxy → src/layers/invisibleOcean/model.js precedent.
+ * doseBand lives in the neutral shared module (shared/radiationBands.js),
+ * re-exported by the client model — no server→src import.
  */
 import { readResponseTextCapped } from '../common/http.js';
-import { doseBand } from '../../../src/frontier/wave3/radiation/model.js';
+import { doseBand } from '../../../shared/radiationBands.js';
 
 export { doseBand };
 

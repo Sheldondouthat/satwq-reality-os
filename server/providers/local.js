@@ -42,6 +42,12 @@ import { sigmetsProxy } from './wave3/sigmets.js';
 import { radiationProxy } from './wave3/radiation.js';
 import { dartCouplingProxy } from './wave3/dart.js';
 import { waterTwinProxy } from './wave3/waterTwin.js';
+import { ripestatProxy } from './wave3/ripestat.js';
+import { feodoProxy } from './wave3/feodo.js';
+import { gdeltProxy } from './wave3/gdelt.js';
+import { gmnProxy } from './wave3/gmn.js';
+import { eibiProxy } from './wave3/eibi.js';
+import { aishubProxy } from './wave3/aishub.js';
 
 /** Construct the local provider plugins in their established order. */
 function localProviderPlugins() {
@@ -89,6 +95,12 @@ function localProviderPlugins() {
     radiationProxy(),
     dartCouplingProxy(),
     waterTwinProxy(),
+    ripestatProxy(),
+    feodoProxy(),
+    gdeltProxy(),
+    gmnProxy(),
+    eibiProxy(),
+    aishubProxy(),
     keySetupEndpoint(),
   ];
 }

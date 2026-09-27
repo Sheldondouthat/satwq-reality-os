@@ -14,7 +14,7 @@
  * Fetch is injected so tests never touch the network. This module runs in
  * the browser; it shares no imports with the Pages Functions bundle path.
  */
-import { RESERVOIRS, RIVERS } from './registry.js';
+import { RESERVOIRS, RIVERS } from '../../../../shared/waterTwinRegistry.js';
 
 export const RAINVIEWER_MAPS_URL = 'https://api.rainviewer.com/public/weather-maps.json';
 export const RAINVIEWER_TILE_HOST = 'https://tilecache.rainviewer.com';

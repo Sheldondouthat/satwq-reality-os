@@ -3,9 +3,11 @@
  *
  * Dose-band coloring and /api/radiation payload validation. Rendering lives
  * in index.js. Bands are display-only; they are not health advice.
+ *
+ * doseBand/DOSE_BANDS live in the neutral shared module (shared/radiationBands.js)
+ * so the server provider can use them without a server→src import.
  */
-
-export const DOSE_BANDS = ['low', 'background', 'elevated', 'high', 'unknown'];
+export { DOSE_BANDS, doseBand } from '../../../../shared/radiationBands.js';
 
 export const BAND_COLORS = {
   low: '#35e0ff',
@@ -14,15 +16,6 @@ export const BAND_COLORS = {
   high: '#ff2d2d',
   unknown: '#9fb4dd',
 };
-
-/** µSv/h → display band. Background ~0.05–0.3; >1 is elevated. Display-only. */
-export function doseBand(usvH) {
-  if (!Number.isFinite(usvH)) return 'unknown';
-  if (usvH < 0.1) return 'low';
-  if (usvH < 0.3) return 'background';
-  if (usvH < 1) return 'elevated';
-  return 'high';
-}
 
 export const BAND_LABELS = {
   low: '< 0.10 µSv/h — low',

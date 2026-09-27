@@ -16,7 +16,7 @@
  * Plain fetch + CSV/JSON parsing only — no WASM, no node:fs. Safe for the
  * Pages Functions registry path.
  */
-import { RESERVOIRS, RIVERS, CDEC_STATION_IDS, NWIS_SITE_IDS } from '../../../src/frontier/wave3/waterTwin/registry.js';
+import { RESERVOIRS, RIVERS, CDEC_STATION_IDS, NWIS_SITE_IDS } from '../../../shared/waterTwinRegistry.js';
 
 const CDEC_URL = (stations) =>
   `https://cdec.water.ca.gov/dynamicapp/req/CSVDataServlet?Stations=${stations}&SensorNums=15&dur_code=D&Start=__START__&End=__END__`;
