@@ -480,5 +480,7 @@ test('the upstream host is pinned: a redirect is refused, not followed', async (
     return Response.json(osrmRouteWithSteps(2));
   });
   await request('/api/route', '?profile=car&coords=-97,30;-97.01,30.01');
-  assert.deepEqual(seen, ['error'], 'a redirect would escape the pinned host');
+  // 'manual' (not 'error') — workerd throws on redirect:'error' (main 2ec4053).
+  // 'manual' still refuses to follow redirects, keeping the pinned host.
+  assert.deepEqual(seen, ['manual'], 'a redirect would escape the pinned host');
 });
