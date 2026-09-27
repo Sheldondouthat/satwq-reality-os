@@ -2,6 +2,7 @@ import { createStandaloneApplication } from './standalone/application.js';
 import { describeError } from './standalone/errors.js';
 import { initAkashic } from './akashic/index.js';
 import { initCinematic } from './cinematic/index.js';
+import { initFrontier } from './frontier/index.js';
 import { showBootSplash } from './ui/bootSplash.js';
 import './ui/bootSplash.css';
 import './ui/voiceCommand.css';
@@ -33,6 +34,12 @@ application
       initCinematic({ components });
     } catch (error) {
       console.warn('Cinematic pack failed to initialize:', error);
+    }
+    // Frontier pack F1–F13 + 14-skin theme system: fail-soft, keyless.
+    try {
+      initFrontier({ viewer: components?.scene?.viewer ?? null });
+    } catch (error) {
+      console.warn('Frontier features failed to initialize:', error);
     }
     splash.ready();
   })

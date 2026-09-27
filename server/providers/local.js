@@ -26,6 +26,9 @@ import { weatherProxy } from './weather.js';
 import { firePerimetersProxy } from './firePerimeters.js';
 import { cycloneProxy } from './cyclones.js';
 import { windProxy } from './wind.js';
+import { eventSynthesisProxy } from './eventSynthesis.js';
+import { invisibleOceanProxy } from './invisibleOceanProxy.js';
+import { vaacProxy } from './vaac.js';
 
 /** Construct the local provider plugins in their established order. */
 function localProviderPlugins() {
@@ -57,6 +60,9 @@ function localProviderPlugins() {
     cycloneProxy(),
     firePerimetersProxy(),
     hmsSmokeProxy(),
+    eventSynthesisProxy(),
+    invisibleOceanProxy(),
+    vaacProxy(),
     keySetupEndpoint(),
   ];
 }

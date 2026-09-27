@@ -1,10 +1,13 @@
 /**
  * Parse NOAA HMS smoke-polygon KML into plain records.
  *
- * HMS colors smoke by density via Placemark style names:
- *   #Smoke_Light    → light
- *   #Smoke_Moderate → moderate
- *   #Smoke_Heavy    → heavy
+ * HMS colors smoke by density via Placemark style names. The live feed
+ * serves StyleMap ids with a `_style` suffix and uses `Medium` (not
+ * `Moderate`) for the middle density class:
+ *   #Smoke_Light_style    → light
+ *   #Smoke_Medium_style   → moderate
+ *   #Smoke_Heavy_style    → heavy
+ * Bare ids (#Smoke_Light etc.) from older/cached files still parse.
  *
  * Parsing is string/regex based (no DOMParser) so the same code runs in
  * Node tests and in the browser. Malformed placemarks (missing or
@@ -12,15 +15,19 @@
  * never synthesized.
  */
 
-/** HMS style name → density. */
+/** HMS style name → density. `Medium` is HMS's real middle class (the live
+ * feed serves `#Smoke_Medium_style` StyleMap ids); `Moderate` is kept for
+ * older/cached files. */
 export const SMOKE_DENSITY_BY_STYLE = Object.freeze({
   Smoke_Light: 'light',
+  Smoke_Medium: 'moderate',
   Smoke_Moderate: 'moderate',
   Smoke_Heavy: 'heavy',
 });
 
 const PLACEMARK_RE = /<Placemark\b[\s\S]*?<\/Placemark>/gi;
-const STYLE_URL_RE = /<styleUrl>\s*#?\s*(Smoke_(?:Light|Moderate|Heavy))\s*<\/styleUrl>/i;
+const STYLE_URL_RE =
+  /<styleUrl>\s*#?\s*(Smoke_(?:Light|Medium|Moderate|Heavy))(?:_style)?\s*<\/styleUrl>/i;
 const COORDS_RE = /<coordinates>([\s\S]*?)<\/coordinates>/i;
 
 function isFiniteLonLat(lon, lat) {

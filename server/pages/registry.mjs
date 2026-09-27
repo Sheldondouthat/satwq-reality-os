@@ -159,6 +159,21 @@ const REGISTRY = [
     routes: ['/api/fire-perimeters'],
     load: () => import('../providers/firePerimeters.js').then((m) => m.firePerimetersProxy()),
   },
+  {
+    name: 'event-synthesis',
+    routes: ['/api/events', '/api/sky-alerts'],
+    load: () => import('../providers/eventSynthesis.js').then((m) => m.eventSynthesisProxy()),
+  },
+  {
+    name: 'invisible-ocean',
+    routes: ['/api/invisible-ocean/spots'],
+    load: () => import('../providers/invisibleOceanProxy.js').then((m) => m.invisibleOceanProxy()),
+  },
+  {
+    name: 'vaac',
+    routes: ['/api/vaac'],
+    load: () => import('../providers/vaac.js').then((m) => m.vaacProxy()),
+  },
 ];
 
 export { REGISTRY };

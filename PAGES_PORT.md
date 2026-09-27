@@ -61,7 +61,11 @@ regional-brief, geocode, weather-effects, cctv, radio, gbfs, transit,
 adsb-lol, track-backfill (`/api/adsblol/trace`, `/api/opensky-track`),
 hms-smoke, openai (`/api/openai/hud-summary`, `/api/realtime/token`,
 `/api/realtime/debug-log`), places (`/api/google/*`), wind, weather,
-cyclones, fire-perimeters.
+cyclones, fire-perimeters — plus the frontier pack added 2026-09-27:
+event-synthesis (`/api/events`, `/api/sky-alerts`), invisible-ocean
+(`/api/invisible-ocean/spots`), vaac (`/api/vaac`, Tokyo VAAC advisory
+proxy — the source site serves no CORS headers so the browser cannot fetch
+it directly).
 
 ## Deliberately excluded (not failures)
 

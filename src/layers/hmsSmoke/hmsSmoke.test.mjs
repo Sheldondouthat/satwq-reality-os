@@ -160,3 +160,24 @@ test('layer requires a snapshot source and rejects double init', () => {
   const h = harness({ getSnapshot: async () => ({ polygons: [] }) });
   assert.throws(() => h.layer.init(h.viewer), /already initialized/);
 });
+
+test('parseSmokeKml parses the live HMS StyleMap ids (#Smoke_*_style) and the Medium middle class', () => {
+  // Recurrence guard: the live NOAA HMS feed serves StyleMap ids such as
+  // #Smoke_Light_style / #Smoke_Medium_style, not the bare style names the
+  // original parser expected. The feed's middle density class is "Medium".
+  const liveFixture = `<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2"><Document>
+<StyleMap id="Smoke_Light_style"><Pair><key>normal</key><styleUrl>#Smoke_Light</styleUrl></Pair></StyleMap>
+<StyleMap id="Smoke_Medium_style"><Pair><key>normal</key><styleUrl>#Smoke_Medium</styleUrl></Pair></StyleMap>
+<StyleMap id="Smoke_Heavy_style"><Pair><key>normal</key><styleUrl>#Smoke_Heavy</styleUrl></Pair></StyleMap>
+<Placemark><name>smoke</name><styleUrl>#Smoke_Light_style</styleUrl><Polygon><outerBoundaryIs><LinearRing><coordinates>${RING_A}</coordinates></LinearRing></outerBoundaryIs></Polygon></Placemark>
+<Placemark><name>smoke</name><styleUrl>#Smoke_Medium_style</styleUrl><Polygon><outerBoundaryIs><LinearRing><coordinates>${RING_B}</coordinates></LinearRing></outerBoundaryIs></Polygon></Placemark>
+<Placemark><name>smoke</name><styleUrl>#Smoke_Heavy_style</styleUrl><Polygon><outerBoundaryIs><LinearRing><coordinates>${RING_C}</coordinates></LinearRing></outerBoundaryIs></Polygon></Placemark>
+</Document></kml>`;
+  const records = parseSmokeKml(liveFixture);
+  assert.equal(records.length, 3);
+  assert.deepEqual(
+    records.map((r) => r.density),
+    ['light', 'moderate', 'heavy'],
+  );
+});
