@@ -121,7 +121,7 @@ function createRealtimeTokenHandler({
     try {
       const response = await fetchImpl(endpoint, {
         method: 'POST',
-        redirect: 'follow',
+        redirect: 'error',
         signal: AbortSignal.timeout(30_000),
         headers: {
           Authorization: `Bearer ${apiKey}`,

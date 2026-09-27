@@ -128,7 +128,7 @@ export function createRegionalPlaceProvider({
       });
       const payload = await requestJson(`${endpoint}?${params}`, {
         headers: NOMINATIM_HEADERS,
-        redirect: 'follow',
+        redirect: 'error',
       });
       return normalizeRegionalPlace(payload);
     });
@@ -182,7 +182,7 @@ export function createNominatimSearchProvider({
         () =>
           requestJson(`${endpoint}?${params}`, {
             headers: NOMINATIM_HEADERS,
-            redirect: 'follow',
+            redirect: 'error',
           }),
         { bounded: true, signal },
       );

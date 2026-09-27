@@ -175,7 +175,7 @@ async function fetchRoute({
         signal: controller.signal,
         // The endpoint is configured above; a redirect is the one way out of
         // it, so it is refused rather than followed.
-        redirect: 'follow',
+        redirect: 'error',
         headers: { 'User-Agent': 'gods-eye-view/dev (local)' },
       }),
     );
