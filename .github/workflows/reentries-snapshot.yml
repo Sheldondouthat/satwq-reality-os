@@ -1,0 +1,24 @@
+name: Reentries snapshot (TLE decay)
+
+on:
+  schedule:
+    - cron: '23 */6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: npm ci
+      - name: Build and publish reentries snapshot
+        run: node scripts/reentries-snapshot.mjs
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
