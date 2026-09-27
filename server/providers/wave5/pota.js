@@ -211,7 +211,8 @@ export function potaProxy() {
       const mode = params.get('mode');
       sendJson(res, 200, await getSnapshot(limit, mode));
     } catch (error) {
-      sendJson(res, error?.status === 502 ? 502 : 500, {
+      const upstreamFail = error?.status === 502 || error?.name === 'AbortError' || /aborted?/i.test(error?.message ?? '');
+      sendJson(res, upstreamFail ? 502 : 500, {
         error: 'pota_unavailable',
         detail: error?.message ?? 'unknown',
       }, 'no-store');

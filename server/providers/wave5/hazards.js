@@ -147,7 +147,8 @@ export function hazardsProxy() {
     try {
       sendJson(res, 200, await getSnapshot());
     } catch (error) {
-      sendJson(res, error?.status === 502 ? 502 : 500, {
+      const upstreamFail = error?.status === 502 || error?.name === 'AbortError' || /aborted?/i.test(error?.message ?? '');
+      sendJson(res, upstreamFail ? 502 : 500, {
         error: 'hazards_unavailable',
         detail: error?.message ?? 'unknown',
       }, 'no-store');
