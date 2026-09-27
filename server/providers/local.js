@@ -94,6 +94,15 @@ import { mbtaProxy } from './wave7/mbta.js';
 import { aqModelProxy } from './wave7/aqModel.js';
 import { ioosProxy } from './wave7/ioos.js';
 import { birdcastDashProxy } from './wave7/birdcast-dash.js';
+import { infrasoundProxy } from './wave8/infrasound.js';
+import { geomagUsgsProxy } from './wave8/geomagUsgs.js';
+import { iconD2Proxy } from './wave8/iconD2.js';
+import { currentsProxy } from './wave8/currents.js';
+import { gtfsDeProxy } from './wave8/gtfsDe.js';
+import { nhcGisProxy } from './wave8/nhcGis.js';
+import { finduProxy } from './wave8/findu.js';
+import { issExtProxy } from './wave8/issExt.js';
+import { gracedbProxy as gracedbWave8Proxy } from './wave8/gracedb.js';
 import { waterTwinProxy } from './wave3/waterTwin.js';
 import { feodoProxy } from './wave3/feodo.js';
 import { gdeltProxy } from './wave3/gdelt.js';
@@ -218,6 +227,15 @@ function localProviderPlugins() {
     aqModelProxy(),
     ioosProxy(),
     birdcastDashProxy(),
+    infrasoundProxy(),
+    geomagUsgsProxy(),
+    iconD2Proxy(),
+    currentsProxy(),
+    gtfsDeProxy(),
+    nhcGisProxy(),
+    finduProxy(),
+    issExtProxy(),
+    gracedbWave8Proxy(),
     keySetupEndpoint(),
   ];
 }

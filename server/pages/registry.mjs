@@ -554,6 +554,51 @@ const REGISTRY = [
     routes: ['/api/birdcast-dash'],
     load: () => import('../providers/wave7/birdcast-dash.js').then((m) => m.birdcastDashProxy()),
   },
+  {
+    name: 'infrasound-ims',
+    routes: ['/api/infrasound-ims'],
+    load: () => import('../providers/wave8/infrasound.js').then((m) => m.infrasoundProxy()),
+  },
+  {
+    name: 'geomag-usgs',
+    routes: ['/api/geomag-usgs'],
+    load: () => import('../providers/wave8/geomagUsgs.js').then((m) => m.geomagUsgsProxy()),
+  },
+  {
+    name: 'icon-d2',
+    routes: ['/api/icon-d2'],
+    load: () => import('../providers/wave8/iconD2.js').then((m) => m.iconD2Proxy()),
+  },
+  {
+    name: 'currents',
+    routes: ['/api/currents'],
+    load: () => import('../providers/wave8/currents.js').then((m) => m.currentsProxy()),
+  },
+  {
+    name: 'gtfs-de',
+    routes: ['/api/gtfs-de'],
+    load: () => import('../providers/wave8/gtfsDe.js').then((m) => m.gtfsDeProxy()),
+  },
+  {
+    name: 'nhc-gis',
+    routes: ['/api/nhc-gis'],
+    load: () => import('../providers/wave8/nhcGis.js').then((m) => m.nhcGisProxy()),
+  },
+  {
+    name: 'findu',
+    routes: ['/api/findu'],
+    load: () => import('../providers/wave8/findu.js').then((m) => m.finduProxy()),
+  },
+  {
+    name: 'iss-ext',
+    routes: ['/api/iss-ext'],
+    load: () => import('../providers/wave8/issExt.js').then((m) => m.issExtProxy()),
+  },
+  {
+    name: 'gracedb',
+    routes: ['/api/gracedb'],
+    load: () => import('../providers/wave8/gracedb.js').then((m) => m.gracedbProxy()),
+  },
 ];
 
 export { REGISTRY };
