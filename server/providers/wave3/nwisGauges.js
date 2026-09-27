@@ -7,13 +7,18 @@
  * real per-gauge flow anomaly; whole-globe view -> latest-only, magnitude
  * only), and serves one compact JSON document at /api/nwis-gauges.
  *
- * Upstream: https://waterservices.usgs.gov/nwis/iv/?format=json (WaterML
- * JSON). Keyless, public domain (U.S. Geological Survey). No new
- * dependencies; global fetch only; no node:* imports (Pages-safe).
+ * Routes:
+ *   GET /api/nwis-gauges?bbox=minLon,minLat,maxLon,maxLat  (default: CONUS)
+ *   GET /api/nwis-gauges?sites=01646500,01463500            (site-ID mode)
+ *   GET /api/rivers  — alias of the same sweep (catalog #89)
  *
- * Flow "anomaly" is a trailing-window z-score of the gauge's OWN recent
- * values (mean/std of the fetched window), NOT a flood-stage comparison —
- * the client legend must say so (see INTEGRATION.md honesty note).
+ * Site-ID mode (added 2026-09-27, branch wave5-recur-stations): a curated
+ * river ticker can request specific USGS gauges without drawing a bbox.
+ * Every FEATURED_SITES ID was verified live 2026-09-27 against the NWIS
+ * site service (https://waterservices.usgs.gov/nwis/site/?format=rdb&sites=…).
+ * Sites mode fetches a P1D trailing window so the per-gauge z-score stays a
+ * real trailing-window anomaly, exactly like bbox mode. A site that reports
+ * no 00060/00065 values in the window is omitted — never synthesized.
  */
 import { readResponseJsonCapped } from '../common/http.js';
 
@@ -27,9 +32,43 @@ const RETRY_COOLDOWN_MS = 60_000;
 const UPSTREAM_TIMEOUT_MS = 25_000;
 const JSON_CAP = 6 * 1024 * 1024;
 const MAX_GAUGES = 500; // compact output bound
+const MAX_SITES = 20; // site-ID mode cap — keeps the IV payload bounded
 const MAX_CACHE_KEYS = 8;
 const NO_DATA = -999999; // NWIS no-data sentinel
 const DEFAULT_BBOX = '-125,24,-66,50'; // CONUS fallback
+
+/**
+ * Curated major-river gauges for site-ID mode. IDs + coords are the REAL
+ * NWIS site-service values (verified 2026-09-27 via the RDB site service);
+ * names are the official station_nm from that same response.
+ */
+export const FEATURED_SITES = [
+  { id: '01646500', name: 'Potomac River near Wash, DC Little Falls pump sta', lat: 38.94977778, lon: -77.12763889 },
+  { id: '01463500', name: 'Delaware River at Trenton NJ', lat: 40.22166667, lon: -74.77805556 },
+  { id: '07374000', name: 'Mississippi River at Baton Rouge, LA', lat: 30.44566667, lon: -91.1915556 },
+  { id: '01578310', name: 'Susquehanna River at Conowingo, MD', lat: 39.65788889, lon: -76.17444444 },
+  { id: '08057410', name: 'Trinity Rv bl Dallas, TX', lat: 32.70763139, lon: -96.7358319 },
+  { id: '09380000', name: 'Colorado River at Lees Ferry, AZ', lat: 36.86433333, lon: -111.58787222 },
+  { id: '14211720', name: 'Willamette River at Portland, OR', lat: 45.5175, lon: -122.6691667 },
+  { id: '05586100', name: 'Illinois River at Valley City, IL', lat: 39.70319444, lon: -90.6430833 },
+];
+
+/** Parse + validate a comma-separated "sites=" list of USGS site numbers. Throws (400). */
+export function parseSites(raw) {
+  const ids = String(raw ?? '')
+    .split(',')
+    .map((s) => s.trim())
+    .filter(Boolean);
+  if (ids.length === 0 || ids.length > MAX_SITES) {
+    throw Object.assign(new Error(`nwis_sites_count:${ids.length}`), { status: 400 });
+  }
+  for (const id of ids) {
+    if (!/^\d{4,15}$/.test(id)) {
+      throw Object.assign(new Error(`nwis_bad_site:${id.slice(0, 24)}`), { status: 400 });
+    }
+  }
+  return [...new Set(ids)];
+}
 
 /** Parse + validate a "minLon,minLat,maxLon,maxLat" bbox string. Throws. */
 export function parseBbox(raw) {
@@ -155,6 +194,7 @@ function describe(value, { stale = false, reason = null } = {}) {
     unavailable: !value,
     reason,
     bbox: value?.bbox ?? null,
+    sites: value?.sites ?? null,
     anomalyBasis: value?.anomalyBasis ?? null,
     gauges: value?.gauges ?? [],
     count: value?.gauges?.length ?? 0,
@@ -178,12 +218,16 @@ export function nwisGaugesProxy({
     cache.set(key, { value, fetchedAt: now() });
   }
 
-  async function fetchUpstream(bbox, period, signal) {
+  async function fetchUpstream({ bbox, sites, period, signal }) {
     const params = new URLSearchParams({
       format: 'json',
-      bBox: `${bbox.minLon},${bbox.minLat},${bbox.maxLon},${bbox.maxLat}`,
       parameterCd: '00060,00065',
     });
+    if (sites) {
+      params.set('sites', sites.join(','));
+    } else {
+      params.set('bBox', `${bbox.minLon},${bbox.minLat},${bbox.maxLon},${bbox.maxLat}`);
+    }
     if (period) params.set('period', period);
     const url = `${UPSTREAM}?${params.toString()}`;
     signal.throwIfAborted();
@@ -199,16 +243,21 @@ export function nwisGaugesProxy({
     signal.throwIfAborted();
     const gauges = parseNwisPayload(doc);
     return {
-      bbox: `${bbox.minLon},${bbox.minLat},${bbox.maxLon},${bbox.maxLat}`,
+      bbox: sites ? null : `${bbox.minLon},${bbox.minLat},${bbox.maxLon},${bbox.maxLat}`,
+      sites: sites ? [...sites] : null,
       anomalyBasis: period ? `trailing ${period} z-score per gauge` : 'latest-only (magnitude, no anomaly)',
       gauges,
       fetchedAt: now(),
     };
   }
 
-  async function acquire(bbox, signal) {
-    const period = anomalyPeriod(bbox);
-    const key = `${quantizeBbox(bbox)}|${period ?? 'latest'}`;
+  async function acquire({ bbox, sites }, signal) {
+    // Sites mode always carries a P1D trailing window so the z-score is a
+    // real per-gauge anomaly; bbox mode sizes the window by area as before.
+    const period = sites ? 'P1D' : anomalyPeriod(bbox);
+    const key = sites
+      ? `sites:${sites.join(',')}|P1D`
+      : `${quantizeBbox(bbox)}|${period ?? 'latest'}`;
     const hit = cache.get(key);
     if (hit && now() - hit.fetchedAt < CACHE_TTL_MS) return { value: hit.value, stale: false };
     signal.throwIfAborted();
@@ -220,7 +269,7 @@ export function nwisGaugesProxy({
       attemptedAt.set(key, now());
       const controller = new AbortController();
       const timer = setTimeout(() => controller.abort(), timeoutMs + 5000);
-      op = fetchUpstream(bbox, period, controller.signal)
+      op = fetchUpstream({ bbox, sites, period, signal: controller.signal })
         .then((value) => {
           cacheSet(key, value);
           return { value, stale: false };
@@ -252,17 +301,29 @@ export function nwisGaugesProxy({
     try {
       if (req.method !== 'GET') return json(405, { error: 'method_not_allowed' });
       const query = new URL(req.url, 'http://localhost').searchParams;
-      let bbox;
+      // Site-ID mode (?sites=) takes precedence; otherwise fall back to the
+      // bbox sweep (default: CONUS).
+      const sitesRaw = query.get('sites');
+      let sites = null;
+      let bbox = null;
       try {
-        bbox = parseBbox(query.get('bbox'));
+        if (sitesRaw != null && sitesRaw.trim() !== '') {
+          sites = parseSites(sitesRaw);
+        } else {
+          bbox = parseBbox(query.get('bbox'));
+        }
       } catch (error) {
         return json(error.status ?? 400, { error: error.message });
       }
       try {
-        const { value, stale } = await acquire(bbox, controller.signal);
+        const { value, stale } = await acquire({ bbox, sites }, controller.signal);
         json(200, describe(value, { stale }));
       } catch (error) {
-        const key = `${quantizeBbox(bbox)}|${anomalyPeriod(bbox) ?? 'latest'}`;
+        // Same cache-key shape as acquire(): sites mode is pinned to P1D,
+        // bbox mode uses the quantized bbox + area-sized period.
+        const key = sites
+          ? `sites:${sites.join(',')}|P1D`
+          : `${quantizeBbox(bbox)}|${anomalyPeriod(bbox) ?? 'latest'}`;
         const hit = cache.get(key);
         const usable = hit && now() - hit.fetchedAt <= STALE_MS;
         json(

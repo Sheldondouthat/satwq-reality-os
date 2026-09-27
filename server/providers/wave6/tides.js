@@ -14,9 +14,20 @@
  *   GET /api/tides?station=8638610&kind=water_level|predictions|both
  *     → {generatedAt, station, sources:{...}, waterLevel:[...]|null,
  *        predictions:[...]|null}
+ *   GET /api/tides?stations=8443970,8518750&kind=water_level|predictions|both
+ *     → {generatedAt, kind, count, stations:[per-station snapshots…]}
+ *       (added 2026-09-27, branch wave5-recur-stations — station sweep)
  *
  * A 502 is returned only when EVERY requested product fails; partial
  * results are reported honestly per source.
+ *
+ * Curated multi-station sweep: the STATIONS list below holds 9 CO-OPS
+ * stations, every one verified 2026-09-27 against the upstream's own
+ * station-list endpoint
+ * (https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations/{id}.json).
+ * Multi-station mode fetches each station's requested products in parallel;
+ * a station whose products ALL fail is reported as {station:{id}, ok:false,
+ * error} inside stations[] — one dead station never poisons the sweep.
  *
  * Keyless, no new dependencies, Pages-safe (global fetch only, capped
  * reads, redirect:'follow' — workerd supports only 'follow'/'manual'; 'error'
@@ -35,7 +46,26 @@ const PREDICTIONS_TTL_MS = 6 * 60 * 60_000;
 const MAX_READINGS = 500;
 const USER_AGENT = 'Gods Eye View (public tide context)';
 const STATION_RE = /^\d{1,7}$/;
+const MAX_MULTI_STATIONS = 10;
 // Default station: 8638610 Sewells Point VA (near the user's region).
+
+/**
+ * Curated CO-OPS station list. Every ID verified 2026-09-27 against the
+ * upstream's own station-list endpoint
+ * (api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations/{id}.json);
+ * names/coords are the live values from those responses.
+ */
+const STATIONS = [
+  { id: '8638610', name: 'Sewells Point', lat: 36.9428, lon: -76.3286, region: 'Virginia' },
+  { id: '8443970', name: 'Boston', lat: 42.35389, lon: -71.05028, region: 'Massachusetts' },
+  { id: '8518750', name: 'The Battery', lat: 40.700554, lon: -74.01417, region: 'New York' },
+  { id: '8724580', name: 'Key West', lat: 24.5557, lon: -81.8079, region: 'Florida' },
+  { id: '8728690', name: 'Apalachicola', lat: 29.724445, lon: -84.98055, region: 'Florida' },
+  { id: '8761724', name: 'Grand Isle', lat: 29.2633, lon: -89.9567, region: 'Louisiana' },
+  { id: '9410170', name: 'San Diego', lat: 32.715557, lon: -117.17667, region: 'California' },
+  { id: '9414290', name: 'San Francisco', lat: 37.806305, lon: -122.46589, region: 'California' },
+  { id: '9444900', name: 'Port Townsend', lat: 48.11122, lon: -122.759674, region: 'Washington' },
+];
 
 let cache = null; // {at, key, payload}
 let inflight = null;
@@ -209,7 +239,72 @@ export function parseQuery(req) {
     );
   const kind =
     kindRaw === 'predictions' || kindRaw === 'both' ? kindRaw : 'water_level';
-  return { station, kind };
+  const stationsRaw = url.searchParams.get('stations');
+  let stations = null;
+  if (stationsRaw != null && stationsRaw.trim() !== '') {
+    stations = [...new Set(stationsRaw.split(',').map((s) => s.trim()).filter(Boolean))];
+    if (stations.length === 0 || stations.length > MAX_MULTI_STATIONS)
+      throw Object.assign(new Error(`tides_too_many_stations:${stations.length}`), { status: 400 });
+    for (const st of stations) {
+      if (!STATION_RE.test(st))
+        throw Object.assign(new Error(`tides_bad_station:${st.slice(0, 32)}`), { status: 400 });
+    }
+  }
+  return { station, stations, kind };
+}
+
+/** Products to fetch for a kind (shared by single and multi-station paths). */
+function productsFor(kind) {
+  return kind === 'water_level'
+    ? ['water_level']
+    : kind === 'predictions'
+      ? ['predictions']
+      : ['water_level', 'predictions'];
+}
+
+/** Multi-station sweep: one entry per station, honest per-station errors. */
+async function getMultiSnapshot(stations, kind) {
+  const key = `multi:${stations.join(',')}:${kind}`;
+  const ttl = kind === 'predictions' ? PREDICTIONS_TTL_MS : WATER_LEVEL_TTL_MS;
+  const now = Date.now();
+  if (cache && cache.key === key && now - cache.at < ttl) return cache.payload;
+  if (!inflight) {
+    const products = productsFor(kind);
+    inflight = Promise.all(
+      stations.map(async (station) => {
+        const results = await Promise.all(products.map((p) => fetchProduct(p, station)));
+        const okOnes = results.filter((r) => r.ok);
+        if (okOnes.length === 0) {
+          return {
+            station: { id: String(station), name: null, lat: null, lon: null },
+            ok: false,
+            error: results.map((r) => `${r.key}:${r.error}`).join('; '),
+          };
+        }
+        return { ...buildSnapshot(okOnes, station), ok: true };
+      }),
+    )
+      .then((entries) => {
+        if (!entries.some((e) => e.ok)) {
+          const detail = entries.map((e) => `${e.station.id}:${e.error}`).join('; ');
+          throw Object.assign(new Error(`tides_all_upstream_down: ${detail}`), { status: 502 });
+        }
+        const payload = {
+          generatedAt: new Date().toISOString(),
+          kind,
+          count: entries.length,
+          okCount: entries.filter((e) => e.ok).length,
+          stations: entries,
+          attribution: 'NOAA CO-OPS (public domain, keyless)',
+        };
+        cache = { at: Date.now(), key, payload };
+        return payload;
+      })
+      .finally(() => {
+        inflight = null;
+      });
+  }
+  return inflight;
 }
 
 async function getSnapshot(station, kind) {
@@ -218,13 +313,7 @@ async function getSnapshot(station, kind) {
   const now = Date.now();
   if (cache && cache.key === key && now - cache.at < ttl) return cache.payload;
   if (!inflight) {
-    const products =
-      kind === 'water_level'
-        ? ['water_level']
-        : kind === 'predictions'
-          ? ['predictions']
-          : ['water_level', 'predictions'];
-    inflight = Promise.all(products.map((p) => fetchProduct(p, station)))
+    inflight = Promise.all(productsFor(kind).map((p) => fetchProduct(p, station)))
       .then((results) => {
         if (!results.some((r) => r.ok)) {
           const detail = results.map((r) => `${r.key}:${r.error}`).join('; ');
@@ -257,8 +346,8 @@ export function tidesProxy() {
     if (req.method !== 'GET')
       return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
     try {
-      const { station, kind } = parseQuery(req);
-      sendJson(res, 200, await getSnapshot(station, kind));
+      const { station, stations, kind } = parseQuery(req);
+      sendJson(res, 200, stations ? await getMultiSnapshot(stations, kind) : await getSnapshot(station, kind));
     } catch (error) {
       if (error?.status === 400)
         return sendJson(
@@ -300,6 +389,8 @@ export const _tidesInternals = {
   coopsTimeToISO,
   buildSnapshot,
   parseQuery,
+  productsFor,
+  STATIONS,
   clearCaches: () => {
     cache = null;
     inflight = null;
