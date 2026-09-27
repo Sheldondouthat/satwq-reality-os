@@ -15,12 +15,13 @@
  *    via node:dns + node:http(s); unreachable from the edge by design.
  *  - standalone/key-setup.js  — writes provider keys to a local .env via
  *    the UI; there is no writable .env on Pages.
- *  - wind.js                  — GRIB decoding pulls @meri-imperiumi/eccodes-wasm,
- *    whose wasm/eccodes.js does require('path')/require('fs'); the Pages
- *    Functions esbuild step cannot resolve those at bundle time (2026-09-27:
- *    three deploys failed identically on this). Excluded at the registry so
- *    the bundle never traces it; /api/wind answers JSON 404 on Pages exactly
- *    like any unmapped route, and the frontend degrades the wind layer.
+ *  - wind.js                  — SUPERSEDED 2026-09-27: /api/wind is served on
+ *    Pages by the WASM-free snapshot provider below (windSnapshot.mjs),
+ *    which serves pre-decoded GFS grids from the `wind-latest` GitHub
+ *    release (published by scripts/wind-snapshot.mjs). The live GRIB
+ *    decoder (@meri-imperiumi/eccodes-wasm) is still excluded from the
+ *    bundle — esbuild cannot resolve its node:fs/node:path requires —
+ *    so server/providers/wind.js itself is never imported here.
  *
  * Relative import paths are from THIS file (server/pages/registry.mjs).
  */
@@ -137,8 +138,12 @@ const REGISTRY = [
     routes: ['/api/google/nearby-places', '/api/google/text-search'],
     load: () => import('../providers/places.js').then((m) => m.googlePlacesContextProxy()),
   },
-  // wind intentionally absent here — see the Deliberate exclusions note above.
-  // (registry entry removed 2026-09-27: esbuild cannot bundle eccodes-wasm)
+  // wind served via the WASM-free snapshot provider (see header note).
+  {
+    name: 'wind-snapshot',
+    routes: ['/api/wind'],
+    load: () => import('./windSnapshot.mjs').then((m) => m.windSnapshotProxy()),
+  },
   {
     name: 'weather',
     routes: ['/api/weather'],
