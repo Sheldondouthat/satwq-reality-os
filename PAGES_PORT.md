@@ -70,6 +70,7 @@ cyclones, fire-perimeters.
 | `vessels/ais-live.js` | `/api/ais-live` | The ONLY server WebSocket (upstream `wss://stream.aisstream.io`) and it is keyed. Keyless deploy has no `AISSTREAM_API_KEY`. No client→server WS exists, so nothing else is lost. |
 | `local-receivers.js` | `/api/receivers/*` | Proxies LAN-local receivers (dump1090 etc.) via `node:dns` + `node:http(s)` — unreachable from the edge by design. |
 | `standalone/key-setup.js` | `/api/setup/*` | Writes provider keys to a local `.env` through the UI — no writable filesystem on Pages. |
+| `wind.js` | `/api/wind` | GRIB decoding pulls `@meri-imperiumi/eccodes-wasm`, whose `wasm/eccodes.js` does `require('path')`/`require('fs')`; the Pages Functions esbuild step cannot resolve those at bundle time (2026-09-27: three deploys failed identically). Excluded at the registry so the bundle never traces it; `/api/wind` answers JSON 404 on Pages and the frontend degrades the wind layer. |
 
 ## workerd runtime notes (read before deploy)
 

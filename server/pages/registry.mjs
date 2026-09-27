@@ -15,6 +15,12 @@
  *    via node:dns + node:http(s); unreachable from the edge by design.
  *  - standalone/key-setup.js  — writes provider keys to a local .env via
  *    the UI; there is no writable .env on Pages.
+ *  - wind.js                  — GRIB decoding pulls @meri-imperiumi/eccodes-wasm,
+ *    whose wasm/eccodes.js does require('path')/require('fs'); the Pages
+ *    Functions esbuild step cannot resolve those at bundle time (2026-09-27:
+ *    three deploys failed identically on this). Excluded at the registry so
+ *    the bundle never traces it; /api/wind answers JSON 404 on Pages exactly
+ *    like any unmapped route, and the frontend degrades the wind layer.
  *
  * Relative import paths are from THIS file (server/pages/registry.mjs).
  */
@@ -131,11 +137,8 @@ const REGISTRY = [
     routes: ['/api/google/nearby-places', '/api/google/text-search'],
     load: () => import('../providers/places.js').then((m) => m.googlePlacesContextProxy()),
   },
-  {
-    name: 'wind',
-    routes: ['/api/wind'],
-    load: () => import('../providers/wind.js').then((m) => m.windProxy()),
-  },
+  // wind intentionally absent here — see the Deliberate exclusions note above.
+  // (registry entry removed 2026-09-27: esbuild cannot bundle eccodes-wasm)
   {
     name: 'weather',
     routes: ['/api/weather'],
