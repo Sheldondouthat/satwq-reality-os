@@ -82,6 +82,8 @@ import { createConjunctionLayer, createConjunctionPanel } from './wave3/conjunct
 import { createConjunctionSource } from './wave3/conjunctions/source.js';
 import { createReentryLayer, createReentryPanel } from './wave3/reentry/index.js';
 import { createReentrySource } from './wave3/reentry/source.js';
+import { createCosmicRayLayer, createCosmicRayPanel } from './wave3/cosmicRay/index.js';
+import { createNmdbSource } from './wave3/nmdb/index.js';
 
 const DOCK_ID = 'satwq-frontier-dock';
 
@@ -707,6 +709,20 @@ export function initFrontier({ viewer } = {}) {
   attempt('wave3-aishub', () => {
     const handle = initWave3Aishub({ viewer });
     return () => handle?.destroy?.();
+  });
+
+  // — Wave 3a: cosmic-ray weather (NMDB) —
+  attempt('cosmicRay', () => {
+    const layer = createCosmicRayLayer({ nmdbSource: createNmdbSource({}) });
+    layer.init(viewer);
+    const ctl = trackLayer('cosmicRay', layer);
+    const s = section(t('feature.cosmicRay'));
+    const panel = createCosmicRayPanel({ layer });
+    s.appendChild(panel.element);
+    s.appendChild(chip('◉ Cosmic rays', (on) => { on ? (ctl.show(), panel.sync()) : ctl.hide(); }, true));
+    dock.appendChild(s);
+    ctl.show();
+    return () => { panel.destroy(); layer.destroy(); };
   });
 
   // — Wave 3a: CNEOS fireball impacts —

@@ -215,6 +215,16 @@ const REGISTRY = [
     load: () => import('../providers/wave3/socrates.js').then((m) => m.socratesProxy()),
   },
   {
+    name: 'nmdb',
+    routes: ['/api/nmdb'],
+    load: () => import('../providers/wave3/nmdb.js').then((m) => m.nmdbProxy()),
+  },
+  {
+    name: 'argo',
+    routes: ['/api/argo'],
+    load: () => import('../providers/wave3/argo.js').then((m) => m.argoProxy()),
+  },
+  {
     name: 'reentries',
     routes: ['/api/reentries'],
     load: () => import('../providers/wave3/reentries.js').then((m) => m.reentriesProxy()),

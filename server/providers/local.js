@@ -50,6 +50,8 @@ import { eibiProxy } from './wave3/eibi.js';
 import { aishubProxy } from './wave3/aishub.js';
 import { fireballsProxy } from './wave3/fireballs.js';
 import { socratesProxy } from './wave3/socrates.js';
+import { nmdbProxy } from './wave3/nmdb.js';
+import { argoProxy } from './wave3/argo.js';
 import { reentriesProxy } from './wave3/reentries.js';
 
 /** Construct the local provider plugins in their established order. */
@@ -106,6 +108,8 @@ function localProviderPlugins() {
     aishubProxy(),
     fireballsProxy(),
     socratesProxy(),
+    nmdbProxy(),
+    argoProxy(),
     reentriesProxy(),
     keySetupEndpoint(),
   ];
