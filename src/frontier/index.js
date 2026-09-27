@@ -76,6 +76,12 @@ import { init as initWave3Gdelt } from './wave3/gdelt/index.js';
 import { init as initWave3Meteors } from './wave3/meteors/index.js';
 import { init as initWave3Eibi } from './wave3/eibi/index.js';
 import { init as initWave3Aishub } from './wave3/aishub/index.js';
+import { createFireballLayer, createFireballPanel } from './wave3/fireballs/index.js';
+import { createFireballSource } from './wave3/fireballs/source.js';
+import { createConjunctionLayer, createConjunctionPanel } from './wave3/conjunctions/index.js';
+import { createConjunctionSource } from './wave3/conjunctions/source.js';
+import { createReentryLayer, createReentryPanel } from './wave3/reentry/index.js';
+import { createReentrySource } from './wave3/reentry/source.js';
 
 const DOCK_ID = 'satwq-frontier-dock';
 
@@ -701,6 +707,48 @@ export function initFrontier({ viewer } = {}) {
   attempt('wave3-aishub', () => {
     const handle = initWave3Aishub({ viewer });
     return () => handle?.destroy?.();
+  });
+
+  // — Wave 3a: CNEOS fireball impacts —
+  attempt('fireballs', () => {
+    const layer = createFireballLayer({ source: createFireballSource({}) });
+    layer.init(viewer);
+    const ctl = trackLayer('fireballs', layer);
+    const s = section(t('feature.fireballs'));
+    const panel = createFireballPanel({ layer });
+    s.appendChild(panel.element);
+    s.appendChild(chip('☄ Fireballs', (on) => { on ? (ctl.show(), panel.sync()) : ctl.hide(); }, true));
+    dock.appendChild(s);
+    ctl.show();
+    return () => { panel.destroy(); layer.destroy(); };
+  });
+
+  // — Wave 3a: SOCRATES conjunction theater —
+  attempt('conjunctions', () => {
+    const layer = createConjunctionLayer({ source: createConjunctionSource({}) });
+    layer.init(viewer);
+    const ctl = trackLayer('conjunctions', layer);
+    const s = section(t('feature.conjunctions'));
+    const panel = createConjunctionPanel({ layer });
+    s.appendChild(panel.element);
+    s.appendChild(chip('⚠ Conjunctions', (on) => { on ? (ctl.show(), panel.sync()) : ctl.hide(); }, true));
+    dock.appendChild(s);
+    ctl.show();
+    return () => { panel.destroy(); layer.destroy(); };
+  });
+
+  // — Wave 3a: TLE decay prediction —
+  attempt('reentry', () => {
+    const layer = createReentryLayer({ source: createReentrySource({}) });
+    layer.init(viewer);
+    const ctl = trackLayer('reentry', layer);
+    const s = section(t('feature.reentry'));
+    const panel = createReentryPanel({ layer });
+    s.appendChild(panel.element);
+    s.appendChild(chip('🛰 Reentries', (on) => { on ? (ctl.show(), panel.sync()) : ctl.hide(); }, true));
+    dock.appendChild(s);
+    ctl.show();
+    return () => { panel.destroy(); layer.destroy(); };
   });
 
   return {

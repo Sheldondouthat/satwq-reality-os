@@ -205,6 +205,21 @@ const REGISTRY = [
     load: () => import('../providers/wave3/aishub.js').then((m) => m.aishubProxy()),
   },
   {
+    name: 'fireballs',
+    routes: ['/api/fireballs'],
+    load: () => import('../providers/wave3/fireballs.js').then((m) => m.fireballsProxy()),
+  },
+  {
+    name: 'conjunctions',
+    routes: ['/api/conjunctions'],
+    load: () => import('../providers/wave3/socrates.js').then((m) => m.socratesProxy()),
+  },
+  {
+    name: 'reentries',
+    routes: ['/api/reentries'],
+    load: () => import('../providers/wave3/reentries.js').then((m) => m.reentriesProxy()),
+  },
+  {
     name: 'interplanetary',
     routes: ['/api/interplanetary'],
     load: () => import('../providers/wave3/interplanetary.js').then((m) => m.interplanetaryProxy()),

@@ -48,6 +48,9 @@ import { gdeltProxy } from './wave3/gdelt.js';
 import { gmnProxy } from './wave3/gmn.js';
 import { eibiProxy } from './wave3/eibi.js';
 import { aishubProxy } from './wave3/aishub.js';
+import { fireballsProxy } from './wave3/fireballs.js';
+import { socratesProxy } from './wave3/socrates.js';
+import { reentriesProxy } from './wave3/reentries.js';
 
 /** Construct the local provider plugins in their established order. */
 function localProviderPlugins() {
@@ -101,6 +104,9 @@ function localProviderPlugins() {
     gmnProxy(),
     eibiProxy(),
     aishubProxy(),
+    fireballsProxy(),
+    socratesProxy(),
+    reentriesProxy(),
     keySetupEndpoint(),
   ];
 }
