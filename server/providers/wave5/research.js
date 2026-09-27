@@ -11,7 +11,7 @@
  *   GET /api/research → {generatedAt, count, items:[...], degradedSources:[], source, attribution}
  *
  * Keyless, no new dependencies, Pages-safe (global fetch only, capped
- * reads, redirect:'error' with pinned hosts, no node: imports, no WASM).
+ * reads, redirect:'follow' (workerd: 'error' throws at edge, main 2ec4053), no node: imports, no WASM).
  */
 
 const OPENALEX_HOST = 'api.openalex.org';
@@ -52,7 +52,7 @@ async function fetchJsonCapped(url, host, signal) {
   try {
     const response = await fetch(url, {
       signal: controller.signal,
-      redirect: 'error',
+      redirect: 'follow',
       headers: { 'User-Agent': USER_AGENT, Accept: 'application/json' },
     });
     if (!response.ok)
@@ -82,7 +82,7 @@ async function fetchArxivAtom(url) {
   try {
     const response = await fetch(url, {
       signal: controller.signal,
-      redirect: 'error',
+      redirect: 'follow',
       headers: { 'User-Agent': USER_AGENT, Accept: 'application/atom+xml' },
     });
     if (!response.ok)

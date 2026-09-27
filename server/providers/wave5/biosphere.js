@@ -13,7 +13,7 @@
  *   GET /api/biosphere → {generatedAt, count, withCoords, items:[...], degradedSources:[], source, attribution}
  *
  * Keyless, no new dependencies, Pages-safe (global fetch only, capped
- * reads, redirect:'error' with pinned hosts, no node: imports, no WASM).
+ * reads, redirect:'follow' (workerd: 'error' throws at edge, main 2ec4053), no node: imports, no WASM).
  */
 
 const INAT_HOST = 'api.inaturalist.org';
@@ -45,7 +45,7 @@ async function fetchJsonCapped(url, host, signal) {
   try {
     const response = await fetch(url, {
       signal: controller.signal,
-      redirect: 'error',
+      redirect: 'follow',
       headers: { 'User-Agent': USER_AGENT, Accept: 'application/json' },
     });
     if (!response.ok)

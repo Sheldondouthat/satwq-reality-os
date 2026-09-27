@@ -32,6 +32,18 @@
  * worse, the GFZ nowcast host permanently 301s
  * (kp.gfz-potsdam.de → kp.gfz.de), so 'error' would break that feed by
  * design. Following redirects is the incident-hardened convention.
+ *
+ * WAVE B ITEM 44 (2026-09-27): the deferred feeds are now fetched
+ * best-effort alongside the core:
+ *   https://services.swpc.noaa.gov/json/goes/primary/integral-protons-1-day.json      (#7)
+ *   https://services.swpc.noaa.gov/json/goes/primary/integral-electrons-6-hour.json  (#8)
+ *   https://services.swpc.noaa.gov/json/goes/primary/magnetometers-3-day.json        (#9)
+ *   https://services.swpc.noaa.gov/products/animations/geoelectric/InterMagEarthScope.json (#11)
+ *   https://services.swpc.noaa.gov/json/ovation_aurora_latest.json                    (#12)
+ *   https://www.sidc.be/silso/DATA/SN_d_tot_V2.0.txt                                  (#15)
+ * The SILSO file is 2.9 MB; it gets a dedicated 4 MB cap and only its tail
+ * is parsed. sidc.be was unreachable from the build VM (curl 000) — parsed
+ * defensively and treated as best-effort like the other side feeds.
  */
 import { readResponseJsonCapped, readResponseTextCapped } from '../common/http.js';
 
@@ -47,6 +59,15 @@ const XRAY_URL = 'https://services.swpc.noaa.gov/json/goes/primary/xrays-1-day.j
 const HAMQSL_URL = 'https://www.hamqsl.com/solarxml.php';
 const WWV_URL = 'https://services.swpc.noaa.gov/text/wwv.txt';
 const GFZ_URL = 'https://kp.gfz-potsdam.de/app/files/Kp_ap_Ap_SN_F107_nowcast.txt';
+// Wave B item 44 — deferred GOES/Ovation/geoelectric/SILSO feeds (2026-09-27).
+const PROTONS_URL = 'https://services.swpc.noaa.gov/json/goes/primary/integral-protons-1-day.json';
+const ELECTRONS_URL = 'https://services.swpc.noaa.gov/json/goes/primary/integral-electrons-6-hour.json';
+const GOES_MAG_URL = 'https://services.swpc.noaa.gov/json/goes/primary/magnetometers-3-day.json';
+const OVATION_URL = 'https://services.swpc.noaa.gov/json/ovation_aurora_latest.json';
+const GEOELECTRIC_URL =
+  'https://services.swpc.noaa.gov/products/animations/geoelectric/InterMagEarthScope.json';
+const SILSO_URL = 'https://www.sidc.be/silso/DATA/SN_d_tot_V2.0.txt';
+const GEOELECTRIC_IMG_BASE = 'https://services.swpc.noaa.gov';
 const USER_AGENT = 'satwq-reality-os/1.0 (NOAA SWPC public space weather; contact via repo)';
 
 const CACHE_TTL_MS = 120_000; // Kp updates every minute
@@ -55,6 +76,7 @@ const RETRY_COOLDOWN_MS = 60_000;
 const UPSTREAM_TIMEOUT_MS = 15_000;
 const JSON_CAP = 2 * 1024 * 1024;
 const TEXT_CAP = 2 * 1024 * 1024;
+const SILSO_CAP = 4 * 1024 * 1024; // SN_d_tot_V2.0.txt is 2.9 MB; only the tail is parsed
 const MAX_ALERTS = 12;
 const KP_3H_POINTS = 8; // 24 h of 3-hourly Kp
 const KP_FORECAST_POINTS = 12; // 3 days of predicted Kp
@@ -286,6 +308,134 @@ function tryParse(fn, doc) {
   }
 }
 
+// ——— Wave B item 44 parsers (all pure, exported for tests) ———
+
+/**
+ * GOES integral particle feeds (protons #7, electrons #8):
+ * rows are {time_tag, satellite, flux, energy} with one row per energy
+ * channel per timestamp. Collects every energy channel of the LATEST
+ * timestamp: {timeTag, satellite, bands:{">=10 MeV": n}}.
+ */
+export function parseGoesParticlesPayload(doc) {
+  if (!Array.isArray(doc) || doc.length === 0) throw new Error('swpc_particles_unexpected_shape');
+  let latestTag = null;
+  let latestMs = -Infinity;
+  for (const e of doc) {
+    const ms = Date.parse(e?.time_tag);
+    if (Number.isFinite(ms) && ms > latestMs) {
+      latestMs = ms;
+      latestTag = e?.time_tag;
+    }
+  }
+  if (latestTag == null) throw new Error('swpc_particles_no_time');
+  const bands = {};
+  let satellite = null;
+  for (const e of doc) {
+    if (e?.time_tag !== latestTag) continue;
+    const energy = String(e?.energy ?? '').trim();
+    const flux = Number(e?.flux);
+    if (!energy || !Number.isFinite(flux)) continue;
+    bands[energy] = flux;
+    if (satellite == null && e?.satellite != null) satellite = e.satellite;
+  }
+  if (Object.keys(bands).length === 0) throw new Error('swpc_particles_missing');
+  return { timeTag: latestTag, timeTagMs: latestMs, satellite, bands };
+}
+
+/**
+ * GOES primary magnetometers #9: rows are
+ * {time_tag, satellite, He, Hp, Hn, total, arcjet_flag} → latest row.
+ */
+export function parseGoesMagnetometersPayload(doc) {
+  if (!Array.isArray(doc) || doc.length === 0)
+    throw new Error('swpc_goesmag_unexpected_shape');
+  const last = doc[doc.length - 1];
+  const timeTagMs = Date.parse(last?.time_tag);
+  const num = (v) => (Number.isFinite(Number(v)) ? Number(v) : null);
+  if (!Number.isFinite(timeTagMs) || num(last?.total) == null)
+    throw new Error('swpc_goesmag_missing');
+  return {
+    timeTag: last.time_tag,
+    timeTagMs,
+    satellite: last?.satellite ?? null,
+    he: num(last?.He),
+    hp: num(last?.Hp),
+    hn: num(last?.Hn),
+    total: num(last?.total),
+    arcjetFlag: last?.arcjet_flag === true,
+  };
+}
+
+/**
+ * Ovation aurora model #12: GeoJSON-ish {Observation Time, Forecast Time,
+ * 'Data Format': '[Longitude, Latitude, Aurora]', coordinates:[[lon,lat,a]]}.
+ * The 65k-cell grid is summarized (max + active-cell count), never shipped.
+ */
+export function parseOvationPayload(doc) {
+  if (!doc || typeof doc !== 'object') throw new Error('swpc_ovation_unexpected_shape');
+  const cells = doc.coordinates;
+  if (!Array.isArray(cells) || cells.length === 0) throw new Error('swpc_ovation_no_cells');
+  let maxAurora = -Infinity;
+  let activeCells = 0;
+  for (const c of cells) {
+    const a = Number(c?.[2]);
+    if (!Number.isFinite(a)) continue;
+    if (a > maxAurora) maxAurora = a;
+    if (a > 0) activeCells++;
+  }
+  if (maxAurora === -Infinity) throw new Error('swpc_ovation_no_values');
+  return {
+    observationTime: doc['Observation Time'] ?? null,
+    forecastTime: doc['Forecast Time'] ?? null,
+    dataFormat: doc['Data Format'] ?? null,
+    totalCells: cells.length,
+    activeCells,
+    maxAurora,
+  };
+}
+
+/**
+ * Geoelectric animation frames #11: [{url (root-relative), time_tag}] →
+ * {count, latest:{url (absolute), timeTag}, frames:[last 12]}.
+ */
+export function parseGeoelectricPayload(doc) {
+  if (!Array.isArray(doc) || doc.length === 0)
+    throw new Error('swpc_geoelectric_unexpected_shape');
+  const frames = doc
+    .map((e) => ({
+      url: e?.url ? GEOELECTRIC_IMG_BASE + e.url : null,
+      timeTag: e?.time_tag ?? null,
+    }))
+    .filter((f) => f.url && f.timeTag);
+  if (frames.length === 0) throw new Error('swpc_geoelectric_no_frames');
+  const tail = frames.slice(-12);
+  return { count: frames.length, latest: tail[tail.length - 1], frames: tail };
+}
+
+/**
+ * SILSO daily sunspot numbers #15 (SN_d_tot_V2.0.txt):
+ * columns YYYY MM DD fracYear dailySSN stddev obsNum flag; -1 = missing.
+ * Parses the LAST data line of the (2.9 MB) file.
+ */
+export function parseSilsoPayload(text) {
+  const lines = String(text ?? '').split('\n');
+  for (let i = lines.length - 1; i >= 0; i--) {
+    const m = lines[i].match(
+      /^\s*(\d{4})\s+(\d{1,2})\s+(\d{1,2})\s+(\d+\.\d+)\s+(-?\d+(?:\.\d+)?)\s+(-?\d+(?:\.\d+)?)\s+(\d+)\s+(\d+)/,
+    );
+    if (!m) continue;
+    const ssn = Number(m[5]);
+    return {
+      date: `${m[1]}-${String(m[2]).padStart(2, '0')}-${String(m[3]).padStart(2, '0')}`,
+      sunspotNumber: ssn >= 0 ? ssn : null,
+      stddev: Number(m[6]) >= 0 ? Number(m[6]) : null,
+      observations: Number(m[7]),
+      definitive: m[8] === '1',
+    };
+  }
+  throw new Error('swpc_silso_no_data_line');
+}
+
 function describe(value, { stale = false, reason = null } = {}) {
   return {
     schemaVersion: 2,
@@ -313,6 +463,12 @@ function describe(value, { stale = false, reason = null } = {}) {
     hamqsl: value?.hamqsl ?? null,
     wwv: value?.wwv ?? null,
     gfz: value?.gfz ?? null,
+    // Wave B item 44 blocks (#7–#9, #11–12, #15)
+    goesParticles: value?.goesParticles ?? { protons: null, electrons: null },
+    goesMagnetometers: value?.goesMagnetometers ?? null,
+    ovation: value?.ovation ?? null,
+    geoelectric: value?.geoelectric ?? null,
+    silso: value?.silso ?? null,
   };
 }
 
@@ -344,9 +500,9 @@ export function swpcProxy({
     return doc;
   }
 
-  async function upstreamText(url, signal) {
+  async function upstreamText(url, signal, cap = TEXT_CAP) {
     const response = await fetchUpstream(url, signal);
-    const text = await readResponseTextCapped(response, TEXT_CAP, signal);
+    const text = await readResponseTextCapped(response, cap, signal);
     signal.throwIfAborted();
     return text;
   }
@@ -365,6 +521,13 @@ export function swpcProxy({
       hamqslXml,
       wwvText,
       gfzText,
+      // Wave B item 44 — all best-effort; failures degrade to null below.
+      protonsDoc,
+      electronsDoc,
+      goesMagDoc,
+      ovationDoc,
+      geoelectricDoc,
+      silsoText,
     ] = await Promise.all([
       upstreamJson(KP_URL, signal), // REQUIRED — the core of this route
       maybe(upstreamJson(ALERTS_URL, signal)),
@@ -377,6 +540,12 @@ export function swpcProxy({
       maybe(upstreamText(HAMQSL_URL, signal)),
       maybe(upstreamText(WWV_URL, signal)),
       maybe(upstreamText(GFZ_URL, signal)),
+      maybe(upstreamJson(PROTONS_URL, signal)),
+      maybe(upstreamJson(ELECTRONS_URL, signal)),
+      maybe(upstreamJson(GOES_MAG_URL, signal)),
+      maybe(upstreamJson(OVATION_URL, signal)),
+      maybe(upstreamJson(GEOELECTRIC_URL, signal)),
+      maybe(upstreamText(SILSO_URL, signal, SILSO_CAP)),
     ]);
     signal.throwIfAborted();
     const kp = parseKpPayload(kpDoc); // throws → refresh fails → stale-cache path
@@ -408,6 +577,15 @@ export function swpcProxy({
       hamqsl: tryParse(parseHamqslPayload, hamqslXml),
       wwv: tryParse(parseWwvPayload, wwvText),
       gfz: tryParse(parseGfzPayload, gfzText),
+      // Wave B item 44 blocks (#7–#9, #11–12, #15); null = that feed was unreachable
+      goesParticles: {
+        protons: tryParse(parseGoesParticlesPayload, protonsDoc),
+        electrons: tryParse(parseGoesParticlesPayload, electronsDoc),
+      },
+      goesMagnetometers: tryParse(parseGoesMagnetometersPayload, goesMagDoc),
+      ovation: tryParse(parseOvationPayload, ovationDoc),
+      geoelectric: tryParse(parseGeoelectricPayload, geoelectricDoc),
+      silso: tryParse(parseSilsoPayload, silsoText),
     };
     cache = { value, fetchedAt: value.fetchedAt };
     return { value, stale: false };

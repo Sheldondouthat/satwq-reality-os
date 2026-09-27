@@ -13,7 +13,7 @@
  *   GET /api/civic → {generatedAt, items:[...], degradedSources:[], source, attribution}
  *
  * Keyless, no new dependencies, Pages-safe (global fetch only, capped
- * reads, redirect:'error' with pinned hosts, no node: imports, no WASM).
+ * reads, redirect:'follow' (workerd: 'error' throws at edge, main 2ec4053), no node: imports, no WASM).
  */
 
 const FR_HOST = 'www.federalregister.gov';
@@ -49,7 +49,7 @@ async function fetchJsonCapped(url, host, signal) {
   try {
     const response = await fetch(url, {
       signal: controller.signal,
-      redirect: 'error',
+      redirect: 'follow',
       headers: { 'User-Agent': USER_AGENT, Accept: 'application/json' },
     });
     if (!response.ok)

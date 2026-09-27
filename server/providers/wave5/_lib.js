@@ -2,15 +2,15 @@
  * Wave 5 ticker-provider plumbing (shared by co2/uv/markets/carbon/certs).
  *
  * Keyless, no new dependencies, Pages-safe: global fetch only, no node:
- * imports, no WASM. Hosts are pinned with `redirect: 'error'` per the
- * deliberate pinned-host rule (tests assert this); edge degradation stays
- * honest via { error, detail } JSON.
+ * imports, no WASM. Hosts are pinned with `redirect: 'follow'` — workerd
+ * supports only 'follow'/'manual'; 'error' throws at the edge (main 2ec4053).
+ * Edge degradation stays honest via { error, detail } JSON.
  */
 
 import { readCappedResponseText } from '../common/http.js';
 
 /**
- * GET a pinned upstream URL with a hard timeout, redirect:'error', and a
+ * GET a pinned upstream URL with a hard timeout, redirect:'follow', and a
  * byte-capped body read. Returns the decoded text. Throws with
  * status 502 on upstream trouble, 500 otherwise.
  */
@@ -27,7 +27,7 @@ export async function fetchTextCapped({
   try {
     const res = await fetch(url, {
       signal: controller.signal,
-      redirect: 'error',
+      redirect: 'follow',
       headers: { 'User-Agent': userAgent, Accept: accept },
     });
     if (!res.ok)

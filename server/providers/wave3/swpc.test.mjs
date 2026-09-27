@@ -14,6 +14,11 @@ import {
   parseHamqslPayload,
   parseWwvPayload,
   parseGfzPayload,
+  parseGoesParticlesPayload,
+  parseGoesMagnetometersPayload,
+  parseOvationPayload,
+  parseGeoelectricPayload,
+  parseSilsoPayload,
   swpcProxy,
 } from './swpc.js';
 
@@ -88,6 +93,42 @@ Solar flux 101 and estimated planetary A-index 12.
 # header line two
 2026 09 26 34602 34602.5 2633 25  3.667  3.333  2.667  2.667  1.000  1.000  2.000  2.667   22   18   12   12    4    4    7   12    11  61    101.0    101.5 0
 2026 09 27 34603 34603.5 2633 26  4.333  3.000  1.333  1.000  1.000  0.333  0.333 -1.000   32   15    5    4    4    2    2   -1    -1  56     -1.0     -1.0 0
+`,
+  // Wave B item 44 — shapes verified against the live endpoints 2026-09-27
+  protons: [
+    { time_tag: '2026-09-26T21:10:00Z', satellite: 18, flux: 6.849133491516113, energy: '>=1 MeV' },
+    { time_tag: '2026-09-27T21:00:00Z', satellite: 18, flux: 0.23281621932983398, energy: '>=60 MeV' },
+    { time_tag: '2026-09-27T21:00:00Z', satellite: 18, flux: 0.003911, energy: '>=10 MeV' },
+    { time_tag: '2026-09-27T21:00:00Z', satellite: 18, flux: 0.000012, energy: '>=100 MeV' },
+  ],
+  electrons: [
+    { time_tag: '2026-09-27T15:15:00Z', satellite: 19, flux: 2135.727783203125, energy: '>=2 MeV' },
+    { time_tag: '2026-09-27T21:00:00Z', satellite: 19, flux: 2264.36474609375, energy: '>=2 MeV' },
+    { time_tag: '2026-09-27T21:00:00Z', satellite: 19, flux: 118803.44, energy: '>=0.8 MeV' },
+  ],
+  goesMag: [
+    { time_tag: '2026-09-24T21:11:00Z', satellite: 19, He: 36.9, Hp: 92.84, Hn: -6.59, total: 100.13, arcjet_flag: false },
+    { time_tag: '2026-09-27T21:08:00Z', satellite: 19, He: 38.69209671020508, Hp: 95.68415069580078, Hn: -2.0508511066436768, total: 103.23173522949219, arcjet_flag: false },
+  ],
+  ovation: {
+    'Observation Time': '2026-09-27T20:59:00Z',
+    'Forecast Time': '2026-09-27T22:11:00Z',
+    'Data Format': '[Longitude, Latitude, Aurora]',
+    coordinates: [
+      [0, -90, 2],
+      [0, -89, 0],
+      [0, -88, 3],
+      [1, -88, 45],
+    ],
+    type: 'MultiPoint',
+  },
+  geoelectric: [
+    { url: '/images/animations/geoelectric/InterMagEarthScope/EmapGraphics_1m/20260927T180930-16-emap-empirical-EMTF-2022.12-v2022.12.png', time_tag: '2026-09-27T18:09:30Z' },
+    { url: '/images/animations/geoelectric/InterMagEarthScope/EmapGraphics_1m/20260927T181030-16-emap-empirical-EMTF-2022.12-v2022.12.png', time_tag: '2026-09-27T18:10:30Z' },
+  ],
+  silso: `# SILSO daily total sunspot number header
+2026  9 26  2026.726  83.0   4.1   30    1
+2026  9 27  2026.729  95.0   5.4   31    0
 `,
 };
 
@@ -256,6 +297,13 @@ function fixtureFor(url) {
   if (url.includes('hamqsl')) return FIXTURES.hamqsl;
   if (url.includes('wwv.txt')) return FIXTURES.wwv;
   if (url.includes('gfz-potsdam')) return FIXTURES.gfz;
+  // Wave B item 44 fixtures (shapes verified against the live endpoints 2026-09-27)
+  if (url.includes('integral-protons-1-day')) return JSON.stringify(FIXTURES.protons);
+  if (url.includes('integral-electrons-6-hour')) return JSON.stringify(FIXTURES.electrons);
+  if (url.includes('magnetometers-3-day')) return JSON.stringify(FIXTURES.goesMag);
+  if (url.includes('ovation_aurora_latest')) return JSON.stringify(FIXTURES.ovation);
+  if (url.includes('geoelectric/InterMagEarthScope.json')) return JSON.stringify(FIXTURES.geoelectric);
+  if (url.includes('SN_d_tot_V2.0.txt')) return FIXTURES.silso;
   throw new Error(`unknown fixture url: ${url}`);
 }
 
@@ -349,4 +397,103 @@ test('a failed Kp core feed yields unavailable when there is no cache', async ()
   assert.equal(doc.unavailable, true);
   assert.equal(doc.kp, null);
   assert.ok(/unreachable/.test(doc.reason));
+});
+
+// ——— Wave B item 44: GOES/Ovation/geoelectric/SILSO ———
+
+test('parseGoesParticlesPayload collects every energy channel of the latest timestamp', () => {
+  const p = parseGoesParticlesPayload(FIXTURES.protons);
+  assert.equal(p.timeTag, '2026-09-27T21:00:00Z');
+  assert.equal(p.satellite, 18);
+  assert.deepEqual(Object.keys(p.bands).sort(), ['>=10 MeV', '>=100 MeV', '>=60 MeV']);
+  assert.ok(Math.abs(p.bands['>=60 MeV'] - 0.23281621932983398) < 1e-12);
+  // an older timestamp's channel must not leak in
+  assert.ok(!('>=1 MeV' in p.bands));
+  const e = parseGoesParticlesPayload(FIXTURES.electrons);
+  assert.equal(e.timeTag, '2026-09-27T21:00:00Z');
+  assert.deepEqual(Object.keys(e.bands).sort(), ['>=0.8 MeV', '>=2 MeV']);
+  assert.throws(() => parseGoesParticlesPayload([]), /unexpected_shape/);
+  assert.throws(() => parseGoesParticlesPayload(null), /unexpected_shape/);
+});
+
+test('parseGoesMagnetometersPayload takes the latest row', () => {
+  const m = parseGoesMagnetometersPayload(FIXTURES.goesMag);
+  assert.equal(m.timeTag, '2026-09-27T21:08:00Z');
+  assert.equal(m.satellite, 19);
+  assert.ok(Math.abs(m.total - 103.23173522949219) < 1e-9);
+  assert.ok(Math.abs(m.hn - -2.0508511066436768) < 1e-9);
+  assert.equal(m.arcjetFlag, false);
+  assert.throws(() => parseGoesMagnetometersPayload([]), /unexpected_shape/);
+});
+
+test('parseOvationPayload summarizes the grid instead of shipping it', () => {
+  const o = parseOvationPayload(FIXTURES.ovation);
+  assert.equal(o.observationTime, '2026-09-27T20:59:00Z');
+  assert.equal(o.forecastTime, '2026-09-27T22:11:00Z');
+  assert.equal(o.totalCells, 4);
+  assert.equal(o.activeCells, 3);
+  assert.equal(o.maxAurora, 45);
+  assert.ok(!('coordinates' in o));
+  assert.throws(() => parseOvationPayload({ coordinates: [] }), /no_cells/);
+});
+
+test('parseGeoelectricPayload absolutizes frame urls', () => {
+  const g = parseGeoelectricPayload(FIXTURES.geoelectric);
+  assert.equal(g.count, 2);
+  assert.equal(g.latest.timeTag, '2026-09-27T18:10:30Z');
+  assert.ok(g.latest.url.startsWith('https://services.swpc.noaa.gov/images/animations/geoelectric/'));
+  assert.equal(g.frames.length, 2);
+  assert.throws(() => parseGeoelectricPayload([]), /unexpected_shape/);
+});
+
+test('parseSilsoPayload reads the last data line of the daily file', () => {
+  const s = parseSilsoPayload(FIXTURES.silso);
+  assert.equal(s.date, '2026-09-27');
+  assert.equal(s.sunspotNumber, 95);
+  assert.equal(s.observations, 31);
+  assert.equal(s.definitive, false); // trailing 0 = provisional
+  const missing = parseSilsoPayload('2026  9 28  2026.732  -1.0  -1.0    0    0\n');
+  assert.equal(missing.sunspotNumber, null);
+  assert.throws(() => parseSilsoPayload('# only a header\n'), /no_data_line/);
+});
+
+test('handler includes the item-44 blocks and every fetch used redirect follow', async () => {
+  const seen = [];
+  const provider = swpcProxy({ fetchImpl: mockFetch({ seen }), now: () => 1_000_000 });
+  const calls = mount(provider);
+  const res = fakeRes();
+  await calls[0].handler(fakeReq('GET'), res);
+  assert.equal(res.statusCode, 200);
+  const doc = JSON.parse(res.body);
+  assert.equal(doc.unavailable, false);
+  assert.ok(Math.abs(doc.goesParticles.protons.bands['>=60 MeV'] - 0.23281621932983398) < 1e-12);
+  assert.ok(Math.abs(doc.goesParticles.electrons.bands['>=2 MeV'] - 2264.36474609375) < 1e-9);
+  assert.ok(Math.abs(doc.goesMagnetometers.total - 103.23173522949219) < 1e-9);
+  assert.equal(doc.ovation.maxAurora, 45);
+  assert.equal(doc.geoelectric.count, 2);
+  assert.equal(doc.silso.date, '2026-09-27');
+  assert.equal(doc.silso.sunspotNumber, 95);
+  assert.ok(seen.length >= 17);
+  assert.ok(seen.every((s) => s.options.redirect === 'follow'));
+});
+
+test('item-44 side feeds failing degrade to null without failing the route', async () => {
+  const provider = swpcProxy({
+    fetchImpl: mockFetch({
+      failUrls: new Set([
+        'https://services.swpc.noaa.gov/json/ovation_aurora_latest.json',
+        'https://www.sidc.be/silso/DATA/SN_d_tot_V2.0.txt',
+      ]),
+    }),
+    now: () => 1_000_000,
+  });
+  const calls = mount(provider);
+  const res = fakeRes();
+  await calls[0].handler(fakeReq('GET'), res);
+  assert.equal(res.statusCode, 200);
+  const doc = JSON.parse(res.body);
+  assert.equal(doc.unavailable, false);
+  assert.equal(doc.ovation, null);
+  assert.equal(doc.silso, null);
+  assert.ok(doc.goesParticles.protons != null);
 });

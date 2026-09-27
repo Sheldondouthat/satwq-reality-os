@@ -149,7 +149,7 @@ test('handler serves deduped snapshot with mocked fetch', async () => {
   const calls = mount(researchProxy());
   const realFetch = globalThis.fetch;
   globalThis.fetch = (url, init) => {
-    assert.equal(init?.redirect, 'error'); // pinned hosts, no redirect following
+    assert.equal(init?.redirect, 'follow'); // workerd: 'error' throws at edge (main 2ec4053)
     const u = String(url);
     let body = null;
     let contentType = 'application/json';
