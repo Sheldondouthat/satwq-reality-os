@@ -29,6 +29,10 @@ const AU_KM = 149597870.7;
 const DIST_MAX_AU = 0.05;
 const WINDOW_DAYS = 7;
 const ROW_CAP = 60;
+// Hard caps on the pass-through query params (guards against a huge upstream
+// answer when a caller asks for dist-max=2 over a multi-year window).
+const DIST_MAX_AU_CAP = 1;
+const WINDOW_MAX_DAYS = 365;
 
 /**
  * Estimated diameter range (meters) from absolute magnitude H, assuming
@@ -107,31 +111,88 @@ function ymd(date) {
   return date.toISOString().slice(0, 10);
 }
 
-let cache = null; // { at, payload }
+function isValidYmd(s) {
+  return (
+    typeof s === 'string' &&
+    /^\d{4}-\d{2}-\d{2}$/.test(s) &&
+    !Number.isNaN(Date.parse(s)) &&
+    s === new Date(`${s}T00:00:00Z`).toISOString().slice(0, 10)
+  );
+}
 
-async function buildSnapshot() {
+function badParam(message) {
+  return Object.assign(new Error(`neo_bad_param: ${message}`), { status: 400 });
+}
+
+/**
+ * Parse + validate the close-approach window query params
+ * (date-min, date-max, dist-max). Callers may omit all three — defaults are
+ * the coming week at 0.05 AU, preserving the historical /api/neo behaviour.
+ * Throws {status:400} when a PROVIDED param is invalid. Exported so the
+ * /api/asteroids provider (server/providers/wave5/asteroids.js) reuses the
+ * same parsing/validation instead of inventing its own.
+ */
+export function parseCadParams(searchParams) {
   const now = Date.now();
-  if (cache && now - cache.at < CACHE_TTL_MS) return cache.payload;
-  const dateMin = ymd(new Date(now));
-  const dateMax = ymd(new Date(now + WINDOW_DAYS * 86400_000));
+  const rawMin = searchParams?.get?.('date-min');
+  const rawMax = searchParams?.get?.('date-max');
+  const rawDist = searchParams?.get?.('dist-max');
+  const dateMin = rawMin != null && rawMin !== '' ? rawMin : ymd(new Date(now));
+  const dateMax =
+    rawMax != null && rawMax !== ''
+      ? rawMax
+      : ymd(new Date(now + WINDOW_DAYS * 86400_000));
+  if (!isValidYmd(dateMin)) throw badParam('date-min must be YYYY-MM-DD');
+  if (!isValidYmd(dateMax)) throw badParam('date-max must be YYYY-MM-DD');
+  const minMs = Date.parse(`${dateMin}T00:00:00Z`);
+  const maxMs = Date.parse(`${dateMax}T00:00:00Z`);
+  if (maxMs < minMs) throw badParam('date-max is before date-min');
+  if (maxMs - minMs > WINDOW_MAX_DAYS * 86400_000)
+    throw badParam(`window wider than ${WINDOW_MAX_DAYS} days`);
+  let distMaxAu = DIST_MAX_AU;
+  if (rawDist != null && rawDist !== '') {
+    const v = Number(rawDist);
+    if (!Number.isFinite(v) || v <= 0 || v > DIST_MAX_AU_CAP)
+      throw badParam(`dist-max must be a number in (0, ${DIST_MAX_AU_CAP}] AU`);
+    distMaxAu = v;
+  }
+  return { dateMin, dateMax, distMaxAu };
+}
+
+/**
+ * Fetch + transform close approaches for an EXPLICIT window (no cache).
+ * Exported so /api/asteroids reuses the upstream pipeline instead of
+ * duplicating it.
+ */
+export async function fetchApproaches({ dateMin, dateMax, distMaxAu }) {
   const url = new URL(CAD_URL);
   url.searchParams.set('date-min', dateMin);
   url.searchParams.set('date-max', dateMax);
-  url.searchParams.set('dist-max', String(DIST_MAX_AU));
+  url.searchParams.set('dist-max', String(distMaxAu));
   url.searchParams.set('sort', 'dist');
   url.searchParams.set('fullname', 'true');
   const body = await fetchJsonCapped(url.toString());
   const fields = Array.isArray(body?.fields) ? body.fields : [];
   const rows = Array.isArray(body?.data) ? body.data : [];
-  const approaches = rows
+  return rows
     .slice(0, ROW_CAP)
     .map((row) => transformCadRow(fields, row))
     .filter((r) => r.distLd != null);
+}
+
+const cache = new Map(); // paramKey `${dateMin}|${dateMax}|${distMaxAu}` → { at, payload }
+
+async function buildSnapshot(params) {
+  const key = `${params.dateMin}|${params.dateMax}|${params.distMaxAu}`;
+  const now = Date.now();
+  const hit = cache.get(key);
+  if (hit && now - hit.at < CACHE_TTL_MS) return hit.payload;
+  const approaches = await fetchApproaches(params);
   const payload = {
     schemaVersion: 1,
     fetchedAt: new Date(now).toISOString(),
     source: 'NASA/JPL CNEOS Close-Approach Data API (keyless)',
-    window: { from: dateMin, to: dateMax, distMaxAu: DIST_MAX_AU },
+    window: { from: params.dateMin, to: params.dateMax, distMaxAu: params.distMaxAu },
     count: approaches.length,
     physicsNotes: [
       'Miss distances are geocentric close-approach distances in lunar distances (1 LD = 384,400 km).',
@@ -139,7 +200,13 @@ async function buildSnapshot() {
     ],
     approaches,
   };
-  cache = { at: now, payload };
+  cache.set(key, { at: now, payload });
+  // Prune stale keys so ad-hoc query windows don't grow the map forever.
+  if (cache.size > 16) {
+    for (const [k, v] of cache) {
+      if (now - v.at >= CACHE_TTL_MS) cache.delete(k);
+    }
+  }
   return payload;
 }
 
@@ -156,10 +223,14 @@ export function neoProxy() {
   async function handler(req, res) {
     if (req.method !== 'GET') return sendJson(res, 405, { error: 'method_not_allowed' });
     try {
-      sendJson(res, 200, await buildSnapshot());
+      // connect semantics: the /api/neo prefix is already stripped from req.url.
+      const query = new URL(String(req.url || '/'), 'http://localhost').searchParams;
+      sendJson(res, 200, await buildSnapshot(parseCadParams(query)));
     } catch (error) {
-      sendJson(res, error?.status === 502 ? 502 : 500, {
-        error: 'neo_upstream_unavailable',
+      const status = error?.status === 502 ? 502 : error?.status === 400 ? 400 : 500;
+      sendJson(res, status, {
+        error: error?.status === 400 ? 'neo_bad_request' : 'neo_upstream_unavailable',
+        detail: error?.message ?? 'unknown',
       });
     }
   }
@@ -174,3 +245,14 @@ export function neoProxy() {
     },
   };
 }
+
+export const _neoInternals = {
+  diameterRangeM,
+  auToLunarDistances,
+  transformCadRow,
+  parseCadParams,
+  fetchApproaches,
+  clearCaches: () => {
+    cache.clear();
+  },
+};

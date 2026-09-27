@@ -246,7 +246,7 @@ const REGISTRY = [
   },
   {
     name: 'nwis-gauges',
-    routes: ['/api/nwis-gauges'],
+    routes: ['/api/nwis-gauges', '/api/rivers'],
     load: () => import('../providers/wave3/nwisGauges.js').then((m) => m.nwisGaugesProxy()),
   },
   {
@@ -293,6 +293,96 @@ const REGISTRY = [
     name: 'water-twin',
     routes: ['/api/water-twin'],
     load: () => import('../providers/wave3/waterTwin.js').then((m) => m.waterTwinProxy()),
+  },
+  {
+    name: 'wxstations',
+    routes: ['/api/wxstations'],
+    load: () => import('../providers/wave5/wxstations.js').then((m) => m.wxstationsProxy()),
+  },
+  {
+    name: 'time',
+    routes: ['/api/time'],
+    load: () => import('../providers/wave5/time.js').then((m) => m.timeProxy()),
+  },
+  {
+    name: 'quakes',
+    routes: ['/api/quakes'],
+    load: () => import('../providers/wave5/quakes.js').then((m) => m.quakesProxy()),
+  },
+  {
+    name: 'felt',
+    routes: ['/api/felt'],
+    load: () => import('../providers/wave5/felt.js').then((m) => m.feltProxy()),
+  },
+  {
+    name: 'hazards',
+    routes: ['/api/hazards'],
+    load: () => import('../providers/wave5/hazards.js').then((m) => m.hazardsProxy()),
+  },
+  {
+    name: 'volcano',
+    routes: ['/api/volcano'],
+    load: () => import('../providers/wave5/volcano.js').then((m) => m.volcanoProxy()),
+  },
+  {
+    name: 'asteroids',
+    routes: ['/api/asteroids'],
+    load: () => import('../providers/wave5/asteroids.js').then((m) => m.asteroidsProxy()),
+  },
+  {
+    name: 'pota',
+    routes: ['/api/pota'],
+    load: () => import('../providers/wave5/pota.js').then((m) => m.potaProxy()),
+  },
+  {
+    name: 'radio-reference',
+    routes: ['/api/radio-reference'],
+    load: () => import('../providers/wave5/radioReference.js').then((m) => m.radioReferenceProxy()),
+  },
+  {
+    name: 'satnogs',
+    routes: ['/api/satnogs'],
+    load: () => import('../providers/wave5/satnogs.js').then((m) => m.satnogsProxy()),
+  },
+  {
+    name: 'co2',
+    routes: ['/api/co2'],
+    load: () => import('../providers/wave5/co2.js').then((m) => m.co2Proxy()),
+  },
+  {
+    name: 'uv',
+    routes: ['/api/uv'],
+    load: () => import('../providers/wave5/uv.js').then((m) => m.uvProxy()),
+  },
+  {
+    name: 'markets',
+    routes: ['/api/markets'],
+    load: () => import('../providers/wave5/markets.js').then((m) => m.marketsProxy()),
+  },
+  {
+    name: 'carbon',
+    routes: ['/api/carbon'],
+    load: () => import('../providers/wave5/carbon.js').then((m) => m.carbonProxy()),
+  },
+  {
+    name: 'certs',
+    routes: ['/api/certs'],
+    load: () => import('../providers/wave5/certs.js').then((m) => m.certsProxy()),
+  },
+  {
+    name: 'civic',
+    routes: ['/api/civic'],
+    load: () => import('../providers/wave5/civic.js').then((m) => m.civicProxy()),
+  },
+  {
+    name: 'research',
+    routes: ['/api/research'],
+    load: () => import('../providers/wave5/research.js').then((m) => m.researchProxy()),
+  },
+  {
+    name: 'biosphere',
+    routes: ['/api/biosphere'],
+    load: () => import('../providers/wave5/biosphere.js').then((m) => m.biosphereProxy()),
   },
 ];
 

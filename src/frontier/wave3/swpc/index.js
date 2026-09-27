@@ -76,11 +76,15 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
     }
 
     let statusEl = null;
+    let tickerLineEl = null;
     let tickerEl = null;
     function updateStatus(doc) {
       if (statusEl) {
         statusEl.textContent =
           kpLabel(doc) + (doc.stale ? ' · stale' : '');
+      }
+      if (tickerLineEl) {
+        tickerLineEl.textContent = tickerLine(doc);
       }
       if (tickerEl) {
         const alerts = (doc.alerts ?? []).slice(0, 4);
@@ -93,6 +97,30 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
               .join('')
           : '<div style="opacity:.6">no SWPC alerts in the last 48h</div>';
       }
+    }
+
+    // Wave A ticker line (catalog #1–#6, #13–#14, #16): compact one-liner
+    // from the new /api/space-weather blocks. Fail-soft: any missing block
+    // is dropped from the line, never faked.
+    function tickerLine(doc) {
+      const parts = [];
+      const hq = doc?.hamqsl;
+      if (hq && Number.isFinite(hq.sfi)) parts.push(`☀ SFI ${hq.sfi} · A${hq.aIndex}/K${hq.kIndex}`);
+      const sw = doc?.solarWind;
+      if (sw && Number.isFinite(sw.speed)) {
+        const bz = Number.isFinite(sw.bz) ? ` Bz ${sw.bz} nT` : '';
+        parts.push(`wind ${Math.round(sw.speed)} km/s${bz}`);
+      }
+      const xr = doc?.xray;
+      if (xr && xr.class) parts.push(`X-ray ${xr.class}`);
+      const gfz = doc?.gfz;
+      if (gfz && Number.isFinite(gfz.kp)) parts.push(`GFZ Kp ${gfz.kp}`);
+      const sc = doc?.scales;
+      if (sc && (sc.r || sc.s || sc.g)) {
+        const s = (x) => (x && x.scale != null ? x.scale : '–');
+        parts.push(`R${s(sc.r)} S${s(sc.s)} G${s(sc.g)}`);
+      }
+      return parts.length ? parts.join(' · ') : 'ticker unavailable';
     }
 
     function escapeHtml(s) {
@@ -118,6 +146,11 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
         statusEl.style.cssText = 'font-size:10px;color:#8aa4d6;margin:2px 0 4px;';
         statusEl.textContent = 'reading magnetometer…';
         mount.appendChild(statusEl);
+        tickerLineEl = document.createElement('div');
+        tickerLineEl.style.cssText =
+          'font-size:10px;color:#9fd6a8;margin:2px 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;';
+        tickerLineEl.textContent = 'reading space-weather ticker…';
+        mount.appendChild(tickerLineEl);
         tickerEl = document.createElement('div');
         tickerEl.style.cssText =
           'font-size:10px;color:#c8d6f5;margin:2px 0;max-height:72px;overflow:hidden;line-height:1.5;';

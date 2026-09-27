@@ -41,6 +41,24 @@ import { nwsAlertsProxy } from './wave3/nwsAlerts.js';
 import { sigmetsProxy } from './wave3/sigmets.js';
 import { radiationProxy } from './wave3/radiation.js';
 import { dartCouplingProxy } from './wave3/dart.js';
+import { wxstationsProxy } from './wave5/wxstations.js';
+import { timeProxy } from './wave5/time.js';
+import { quakesProxy } from './wave5/quakes.js';
+import { feltProxy } from './wave5/felt.js';
+import { hazardsProxy } from './wave5/hazards.js';
+import { volcanoProxy } from './wave5/volcano.js';
+import { asteroidsProxy } from './wave5/asteroids.js';
+import { potaProxy } from './wave5/pota.js';
+import { radioReferenceProxy } from './wave5/radioReference.js';
+import { satnogsProxy } from './wave5/satnogs.js';
+import { co2Proxy } from './wave5/co2.js';
+import { uvProxy } from './wave5/uv.js';
+import { marketsProxy } from './wave5/markets.js';
+import { carbonProxy } from './wave5/carbon.js';
+import { certsProxy } from './wave5/certs.js';
+import { civicProxy } from './wave5/civic.js';
+import { researchProxy } from './wave5/research.js';
+import { biosphereProxy } from './wave5/biosphere.js';
 import { waterTwinProxy } from './wave3/waterTwin.js';
 import { ripestatProxy } from './wave3/ripestat.js';
 import { feodoProxy } from './wave3/feodo.js';
@@ -111,6 +129,24 @@ function localProviderPlugins() {
     nmdbProxy(),
     argoProxy(),
     reentriesProxy(),
+    wxstationsProxy(),
+    timeProxy(),
+    quakesProxy(),
+    feltProxy(),
+    hazardsProxy(),
+    volcanoProxy(),
+    asteroidsProxy(),
+    potaProxy(),
+    radioReferenceProxy(),
+    satnogsProxy(),
+    co2Proxy(),
+    uvProxy(),
+    marketsProxy(),
+    carbonProxy(),
+    certsProxy(),
+    civicProxy(),
+    researchProxy(),
+    biosphereProxy(),
     keySetupEndpoint(),
   ];
 }

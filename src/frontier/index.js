@@ -58,6 +58,24 @@ import { init as initNwps } from './wave3/nwps/index.js';
 import { init as initAirQuality } from './wave3/sensorCommunity/index.js';
 import { init as initSpaceWeather } from './wave3/swpc/index.js';
 import { init as initDonki } from './wave3/donki/index.js';
+import { init as initWxstations } from './wave5/wxstations/index.js';
+import { init as initTime } from './wave5/time/index.js';
+import { init as initWave5Quakes } from './wave5/quakes/index.js';
+import { init as initFelt } from './wave5/felt/index.js';
+import { init as initHazards } from './wave5/hazards/index.js';
+import { init as initVolcano } from './wave5/volcano/index.js';
+import { init as initWave5Asteroids } from './wave5/asteroids/index.js';
+import { init as initPota } from './wave5/pota/index.js';
+import { init as initRadioRef } from './wave5/radioRef/index.js';
+import { init as initSatnogs } from './wave5/satnogs/index.js';
+import { init as initCo2 } from './wave5/co2/index.js';
+import { init as initUv } from './wave5/uv/index.js';
+import { init as initMarkets } from './wave5/markets/index.js';
+import { init as initCarbon } from './wave5/carbon/index.js';
+import { init as initCerts } from './wave5/certs/index.js';
+import { init as initCivic } from './wave5/civic/index.js';
+import { init as initResearch } from './wave5/research/index.js';
+import { init as initBiosphere } from './wave5/biosphere/index.js';
 import { createCableThreatLayer, mountCableThreatDock } from './wave3/cableThreat/index.js';
 import { createNwsAlertsLayer, mountNwsAlertsDock } from './wave3/nwsAlerts/index.js';
 import { createSigmetsLayer, mountSigmetsDock } from './wave3/sigmets/index.js';
@@ -563,6 +581,146 @@ export function initFrontier({ viewer } = {}) {
     const s = section(t('feature.donki'));
     dock.appendChild(s);
     return initDonki({ viewer, mount: s, chip, trackLayer, t });
+  });
+
+  // — Wave 5: global weather-station ticker —
+  attempt('wxstations', () => {
+    const s = section(t('feature.wxstations'));
+    dock.appendChild(s);
+    return initWxstations({ viewer, mount: s, chip, trackLayer, t });
+  });
+
+  // — Wave 5: leap-second / time-standard ticker —
+  attempt('time', () => {
+    const s = section(t('feature.time'));
+    dock.appendChild(s);
+    return initTime({ mount: s, chip, t });
+  });
+
+  // — Wave 5: global quake aggregation (USGS + JMA + BMKG + GeoNet + EMSC) —
+  attempt('wave5-quakes', () => {
+    const s = section(t('feature.quakes'));
+    const handle = initWave5Quakes({
+      viewer,
+      mount: (node) => s.appendChild(node),
+      chip,
+      trackLayer,
+      t,
+    });
+    dock.appendChild(s);
+    return () => handle?.();
+  });
+
+  // — Wave 5: EMSC felt-earthquake ticker —
+  attempt('felt', () => {
+    const s = section(t('feature.felt'));
+    dock.appendChild(s);
+    return initFelt({ viewer, mount: s, chip, trackLayer, t });
+  });
+
+  // — Wave 5: GDACS multi-hazard ticker —
+  attempt('hazards', () => {
+    const s = section(t('feature.hazards'));
+    dock.appendChild(s);
+    return initHazards({ viewer, mount: s, chip, trackLayer, t });
+  });
+
+  // — Wave 5: volcano alert ticker —
+  attempt('volcano', () => {
+    const s = section(t('feature.volcano'));
+    dock.appendChild(s);
+    return initVolcano({ viewer, mount: s, chip, trackLayer, t });
+  });
+
+  // — Wave 5: JPL close-approach asteroid ticker —
+  attempt('wave5-asteroids', () => {
+    const s = section(t('feature.asteroids'));
+    const handle = initWave5Asteroids({
+      viewer,
+      mount: (node) => s.appendChild(node),
+      chip,
+      trackLayer,
+      t,
+    });
+    dock.appendChild(s);
+    return () => handle?.();
+  });
+
+  // — Wave 5: POTA spots ticker —
+  attempt('pota', () => {
+    const s = section(t('feature.pota'));
+    dock.appendChild(s);
+    return initPota({ viewer, mount: s, chip, trackLayer, t });
+  });
+
+  // — Wave 5: radio reference panel —
+  attempt('radio-ref', () => {
+    const s = section(t('feature.radioRef'));
+    dock.appendChild(s);
+    return initRadioRef({ viewer, mount: s, chip, trackLayer, t });
+  });
+
+  // — Wave 5: SatNOGS ground stations —
+  attempt('satnogs', () => {
+    const s = section(t('feature.satnogs'));
+    dock.appendChild(s);
+    return initSatnogs({ viewer, mount: s, chip, trackLayer, t });
+  });
+
+  // — Wave 5: CO2 ticker —
+  attempt('co2', () => {
+    const s = section(t('feature.co2'));
+    dock.appendChild(s);
+    return initCo2({ viewer, mount: s, chip, trackLayer, t });
+  });
+
+  // — Wave 5: UV index ticker —
+  attempt('uv', () => {
+    const s = section(t('feature.uv'));
+    dock.appendChild(s);
+    return initUv({ viewer, mount: s, chip, trackLayer, t });
+  });
+
+  // — Wave 5: markets ticker —
+  attempt('markets', () => {
+    const s = section(t('feature.markets'));
+    dock.appendChild(s);
+    return initMarkets({ viewer, mount: s, chip, trackLayer, t });
+  });
+
+  // — Wave 5: grid carbon ticker —
+  attempt('carbon', () => {
+    const s = section(t('feature.carbon'));
+    dock.appendChild(s);
+    return initCarbon({ viewer, mount: s, chip, trackLayer, t });
+  });
+
+  // — Wave 5: certificate transparency ticker —
+  attempt('certs', () => {
+    const s = section(t('feature.certs'));
+    dock.appendChild(s);
+    return initCerts({ viewer, mount: s, chip, trackLayer, t });
+  });
+
+  // — Wave 5: civic ticker —
+  attempt('civic', () => {
+    const s = section(t('feature.civic'));
+    dock.appendChild(s);
+    return initCivic({ viewer, mount: s, chip, trackLayer, t });
+  });
+
+  // — Wave 5: research ticker —
+  attempt('research', () => {
+    const s = section(t('feature.research'));
+    dock.appendChild(s);
+    return initResearch({ viewer, mount: s, chip, trackLayer, t });
+  });
+
+  // — Wave 5: biosphere ticker —
+  attempt('biosphere', () => {
+    const s = section(t('feature.biosphere'));
+    dock.appendChild(s);
+    return initBiosphere({ viewer, mount: s, chip, trackLayer, t });
   });
 
   // — Wave 3 Track 1a: cable-threat correlation —

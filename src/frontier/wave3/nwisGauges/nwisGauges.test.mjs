@@ -194,13 +194,16 @@ async function callHandler(proxy, url, method = 'GET') {
   return { res, route: seen[0].route };
 }
 
-test('nwisGaugesProxy mounts /api/nwis-gauges on both server shapes', () => {
+test('nwisGaugesProxy mounts /api/nwis-gauges (+ /api/rivers alias) on both server shapes', () => {
   const proxy = nwisGaugesProxy();
   assert.equal(proxy.name, 'nwis-gauges');
   const seen = [];
   proxy.configureServer({ middlewares: { use: (r) => seen.push(r) } });
   proxy.configurePreviewServer({ middlewares: { use: (r) => seen.push(r) } });
-  assert.deepEqual(seen, ['/api/nwis-gauges', '/api/nwis-gauges']);
+  assert.deepEqual(seen, [
+    '/api/nwis-gauges', '/api/rivers',
+    '/api/nwis-gauges', '/api/rivers',
+  ]);
 });
 
 test('nwisGaugesProxy rejects POST with 405', async () => {

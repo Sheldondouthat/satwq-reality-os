@@ -281,9 +281,14 @@ export function nwisGaugesProxy({
     name: 'nwis-gauges',
     configureServer({ middlewares }) {
       middlewares.use('/api/nwis-gauges', handler);
+      // Wave 5 (catalog #89): /api/rivers is an alias of the same sweep —
+      // the gauge record already carries discharge (00060) + gage height
+      // (00065), so a separate provider would only duplicate the upstream.
+      middlewares.use('/api/rivers', handler);
     },
     configurePreviewServer({ middlewares }) {
       middlewares.use('/api/nwis-gauges', handler);
+      middlewares.use('/api/rivers', handler);
     },
   };
 }

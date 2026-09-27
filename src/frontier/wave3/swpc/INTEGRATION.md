@@ -1,10 +1,12 @@
 # INTEGRATION — Wave 3 Track 2a.4: NOAA SWPC space weather
 
 **Status:** built 2026-09-27 · source VERIFIED live (Kp 1-min + alerts, current 2026-09-27 data)
+**Extended:** 2026-09-27 — Wave A ticker (#1, #2, #4–#6, #13–#14, #16); schemaVersion 2
 **Files (mine only):**
 - `server/providers/wave3/swpc.js` — `swpcProxy()` factory → `/api/space-weather`
+- `server/providers/wave3/swpc.test.mjs` — 16 tests, all passing
 - `src/frontier/wave3/swpc/model.js` — pure client model (Kp colors, glow geometry)
-- `src/frontier/wave3/swpc/index.js` — `init({viewer, mount, chip, trackLayer, t})`
+- `src/frontier/wave3/swpc/index.js` — `init({viewer, mount, chip, trackLayer, t})` + dock ticker line
 - `src/frontier/wave3/swpc/swpc.test.mjs` — 10 tests, all passing
 
 ## 1. `server/providers/local.js` — exact lines
@@ -74,10 +76,25 @@ Inside `initFrontier`, after the air-quality attempt block:
 ## API contract
 
 `GET /api/space-weather`
-→ `{ schemaVersion:1, kp, estimatedKp, timeTagMs, gScale, alerts:[{productId,code,issueMs,headline}], fetchedAt, stale, ... }`
+→ `{ schemaVersion:2, generatedAt, kp, estimatedKp, timeTagMs, gScale, alerts:[{productId,code,issueMs,headline}], fetchedAt, stale, ... }`
 - `gScale`: NOAA G0–G5 from Kp. `alerts`: last 48 h, newest first, boilerplate
   header lines skipped so the ticker shows the real headline.
 - Alerts feed is best-effort: if it fails, Kp still serves with `alerts: []`.
+
+Wave A ticker blocks (null = that feed was unreachable; the core Kp feed is
+still REQUIRED — if it fails with no cache the route returns
+`{unavailable: true}`):
+- `solarWind: {speed, bt, bz, timeTagMs}` — #1 proton speed + #2 B-field (GSM Bz)
+- `kpThreeHour: [{timeTagMs, kp}]` — last 24 h of 3-hourly Kp (#4)
+- `kpForecast: [{timeTagMs, kp, noaaScale}]` — predicted entries only, ~3 days (#4)
+- `scales: {r:{scale,text}, s:{...}, g:{...}, outlook:{rMinorProb, rMajorProb, sProb}}` — NOAA R/S/G (#5)
+- `xray: {flux, class, timeTagMs}` — GOES primary long-wave flux + letter class, e.g. `B4.4` (#6)
+- `hamqsl: {sfi, aIndex, kIndex, updated}` — hamqsl.com solar ticker, credit N0NBH (#13)
+- `wwv: {issued, text}` — SWPC Geophysical Alert Message, trimmed to 1600 chars (#14)
+- `gfz: {kp, ap, timeTagMs}` — GFZ Kp nowcast, latest non-sentinel 3-hour block (#16)
+
+Deferred to Wave B item 44 (NOT fetched): GOES protons/electrons (#7, #8),
+GOES magnetometers (#9), geoelectric maps (#11), Ovation (#12), SILSO (#15).
 
 ## Physics-honesty note (shown in the dock legend)
 > Shell is a Kp-driven visualization — not a measured magnetosphere. Source: NOAA SWPC.

@@ -160,9 +160,14 @@ test('swpcProxy merges Kp + alerts and caches', async () => {
   assert.equal(doc.gScale, 'G2');
   assert.equal(doc.alerts.length, 1);
   assert.ok(calls.some((u) => u.includes('planetary_k_index_1m.json')));
+  const firstCallCount = calls.length;
   const again = await callHandler(proxy, '/api/space-weather');
   assert.equal(again.statusCode, 200);
-  assert.equal(calls.length, 2, 'one Kp + one alerts fetch, then cached');
+  assert.equal(
+    calls.length,
+    firstCallCount,
+    'second request is served from cache — no new upstream fetches',
+  );
 });
 
 test('swpcProxy survives a failing alerts feed', async () => {
