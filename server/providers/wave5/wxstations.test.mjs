@@ -13,6 +13,10 @@ const {
   parseEire,
   parseImo,
   sampleEvery,
+  NWS_IDS,
+  EIRE_STATIONS,
+  IMO_STATIONS,
+  HKO_PLACES,
 } = _wxstationsInternals;
 
 // — pure parsers —
@@ -153,10 +157,40 @@ test('parseEire converts km/h wind and tolerates padded strings', () => {
     humidity: ' 87 ', pressure: '1012',
   }];
   const r = parseEire(doc, { lat: 53.3, lon: -8.75 });
+  assert.equal(r.id, 'eireann-athenry'); // default slug preserved
   assert.equal(r.tempC, 14);
   assert.equal(r.windMs, 2.5); // 9 km/h
   assert.equal(r.rhPct, 87);
   assert.equal(r.coordApprox, true);
+});
+
+test('parseEire uses the verified station list for id and name', () => {
+  const doc = [{ name: 'Cork', temperature: '12', windSpeed: '18', windDirection: 90, humidity: '80', pressure: '1008' }];
+  const st = EIRE_STATIONS.find((s) => s.slug === 'cork');
+  const r = parseEire(doc, st);
+  assert.equal(r.id, 'eireann-cork');
+  assert.equal(r.name, 'Cork · Met Éireann');
+  assert.equal(r.lat, 51.85);
+  assert.equal(r.tempC, 12);
+  assert.equal(r.windMs, 5); // 18 km/h
+});
+
+test('station lists match the live-verified expansion (2026-09-27)', () => {
+  // NWS: original 4 + 8 verified via /stations/{id} HTTP 200
+  assert.equal(NWS_IDS.length, 12);
+  for (const sid of ['KROA', 'KJFK', 'KSEA', 'KBOS', 'KDCA', 'KATL', 'KMIA', 'KORD', 'KDFW', 'KDEN', 'KLAX', 'KPHX']) {
+    assert.ok(NWS_IDS.includes(sid), sid);
+  }
+  // Eire: 9 verified slugs, unique
+  assert.equal(EIRE_STATIONS.length, 9);
+  assert.equal(new Set(EIRE_STATIONS.map((s) => s.slug)).size, 9);
+  assert.ok(EIRE_STATIONS.every((s) => s.slug && s.name && s.lat != null && s.lon != null));
+  // HKO: 12 places verified against the live rhrread place list
+  assert.equal(HKO_PLACES.length, 12);
+  assert.ok(HKO_PLACES.includes('Tuen Mun'));
+  // IMO: only ids=1 verified; everything else returned empty observations
+  assert.equal(IMO_STATIONS.length, 1);
+  assert.equal(IMO_STATIONS[0].id, 1);
 });
 
 test('parseImo regex-parses the XML station block', () => {
@@ -272,12 +306,18 @@ test('handler sweeps all sources and reports per-source status', async () => {
   const body = JSON.parse(res.body);
   assert.equal(body.schemaVersion, 1);
   assert.equal(body.count, body.stations.length);
-  assert.ok(body.count >= 4 + 3 + 1 + 1 + 1 + 1 + 1); // nws4 metno3 smhi1 nea1 ipma1 imgw1 eire1 imo1 (hko stubbed to fail)
+  // nws12 metno6 smhi1 nea1 ipma1 imgw1 eire9 imo1 (hko stubbed to fail)
+  assert.ok(body.count >= 12 + 6 + 1 + 1 + 1 + 1 + 9 + 1);
   const hko = body.sources.find((s) => s.id === 'hko');
   assert.equal(hko.status, 'error');
   assert.equal(body.unavailable, false);
   const kroa = body.stations.find((s) => s.id === 'KROA');
   assert.equal(kroa.tempC, 24);
+  const dca = body.stations.find((s) => s.id === 'KDCA');
+  assert.ok(dca, 'KDCA row present');
+  const dubl = body.stations.find((s) => s.id === 'eireann-dublin');
+  assert.ok(dubl, 'eireann-dublin row present');
+  assert.equal(dubl.name, 'Dublin Airport · Met Éireann');
   const kinds = new Set(body.stations.map((s) => s.kind));
   assert.ok(kinds.has('forecast'));
   assert.ok(kinds.has('station-index'));

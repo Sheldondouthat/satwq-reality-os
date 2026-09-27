@@ -12,22 +12,41 @@
  *
  * SOURCES (all keyless, verified live 2026-09-27):
  *  - nws   NWS station obs      https://api.weather.gov/stations/{id}/observations/latest
- *          (KROA/KJFK/KSEA/KBOS — User-Agent REQUIRED; temp °C, wind km/h→m/s,
- *          pressure Pa→hPa, coords from the GeoJSON feature)
+ *          (12 stations, verified via /stations/{id} HTTP 200 — User-Agent
+ *          REQUIRED; temp °C, wind km/h→m/s, pressure Pa→hPa, coords from
+ *          the GeoJSON feature)
  *  - metno MET Norway locationforecast 2.0 compact (User-Agent REQUIRED;
- *          FORECAST not obs — kind:'forecast'; 3 fixed points: Oslo/Bergen/Tromsø)
+ *          FORECAST not obs — kind:'forecast'; 6 fixed points:
+ *          Oslo/Bergen/Tromsø/Trondheim/Stavanger/Longyearbyen)
  *  - smhi  SMHI Sweden open metobs, parameter 1 (air temp °C), 235 stations,
- *          deterministic every-kth sample for globe spread
+ *          deterministic every-kth sample for globe spread (20 sampled)
  *  - hko   Hong Kong Observatory rhrread — NO coords upstream; all places
- *          pinned to the HK centroid with coordApprox:true
+ *          pinned to the HK centroid with coordApprox:true (12 live places,
+ *          verified against the live rhrread place list)
  *  - nea   Singapore NEA air-temperature — coords from metadata.stations
+ *          (12 readings)
  *  - ipma  IPMA Portugal station index — locations ONLY (no temps upstream),
- *          kind:'station-index', tempC:null
+ *          kind:'station-index', tempC:null (20 sampled)
  *  - imgw  IMGW Poland synop — NO coords upstream; pinned to the PL centroid
  *          with coordApprox:true; wind assumed m/s (IMGW synop convention)
- *  - eire  Met Éireann obs (athenry slug) — no coords upstream; coordApprox;
- *          wind assumed km/h (metweb.ie convention) → converted
- *  - imo   IMO Iceland obs (ids=1 Reykjavík) — no coords upstream; coordApprox
+ *          (20 sampled)
+ *  - eire  Met Éireann obs (9 verified slugs: athenry/dublin/cork/casement/
+ *          shannon/belmullet/knock/mullingar/valentia — each verified live:
+ *          /observations/{slug}/today → 200 with rows named for the slug;
+ *          coords are town approximations with coordApprox:true;
+ *          wind assumed km/h (metweb.ie convention) → converted)
+ *  - imo   IMO Iceland obs (ids=1 Reykjavík) — no coords upstream; coordApprox.
+ *          Extra vedur station ids could NOT be verified (422/5710/13391/
+ *          1702/6205/423/421/5702/17026/13002/1601 all returned empty
+ *          <observations/>, and no station-list endpoint is exposed), so
+ *          IMO stays single-station.
+ *
+ * STATION-LIST EXPANSION (2026-09-27, branch wave5-recur-stations):
+ * every added ID/slug/place was verified against the upstream's own
+ * site-list endpoint the same day it was added (see per-source comments).
+ * An ID that did not verify was NOT added (rejected: macehead/malin/
+ * rochespoint eire slugs — payload rows named "Dublin Airport", i.e.
+ * wrong-station fallback; all extra vedur ids — empty observations).
  *
  * HONESTY: coordApprox:true means the position is a network centroid, not a
  * measured station position. kind:'forecast' (MET Norway) and
@@ -80,6 +99,38 @@ function sampleEvery(arr, every, cap) {
   return out;
 }
 
+// NWS station IDs — every one verified live 2026-09-27 via
+// https://api.weather.gov/stations/{id} (HTTP 200). Major US airports,
+// each with an ASOS station feeding api.weather.gov.
+const NWS_IDS = [
+  'KROA', 'KJFK', 'KSEA', 'KBOS', // original 4
+  'KDCA', 'KATL', 'KMIA', 'KORD', 'KDFW', 'KDEN', 'KLAX', 'KPHX', // added 2026-09-27
+];
+
+// Met Éireann station slugs — each verified live 2026-09-27:
+// GET https://prodapi.metweb.ie/observations/{slug}/today → 200 with 24 rows
+// ALL named for the requested station. Slugs whose payload rows were named
+// for a DIFFERENT station (macehead, malin, rochespoint → "Dublin Airport")
+// were rejected as unverifiable. Town coords are approximations — always
+// served with coordApprox:true (never presented as measured positions).
+const EIRE_STATIONS = [
+  { slug: 'athenry', name: 'Athenry', lat: 53.29, lon: -8.75 },
+  { slug: 'dublin', name: 'Dublin Airport', lat: 53.43, lon: -6.26 },
+  { slug: 'cork', name: 'Cork', lat: 51.85, lon: -8.49 },
+  { slug: 'casement', name: 'Casement', lat: 53.30, lon: -6.45 },
+  { slug: 'shannon', name: 'Shannon', lat: 52.70, lon: -8.92 },
+  { slug: 'belmullet', name: 'Belmullet', lat: 54.22, lon: -9.99 },
+  { slug: 'knock', name: 'Knock', lat: 53.79, lon: -8.81 },
+  { slug: 'mullingar', name: 'Mullingar', lat: 53.52, lon: -7.36 },
+  { slug: 'valentia', name: 'Valentia', lat: 51.94, lon: -10.24 },
+];
+
+// IMO (vedur.is) station IDs: only ids=1 (Reykjavík) verified. Probes of
+// 422/5710/13391/1702/6205/423/421/5702/17026/13002/1601 all returned
+// HTTP 200 with EMPTY <observations/> — unverifiable, so NOT added.
+// The xmlweather API exposes no station-list endpoint for discovery.
+const IMO_STATIONS = [{ id: 1, name: 'Reykjavík', lat: 64.15, lon: -21.94 }];
+
 // ——— per-source parsers (pure; exported for tests) ———
 
 function parseNwsObs(doc, stationId) {
@@ -124,7 +175,7 @@ function parseMetnoPoint(doc, meta) {
   });
 }
 
-function parseSmhi(doc, { every = 23, cap = 12 } = {}) {
+function parseSmhi(doc, { every = 12, cap = 20 } = {}) {
   const stations = Array.isArray(doc?.station) ? doc.station : [];
   const out = [];
   for (const s of sampleEvery(stations, every, cap)) {
@@ -165,7 +216,7 @@ function parseHko(doc, { places, lat, lon, cap = 4 } = {}) {
   return out;
 }
 
-function parseNea(doc, { cap = 8 } = {}) {
+function parseNea(doc, { cap = 12 } = {}) {
   const meta = {};
   for (const s of doc?.metadata?.stations ?? []) {
     meta[s?.id] = s;
@@ -188,7 +239,7 @@ function parseNea(doc, { cap = 8 } = {}) {
   return out;
 }
 
-function parseIpma(doc, { every = 22, cap = 10 } = {}) {
+function parseIpma(doc, { every = 11, cap = 20 } = {}) {
   const feats = Array.isArray(doc) ? doc : [];
   const out = [];
   for (const f of sampleEvery(feats, every, cap)) {
@@ -205,7 +256,7 @@ function parseIpma(doc, { every = 22, cap = 10 } = {}) {
   return out;
 }
 
-function parseImgw(doc, { every = 6, cap = 10, lat, lon } = {}) {
+function parseImgw(doc, { every = 3, cap = 20, lat, lon } = {}) {
   const rows = Array.isArray(doc) ? doc : [];
   const out = [];
   for (const s of sampleEvery(rows, every, cap)) {
@@ -227,13 +278,13 @@ function parseImgw(doc, { every = 6, cap = 10, lat, lon } = {}) {
   return out;
 }
 
-function parseEire(doc, { lat, lon } = {}) {
+function parseEire(doc, { slug = 'athenry', name = null, lat, lon } = {}) {
   const e = Array.isArray(doc) ? doc[0] : doc;
   if (!e || typeof e !== 'object') return null;
   const windMs = num(e?.windSpeed) == null ? null : num(e.windSpeed) / 3.6; // metweb.ie: km/h
   return row('eireann', {
-    id: 'eireann-athenry',
-    name: `${e?.name ?? 'Athenry'} · Met Éireann`,
+    id: `eireann-${slug}`,
+    name: `${name ?? e?.name ?? slug} · Met Éireann`,
     lat,
     lon,
     tempC: num(e?.temperature),
@@ -245,7 +296,7 @@ function parseEire(doc, { lat, lon } = {}) {
   });
 }
 
-function parseImo(text, { lat, lon } = {}) {
+function parseImo(text, { id = 1, name = 'Reykjavík', lat, lon } = {}) {
   const m = String(text).match(/<station[^>]*>([\s\S]*?)<\/station>/);
   if (!m) return null;
   const body = m[1];
@@ -255,8 +306,8 @@ function parseImo(text, { lat, lon } = {}) {
   };
   const windMs = num(tag('FX')) == null ? null : num(tag('FX')); // vedur: m/s
   return row('imo', {
-    id: 'imo-1',
-    name: `${tag('name') ?? 'Reykjavík'} · IMO`,
+    id: `imo-${id}`,
+    name: `${tag('name') ?? name} · IMO`,
     lat,
     lon,
     tempC: num(tag('T')),
@@ -271,7 +322,13 @@ function parseImo(text, { lat, lon } = {}) {
 
 // ——— source table ———
 
-const HKO_PLACES = ['Hong Kong Observatory', "King's Park", 'Wong Chuk Hang', 'Ta Kwu Ling'];
+// HKO places — all 12 verified live 2026-09-27 against the rhrread place list
+// (27 live places returned; these 12 are a geographic spread across HK).
+const HKO_PLACES = [
+  'Hong Kong Observatory', "King's Park", 'Wong Chuk Hang', 'Ta Kwu Ling', // original 4
+  'Lau Fau Shan', 'Tai Po', 'Sha Tin', 'Tuen Mun', // added 2026-09-27
+  'Tseung Kwan O', 'Sai Kung', 'Cheung Chau', 'Chek Lap Kok',
+];
 const HK = { lat: 22.32, lon: 114.17 };
 const PL = { lat: 51.92, lon: 19.15 }; // Poland centroid — coordApprox
 
@@ -282,8 +339,7 @@ const SOURCES = [
     kind: 'obs',
     cap: 256 * 1024,
     fetch: async (doFetch, signal) => {
-      const ids = ['KROA', 'KJFK', 'KSEA', 'KBOS'];
-      const docs = await Promise.all(ids.map(async (sid) => {
+      const docs = await Promise.all(NWS_IDS.map(async (sid) => {
         const res = await doFetch(`https://api.weather.gov/stations/${sid}/observations/latest`, signal);
         if (!res.ok) throw new Error(`nws_${sid}_http_${res.status}`);
         return { sid, doc: await readResponseJsonCapped(res, 256 * 1024, signal) };
@@ -300,6 +356,9 @@ const SOURCES = [
       { slug: 'oslo', name: 'Oslo', lat: 59.9, lon: 10.7 },
       { slug: 'bergen', name: 'Bergen', lat: 60.39, lon: 5.32 },
       { slug: 'tromso', name: 'Tromsø', lat: 69.65, lon: 18.96 },
+      { slug: 'trondheim', name: 'Trondheim', lat: 63.43, lon: 10.40 }, // added 2026-09-27
+      { slug: 'stavanger', name: 'Stavanger', lat: 58.97, lon: 5.73 }, // added 2026-09-27
+      { slug: 'longyearbyen', name: 'Longyearbyen', lat: 78.22, lon: 15.63 }, // added 2026-09-27 (Svalbard)
     ],
     fetch: async (doFetch, signal, src) => {
       const docs = await Promise.all(src.points.map(async (pt) => {
@@ -376,14 +435,17 @@ const SOURCES = [
   },
   {
     id: 'eireann',
-    name: 'Met Éireann (Athenry)',
+    name: 'Met Éireann (9 stations)',
     kind: 'obs',
     fetch: async (doFetch, signal) => {
-      const res = await doFetch('https://prodapi.metweb.ie/observations/athenry/today', signal);
-      if (!res.ok) throw new Error(`eireann_http_${res.status}`);
-      return [parseEire(await readResponseJsonCapped(res, 128 * 1024, signal), {
-        lat: 53.3, lon: -8.75, // Athenry, Co. Galway — approximate
-      })].filter(Boolean);
+      const docs = await Promise.all(EIRE_STATIONS.map(async (st) => {
+        const res = await doFetch(
+          `https://prodapi.metweb.ie/observations/${st.slug}/today`, signal,
+        );
+        if (!res.ok) throw new Error(`eireann_${st.slug}_http_${res.status}`);
+        return parseEire(await readResponseJsonCapped(res, 128 * 1024, signal), st);
+      }));
+      return docs.filter(Boolean);
     },
   },
   {
@@ -391,13 +453,16 @@ const SOURCES = [
     name: 'IMO Iceland (Reykjavík)',
     kind: 'obs',
     fetch: async (doFetch, signal) => {
-      const res = await doFetch(
-        'https://xmlweather.vedur.is/?op_w=xml&type=obs&lang=en&view=xml&ids=1',
-        signal,
-      );
-      if (!res.ok) throw new Error(`imo_http_${res.status}`);
-      const text = await readResponseTextCapped(res, 64 * 1024); // returns the string (throws when too large)
-      return [parseImo(text, { lat: 64.15, lon: -21.94 })].filter(Boolean); // Reykjavík — approximate
+      const docs = await Promise.all(IMO_STATIONS.map(async (st) => {
+        const res = await doFetch(
+          `https://xmlweather.vedur.is/?op_w=xml&type=obs&lang=en&view=xml&ids=${st.id}`,
+          signal,
+        );
+        if (!res.ok) throw new Error(`imo_${st.id}_http_${res.status}`);
+        const text = await readResponseTextCapped(res, 64 * 1024); // returns the string (throws when too large)
+        return parseImo(text, st);
+      }));
+      return docs.filter(Boolean);
     },
   },
 ];
@@ -551,4 +616,8 @@ export const _wxstationsInternals = {
   parseImo,
   sweepAll,
   SOURCES,
+  NWS_IDS,
+  EIRE_STATIONS,
+  IMO_STATIONS,
+  HKO_PLACES,
 };
