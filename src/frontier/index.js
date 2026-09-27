@@ -49,6 +49,19 @@ import { initAkashicArchive } from './wave3/akashic/index.js';
 import { initWebXR } from './wave3/webxr/index.js';
 import { initGaiaVoice } from './wave3/gaiaVoice/index.js';
 import { initSharedEye } from './wave3/sharedEye/index.js';
+import { init as initInterplanetary } from './wave3/interplanetary/index.js';
+import { init as initPlanetaryDefense } from './wave3/planetaryDefense/index.js';
+import { init as initEyesOn } from './wave3/eyesOn/index.js';
+import { init as initGravWaves } from './wave3/gravWaves/index.js';
+import { init as initNwisGauges } from './wave3/nwisGauges/index.js';
+import { init as initNwps } from './wave3/nwps/index.js';
+import { init as initAirQuality } from './wave3/sensorCommunity/index.js';
+import { init as initSpaceWeather } from './wave3/swpc/index.js';
+import { init as initDonki } from './wave3/donki/index.js';
+import { createCableThreatLayer, mountCableThreatDock } from './wave3/cableThreat/index.js';
+import { createNwsAlertsLayer, mountNwsAlertsDock } from './wave3/nwsAlerts/index.js';
+import { createSigmetsLayer, mountSigmetsDock } from './wave3/sigmets/index.js';
+import { createTerminatorRushLayer, mountTerminatorRushDock } from './wave3/terminatorRush/index.js';
 
 const DOCK_ID = 'satwq-frontier-dock';
 
@@ -469,6 +482,105 @@ export function initFrontier({ viewer } = {}) {
   attempt('shared-eye', () => {
     const cleanup = initSharedEye({ viewer });
     return () => { if (typeof cleanup === 'function') cleanup(); };
+  });
+
+  // — Wave 3: interplanetary "beyond" view —
+  attempt('interplanetary', () => {
+    const cleanup = initInterplanetary({ viewer, dock });
+    return typeof cleanup === 'function' ? cleanup : () => {};
+  });
+
+  // — Wave 3: planetary defense board —
+  attempt('planetary-defense', () => {
+    const cleanup = initPlanetaryDefense({ viewer, dock });
+    return typeof cleanup === 'function' ? cleanup : () => {};
+  });
+
+  // — Wave 3: eyes-on overpass countdown (pure SGP4 compute) —
+  attempt('eyes-on', () => {
+    const cleanup = initEyesOn({ viewer, dock });
+    return typeof cleanup === 'function' ? cleanup : () => {};
+  });
+
+  // — Wave 3: spacetime ripples (sky overlay, never the globe) —
+  attempt('grav-waves', () => {
+    const cleanup = initGravWaves({ viewer, dock });
+    return typeof cleanup === 'function' ? cleanup : () => {};
+  });
+
+  // — Wave 3 Track 2a: river gauges (USGS NWIS) —
+  attempt('nwis-gauges', () => {
+    const s = section(t('feature.nwisGauges'));
+    dock.appendChild(s);
+    return initNwisGauges({ viewer, mount: s, chip, trackLayer, t });
+  });
+
+  // — Wave 3 Track 2a: flood-wave forecast (NOAA NWM) —
+  attempt('nwps', () => {
+    const s = section(t('feature.nwps'));
+    dock.appendChild(s);
+    return initNwps({ viewer, mount: s, chip, trackLayer, t });
+  });
+
+  // — Wave 3 Track 2a: air-quality haze (Sensor.Community) —
+  attempt('air-quality', () => {
+    const s = section(t('feature.airQuality'));
+    dock.appendChild(s);
+    return initAirQuality({ viewer, mount: s, chip, trackLayer, t });
+  });
+
+  // — Wave 3 Track 2a: space weather (SWPC) —
+  attempt('space-weather', () => {
+    const s = section(t('feature.spaceWeather'));
+    dock.appendChild(s);
+    return initSpaceWeather({ viewer, mount: s, chip, trackLayer, t });
+  });
+
+  // — Wave 3 Track 2a: solar storms (NASA DONKI) —
+  attempt('donki', () => {
+    const s = section(t('feature.donki'));
+    dock.appendChild(s);
+    return initDonki({ viewer, mount: s, chip, trackLayer, t });
+  });
+
+  // — Wave 3 Track 1a: cable-threat correlation —
+  attempt('cable-threat', () => {
+    const layer = createCableThreatLayer({ viewer });
+    layer.init(viewer);
+    trackLayer('cableThreat', layer);
+    const dockCtl = mountCableThreatDock({ section, chip, el, t, layer });
+    if (dockCtl) dock.appendChild(dockCtl.element);
+    return () => { dockCtl?.destroy(); layer.destroy(); };
+  });
+
+  // — Wave 3 Track 1a: NWS alert polygons —
+  attempt('nws-alerts', () => {
+    const layer = createNwsAlertsLayer({ viewer });
+    layer.init(viewer);
+    trackLayer('nwsAlerts', layer);
+    const dockCtl = mountNwsAlertsDock({ section, chip, el, t, layer });
+    if (dockCtl) dock.appendChild(dockCtl.element);
+    return () => { dockCtl?.destroy(); layer.destroy(); };
+  });
+
+  // — Wave 3 Track 1a: aviation SIGMETs —
+  attempt('sigmets', () => {
+    const layer = createSigmetsLayer({ viewer });
+    layer.init(viewer);
+    trackLayer('sigmets', layer);
+    const dockCtl = mountSigmetsDock({ section, chip, el, t, layer });
+    if (dockCtl) dock.appendChild(dockCtl.element);
+    return () => { dockCtl?.destroy(); layer.destroy(); };
+  });
+
+  // — Wave 3 Track 1a: Terminator Rush —
+  attempt('terminator-rush', () => {
+    const layer = createTerminatorRushLayer({ viewer });
+    layer.init(viewer);
+    trackLayer('terminatorRush', layer);
+    const dockCtl = mountTerminatorRushDock({ section, chip, el, t, layer });
+    if (dockCtl) dock.appendChild(dockCtl.element);
+    return () => { dockCtl?.destroy(); layer.destroy(); };
   });
 
   return {

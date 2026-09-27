@@ -174,6 +174,56 @@ const REGISTRY = [
     routes: ['/api/vaac'],
     load: () => import('../providers/vaac.js').then((m) => m.vaacProxy()),
   },
+  {
+    name: 'interplanetary',
+    routes: ['/api/interplanetary'],
+    load: () => import('../providers/wave3/interplanetary.js').then((m) => m.interplanetaryProxy()),
+  },
+  {
+    name: 'neo',
+    routes: ['/api/neo'],
+    load: () => import('../providers/wave3/neo.js').then((m) => m.neoProxy()),
+  },
+  {
+    name: 'gravwaves',
+    routes: ['/api/gravwaves'],
+    load: () => import('../providers/wave3/gracedb.js').then((m) => m.gracedbProxy()),
+  },
+  {
+    name: 'nwis-gauges',
+    routes: ['/api/nwis-gauges'],
+    load: () => import('../providers/wave3/nwisGauges.js').then((m) => m.nwisGaugesProxy()),
+  },
+  {
+    name: 'nwps',
+    routes: ['/api/nwps'],
+    load: () => import('../providers/wave3/nwps.js').then((m) => m.nwpsProxy()),
+  },
+  {
+    name: 'sensor-community',
+    routes: ['/api/air-quality'],
+    load: () => import('../providers/wave3/sensorCommunity.js').then((m) => m.sensorCommunityProxy()),
+  },
+  {
+    name: 'swpc',
+    routes: ['/api/space-weather'],
+    load: () => import('../providers/wave3/swpc.js').then((m) => m.swpcProxy()),
+  },
+  {
+    name: 'donki',
+    routes: ['/api/donki'],
+    load: () => import('../providers/wave3/donki.js').then((m) => m.donkiProxy()),
+  },
+  {
+    name: 'nws-alerts',
+    routes: ['/api/nws-alerts'],
+    load: () => import('../providers/wave3/nwsAlerts.js').then((m) => m.nwsAlertsProxy()),
+  },
+  {
+    name: 'sigmets',
+    routes: ['/api/sigmets', '/api/airports/metar', '/api/airports/taf'],
+    load: () => import('../providers/wave3/sigmets.js').then((m) => m.sigmetsProxy()),
+  },
 ];
 
 export { REGISTRY };

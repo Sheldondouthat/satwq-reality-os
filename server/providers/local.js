@@ -29,6 +29,16 @@ import { windProxy } from './wind.js';
 import { eventSynthesisProxy } from './eventSynthesis.js';
 import { invisibleOceanProxy } from './invisibleOceanProxy.js';
 import { vaacProxy } from './vaac.js';
+import { interplanetaryProxy } from './wave3/interplanetary.js';
+import { neoProxy } from './wave3/neo.js';
+import { gracedbProxy } from './wave3/gracedb.js';
+import { nwisGaugesProxy } from './wave3/nwisGauges.js';
+import { nwpsProxy } from './wave3/nwps.js';
+import { sensorCommunityProxy } from './wave3/sensorCommunity.js';
+import { swpcProxy } from './wave3/swpc.js';
+import { donkiProxy } from './wave3/donki.js';
+import { nwsAlertsProxy } from './wave3/nwsAlerts.js';
+import { sigmetsProxy } from './wave3/sigmets.js';
 
 /** Construct the local provider plugins in their established order. */
 function localProviderPlugins() {
@@ -63,6 +73,16 @@ function localProviderPlugins() {
     eventSynthesisProxy(),
     invisibleOceanProxy(),
     vaacProxy(),
+    interplanetaryProxy(),
+    neoProxy(),
+    gracedbProxy(),
+    nwisGaugesProxy(),
+    nwpsProxy(),
+    sensorCommunityProxy(),
+    swpcProxy(),
+    donkiProxy(),
+    nwsAlertsProxy(),
+    sigmetsProxy(),
     keySetupEndpoint(),
   ];
 }
