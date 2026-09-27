@@ -102,6 +102,47 @@ import { createReentryLayer, createReentryPanel } from './wave3/reentry/index.js
 import { createReentrySource } from './wave3/reentry/source.js';
 import { createCosmicRayLayer, createCosmicRayPanel } from './wave3/cosmicRay/index.js';
 import { createNmdbSource } from './wave3/nmdb/index.js';
+import { init as initPskreporter } from './wave6/pskreporter/index.js';
+import { init as initSondes } from './wave6/sondes/index.js';
+import { init as initGliders } from './wave6/gliders/index.js';
+import { init as initFrequencies } from './wave6/frequencies/index.js';
+import { init as initHamSpace } from './wave6/hamSpace/index.js';
+import { init as initAircraft } from './wave6/aircraft/index.js';
+import { init as initShips } from './wave6/ships/index.js';
+import { init as initBuoys } from './wave6/buoys/index.js';
+import { init as initTides } from './wave6/tides/index.js';
+import { init as initWhales } from './wave6/whales/index.js';
+import { init as initTrains } from './wave6/trains/index.js';
+import { init as initBikeshare } from './wave6/bikeshare/index.js';
+import { init as initComets } from './wave6/comets/index.js';
+import { init as initDsn } from './wave6/dsn/index.js';
+import { init as initFires } from './wave6/fires/index.js';
+import { init as initDisasters } from './wave6/disasters/index.js';
+import { init as initAlerts } from './wave6/alerts/index.js';
+import { init as initSolarImg } from './wave6/solarImg/index.js';
+import { init as initAuroraCams } from './wave6/auroraCams/index.js';
+import { init as initVolcanoCams } from './wave6/volcanoCams/index.js';
+import { init as initMagnetometers } from './wave6/magnetometers/index.js';
+import { init as initBirdcast } from './wave6/birdcast/index.js';
+import { init as initCoral } from './wave6/coral/index.js';
+import { init as initLightning } from './wave6/lightning/index.js';
+import { init as initStationsExt } from './wave6/stationsExt/index.js';
+import { init as initKnowledge } from './wave6/knowledge/index.js';
+import { init as initSports } from './wave6/sports/index.js';
+import { init as initTec } from './wave7/tec/index.js';
+import { init as initMbta } from './wave7/mbta/index.js';
+import { init as initAqModel } from './wave7/aqModel/index.js';
+import { init as initIoos } from './wave7/ioos/index.js';
+import { init as initBirdcastDash } from './wave7/birdcastDash/index.js';
+import { init as initInfrasound } from './wave8/infrasound/index.js';
+import { init as initGeomagUsgs } from './wave8/geomagUsgs/index.js';
+import { init as initIconD2 } from './wave8/iconD2/index.js';
+import { init as initCurrents } from './wave8/currents/index.js';
+import { init as initGtfsDe } from './wave8/gtfsDe/index.js';
+import { init as initNhcGis } from './wave8/nhcGis/index.js';
+import { init as initFindu } from './wave8/findu/index.js';
+import { init as initIssExt } from './wave8/issExt/index.js';
+import { init as initGracedb } from './wave8/gracedb/index.js';
 
 const DOCK_ID = 'satwq-frontier-dock';
 
@@ -924,6 +965,97 @@ export function initFrontier({ viewer } = {}) {
     ctl.show();
     return () => { panel.destroy(); layer.destroy(); };
   });
+
+
+
+  // — WAVE 6 · RF / HAM tickers —
+  {
+    const s = section('WAVE 6 · RF / HAM');
+    dock.appendChild(s);
+    attempt('pskreporter', () => initPskreporter({ viewer, mount: s, chip, trackLayer, t }));
+    attempt('hamSpace', () => initHamSpace({ viewer, mount: s, chip, trackLayer, t }));
+    attempt('frequencies', () => initFrequencies({ viewer, mount: s, chip, trackLayer, t }));
+  }
+
+  // — WAVE 6 · AVIATION tickers —
+  {
+    const s = section('WAVE 6 · AVIATION');
+    dock.appendChild(s);
+    attempt('aircraft', () => initAircraft({ viewer, mount: s, chip, trackLayer, t }));
+    attempt('gliders', () => initGliders({ viewer, mount: s, chip, trackLayer, t }));
+    attempt('sondes', () => initSondes({ viewer, mount: s, chip, trackLayer, t }));
+  }
+
+  // — WAVE 6 · OCEAN tickers —
+  {
+    const s = section('WAVE 6 · OCEAN');
+    dock.appendChild(s);
+    attempt('ships', () => initShips({ viewer, mount: s, chip, trackLayer, t }));
+    attempt('buoys', () => initBuoys({ viewer, mount: s, chip, trackLayer, t }));
+    attempt('tides', () => initTides({ viewer, mount: s, chip, trackLayer, t }));
+    attempt('whales', () => initWhales({ viewer, mount: s, chip, trackLayer, t }));
+  }
+
+  // — WAVE 6 · SPACE tickers —
+  {
+    const s = section('WAVE 6 · SPACE');
+    dock.appendChild(s);
+    attempt('comets', () => initComets({ viewer, mount: s, chip, trackLayer, t }));
+    attempt('dsn', () => initDsn({ viewer, mount: s, chip, trackLayer, t }));
+    attempt('solarImg', () => initSolarImg({ viewer, mount: s, chip, trackLayer, t }));
+    attempt('magnetometers', () => initMagnetometers({ viewer, mount: s, chip, trackLayer, t }));
+  }
+
+  // — WAVE 6 · EARTH tickers —
+  {
+    const s = section('WAVE 6 · EARTH');
+    dock.appendChild(s);
+    attempt('fires', () => initFires({ viewer, mount: s, chip, trackLayer, t }));
+    attempt('disasters', () => initDisasters({ viewer, mount: s, chip, trackLayer, t }));
+    attempt('alerts', () => initAlerts({ viewer, mount: s, chip, trackLayer, t }));
+    attempt('lightning', () => initLightning({ viewer, mount: s, chip, trackLayer, t }));
+    attempt('stationsExt', () => initStationsExt({ viewer, mount: s, chip, trackLayer, t }));
+    attempt('coral', () => initCoral({ viewer, mount: s, chip, trackLayer, t }));
+    attempt('birdcast', () => initBirdcast({ viewer, mount: s, chip, trackLayer, t }));
+    attempt('auroraCams', () => initAuroraCams({ viewer, mount: s, chip, trackLayer, t }));
+    attempt('volcanoCams', () => initVolcanoCams({ viewer, mount: s, chip, trackLayer, t }));
+  }
+
+  // — WAVE 6 · HUMAN tickers —
+  {
+    const s = section('WAVE 6 · HUMAN');
+    dock.appendChild(s);
+    attempt('trains', () => initTrains({ viewer, mount: s, chip, trackLayer, t }));
+    attempt('bikeshare', () => initBikeshare({ viewer, mount: s, chip, trackLayer, t }));
+    attempt('knowledge', () => initKnowledge({ viewer, mount: s, chip, trackLayer, t }));
+    attempt('sports', () => initSports({ viewer, mount: s, chip, trackLayer, t }));
+  }
+
+  // — WAVE 7 tickers —
+  {
+    const s = section('WAVE 7');
+    dock.appendChild(s);
+    attempt('tec', () => initTec({ viewer, mount: s, chip, trackLayer, t }));
+    attempt('mbta', () => initMbta({ viewer, mount: s, chip, trackLayer, t }));
+    attempt('aqModel', () => initAqModel({ viewer, mount: s, chip, trackLayer, t }));
+    attempt('ioos', () => initIoos({ viewer, mount: s, chip, trackLayer, t }));
+    attempt('birdcastDash', () => initBirdcastDash({ viewer, mount: s, chip, trackLayer, t }));
+  }
+
+  // — WAVE 8 tickers —
+  {
+    const s = section('WAVE 8');
+    dock.appendChild(s);
+    attempt('infrasound', () => initInfrasound({ viewer, mount: s, chip, trackLayer, t }));
+    attempt('geomagUsgs', () => initGeomagUsgs({ viewer, mount: s, chip, trackLayer, t }));
+    attempt('iconD2', () => initIconD2({ viewer, mount: s, chip, trackLayer, t }));
+    attempt('currents', () => initCurrents({ viewer, mount: s, chip, trackLayer, t }));
+    attempt('gtfsDe', () => initGtfsDe({ viewer, mount: s, chip, trackLayer, t }));
+    attempt('nhcGis', () => initNhcGis({ viewer, mount: s, chip, trackLayer, t }));
+    attempt('findu', () => initFindu({ viewer, mount: s, chip, trackLayer, t }));
+    attempt('issExt', () => initIssExt({ viewer, mount: s, chip, trackLayer, t }));
+    attempt('gracedb', () => initGracedb({ viewer, mount: s, chip, trackLayer, t }));
+  }
 
   return {
     destroy() {
