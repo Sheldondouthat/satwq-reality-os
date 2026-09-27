@@ -29,6 +29,8 @@
 import { readCappedResponseText } from '../common/http.js';
 
 const CSV_URL = 'https://celestrak.org/SOCRATES/sort-minRange.csv';
+// Head-request size for the SOCRATES CSV (sorted by min range ascending).
+const CSV_HEAD_BYTES = 262144;
 const TLE_URL = (catnr) =>
   `https://celestrak.org/NORAD/elements/gp.php?CATNR=${encodeURIComponent(catnr)}&FORMAT=tle`;
 const UPSTREAM_TIMEOUT_MS = 25_000;
@@ -165,18 +167,23 @@ export function parseTleSet(text) {
   return null;
 }
 
-async function fetchText(url, timeoutMs = UPSTREAM_TIMEOUT_MS) {
+async function fetchText(url, timeoutMs = UPSTREAM_TIMEOUT_MS, headOnly = false) {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), timeoutMs);
   try {
-    const res = await fetch(url, {
-      signal: controller.signal,
-      headers: { 'User-Agent': USER_AGENT, Accept: 'text/csv,text/plain,*/*' },
-    });
+    const headers = { 'User-Agent': USER_AGENT, Accept: 'text/csv,text/plain,*/*' };
+    // The SOCRATES CSV is ~21 MB and sorted by min range ascending, so the
+    // head holds the closest approaches. workerd isolates choke on the full
+    // body, so we Range-request just the head (CelesTrak honors Range: 206).
+    if (headOnly) headers.Range = `bytes=0-${CSV_HEAD_BYTES - 1}`;
+    const res = await fetch(url, { signal: controller.signal, headers });
     if (!res.ok) throw Object.assign(new Error(`socrates_upstream_${res.status}`), { status: 502 });
     const { tooLarge, text } = await readCappedResponseText(res, BODY_CAP_BYTES);
     if (tooLarge) throw Object.assign(new Error('socrates_upstream_too_large'), { status: 502 });
-    return text;
+    if (!headOnly) return text;
+    // Trim a possibly-partial trailing line (Range cut, or a 200 that ignored Range).
+    const head = text.length > CSV_HEAD_BYTES ? text.slice(0, CSV_HEAD_BYTES) : text;
+    return head.slice(0, head.lastIndexOf('\n') + 1);
   } finally {
     clearTimeout(timer);
   }
@@ -255,7 +262,7 @@ export function socratesProxy() {
     if (inflight) return inflight;
     inflight = (async () => {
       try {
-        const text = await fetchText(CSV_URL);
+        const text = await fetchText(CSV_URL, UPSTREAM_TIMEOUT_MS, true);
         const events = parseSocratesCsv(text, MAX_EVENTS);
         try { await enrichTles(events); } catch { /* arcs degrade, list survives */ }
         cache = { at: Date.now(), events };
