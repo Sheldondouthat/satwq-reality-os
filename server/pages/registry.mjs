@@ -175,6 +175,36 @@ const REGISTRY = [
     load: () => import('../providers/vaac.js').then((m) => m.vaacProxy()),
   },
   {
+    name: 'ripestat',
+    routes: ['/api/ripestat'],
+    load: () => import('../providers/wave3/ripestat.js').then((m) => m.ripestatProxy()),
+  },
+  {
+    name: 'feodo',
+    routes: ['/api/feodo'],
+    load: () => import('../providers/wave3/feodo.js').then((m) => m.feodoProxy()),
+  },
+  {
+    name: 'gdelt',
+    routes: ['/api/gdelt'],
+    load: () => import('../providers/wave3/gdelt.js').then((m) => m.gdeltProxy()),
+  },
+  {
+    name: 'gmn-meteors',
+    routes: ['/api/meteors'],
+    load: () => import('../providers/wave3/gmn.js').then((m) => m.gmnProxy()),
+  },
+  {
+    name: 'eibi',
+    routes: ['/api/eibi'],
+    load: () => import('../providers/wave3/eibi.js').then((m) => m.eibiProxy()),
+  },
+  {
+    name: 'aishub',
+    routes: ['/api/aishub'],
+    load: () => import('../providers/wave3/aishub.js').then((m) => m.aishubProxy()),
+  },
+  {
     name: 'interplanetary',
     routes: ['/api/interplanetary'],
     load: () => import('../providers/wave3/interplanetary.js').then((m) => m.interplanetaryProxy()),
