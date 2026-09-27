@@ -224,6 +224,21 @@ const REGISTRY = [
     routes: ['/api/sigmets', '/api/airports/metar', '/api/airports/taf'],
     load: () => import('../providers/wave3/sigmets.js').then((m) => m.sigmetsProxy()),
   },
+  {
+    name: 'radiation',
+    routes: ['/api/radiation'],
+    load: () => import('../providers/wave3/radiation.js').then((m) => m.radiationProxy()),
+  },
+  {
+    name: 'dart-coupling',
+    routes: ['/api/dart-coupling'],
+    load: () => import('../providers/wave3/dart.js').then((m) => m.dartCouplingProxy()),
+  },
+  {
+    name: 'water-twin',
+    routes: ['/api/water-twin'],
+    load: () => import('../providers/wave3/waterTwin.js').then((m) => m.waterTwinProxy()),
+  },
 ];
 
 export { REGISTRY };

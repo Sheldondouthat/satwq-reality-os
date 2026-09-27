@@ -62,6 +62,14 @@ import { createCableThreatLayer, mountCableThreatDock } from './wave3/cableThrea
 import { createNwsAlertsLayer, mountNwsAlertsDock } from './wave3/nwsAlerts/index.js';
 import { createSigmetsLayer, mountSigmetsDock } from './wave3/sigmets/index.js';
 import { createTerminatorRushLayer, mountTerminatorRushDock } from './wave3/terminatorRush/index.js';
+import { init as initDeepTime } from './wave3/deepTime/index.js';
+import { init as initOceanTwin } from './wave3/oceanTwin/index.js';
+import { init as initWhatIf } from './wave3/whatIf/index.js';
+import { init as initRadiation } from './wave3/radiation/index.js';
+import { initDartLayer } from './wave3/dart/index.js';
+import { initWaterTwin } from './wave3/waterTwin/index.js';
+import { initWatchReplay } from './wave3/watchReplay/index.js';
+import { initQuakeImpact } from './wave3/quakeImpact/index.js';
 
 const DOCK_ID = 'satwq-frontier-dock';
 
@@ -581,6 +589,76 @@ export function initFrontier({ viewer } = {}) {
     const dockCtl = mountTerminatorRushDock({ section, chip, el, t, layer });
     if (dockCtl) dock.appendChild(dockCtl.element);
     return () => { dockCtl?.destroy(); layer.destroy(); };
+  });
+
+  // — sci-fi B1 deep time —
+  attempt('deep-time', () => {
+    const dt = initDeepTime(viewer);
+    if (!dt) return () => {};
+    const s = section(t('feature.deepTime'));
+    const ownPanel = document.body.lastElementChild;
+    if (ownPanel && ownPanel !== dock) s.appendChild(ownPanel);
+    dock.appendChild(s);
+    return () => dt.destroy?.();
+  });
+
+  // — sci-fi B2 ocean twin —
+  attempt('ocean-twin', () => {
+    const s = section(t('feature.oceanTwin'));
+    dock.appendChild(s);
+    const twin = initOceanTwin(viewer, { mount: s });
+    if (!twin) return () => {};
+    return () => twin.destroy();
+  });
+
+  // — sci-fi B3 what-if simulator —
+  attempt('what-if', () => {
+    const s = section(t('feature.whatIf'));
+    dock.appendChild(s);
+    const sim = initWhatIf(viewer, { mount: s });
+    if (!sim) return () => {};
+    return () => sim.destroy();
+  });
+
+  // — sci-fi B4 radiation map —
+  attempt('radiation', () => {
+    const s = section(t('feature.radiation'));
+    dock.appendChild(s);
+    const rad = initRadiation(viewer, { mount: s });
+    if (!rad) return () => {};
+    return () => rad.destroy();
+  });
+
+  // — Wave 3 · 1.9 DART tsunami coupling —
+  attempt('dart-coupling', () => {
+    const s = section(t('feature.dartCoupling'));
+    const handle = initDartLayer({ viewer, mount: (node) => s.appendChild(node) });
+    dock.appendChild(s);
+    return () => handle.destroy();
+  });
+
+  // — Wave 3 · 1.10 water twin —
+  attempt('water-twin', () => {
+    const s = section(t('feature.waterTwin'));
+    const handle = initWaterTwin({ viewer, mount: (node) => s.appendChild(node) });
+    dock.appendChild(s);
+    return () => handle.destroy();
+  });
+
+  // — Wave 3 · 1.11 watch queries + Akashic replay —
+  attempt('watch-replay', () => {
+    const s = section(t('feature.watchReplay'));
+    const handle = initWatchReplay({ viewer, mount: (node) => s.appendChild(node), sonify: sonification });
+    dock.appendChild(s);
+    return () => handle.destroy();
+  });
+
+  // — Wave 3 · 1.12 DYFI/ShakeMap impact —
+  attempt('quake-impact', () => {
+    const s = section(t('feature.quakeImpact'));
+    const handle = initQuakeImpact({ viewer, mount: (node) => s.appendChild(node) });
+    dock.appendChild(s);
+    return () => handle.destroy();
   });
 
   return {

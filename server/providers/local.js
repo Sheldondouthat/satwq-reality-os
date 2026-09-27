@@ -39,6 +39,9 @@ import { swpcProxy } from './wave3/swpc.js';
 import { donkiProxy } from './wave3/donki.js';
 import { nwsAlertsProxy } from './wave3/nwsAlerts.js';
 import { sigmetsProxy } from './wave3/sigmets.js';
+import { radiationProxy } from './wave3/radiation.js';
+import { dartCouplingProxy } from './wave3/dart.js';
+import { waterTwinProxy } from './wave3/waterTwin.js';
 
 /** Construct the local provider plugins in their established order. */
 function localProviderPlugins() {
@@ -83,6 +86,9 @@ function localProviderPlugins() {
     donkiProxy(),
     nwsAlertsProxy(),
     sigmetsProxy(),
+    radiationProxy(),
+    dartCouplingProxy(),
+    waterTwinProxy(),
     keySetupEndpoint(),
   ];
 }
