@@ -370,6 +370,21 @@ const REGISTRY = [
     load: () => import('../providers/wave5/biosphere.js').then((m) => m.biosphereProxy()),
   },
   {
+    name: 'donki',
+    routes: ['/api/donki'],
+    load: () => import('../providers/wave6/donki.js').then((m) => m.donkiProxy()),
+  },
+  {
+    name: 'radiation',
+    routes: ['/api/radiation'],
+    load: () => import('../providers/wave6/radiation.js').then((m) => m.radiationProxy()),
+  },
+  {
+    name: 'ripestat',
+    routes: ['/api/ripestat'],
+    load: () => import('../providers/wave6/ripestat.js').then((m) => m.ripestatProxy()),
+  },
+  {
     name: 'pskreporter',
     routes: ['/api/pskreporter'],
     load: () => import('../providers/wave6/pskreporter.js').then((m) => m.pskreporterProxy()),
