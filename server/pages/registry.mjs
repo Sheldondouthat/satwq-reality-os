@@ -529,6 +529,31 @@ const REGISTRY = [
     routes: ['/api/sports'],
     load: () => import('../providers/wave6/sports.js').then((m) => m.sportsProxy()),
   },
+  {
+    name: 'tec',
+    routes: ['/api/tec'],
+    load: () => import('../providers/wave7/tec.js').then((m) => m.tecProxy()),
+  },
+  {
+    name: 'mbta',
+    routes: ['/api/mbta'],
+    load: () => import('../providers/wave7/mbta.js').then((m) => m.mbtaProxy()),
+  },
+  {
+    name: 'aq-model',
+    routes: ['/api/aq-model'],
+    load: () => import('../providers/wave7/aqModel.js').then((m) => m.aqModelProxy()),
+  },
+  {
+    name: 'ioos',
+    routes: ['/api/ioos'],
+    load: () => import('../providers/wave7/ioos.js').then((m) => m.ioosProxy()),
+  },
+  {
+    name: 'birdcast-dash',
+    routes: ['/api/birdcast-dash'],
+    load: () => import('../providers/wave7/birdcast-dash.js').then((m) => m.birdcastDashProxy()),
+  },
 ];
 
 export { REGISTRY };

@@ -89,6 +89,11 @@ import { lightningProxy } from './wave6/lightning.js';
 import { stationsExtProxy } from './wave6/stationsExt.js';
 import { knowledgeProxy } from './wave6/knowledge.js';
 import { sportsProxy } from './wave6/sports.js';
+import { tecProxy } from './wave7/tec.js';
+import { mbtaProxy } from './wave7/mbta.js';
+import { aqModelProxy } from './wave7/aqModel.js';
+import { ioosProxy } from './wave7/ioos.js';
+import { birdcastDashProxy } from './wave7/birdcast-dash.js';
 import { waterTwinProxy } from './wave3/waterTwin.js';
 import { feodoProxy } from './wave3/feodo.js';
 import { gdeltProxy } from './wave3/gdelt.js';
@@ -208,6 +213,11 @@ function localProviderPlugins() {
     stationsExtProxy(),
     knowledgeProxy(),
     sportsProxy(),
+    tecProxy(),
+    mbtaProxy(),
+    aqModelProxy(),
+    ioosProxy(),
+    birdcastDashProxy(),
     keySetupEndpoint(),
   ];
 }

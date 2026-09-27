@@ -11,6 +11,12 @@ const {
   parseEmsc,
   dedupeQuakes,
   buildSnapshot,
+  selectDyfiCandidates,
+  parseDyfiDetail,
+  parseNumresp,
+  parseDyfiZip,
+  centroidOfPolygon,
+  enrichDyfi,
   clearCaches,
 } = _quakesInternals;
 
@@ -332,4 +338,319 @@ test('buildSnapshot records per-source status and merges duplicates', () => {
   assert.equal(snap.sources.bmkg.ok, false);
   assert.equal(snap.sources.bmkg.error, 'fetch failed');
   assert.equal(snap.sources.usgs.count, 1);
+});
+
+// ——— Item 61: USGS DYFI enrichment tests (fixtures mirror live shapes observed 2026-09-27) ———
+
+const USGS_DYFI_SUMMARY = {
+  type: 'FeatureCollection',
+  features: [
+    {
+      id: 'us6000txpi',
+      type: 'Feature',
+      geometry: { type: 'Point', coordinates: [167.2, -21.5, 10.0] },
+      properties: {
+        mag: 6.6,
+        place: '80 km ENE of Tadine, New Caledonia',
+        time: 1790394000000,
+        felt: 11,
+        cdi: 6.9,
+        title: 'M 6.6 - 80 km ENE of Tadine, New Caledonia',
+      },
+    },
+    ...USGS_FIXTURE.features,
+  ],
+};
+
+// fdsnws event detail returns a single Feature (not a FeatureCollection)
+const DYFI_DETAIL_FIXTURE = {
+  type: 'Feature',
+  id: 'us6000txpi',
+  properties: {
+    mag: 6.6,
+    place: '80 km ENE of Tadine, New Caledonia',
+    time: 1790394000000,
+    felt: 11,
+    cdi: 6.9,
+    products: {
+      dyfi: [
+        {
+          code: 'us6000txpi',
+          source: 'us',
+          updateTime: 1790395024448,
+          status: 'UPDATE',
+          contents: {
+            'dyfi_plot_numresp.json': {
+              contentType: 'application/json',
+              url: 'https://earthquake.usgs.gov/product/dyfi/us6000txpi/us/1790395024448/dyfi_plot_numresp.json',
+            },
+            'dyfi_zip.geojson': {
+              contentType: 'application/json',
+              url: 'https://earthquake.usgs.gov/product/dyfi/us6000txpi/us/1790395024448/dyfi_zip.geojson',
+            },
+          },
+        },
+      ],
+      shakemap: [{ code: 'us6000txpi' }],
+    },
+  },
+  geometry: { type: 'Point', coordinates: [167.2, -21.5, 10.0] },
+};
+
+const DYFI_NUMRESP_FIXTURE = {
+  datasets: [
+    {
+      data: [
+        { y: 1, x: 0.25, t_seconds: 902, t_absolute: '2026-09-25T21:38:05' },
+        { y: 2, x: 0.39, t_seconds: 1410, t_absolute: '2026-09-25T21:46:33' },
+        { y: 3, x: 0.43, t_seconds: 1532, t_absolute: '2026-09-25T21:48:35' },
+        { y: 4, x: 0.45, t_seconds: 1616, t_absolute: '2026-09-25T21:49:59' },
+        { y: 5, x: 0.46, t_seconds: 1654, t_absolute: '2026-09-25T21:50:37' },
+        { y: 6, x: 0.62, t_seconds: 2219, t_absolute: '2026-09-25T22:00:02' },
+        { y: 7, x: 0.75, t_seconds: 2714, t_absolute: '2026-09-25T22:08:17' },
+        { y: 8, x: 0.78, t_seconds: 2818, t_absolute: '2026-09-25T22:10:01' },
+        { y: 9, x: 1.74, t_seconds: 6271, t_absolute: '2026-09-25T23:07:34' },
+        { y: 10, x: 6.5, t_seconds: 23390, t_absolute: '2026-09-26T03:52:53' },
+      ],
+      class: 'histogram',
+    },
+  ],
+  xlabel: 'Time since earthquake (hours)',
+  ylabel: 'Number of responses',
+  title: 'Responses vs. Time Plot',
+  preferred_unit: 'hours',
+};
+
+const DYFI_ZIP_FIXTURE = {
+  type: 'FeatureCollection',
+  features: [
+    {
+      type: 'Feature',
+      geometry: {
+        type: 'Polygon',
+        coordinates: [
+          [[166.4, -22.3], [166.5, -22.3], [166.5, -22.2], [166.4, -22.2], [166.4, -22.3]],
+        ],
+      },
+      properties: { nresp: 9, name: 'Nouméa, Sud, New Caledonia', cdi: 3, dist: 249 },
+    },
+    {
+      type: 'Feature',
+      geometry: {
+        type: 'Polygon',
+        coordinates: [
+          [[167.0, -21.6], [167.1, -21.6], [167.1, -21.5], [167.0, -21.5], [167.0, -21.6]],
+        ],
+      },
+      properties: { nresp: 2, name: 'Tadine, Loyalty Islands, New Caledonia', cdi: 5, dist: 80 },
+    },
+  ],
+};
+
+/** Path-aware fetch mock: summary feeds by host, DYFI hops by path. */
+function mockFetchDyfi({ detail = DYFI_DETAIL_FIXTURE, detailStatus = 200 } = {}) {
+  return async (url) => {
+    const u = String(url);
+    if (u.includes('/fdsnws/event/1/query')) {
+      if (detailStatus !== 200) return new Response('down', { status: detailStatus });
+      return new Response(JSON.stringify(detail), { status: 200 });
+    }
+    if (u.includes('dyfi_plot_numresp.json')) {
+      return new Response(JSON.stringify(DYFI_NUMRESP_FIXTURE), { status: 200 });
+    }
+    if (u.includes('dyfi_zip.geojson')) {
+      return new Response(JSON.stringify(DYFI_ZIP_FIXTURE), { status: 200 });
+    }
+    const host = new URL(u).hostname;
+    if (host === 'earthquake.usgs.gov') {
+      return new Response(JSON.stringify(USGS_DYFI_SUMMARY), { status: 200 });
+    }
+    const body = ALL_BODIES[host];
+    if (body === undefined) return new Response('down', { status: 503 });
+    return new Response(JSON.stringify(body), { status: 200 });
+  };
+}
+
+test('parseUsgs carries felt/cdi for DYFI candidate selection', () => {
+  const out = parseUsgs(USGS_DYFI_SUMMARY);
+  const felt = out.find((q) => q.id === 'usgs:us6000txpi');
+  assert.equal(felt.felt, 11);
+  assert.equal(felt.cdi, 6.9);
+  assert.equal(out.find((q) => q.id === 'usgs:us7000ti1p').felt, undefined);
+});
+
+test('selectDyfiCandidates ranks by felt then mag, filters non-usgs, caps', () => {
+  const list = [
+    { id: 'usgs:a', felt: 2, mag: 5.0 },
+    { id: 'usgs:b', felt: 11, mag: 6.6 },
+    { id: 'jma:c', felt: 99, mag: 9.0 },
+    { id: 'usgs:d', mag: 7.0 },
+    { id: 'usgs:e', felt: 2, mag: 6.0 },
+  ];
+  const out = selectDyfiCandidates(list, 3);
+  assert.deepEqual(
+    out.map((q) => q.id),
+    ['usgs:b', 'usgs:e', 'usgs:a'],
+  );
+  assert.equal(selectDyfiCandidates([], 3).length, 0);
+});
+
+test('parseDyfiDetail extracts the newest product content URLs', () => {
+  const p = parseDyfiDetail(DYFI_DETAIL_FIXTURE);
+  assert.equal(p.code, 'us6000txpi');
+  assert.equal(p.source, 'us');
+  assert.equal(p.updateTimeIso, new Date(1790395024448).toISOString());
+  assert.ok(p.numrespUrl.endsWith('dyfi_plot_numresp.json'));
+  assert.ok(p.zipUrl.endsWith('dyfi_zip.geojson'));
+});
+
+test('parseDyfiDetail returns null without a dyfi product', () => {
+  assert.equal(
+    parseDyfiDetail({ type: 'Feature', properties: { products: { shakemap: [] } } }),
+    null,
+  );
+  assert.equal(parseDyfiDetail(USGS_FIXTURE), null); // summary feed carries no products
+  assert.equal(parseDyfiDetail(null), null);
+});
+
+test('parseDyfiDetail tolerates a FeatureCollection detail', () => {
+  const fc = { type: 'FeatureCollection', features: [DYFI_DETAIL_FIXTURE] };
+  assert.ok(parseDyfiDetail(fc).numrespUrl.endsWith('.json'));
+});
+
+test('parseNumresp totals the cumulative histogram', () => {
+  const n = parseNumresp(DYFI_NUMRESP_FIXTURE);
+  assert.equal(n.totalResponses, 10);
+  assert.equal(n.seriesPoints, 10);
+  assert.equal(n.series[9].n, 10);
+  assert.equal(n.series[0].t, '2026-09-25T21:38:05');
+  assert.equal(parseNumresp({}), null);
+});
+
+test('parseDyfiZip ranks ZIPs by response count with centroids', () => {
+  const locs = parseDyfiZip(DYFI_ZIP_FIXTURE);
+  assert.equal(locs.length, 2);
+  assert.equal(locs[0].name, 'Nouméa, Sud, New Caledonia');
+  assert.equal(locs[0].nresp, 9);
+  assert.equal(locs[0].cdi, 3);
+  assert.ok(Math.abs(locs[0].lat - -22.26) < 0.001);
+  assert.ok(Math.abs(locs[0].lon - 166.44) < 0.001);
+  assert.equal(parseDyfiZip({}).length, 0);
+});
+
+test('centroidOfPolygon averages the outer ring', () => {
+  assert.deepEqual(centroidOfPolygon([[[0, 0], [2, 0], [2, 2], [0, 2], [0, 0]]]), {
+    lat: 0.8,
+    lon: 0.8,
+  });
+  assert.equal(centroidOfPolygon(null), null);
+});
+
+test('enrichDyfi resolves the 2-hop chain for the top felt candidate', async () => {
+  clearCaches();
+  const realFetch = globalThis.fetch;
+  globalThis.fetch = mockFetchDyfi();
+  try {
+    const dyfi = await enrichDyfi(parseUsgs(USGS_DYFI_SUMMARY));
+    assert.equal(dyfi.eventId, 'us6000txpi');
+    assert.equal(dyfi.mag, 6.6);
+    assert.equal(dyfi.feltReports, 11);
+    assert.equal(dyfi.maxCdi, 6.9);
+    assert.equal(dyfi.totalResponses, 10);
+    assert.equal(dyfi.seriesPoints, 10);
+    assert.equal(dyfi.locationsCount, 2);
+    assert.equal(dyfi.locations[0].nresp, 9);
+    assert.equal(
+      dyfi.eventPage,
+      'https://earthquake.usgs.gov/earthquakes/eventpage/us6000txpi',
+    );
+    assert.match(dyfi.attribution, /Did You Feel It/);
+    assert.ok(dyfi.productUrl.endsWith('dyfi_plot_numresp.json'));
+  } finally {
+    globalThis.fetch = realFetch;
+  }
+});
+
+test('enrichDyfi returns null when no candidate has a DYFI product', async () => {
+  clearCaches();
+  const realFetch = globalThis.fetch;
+  globalThis.fetch = mockFetchDyfi({
+    detail: { type: 'Feature', properties: { products: {} } },
+  });
+  try {
+    assert.equal(await enrichDyfi(parseUsgs(USGS_FIXTURE)), null);
+  } finally {
+    globalThis.fetch = realFetch;
+  }
+});
+
+test('enrichDyfi throws when every candidate errors', async () => {
+  clearCaches();
+  const realFetch = globalThis.fetch;
+  globalThis.fetch = mockFetchDyfi({ detailStatus: 503 });
+  try {
+    await assert.rejects(() => enrichDyfi(parseUsgs(USGS_FIXTURE)), /dyfi_upstream_503/);
+  } finally {
+    globalThis.fetch = realFetch;
+  }
+});
+
+test('handler enriches /api/quakes with DYFI when a felt event is present', async () => {
+  clearCaches();
+  const calls = mount(quakesProxy());
+  const realFetch = globalThis.fetch;
+  globalThis.fetch = mockFetchDyfi();
+  try {
+    const res = fakeRes();
+    await calls[0].handler(fakeReq('/api/quakes'), res);
+    assert.equal(res.statusCode, 200);
+    const payload = JSON.parse(res.body);
+    assert.ok(payload.dyfi);
+    assert.equal(payload.dyfi.eventId, 'us6000txpi');
+    assert.equal(payload.dyfi.totalResponses, 10);
+    assert.equal(payload.sources.dyfi.ok, true);
+    assert.equal(payload.sources.dyfi.count, 10);
+    assert.equal(payload.sources.dyfi.eventId, 'us6000txpi');
+    assert.ok(payload.sources.usgs.ok); // core feeds unaffected
+  } finally {
+    globalThis.fetch = realFetch;
+  }
+});
+
+test('handler stays 200 with an honest dyfi error when DYFI hops fail', async () => {
+  clearCaches();
+  const calls = mount(quakesProxy());
+  const realFetch = globalThis.fetch;
+  globalThis.fetch = mockFetchDyfi({ detailStatus: 503 });
+  try {
+    const res = fakeRes();
+    await calls[0].handler(fakeReq('/api/quakes'), res);
+    assert.equal(res.statusCode, 200); // DYFI never 502s the snapshot
+    const payload = JSON.parse(res.body);
+    assert.equal(payload.dyfi, null);
+    assert.equal(payload.sources.dyfi.ok, false);
+    assert.match(payload.sources.dyfi.error, /dyfi_upstream_503/);
+  } finally {
+    globalThis.fetch = realFetch;
+  }
+});
+
+test('handler reports no DYFI product honestly when candidates lack one', async () => {
+  clearCaches();
+  const calls = mount(quakesProxy());
+  const realFetch = globalThis.fetch;
+  globalThis.fetch = mockFetchDyfi({
+    detail: { type: 'Feature', properties: { products: {} } },
+  });
+  try {
+    const res = fakeRes();
+    await calls[0].handler(fakeReq('/api/quakes'), res);
+    assert.equal(res.statusCode, 200);
+    const payload = JSON.parse(res.body);
+    assert.equal(payload.dyfi, null);
+    assert.equal(payload.sources.dyfi.ok, true);
+    assert.match(payload.sources.dyfi.note, /no DYFI product/);
+  } finally {
+    globalThis.fetch = realFetch;
+  }
 });
