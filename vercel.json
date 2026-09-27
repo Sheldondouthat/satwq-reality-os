@@ -1,0 +1,11 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "npm run build",
+  "framework": "vite",
+  "functions": {
+    "api/ais-live.js": {
+      "maxDuration": 30
+    }
+  },
+  "outputDirectory": "dist"
+}

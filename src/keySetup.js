@@ -1,6 +1,16 @@
 import { createSurfaceKeyboard } from './ui/surfaceKeyboard.js';
 
 /**
+ * Vercel build flag. On the Vercel deployment provider keys are managed in
+ * the Vercel dashboard — a serverless function can neither write a .env nor
+ * restart a server — so the paste/save UI is hidden and a dashboard note is
+ * shown instead. Set VITE_VERCEL=1 in the Vercel project's env vars; leave
+ * it unset for dev/Docker builds. The optional chaining keeps node --test
+ * (which has no import.meta.env) working.
+ */
+const VERCEL_MANAGED_KEYS = import.meta.env?.VITE_VERCEL === '1';
+
+/**
  * The POWER UP surface — paste a key, get a power.
  *
  * A small chip sits bottom-right whenever the app is running under the dev
@@ -116,7 +126,9 @@ function buildRow(documentRef, key) {
   unlocks.textContent = key.unlocks;
 
   row.append(head, unlocks);
-  if (!external) {
+  // On Vercel the keys are dashboard-managed (read-only here): no paste
+  // fields, no per-row remove buttons — same as externally-supplied keys.
+  if (!external && !VERCEL_MANAGED_KEYS) {
     const fields = documentRef.createElement('div');
     fields.className = 'key-setup-fields';
     for (const envVar of key.envVars) {
@@ -386,6 +398,16 @@ export async function initKeySetup({
   });
 
   render(status);
+
+  if (VERCEL_MANAGED_KEYS) {
+    // Serverless: there is no .env to write and no server to restart, so the
+    // SAVE affordance goes away and the note points at the Vercel dashboard.
+    // Rows stay visible as a read-only "what's configured" report.
+    applyButton?.remove();
+    if (statusLine)
+      statusLine.textContent =
+        'Keys are managed in the Vercel dashboard — change them there and redeploy.';
+  }
 
   // Re-entry for a fully-keyed setup, demos, and support: ?setup=1 opens the
   // dialog even though the chip has retired.
