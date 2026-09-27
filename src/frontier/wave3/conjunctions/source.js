@@ -24,8 +24,8 @@ export function createConjunctionSource({
    * @returns {Promise<{events: object[], topByProbability: string[],
    *   count: number, fetchedAt: string|null, honesty: string|null}>}
    */
-  async function getConjunctions({ max = 40 } = {}) {
-    const url = `${base}?max=${encodeURIComponent(max)}`;
+  async function getConjunctions({ max = 40, enrich = false } = {}) {
+    const url = `${base}?max=${encodeURIComponent(max)}${enrich ? '&enrich=1' : ''}`;
     const payload = await fetchJson(fetchImpl, url);
     if (!payload || !Array.isArray(payload.events)) throw new Error('Malformed conjunctions proxy response');
     const events = [];

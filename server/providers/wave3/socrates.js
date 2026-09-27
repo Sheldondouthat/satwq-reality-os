@@ -230,8 +230,8 @@ export function parseSocratesCsv(text, maxEvents = MAX_EVENTS) {
 
 /** Mount the SOCRATES conjunction proxy. */
 export function socratesProxy() {
-  let cache = null; // { at, events }
-  let inflight = null;
+  const caches = { list: null, enriched: null }; // { at, events }
+  const inflight = { list: null, enriched: null };
 
   async function enrichTles(events) {
     const top = events.slice(0, TLE_ENRICH_TOP);
@@ -256,25 +256,32 @@ export function socratesProxy() {
     await Promise.all(Array.from({ length: CONCURRENCY }, worker));
   }
 
-  async function getEvents() {
+  async function getEvents({ enrich = false } = {}) {
+    // Separate caches: the fast list (no TLE) and the enriched theater feed.
+    // Cold isolates fetch the 256KB CSV head either way; TLE enrichment
+    // (12 upstream fetches) only runs when the caller opts in, so the
+    // default list endpoint stays fast and reliable on the edge.
+    const key = enrich ? 'enriched' : 'list';
     const nowMs = Date.now();
-    if (cache && nowMs - cache.at < CACHE_TTL_MS) return cache.events;
-    if (inflight) return inflight;
-    inflight = (async () => {
+    if (caches[key] && nowMs - caches[key].at < CACHE_TTL_MS) return caches[key].events;
+    if (inflight[key]) return inflight[key];
+    inflight[key] = (async () => {
       try {
         const text = await fetchText(CSV_URL, UPSTREAM_TIMEOUT_MS, true);
         const events = parseSocratesCsv(text, MAX_EVENTS);
-        try { await enrichTles(events); } catch { /* arcs degrade, list survives */ }
-        cache = { at: Date.now(), events };
+        if (enrich) {
+          try { await enrichTles(events); } catch { /* arcs degrade, list survives */ }
+        }
+        caches[key] = { at: Date.now(), events };
         return events;
       } catch (error) {
-        if (cache) return cache.events;
+        if (caches[key]) return caches[key].events;
         throw error;
       } finally {
-        inflight = null;
+        inflight[key] = null;
       }
     })();
-    return inflight;
+    return inflight[key];
   }
 
   function sendJson(res, status, body) {
@@ -288,21 +295,24 @@ export function socratesProxy() {
   async function handler(req, res) {
     if (req.method !== 'GET') return sendJson(res, 405, { error: 'method_not_allowed' });
     let max = MAX_EVENTS;
+    let enrich = false;
     try {
       const parsed = new URL(req.url, 'http://localhost');
       const m = parsed.searchParams.get('max');
       if (m !== null) max = Math.min(MAX_EVENTS, Math.max(1, Math.floor(Number(m) || MAX_EVENTS)));
+      enrich = parsed.searchParams.get('enrich') === '1';
     } catch {
       return sendJson(res, 400, { error: 'conjunctions_bad_request' });
     }
     try {
-      const events = (await getEvents()).slice(0, max);
+      const key = enrich ? 'enriched' : 'list';
+      const events = (await getEvents({ enrich })).slice(0, max);
       const byProb = [...events].sort((a, b) => b.maxProb - a.maxProb).slice(0, 10).map((e) => e.id);
       sendJson(res, 200, {
         events,
         topByProbability: byProb,
         count: events.length,
-        fetchedAt: new Date(cache.at).toISOString(),
+        fetchedAt: new Date(caches[key].at).toISOString(),
         upstream: CSV_URL,
         honesty: HONESTY,
       });

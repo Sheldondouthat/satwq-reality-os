@@ -111,7 +111,7 @@ export function createConjunctionLayer({ source } = {}) {
 
   async function refresh() {
     try {
-      const snap = await source.getConjunctions({ max: 40 });
+      const snap = await source.getConjunctions({ max: 40, enrich: true });
       lastEvents = snap.events;
       if (enabled) draw(lastEvents);
       return { ok: true, count: lastEvents.length };
