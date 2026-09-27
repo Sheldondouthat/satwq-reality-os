@@ -36,10 +36,8 @@ import { nwisGaugesProxy } from './wave3/nwisGauges.js';
 import { nwpsProxy } from './wave3/nwps.js';
 import { sensorCommunityProxy } from './wave3/sensorCommunity.js';
 import { swpcProxy } from './wave3/swpc.js';
-import { donkiProxy } from './wave3/donki.js';
 import { nwsAlertsProxy } from './wave3/nwsAlerts.js';
 import { sigmetsProxy } from './wave3/sigmets.js';
-import { radiationProxy } from './wave3/radiation.js';
 import { dartCouplingProxy } from './wave3/dart.js';
 import { wxstationsProxy } from './wave5/wxstations.js';
 import { timeProxy } from './wave5/time.js';
@@ -59,8 +57,39 @@ import { certsProxy } from './wave5/certs.js';
 import { civicProxy } from './wave5/civic.js';
 import { researchProxy } from './wave5/research.js';
 import { biosphereProxy } from './wave5/biosphere.js';
+import { pskreporterProxy } from './wave6/pskreporter.js';
+import { sondesProxy } from './wave6/sondes.js';
+import { glidersProxy } from './wave6/gliders.js';
+import { frequenciesProxy } from './wave6/frequencies.js';
+import { hamSpaceProxy } from './wave6/ham-space.js';
+import { aircraftProxy } from './wave6/aircraft.js';
+import { shipsProxy } from './wave6/ships.js';
+import { buoysProxy } from './wave6/buoys.js';
+import { tidesProxy } from './wave6/tides.js';
+import { radiationProxy } from './wave6/radiation.js';
+import { whalesProxy } from './wave6/whales.js';
+import { trainsProxy } from './wave6/trains.js';
+import { bikeshareProxy } from './wave6/bikeshare.js';
+import { donkiProxy } from './wave6/donki.js';
+import { launchesProxy } from './wave6/launches.js';
+import { meteorsProxy } from './wave6/meteors.js';
+import { cometsProxy } from './wave6/comets.js';
+import { dsnProxy } from './wave6/dsn.js';
+import { firesProxy } from './wave6/fires.js';
+import { disastersProxy } from './wave6/disasters.js';
+import { alertsProxy } from './wave6/alerts.js';
+import { solarImgProxy } from './wave6/solarImg.js';
+import { auroraCamsProxy } from './wave6/auroraCams.js';
+import { volcanoCamsProxy } from './wave6/volcanoCams.js';
+import { magnetometersProxy } from './wave6/magnetometers.js';
+import { birdcastProxy } from './wave6/birdcast.js';
+import { coralProxy } from './wave6/coral.js';
+import { ripestatProxy } from './wave6/ripestat.js';
+import { lightningProxy } from './wave6/lightning.js';
+import { stationsExtProxy } from './wave6/stationsExt.js';
+import { knowledgeProxy } from './wave6/knowledge.js';
+import { sportsProxy } from './wave6/sports.js';
 import { waterTwinProxy } from './wave3/waterTwin.js';
-import { ripestatProxy } from './wave3/ripestat.js';
 import { feodoProxy } from './wave3/feodo.js';
 import { gdeltProxy } from './wave3/gdelt.js';
 import { gmnProxy } from './wave3/gmn.js';
@@ -147,6 +176,38 @@ function localProviderPlugins() {
     civicProxy(),
     researchProxy(),
     biosphereProxy(),
+    pskreporterProxy(),
+    sondesProxy(),
+    glidersProxy(),
+    frequenciesProxy(),
+    hamSpaceProxy(),
+    aircraftProxy(),
+    shipsProxy(),
+    buoysProxy(),
+    tidesProxy(),
+
+    whalesProxy(),
+    trainsProxy(),
+    bikeshareProxy(),
+
+    launchesProxy(),
+    meteorsProxy(),
+    cometsProxy(),
+    dsnProxy(),
+    firesProxy(),
+    disastersProxy(),
+    alertsProxy(),
+    solarImgProxy(),
+    auroraCamsProxy(),
+    volcanoCamsProxy(),
+    magnetometersProxy(),
+    birdcastProxy(),
+    coralProxy(),
+
+    lightningProxy(),
+    stationsExtProxy(),
+    knowledgeProxy(),
+    sportsProxy(),
     keySetupEndpoint(),
   ];
 }

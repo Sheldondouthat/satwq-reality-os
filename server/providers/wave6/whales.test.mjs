@@ -2,7 +2,14 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import { whalesProxy, _whalesInternals } from './whales.js';
 
-const { detectionArray, normalizeSpecies, trimDetection, trimPlatform, buildSnapshot, clearCaches } = _whalesInternals;
+const {
+  detectionArray,
+  normalizeSpecies,
+  trimDetection,
+  trimPlatform,
+  buildSnapshot,
+  clearCaches,
+} = _whalesInternals;
 
 // Fixtures are SYNTHETIC, labeled as such: robots4whales.whoi.edu timed out
 // from the build VM on 2026-09-27 (curl 000 both endpoints; VM-throttled,
@@ -11,18 +18,73 @@ const { detectionArray, normalizeSpecies, trimDetection, trimPlatform, buildSnap
 // WordPress REST conventions.
 
 const DETECTIONS_FIXTURE = [
-  { platform: 'NY Bight buoy', datetime: '2026-09-27T10:28:30Z', lat: 40.45, lon: -73.82, analyst: 'Dr. Baumgartner', species: 'North Atlantic right whale' },
-  { platform: 'Outer Fall glider', datetime: '2026-09-27T09:11:02Z', lat: 43.2, lon: -70.1, analyst: 'auto', species: 'humpback' },
-  { platform: 'Outer Fall glider', datetime: '2026-09-27T08:45:00Z', lat: 43.2, lon: -70.1, analyst: 'auto', species: 'fin' },
-  { platform: 'No species row', datetime: '2026-09-27T08:00:00Z', lat: 43.2, lon: -70.1, analyst: 'auto' }, // filtered
-  { platform: 'No coords row', datetime: '2026-09-27T07:00:00Z', species: 'blue', analyst: 'auto' }, // filtered
+  {
+    platform: 'NY Bight buoy',
+    datetime: '2026-09-27T10:28:30Z',
+    lat: 40.45,
+    lon: -73.82,
+    analyst: 'Dr. Baumgartner',
+    species: 'North Atlantic right whale',
+  },
+  {
+    platform: 'Outer Fall glider',
+    datetime: '2026-09-27T09:11:02Z',
+    lat: 43.2,
+    lon: -70.1,
+    analyst: 'auto',
+    species: 'humpback',
+  },
+  {
+    platform: 'Outer Fall glider',
+    datetime: '2026-09-27T08:45:00Z',
+    lat: 43.2,
+    lon: -70.1,
+    analyst: 'auto',
+    species: 'fin',
+  },
+  {
+    platform: 'No species row',
+    datetime: '2026-09-27T08:00:00Z',
+    lat: 43.2,
+    lon: -70.1,
+    analyst: 'auto',
+  }, // filtered
+  {
+    platform: 'No coords row',
+    datetime: '2026-09-27T07:00:00Z',
+    species: 'blue',
+    analyst: 'auto',
+  }, // filtered
 ];
 
-const DETECTIONS_WRAPPED = { data: [{ platform: 'w1', date: '2026-09-26T12:00:00Z', latitude: 41.0, longitude: -71.5, species: 'sei', analyst: 'rev' }] };
+const DETECTIONS_WRAPPED = {
+  data: [
+    {
+      platform: 'w1',
+      date: '2026-09-26T12:00:00Z',
+      latitude: 41.0,
+      longitude: -71.5,
+      species: 'sei',
+      analyst: 'rev',
+    },
+  ],
+};
 
 const PLATFORMS_FIXTURE = [
-  { id: 'buoy-1', name: 'NY Bight', type: 'moored buoy', lat: 40.45, lon: -73.82 },
-  { id: 'glider-7', name: 'Outer Fall glider', type: 'slocum glider', lat: 43.2, lon: -70.1 },
+  {
+    id: 'buoy-1',
+    name: 'NY Bight',
+    type: 'moored buoy',
+    lat: 40.45,
+    lon: -73.82,
+  },
+  {
+    id: 'glider-7',
+    name: 'Outer Fall glider',
+    type: 'slocum glider',
+    lat: 43.2,
+    lon: -70.1,
+  },
 ];
 
 function fakeRes() {
@@ -30,8 +92,14 @@ function fakeRes() {
   const res = {
     statusCode: null,
     headers: {},
-    writeHead(status, headers) { res.statusCode = status; res.headers = headers; },
-    end(body) { chunks.push(body); res.body = chunks.join(''); },
+    writeHead(status, headers) {
+      res.statusCode = status;
+      res.headers = headers;
+    },
+    end(body) {
+      chunks.push(body);
+      res.body = chunks.join('');
+    },
   };
   return res;
 }
@@ -42,8 +110,12 @@ function fakeReq(url, method = 'GET') {
 
 function mount(provider) {
   const calls = [];
-  provider.configureServer({ middlewares: { use: (route, handler) => calls.push({ route, handler }) } });
-  provider.configurePreviewServer({ middlewares: { use: (route, handler) => calls.push({ route, handler }) } });
+  provider.configureServer({
+    middlewares: { use: (route, handler) => calls.push({ route, handler }) },
+  });
+  provider.configurePreviewServer({
+    middlewares: { use: (route, handler) => calls.push({ route, handler }) },
+  });
   return calls;
 }
 
@@ -94,8 +166,20 @@ test('trimPlatform maps buoy metadata, filters coordless', () => {
 
 test('buildSnapshot sorts newest-first and counts species', () => {
   const snap = buildSnapshot([
-    { key: 'detections', ok: true, count: 3, latencyMs: 5, items: DETECTIONS_FIXTURE.map(trimDetection).filter(Boolean) },
-    { key: 'platforms', ok: true, count: 2, latencyMs: 5, items: PLATFORMS_FIXTURE.map(trimPlatform).filter(Boolean) },
+    {
+      key: 'detections',
+      ok: true,
+      count: 3,
+      latencyMs: 5,
+      items: DETECTIONS_FIXTURE.map(trimDetection).filter(Boolean),
+    },
+    {
+      key: 'platforms',
+      ok: true,
+      count: 2,
+      latencyMs: 5,
+      items: PLATFORMS_FIXTURE.map(trimPlatform).filter(Boolean),
+    },
   ]);
   assert.equal(snap.count, 3);
   assert.equal(snap.platformCount, 2);
@@ -106,8 +190,21 @@ test('buildSnapshot sorts newest-first and counts species', () => {
 
 test('buildSnapshot degrades honestly when platforms fail', () => {
   const snap = buildSnapshot([
-    { key: 'detections', ok: true, count: 1, latencyMs: 5, items: [trimDetection(DETECTIONS_FIXTURE[0])] },
-    { key: 'platforms', ok: false, count: 0, latencyMs: 5, error: 'whales_upstream_503', items: [] },
+    {
+      key: 'detections',
+      ok: true,
+      count: 1,
+      latencyMs: 5,
+      items: [trimDetection(DETECTIONS_FIXTURE[0])],
+    },
+    {
+      key: 'platforms',
+      ok: false,
+      count: 0,
+      latencyMs: 5,
+      error: 'whales_upstream_503',
+      items: [],
+    },
   ]);
   assert.equal(snap.count, 1);
   assert.equal(snap.platforms.length, 0);
@@ -125,8 +222,13 @@ test('provider mounts /api/whales and rejects non-GET', async () => {
 test('handler returns 200 on live-shaped fixture bodies', async () => {
   const realFetch = globalThis.fetch;
   globalThis.fetch = async (url) => {
-    const body = String(url).includes('platforms') ? PLATFORMS_FIXTURE : DETECTIONS_FIXTURE;
-    return new Response(JSON.stringify(body), { status: 200, headers: { 'Content-Type': 'application/json' } });
+    const body = String(url).includes('platforms')
+      ? PLATFORMS_FIXTURE
+      : DETECTIONS_FIXTURE;
+    return new Response(JSON.stringify(body), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' },
+    });
   };
   try {
     clearCaches();

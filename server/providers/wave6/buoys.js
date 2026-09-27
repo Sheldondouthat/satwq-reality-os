@@ -59,10 +59,14 @@ async function fetchTextCapped(url) {
       headers: { 'User-Agent': USER_AGENT, Accept: 'text/plain' },
     });
     if (!response.ok)
-      throw Object.assign(new Error(`buoys_upstream_${response.status}`), { status: 502 });
+      throw Object.assign(new Error(`buoys_upstream_${response.status}`), {
+        status: 502,
+      });
     const buffer = await response.arrayBuffer();
     if (buffer.byteLength > BODY_CAP_BYTES)
-      throw Object.assign(new Error('buoys_upstream_too_large'), { status: 502 });
+      throw Object.assign(new Error('buoys_upstream_too_large'), {
+        status: 502,
+      });
     return new TextDecoder().decode(buffer);
   } finally {
     clearTimeout(timeout);
@@ -84,9 +88,16 @@ export function parseBuoyRow(fields) {
   const day = Number(fields[5]);
   const hr = Number(fields[6]);
   const mn = Number(fields[7]);
-  const timeMs = Number.isFinite(yr) && Number.isFinite(mo) && Number.isFinite(day)
-    ? Date.UTC(yr, mo - 1, day, Number.isFinite(hr) ? hr : 0, Number.isFinite(mn) ? mn : 0)
-    : NaN;
+  const timeMs =
+    Number.isFinite(yr) && Number.isFinite(mo) && Number.isFinite(day)
+      ? Date.UTC(
+          yr,
+          mo - 1,
+          day,
+          Number.isFinite(hr) ? hr : 0,
+          Number.isFinite(mn) ? mn : 0,
+        )
+      : NaN;
   return {
     id,
     lat: roundNum(lat),
@@ -136,7 +147,8 @@ function clampLimit(raw) {
 
 async function getSnapshot(limit) {
   const now = Date.now();
-  if (cache && cache.key === limit && now - cache.at < CACHE_TTL_MS) return cache.payload;
+  if (cache && cache.key === limit && now - cache.at < CACHE_TTL_MS)
+    return cache.payload;
   if (!inflight) {
     inflight = fetchTextCapped(UPSTREAM_URL)
       .then((text) => {
@@ -162,16 +174,29 @@ function sendJson(res, status, body, cacheControl = 'public, max-age=1500') {
 /** Mount the NDBC buoys proxy. Mirrors the wave-5 provider shape. */
 export function buoysProxy() {
   async function handler(req, res) {
-    if (req.method !== 'GET') return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
     try {
       const url = new URL(req.url ?? '/api/buoys', 'http://localhost');
-      sendJson(res, 200, await getSnapshot(clampLimit(url.searchParams.get('limit'))));
+      sendJson(
+        res,
+        200,
+        await getSnapshot(clampLimit(url.searchParams.get('limit'))),
+      );
     } catch (error) {
-      const upstreamFail = error?.status === 502 || error?.name === 'AbortError' || /aborted?/i.test(error?.message ?? '');
-      sendJson(res, upstreamFail ? 502 : 500, {
-        error: 'buoys_unavailable',
-        detail: error?.message ?? 'unknown',
-      }, 'no-store');
+      const upstreamFail =
+        error?.status === 502 ||
+        error?.name === 'AbortError' ||
+        /aborted?/i.test(error?.message ?? '');
+      sendJson(
+        res,
+        upstreamFail ? 502 : 500,
+        {
+          error: 'buoys_unavailable',
+          detail: error?.message ?? 'unknown',
+        },
+        'no-store',
+      );
     }
   }
 
@@ -191,5 +216,8 @@ export const _buoysInternals = {
   trimBuoyPayload,
   numOrNull,
   clampLimit,
-  clearCaches: () => { cache = null; inflight = null; },
+  clearCaches: () => {
+    cache = null;
+    inflight = null;
+  },
 };

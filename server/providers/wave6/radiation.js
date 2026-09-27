@@ -78,7 +78,14 @@ function pickStr(obj, spellings) {
 export function stationArray(upstream) {
   if (Array.isArray(upstream)) return upstream;
   if (!upstream || typeof upstream !== 'object') return [];
-  for (const k of ['stations', 'markers', 'data', 'results', 'points', 'counters']) {
+  for (const k of [
+    'stations',
+    'markers',
+    'data',
+    'results',
+    'points',
+    'counters',
+  ]) {
     if (Array.isArray(upstream[k])) return upstream[k];
   }
   return [];
@@ -103,16 +110,31 @@ export function parseLenientJson(text) {
         // fall through to the honest error below
       }
     }
-    throw Object.assign(new Error(`radiation_unparseable_body: ${first?.message ?? 'unknown'}`), { status: 502 });
+    throw Object.assign(
+      new Error(`radiation_unparseable_body: ${first?.message ?? 'unknown'}`),
+      { status: 502 },
+    );
   }
 }
 
 export function trimCpmStation(row) {
   const lat = pickNum(row, ['lat', 'Lat', 'LAT', 'latitude', 'Latitude']);
-  const lon = pickNum(row, ['lng', 'Lng', 'LNG', 'lon', 'Lon', 'LON', 'long', 'longitude', 'Longitude']);
+  const lon = pickNum(row, [
+    'lng',
+    'Lng',
+    'LNG',
+    'lon',
+    'Lon',
+    'LON',
+    'long',
+    'longitude',
+    'Longitude',
+  ]);
   if (!isFiniteNum(lat) || !isFiniteNum(lon)) return null;
   const cpm = pickNum(row, ['CPM', 'cpm', 'Cpm']);
-  const id = pickStr(row, ['Id', 'id', 'ID', 'stationId', 'StationId', 'name']) ?? `${lat},${lon}`;
+  const id =
+    pickStr(row, ['Id', 'id', 'ID', 'stationId', 'StationId', 'name']) ??
+    `${lat},${lon}`;
   return {
     id: id.slice(0, 120),
     name: pickStr(row, ['Name', 'name', 'title']),
@@ -120,18 +142,33 @@ export function trimCpmStation(row) {
     lon: roundNum(lon),
     cpm,
     usvPerHour: pickNum(row, ['uSv', 'uSvH', 'usvh', 'usv', 'uSv_h', 'dose']),
-    alert: pickStr(row, ['alert', 'Alert', 'alarm']) != null
-      ? /^(1|true|yes|alert|alarm)$/i.test(String(pickStr(row, ['alert', 'Alert', 'alarm'])))
-      : null,
+    alert:
+      pickStr(row, ['alert', 'Alert', 'alarm']) != null
+        ? /^(1|true|yes|alert|alarm)$/i.test(
+            String(pickStr(row, ['alert', 'Alert', 'alarm'])),
+          )
+        : null,
     time: pickStr(row, ['time', 'Time', 'timestamp', 'date', 'lastUpdate']),
   };
 }
 
 export function trimRadonStation(row) {
   const lat = pickNum(row, ['lat', 'Lat', 'LAT', 'latitude', 'Latitude']);
-  const lon = pickNum(row, ['lng', 'Lng', 'LNG', 'lon', 'Lon', 'LON', 'long', 'longitude', 'Longitude']);
+  const lon = pickNum(row, [
+    'lng',
+    'Lng',
+    'LNG',
+    'lon',
+    'Lon',
+    'LON',
+    'long',
+    'longitude',
+    'Longitude',
+  ]);
   if (!isFiniteNum(lat) || !isFiniteNum(lon)) return null;
-  const id = pickStr(row, ['Id', 'id', 'ID', 'stationId', 'StationId', 'name']) ?? `${lat},${lon}`;
+  const id =
+    pickStr(row, ['Id', 'id', 'ID', 'stationId', 'StationId', 'name']) ??
+    `${lat},${lon}`;
   return {
     id: id.slice(0, 120),
     name: pickStr(row, ['Name', 'name', 'title']),
@@ -150,13 +187,20 @@ async function fetchTextCapped(url) {
     const response = await fetch(url, {
       signal: controller.signal,
       redirect: 'follow',
-      headers: { 'User-Agent': USER_AGENT, Accept: 'application/json, text/plain' },
+      headers: {
+        'User-Agent': USER_AGENT,
+        Accept: 'application/json, text/plain',
+      },
     });
     if (!response.ok)
-      throw Object.assign(new Error(`radiation_upstream_${response.status}`), { status: 502 });
+      throw Object.assign(new Error(`radiation_upstream_${response.status}`), {
+        status: 502,
+      });
     const buffer = await response.arrayBuffer();
     if (buffer.byteLength > BODY_CAP_BYTES)
-      throw Object.assign(new Error('radiation_upstream_too_large'), { status: 502 });
+      throw Object.assign(new Error('radiation_upstream_too_large'), {
+        status: 502,
+      });
     return new TextDecoder().decode(buffer);
   } finally {
     clearTimeout(timeout);
@@ -172,7 +216,13 @@ async function fetchOneSource({ key, url, trim }) {
       .map(trim)
       .filter(Boolean)
       .slice(0, MAX_STATIONS);
-    return { key, ok: true, count: stations.length, latencyMs: Date.now() - started, stations };
+    return {
+      key,
+      ok: true,
+      count: stations.length,
+      latencyMs: Date.now() - started,
+      stations,
+    };
   } catch (error) {
     return {
       key,
@@ -206,7 +256,8 @@ function buildSnapshot(results) {
     radonCount: radonStations.length,
     stations,
     radonStations,
-    attribution: 'gmcmap.com Geiger-counter network (volunteer stations, keyless)',
+    attribution:
+      'gmcmap.com Geiger-counter network (volunteer stations, keyless)',
   };
 }
 
@@ -222,7 +273,10 @@ async function getSnapshot() {
       .then((results) => {
         if (!results.some((r) => r.ok)) {
           const detail = results.map((r) => `${r.key}:${r.error}`).join('; ');
-          throw Object.assign(new Error(`radiation_all_upstream_down: ${detail}`), { status: 502 });
+          throw Object.assign(
+            new Error(`radiation_all_upstream_down: ${detail}`),
+            { status: 502 },
+          );
         }
         const payload = buildSnapshot(results);
         cache = { at: Date.now(), payload };
@@ -246,15 +300,24 @@ function sendJson(res, status, body, cacheControl = 'public, max-age=600') {
 /** Mount the gmcmap radiation proxy. Mirrors the wave-5 provider shape. */
 export function radiationProxy() {
   async function handler(req, res) {
-    if (req.method !== 'GET') return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
     try {
       sendJson(res, 200, await getSnapshot());
     } catch (error) {
-      const upstreamFail = error?.status === 502 || error?.name === 'AbortError' || /aborted?/i.test(error?.message ?? '');
-      sendJson(res, upstreamFail ? 502 : 500, {
-        error: 'radiation_unavailable',
-        detail: error?.message ?? 'unknown',
-      }, 'no-store');
+      const upstreamFail =
+        error?.status === 502 ||
+        error?.name === 'AbortError' ||
+        /aborted?/i.test(error?.message ?? '');
+      sendJson(
+        res,
+        upstreamFail ? 502 : 500,
+        {
+          error: 'radiation_unavailable',
+          detail: error?.message ?? 'unknown',
+        },
+        'no-store',
+      );
     }
   }
 
@@ -275,5 +338,8 @@ export const _radiationInternals = {
   trimCpmStation,
   trimRadonStation,
   buildSnapshot,
-  clearCaches: () => { cache = null; inflight = null; },
+  clearCaches: () => {
+    cache = null;
+    inflight = null;
+  },
 };

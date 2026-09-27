@@ -32,7 +32,8 @@
  * Worker probe.
  */
 
-const DETECTIONS_URL = 'https://robots4whales.whoi.edu/wp-json/r4w/v1/species-detections';
+const DETECTIONS_URL =
+  'https://robots4whales.whoi.edu/wp-json/r4w/v1/species-detections';
 const PLATFORMS_URL = 'https://robots4whales.whoi.edu/wp-json/r4w/v1/platforms';
 const UPSTREAM_TIMEOUT_MS = 20_000;
 const BODY_CAP_BYTES = 2 * 1024 * 1024;
@@ -93,7 +94,9 @@ export function detectionArray(upstream) {
 const KNOWN_SPECIES = ['blue', 'fin', 'humpback', 'sei', 'right'];
 
 export function normalizeSpecies(raw) {
-  const s = String(raw ?? '').toLowerCase().trim();
+  const s = String(raw ?? '')
+    .toLowerCase()
+    .trim();
   if (!s) return null;
   if (KNOWN_SPECIES.includes(s)) return s;
   if (s.includes('right whale')) return 'right';
@@ -106,30 +109,73 @@ export function normalizeSpecies(raw) {
 
 export function trimDetection(row) {
   const lat = pickNum(row, ['lat', 'Lat', 'LAT', 'latitude', 'Latitude']);
-  const lon = pickNum(row, ['lon', 'Lon', 'LON', 'lng', 'Lng', 'longitude', 'Longitude']);
+  const lon = pickNum(row, [
+    'lon',
+    'Lon',
+    'LON',
+    'lng',
+    'Lng',
+    'longitude',
+    'Longitude',
+  ]);
   if (!isFiniteNum(lat) || !isFiniteNum(lon)) return null;
-  const speciesRaw = pickStr(row, ['species', 'Species', 'SPECIES', 'commonName', 'name']);
-  const datetimeRaw = pickStr(row, ['datetime', 'date', 'Date', 'time', 'timestamp', 'detectionDate', 'created']);
+  const speciesRaw = pickStr(row, [
+    'species',
+    'Species',
+    'SPECIES',
+    'commonName',
+    'name',
+  ]);
+  const datetimeRaw = pickStr(row, [
+    'datetime',
+    'date',
+    'Date',
+    'time',
+    'timestamp',
+    'detectionDate',
+    'created',
+  ]);
   const timeMs = datetimeRaw ? Date.parse(datetimeRaw) : NaN;
   const species = normalizeSpecies(speciesRaw);
   if (!species) return null;
   return {
-    platform: pickStr(row, ['platform', 'Platform', 'station', 'buoy', 'glider', 'unit']),
+    platform: pickStr(row, [
+      'platform',
+      'Platform',
+      'station',
+      'buoy',
+      'glider',
+      'unit',
+    ]),
     species,
     speciesRaw: speciesRaw ? speciesRaw.slice(0, 80) : null,
     lat: roundNum(lat),
     lon: roundNum(lon),
-    datetime: Number.isFinite(timeMs) ? new Date(timeMs).toISOString() : (datetimeRaw ? datetimeRaw.slice(0, 80) : null),
+    datetime: Number.isFinite(timeMs)
+      ? new Date(timeMs).toISOString()
+      : datetimeRaw
+        ? datetimeRaw.slice(0, 80)
+        : null,
     analyst: pickStr(row, ['analyst', 'Analyst', 'analystName', 'reviewer']),
   };
 }
 
 export function trimPlatform(row) {
   const lat = pickNum(row, ['lat', 'Lat', 'LAT', 'latitude', 'Latitude']);
-  const lon = pickNum(row, ['lon', 'Lon', 'LON', 'lng', 'Lng', 'longitude', 'Longitude']);
+  const lon = pickNum(row, [
+    'lon',
+    'Lon',
+    'LON',
+    'lng',
+    'Lng',
+    'longitude',
+    'Longitude',
+  ]);
   if (!isFiniteNum(lat) || !isFiniteNum(lon)) return null;
   return {
-    id: (pickStr(row, ['id', 'Id', 'ID', 'platform', 'name']) ?? `${lat},${lon}`).slice(0, 120),
+    id: (
+      pickStr(row, ['id', 'Id', 'ID', 'platform', 'name']) ?? `${lat},${lon}`
+    ).slice(0, 120),
     name: pickStr(row, ['name', 'Name', 'title', 'platform']),
     type: pickStr(row, ['type', 'Type', 'platformType', 'kind']),
     lat: roundNum(lat),
@@ -147,10 +193,14 @@ async function fetchJsonCapped(url) {
       headers: { 'User-Agent': USER_AGENT, Accept: 'application/json' },
     });
     if (!response.ok)
-      throw Object.assign(new Error(`whales_upstream_${response.status}`), { status: 502 });
+      throw Object.assign(new Error(`whales_upstream_${response.status}`), {
+        status: 502,
+      });
     const buffer = await response.arrayBuffer();
     if (buffer.byteLength > BODY_CAP_BYTES)
-      throw Object.assign(new Error('whales_upstream_too_large'), { status: 502 });
+      throw Object.assign(new Error('whales_upstream_too_large'), {
+        status: 502,
+      });
     return JSON.parse(new TextDecoder().decode(buffer));
   } finally {
     clearTimeout(timeout);
@@ -165,7 +215,13 @@ async function fetchOneSource({ key, url, trim }) {
       .map(trim)
       .filter(Boolean)
       .slice(0, MAX_DETECTIONS);
-    return { key, ok: true, count: items.length, latencyMs: Date.now() - started, items };
+    return {
+      key,
+      ok: true,
+      count: items.length,
+      latencyMs: Date.now() - started,
+      items,
+    };
   } catch (error) {
     return {
       key,
@@ -201,7 +257,8 @@ function buildSnapshot(results) {
     return 0;
   });
   const speciesCounts = {};
-  for (const d of detections) speciesCounts[d.species] = (speciesCounts[d.species] ?? 0) + 1;
+  for (const d of detections)
+    speciesCounts[d.species] = (speciesCounts[d.species] ?? 0) + 1;
   return {
     generatedAt: new Date().toISOString(),
     sources,
@@ -210,7 +267,8 @@ function buildSnapshot(results) {
     speciesCounts,
     detections,
     platforms,
-    attribution: 'robots4whales / Woods Hole Oceanographic Institution (near real-time acoustic detections, keyless)',
+    attribution:
+      'robots4whales / Woods Hole Oceanographic Institution (near real-time acoustic detections, keyless)',
   };
 }
 
@@ -226,7 +284,10 @@ async function getSnapshot() {
       .then((results) => {
         if (!results.some((r) => r.ok)) {
           const detail = results.map((r) => `${r.key}:${r.error}`).join('; ');
-          throw Object.assign(new Error(`whales_all_upstream_down: ${detail}`), { status: 502 });
+          throw Object.assign(
+            new Error(`whales_all_upstream_down: ${detail}`),
+            { status: 502 },
+          );
         }
         const payload = buildSnapshot(results);
         cache = { at: Date.now(), payload };
@@ -250,15 +311,24 @@ function sendJson(res, status, body, cacheControl = 'public, max-age=1500') {
 /** Mount the robots4whales proxy. Mirrors the wave-5 provider shape. */
 export function whalesProxy() {
   async function handler(req, res) {
-    if (req.method !== 'GET') return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
     try {
       sendJson(res, 200, await getSnapshot());
     } catch (error) {
-      const upstreamFail = error?.status === 502 || error?.name === 'AbortError' || /aborted?/i.test(error?.message ?? '');
-      sendJson(res, upstreamFail ? 502 : 500, {
-        error: 'whales_unavailable',
-        detail: error?.message ?? 'unknown',
-      }, 'no-store');
+      const upstreamFail =
+        error?.status === 502 ||
+        error?.name === 'AbortError' ||
+        /aborted?/i.test(error?.message ?? '');
+      sendJson(
+        res,
+        upstreamFail ? 502 : 500,
+        {
+          error: 'whales_unavailable',
+          detail: error?.message ?? 'unknown',
+        },
+        'no-store',
+      );
     }
   }
 
@@ -279,5 +349,8 @@ export const _whalesInternals = {
   trimDetection,
   trimPlatform,
   buildSnapshot,
-  clearCaches: () => { cache = null; inflight = null; },
+  clearCaches: () => {
+    cache = null;
+    inflight = null;
+  },
 };

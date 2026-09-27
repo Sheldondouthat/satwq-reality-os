@@ -175,11 +175,6 @@ const REGISTRY = [
     load: () => import('../providers/vaac.js').then((m) => m.vaacProxy()),
   },
   {
-    name: 'ripestat',
-    routes: ['/api/ripestat'],
-    load: () => import('../providers/wave3/ripestat.js').then((m) => m.ripestatProxy()),
-  },
-  {
     name: 'feodo',
     routes: ['/api/feodo'],
     load: () => import('../providers/wave3/feodo.js').then((m) => m.feodoProxy()),
@@ -265,11 +260,6 @@ const REGISTRY = [
     load: () => import('../providers/wave3/swpc.js').then((m) => m.swpcProxy()),
   },
   {
-    name: 'donki',
-    routes: ['/api/donki'],
-    load: () => import('../providers/wave3/donki.js').then((m) => m.donkiProxy()),
-  },
-  {
     name: 'nws-alerts',
     routes: ['/api/nws-alerts'],
     load: () => import('../providers/wave3/nwsAlerts.js').then((m) => m.nwsAlertsProxy()),
@@ -278,11 +268,6 @@ const REGISTRY = [
     name: 'sigmets',
     routes: ['/api/sigmets', '/api/airports/metar', '/api/airports/taf'],
     load: () => import('../providers/wave3/sigmets.js').then((m) => m.sigmetsProxy()),
-  },
-  {
-    name: 'radiation',
-    routes: ['/api/radiation'],
-    load: () => import('../providers/wave3/radiation.js').then((m) => m.radiationProxy()),
   },
   {
     name: 'dart-coupling',
@@ -383,6 +368,151 @@ const REGISTRY = [
     name: 'biosphere',
     routes: ['/api/biosphere'],
     load: () => import('../providers/wave5/biosphere.js').then((m) => m.biosphereProxy()),
+  },
+  {
+    name: 'pskreporter',
+    routes: ['/api/pskreporter'],
+    load: () => import('../providers/wave6/pskreporter.js').then((m) => m.pskreporterProxy()),
+  },
+  {
+    name: 'sondes',
+    routes: ['/api/sondes'],
+    load: () => import('../providers/wave6/sondes.js').then((m) => m.sondesProxy()),
+  },
+  {
+    name: 'gliders',
+    routes: ['/api/gliders'],
+    load: () => import('../providers/wave6/gliders.js').then((m) => m.glidersProxy()),
+  },
+  {
+    name: 'frequencies',
+    routes: ['/api/frequencies'],
+    load: () => import('../providers/wave6/frequencies.js').then((m) => m.frequenciesProxy()),
+  },
+  {
+    name: 'ham-space',
+    routes: ['/api/ham-space'],
+    load: () => import('../providers/wave6/ham-space.js').then((m) => m.hamSpaceProxy()),
+  },
+  {
+    name: 'aircraft',
+    routes: ['/api/aircraft'],
+    load: () => import('../providers/wave6/aircraft.js').then((m) => m.aircraftProxy()),
+  },
+  {
+    name: 'ships',
+    routes: ['/api/ships'],
+    load: () => import('../providers/wave6/ships.js').then((m) => m.shipsProxy()),
+  },
+  {
+    name: 'buoys',
+    routes: ['/api/buoys'],
+    load: () => import('../providers/wave6/buoys.js').then((m) => m.buoysProxy()),
+  },
+  {
+    name: 'tides',
+    routes: ['/api/tides'],
+    load: () => import('../providers/wave6/tides.js').then((m) => m.tidesProxy()),
+  },
+  {
+    name: 'whales',
+    routes: ['/api/whales'],
+    load: () => import('../providers/wave6/whales.js').then((m) => m.whalesProxy()),
+  },
+  {
+    name: 'trains',
+    routes: ['/api/trains'],
+    load: () => import('../providers/wave6/trains.js').then((m) => m.trainsProxy()),
+  },
+  {
+    name: 'bikeshare',
+    routes: ['/api/bikeshare'],
+    load: () => import('../providers/wave6/bikeshare.js').then((m) => m.bikeshareProxy()),
+  },
+  {
+    name: 'launches',
+    routes: ['/api/launches'],
+    load: () => import('../providers/wave6/launches.js').then((m) => m.launchesProxy()),
+  },
+  {
+    name: 'meteors',
+    routes: ['/api/meteors'],
+    load: () => import('../providers/wave6/meteors.js').then((m) => m.meteorsProxy()),
+  },
+  {
+    name: 'comets',
+    routes: ['/api/comets'],
+    load: () => import('../providers/wave6/comets.js').then((m) => m.cometsProxy()),
+  },
+  {
+    name: 'dsn',
+    routes: ['/api/dsn'],
+    load: () => import('../providers/wave6/dsn.js').then((m) => m.dsnProxy()),
+  },
+  {
+    name: 'fires',
+    routes: ['/api/fires'],
+    load: () => import('../providers/wave6/fires.js').then((m) => m.firesProxy()),
+  },
+  {
+    name: 'disasters',
+    routes: ['/api/disasters'],
+    load: () => import('../providers/wave6/disasters.js').then((m) => m.disastersProxy()),
+  },
+  {
+    name: 'alerts',
+    routes: ['/api/alerts'],
+    load: () => import('../providers/wave6/alerts.js').then((m) => m.alertsProxy()),
+  },
+  {
+    name: 'solar-img',
+    routes: ['/api/solar-img'],
+    load: () => import('../providers/wave6/solarImg.js').then((m) => m.solarImgProxy()),
+  },
+  {
+    name: 'aurora-cams',
+    routes: ['/api/aurora-cams'],
+    load: () => import('../providers/wave6/auroraCams.js').then((m) => m.auroraCamsProxy()),
+  },
+  {
+    name: 'volcano-cams',
+    routes: ['/api/volcano-cams'],
+    load: () => import('../providers/wave6/volcanoCams.js').then((m) => m.volcanoCamsProxy()),
+  },
+  {
+    name: 'magnetometers',
+    routes: ['/api/magnetometers'],
+    load: () => import('../providers/wave6/magnetometers.js').then((m) => m.magnetometersProxy()),
+  },
+  {
+    name: 'birdcast',
+    routes: ['/api/birdcast'],
+    load: () => import('../providers/wave6/birdcast.js').then((m) => m.birdcastProxy()),
+  },
+  {
+    name: 'coral',
+    routes: ['/api/coral'],
+    load: () => import('../providers/wave6/coral.js').then((m) => m.coralProxy()),
+  },
+  {
+    name: 'lightning',
+    routes: ['/api/lightning'],
+    load: () => import('../providers/wave6/lightning.js').then((m) => m.lightningProxy()),
+  },
+  {
+    name: 'stations-ext',
+    routes: ['/api/stations-ext'],
+    load: () => import('../providers/wave6/stationsExt.js').then((m) => m.stationsExtProxy()),
+  },
+  {
+    name: 'knowledge',
+    routes: ['/api/knowledge'],
+    load: () => import('../providers/wave6/knowledge.js').then((m) => m.knowledgeProxy()),
+  },
+  {
+    name: 'sports',
+    routes: ['/api/sports'],
+    load: () => import('../providers/wave6/sports.js').then((m) => m.sportsProxy()),
   },
 ];
 

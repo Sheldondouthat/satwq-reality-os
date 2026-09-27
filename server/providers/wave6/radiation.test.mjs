@@ -2,7 +2,14 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import { radiationProxy, _radiationInternals } from './radiation.js';
 
-const { stationArray, parseLenientJson, trimCpmStation, trimRadonStation, buildSnapshot, clearCaches } = _radiationInternals;
+const {
+  stationArray,
+  parseLenientJson,
+  trimCpmStation,
+  trimRadonStation,
+  buildSnapshot,
+  clearCaches,
+} = _radiationInternals;
 
 // Fixtures are SYNTHETIC, labeled as such: gmcmap.com timed out from the
 // build VM on 2026-09-27 (curl 000 both endpoints; VM-throttled, needs a
@@ -11,20 +18,52 @@ const { stationArray, parseLenientJson, trimCpmStation, trimRadonStation, buildS
 
 // Bare-array shape, site-style key spellings.
 const CPM_ARRAY_FIXTURE = [
-  { Id: '101', Name: 'Test Station A', lat: '37.7749', lng: '-122.4194', CPM: '42', uSv: '0.12', time: '2026-09-27 20:00:00', alert: '0' },
-  { Id: '102', Name: 'Test Station B', lat: '40.7128', lng: '-74.0060', CPM: '310', uSv: '0.85', time: '2026-09-27 19:58:00', alert: '1' },
+  {
+    Id: '101',
+    Name: 'Test Station A',
+    lat: '37.7749',
+    lng: '-122.4194',
+    CPM: '42',
+    uSv: '0.12',
+    time: '2026-09-27 20:00:00',
+    alert: '0',
+  },
+  {
+    Id: '102',
+    Name: 'Test Station B',
+    lat: '40.7128',
+    lng: '-74.0060',
+    CPM: '310',
+    uSv: '0.85',
+    time: '2026-09-27 19:58:00',
+    alert: '1',
+  },
   { Id: '103', Name: 'No Coords', CPM: '20' }, // filtered: no lat/lon
 ];
 
 // Wrapped shape with alternate spellings.
 const CPM_WRAPPED_FIXTURE = {
   stations: [
-    { id: '201', name: 'Wrapped Station', latitude: 51.5, longitude: -0.12, cpm: 55 },
+    {
+      id: '201',
+      name: 'Wrapped Station',
+      latitude: 51.5,
+      longitude: -0.12,
+      cpm: 55,
+    },
   ],
 };
 
 const RADON_FIXTURE = [
-  { Id: 'r1', Name: 'Radon A', lat: '39.0', lng: '-105.5', pCi: '1.4', bq: '52', time: '2026-09-27 18:00:00' },
+  {
+    Id: 'r1',
+    Name: 'Radon A',
+    lat: '39.0',
+    lng: '-105.5',
+    pCi: '1.4',
+    bq: '52',
+    time: '2026-09-27 18:00:00',
+  },
 ];
 
 function fakeRes() {
@@ -32,8 +71,14 @@ function fakeRes() {
   const res = {
     statusCode: null,
     headers: {},
-    writeHead(status, headers) { res.statusCode = status; res.headers = headers; },
-    end(body) { chunks.push(body); res.body = chunks.join(''); },
+    writeHead(status, headers) {
+      res.statusCode = status;
+      res.headers = headers;
+    },
+    end(body) {
+      chunks.push(body);
+      res.body = chunks.join('');
+    },
   };
   return res;
 }
@@ -44,8 +89,12 @@ function fakeReq(url, method = 'GET') {
 
 function mount(provider) {
   const calls = [];
-  provider.configureServer({ middlewares: { use: (route, handler) => calls.push({ route, handler }) } });
-  provider.configurePreviewServer({ middlewares: { use: (route, handler) => calls.push({ route, handler }) } });
+  provider.configureServer({
+    middlewares: { use: (route, handler) => calls.push({ route, handler }) },
+  });
+  provider.configurePreviewServer({
+    middlewares: { use: (route, handler) => calls.push({ route, handler }) },
+  });
   return calls;
 }
 
@@ -62,7 +111,9 @@ test('parseLenientJson parses clean JSON and strips wrapper noise', () => {
   assert.deepEqual(parseLenientJson('{"a":1}'), { a: 1 });
   assert.deepEqual(parseLenientJson('while(1);\n[{"a":1}]'), [{ a: 1 }]);
   assert.deepEqual(parseLenientJson('  \n  [1,2]  '), [1, 2]);
-  assert.throws(() => parseLenientJson('<html>down for maintenance</html>'), { message: /radiation_unparseable_body/ });
+  assert.throws(() => parseLenientJson('<html>down for maintenance</html>'), {
+    message: /radiation_unparseable_body/,
+  });
 });
 
 test('trimCpmStation maps site-style keys, filters coordless rows', () => {
@@ -98,8 +149,23 @@ test('trimRadonStation maps pCi/L and Bq/m³', () => {
 
 test('buildSnapshot reports per-source honesty', () => {
   const snap = buildSnapshot([
-    { key: 'cpm', ok: true, count: 2, latencyMs: 5, stations: CPM_ARRAY_FIXTURE.slice(0, 2).map(trimCpmStation).filter(Boolean) },
-    { key: 'radon', ok: false, count: 0, latencyMs: 5, error: 'radiation_upstream_502', stations: [] },
+    {
+      key: 'cpm',
+      ok: true,
+      count: 2,
+      latencyMs: 5,
+      stations: CPM_ARRAY_FIXTURE.slice(0, 2)
+        .map(trimCpmStation)
+        .filter(Boolean),
+    },
+    {
+      key: 'radon',
+      ok: false,
+      count: 0,
+      latencyMs: 5,
+      error: 'radiation_upstream_502',
+      stations: [],
+    },
   ]);
   assert.equal(snap.count, 2);
   assert.equal(snap.radonCount, 0);
@@ -119,8 +185,13 @@ test('provider mounts /api/radiation and rejects non-GET', async () => {
 test('handler returns 200 on live-shaped fixture bodies', async () => {
   const realFetch = globalThis.fetch;
   globalThis.fetch = async (url) => {
-    const body = String(url).includes('ajaxmr.php') ? RADON_FIXTURE : CPM_ARRAY_FIXTURE;
-    return new Response(JSON.stringify(body), { status: 200, headers: { 'Content-Type': 'application/json' } });
+    const body = String(url).includes('ajaxmr.php')
+      ? RADON_FIXTURE
+      : CPM_ARRAY_FIXTURE;
+    return new Response(JSON.stringify(body), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' },
+    });
   };
   try {
     clearCaches();

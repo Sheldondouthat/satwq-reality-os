@@ -59,7 +59,9 @@ function numOrNull(raw) {
 /** CO-OPS times arrive as '2026-09-27 01:41' with time_zone=gmt → parse as UTC. */
 function coopsTimeToISO(raw) {
   if (typeof raw !== 'string') return null;
-  const m = raw.match(/^(\d{4})-(\d{2})-(\d{2})[T ](\d{2}):(\d{2})(?::(\d{2}))?$/);
+  const m = raw.match(
+    /^(\d{4})-(\d{2})-(\d{2})[T ](\d{2}):(\d{2})(?::(\d{2}))?$/,
+  );
   if (!m) return null;
   const ms = Date.UTC(+m[1], +m[2] - 1, +m[3], +m[4], +m[5], +(m[6] ?? 0));
   return Number.isFinite(ms) ? new Date(ms).toISOString() : null;
@@ -75,10 +77,14 @@ async function fetchJsonCapped(url) {
       headers: { 'User-Agent': USER_AGENT, Accept: 'application/json' },
     });
     if (!response.ok)
-      throw Object.assign(new Error(`tides_upstream_${response.status}`), { status: 502 });
+      throw Object.assign(new Error(`tides_upstream_${response.status}`), {
+        status: 502,
+      });
     const buffer = await response.arrayBuffer();
     if (buffer.byteLength > BODY_CAP_BYTES)
-      throw Object.assign(new Error('tides_upstream_too_large'), { status: 502 });
+      throw Object.assign(new Error('tides_upstream_too_large'), {
+        status: 502,
+      });
     return JSON.parse(new TextDecoder().decode(buffer));
   } finally {
     clearTimeout(timeout);
@@ -93,7 +99,11 @@ export function parseWaterLevel(upstream) {
     const t = coopsTimeToISO(r.t);
     const v = numOrNull(r.v);
     if (!t || !isFiniteNum(v)) continue;
-    readings.push({ time: t, feet: roundNum(v), quality: String(r.q ?? '') || null });
+    readings.push({
+      time: t,
+      feet: roundNum(v),
+      quality: String(r.q ?? '') || null,
+    });
   }
   return readings.slice(0, MAX_READINGS);
 }
@@ -107,7 +117,11 @@ export function parsePredictions(upstream) {
     const v = numOrNull(r.v);
     if (!t || !isFiniteNum(v)) continue;
     const type = String(r.type ?? '').toUpperCase();
-    preds.push({ time: t, feet: roundNum(v), type: type === 'H' || type === 'L' ? type : null });
+    preds.push({
+      time: t,
+      feet: roundNum(v),
+      type: type === 'H' || type === 'L' ? type : null,
+    });
   }
   return preds;
 }
@@ -122,7 +136,10 @@ function predictionsUrl(station) {
 
 async function fetchProduct(product, station) {
   const started = Date.now();
-  const url = product === 'water_level' ? waterLevelUrl(station) : predictionsUrl(station);
+  const url =
+    product === 'water_level'
+      ? waterLevelUrl(station)
+      : predictionsUrl(station);
   try {
     const upstream = await fetchJsonCapped(url);
     return {
@@ -130,7 +147,10 @@ async function fetchProduct(product, station) {
       ok: true,
       latencyMs: Date.now() - started,
       metadata: upstream?.metadata ?? null,
-      readings: product === 'water_level' ? parseWaterLevel(upstream) : parsePredictions(upstream),
+      readings:
+        product === 'water_level'
+          ? parseWaterLevel(upstream)
+          : parsePredictions(upstream),
     };
   } catch (error) {
     return {
@@ -159,7 +179,8 @@ function buildSnapshot(results, station) {
     if (r.key === 'water_level' && r.ok) waterLevel = r.readings;
     if (r.key === 'predictions' && r.ok) predictions = r.readings;
   }
-  const latest = waterLevel && waterLevel.length ? waterLevel[waterLevel.length - 1] : null;
+  const latest =
+    waterLevel && waterLevel.length ? waterLevel[waterLevel.length - 1] : null;
   return {
     generatedAt: new Date().toISOString(),
     station: {
@@ -182,8 +203,12 @@ export function parseQuery(req) {
   const station = url.searchParams.get('station') ?? '8638610';
   const kindRaw = (url.searchParams.get('kind') ?? 'water_level').toLowerCase();
   if (!STATION_RE.test(station))
-    throw Object.assign(new Error(`tides_bad_station:${station.slice(0, 32)}`), { status: 400 });
-  const kind = kindRaw === 'predictions' || kindRaw === 'both' ? kindRaw : 'water_level';
+    throw Object.assign(
+      new Error(`tides_bad_station:${station.slice(0, 32)}`),
+      { status: 400 },
+    );
+  const kind =
+    kindRaw === 'predictions' || kindRaw === 'both' ? kindRaw : 'water_level';
   return { station, kind };
 }
 
@@ -193,12 +218,19 @@ async function getSnapshot(station, kind) {
   const now = Date.now();
   if (cache && cache.key === key && now - cache.at < ttl) return cache.payload;
   if (!inflight) {
-    const products = kind === 'water_level' ? ['water_level'] : kind === 'predictions' ? ['predictions'] : ['water_level', 'predictions'];
+    const products =
+      kind === 'water_level'
+        ? ['water_level']
+        : kind === 'predictions'
+          ? ['predictions']
+          : ['water_level', 'predictions'];
     inflight = Promise.all(products.map((p) => fetchProduct(p, station)))
       .then((results) => {
         if (!results.some((r) => r.ok)) {
           const detail = results.map((r) => `${r.key}:${r.error}`).join('; ');
-          throw Object.assign(new Error(`tides_all_upstream_down: ${detail}`), { status: 502 });
+          throw Object.assign(new Error(`tides_all_upstream_down: ${detail}`), {
+            status: 502,
+          });
         }
         const payload = buildSnapshot(results, station);
         cache = { at: Date.now(), key, payload };
@@ -222,18 +254,32 @@ function sendJson(res, status, body, cacheControl = 'public, max-age=600') {
 /** Mount the CO-OPS tides proxy. Mirrors the wave-5 provider shape. */
 export function tidesProxy() {
   async function handler(req, res) {
-    if (req.method !== 'GET') return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
     try {
       const { station, kind } = parseQuery(req);
       sendJson(res, 200, await getSnapshot(station, kind));
     } catch (error) {
       if (error?.status === 400)
-        return sendJson(res, 400, { error: 'tides_bad_station', detail: error?.message ?? 'unknown' }, 'no-store');
-      const upstreamFail = error?.status === 502 || error?.name === 'AbortError' || /aborted?/i.test(error?.message ?? '');
-      sendJson(res, upstreamFail ? 502 : 500, {
-        error: 'tides_unavailable',
-        detail: error?.message ?? 'unknown',
-      }, 'no-store');
+        return sendJson(
+          res,
+          400,
+          { error: 'tides_bad_station', detail: error?.message ?? 'unknown' },
+          'no-store',
+        );
+      const upstreamFail =
+        error?.status === 502 ||
+        error?.name === 'AbortError' ||
+        /aborted?/i.test(error?.message ?? '');
+      sendJson(
+        res,
+        upstreamFail ? 502 : 500,
+        {
+          error: 'tides_unavailable',
+          detail: error?.message ?? 'unknown',
+        },
+        'no-store',
+      );
     }
   }
 
@@ -254,5 +300,8 @@ export const _tidesInternals = {
   coopsTimeToISO,
   buildSnapshot,
   parseQuery,
-  clearCaches: () => { cache = null; inflight = null; },
+  clearCaches: () => {
+    cache = null;
+    inflight = null;
+  },
 };

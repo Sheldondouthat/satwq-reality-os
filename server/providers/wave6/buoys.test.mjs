@@ -2,25 +2,37 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import { buoysProxy, _buoysInternals } from './buoys.js';
 
-const { parseBuoyRow, trimBuoyPayload, numOrNull, clampLimit, clearCaches } = _buoysInternals;
+const { parseBuoyRow, trimBuoyPayload, numOrNull, clampLimit, clearCaches } =
+  _buoysInternals;
 
 // Fixtures are REAL rows captured live from the NDBC feed on 2026-09-27
 // (curl https://www.ndbc.noaa.gov/data/latest_obs/latest_obs.txt, HTTP 200).
 // Field order: STN LAT LON YYYY MM DD hh mn WDIR WSPD GST WVHT DPD APD MWD
 // PRES PTDY ATMP WTMP DEWP VIS TIDE; 'MM' = missing.
-const HEADER_1 = '#STN       LAT      LON  YYYY MM DD hh mm WDIR WSPD   GST WVHT  DPD APD MWD   PRES  PTDY  ATMP  WTMP  DEWP  VIS   TIDE';
-const HEADER_2 = '#text      deg      deg   yr mo day hr mn degT  m/s   m/s   m   sec sec degT   hPa   hPa  degC  degC  degC  nmi     ft';
-const ROW_FULL = '44080    39.223  -76.528 2026 09 27 20 36 340  12.0  14.0  0.4   2   MM  MM 1007.1    MM  18.1  22.6    MM   MM     MM';
-const ROW_ATM = '14049   -12.000   65.000 2026 09 27 19 00  99   8.2  10.5   MM  MM   MM  MM 1016.4    MM  21.0  26.8    MM   MM     MM';
-const ROW_VIS = '62107    50.102   -6.100 2026 09 27 20 00  MM    MM    MM  2.3  MM   MM  MM 1016.9    MM  16.6  16.9  10.8   11     MM';
+const HEADER_1 =
+  '#STN       LAT      LON  YYYY MM DD hh mm WDIR WSPD   GST WVHT  DPD APD MWD   PRES  PTDY  ATMP  WTMP  DEWP  VIS   TIDE';
+const HEADER_2 =
+  '#text      deg      deg   yr mo day hr mn degT  m/s   m/s   m   sec sec degT   hPa   hPa  degC  degC  degC  nmi     ft';
+const ROW_FULL =
+  '44080    39.223  -76.528 2026 09 27 20 36 340  12.0  14.0  0.4   2   MM  MM 1007.1    MM  18.1  22.6    MM   MM     MM';
+const ROW_ATM =
+  '14049   -12.000   65.000 2026 09 27 19 00  99   8.2  10.5   MM  MM   MM  MM 1016.4    MM  21.0  26.8    MM   MM     MM';
+const ROW_VIS =
+  '62107    50.102   -6.100 2026 09 27 20 00  MM    MM    MM  2.3  MM   MM  MM 1016.9    MM  16.6  16.9  10.8   11     MM';
 
 function fakeRes() {
   const chunks = [];
   const res = {
     statusCode: null,
     headers: {},
-    writeHead(status, headers) { res.statusCode = status; res.headers = headers; },
-    end(body) { chunks.push(body); res.body = chunks.join(''); },
+    writeHead(status, headers) {
+      res.statusCode = status;
+      res.headers = headers;
+    },
+    end(body) {
+      chunks.push(body);
+      res.body = chunks.join('');
+    },
   };
   return res;
 }
@@ -31,8 +43,12 @@ function fakeReq(url, method = 'GET') {
 
 function mount(provider) {
   const calls = [];
-  provider.configureServer({ middlewares: { use: (route, handler) => calls.push({ route, handler }) } });
-  provider.configurePreviewServer({ middlewares: { use: (route, handler) => calls.push({ route, handler }) } });
+  provider.configureServer({
+    middlewares: { use: (route, handler) => calls.push({ route, handler }) },
+  });
+  provider.configurePreviewServer({
+    middlewares: { use: (route, handler) => calls.push({ route, handler }) },
+  });
   return calls;
 }
 
@@ -85,7 +101,10 @@ test('parseBuoyRow maps dew point and visibility columns', () => {
 
 test('parseBuoyRow rejects short rows and bad coordinates', () => {
   assert.equal(parseBuoyRow(['44080', '39.223']), null);
-  assert.equal(parseBuoyRow(['X', 'MM', 'MM', '2026', '09', '27', '20', '36']), null);
+  assert.equal(
+    parseBuoyRow(['X', 'MM', 'MM', '2026', '09', '27', '20', '36']),
+    null,
+  );
   assert.equal(parseBuoyRow(null), null);
 });
 
@@ -120,7 +139,11 @@ test('provider mounts /api/buoys on both servers and rejects non-GET', async () 
 test('handler returns 200 JSON on live-shaped text', async () => {
   const realFetch = globalThis.fetch;
   const body = [HEADER_1, HEADER_2, ROW_FULL].join('\n');
-  globalThis.fetch = async () => new Response(body, { status: 200, headers: { 'Content-Type': 'text/plain' } });
+  globalThis.fetch = async () =>
+    new Response(body, {
+      status: 200,
+      headers: { 'Content-Type': 'text/plain' },
+    });
   try {
     clearCaches();
     const { handler } = mount(buoysProxy())[0];
