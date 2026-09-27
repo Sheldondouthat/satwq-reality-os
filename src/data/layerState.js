@@ -18,11 +18,11 @@ const PENDING_TRACKING_POLL_MS = 1_000;
 const TRACKING_ID_GRAMMAR = /^[0-9a-z~_-]{1,16}$/;
 /**
  * Ceilings for the untrusted v2 layer fields. Both are far above any legitimate
- * payload (16 one-character tokens; a dozen short option assignments), so a
- * value past them is malformed or hostile. Reject the WHOLE payload, matching
- * the unknown-token rule — never salvage a prefix.
+ * payload (44 layer tokens, several of them two characters; a dozen short
+ * option assignments), so a value past them is malformed or hostile. Reject
+ * the WHOLE payload, matching the unknown-token rule — never salvage a prefix.
  */
-const MAX_ENABLED_LAYERS_CHARS = 64;
+const MAX_ENABLED_LAYERS_CHARS = 128;
 const MAX_LAYER_OPTIONS_CHARS = 512;
 export const LAYER_STATE_STORAGE_KEY = 'gev:layer-state:v2';
 export const LAYER_RESTORE_ORIGINS = Object.freeze({
@@ -493,6 +493,23 @@ export const LAYER_STATE_REGISTRY = Object.freeze([
     disposition: 'enabled+options',
     optionOwner: 'flights',
   }),
+  Object.freeze({
+    id: 'gibs-chlorophyll',
+    token: 'gc',
+    disposition: 'enabled-only',
+  }),
+  Object.freeze({
+    id: 'gibs-nightlights',
+    token: 'gn',
+    disposition: 'enabled-only',
+  }),
+  Object.freeze({ id: 'gibs-sst', token: 'gs', disposition: 'enabled-only' }),
+  Object.freeze({
+    id: 'gibs-truecolor',
+    token: 'gt',
+    disposition: 'enabled-only',
+  }),
+  Object.freeze({ id: 'hms-smoke', token: 'hs', disposition: 'enabled-only' }),
   Object.freeze({ id: 'local-dams', token: 'q', disposition: 'enabled-only' }),
   Object.freeze({
     id: 'local-datacenters',
@@ -517,6 +534,7 @@ export const LAYER_STATE_REGISTRY = Object.freeze([
     token: 'i',
     disposition: 'enabled-only',
   }),
+  Object.freeze({ id: 'moon', token: 'mo', disposition: 'enabled-only' }),
   Object.freeze({
     id: 'osm-buildings-3d',
     token: '3',
@@ -527,6 +545,16 @@ export const LAYER_STATE_REGISTRY = Object.freeze([
     token: 'r',
     disposition: 'enabled+options',
     optionOwner: 'radio',
+  }),
+  Object.freeze({
+    id: 'rainviewer-radar',
+    token: 'r1',
+    disposition: 'enabled-only',
+  }),
+  Object.freeze({
+    id: 'rainviewer-satellite',
+    token: 'r2',
+    disposition: 'enabled-only',
   }),
   Object.freeze({
     id: 'recent-imagery',
@@ -546,8 +574,18 @@ export const LAYER_STATE_REGISTRY = Object.freeze([
     optionOwner: 'satellites',
   }),
   Object.freeze({
+    id: 'space-weather',
+    token: 'sw',
+    disposition: 'enabled-only',
+  }),
+  Object.freeze({
     id: 'telegeography-submarine-cables',
     token: 'u',
+    disposition: 'enabled-only',
+  }),
+  Object.freeze({
+    id: 'terminator',
+    token: 'te',
     disposition: 'enabled-only',
   }),
   Object.freeze({ id: 'tides', token: '7', disposition: 'enabled-only' }),
@@ -643,7 +681,7 @@ export function validateLayerStateRegistry(registry = LAYER_STATE_REGISTRY) {
     if (ids.has(entry.id))
       throw new Error(`Duplicate layer-state id: ${entry.id}`);
     ids.add(entry.id);
-    if (!/^[a-z0-9]$/.test(entry.token || ''))
+    if (!/^[a-z0-9]{1,2}$/.test(entry.token || ''))
       throw new Error(`Invalid layer-state token: ${entry.id}`);
     if (tokens.has(entry.token))
       throw new Error(`Duplicate layer-state token: ${entry.token}`);

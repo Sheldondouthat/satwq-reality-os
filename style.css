@@ -23,3 +23,6 @@
 
 @import './src/ui/styles/weather.css';
 @import './src/ui/styles/cyber.css';
+
+/* SATWQ cinematic pack: additive glassmorphism HUD theme (scoped to .satwq-hud). */
+@import './src/cinematic/hudPolish.css';

@@ -87,6 +87,24 @@ export const DATA_CREDITS = [
       '<a href="https://lpdaac.usgs.gov/products/hlss30v002/" target="_blank" rel="noopener">HLS product page</a>',
   },
   {
+    key: 'noaa-swpc',
+    html:
+      'Space weather: <a href="https://www.swpc.noaa.gov/" target="_blank" rel="noopener">NOAA Space Weather Prediction Center</a> ' +
+      '· ACE real-time solar wind and planetary Kp index.',
+  },
+  {
+    key: 'rainviewer',
+    html:
+      'Radar & satellite tiles: ' +
+      '<a href="https://www.rainviewer.com/" target="_blank" rel="noopener">RainViewer</a>',
+  },
+  {
+    key: 'hmssmoke',
+    html:
+      'Smoke: NOAA HMS — Hazard Mapping System, NESDIS OSPO · ' +
+      '<a href="https://satepsanone.nesdis.noaa.gov/pub/FIRE/web/HMS/Smoke_Polygons/KML/" target="_blank" rel="noopener">satepsanone.nesdis.noaa.gov</a>',
+  },
+  {
     key: 'wfigs',
     html:
       'Wildfire perimeters: ' +

@@ -29,6 +29,16 @@ import { createApplicationTides } from './layers/tides.js';
 import { createApplicationAurora } from './layers/aurora.js';
 import { createApplicationBuoys } from './layers/buoys.js';
 import { createApplicationMeteors } from './layers/meteors.js';
+import { createApplicationHmsSmoke } from './layers/hmsSmoke.js';
+import { createApplicationSpaceWeather } from './layers/spaceWeather.js';
+import { createApplicationTerminator } from './layers/terminator.js';
+import { createApplicationMoon } from './layers/moon.js';
+import { createApplicationGibsTruecolor } from './layers/gibsTruecolor.js';
+import { createApplicationGibsNightlights } from './layers/gibsNightlights.js';
+import { createApplicationGibsChlorophyll } from './layers/gibsChlorophyll.js';
+import { createApplicationGibsSst } from './layers/gibsSst.js';
+import { createApplicationRainviewerRadar } from './layers/rainviewerRadar.js';
+import { createApplicationRainviewerSatellite } from './layers/rainviewerSatellite.js';
 import { createApplicationFirePerimeters } from './layers/perimeters.js';
 import { createApplicationCables } from './layers/submarineCables.js';
 import { createInfrastructureLayers } from '../data/infrastructure.js';
@@ -64,6 +74,15 @@ const SOURCE_METHODS = Object.freeze({
   aurora: ['getSnapshot'],
   buoys: ['getSnapshot'],
   meteors: ['getSnapshot'],
+  'hms-smoke': ['getSnapshot'],
+  'space-weather': ['getSnapshot'],
+  terminator: ['getSnapshot'],
+  gibsTruecolor: ['getSnapshot'],
+  gibsNightlights: ['getSnapshot'],
+  gibsChlorophyll: ['getSnapshot'],
+  gibsSst: ['getSnapshot'],
+  rainviewerRadar: ['getSnapshot'],
+  rainviewerSatellite: ['getSnapshot'],
   'fire-perimeters': ['getSnapshot'],
   cables: ['fetch'],
 });
@@ -160,6 +179,18 @@ export function createApplicationCatalog({
         createApplicationAurora({ source: sources.aurora }),
         createApplicationBuoys({ source: sources.buoys }),
         createApplicationMeteors({ source: sources.meteors }),
+        createApplicationHmsSmoke({ source: sources['hms-smoke'] }),
+        createApplicationSpaceWeather({ source: sources['space-weather'] }),
+        createApplicationTerminator({ source: sources.terminator }),
+        createApplicationMoon(),
+        createApplicationGibsTruecolor({ source: sources.gibsTruecolor }),
+        createApplicationGibsNightlights({ source: sources.gibsNightlights }),
+        createApplicationGibsChlorophyll({ source: sources.gibsChlorophyll }),
+        createApplicationGibsSst({ source: sources.gibsSst }),
+        createApplicationRainviewerRadar({ source: sources.rainviewerRadar }),
+        createApplicationRainviewerSatellite({
+          source: sources.rainviewerSatellite,
+        }),
         createApplicationFirePerimeters({
           source: sources['fire-perimeters'],
         }),

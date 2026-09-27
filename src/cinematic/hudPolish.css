@@ -1,0 +1,162 @@
+/* ==========================================================================
+ * hudPolish.css — cinematic HUD polish for SATWQ Reality OS.
+ *
+ * Additive-only glassmorphism theme. Every selector is scoped under
+ * `.satwq-hud` to avoid collisions with existing app classes; nothing here
+ * restyles existing application classes destructively.
+ *
+ * Usage (parent adds ONE line — see integration notes):
+ *   <link rel="stylesheet" href="/src/cinematic/hudPolish.css" />
+ * right after the main stylesheet <link> in index.html.
+ * ========================================================================== */
+
+/* --- Glass panels ------------------------------------------------------ */
+.satwq-hud .hud-panel {
+  background: rgba(8, 12, 24, 0.55);
+  -webkit-backdrop-filter: blur(14px) saturate(1.25);
+  backdrop-filter: blur(14px) saturate(1.25);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  color: #e8eefc;
+}
+
+/* --- Numeric readouts: subtle glow ------------------------------------- */
+.satwq-hud .readout-num,
+.satwq-hud .stat-value {
+  font-variant-numeric: tabular-nums;
+  text-shadow:
+    0 0 6px rgba(120, 180, 255, 0.55),
+    0 0 18px rgba(120, 180, 255, 0.25);
+  color: #dceaff;
+}
+
+.satwq-hud .readout-num--warn,
+.satwq-hud .stat-value--warn {
+  text-shadow:
+    0 0 6px rgba(255, 170, 90, 0.6),
+    0 0 18px rgba(255, 170, 90, 0.3);
+  color: #ffe3c2;
+}
+
+/* --- LIVE indicator pulse ---------------------------------------------- */
+@keyframes satwq-live-pulse {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 0 0 rgba(80, 255, 140, 0.55);
+  }
+  50% {
+    opacity: 0.65;
+    box-shadow: 0 0 0 6px rgba(80, 255, 140, 0);
+  }
+}
+
+.satwq-hud .live-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #50ff8c;
+  animation: satwq-live-pulse 2.4s ease-in-out infinite;
+}
+
+.satwq-hud .live-label {
+  letter-spacing: 0.18em;
+  font-size: 0.68rem;
+  color: #9dffc4;
+  text-shadow: 0 0 8px rgba(80, 255, 140, 0.5);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .satwq-hud .live-dot {
+    animation: none;
+  }
+  .satwq-hud .layer-row {
+    animation: none;
+  }
+}
+
+/* --- Layer rows: fade + slide-in --------------------------------------- */
+@keyframes satwq-row-in {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.satwq-hud .layer-row {
+  animation: satwq-row-in 0.32s ease-out both;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  transition: background 0.18s ease, border-color 0.18s ease;
+}
+
+.satwq-hud .layer-row:hover {
+  background: rgba(120, 170, 255, 0.08);
+}
+
+.satwq-hud .layer-row--active {
+  border-left: 2px solid rgba(120, 180, 255, 0.7);
+  background: rgba(120, 170, 255, 0.06);
+}
+
+/* --- Cinematic toggle buttons (🎬 Tour / 🎧 Ambience) --------------------- */
+.satwq-hud .cinematic-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.42rem 0.8rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(8, 12, 24, 0.55);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  color: #dfe8fb;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.2s ease, background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.satwq-hud .cinematic-btn:hover {
+  transform: translateY(-1px);
+  border-color: rgba(255, 255, 255, 0.28);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.4);
+}
+
+.satwq-hud .cinematic-btn:active {
+  transform: translateY(0);
+}
+
+.satwq-hud .cinematic-btn[aria-pressed='true'] {
+  background: rgba(40, 90, 200, 0.45);
+  border-color: rgba(140, 190, 255, 0.55);
+  box-shadow:
+    0 0 14px rgba(90, 150, 255, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+.satwq-hud .cinematic-btn:focus-visible {
+  outline: 2px solid rgba(140, 190, 255, 0.8);
+  outline-offset: 2px;
+}
+
+/* --- Stat ticker flash when a value updates ----------------------------- */
+@keyframes satwq-tick-flash {
+  0% {
+    color: #ffffff;
+    text-shadow: 0 0 10px rgba(160, 210, 255, 0.9);
+  }
+  100% {
+    color: inherit;
+  }
+}
+
+.satwq-hud .stat-ticking {
+  animation: satwq-tick-flash 0.5s ease-out;
+}

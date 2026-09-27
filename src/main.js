@@ -1,6 +1,7 @@
 import { createStandaloneApplication } from './standalone/application.js';
 import { describeError } from './standalone/errors.js';
 import { initAkashic } from './akashic/index.js';
+import { initCinematic } from './cinematic/index.js';
 import { showBootSplash } from './ui/bootSplash.js';
 import './ui/bootSplash.css';
 import './ui/voiceCommand.css';
@@ -24,6 +25,14 @@ application
       initAkashic({ viewer: components?.scene?.viewer ?? null });
     } catch (error) {
       console.warn('Akashic Records failed to initialize:', error);
+    }
+    // SATWQ cinematic pack: camera-director auto-tour, WebAudio ambient
+    // engine, HUD glassmorphism. Fail-soft like Akashic; the tour and the
+    // ambient engine stay off until the user starts them.
+    try {
+      initCinematic({ components });
+    } catch (error) {
+      console.warn('Cinematic pack failed to initialize:', error);
     }
     splash.ready();
   })
