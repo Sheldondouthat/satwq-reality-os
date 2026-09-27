@@ -266,7 +266,7 @@ test('dev and preview serve only fixed bounded NOAA queries, caching a complete 
       calls[0].url.href,
       'https://www.nhc.noaa.gov/CurrentStorms.json',
     );
-    for (const call of calls) assert.equal(call.options.redirect, 'error');
+    for (const call of calls) assert.equal(call.options.redirect, 'follow');
     for (const call of calls.slice(1)) {
       assert.equal(call.url.origin, 'https://mapservices.weather.noaa.gov');
       assert.equal(call.url.searchParams.get('outSR'), '4326');

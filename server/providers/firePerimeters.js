@@ -61,7 +61,7 @@ export function firePerimetersProxy({
     const response = await fetchImpl(url, {
       ...options,
       signal,
-      redirect: 'error',
+      redirect: 'manual',
     });
     if (!response.ok) {
       await response.body?.cancel();
@@ -125,7 +125,7 @@ export function firePerimetersProxy({
       url.protocol = 'https:';
       url.search = '';
       url.hash = '';
-      response = await fetchImpl(url.href, { signal, redirect: 'error' });
+      response = await fetchImpl(url.href, { signal, redirect: 'manual' });
     }
     if (response.status !== 200) {
       await response.body?.cancel();

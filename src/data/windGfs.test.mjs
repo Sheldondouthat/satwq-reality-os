@@ -110,7 +110,7 @@ test('GFS overlays select exact levels from the same issue and forecast object',
     });
     assert.equal(calls.length, overlay === 'none' ? 3 : 4);
     assert.equal(new Set(calls.slice(1).map((c) => c.url)).size, 1);
-    assert.ok(calls.every((c) => c.options.redirect === 'error'));
+    assert.ok(calls.every((c) => c.options.redirect === 'follow'));
     assert.ok(calls[0].url.endsWith('.f006.idx'));
     assert.equal(result.cycle.validIso, '2026-09-15T12:00:00.000Z');
     if (overlay === 'none') assert.equal(result.scalar, undefined);

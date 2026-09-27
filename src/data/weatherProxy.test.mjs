@@ -205,7 +205,7 @@ test('manifest provides honest coverage, actual frame times and a same-origin ti
   }
   for (const call of calls) {
     assert.equal(call.url.hostname, 'nowcoast.noaa.gov');
-    assert.equal(call.options.redirect, 'error');
+    assert.equal(call.options.redirect, 'follow');
   }
 });
 
@@ -267,7 +267,7 @@ test('tile fixes upstream host/layer/style/size/projection/time and caches exact
     transparent: 'true',
     time: TIME,
   });
-  assert.equal(map.options.redirect, 'error');
+  assert.equal(map.options.redirect, 'follow');
   assert.deepEqual(
     (await request(tile({ z: 1, x: 2, y: 1 }))).body,
     response.body,
@@ -661,7 +661,7 @@ test('global infrared image uses one fixed advertised extent and exact 2048x1024
     transparent: 'true',
     time: TIME,
   });
-  assert.equal(map.options.redirect, 'error');
+  assert.equal(map.options.redirect, 'follow');
   assert.deepEqual((await request(wholeImage())).body, response.body);
   assert.equal(
     calls.length,

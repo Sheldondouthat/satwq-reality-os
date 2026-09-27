@@ -66,7 +66,7 @@ for (const hook of ['configureServer', 'configurePreviewServer']) {
         fetchImpl: async (url, options) => {
           calls.push(new URL(url));
           assert.ok(options.signal instanceof AbortSignal);
-          assert.equal(options.redirect, 'error');
+          assert.equal(options.redirect, 'manual');
           return Response.json({
             features: [feature(String(calls.length))],
             exceededTransferLimit: true,
@@ -320,7 +320,7 @@ test('publication redirects share a signal, cancel the redirect body and force H
       calls[1].url,
       'https://inciweb.wildfire.gov/incident/test-fire',
     );
-    assert.equal(calls[1].options.redirect, 'error');
+    assert.equal(calls[1].options.redirect, 'manual');
     assert.ok(calls[0].options.signal instanceof AbortSignal);
     assert.equal(calls[0].options.signal, calls[1].options.signal);
   }

@@ -198,7 +198,7 @@ test('routing middleware uses configured OSRM servers while retaining request bo
           url,
           /^https:\/\/routes\.example\/walking\/route\/v1\/foot\//,
         );
-        assert.equal(options.redirect, 'error');
+        assert.equal(options.redirect, 'manual');
         return json({
           code: 'Ok',
           routes: [{ geometry: { coordinates }, distance: 120, duration: 90 }],

@@ -266,7 +266,7 @@ test('Realtime service configuration selects compatible endpoint/model without f
         resolveApiKey: () => 'server-fixture',
         fetchImpl: async (url, options) => {
           assert.equal(url, 'https://voice.example/client-secrets');
-          assert.equal(options.redirect, 'error');
+          assert.equal(options.redirect, 'manual');
           assert.equal(options.headers.Authorization, 'Bearer server-fixture');
           const payload = JSON.parse(options.body);
           assert.equal(payload.session.model, 'configured-model');

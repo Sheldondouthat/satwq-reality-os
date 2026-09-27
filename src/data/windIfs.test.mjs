@@ -67,7 +67,7 @@ test('IFS 2t and msl companions use the same issue/valid object as 10u and 10v',
     });
     assert.equal(calls.length, overlay === 'none' ? 3 : 4);
     assert.equal(new Set(calls.slice(1).map((c) => c.url)).size, 1);
-    assert.ok(calls.every((c) => c.options.redirect === 'error'));
+    assert.ok(calls.every((c) => c.options.redirect === 'follow'));
     assert.ok(calls[0].url.endsWith('-9h-oper-fc.index'));
     assert.equal(result.cycle.runIso, '2026-09-15T06:00:00.000Z');
     assert.equal(result.cycle.validIso, '2026-09-15T15:00:00.000Z');

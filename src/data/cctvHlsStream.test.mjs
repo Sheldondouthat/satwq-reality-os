@@ -39,7 +39,7 @@ test('downloads reject redirect responses, oversized declared and chunked bodies
       },
     }),
   );
-  assert.equal(init.redirect, 'error');
+  assert.equal(init.redirect, 'manual');
   await assert.rejects(
     fetchHlsBytes(base, {
       maxBytes: 5,

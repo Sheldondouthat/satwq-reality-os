@@ -34,7 +34,7 @@ export async function fetchHlsBytes(
   try {
     controller.signal.throwIfAborted();
     response = await fetchImpl(url, {
-      redirect: 'error',
+      redirect: 'manual',
       signal: controller.signal,
       headers: { 'User-Agent': 'gods-eye-view-cctv-proxy/1.0' },
     });

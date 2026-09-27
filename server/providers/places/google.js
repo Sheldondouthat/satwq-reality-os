@@ -103,7 +103,7 @@ export function googlePlacesContextProxy({
             'https://places.googleapis.com/v1/places:searchNearby',
           {
             method: 'POST',
-            redirect: 'error',
+            redirect: 'manual',
             headers: {
               'Content-Type': 'application/json',
               'X-Goog-Api-Key': apiKey,
@@ -223,7 +223,7 @@ export function googlePlacesContextProxy({
             'https://places.googleapis.com/v1/places:searchText',
           {
             method: 'POST',
-            redirect: 'error',
+            redirect: 'manual',
             headers: {
               'Content-Type': 'application/json',
               'X-Goog-Api-Key': apiKey,
