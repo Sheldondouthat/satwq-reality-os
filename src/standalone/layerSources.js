@@ -16,6 +16,11 @@ import { createWeatherSource } from '../layers/weather/source.js';
 import { createCycloneSource } from '../layers/cyclones/source.js';
 import { createWindSource } from '../layers/wind/source.js';
 import { createFirmsSource } from '../layers/firms/source.js';
+import { createVolcanoSource } from '../layers/volcanoes/source.js';
+import { createTideSource } from '../layers/tides/source.js';
+import { createAuroraSource } from '../layers/aurora/source.js';
+import { createBuoySource } from '../layers/buoys/source.js';
+import { createMeteorSource } from '../layers/meteors/source.js';
 import { createReferenceSources } from '../sources/reference.js';
 export { createReferenceSources as createStandaloneReferenceSources } from '../sources/reference.js';
 
@@ -41,5 +46,10 @@ export function createStandaloneLayerSources() {
     wind: createWindSource(),
     weather: createWeatherSource(),
     cyclones: createCycloneSource(),
+    volcanoes: createVolcanoSource(),
+    tides: createTideSource(),
+    aurora: createAuroraSource(),
+    buoys: createBuoySource(),
+    meteors: createMeteorSource(),
   };
 }

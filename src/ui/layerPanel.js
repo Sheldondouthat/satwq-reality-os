@@ -42,11 +42,19 @@ const PANEL_GROUPS = [
       'local-datacenters',
       'telegeography-submarine-cables',
       'local-dams',
+      'osm-buildings-3d',
     ],
   },
   {
     label: 'Events',
-    ids: ['rocket-launches', 'earthquakes', 'local-firms', 'fire-perimeters'],
+    ids: [
+      'rocket-launches',
+      'earthquakes',
+      'volcanoes',
+      'meteors',
+      'local-firms',
+      'fire-perimeters',
+    ],
   },
   {
     label: 'Weather',
@@ -56,6 +64,9 @@ const PANEL_GROUPS = [
       'weather-satellite',
       'weather-lightning',
       'weather-cyclones',
+      'aurora',
+      'buoys',
+      'tides',
     ],
   },
   {

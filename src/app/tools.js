@@ -4,6 +4,8 @@ import { initDrawTool } from '../annotations/drawTool.js';
 import { initImageryBoxTool } from '../ui/imageryBoxTool.js';
 import { createRecentImageryPanel } from '../ui/recentImagery.js';
 import { initGevVoiceCommands } from '../voice/gevRealtime.js';
+import { createGevActionRunner } from '../voice/gevActions.js';
+import { initSatwqVoiceControl } from '../ui/voiceCommand.js';
 import { installScopeMask, destroyScopeMask } from '../scopeMask.js';
 import {
   installRenderGovernor,
@@ -170,11 +172,31 @@ export function createApplicationTools({
     sceneDirector,
     annotations,
   });
+  // SATWQ free voice control ($0, Web Speech API): shares the same action
+  // runner as the realtime voice path, so every command verb works without
+  // any key. The second runner is safe — its viewer installs are idempotent.
+  const satwqVoice = initSatwqVoiceControl({
+    runner: createGevActionRunner({
+      floorServices: operations.surface.groundFloor,
+      annotationResolver: operations.annotationResolver,
+      searchNavigation: operations.searchAndFlyTo,
+      signal,
+      placeSearch,
+      viewer,
+      styleManager,
+      dataManager,
+      sceneDirector,
+      annotations,
+    }),
+    signal,
+  });
   defer(() => {
     voiceCommands.stop({ removeUi: true });
+    satwqVoice.stop();
     if (window.__gevVoiceCommands === voiceCommands)
       delete window.__gevVoiceCommands;
   });
   debug.voiceCommands = voiceCommands;
-  return { sceneDirector, annotations, voiceCommands };
+  debug.satwqVoice = satwqVoice;
+  return { sceneDirector, annotations, voiceCommands, satwqVoice };
 }

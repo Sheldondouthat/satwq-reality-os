@@ -1,0 +1,132 @@
+/* SATWQ voice control — cyan/amber mission-control chrome. */
+
+#satwq-voice {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 9000;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+}
+
+.satwq-voice-mic {
+  position: relative;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 212, 255, 0.55);
+  background: rgba(2, 8, 16, 0.88);
+  color: #00d4ff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 18px rgba(0, 212, 255, 0.25);
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.satwq-voice-mic:hover {
+  border-color: #ffb454;
+  color: #ffb454;
+  box-shadow: 0 0 22px rgba(255, 180, 84, 0.35);
+}
+
+.satwq-voice-mic .material-symbols-outlined {
+  font-size: 24px;
+}
+
+.satwq-voice-pulse {
+  position: absolute;
+  inset: -1px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 212, 255, 0.7);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.satwq-voice-mic--live .satwq-voice-pulse {
+  animation: satwq-voice-ping 1.6s ease-out infinite;
+}
+
+.satwq-voice-mic--live {
+  border-color: #ffb454;
+  color: #ffb454;
+  box-shadow: 0 0 26px rgba(255, 180, 84, 0.5);
+}
+
+@keyframes satwq-voice-ping {
+  0% {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(1.7);
+    opacity: 0;
+  }
+}
+
+.satwq-voice-pill {
+  position: absolute;
+  right: 62px;
+  bottom: 8px;
+  white-space: nowrap;
+  max-width: min(70vw, 420px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  background: rgba(2, 8, 16, 0.92);
+  border: 1px solid rgba(0, 212, 255, 0.45);
+  color: #c9f1ff;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  padding: 8px 12px;
+  border-radius: 6px;
+}
+
+.satwq-voice-pill[data-kind='error'] {
+  border-color: rgba(255, 107, 107, 0.7);
+  color: #ffb3b3;
+}
+
+.satwq-voice-pill[data-kind='warn'] {
+  border-color: rgba(255, 180, 84, 0.7);
+  color: #ffd9a0;
+}
+
+.satwq-voice-pill[data-kind='ok'] {
+  border-color: rgba(125, 227, 168, 0.6);
+  color: #c9f5da;
+}
+
+.satwq-voice-hint {
+  position: absolute;
+  right: 0;
+  bottom: 62px;
+  width: 260px;
+  background: rgba(2, 8, 16, 0.95);
+  border: 1px solid rgba(0, 212, 255, 0.45);
+  border-radius: 8px;
+  padding: 12px 14px;
+  color: #c9f1ff;
+}
+
+.satwq-voice-hint-title {
+  color: #ffb454;
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  margin-bottom: 8px;
+}
+
+.satwq-voice-hint ul {
+  list-style: none;
+  margin: 0 0 10px;
+  padding: 0;
+  font-size: 12px;
+  line-height: 1.9;
+}
+
+.satwq-voice-hint-privacy {
+  font-size: 10px;
+  line-height: 1.5;
+  color: rgba(201, 241, 255, 0.55);
+  border-top: 1px solid rgba(0, 212, 255, 0.2);
+  padding-top: 8px;
+}

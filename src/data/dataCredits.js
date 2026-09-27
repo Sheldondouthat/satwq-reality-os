@@ -102,6 +102,13 @@ export const DATA_CREDITS = [
       '(ODbL 1.0)',
   },
   {
+    key: 'osm-buildings-3d',
+    html:
+      '3D building extrusions (zero-key fallback): ' +
+      '<a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© OpenStreetMap contributors</a> ' +
+      '(ODbL 1.0) via Overpass',
+  },
+  {
     key: 'photon-geocoder',
     html:
       'Keyless place search: ' +

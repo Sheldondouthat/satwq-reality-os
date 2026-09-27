@@ -22,7 +22,13 @@ import { createApplicationAlpr } from './layers/alprCameras.js';
 import { createApplicationLocalAdsb } from './layers/localAdsb.js';
 import { createApplicationAwareness } from './layers/militaryAwareness.js';
 import { createApplicationFirms } from './layers/firms.js';
+import { createApplicationOsmBuildings3d } from './layers/osmBuildings3d.js';
 import { createApplicationEarthquakes } from './layers/earthquakes.js';
+import { createApplicationVolcanoes } from './layers/volcanoes.js';
+import { createApplicationTides } from './layers/tides.js';
+import { createApplicationAurora } from './layers/aurora.js';
+import { createApplicationBuoys } from './layers/buoys.js';
+import { createApplicationMeteors } from './layers/meteors.js';
 import { createApplicationFirePerimeters } from './layers/perimeters.js';
 import { createApplicationCables } from './layers/submarineCables.js';
 import { createInfrastructureLayers } from '../data/infrastructure.js';
@@ -53,6 +59,11 @@ const SOURCE_METHODS = Object.freeze({
   weather: ['getSnapshot'],
   cyclones: ['getSnapshot'],
   earthquakes: ['getSnapshot'],
+  volcanoes: ['getSnapshot'],
+  tides: ['getSnapshot'],
+  aurora: ['getSnapshot'],
+  buoys: ['getSnapshot'],
+  meteors: ['getSnapshot'],
   'fire-perimeters': ['getSnapshot'],
   cables: ['fetch'],
 });
@@ -144,6 +155,11 @@ export function createApplicationCatalog({
           ...(resolveAsset ? { resolveAsset } : {}),
         }),
         createApplicationEarthquakes({ source: sources.earthquakes }),
+        createApplicationVolcanoes({ source: sources.volcanoes }),
+        createApplicationTides({ source: sources.tides }),
+        createApplicationAurora({ source: sources.aurora }),
+        createApplicationBuoys({ source: sources.buoys }),
+        createApplicationMeteors({ source: sources.meteors }),
         createApplicationFirePerimeters({
           source: sources['fire-perimeters'],
         }),
@@ -157,6 +173,7 @@ export function createApplicationCatalog({
         createApplicationBikeshare({ source: sources.bikeshare }),
         createApplicationDirections(),
         createApplicationRecentImagery(),
+        createApplicationOsmBuildings3d(),
         vessels,
         installations,
         createApplicationAwareness({

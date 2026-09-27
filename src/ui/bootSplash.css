@@ -1,0 +1,127 @@
+/* SATWQ boot splash — deep-space cyan/amber mission-control palette. */
+
+#satwq-boot {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background:
+    radial-gradient(ellipse at 50% 120%, rgba(0, 212, 255, 0.08), transparent 60%),
+    #020409;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  transition: opacity 0.85s ease;
+}
+
+#satwq-boot.satwq-boot--done {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.satwq-boot-scan {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.satwq-boot-scan::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 120px;
+  top: -140px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(0, 212, 255, 0.14),
+    rgba(0, 212, 255, 0.02)
+  );
+  animation: satwq-scan 2.2s linear infinite;
+}
+
+.satwq-boot-scan::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0 3px,
+    rgba(0, 0, 0, 0.22) 3px 4px
+  );
+}
+
+@keyframes satwq-scan {
+  to {
+    transform: translateY(calc(100vh + 280px));
+  }
+}
+
+.satwq-boot-inner {
+  position: relative;
+  text-align: left;
+  padding: 0 24px;
+  max-width: 640px;
+  width: 100%;
+}
+
+.satwq-boot-kicker {
+  color: #ffb454;
+  font-size: 12px;
+  letter-spacing: 0.5em;
+  margin-bottom: 18px;
+  text-shadow: 0 0 18px rgba(255, 180, 84, 0.55);
+}
+
+.satwq-boot-line {
+  color: #9fd8e8;
+  font-size: clamp(13px, 2.4vw, 16px);
+  line-height: 2;
+  white-space: pre-wrap;
+  min-height: 1.6em;
+}
+
+.satwq-boot-line--banner {
+  color: #eafcff;
+  font-size: clamp(18px, 4vw, 30px);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-shadow:
+    0 0 24px rgba(0, 212, 255, 0.65),
+    0 0 80px rgba(0, 212, 255, 0.25);
+  margin-bottom: 14px;
+}
+
+.satwq-boot-line--banner::after {
+  content: '▊';
+  color: #00d4ff;
+  animation: satwq-blink 0.8s steps(1) infinite;
+}
+
+@keyframes satwq-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+.satwq-boot-line--ok {
+  color: #7de3a8;
+}
+
+.satwq-boot-line--amber {
+  color: #ffb454;
+  text-shadow: 0 0 14px rgba(255, 180, 84, 0.5);
+}
+
+.satwq-boot-line--error {
+  color: #ff6b6b;
+}
+
+.satwq-boot-credit {
+  margin-top: 26px;
+  color: rgba(159, 216, 232, 0.4);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+}

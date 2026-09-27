@@ -39,7 +39,9 @@ test('catalogs construct distinct layers and classification from their supplied 
     signal: b.signal,
     surface: fixtureSurface(b.signal),
   });
-  assert.equal(first.layers.length, 29);
+  // 29 upstream layers + 6 SATWQ additions: volcanoes, tides, aurora,
+  // buoys, meteors, osm-buildings-3d.
+  assert.equal(first.layers.length, 35);
   assert.ok(first.get('local-adsb'), 'Local ADS-B is registered');
   assert.deepEqual(
     first.metadata.find(({ id }) => id === 'local-adsb'),
