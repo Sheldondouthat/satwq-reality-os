@@ -42,7 +42,9 @@ export const MILITARY_DETECTION_PRESET = Object.freeze({
 
 /** Baseline post-processing settings applied on first load (before share-link restore). */
 export const GLOBAL_POST_DEFAULTS = {
-  bloom: { enabled: false, intensity: BLOOM_INTENSITY_DEFAULT },
+  // Bloom ON by default (SATWQ Reality OS cinematic directive 2026-09-27):
+  // modest 60/200 intensity; share-link restore can still override per link.
+  bloom: { enabled: true, intensity: 60 },
   sharpen: { enabled: true, intensity: 49 },
   hudVariant: 'tactical',
   hudVisible: true,
