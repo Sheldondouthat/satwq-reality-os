@@ -45,6 +45,10 @@ import {
 import { createInvisibleOceanLayer } from '../layers/invisibleOcean/index.js';
 import { createInvisibleOceanSource } from '../layers/invisibleOcean/source.js';
 import { createEmWeatherPanel } from '../layers/invisibleOcean/panel.js';
+import { initAkashicArchive } from './wave3/akashic/index.js';
+import { initWebXR } from './wave3/webxr/index.js';
+import { initGaiaVoice } from './wave3/gaiaVoice/index.js';
+import { initSharedEye } from './wave3/sharedEye/index.js';
 
 const DOCK_ID = 'satwq-frontier-dock';
 
@@ -150,6 +154,7 @@ export function initFrontier({ viewer } = {}) {
 
   const dock = createDock();
   const newLayers = {}; // id -> {enable,disable,isEnabled} for NL queries
+  let dvrLayer = null; // real DVR layer object (for Akashic "view in DVR")
 
   // Camera adapter shared by NL queries and the briefing. Lazy Cesium import
   // keeps this module bundle-light.
@@ -215,6 +220,7 @@ export function initFrontier({ viewer } = {}) {
   attempt('dvr', () => {
     const dvr = createDvrLayer();
     dvr.init(viewer);
+    dvrLayer = dvr; // captured for Akashic Records "view in DVR"
     const s = section(t('feature.dvr'));
     const controls = createDvrControls(dvr, { mount: s });
     const ctl = trackLayer('dvr', dvr);
@@ -439,6 +445,30 @@ export function initFrontier({ viewer } = {}) {
     const s = section(t('feature.autoBriefing'));
     mountBriefMeButton(s, { label: 'Brief me', onBrief: () => doBriefing() });
     dock.appendChild(s);
+  });
+
+  // — Wave3/C1 Akashic Records: event archive + timeline —
+  attempt('akashic', () => {
+    const cleanup = initAkashicArchive({ viewer, dvr: dvrLayer });
+    return () => { if (typeof cleanup === 'function') cleanup(); };
+  });
+
+  // — Wave3/C2 WebXR: inside-the-planet viewer (v1 diorama) —
+  attempt('webxr', () => {
+    const cleanup = initWebXR();
+    return () => { if (typeof cleanup === 'function') cleanup(); };
+  });
+
+  // — Wave3/C3 Gaia voice: ambient unprompted narration —
+  attempt('gaia-voice', () => {
+    const cleanup = initGaiaVoice();
+    return () => { if (typeof cleanup === 'function') cleanup(); };
+  });
+
+  // — Wave3/C4 shared eye: P2P multi-cursor sessions —
+  attempt('shared-eye', () => {
+    const cleanup = initSharedEye({ viewer });
+    return () => { if (typeof cleanup === 'function') cleanup(); };
   });
 
   return {

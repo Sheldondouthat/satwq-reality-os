@@ -1603,7 +1603,7 @@ export async function loadDelDOTSourcesFromOpenData() {
     const resp = await fetch(DELDOT_CCTV_URL, {
       headers: { Accept: 'application/json' },
       signal: AbortSignal.timeout(CCTV_SOURCE_FETCH_TIMEOUT_MS),
-      redirect: 'error',
+      redirect: 'follow',
     });
     if (!resp.ok) {
       console.warn('[CCTV] DelDOT source download failed:', resp.status);

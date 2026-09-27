@@ -260,7 +260,7 @@ export function cycloneProxy({
     signal.throwIfAborted();
     const response = await fetchImpl(url, {
       signal,
-      redirect: 'error',
+      redirect: 'follow',
       headers: {
         Accept: 'application/geo+json,application/json',
         'User-Agent': 'Gods Eye View (public NOAA weather context)',

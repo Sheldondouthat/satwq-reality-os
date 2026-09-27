@@ -80,7 +80,7 @@ async function fetchCapped(fetchImpl, url, { capBytes, timeoutMs, accept }) {
   try {
     const response = await fetchImpl(url, {
       signal: controller.signal,
-      redirect: 'error',
+      redirect: 'follow',
       headers: { Accept: accept, 'User-Agent': UA },
     });
     if (!response.ok) {
