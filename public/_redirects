@@ -1,0 +1,6 @@
+# SATWQ // God's Eye — Cloudflare Pages routing.
+# /api/* is served by the Pages Function (functions/api/[[path]].js);
+# everything else falls through to static dist/ with SPA fallback so
+# client-side routes resolve to the app shell.
+# NOTE: keep this rule LAST — _redirects is first-match-wins.
+/* /index.html 200
