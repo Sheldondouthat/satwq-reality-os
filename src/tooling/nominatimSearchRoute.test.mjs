@@ -141,9 +141,11 @@ test('a search reaches the upstream identified, and the answer is cached', async
         'the policy asks for a User-Agent identifying the application',
       );
       assert.ok(headers.Referer, 'a Referer is sent alongside it');
+      // 'follow' (not 'error') — workerd throws on redirect:'error' (main 2ec4053).
+      // The endpoint is pinned by URL; 'follow' is the provider's explicit choice.
       assert.equal(
         calls[0].options.redirect,
-        'error',
+        'follow',
         'a fixed API endpoint may not be redirected elsewhere',
       );
 
