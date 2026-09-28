@@ -7,25 +7,33 @@
  *
  *   #57 https://www.rmob.org/livedata/live_datas/<Station>_<MMYYYY>rmob.TXT
  *
+ * Real payload shape (OBSERVED 2026-09-28 from live files — the catalog's
+ * documented "YYYY MM DD HH rows" layout was wrong and the old parser
+ * matched nothing): a pipe-delimited MONTHLY MATRIX. Header row is the
+ * month abbrev + 24 hour columns (`sep| 00h| 01h| ... | 23h|`); each data
+ * row is a day-of-month followed by 24 hourly counts (` 01| 16 | 23 | ...`).
+ * Cells may be blank or `???` (missing data — skipped, never zero-filled).
+ * Files carry footer metadata lines ([Remarks], [Soft FTP], ...) which are
+ * skipped. Year/month are NOT in the file — they come from the MMYYYY in
+ * the request URL, so parseRmob takes the same `when` date as
+ * stationFileUrl.
+ *
  * Routes:
  *   GET /api/meteor-stations → {generatedAt, sources:{...}, count, stations:[...]}
  *
- * Each station file is parsed defensively: leading date/time columns
- * (YYYY MM DD HH) anchor a data row, trailing integer fields are the hourly
- * count bins and are rolled up to one count per hour. Per-station failures
- * are recorded honestly in `sources.<key>.error`; a 502 is returned only
- * when EVERY station file fails.
+ * Each station file is parsed defensively: one hourly entry per (day, hour)
+ * cell with a finite count. Per-station failures are recorded honestly in
+ * `sources.<key>.error`; a 502 is returned only when EVERY station file fails.
  *
  * Keyless, no new dependencies, Pages-safe (global fetch only, capped
  * reads, redirect:'follow' — workerd supports only 'follow'/'manual';
  * 'error' throws at the edge (main 2ec4053) — no node: imports, no WASM).
  *
  * NOTE (2026-09-27): rmob.org was unreachable from the build VM (curl 000
- * timeouts — VM-throttled, needs a Worker-side probe). The parser below
- * follows the catalog's documented layout (fixed-width text: hourly meteor
- * counts per station) and is covered by fixture tests. Station list is the
- * catalog's documented station; expand via the SOURCES array once a live
- * probe confirms more stations.
+ * timeouts — VM-throttled, needs a Worker-side probe). NOTE (2026-09-28):
+ * reachable again (200); station list expanded from 1 to 67 after every
+ * station's September 2026 file returned HTTP 200 with the matrix layout
+ * above, each verified through the new parser.
  */
 
 const UPSTREAM_TIMEOUT_MS = 20_000;
@@ -34,7 +42,23 @@ const CACHE_TTL_MS = 60 * 60_000;
 const MAX_HOURS = 24 * 40;
 const USER_AGENT = 'Gods Eye View (public meteor forward-scatter context)';
 
-const STATIONS = ['Norton']; // per the master catalog's #57 documented URL
+const STATIONS = [
+  'Associazione_Tuscolana_Astronomia', 'BI7NTP', 'BLONDEAU', 'Barenschee', 'Chris',
+  'DDMTREBIC-R4', 'De_Queiroz', 'Druzynski', 'Dubois', 'Essegi',
+  'Essen_2', 'F5CMQ_RMS', 'FLZ-R0', 'Fabio', 'Figueras',
+  'GABB', 'Gainey', 'Grimes', 'Habraken', 'Heinz',
+  'Henning', 'Institute', 'JEN', 'JHSPILKA-R1', 'Kano_1',
+  'Kano_2', 'Kano_4', 'Keresztesi', 'Klekociuk', 'LIBNATOV-R0',
+  'LUNIGIANESI', 'Latina', 'Lauwerys', 'METRA', 'Mario',
+  'McKeel', 'Mckeel', 'Molne_RMS', 'NACHODSKO-R5', 'Nelson-A',
+  'Nelson7', 'Norman', 'Norton', 'NortonVert', 'OAUJ',
+  'Oakopal', 'Observatoire_SAT00', 'Otte', 'RAINARD',
+  'RAINARD_SL', 'RamsObservatory', 'Rodriguez', 'Rourke',
+  'Salvador', 'Steyaert', 'Steyaert_SL5', 'Sugimoto', 'Szeged',
+  'Tepliczky', 'Terrier_RMS', 'Thibaut', 'Verbelen',
+  'Wallbaum', 'Wallbaum_2', 'ZEBRAK-R5',
+]; // every station's 092026 file returned HTTP 200 and parsed to ≥1 hourly
+   // record, 2026-09-28; OBSUPICE-R7/SVAKOV-R12/Thornett excluded (all-??? files)
 
 function stationFileUrl(station, when = new Date()) {
   const mm = String(when.getUTCMonth() + 1).padStart(2, '0');
@@ -42,8 +66,18 @@ function stationFileUrl(station, when = new Date()) {
   return `https://www.rmob.org/livedata/live_datas/${station}_${mm}${yyyy}rmob.TXT`;
 }
 
+// Source keys are case-collapsed, so McKeel/Mckeel would collide on
+// 'rmob_mckeel' — disambiguate duplicates with a numeric suffix.
+const _seenKeys = new Map();
+function _sourceKey(station) {
+  const base = `rmob_${station.toLowerCase()}`;
+  const n = (_seenKeys.get(base) ?? 0) + 1;
+  _seenKeys.set(base, n);
+  return n === 1 ? base : `${base}_${n}`;
+}
+
 const SOURCES = STATIONS.map((station) => ({
-  key: `rmob_${station.toLowerCase()}`,
+  key: _sourceKey(station),
   station,
   attribution: 'RMOB — Radio Meteor Observation Bulletin (free, attribution)',
 }));
@@ -57,39 +91,62 @@ function isFiniteNum(v) {
 
 // ——— parser (pure, exported for tests) ———
 
-/** Parse one station's monthly TXT. Rows start with YYYY MM DD HH. */
-export function parseRmob(station, text) {
+/** Parse one station's monthly matrix TXT into hourly (day, hour) entries.
+ *
+ * Real layout (OBSERVED 2026-09-28):
+ *   sep| 00h| 01h| ... | 23h|        <- header: month abbrev + 24 hour cols
+ *    01| 16 | 23 | ... | 11 |        <- day-of-month + 24 hourly counts
+ * Blank cells and `???` are missing data (skipped, never zero-filled);
+ * footer metadata lines ([Remarks], [Soft FTP], ...) carry no day number
+ * and are skipped. Year/month come from `when` (the MMYYYY in the URL).
+ */
+export function parseRmob(station, text, when = new Date()) {
+  const year = when.getUTCFullYear();
+  const month = when.getUTCMonth() + 1;
   const lines = String(text ?? '').split(/\r?\n/);
+  let hours = null; // hour-of-day per data column, from the header
   const hourly = [];
-  let headerStation = '';
   for (const raw of lines) {
     const line = raw.trimEnd();
-    if (!line.trim()) continue;
-    const m = line.match(/^\s*(\d{4})\s+(\d{1,2})\s+(\d{1,2})\s+(\d{1,2})\b(.*)$/);
-    if (!m) {
-      // First non-data line is treated as the header (station identity).
-      if (!headerStation) headerStation = line.trim().slice(0, 160);
+    if (!line.includes('|')) continue;
+    const cells = line.split('|');
+    if (!hours) {
+      // Header candidate: at least one cell looks like `00h`..`23h`.
+      const found = [];
+      for (const cell of cells) {
+        const m = cell.trim().match(/^(\d{1,2})h$/i);
+        found.push(m ? Number(m[1]) : null);
+      }
+      const usable = found.filter((h) => h !== null && h >= 0 && h <= 23);
+      if (usable.length >= 12) {
+        hours = found;
+        continue;
+      }
+      // No hour labels anywhere yet — not the header, skip.
       continue;
     }
-    const [, y, mo, d, h, rest] = m;
-    const year = Number(y);
-    const month = Number(mo);
-    const day = Number(d);
-    const hour = Number(h);
-    if (year < 1990 || year > 2100 || month < 1 || month > 12 || day < 1 || day > 31 || hour > 23) continue;
-    const bins = (rest.match(/-?\d+/g) ?? []).map(Number).filter(Number.isFinite);
-    const count = bins.reduce((sum, n) => sum + n, 0);
-    const time = new Date(Date.UTC(year, month - 1, day, hour, 0, 0));
-    hourly.push({
-      timeISO: time.toISOString(),
-      count,
-      bins: bins.length,
-    });
+    const day = Number(cells[0].trim());
+    if (!Number.isInteger(day) || day < 1 || day > 31) continue; // footer/meta row
+    // Data cell i aligns with header cell i (header cell 0 is the day label).
+    for (let i = 1; i < cells.length && i < hours.length; i++) {
+      const hour = hours[i];
+      if (hour === null || hour < 0 || hour > 23) continue;
+      const rawCell = cells[i].trim();
+      if (rawCell === '') continue; // blank cell → missing (Number('') is 0!)
+      const value = Number(rawCell);
+      if (!Number.isFinite(value)) continue; // '???' etc. → missing
+      const time = new Date(Date.UTC(year, month - 1, day, hour, 0, 0));
+      hourly.push({
+        timeISO: time.toISOString(),
+        count: value,
+        bins: 1,
+      });
+    }
   }
   hourly.sort((a, b) => a.timeISO.localeCompare(b.timeISO));
   const trimmed = hourly.slice(-MAX_HOURS);
   return {
-    station: headerStation || station,
+    station,
     code: station,
     count: trimmed.length,
     totalCount: trimmed.reduce((sum, h) => sum + h.count, 0),
@@ -124,10 +181,11 @@ async function fetchTextCapped(stationKey, url) {
 
 async function fetchOneSource(source) {
   const started = Date.now();
+  const when = new Date();
   try {
-    const url = stationFileUrl(source.station);
+    const url = stationFileUrl(source.station, when);
     const text = await fetchTextCapped(source.key, url);
-    const station = parseRmob(source.station, text);
+    const station = parseRmob(source.station, text, when);
     if (station.count === 0)
       throw Object.assign(new Error(`meteors_${source.key}_no_data`), { status: 502 });
     return {
@@ -233,5 +291,7 @@ export const _meteorsInternals = {
   parseRmob,
   stationFileUrl,
   buildSnapshot,
+  stations: STATIONS,
+  sources: SOURCES,
   clearCaches: () => { cache = null; inflight = null; },
 };

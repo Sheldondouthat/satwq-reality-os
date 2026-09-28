@@ -62,7 +62,12 @@ test('terminatorLine forms a closed loop (first/last adjacent)', () => {
   const line = terminatorLine(new Date(), -6, 90);
   const f = line[0];
   const l = line[line.length - 1];
-  assert.ok(Math.hypot(f.lon - l.lon, f.lat - l.lat) < 6, 'loop does not close');
+  // Longitude wraps at the ±180 antimeridian: 176 and −180 are 4° apart,
+  // not 356°. The naive hypot() misreads a seam-crossing closure as a gap
+  // (OBSERVED 2026-09-28: first=(176,−82.3), last=(−180,−82.28) → 356).
+  const dLon = Math.abs(f.lon - l.lon);
+  const wrappedDLon = Math.min(dLon, 360 - dLon);
+  assert.ok(Math.hypot(wrappedDLon, f.lat - l.lat) < 6, 'loop does not close');
 });
 
 test('onTerminatorBand brackets −6° ± 2°', () => {
