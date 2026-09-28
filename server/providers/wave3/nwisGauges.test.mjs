@@ -26,11 +26,11 @@ test('parseSites rejects empty, malformed, and oversized lists', () => {
   assert.throws(() => parseSites(tooMany), { message: /nwis_sites_count/ });
 });
 
-test('FEATURED_SITES are the 8 live-verified gauges (2026-09-27)', () => {
-  assert.equal(FEATURED_SITES.length, 8);
+test('FEATURED_SITES are the 14 live-verified gauges (2026-09-27)', () => {
+  assert.equal(FEATURED_SITES.length, 14);
   assert.deepEqual(
     FEATURED_SITES.map((s) => s.id),
-    ['01646500', '01463500', '07374000', '01578310', '08057410', '09380000', '14211720', '05586100'],
+    ['01646500', '01463500', '07374000', '01578310', '08057410', '09380000', '14211720', '05586100', '06934500', '03294500', '14105700', '07263620', '08364000', '11447650'],
   );
   assert.ok(FEATURED_SITES.every((s) => s.name && Number.isFinite(s.lat) && Number.isFinite(s.lon)));
   const potomac = FEATURED_SITES.find((s) => s.id === '01646500');

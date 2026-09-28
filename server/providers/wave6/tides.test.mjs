@@ -138,11 +138,11 @@ test('parseQuery parses stations= lists with dedupe and caps', () => {
   );
 });
 
-test('STATIONS are the 9 live-verified CO-OPS stations (2026-09-27)', () => {
-  assert.equal(STATIONS.length, 9);
+test('STATIONS are the 14 live-verified CO-OPS stations (2026-09-27)', () => {
+  assert.equal(STATIONS.length, 14);
   assert.deepEqual(
     STATIONS.map((s) => s.id),
-    ['8638610', '8443970', '8518750', '8724580', '8728690', '8761724', '9410170', '9414290', '9444900'],
+    ['8638610', '8443970', '8518750', '8724580', '8728690', '8761724', '9410170', '9414290', '9444900', '8725520', '8661070', '8454000', '8545240', '8761927'],
   );
   assert.ok(STATIONS.every((s) => /^\d{7}$/.test(s.id) && s.name && Number.isFinite(s.lat) && Number.isFinite(s.lon)));
   const boston = STATIONS.find((s) => s.id === '8443970');

@@ -21,7 +21,7 @@
  * A 502 is returned only when EVERY requested product fails; partial
  * results are reported honestly per source.
  *
- * Curated multi-station sweep: the STATIONS list below holds 9 CO-OPS
+ * Curated multi-station sweep: the STATIONS list below holds 14 CO-OPS
  * stations, every one verified 2026-09-27 against the upstream's own
  * station-list endpoint
  * (https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations/{id}.json).
@@ -65,6 +65,11 @@ const STATIONS = [
   { id: '9410170', name: 'San Diego', lat: 32.715557, lon: -117.17667, region: 'California' },
   { id: '9414290', name: 'San Francisco', lat: 37.806305, lon: -122.46589, region: 'California' },
   { id: '9444900', name: 'Port Townsend', lat: 48.11122, lon: -122.759674, region: 'Washington' },
+  { id: '8725520', name: 'Fort Myers', lat: 26.647778, lon: -81.87111, region: 'Florida' }, // verified 2026-09-27 recur
+  { id: '8661070', name: 'Springmaid Pier', lat: 33.655, lon: -78.9183, region: 'South Carolina' }, // verified 2026-09-27 recur
+  { id: '8454000', name: 'Providence', lat: 41.807167, lon: -71.400665, region: 'Rhode Island' }, // verified 2026-09-27 recur
+  { id: '8545240', name: 'Philadelphia', lat: 39.933056, lon: -75.14198, region: 'Pennsylvania' }, // verified 2026-09-27 recur
+  { id: '8761927', name: 'New Canal Station', lat: 30.027222, lon: -90.113335, region: 'Louisiana' }, // verified 2026-09-27 recur
 ];
 
 let cache = null; // {at, key, payload}

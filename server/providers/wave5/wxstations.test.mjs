@@ -176,14 +176,14 @@ test('parseEire uses the verified station list for id and name', () => {
 });
 
 test('station lists match the live-verified expansion (2026-09-27)', () => {
-  // NWS: original 4 + 8 verified via /stations/{id} HTTP 200
-  assert.equal(NWS_IDS.length, 12);
-  for (const sid of ['KROA', 'KJFK', 'KSEA', 'KBOS', 'KDCA', 'KATL', 'KMIA', 'KORD', 'KDFW', 'KDEN', 'KLAX', 'KPHX']) {
+  // NWS: original 4 + 8 + 8 recur, each verified via /stations/{id} HTTP 200
+  assert.equal(NWS_IDS.length, 20);
+  for (const sid of ['KROA', 'KJFK', 'KSEA', 'KBOS', 'KDCA', 'KATL', 'KMIA', 'KORD', 'KDFW', 'KDEN', 'KLAX', 'KPHX', 'KSFO', 'KLAS', 'KIAH', 'KMCO', 'KMSP', 'KSTL', 'KBWI', 'KRDU']) {
     assert.ok(NWS_IDS.includes(sid), sid);
   }
-  // Eire: 9 verified slugs, unique
-  assert.equal(EIRE_STATIONS.length, 9);
-  assert.equal(new Set(EIRE_STATIONS.map((s) => s.slug)).size, 9);
+  // Eire: 11 verified slugs, unique (dunsany + finner added 2026-09-27 recur)
+  assert.equal(EIRE_STATIONS.length, 11);
+  assert.equal(new Set(EIRE_STATIONS.map((s) => s.slug)).size, 11);
   assert.ok(EIRE_STATIONS.every((s) => s.slug && s.name && s.lat != null && s.lon != null));
   // HKO: 12 places verified against the live rhrread place list
   assert.equal(HKO_PLACES.length, 12);

@@ -105,6 +105,7 @@ function sampleEvery(arr, every, cap) {
 const NWS_IDS = [
   'KROA', 'KJFK', 'KSEA', 'KBOS', // original 4
   'KDCA', 'KATL', 'KMIA', 'KORD', 'KDFW', 'KDEN', 'KLAX', 'KPHX', // added 2026-09-27
+  'KSFO', 'KLAS', 'KIAH', 'KMCO', 'KMSP', 'KSTL', 'KBWI', 'KRDU', // added 2026-09-27 (recur run) — all HTTP 200 on /stations/{id}
 ];
 
 // Met Éireann station slugs — each verified live 2026-09-27:
@@ -113,6 +114,8 @@ const NWS_IDS = [
 // for a DIFFERENT station (macehead, malin, rochespoint → "Dublin Airport")
 // were rejected as unverifiable. Town coords are approximations — always
 // served with coordApprox:true (never presented as measured positions).
+// kilkenny/johnstowncastle/moorepark/newport (probed 2026-09-27 recur) return
+// rows named for a DIFFERENT station ("Dublin Airport") — rejected same rule.
 const EIRE_STATIONS = [
   { slug: 'athenry', name: 'Athenry', lat: 53.29, lon: -8.75 },
   { slug: 'dublin', name: 'Dublin Airport', lat: 53.43, lon: -6.26 },
@@ -123,6 +126,8 @@ const EIRE_STATIONS = [
   { slug: 'knock', name: 'Knock', lat: 53.79, lon: -8.81 },
   { slug: 'mullingar', name: 'Mullingar', lat: 53.52, lon: -7.36 },
   { slug: 'valentia', name: 'Valentia', lat: 51.94, lon: -10.24 },
+  { slug: 'dunsany', name: 'Dunsany', lat: 53.47, lon: -6.62 }, // verified 2026-09-27 recur — rows named "Dunsany"
+  { slug: 'finner', name: 'Finner', lat: 54.50, lon: -8.23 }, // verified 2026-09-27 recur — rows named "Finner"
 ];
 
 // IMO (vedur.is) station IDs: only ids=1 (Reykjavík) verified. Probes of

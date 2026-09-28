@@ -51,6 +51,12 @@ export const FEATURED_SITES = [
   { id: '09380000', name: 'Colorado River at Lees Ferry, AZ', lat: 36.86433333, lon: -111.58787222 },
   { id: '14211720', name: 'Willamette River at Portland, OR', lat: 45.5175, lon: -122.6691667 },
   { id: '05586100', name: 'Illinois River at Valley City, IL', lat: 39.70319444, lon: -90.6430833 },
+  { id: '06934500', name: 'Missouri River at Hermann, MO', lat: 38.70980556, lon: -91.4385 }, // verified 2026-09-27 recur
+  { id: '03294500', name: 'OHIO RIVER AT LOUISVILLE, KY', lat: 38.28034736, lon: -85.7991305 }, // verified 2026-09-27 recur
+  { id: '14105700', name: 'COLUMBIA RIVER AT THE DALLES, OR', lat: 45.60827778, lon: -121.1899167 }, // verified 2026-09-27 recur
+  { id: '07263620', name: 'AR River@David D Terry L&D below Little Rock, AR', lat: 34.6811111, lon: -92.1513889 }, // verified 2026-09-27 recur
+  { id: '08364000', name: 'RIO GRANDE AT EL PASO, TX', lat: 31.80288488, lon: -106.5408218 }, // verified 2026-09-27 recur
+  { id: '11447650', name: 'SACRAMENTO R A FREEPORT CA', lat: 38.45566389, lon: -121.5016167 }, // verified 2026-09-27 recur
 ];
 
 /** Parse + validate a comma-separated "sites=" list of USGS site numbers. Throws (400). */
