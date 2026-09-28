@@ -58,6 +58,11 @@ export const FEATURED_SITES = [
   { id: '08364000', name: 'RIO GRANDE AT EL PASO, TX', lat: 31.80288488, lon: -106.5408218 }, // verified 2026-09-27 recur
   { id: '11447650', name: 'SACRAMENTO R A FREEPORT CA', lat: 38.45566389, lon: -121.5016167 }, // verified 2026-09-27 recur
   { id: '07032000', name: 'Mississippi River at Memphis, TN', lat: 35.12314616, lon: -90.077592 }, // verified 2026-09-28 recur
+  { id: '03609750', name: 'TENNESSEE RIVER AT HIGHWAY 60 NEAR PADUCAH, KY', lat: 37.03783498, lon: -88.5294898 }, // verified 2026-09-28 recur
+  { id: '06329500', name: 'Yellowstone River near Sidney MT', lat: 47.67741389, lon: -104.1554111 }, // verified 2026-09-28 recur
+  { id: '07301500', name: 'North Fork Red River near Carter, OK', lat: 35.16810838, lon: -99.5073128 }, // verified 2026-09-28 recur
+  { id: '13037500', name: 'SNAKE RIVER NR HEISE ID', lat: 43.6125, lon: -111.66 }, // verified 2026-09-28 recur
+  { id: '03598000', name: 'DUCK RIVER NEAR SHELBYVILLE, TN', lat: 35.48035, lon: -86.4991609 }, // verified 2026-09-28 recur
 ];
 
 /** Parse + validate a comma-separated "sites=" list of USGS site numbers. Throws (400). */

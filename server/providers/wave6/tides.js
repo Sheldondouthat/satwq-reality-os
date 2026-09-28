@@ -21,7 +21,7 @@
  * A 502 is returned only when EVERY requested product fails; partial
  * results are reported honestly per source.
  *
- * Curated multi-station sweep: the STATIONS list below holds 18 CO-OPS
+ * Curated multi-station sweep: the STATIONS list below holds 24 CO-OPS
  * stations, every one verified 2026-09-27/28 against the upstream's own
  * station-list endpoint
  * (https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations/{id}.json).
@@ -74,6 +74,12 @@ const STATIONS = [
   { id: '1612340', name: 'Honolulu', lat: 21.303333, lon: -157.86453, region: 'Hawaii' }, // verified 2026-09-28 recur
   { id: '9447130', name: 'Seattle', lat: 47.60264, lon: -122.3393, region: 'Washington' }, // verified 2026-09-28 recur
   { id: '8771450', name: 'Galveston Pier 21', lat: 29.31, lon: -94.7933, region: 'Texas' }, // verified 2026-09-28 recur
+  { id: '8531680', name: 'Sandy Hook', lat: 40.4669, lon: -74.0094, region: 'New Jersey' }, // verified 2026-09-28 recur
+  { id: '8574680', name: 'Baltimore', lat: 39.266693, lon: -76.57831, region: 'Maryland' }, // verified 2026-09-28 recur
+  { id: '8723214', name: 'Virginia Key', lat: 25.7314, lon: -80.1618, region: 'Florida' }, // verified 2026-09-28 recur
+  { id: '8510560', name: 'Montauk', lat: 41.048332, lon: -71.95944, region: 'New York' }, // verified 2026-09-28 recur
+  { id: '9411340', name: 'Santa Barbara', lat: 34.40459, lon: -119.6925, region: 'California' }, // verified 2026-09-28 recur
+  { id: '9439040', name: 'Astoria', lat: 46.207306, lon: -123.7683, region: 'Oregon' }, // verified 2026-09-28 recur
 ];
 
 let cache = null; // {at, key, payload}
