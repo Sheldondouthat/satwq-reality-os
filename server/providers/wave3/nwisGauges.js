@@ -57,6 +57,7 @@ export const FEATURED_SITES = [
   { id: '07263620', name: 'AR River@David D Terry L&D below Little Rock, AR', lat: 34.6811111, lon: -92.1513889 }, // verified 2026-09-27 recur
   { id: '08364000', name: 'RIO GRANDE AT EL PASO, TX', lat: 31.80288488, lon: -106.5408218 }, // verified 2026-09-27 recur
   { id: '11447650', name: 'SACRAMENTO R A FREEPORT CA', lat: 38.45566389, lon: -121.5016167 }, // verified 2026-09-27 recur
+  { id: '07032000', name: 'Mississippi River at Memphis, TN', lat: 35.12314616, lon: -90.077592 }, // verified 2026-09-28 recur
 ];
 
 /** Parse + validate a comma-separated "sites=" list of USGS site numbers. Throws (400). */

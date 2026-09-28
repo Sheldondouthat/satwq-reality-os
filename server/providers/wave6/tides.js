@@ -21,8 +21,8 @@
  * A 502 is returned only when EVERY requested product fails; partial
  * results are reported honestly per source.
  *
- * Curated multi-station sweep: the STATIONS list below holds 14 CO-OPS
- * stations, every one verified 2026-09-27 against the upstream's own
+ * Curated multi-station sweep: the STATIONS list below holds 18 CO-OPS
+ * stations, every one verified 2026-09-27/28 against the upstream's own
  * station-list endpoint
  * (https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations/{id}.json).
  * Multi-station mode fetches each station's requested products in parallel;
@@ -70,6 +70,10 @@ const STATIONS = [
   { id: '8454000', name: 'Providence', lat: 41.807167, lon: -71.400665, region: 'Rhode Island' }, // verified 2026-09-27 recur
   { id: '8545240', name: 'Philadelphia', lat: 39.933056, lon: -75.14198, region: 'Pennsylvania' }, // verified 2026-09-27 recur
   { id: '8761927', name: 'New Canal Station', lat: 30.027222, lon: -90.113335, region: 'Louisiana' }, // verified 2026-09-27 recur
+  { id: '8665530', name: 'Charleston', lat: 32.780834, lon: -79.923615, region: 'South Carolina' }, // verified 2026-09-28 recur
+  { id: '1612340', name: 'Honolulu', lat: 21.303333, lon: -157.86453, region: 'Hawaii' }, // verified 2026-09-28 recur
+  { id: '9447130', name: 'Seattle', lat: 47.60264, lon: -122.3393, region: 'Washington' }, // verified 2026-09-28 recur
+  { id: '8771450', name: 'Galveston Pier 21', lat: 29.31, lon: -94.7933, region: 'Texas' }, // verified 2026-09-28 recur
 ];
 
 let cache = null; // {at, key, payload}
