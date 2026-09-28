@@ -2,13 +2,15 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import { ROUTE, valueLine, detailLine } from './model.js';
 
+// Time-relative fixture: hardcoded timestamps rot (this test failed when the
+// full suite's ~7min runtime pushed the sample past the "5m ago" assertion).
 const SAMPLE = {
   "count": 5000,
   "strikes": [
     {
       "lat": 37.2,
       "lon": -80.7,
-      "time": "2026-09-27T23:50:33.644Z"
+      "time": new Date(Date.now() - 5 * 60_000).toISOString()
     }
   ]
 };
