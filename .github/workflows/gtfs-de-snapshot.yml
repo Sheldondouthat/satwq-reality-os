@@ -1,0 +1,30 @@
+name: gtfs.de snapshot (GTFS-RT)
+
+on:
+  schedule:
+    - cron: '11 */2 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: gtfs-de-snapshot
+  cancel-in-progress: true
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: npm ci
+      - name: Run gtfs.de unit tests
+        run: node --test server/providers/wave8/gtfsDe.test.mjs scripts/snapshot-scripts.test.mjs
+      - name: Build and publish gtfs.de snapshot
+        run: node scripts/gtfs-de-snapshot.mjs
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
