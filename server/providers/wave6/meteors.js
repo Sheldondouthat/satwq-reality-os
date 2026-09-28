@@ -42,23 +42,52 @@ const CACHE_TTL_MS = 60 * 60_000;
 const MAX_HOURS = 24 * 40;
 const USER_AGENT = 'Gods Eye View (public meteor forward-scatter context)';
 
+// Cloudflare Workers (free tier) allows 50 subrequests per invocation; this
+// provider fires one fetch per station, so STATIONS is capped at 40 to stay
+// safely under the limit (OBSERVED 2026-09-28: 65 stations → the last 15
+// failed in production with "Too many subrequests by single Worker invocation").
+// The 40 are the most complete stations by 2026-09 row count (all verified
+// 200 + parseable 2026-09-28). The other 25 verified stations are parked below
+// in PARKED_STATIONS — re-verify and promote if the cap ever rises.
 const STATIONS = [
-  'Associazione_Tuscolana_Astronomia', 'BI7NTP', 'BLONDEAU', 'Barenschee', 'Chris',
-  'DDMTREBIC-R4', 'De_Queiroz', 'Druzynski', 'Dubois', 'Essegi',
-  'Essen_2', 'F5CMQ_RMS', 'FLZ-R0', 'Fabio', 'Figueras',
-  'GABB', 'Gainey', 'Grimes', 'Habraken', 'Heinz',
-  'Henning', 'Institute', 'JEN', 'JHSPILKA-R1', 'Kano_1',
-  'Kano_2', 'Kano_4', 'Keresztesi', 'Klekociuk', 'LIBNATOV-R0',
-  'LUNIGIANESI', 'Latina', 'Lauwerys', 'METRA', 'Mario',
-  'McKeel', 'Mckeel', 'Molne_RMS', 'NACHODSKO-R5', 'Nelson-A',
-  'Nelson7', 'Norman', 'Norton', 'NortonVert', 'OAUJ',
-  'Oakopal', 'Observatoire_SAT00', 'Otte', 'RAINARD',
-  'RAINARD_SL', 'RamsObservatory', 'Rodriguez', 'Rourke',
-  'Salvador', 'Steyaert', 'Steyaert_SL5', 'Sugimoto', 'Szeged',
-  'Tepliczky', 'Terrier_RMS', 'Thibaut', 'Verbelen',
-  'Wallbaum', 'Wallbaum_2', 'ZEBRAK-R5',
-]; // every station's 092026 file returned HTTP 200 and parsed to ≥1 hourly
+  'LUNIGIANESI', 'Habraken', 'JHSPILKA-R1', 'Kano_1', 'Kano_2',
+  'Szeged', 'ZEBRAK-R5', 'Barenschee', 'De_Queiroz', 'Essen_2',
+  'F5CMQ_RMS', 'FLZ-R0', 'Heinz', 'Mckeel', 'Molne_RMS',
+  'Norton', 'NortonVert', 'RamsObservatory', 'Tepliczky', 'Thibaut',
+  'Wallbaum', 'Chris', 'Dubois', 'Klekociuk', 'Mario',
+  'NACHODSKO-R5', 'OAUJ', 'Terrier_RMS', 'Essegi', 'Salvador',
+  'Lauwerys', 'Sugimoto', 'Grimes', 'Verbelen', 'Associazione_Tuscolana_Astronomia',
+  'Norman', 'Steyaert_SL5', 'GABB', 'DDMTREBIC-R4', 'Figueras',
+]; // 40 stations; every 092026 file returned HTTP 200 and parsed to ≥1 hourly
    // record, 2026-09-28; OBSUPICE-R7/SVAKOV-R12/Thornett excluded (all-??? files)
+
+// Verified-good 2026-09-28 but parked under the 50-subrequest Workers cap
+// (2026-09 row counts in parentheses). Promote if the cap rises.
+const PARKED_STATIONS = [
+  'Henning', 'Institute', // 595
+  'Druzynski', // 588
+  'BI7NTP', // 560
+  'RAINARD_SL', 'RAINARD', // 548, 546
+  'Rourke', // 545
+  'Fabio', // 537
+  'Steyaert', // 523
+  'Nelson7', // 513
+  'Keresztesi', // 510
+  'Rodriguez', // 498
+  'JEN', // 490
+  'McKeel', // 489 — note: would collide with 'Mckeel' source key; needs the _2 suffix logic if promoted
+  'Kano_4', // 429
+  'Nelson-A', // 426
+  'Observatoire_SAT00', // 292
+  'Latina', // 281
+  'Wallbaum_2', // 279
+  'Oakopal', // 260
+  'LIBNATOV-R0', // 239
+  'Otte', // 226
+  'Gainey', // 153
+  'BLONDEAU', // 95
+  'METRA', // 87
+];
 
 function stationFileUrl(station, when = new Date()) {
   const mm = String(when.getUTCMonth() + 1).padStart(2, '0');

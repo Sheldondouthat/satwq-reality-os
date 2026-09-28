@@ -134,19 +134,20 @@ test('parseRmob handles truncated (19-column) headers like the ??? stations', ()
   assert.equal(s.hourly[18].timeISO, '2026-09-01T18:00:00.000Z');
 });
 
-test('station list pins the 65 verified 2026-09-28 stations', () => {
-  assert.equal(stations.length, 65);
+test('station list pins the 40 capped 2026-09-28 stations (Workers 50-subrequest limit)', () => {
+  assert.equal(stations.length, 40);
+  assert.ok(stations.length <= 50, 'must stay under the Workers subrequest cap');
   assert.ok(stations.includes('Norton'));
+  assert.ok(stations.includes('LUNIGIANESI'));
   assert.ok(!stations.includes('OBSUPICE-R7'), 'all-??? file excluded');
   assert.ok(!stations.includes('SVAKOV-R12'), 'all-??? file excluded');
   assert.ok(!stations.includes('Thornett'), 'all-??? file excluded');
 });
 
-test('source keys are unique (McKeel/Mckeel disambiguated)', () => {
+test('source keys are unique', () => {
   const keys = sources.map((s) => s.key);
   assert.equal(new Set(keys).size, keys.length);
   assert.ok(keys.includes('rmob_mckeel'));
-  assert.ok(keys.includes('rmob_mckeel_2'));
   assert.ok(keys.includes('rmob_norton'));
 });
 
@@ -169,7 +170,7 @@ test('handler serves parsed stations with mocked fetch', async () => {
     await calls[0].handler(fakeReq('/api/meteor-stations'), res);
     assert.equal(res.statusCode, 200);
     const payload = JSON.parse(res.body);
-    assert.equal(payload.count, 65);
+    assert.equal(payload.count, 40);
     assert.equal(payload.stations[0].count, 48);
     assert.equal(payload.stations[0].totalCount, 63);
     assert.match(res.headers['Cache-Control'], /max-age=3600/);
