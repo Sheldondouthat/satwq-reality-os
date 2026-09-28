@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import { launchesProxy, _launchesInternals } from './launches.js';
 
-const { parseLl2, parseRll, normalizeLaunch, normalizeName, dedupeLaunches, buildSnapshot } = _launchesInternals;
+const { parseLl2, parseRll, normalizeLaunch, normalizeName, dedupeLaunches, buildSnapshot, parseMonthYearNet } = _launchesInternals;
 
 function fakeRes() {
   const chunks = [];
@@ -40,7 +40,7 @@ const SAMPLE_LL2 = {
       status: { id: 1, name: 'Go for Launch' },
       rocket: { configuration: { name: 'Falcon 9', full_name: 'Falcon 9 Block 5' } },
       launch_service_provider: { name: 'SpaceX', type: 'Commercial' },
-      pad: { name: 'Space Launch Complex 40', location: { name: 'Cape Canaveral, FL, USA' } },
+      pad: { name: 'Space Launch Complex 40', latitude: 28.5618571, longitude: -80.577366, location: { name: 'Cape Canaveral, FL, USA' } },
       mission: { name: 'Starlink Group 10-30', description: 'A batch of 24 satellites for the Starlink mega-constellation.', type: 'Communications' },
       url: 'https://ll.thespacedevs.com/2.2.0/launch/2c2ba6e2/',
     },
@@ -100,6 +100,36 @@ test('parseLl2 keeps vehicle/provider/pad/mission fields', () => {
   assert.equal(l.windowEnd, '2026-09-28T02:30:00.000Z');
   assert.match(l.mission, /Starlink/);
   assert.deepEqual(l.sources, ['ll2']);
+  assert.equal(l.lat, 28.5618571);
+  assert.equal(l.lon, -80.577366);
+});
+
+test('normalizeLaunch null-guards coordinates (never Number(null)===0)', () => {
+  const l = normalizeLaunch({ id: 'a', name: 'x', lat: null, lon: undefined, source: 't' });
+  assert.equal(l.lat, null);
+  assert.equal(l.lon, null);
+  const m = normalizeLaunch({ id: 'b', name: 'y', lat: '28.5', lon: 'not-a-number', source: 't' });
+  assert.equal(m.lat, 28.5);
+  assert.equal(m.lon, null);
+});
+
+test('parseMonthYearNet pins month-granularity NETs to UTC midnight (TZ-independent)', () => {
+  assert.equal(parseMonthYearNet('NET Oct 2026'), '2026-10-01T00:00:00.000Z');
+  assert.equal(parseMonthYearNet('Oct 2026'), '2026-10-01T00:00:00.000Z');
+  assert.equal(parseMonthYearNet('jan 2027'), '2027-01-01T00:00:00.000Z');
+  assert.equal(parseMonthYearNet('2026-09-28T00:00:00Z'), null); // full dates: not month-granularity
+  assert.equal(parseMonthYearNet('October 1, 2026'), null);
+  assert.equal(parseMonthYearNet(null), null);
+});
+
+test('dedupeLaunches carries coordinates across the merge', () => {
+  const withCoords = normalizeLaunch({ id: 'll2:1', name: 'Falcon 9 | Starlink 10-30', net: '2026-09-28T00:00:00Z', lat: 28.56, lon: -80.57, source: 'll2' });
+  const without = normalizeLaunch({ id: 'rll:2', name: 'Falcon 9 | Starlink 10-30', net: '2026-09-28T00:30:00Z', source: 'rll' });
+  // survivor first without coords -> merged from the duplicate
+  const merged = dedupeLaunches([without, withCoords]);
+  assert.equal(merged.length, 1);
+  assert.equal(merged[0].lat, 28.56);
+  assert.equal(merged[0].lon, -80.57);
 });
 
 test('parseRll tolerates missing t0 (NET TBD) without a NET', () => {

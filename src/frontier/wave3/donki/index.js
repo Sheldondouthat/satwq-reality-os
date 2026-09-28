@@ -3,16 +3,24 @@
  *
  * Fail-soft `init({ viewer, mount, chip, trackLayer, t })`.
  *
- * For each Earth-directed CME (provider heuristic) draws a cinematic arc
- * from the Sun side toward Earth with an ETA countdown label. Also lists
- * recent flares (FLR) in the dock. Earth-directedness and ETA are MODELS —
- * the legend says so.
+ * For each Earth-directed CME draws a cinematic arc from the Sun side toward
+ * Earth with an ETA countdown label. Also lists recent flares (FLR) in the
+ * dock. Reads the wave6 /api/donki bundle ({cme, flares}); Earth-directedness
+ * and ETA are computed client-side from the joined CMEAnalysis by the MODEL
+ * heuristic in model.js — the legend says so.
  */
 import * as Cesium from 'cesium';
-import { arcSamples, cmeLabel, etaCountdown, speedColor, subsolarPoint } from './model.js';
+import {
+  adaptWave6Cme,
+  adaptWave6Flare,
+  arcSamples,
+  cmeLabel,
+  etaCountdown,
+  speedColor,
+  subsolarPoint,
+} from './model.js';
 
 const API = '/api/donki';
-const DAYS = 30;
 const REFRESH_MS = 30 * 60_000;
 const SUN_DISTANCE_M = 30_000_000; // cinematic: sun placed 30,000 km out along the sun line
 
@@ -32,13 +40,18 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
     async function load() {
       if (destroyed || !enabled) return;
       try {
-        const [cmeRes, flrRes] = await Promise.all([
-          fetch(`${API}?type=CME&days=${DAYS}`),
-          fetch(`${API}?type=FLR&days=${DAYS}`),
-        ]);
+        // Wave6 serves one bundle: {cme:[...], flares:[...], ...}.
+        // Adapters reshape items into the render records (model.js).
+        const res = await fetch(API);
         if (destroyed || !enabled) return;
-        const cmes = cmeRes.ok ? (await cmeRes.json()).events ?? [] : [];
-        const flares = flrRes.ok ? (await flrRes.json()).events ?? [] : [];
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const payload = await res.json();
+        const cmes = Array.isArray(payload?.cme)
+          ? payload.cme.map(adaptWave6Cme)
+          : [];
+        const flares = Array.isArray(payload?.flares)
+          ? payload.flares.map(adaptWave6Flare)
+          : [];
         render(cmes.filter((c) => c.earthDirected).slice(0, 8));
         updateStatus(cmes, flares);
       } catch {

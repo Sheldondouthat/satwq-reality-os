@@ -1,7 +1,7 @@
 /**
  * Radiation map client (wave3 sci-fi B #4) — live background-radiation dots.
  *
- * Reads /api/radiation (Safecast via server proxy), renders one dot per
+ * Reads /api/radiation (gmcmap via server proxy; wave6 bundle), renders one dot per
  * decluttered cell colored by dose band, refreshes every 10 minutes.
  * init(viewer, { mount }) → { destroy }. Fail-soft throughout.
  */
@@ -10,6 +10,7 @@ import {
   BAND_COLORS,
   BAND_LABELS,
   doseBand,
+  stationsToPoints,
   validateRadiationPayload,
   declutterByCell,
 } from './model.js';
@@ -35,7 +36,8 @@ export function init(viewer, { mount = null, fetchImpl = fetch } = {}) {
     try {
       const res = await fetchImpl('/api/radiation');
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const payload = await res.json();
+      // Wave6 serves {stations:[...]}; adapt to the {points:[...]} the renderer validates.
+      const payload = stationsToPoints(await res.json());
       const check = validateRadiationPayload(payload);
       if (!check.ok) throw new Error(`bad payload: ${check.reason}`);
       if (payload.unavailable) {
@@ -63,10 +65,10 @@ export function init(viewer, { mount = null, fetchImpl = fetch } = {}) {
           );
         } catch { /* skip bad point */ }
       }
-      const when = payload.fetchedAt ? new Date(payload.fetchedAt).toISOString() : 'unknown';
+      const when = payload.generatedAt ? new Date(payload.generatedAt).toISOString() : 'unknown';
       note(
         `${dots.length} sensors${payload.stale ? ' (stale cache)' : ''} — ` +
-        `fetched ${when}. Safecast volunteer network.`,
+        `fetched ${when}. gmcmap volunteer stations.`,
       );
     } catch (error) {
       console.warn('[radiation]', error);
@@ -99,8 +101,8 @@ export function init(viewer, { mount = null, fetchImpl = fetch } = {}) {
   honesty.style.cssText = 'color:#7d8fb5;font-size:9px;margin-top:4px;line-height:1.4;';
   honesty.textContent =
     'Volunteer sensor readings, not a calibrated monitoring network. ' +
-    'uRadMonitor and OpenRadiation keyless paths are retired (auth required); ' +
-    'this layer uses Safecast. CPM→µSv/h conversion is approximate.';
+    'gmcmap stations via server proxy; CPM-only stations are skipped ' +
+    '(CPM→µSv/h conversion is tube-specific and never faked).';
 
   function note(text) { noteEl.textContent = text; }
 

@@ -250,3 +250,77 @@ test('donkiProxy serves normalized events, labels the ETA model, and caches', as
   assert.equal(again.statusCode, 200);
   assert.equal(calls.length, 1);
 });
+
+// — wave6 bundle adapters (2026-09-28) —
+
+import {
+  adaptWave6Cme,
+  adaptWave6Flare,
+  ballisticTransitHoursWave6,
+  isEarthDirectedWave6,
+} from './model.js';
+
+test('isEarthDirectedWave6 matches the provider heuristic', () => {
+  assert.equal(isEarthDirectedWave6(null), false);
+  assert.equal(
+    isEarthDirectedWave6({ latitude: 10, longitude: -20, halfAngle: 30, note: '' }, ''),
+    true,
+  );
+  assert.equal(
+    isEarthDirectedWave6({ latitude: 70, longitude: -20, halfAngle: 30, note: '' }, ''),
+    false,
+  );
+  assert.equal(
+    isEarthDirectedWave6({ latitude: 70, longitude: 170, halfAngle: 120, note: '' }, ''),
+    true,
+  );
+  assert.equal(
+    isEarthDirectedWave6({ latitude: null, longitude: null, halfAngle: null, note: '' }, 'halo cme observed'),
+    true,
+  );
+  // null coords stay missing (never Number(null)===0 -> false positive at 0,0)
+  assert.equal(
+    isEarthDirectedWave6({ latitude: null, longitude: null, halfAngle: null, note: '' }, ''),
+    false,
+  );
+});
+
+test('ballisticTransitHoursWave6 rejects non-finite input', () => {
+  assert.equal(ballisticTransitHoursWave6(500), 149597870.7 / 500 / 3600);
+  assert.equal(ballisticTransitHoursWave6(0), null);
+  assert.equal(ballisticTransitHoursWave6(Number.NaN), null);
+});
+
+test('adaptWave6Cme reshapes the wave6 cme item', () => {
+  const item = {
+    id: '2026-09-27T00:00:00-CME-001',
+    startTime: '2026-09-27T00:00:00Z',
+    sourceLocation: 'S20W30',
+    note: 'halo',
+    analysis: {
+      latitude: 10, longitude: -20, halfAngle: 120, speedKms: 800, note: '',
+    },
+  };
+  const cme = adaptWave6Cme(item);
+  assert.equal(cme.id, item.id);
+  assert.equal(cme.sourceLocation, 'S20W30');
+  assert.equal(cme.speedKms, 800);
+  assert.equal(cme.earthDirected, true);
+  assert.ok(Number.isFinite(cme.etaMs) && cme.etaMs > Date.parse(item.startTime));
+});
+
+test('adaptWave6Cme degrades honestly without analysis', () => {
+  const cme = adaptWave6Cme({ id: 'x', startTime: null, analysis: null });
+  assert.equal(cme.earthDirected, false);
+  assert.equal(cme.speedKms, null);
+  assert.equal(cme.etaMs, null);
+});
+
+test('adaptWave6Flare reshapes the wave6 flare item', () => {
+  const f = adaptWave6Flare({
+    id: 'FLR-1', class: 'M5.2', peakTime: '2026-09-27T12:00:00Z', sourceLocation: 'N10E20',
+  });
+  assert.equal(f.class, 'M5.2');
+  assert.equal(f.peakMs, Date.parse('2026-09-27T12:00:00Z'));
+  assert.equal(f.sourceLocation, 'N10E20');
+});

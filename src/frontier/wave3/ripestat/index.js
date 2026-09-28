@@ -28,11 +28,11 @@ function collectorDescription(prefixDoc, c) {
     `<p>Prefix <b>${prefixDoc.prefix}</b> · origin AS${prefixDoc.originAsn ?? '?'} · ` +
     `${prefixDoc.totalPeers} peers across ${prefixDoc.collectors.length} collectors.</p>` +
     `<table><tr><th>RRC</th><th>peers</th><th>avg path</th></tr>${rows}</table>` +
-    `<p style="opacity:.7">BGP observations © RIPE NCC RIS (via /api/ripestat).</p>`
+    `<p style="opacity:.7">BGP observations © RIPE NCC RIS (via /api/ripestat-collectors).</p>`
   );
 }
 
-export function init({ viewer, apiPath = '/api/ripestat' } = {}) {
+export function init({ viewer, apiPath = '/api/ripestat-collectors' } = {}) {
   try {
     const { init: mount } = mountPollingLayer({
       name: 'wave3-ripestat',

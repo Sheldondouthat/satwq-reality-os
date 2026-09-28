@@ -70,3 +70,76 @@ export function arcSamples(start, impact, segments = 48) {
   }
   return out;
 }
+
+/**
+ * Wave-6 bundle adapters (added 2026-09-28).
+ *
+ * /api/donki is now served by server/providers/wave6/donki.js, which returns
+ * the full bundle {cme:[...], flares:[...], ...} instead of the old
+ * per-type {events:[...]} documents. These pure adapters reshape wave6 items
+ * into the {earthDirected, speedKms, etaMs, sourceLocation} records the
+ * CME-arc renderer consumes.
+ *
+ * The Earth-directedness heuristic and ballistic ETA are MODELS (same as
+ * before): disk-center source, halo-wide cone, or analyst note says
+ * Earth-directed; ETA assumes constant speed over 1 AU. Ported from
+ * server/providers/wave3/donki.js (isEarthDirected, ballisticTransitHours)
+ * so the client bundle stays self-contained.
+ */
+const AU_KM = 149_597_870.7;
+
+/** Null-safe number: null/undefined stay missing instead of becoming 0. */
+function num(v) {
+  return v == null || v === '' ? Number.NaN : Number(v);
+}
+
+/** Heuristic Earth-directedness for a wave6 CME analysis object. MODEL. */
+export function isEarthDirectedWave6(analysis, note = '') {
+  if (!analysis) return false;
+  const lat = num(analysis.latitude);
+  const lon = num(analysis.longitude);
+  const halfAngle = num(analysis.halfAngle);
+  const text = `${note} ${analysis.note ?? ''}`.toLowerCase();
+  if (/earth-directed|earth directed|halo/.test(text)) return true;
+  if (Number.isFinite(halfAngle) && halfAngle >= 90) return true;
+  if (Number.isFinite(lat) && Number.isFinite(lon)) {
+    return Math.abs(lat) <= 45 && Math.abs(lon) <= 60;
+  }
+  return false;
+}
+
+/** Ballistic Sun->Earth transit hours at constant speed. MODEL. */
+export function ballisticTransitHoursWave6(speedKms) {
+  if (!Number.isFinite(speedKms) || speedKms <= 0) return null;
+  return AU_KM / speedKms / 3600;
+}
+
+/** Reshape one wave6 cme item into the render record. */
+export function adaptWave6Cme(item) {
+  const analysis = item?.analysis ?? null;
+  const speedKms = num(analysis?.speedKms);
+  const startMs = Date.parse(item?.startTime ?? '');
+  const transitHours = ballisticTransitHoursWave6(speedKms);
+  return {
+    id: item?.id ?? null,
+    sourceLocation: item?.sourceLocation ?? '',
+    note: item?.note ?? '',
+    speedKms: Number.isFinite(speedKms) ? speedKms : null,
+    earthDirected: isEarthDirectedWave6(analysis, item?.note ?? ''),
+    etaMs:
+      Number.isFinite(startMs) && transitHours != null
+        ? startMs + transitHours * 3600_000
+        : null,
+  };
+}
+
+/** Reshape one wave6 flare item into the dock record. */
+export function adaptWave6Flare(item) {
+  const peakMs = Date.parse(item?.peakTime ?? '');
+  return {
+    id: item?.id ?? null,
+    class: item?.class ?? null,
+    peakMs: Number.isFinite(peakMs) ? peakMs : null,
+    sourceLocation: item?.sourceLocation ?? '',
+  };
+}

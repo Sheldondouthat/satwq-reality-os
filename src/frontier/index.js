@@ -112,6 +112,7 @@ import { init as initShips } from './wave6/ships/index.js';
 import { init as initBuoys } from './wave6/buoys/index.js';
 import { init as initTides } from './wave6/tides/index.js';
 import { init as initWhales } from './wave6/whales/index.js';
+import { init as initMeteorStations } from './wave6/meteorStations/index.js';
 import { init as initTrains } from './wave6/trains/index.js';
 import { init as initBikeshare } from './wave6/bikeshare/index.js';
 import { init as initComets } from './wave6/comets/index.js';
@@ -1001,6 +1002,7 @@ export function initFrontier({ viewer } = {}) {
     const s = section('WAVE 6 · SPACE');
     dock.appendChild(s);
     attempt('comets', () => initComets({ viewer, mount: s, chip, trackLayer, t }));
+    attempt('meteorStations', () => initMeteorStations({ viewer, mount: s, chip, trackLayer, t }));
     attempt('dsn', () => initDsn({ viewer, mount: s, chip, trackLayer, t }));
     attempt('solarImg', () => initSolarImg({ viewer, mount: s, chip, trackLayer, t }));
     attempt('magnetometers', () => initMagnetometers({ viewer, mount: s, chip, trackLayer, t }));

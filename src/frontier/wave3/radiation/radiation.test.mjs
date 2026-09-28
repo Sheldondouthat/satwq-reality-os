@@ -10,6 +10,7 @@ import {
   DOSE_BANDS,
   BAND_COLORS,
   BAND_LABELS,
+  stationsToPoints,
 } from './model.js';
 
 describe('doseBand', () => {
@@ -59,5 +60,32 @@ describe('validateRadiationPayload', () => {
       points: [{ lat: 999, lon: 0, valueUsvH: 0.1 }],
     });
     assert.equal(r.ok, false);
+  });
+});
+
+describe('stationsToPoints (wave6 adapter)', () => {
+  it('maps wave6 stations to dose points', () => {
+    const out = stationsToPoints({
+      generatedAt: '2026-09-28T00:00:00Z',
+      stations: [
+        { id: 'a', lat: 40.1, lon: -80.2, usvPerHour: 0.12, time: '2026-09-27T23:00:00Z' },
+        { id: 'b', lat: 41, lon: -81, cpm: 30 }, // CPM-only: skipped, never faked
+        { id: 'c', lat: null, lon: -81, usvPerHour: 0.1 }, // bad coord: skipped
+      ],
+    });
+    assert.equal(out.points.length, 1);
+    assert.deepEqual(out.points[0], {
+      lat: 40.1, lon: -80.2, valueUsvH: 0.12, unit: '\u00b5Sv/h',
+      capturedAt: '2026-09-27T23:00:00Z',
+    });
+    assert.equal(out.generatedAt, '2026-09-28T00:00:00Z');
+  });
+  it('passes legacy {points} through untouched', () => {
+    const pts = [{ lat: 1, lon: 2, valueUsvH: 0.1 }];
+    assert.equal(stationsToPoints({ points: pts }).points, pts);
+  });
+  it('returns empty points for non-objects', () => {
+    assert.deepEqual(stationsToPoints(null).points, []);
+    assert.deepEqual(stationsToPoints({ stations: null }).points, []);
   });
 });

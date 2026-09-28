@@ -676,6 +676,47 @@ test('uses Launch Library 2 pad latitude/longitude fields', () => {
   assert.equal(launches[0].lon, -120.611);
 });
 
+test('normalizes the wave6 flat dual-source bundle shape', () => {
+  const launches = normalizeRocketLaunches({ launches: [{
+    id: 'll2:abc',
+    name: 'Falcon 9 Block 5 | Starlink Group 10-30',
+    net: '2026-07-20T00:00:00.000Z',
+    status: 'Go for Launch',
+    vehicle: 'Falcon 9 Block 5',
+    provider: 'SpaceX',
+    pad: 'Space Launch Complex 40',
+    location: 'Cape Canaveral, FL, USA',
+    mission: 'A batch of 24 Starlink satellites.',
+    url: 'https://example.invalid/launch',
+    lat: 28.5618571,
+    lon: -80.577366,
+    sources: ['ll2', 'rll'],
+  }] }, NOW);
+  assert.equal(launches.length, 1);
+  const l = launches[0];
+  assert.equal(l.name, 'Falcon 9 Block 5 | Starlink Group 10-30');
+  assert.equal(l.status, 'Go for Launch');
+  assert.equal(l.launchSite, 'Space Launch Complex 40');
+  assert.equal(l.lat, 28.5618571);
+  assert.equal(l.lon, -80.577366);
+  assert.equal(l.provider, 'SpaceX');
+  assert.equal(l.vehicle, 'Falcon 9 Block 5');
+  assert.equal(l.source, 'll2+rll');
+});
+
+test('wave6 flat launches without coordinates are filtered from the globe', () => {
+  const launches = normalizeRocketLaunches({ launches: [{
+    id: 'rll:1',
+    name: 'Electron | Test',
+    net: '2026-07-20T00:00:00.000Z',
+    pad: 'Mahia',
+    lat: null,
+    lon: null,
+    sources: ['rll'],
+  }] }, NOW);
+  assert.equal(launches.length, 0);
+});
+
 test('normalizes detailed payload and stage recovery records', () => {
   const launches = normalizeRocketLaunches({ results: [{
     id: 'recovery-details',

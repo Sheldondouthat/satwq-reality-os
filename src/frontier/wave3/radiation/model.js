@@ -50,3 +50,41 @@ export function declutterByCell(points, cellDeg = 1) {
   }
   return [...seen.values()];
 }
+
+/**
+ * Wave-6 bundle adapter (added 2026-09-28).
+ *
+ * /api/radiation is now served by server/providers/wave6/radiation.js, which
+ * returns {stations:[{lat,lon,usvPerHour,...}], radonStations:[...]} instead
+ * of the old Safecast {points:[...]} document. This maps wave6 stations to
+ * the {lat,lon,valueUsvH,unit,capturedAt} points the renderer consumes.
+ *
+ * HONESTY: stations that report only CPM (no µSv/h) are SKIPPED — CPM→µSv/h
+ * conversion is tube-specific and must not be faked. radonStations carry
+ * pCi/L / Bq/m³ (a different quantity) and are not plotted as dose dots.
+ */
+export function stationsToPoints(payload) {
+  if (!payload || typeof payload !== 'object') return { points: [] };
+  if (Array.isArray(payload.points)) return { points: payload.points }; // legacy passthrough
+  const stations = Array.isArray(payload.stations) ? payload.stations : [];
+  const points = [];
+  for (const s of stations) {
+    if (!s || !Number.isFinite(s.lat) || !Number.isFinite(s.lon)) continue;
+    if (!Number.isFinite(s.usvPerHour)) continue; // CPM-only: skip, don't fake
+    if (Math.abs(s.lat) > 90 || Math.abs(s.lon) > 180) continue;
+    points.push({
+      lat: s.lat,
+      lon: s.lon,
+      valueUsvH: s.usvPerHour,
+      unit: 'µSv/h',
+      capturedAt: typeof s.time === 'string' ? s.time : null,
+    });
+  }
+  return {
+    points,
+    generatedAt: payload.generatedAt ?? null,
+    stale: payload.stale ?? false,
+    unavailable: payload.unavailable ?? false,
+    reason: payload.reason ?? payload.detail ?? null,
+  };
+}

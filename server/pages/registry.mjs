@@ -37,11 +37,10 @@ const REGISTRY = [
     routes: ['/api/celestrak'],
     load: () => import('../providers/space/celestrak.js').then((m) => m.celestrakProxy()),
   },
-  {
-    name: 'launches',
-    routes: ['/api/launches'],
-    load: () => import('../providers/space/launch-library.js').then((m) => m.rocketLaunchesProxy()),
-  },
+  // NOTE (2026-09-28): the legacy space/launch-library.js /api/launches entry
+  // was removed — it shadowed the wave6 dual-source (LL2+RocketLaunch.Live)
+  // provider below, which now carries pad coordinates and is the canonical
+  // route. The old module file is retained for reference only.
   {
     name: 'tomtom',
     routes: ['/api/tomtom'],
@@ -385,6 +384,14 @@ const REGISTRY = [
     load: () => import('../providers/wave6/ripestat.js').then((m) => m.ripestatProxy()),
   },
   {
+    // Legacy collector-geo view (wave3): per-RRC pulse map for the frontier
+    // layer. The wave6 provider serves country/asn/prefix queries instead;
+    // this keeps the visualization's {prefixes[]} shape on its own route.
+    name: 'ripestat-collectors',
+    routes: ['/api/ripestat-collectors'],
+    load: () => import('../providers/wave3/ripestat.js').then((m) => m.ripestatProxy({ route: '/api/ripestat-collectors' })),
+  },
+  {
     name: 'pskreporter',
     routes: ['/api/pskreporter'],
     load: () => import('../providers/wave6/pskreporter.js').then((m) => m.pskreporterProxy()),
@@ -450,8 +457,8 @@ const REGISTRY = [
     load: () => import('../providers/wave6/launches.js').then((m) => m.launchesProxy()),
   },
   {
-    name: 'meteors',
-    routes: ['/api/meteors'],
+    name: 'meteor-stations',
+    routes: ['/api/meteor-stations'],
     load: () => import('../providers/wave6/meteors.js').then((m) => m.meteorsProxy()),
   },
   {

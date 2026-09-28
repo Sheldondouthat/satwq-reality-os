@@ -35,9 +35,9 @@ const SAMPLE_TXT = [
   'not a data line, ignored after header',
 ].join('\n');
 
-test('meteorsProxy mounts /api/meteors on both server shapes', () => {
+test('meteorsProxy mounts /api/meteor-stations on both server shapes', () => {
   const routes = mount(meteorsProxy()).map((c) => c.route);
-  assert.deepEqual(routes, ['/api/meteors', '/api/meteors']);
+  assert.deepEqual(routes, ['/api/meteor-stations', '/api/meteor-stations']);
 });
 
 test('stationFileUrl follows the catalog MMYYYY naming', () => {
@@ -92,7 +92,7 @@ test('handler serves parsed station with mocked fetch', async () => {
   globalThis.fetch = async () => new Response(SAMPLE_TXT, { status: 200, headers: { 'Content-Type': 'text/plain' } });
   try {
     const res = fakeRes();
-    await calls[0].handler(fakeReq('/api/meteors'), res);
+    await calls[0].handler(fakeReq('/api/meteor-stations'), res);
     assert.equal(res.statusCode, 200);
     const payload = JSON.parse(res.body);
     assert.equal(payload.count, 1);
@@ -111,7 +111,7 @@ test('handler returns 502 JSON when the station file is down', async () => {
   globalThis.fetch = async () => new Response('down', { status: 503 });
   try {
     const res = fakeRes();
-    await calls[0].handler(fakeReq('/api/meteors'), res);
+    await calls[0].handler(fakeReq('/api/meteor-stations'), res);
     assert.equal(res.statusCode, 502);
     assert.match(res.body, /meteors_unavailable/);
   } finally {
@@ -122,6 +122,6 @@ test('handler returns 502 JSON when the station file is down', async () => {
 test('handler rejects non-GET with 405', async () => {
   const calls = mount(meteorsProxy());
   const res = fakeRes();
-  await calls[0].handler(fakeReq('/api/meteors', 'POST'), res);
+  await calls[0].handler(fakeReq('/api/meteor-stations', 'POST'), res);
   assert.equal(res.statusCode, 405);
 });

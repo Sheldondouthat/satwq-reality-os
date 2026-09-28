@@ -157,20 +157,69 @@ export function createModel({ state: layerState, services, parts, source }) {
   }
 
   /**
-   * Normalize a Launch Library 2 response into records suitable for the layer.
+   * Normalize a launch response into records suitable for the layer.
+   * Accepts the legacy Launch Library 2 shape ({results:[...]}) and the
+   * wave6 dual-source bundle ({launches:[{id,name,net,status,vehicle,
+   * provider,pad,location,mission,url,lat,lon,sources}]}).
    * Trajectory points are retained only when the upstream explicitly supplies
    * them; orbital tracks must not be reconstructed from launch metadata.
-   * @param {object} payload Launch Library 2-compatible response.
+   * @param {object} payload Launch response.
    * @param {Date} [now] Reference time used for the rolling window.
    * @returns {Array<object>}
    */
 
+  /** Null-safe finite number for flat-shape coordinates. */
+  function flatNum(v) {
+    if (v == null || v === '') return null;
+    const n = Number(v);
+    return Number.isFinite(n) ? n : null;
+  }
+
+  /** Map one wave6 flat launch record to the layer record shape. */
+  function normalizeFlatLaunch(launch, now, cutoff) {
+    const date = Date.parse(launch.net ?? '');
+    return {
+      id: String(launch.id ?? launch.name ?? `launch-${date}`),
+      name: launch.name || 'Unnamed launch',
+      status: launch.status || 'Unknown',
+      launchTime: Number.isFinite(date) ? new Date(date).toISOString() : null,
+      launchSite: launch.pad || launch.location || 'Unknown launch site',
+      lat: flatNum(launch.lat),
+      lon: flatNum(launch.lon),
+      provider: launch.provider || null,
+      vehicle: launch.vehicle || null,
+      mission: launch.mission || null,
+      missionName: launch.mission || null,
+      satelliteQuery: launch.name || null,
+      url: launch.url || null,
+      payloads: [],
+      recoveryStages: [],
+      trajectory: [],
+      timeline: [],
+      orbit: null,
+      source: Array.isArray(launch.sources)
+        ? launch.sources.join('+')
+        : 'launches',
+      inWindow:
+        Number.isFinite(date) && date >= cutoff && date <= now.getTime(),
+    };
+  }
+
   function normalizeRocketLaunches(payload, now = new Date()) {
-    const launches = Array.isArray(payload) ? payload : payload?.results;
+    const launches = Array.isArray(payload)
+      ? payload
+      : (payload?.results ?? payload?.launches);
     if (!Array.isArray(launches)) return [];
     const cutoff = now.getTime() - WINDOW_DAYS * 86400000;
     return launches
       .map((launch) => {
+        // Wave6 flat shape: pad is a string (or sources[] present).
+        if (
+          launch &&
+          (typeof launch.pad === 'string' || Array.isArray(launch.sources))
+        ) {
+          return normalizeFlatLaunch(launch, now, cutoff);
+        }
         const launchTime =
           launch.net || launch.window_start || launch.pad?.location?.name;
         const date = Date.parse(launchTime);

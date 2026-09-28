@@ -84,7 +84,7 @@ export function parseBgpState(doc) {
   };
 }
 
-export function ripestatProxy({ fetchImpl = fetch, now = () => Date.now() } = {}) {
+export function ripestatProxy({ fetchImpl = fetch, now = () => Date.now(), route = '/api/ripestat' } = {}) {
   async function fetchUpstream({ fetchImpl: f, signal }) {
     return mapLimit(PREFIXES, 4, async (prefix) => {
       const url =
@@ -124,7 +124,7 @@ export function ripestatProxy({ fetchImpl = fetch, now = () => Date.now() } = {}
 
   return createKeylessProxy({
     name: 'ripestat',
-    route: '/api/ripestat',
+    route,
     ttlMs: CACHE_TTL_MS,
     staleMs: STALE_MS,
     timeoutMs: UPSTREAM_TIMEOUT_MS,

@@ -11,7 +11,8 @@
  *
  * Each source is parsed into the shared shape
  * {id, name, net, windowEnd, status, vehicle, provider, pad, location,
- *  mission, url, sources:[keys]}. The two catalogs use different ID spaces
+ *  mission, url, lat, lon, sources:[keys]}. LL2 pad coordinates are carried
+ * through (RLL rows usually lack them → null, honestly). The two catalogs use different ID spaces
  * (LL2 UUIDs, RLL integers), so cross-source duplicates are merged by
  * normalized name + NET proximity instead. Per-source failures are recorded
  * honestly in `sources.<key>.error`; a 502 is returned only when BOTH
@@ -58,6 +59,40 @@ function str(value, maxLen) {
   return value == null ? '' : String(value).slice(0, maxLen);
 }
 
+/** Null-safe finite number: null/''/non-numeric stay null (never Number(null)===0). */
+function numOrNull(value) {
+  if (value == null || value === '') return null;
+  const n = Number(value);
+  return Number.isFinite(n) ? n : null;
+}
+
+const MONTH_INDEX = {
+  jan: 0, feb: 1, mar: 2, apr: 3, may: 4, jun: 5,
+  jul: 6, aug: 7, sep: 8, oct: 9, nov: 10, dec: 11,
+};
+
+/**
+ * Parse month-granularity NET strings ("NET Oct 2026", "Oct 2026") to UTC
+ * midnight of the 1st. TZ-independent by construction (Date.UTC).
+ * Returns null when the string is not month-granularity.
+ */
+export function parseMonthYearNet(value) {
+  const m = /^(?:net\s+)?([a-z]{3,9})\s+(\d{4})$/i.exec(String(value ?? '').trim());
+  if (!m) return null;
+  const mi = MONTH_INDEX[m[1].slice(0, 3).toLowerCase()];
+  if (mi == null) return null;
+  return new Date(Date.UTC(Number(m[2]), mi, 1)).toISOString();
+}
+
+/** Parse a NET value: month-granularity first (deterministic), then Date.parse. */
+function parseNet(value) {
+  if (value == null || value === '') return null;
+  return parseMonthYearNet(value) ?? (() => {
+    const t = Date.parse(String(value));
+    return Number.isFinite(t) ? new Date(t).toISOString() : null;
+  })();
+}
+
 function isoOrNull(value) {
   if (value == null || value === '') return null;
   const t = Date.parse(value);
@@ -73,13 +108,12 @@ function normalizeName(name) {
     .trim();
 }
 
-function normalizeLaunch({ id, name, net, windowEnd, status, vehicle, provider, pad, location, mission, url, source }) {
+function normalizeLaunch({ id, name, net, windowEnd, status, vehicle, provider, pad, location, mission, url, lat, lon, source }) {
   if (!id || !name) return null;
-  const netMs = net == null || net === '' ? null : Date.parse(net);
   return {
     id: str(id, 120),
     name: str(name, 200),
-    net: Number.isFinite(netMs) ? new Date(netMs).toISOString() : null,
+    net: parseNet(net),
     windowEnd: isoOrNull(windowEnd),
     status: str(status, 60),
     vehicle: str(vehicle, 120),
@@ -88,6 +122,8 @@ function normalizeLaunch({ id, name, net, windowEnd, status, vehicle, provider, 
     location: str(location, 160),
     mission: str(mission, 400),
     url: str(url, 300),
+    lat: numOrNull(lat),
+    lon: numOrNull(lon),
     sources: [source],
   };
 }
@@ -114,6 +150,8 @@ function dedupeLaunches(launches) {
     });
     if (hit) {
       for (const s of l.sources) if (!hit.sources.includes(s)) hit.sources.push(s);
+      // Carry coordinates across the merge when the survivor lacks them.
+      if (hit.lat == null && l.lat != null) { hit.lat = l.lat; hit.lon = l.lon; }
       // Prefer the report with a longer name/mission blurb (richer fields).
       if ((l.mission ?? '').length > (hit.mission ?? '').length) {
         hit.mission = l.mission;
@@ -145,6 +183,8 @@ function parseLl2(upstream) {
       location: r?.pad?.location?.name,
       mission: r?.mission?.description ?? r?.mission?.name,
       url: r?.url,
+      lat: r?.pad?.latitude,
+      lon: r?.pad?.longitude,
       source: 'll2',
     });
     if (l) out.push(l);
@@ -170,6 +210,8 @@ function parseRll(upstream) {
       location: r?.location?.name,
       mission: missions.map((m) => m?.description ?? m?.name).filter(Boolean).join(' — ') || null,
       url: r?.quicktext ?? null,
+      lat: r?.pad?.latitude ?? r?.pad?.lat ?? null,
+      lon: r?.pad?.longitude ?? r?.pad?.lng ?? r?.pad?.lon ?? null,
       source: 'rll',
     });
     if (l) out.push(l);
@@ -315,5 +357,6 @@ export const _launchesInternals = {
   normalizeName,
   dedupeLaunches,
   buildSnapshot,
+  parseMonthYearNet,
   clearCaches: () => { cache = null; inflight = null; },
 };

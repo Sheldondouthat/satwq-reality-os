@@ -8,7 +8,7 @@
  *   #57 https://www.rmob.org/livedata/live_datas/<Station>_<MMYYYY>rmob.TXT
  *
  * Routes:
- *   GET /api/meteors → {generatedAt, sources:{...}, count, stations:[...]}
+ *   GET /api/meteor-stations → {generatedAt, sources:{...}, count, stations:[...]}
  *
  * Each station file is parsed defensively: leading date/time columns
  * (YYYY MM DD HH) anchor a data row, trailing integer fields are the hourly
@@ -219,12 +219,12 @@ export function meteorsProxy() {
   }
 
   return {
-    name: 'meteors',
+    name: 'meteor-stations',
     configureServer({ middlewares }) {
-      middlewares.use('/api/meteors', handler);
+      middlewares.use('/api/meteor-stations', handler);
     },
     configurePreviewServer({ middlewares }) {
-      middlewares.use('/api/meteors', handler);
+      middlewares.use('/api/meteor-stations', handler);
     },
   };
 }
