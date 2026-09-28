@@ -1,0 +1,30 @@
+name: HF-radar snapshot (NDBC)
+
+on:
+  schedule:
+    - cron: '37 */6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: hfradar-snapshot
+  cancel-in-progress: true
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: npm ci
+      - name: Run HF-radar unit tests
+        run: node --test server/providers/wave8/currents.test.mjs scripts/snapshot-scripts.test.mjs
+      - name: Build and publish HF-radar snapshot
+        run: node scripts/hfradar-snapshot.mjs
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
