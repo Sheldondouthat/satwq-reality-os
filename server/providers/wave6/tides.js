@@ -21,7 +21,7 @@
  * A 502 is returned only when EVERY requested product fails; partial
  * results are reported honestly per source.
  *
- * Curated multi-station sweep: the STATIONS list below holds 24 CO-OPS
+ * Curated multi-station sweep: the STATIONS list below holds 30 CO-OPS
  * stations, every one verified 2026-09-27/28 against the upstream's own
  * station-list endpoint
  * (https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations/{id}.json).
@@ -80,6 +80,12 @@ const STATIONS = [
   { id: '8510560', name: 'Montauk', lat: 41.048332, lon: -71.95944, region: 'New York' }, // verified 2026-09-28 recur
   { id: '9411340', name: 'Santa Barbara', lat: 34.40459, lon: -119.6925, region: 'California' }, // verified 2026-09-28 recur
   { id: '9439040', name: 'Astoria', lat: 46.207306, lon: -123.7683, region: 'Oregon' }, // verified 2026-09-28 recur
+  { id: '8735180', name: 'Dauphin Island', lat: 30.25, lon: -88.075, region: 'Alabama' }, // verified 2026-09-29 recur
+  { id: '9755371', name: 'San Juan', lat: 18.458944, lon: -66.11642, region: 'Puerto Rico' }, // verified 2026-09-29 recur (mdapi full name "San Juan, La Puntilla, San Juan Bay")
+  { id: '9452210', name: 'Juneau', lat: 58.2988, lon: -134.4106, region: 'Alaska' }, // verified 2026-09-29 recur
+  { id: '1611400', name: 'Nawiliwili', lat: 21.9544, lon: -159.3561, region: 'Hawaii' }, // verified 2026-09-29 recur
+  { id: '9443090', name: 'Neah Bay', lat: 48.370724, lon: -124.601585, region: 'Washington' }, // verified 2026-09-29 recur
+  { id: '8413320', name: 'Bar Harbor', lat: 44.392193, lon: -68.20428, region: 'Maine' }, // verified 2026-09-29 recur
 ];
 
 let cache = null; // {at, key, payload}
