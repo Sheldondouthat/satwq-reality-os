@@ -21,8 +21,8 @@
  * A 502 is returned only when EVERY requested product fails; partial
  * results are reported honestly per source.
  *
- * Curated multi-station sweep: the STATIONS list below holds 30 CO-OPS
- * stations, every one verified 2026-09-27/28 against the upstream's own
+ * Curated multi-station sweep: the STATIONS list below holds 36 CO-OPS
+ * stations, every one verified 2026-09-27/28/29 against the upstream's own
  * station-list endpoint
  * (https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations/{id}.json).
  * Multi-station mode fetches each station's requested products in parallel;
@@ -86,6 +86,12 @@ const STATIONS = [
   { id: '1611400', name: 'Nawiliwili', lat: 21.9544, lon: -159.3561, region: 'Hawaii' }, // verified 2026-09-29 recur
   { id: '9443090', name: 'Neah Bay', lat: 48.370724, lon: -124.601585, region: 'Washington' }, // verified 2026-09-29 recur
   { id: '8413320', name: 'Bar Harbor', lat: 44.392193, lon: -68.20428, region: 'Maine' }, // verified 2026-09-29 recur
+  { id: '1630000', name: 'Apra Harbor', lat: 13.443389, lon: 144.65636, region: 'Guam' }, // verified 2026-09-29 recur (mdapi full name "Apra Harbor, Guam")
+  { id: '9751639', name: 'Charlotte Amalie', lat: 18.330584, lon: -64.925804, region: 'US Virgin Islands' }, // verified 2026-09-29 recur
+  { id: '9450460', name: 'Ketchikan', lat: 55.331944, lon: -131.62611, region: 'Alaska' }, // verified 2026-09-29 recur
+  { id: '9419750', name: 'Crescent City', lat: 41.74561, lon: -124.18439, region: 'California' }, // verified 2026-09-29 recur
+  { id: '8658120', name: 'Wilmington', lat: 34.2267, lon: -77.9533, region: 'North Carolina' }, // verified 2026-09-29 recur
+  { id: '8575512', name: 'Annapolis', lat: 38.983883, lon: -76.480034, region: 'Maryland' }, // verified 2026-09-29 recur
 ];
 
 let cache = null; // {at, key, payload}
