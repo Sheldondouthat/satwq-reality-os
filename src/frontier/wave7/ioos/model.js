@@ -22,8 +22,9 @@ export function valueLine(doc) {
       if (isUnavailable(doc)) return null;
       const m = pickNum(doc.gliders?.activeMissions, doc.gliders?.missions?.length);
       const d = pickNum(doc.sensors?.activeDatasets);
-      if (m == null && d == null) return null;
-      return withTags(`${EMOJI} IOOS ${m ?? '?'} glider missions · ${d ?? '?'} sensor datasets`, doc);
+      const c = pickNum(doc.coastwatch?.activeProducts);
+      if (m == null && d == null && c == null) return null;
+      return withTags(`${EMOJI} IOOS ${m ?? '?'} glider missions · ${d ?? '?'} sensor datasets · ${c ?? '?'} CoastWatch products`, doc);
     }
 
 export function detailLine(doc) {

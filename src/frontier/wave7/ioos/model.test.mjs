@@ -9,6 +9,9 @@ const SAMPLE = {
   "sensors": {
     "activeDatasets": 220
   },
+  "coastwatch": {
+    "activeProducts": 12
+  },
   "sources": {
     "gliderdac": {
       "ok": true
@@ -31,6 +34,7 @@ test('ioos: valueLine summarizes the sample payload', () => {
   const line = valueLine(SAMPLE);
   assert.ok(line, 'valueLine must not return null for the sample payload');
   assert.match(line, /14 glider missions/);
+  assert.match(line, /12 CoastWatch products/);
 });
 
 test('ioos: detailLine summarizes the sample payload', () => {

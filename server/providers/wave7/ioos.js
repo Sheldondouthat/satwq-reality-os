@@ -1,7 +1,8 @@
 /**
- * Wave 7 — IOOS ocean observing: Glider DAC missions + sensor stations (keyless).
+ * Wave 7 — IOOS ocean observing: Glider DAC missions + sensor stations (keyless),
+ * plus NOAA CoastWatch satellite products (keyless).
  *
- * Two IOOS ERDDAP hosts, queried with bounded, paced, sequential requests:
+ * Three ERDDAP hosts, queried with bounded, paced, sequential requests:
  *
  *   gliders  #142 https://gliders.ioos.us/erddap/tabledap/allDatasets.json
  *            ?datasetID,title,minTime,maxTime,minLatitude,maxLatitude,
@@ -17,13 +18,23 @@
  *            &maxTime>=<now-7d>&orderByDescending("maxTime")&orderByLimit("40")
  *            → recently-updated sensor datasets (deduped by station)
  *
- * Routes:
- *   GET /api/ioos → {generatedAt, gliders:{...}, sensors:{...}, sources:{...}}
+ *   coastwatch https://coastwatch.pfeg.noaa.gov/erddap/tabledap/allDatasets.json
+ *            (same columns)
+ *            &maxTime>=<now-7d>&orderByDescending("maxTime")&orderByLimit("12")
+ *            → recently-updated CoastWatch satellite products (SST, winds,
+ *            waves, HAB forecasts). Mirrored _Lon0360/_LonPM180 variants are
+ *            merged by the same station-dedupe used for sensors.
  *
- * The NOAA coastwatch ERDDAP host is rate-limited from some networks (429,
- * catalog appendix); this provider deliberately uses only the IOOS glider
- * and sensor hosts. Every upstream call is sequential (natural pacing),
- * time-bounded, and row-limited; nothing is hammered.
+ * Routes:
+ *   GET /api/ioos → {generatedAt, gliders:{...}, sensors:{...}, coastwatch:{...}, sources:{...}}
+ *
+ * The NOAA coastwatch ERDDAP host was rate-limited/unreachable from some
+ * networks for weeks (documented as intentionally unused 2026-09-27), then
+ * verified live from the build VM 2026-09-28 19:42 EDT (index query 200,
+ * 12 rows, 2.9 KB) — it is now a third sequential section. Every upstream
+ * call remains sequential (natural pacing), time-bounded, and row-limited;
+ * nothing is hammered, and any single host failure degrades honestly to
+ * sources.<host>.ok=false without taking the route down.
  *
  * Keyless, no new dependencies, Pages-safe (global fetch only, capped
  * reads, redirect:'follow' — workerd supports only 'follow'/'manual';
@@ -36,10 +47,15 @@
  * index returned 40 rows / 6.6 KB with station bboxes. Glider tabledap was
  * transiently slow on two earlier probes (timeouts, 0 bytes) — the provider
  * treats per-mission track failures as degraded latest:null, never fatal.
+ * Probe notes (2026-09-28, build VM): coastwatch index returned 12 rows
+ * (erdMH1sstd1day_R2022NRTNotMasked, NCEP_Global_Best, NWW3_Global_Best,
+ * wvcharmV3_*, cwwcNDBCMet, ucsdHfr*); future-dated maxTime rows are
+ * forecast products and keep the honest isForecast flag.
  */
 
 const GLIDER_BASE = 'https://gliders.ioos.us/erddap';
 const SENSORS_BASE = 'https://erddap.sensors.ioos.us/erddap';
+const COASTWATCH_BASE = 'https://coastwatch.pfeg.noaa.gov/erddap';
 const UPSTREAM_TIMEOUT_MS = 25_000;
 const INDEX_CAP_BYTES = 1 * 1024 * 1024;
 const TRACK_CAP_BYTES = 256 * 1024;
@@ -52,10 +68,13 @@ const GLIDER_TRACK_MISSIONS = 5; // latest-position hops (sequential = paced)
 const GLIDER_TRACK_WINDOW_HOURS = 24;
 const SENSOR_WINDOW_DAYS = 7;
 const SENSOR_INDEX_LIMIT = 40;
+const COASTWATCH_WINDOW_DAYS = 7;
+const COASTWATCH_INDEX_LIMIT = 12;
 const FORECAST_SKEW_MS = 6 * 3600_000; // maxTime beyond this ⇒ prediction product
 
 const GLIDER_ATTRIBUTION = 'IOOS Glider DAC (open data)';
 const SENSORS_ATTRIBUTION = 'IOOS Sensors ERDDAP (open data)';
+const COASTWATCH_ATTRIBUTION = 'NOAA CoastWatch ERDDAP (open data)';
 
 let cache = null; // {at, payload}
 let inflight = null;
@@ -157,17 +176,24 @@ export function latestTrackPoint(rows) {
 }
 
 /**
- * Dedupe sensor datasets that mirror the same station (regional mirrors
- * share title + coordinates under different datasetIDs). Keeps the row with
- * the latest maxTime per station key.
+ * Dedupe datasets that mirror the same station/product (regional mirrors
+ * share title + coordinates under different datasetIDs — CoastWatch also
+ * ships _Lon0360/_LonPM180 longitude-convention variants). Keeps the row
+ * with the latest maxTime per station key.
  */
-export function dedupeSensors(rows, nowMs) {
+export function dedupeSensors(rows, nowMs, base = SENSORS_BASE, idNormalizer = null) {
   const byStation = new Map();
   for (const row of rows ?? []) {
     const id = row?.datasetID != null ? String(row.datasetID) : null;
     if (!id) continue;
     const { lat, lon } = centerOf(row);
-    const key = `${String(row.title ?? '').slice(0, 80)}|${lat ?? '?'}|${lon ?? '?'}`;
+    // When idNormalizer is given (CoastWatch), mirror variants collapse on the
+    // normalized product ID even though their bboxes differ by longitude convention.
+    const normId = typeof idNormalizer === 'function' ? idNormalizer(id) : null;
+    const key =
+      normId != null
+        ? `id:${normId}`
+        : `${String(row.title ?? '').slice(0, 80)}|${lat ?? '?'}|${lon ?? '?'}`;
     const maxTime = row?.maxTime != null ? String(row.maxTime) : null;
     const prior = byStation.get(key);
     if (!prior || (maxTime != null && (prior.maxTime == null || maxTime > prior.maxTime))) {
@@ -180,7 +206,7 @@ export function dedupeSensors(rows, nowMs) {
         lat,
         lon,
         isForecast: Number.isFinite(maxMs) ? maxMs > nowMs + FORECAST_SKEW_MS : null,
-        infoUrl: infoUrl(SENSORS_BASE, id),
+        infoUrl: infoUrl(base, id),
       });
     }
   }
@@ -295,9 +321,46 @@ async function fetchSensors(nowMs) {
   }
 }
 
-function buildPayload(gliders, sensors, nowMs) {
+/** CoastWatch mirrors ship _Lon0360/_LonPM180 longitude-convention variants of the same product. */
+export function coastwatchProductId(datasetId) {
+  return String(datasetId).replace(/_Lon(PM180|0360)$/, '');
+}
+
+/** Recently-updated NOAA CoastWatch satellite products (SST, winds, waves, HAB). */
+async function fetchCoastwatch(nowMs) {
+  const started = Date.now();
+  try {
+    const indexDoc = await fetchJsonCapped(
+      indexQueryUrl(COASTWATCH_BASE, COASTWATCH_WINDOW_DAYS, COASTWATCH_INDEX_LIMIT, nowMs),
+      INDEX_CAP_BYTES,
+      'coastwatch',
+    );
+    const rows = parseTabledap(indexDoc);
+    const datasets = dedupeSensors(rows, nowMs, COASTWATCH_BASE, coastwatchProductId);
+    return {
+      ok: true,
+      count: datasets.length,
+      indexRows: rows.length,
+      attribution: COASTWATCH_ATTRIBUTION,
+      latencyMs: Date.now() - started,
+      datasets,
+    };
+  } catch (error) {
+    return {
+      ok: false,
+      count: 0,
+      indexRows: 0,
+      attribution: COASTWATCH_ATTRIBUTION,
+      latencyMs: Date.now() - started,
+      error: error?.message ?? 'unknown',
+      datasets: [],
+    };
+  }
+}
+
+function buildPayload(gliders, sensors, coastwatch, nowMs) {
   const sources = {};
-  for (const [key, r] of [['gliders', gliders], ['sensors', sensors]]) {
+  for (const [key, r] of [['gliders', gliders], ['sensors', sensors], ['coastwatch', coastwatch]]) {
     sources[key] = {
       ok: r.ok,
       count: r.count,
@@ -308,7 +371,7 @@ function buildPayload(gliders, sensors, nowMs) {
   }
   return {
     generatedAt: new Date().toISOString(),
-    windowDays: { gliders: GLIDER_WINDOW_DAYS, sensors: SENSOR_WINDOW_DAYS },
+    windowDays: { gliders: GLIDER_WINDOW_DAYS, sensors: SENSOR_WINDOW_DAYS, coastwatch: COASTWATCH_WINDOW_DAYS },
     gliders: {
       indexUrl: indexQueryUrl(GLIDER_BASE, GLIDER_WINDOW_DAYS, GLIDER_INDEX_LIMIT, nowMs),
       activeMissions: gliders.count,
@@ -321,12 +384,20 @@ function buildPayload(gliders, sensors, nowMs) {
       indexRows: sensors.indexRows,
       datasets: sensors.datasets,
     },
+    coastwatch: {
+      indexUrl: indexQueryUrl(COASTWATCH_BASE, COASTWATCH_WINDOW_DAYS, COASTWATCH_INDEX_LIMIT, nowMs),
+      activeProducts: coastwatch.count,
+      indexRows: coastwatch.indexRows,
+      products: coastwatch.datasets,
+    },
     sources,
-    attribution: `${GLIDER_ATTRIBUTION}; ${SENSORS_ATTRIBUTION}.`,
+    attribution: `${GLIDER_ATTRIBUTION}; ${SENSORS_ATTRIBUTION}; ${COASTWATCH_ATTRIBUTION}.`,
     note:
-      'Bounded, sequential ERDDAP queries (paced, never parallel); ' +
-      'isForecast flags prediction products whose maxTime runs ahead of now. ' +
-      'The NOAA coastwatch ERDDAP host is intentionally not used (rate-limited on some networks).',
+      'Bounded, sequential ERDDAP queries across three hosts (paced, never parallel); ' +
+      'isForecast flags prediction products whose maxTime runs ahead of now ' +
+      '(NCEP_Global_Best, NWW3, wvcharm forecasts). ' +
+      'CoastWatch mirrored _Lon0360/_LonPM180 variants are merged into one product entry. ' +
+      'A host failure degrades its own section to ok:false and never 502s the route.',
   };
 }
 
@@ -338,13 +409,16 @@ async function getSnapshot(nowMs) {
       // Sequential across hosts = paced; never fan out against ERDDAP.
       const gliders = await fetchGliders(nowMs);
       const sensors = await fetchSensors(nowMs);
-      if (!gliders.ok && !sensors.ok) {
+      const coastwatch = await fetchCoastwatch(nowMs);
+      if (!gliders.ok && !sensors.ok && !coastwatch.ok) {
         throw Object.assign(
-          new Error(`ioos_all_upstream_down: gliders:${gliders.error}; sensors:${sensors.error}`),
+          new Error(
+            `ioos_all_upstream_down: gliders:${gliders.error}; sensors:${sensors.error}; coastwatch:${coastwatch.error}`,
+          ),
           { status: 502 },
         );
       }
-      const payload = buildPayload(gliders, sensors, nowMs);
+      const payload = buildPayload(gliders, sensors, coastwatch, nowMs);
       cache = { at: Date.now(), payload };
       return payload;
     })().finally(() => {
@@ -400,6 +474,7 @@ export const _ioosInternals = {
   parseTabledap,
   latestTrackPoint,
   dedupeSensors,
+  coastwatchProductId,
   clearCaches: () => {
     cache = null;
     inflight = null;

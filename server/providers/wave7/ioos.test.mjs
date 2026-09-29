@@ -9,6 +9,7 @@ const {
   parseTabledap,
   latestTrackPoint,
   dedupeSensors,
+  coastwatchProductId,
   clearCaches,
 } = _ioosInternals;
 
@@ -73,6 +74,24 @@ const SENSORS_INDEX = {
   },
 };
 
+// ——— coastwatch fixture (shape verified against the live host 2026-09-28) ———
+
+const COASTWATCH_INDEX = {
+  table: {
+    columnNames: IDX_COLS,
+    rows: [
+      ['NCEP_Global_Best', 'NCEP Global Forecast System Best Time Series', '2026-09-21T15:00:00Z', '2026-10-06T15:00:00Z', -90, 90, -180, 180],
+      ['wvcharmV3_3day', 'C-HARM v3 3-Day Forecast', '2026-09-28T12:00:00Z', '2026-09-30T12:00:00Z', 32.0, 49.0, -128.0, -116.0],
+      // LonPM180 mirror: same product, 0..360 longitude convention → different bbox,
+      // so only the product-ID normalizer merges it (not the title+center key).
+      ['wvcharmV3_3day_LonPM180', 'C-HARM v3 3-Day Forecast', '2026-09-28T12:00:00Z', '2026-09-30T12:00:00Z', 32.0, 49.0, 232.0, 244.0],
+      ['cwwcNDBCMet', 'NDBC Meteorological and Oceanographic data', '2026-09-21T23:10:00Z', '2026-09-27T18:00:00Z', -80, 80, -180, 180],
+      ['ucsdHfrP2', 'HF Radar - US West Coast (UCSD) 2km', '2026-09-27T20:00:00Z', '2026-09-27T19:00:00Z', 32.0, 42.0, -128.0, -117.0],
+      ['ucsdHfrP2_Lon0360', 'HF Radar - US West Coast (UCSD) 2km', '2026-09-27T20:00:00Z', '2026-09-27T17:00:00Z', 32.0, 42.0, 232.0, 243.0],
+    ],
+  },
+};
+
 function jsonResponse(body) {
   return {
     ok: true,
@@ -100,6 +119,7 @@ function mockFetch({ down = [], seen = [] } = {}) {
     if (u.includes('gliders.ioos.us/erddap/tabledap/allDatasets')) return jsonResponse(GLIDER_INDEX);
     if (u.includes('gliders.ioos.us/erddap/tabledap/')) return jsonResponse(TRACK);
     if (u.includes('erddap.sensors.ioos.us/erddap/tabledap/allDatasets')) return jsonResponse(SENSORS_INDEX);
+    if (u.includes('coastwatch.pfeg.noaa.gov/erddap/tabledap/allDatasets')) return jsonResponse(COASTWATCH_INDEX);
     throw new Error(`unexpected url ${u}`);
   };
 }
@@ -159,6 +179,34 @@ test('dedupeSensors merges station mirrors and flags forecasts', () => {
   assert.ok(alameda.infoUrl.includes('erddap.sensors.ioos.us/erddap/info/'));
 });
 
+test('coastwatchProductId strips longitude-convention suffixes only', () => {
+  assert.equal(coastwatchProductId('wvcharmV3_3day_LonPM180'), 'wvcharmV3_3day');
+  assert.equal(coastwatchProductId('ucsdHfrP2_Lon0360'), 'ucsdHfrP2');
+  assert.equal(coastwatchProductId('NCEP_Global_Best'), 'NCEP_Global_Best');
+  assert.equal(coastwatchProductId('erdMH1sstd1day_R2022NRTNotMasked'), 'erdMH1sstd1day_R2022NRTNotMasked');
+});
+
+test('dedupeSensors merges CoastWatch lon-convention mirrors and flags forecasts', () => {
+  const out = dedupeSensors(
+    parseTabledap(COASTWATCH_INDEX),
+    NOW_MS,
+    'https://coastwatch.pfeg.noaa.gov/erddap',
+    coastwatchProductId,
+  );
+  assert.equal(out.length, 4); // two mirror pairs collapse via the ID normalizer
+  const charm = out.find((d) => d.datasetID === 'wvcharmV3_3day');
+  assert.ok(charm);
+  assert.ok(charm.infoUrl.includes('coastwatch.pfeg.noaa.gov/erddap/info/wvcharmV3_3day/'));
+  assert.equal(charm.isForecast, true); // 2026-09-30 > now+6h
+  const hfr = out.find((d) => d.datasetID === 'ucsdHfrP2');
+  assert.ok(hfr);
+  assert.equal(hfr.maxTime, '2026-09-27T19:00:00Z'); // later of the pair wins
+  assert.equal(hfr.isForecast, false);
+  const ncep = out.find((d) => d.datasetID === 'NCEP_Global_Best');
+  assert.ok(ncep);
+  assert.equal(ncep.isForecast, true); // 2026-10-06 > now+6h
+});
+
 // ——— handler tests ———
 
 test('ioosProxy mounts /api/ioos on both server shapes', () => {
@@ -191,11 +239,15 @@ test('handler serves gliders + sensors with paced sequential fetches', async () 
     });
     // sensors: 3 index rows → 2 deduped stations
     assert.equal(payload.sensors.activeDatasets, 2);
+    // coastwatch: 6 index rows → 4 deduped products (LonPM180/Lon0360 mirrors merged)
+    assert.equal(payload.coastwatch.activeProducts, 4);
+    assert.ok(payload.sources.coastwatch.ok);
+    assert.match(payload.attribution, /CoastWatch/);
     assert.ok(payload.sources.gliders.ok);
     assert.ok(payload.sources.sensors.ok);
     assert.match(payload.attribution, /IOOS/);
-    // pacing: 1 glider index + 2 track hops + 1 sensor index = 4 sequential calls
-    assert.equal(seen.length, 4);
+    // pacing: 1 glider index + 2 track hops + 1 sensor index + 1 coastwatch index = 5 sequential calls
+    assert.equal(seen.length, 5);
     assert.ok(seen.every((s) => s.options.redirect === 'follow'));
     assert.match(res.headers['Cache-Control'], /max-age=600/);
   } finally {
@@ -217,6 +269,8 @@ test('handler degrades honestly when the glider host is down', async () => {
     assert.match(payload.sources.gliders.error, /503/);
     assert.equal(payload.sources.sensors.ok, true);
     assert.equal(payload.sensors.activeDatasets, 2);
+    assert.equal(payload.sources.coastwatch.ok, true);
+    assert.equal(payload.coastwatch.activeProducts, 4);
   } finally {
     globalThis.fetch = realFetch;
   }
@@ -246,10 +300,10 @@ test('a failed per-mission track hop degrades to latest:null, not a 502', async 
   }
 });
 
-test('handler returns 502 JSON when both ERDDAP hosts are down', async () => {
+test('handler returns 502 JSON when all three ERDDAP hosts are down', async () => {
   clearCaches();
   const realFetch = globalThis.fetch;
-  globalThis.fetch = mockFetch({ down: ['gliders.ioos.us', 'erddap.sensors.ioos.us'] });
+  globalThis.fetch = mockFetch({ down: ['gliders.ioos.us', 'erddap.sensors.ioos.us', 'coastwatch.pfeg.noaa.gov'] });
   try {
     const calls = mount(ioosProxy({ now: () => NOW_MS }));
     const res = fakeRes();
