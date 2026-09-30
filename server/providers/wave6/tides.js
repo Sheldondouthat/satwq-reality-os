@@ -21,7 +21,7 @@
  * A 502 is returned only when EVERY requested product fails; partial
  * results are reported honestly per source.
  *
- * Curated multi-station sweep: the STATIONS list below holds 36 CO-OPS
+ * Curated multi-station sweep: the STATIONS list below holds 42 CO-OPS
  * stations, every one verified 2026-09-27/28/29 against the upstream's own
  * station-list endpoint
  * (https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations/{id}.json).
@@ -92,6 +92,12 @@ const STATIONS = [
   { id: '9419750', name: 'Crescent City', lat: 41.74561, lon: -124.18439, region: 'California' }, // verified 2026-09-29 recur
   { id: '8658120', name: 'Wilmington', lat: 34.2267, lon: -77.9533, region: 'North Carolina' }, // verified 2026-09-29 recur
   { id: '8575512', name: 'Annapolis', lat: 38.983883, lon: -76.480034, region: 'Maryland' }, // verified 2026-09-29 recur
+  { id: '8557380', name: 'Lewes', lat: 38.782833, lon: -75.11928, region: 'Delaware' }, // verified 2026-09-29 recur (first Delaware station)
+  { id: '8670870', name: 'Fort Pulaski', lat: 32.034695, lon: -80.90303, region: 'Georgia' }, // verified 2026-09-29 recur (first Georgia station)
+  { id: '8467150', name: 'Bridgeport', lat: 41.17582, lon: -73.18397, region: 'Connecticut' }, // verified 2026-09-29 recur (first Connecticut station)
+  { id: '8729108', name: 'Panama City', lat: 30.149723, lon: -85.664444, region: 'Florida' }, // verified 2026-09-29 recur (mdapi name is Panama City, not Pensacola)
+  { id: '9410660', name: 'Los Angeles', lat: 33.72, lon: -118.272, region: 'California' }, // verified 2026-09-29 recur
+  { id: '1770000', name: 'Pago Pago', lat: -14.28, lon: -170.69, region: 'American Samoa' }, // verified 2026-09-29 recur (mdapi full name "Pago Pago, American Samoa"; first American Samoa territory station)
 ];
 
 let cache = null; // {at, key, payload}
