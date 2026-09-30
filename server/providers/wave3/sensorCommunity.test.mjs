@@ -39,7 +39,7 @@ const STATIC_FIXTURE = [
   },
   {
     sensor: { id: 1003, sensor_type: { name: 'SDS011' } },
-    location: { latitude: '37.2674', longitude: '-80.7267', indoor: 1 },
+    location: { latitude: '40.7580', longitude: '-73.9855', indoor: 1 },
     sensordatavalues: [
       { value_type: 'P1', value: '99.0' },
       { value_type: 'P2', value: '60.0' },
