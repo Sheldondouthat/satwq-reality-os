@@ -1,0 +1,287 @@
+/* ── Mobile viewport rebuild (2026-09-29) ─────────────────────────────
+   Phone-first layout for viewports ≤ 768px.
+
+   Root cause of the original failure: the site was a desktop layout. The
+   Frontier dock anchored at `bottom:12px` with no height cap, so on a phone
+   it rendered ~9,700px tall with its collapse header ~9 viewports above the
+   visible area — unreachable, unscrollable, and burying the globe. Touch
+   targets were 21–36px. Everything overlapped.
+
+   Everything in this file is scoped to `@media (max-width: 768px)` except
+   the `.rb-controls-row` base rule, which is byte-identical to the inline
+   style it replaces in src/frontier/controls/index.js. Desktop ≥1024px is
+   untouched and pixel-identical to before. */
+
+/* Base rule for the app-only CONTROLS button row.
+   Desktop-identical to the inline style it replaces (display:flex,
+   flex-wrap:wrap, gap:2px); the media query below upgrades it to a
+   finger-sized grid on phones. */
+.rb-controls-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+}
+
+@media (max-width: 768px) {
+  /* ── Page guarantees: no sideways scroll, safe-area aware chrome ── */
+  html,
+  body {
+    overflow-x: clip;
+  }
+  body {
+    -webkit-tap-highlight-color: rgba(0, 212, 255, 0.25);
+  }
+
+  /* ── Frontier dock → bottom sheet ────────────────────────────────
+     Collapsed: a 56px grabber bar pinned to the bottom. Open: a
+     scrollable sheet capped at 72% of the viewport. The header sticks
+     so collapse is always one tap away. */
+  /* NOTE: the dock sets its chrome (position/left/bottom/max-width/border/
+     z-index) as INLINE styles in src/frontier/index.js, so every property
+     here that collides with an inline style needs !important — stylesheet
+     rules lose to inline styles otherwise. Desktop is untouched: this
+     whole block only applies ≤768px. */
+  #satwq-frontier-dock {
+    left: 0 !important;
+    right: 0;
+    bottom: 0 !important;
+    top: auto;
+    max-width: none !important;
+    width: auto;
+    max-height: 72vh;
+    max-height: 72dvh;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    border-radius: 18px 18px 0 0 !important;
+    border-left: 0 !important;
+    border-right: 0 !important;
+    border-bottom: 0 !important;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    /* Sheet floats above the akashic records button (z 9990/9991). */
+    z-index: 9995 !important;
+  }
+  #satwq-frontier-dock > button:first-child {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    min-height: 56px;
+    /* inline padding shorthand + background:none lose to these */
+    padding-top: 20px !important;
+    background: rgba(8, 12, 20, 0.97) !important;
+  }
+  /* Grabber pill on the sheet handle. */
+  #satwq-frontier-dock > button:first-child::before {
+    content: '';
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 44px;
+    height: 5px;
+    border-radius: 3px;
+    background: rgba(140, 180, 255, 0.45);
+  }
+  /* Every control inside the sheet is finger-sized. font-size needs
+     !important: chips carry inline font-size:11px. */
+  #satwq-frontier-dock button {
+    min-height: 48px;
+    min-width: 48px;
+    font-size: 14px !important;
+  }
+  /* 16px inputs stop iOS from auto-zooming on focus. */
+  #satwq-frontier-dock input[type='text'],
+  #satwq-frontier-dock input:not([type]),
+  #satwq-frontier-dock select {
+    min-height: 48px;
+    font-size: 16px;
+  }
+
+  /* CONTROLS (app-only): big-button grid.
+     The RealityBridge gate in src/frontier/controls/index.js is untouched;
+     this only restyles the row when the panel exists (i.e. in the app).
+     margin/border-radius/font-size need !important: chip() sets them inline. */
+  #satwq-frontier-dock .rb-controls-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  #satwq-frontier-dock .rb-controls-row button {
+    min-height: 64px;
+    margin: 0 !important;
+    border-radius: 14px !important;
+    font-size: 15px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  /* ── Command dock rides above the akashic bar ──────────────────
+     Stack (bottom→top): frontier sheet (56px) → akashic bar
+     (~44px collapsed) → command dock. */
+  #command-dock {
+    bottom: calc(116px + env(safe-area-inset-bottom, 0px));
+    z-index: 9993;
+    /* Phone: three equal finger-sized chips, not a squeezed desktop row. */
+    width: calc(100vw - 24px);
+    max-width: 420px;
+    padding: 6px;
+    gap: 6px;
+  }
+  #command-dock > #location-bar,
+  #command-dock > #control-panel,
+  #command-dock > #gev-voice-control {
+    min-width: 0;
+  }
+  #command-dock > #location-bar,
+  #command-dock > #control-panel {
+    flex: 1.35 1 0 !important;
+  }
+  #command-dock > #gev-voice-control {
+    flex: 0.6 1 0 !important;
+  }
+  /* Voice heading (kicker + tier) is redundant on a phone chip. */
+  #command-dock .gev-voice-heading {
+    display: none;
+  }
+  #command-dock .dock-tray-toggle {
+    min-height: 48px !important;
+    width: 100%;
+    justify-content: center;
+  }
+  #command-dock .panel-title,
+  #command-dock .location-toolbar-label {
+    font-size: 10px;
+    letter-spacing: 0.02rem;
+    white-space: normal;
+    text-align: center;
+    line-height: 1.25;
+    width: auto;
+    max-width: 100%;
+    overflow: visible;
+    text-overflow: clip;
+  }
+  /* Phone chips are narrow: hide the decorative label icons so the
+     words fit. */
+  #command-dock .dock-label-icon {
+    display: none;
+  }
+  #command-dock .panel-divider {
+    display: none;
+  }
+  /* Icon-font robustness: if Material Symbols fails to load, the raw
+     ligature text must not spill out of its column and overlap labels. */
+  .first-run-choices button > .material-symbols-outlined:first-child,
+  #top-center-actions button > .material-symbols-outlined {
+    overflow: hidden;
+    max-width: 100%;
+    white-space: nowrap;
+  }
+  /* Voice chip: mic button finger-sized, decorative bars hidden. */
+  #command-dock #gev-voice-control {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+  }
+  #command-dock #gev-voice-button {
+    min-height: 48px;
+    min-width: 56px;
+  }
+  #command-dock .gev-voice-visualizer,
+  #command-dock .gev-voice-readout {
+    display: none;
+  }
+
+  /* ── Toasts clear the whole bottom stack ─────────────────────── */
+  #toast {
+    bottom: calc(190px + env(safe-area-inset-bottom, 0px));
+  }
+
+  /* ── Akashic timeline bar: above the sheet, below it in z ──────
+     #akashic-timeline-bar injects its own <style> into <head> AFTER
+     our stylesheets, so every colliding property needs !important.
+     It starts collapsed on phones (see mountAkashicUI) so the sheet
+     grabber is never buried on load. */
+  #akashic-timeline-bar {
+    left: 12px !important;
+    right: 12px;
+    transform: none !important;
+    bottom: calc(64px + env(safe-area-inset-bottom, 0px)) !important;
+    width: auto !important;
+    max-width: none;
+    z-index: 9994 !important;
+  }
+  #akashic-timeline-bar button {
+    min-height: 48px !important;
+    min-width: 48px;
+    font-size: 14px !important;
+  }
+  #akashic-timeline-bar .ak-time {
+    min-width: 0 !important;
+    font-size: 11px;
+  }
+  #akashic-timeline-bar canvas {
+    height: 36px;
+  }
+
+  /* ── Wave3 akashic toggle/panel: not mounted on phones ─────────
+     initAkashicArchive gates the floating "◈ records" button and its
+     panel behind (max-width: 768px) — the timeline bar above is the
+     mobile timeline UI, and the archiver sweep keeps running. No CSS
+     needed here. */
+
+  /* ── Top action bar: full 48px targets, clear of the title ───────
+     At phone widths the five 48px buttons + the title cannot share one
+     row, so the actions drop to their own row under the title and the
+     left panel stack starts below them. */
+  #top-center-actions {
+    top: calc(68px + env(safe-area-inset-top, 0px));
+    right: 12px;
+    left: auto;
+    transform: none;
+    gap: 8px;
+  }
+  #top-center-actions button {
+    width: 48px;
+    height: 48px;
+  }
+  #left-panel-stack {
+    /* Clears the action row (ends 116px) + the status-pill slot (124–154px). */
+    top: 168px;
+  }
+
+  /* ── Status pills share one slot under the action row ──────────
+     Base positions (#global-loading-status top:74px centered,
+     #traffic-sync-chip top:112px, #cctv-sync-chip top:146px) all
+     collide with the phone action row, so they stack here instead.
+     transform needs !important: the .visible rules re-assert
+     translateX(-50%). All three are pointer-events:none. */
+  #global-loading-status,
+  #traffic-sync-chip,
+  #cctv-sync-chip {
+    top: calc(124px + env(safe-area-inset-top, 0px)) !important;
+    left: 12px !important;
+    right: 12px;
+    transform: none !important;
+    justify-content: center;
+    max-width: none;
+  }
+
+  /* ── Ticker pills: horizontal snap-scroll, never over the globe ── */
+  #location-pills {
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+  }
+  #location-pills::-webkit-scrollbar {
+    display: none;
+  }
+  #location-pills > * {
+    scroll-snap-align: start;
+    flex: 0 0 auto;
+  }
+}

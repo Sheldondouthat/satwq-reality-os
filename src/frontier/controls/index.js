@@ -81,7 +81,9 @@ export function init({ mount, chip } = {}) {
     };
 
     const row = document.createElement('div');
-    row.style.cssText = 'display:flex;flex-wrap:wrap;gap:2px;';
+    // Styled by .rb-controls-row (desktop: flex row, identical to the
+    // previous inline style; phones: big-button grid via mobile-rebuild.css).
+    row.className = 'rb-controls-row';
     wrap.appendChild(row);
 
     // Native speech results land here (called from Java).

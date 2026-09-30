@@ -22,6 +22,16 @@
 @import './src/ui/styles/provider-settings.css';
 
 @import './src/ui/styles/weather.css';
+
+/* Mobile viewport rebuild: phone-first layout <=768px (desktop untouched).
+   Sits ahead of cyber.css on purpose: the Cyber cascade policy (see
+   cyberTheme.test.mjs) requires cyber.css to stay the last UI-THEME import,
+   and this file is a viewport layout layer, not a theme. Verified safe:
+   cyber.css touches these selectors only under :root[data-ui-theme='cyber']
+   and only for thematic properties (clip-path, colors, padding, borders) --
+   zero property overlap with this file's phone geometry (position, bottom,
+   z-index, 48px targets), so the phone layout holds with or without Cyber. */
+@import './src/ui/styles/mobile-rebuild.css';
 @import './src/ui/styles/cyber.css';
 
 /* SATWQ cinematic pack: additive glassmorphism HUD theme (scoped to .satwq-hud). */

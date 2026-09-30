@@ -90,6 +90,21 @@ export function mountAkashicUI({
 
   let events = [];
   let collapsed = false;
+  // Phone-first: the bar is ~190px tall expanded, which would bury the
+  // frontier sheet's grabber and the command dock on load. Start collapsed
+  // on small viewports; the toggle is one tap away. Desktop keeps the
+  // expanded default.
+  try {
+    if (
+      typeof window !== 'undefined' &&
+      window.matchMedia &&
+      window.matchMedia('(max-width: 768px)').matches
+    ) {
+      collapsed = true;
+    }
+  } catch {
+    /* matchMedia unavailable — keep the desktop default */
+  }
 
   const badge = el('span', { class: 'ak-badge live', text: '● LIVE' });
   const count = el('span', { class: 'ak-count', text: '0 events' });
@@ -116,6 +131,10 @@ export function mountAkashicUI({
     ]),
   ]);
   container.appendChild(bar);
+  if (collapsed) {
+    bar.classList.add('ak-collapsed');
+    collapseBtn.textContent = '+';
+  }
 
   function windowBounds() {
     const end = now();

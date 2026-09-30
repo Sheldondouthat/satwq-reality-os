@@ -302,12 +302,20 @@ function resolve(candidates, prop, width, label) {
 function toPx(value, viewportHeight, where) {
   const trimmed = value.trim();
   const inner = /^calc\(/.test(trimmed) ? trimmed.slice(5, -1) : trimmed;
-  assert.doesNotMatch(inner, /\bcalc\(/, `nested calc() in ${where}: "${value}"`);
-  assert.doesNotMatch(inner, /\b(min|max|clamp|env|attr|round|mod)\(/, `unmodelled function in ${where}: "${value}"`);
-  assert.doesNotMatch(inner, /[*/]/, `unmodelled operator in ${where}: "${value}"`);
-  assert.doesNotMatch(inner, /\s-\s/, `unmodelled subtraction in ${where}: "${value}"`);
+  // env(safe-area-inset-*, <fallback>): a notch inset is provably >= 0, so its
+  // fallback is the conservative floor — the same treatment vetted var()s get
+  // below. Any other env() name (or a missing fallback) still fails closed on
+  // the unmodelled-function assertion.
+  const floored = inner.replace(
+    /env\(\s*safe-area-inset-(?:top|right|bottom|left)\s*,\s*([^()]+?)\)/g,
+    '$1',
+  );
+  assert.doesNotMatch(floored, /\bcalc\(/, `nested calc() in ${where}: "${value}"`);
+  assert.doesNotMatch(floored, /\b(min|max|clamp|env|attr|round|mod)\(/, `unmodelled function in ${where}: "${value}"`);
+  assert.doesNotMatch(floored, /[*/]/, `unmodelled operator in ${where}: "${value}"`);
+  assert.doesNotMatch(floored, /\s-\s/, `unmodelled subtraction in ${where}: "${value}"`);
   let total = 0;
-  for (const raw of splitTopLevel(inner, '+')) {
+  for (const raw of splitTopLevel(floored, '+')) {
     const term = raw.trim();
     if (!term) continue;
     if (term === '100%') continue; // the tray's own panel height, added separately
@@ -513,8 +521,10 @@ test('right rail measurement cannot persist into a painted attribution layout', 
 test('every open dock tray clears the required credit at every modelled viewport', () => {
   // Below 900px the tray widens to nearly the viewport and lands on the
   // bottom-left corner where the credit lives. The clearance is NOT one fixed
-  // number: the dock is anchored at 2vh down to 721px and re-anchors to a flat
-  // 8px at 720px, while the credit keeps its 2vh base throughout.
+  // number: the dock is anchored at 2vh down to 769px and re-anchors to
+  // calc(116px + env(safe-area-inset-bottom, 0px)) at 768px and below, riding
+  // above the frontier bottom-sheet + akashic bar stack, while the credit
+  // keeps its 2vh base throughout.
   const failures = [];
   for (const scenario of TRAY_SCENARIOS) {
     for (const width of WIDTHS.filter((w) => w <= 900)) {
@@ -574,13 +584,22 @@ test('the full-width context rail clears the required credit at every modelled v
   assert.deepEqual(failures, [], `context rail re-enters the credit band at ${failures.join(', ')}`);
 });
 
-test('the dock anchor changes at 720px — the 2vh cancellation is band-limited', () => {
+test('the dock anchor changes at 768px — it rides above the mobile bottom stack', () => {
   assert.equal(resolve(['#command-dock'], 'bottom', 800, 'dock').decl.value, '2vh');
-  assert.equal(resolve(['#command-dock'], 'bottom', 720, 'dock').decl.value, '8px');
+  assert.equal(
+    resolve(['#command-dock'], 'bottom', 768, 'dock').decl.value,
+    'calc(116px + env(safe-area-inset-bottom, 0px))',
+    'at the 768px boundary the phone rebuild already lifts the dock',
+  );
+  assert.equal(
+    resolve(['#command-dock'], 'bottom', 720, 'dock').decl.value,
+    'calc(116px + env(safe-area-inset-bottom, 0px))',
+    'the phone rebuild lifts the dock above the frontier sheet + akashic bar stack',
+  );
   assert.equal(
     resolve(CREDIT_SELECTORS, 'bottom', 720, 'credit').decl.value,
     'calc(2vh + 5rem)',
-    'the credit keeps its 2vh base below 720px — that asymmetry is the whole hazard',
+    'the credit keeps its 2vh base below 768px — that asymmetry is the whole hazard',
   );
 });
 
