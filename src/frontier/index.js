@@ -22,6 +22,7 @@ import {
   createRadarModeledLightningSource,
 } from '../layers/lightning/index.js';
 import { initSonification } from '../cinematic/sonification.js';
+import { init as initControls } from './controls/index.js';
 import { parseQuery, executePlan } from '../services/nlQuery.js';
 import { geocodeKeyless } from '../keylessGeocoder.js';
 import {
@@ -1021,6 +1022,13 @@ export function initFrontier({ viewer } = {}) {
     attempt('birdcast', () => initBirdcast({ viewer, mount: s, chip, trackLayer, t }));
     attempt('auroraCams', () => initAuroraCams({ viewer, mount: s, chip, trackLayer, t }));
     attempt('volcanoCams', () => initVolcanoCams({ viewer, mount: s, chip, trackLayer, t }));
+  }
+
+  // — CONTROLS · device bridge (app only; invisible in browsers) —
+  {
+    const s = section('CONTROLS');
+    dock.appendChild(s);
+    attempt('controls', () => initControls({ viewer, mount: s, chip, trackLayer, t }));
   }
 
   // — WAVE 6 · HUMAN tickers —
