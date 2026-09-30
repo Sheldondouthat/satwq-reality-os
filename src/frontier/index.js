@@ -72,6 +72,7 @@ import { init as initSatnogs } from './wave5/satnogs/index.js';
 import { init as initCo2 } from './wave5/co2/index.js';
 import { init as initUv } from './wave5/uv/index.js';
 import { init as initMarkets } from './wave5/markets/index.js';
+import { init as initSignalWalls } from './wave5/signalWalls/index.js';
 import { init as initCarbon } from './wave5/carbon/index.js';
 import { init as initCerts } from './wave5/certs/index.js';
 import { init as initCivic } from './wave5/civic/index.js';
@@ -746,6 +747,13 @@ export function initFrontier({ viewer } = {}) {
     const s = section(t('feature.markets'));
     dock.appendChild(s);
     return initMarkets({ viewer, mount: s, chip, trackLayer, t });
+  });
+
+  // — Live signal walls (USGS quakes + NASA EONET + CoinGecko, truth-tier badges) —
+  attempt('signalWalls', () => {
+    const s = section(t('feature.signalWalls') || 'LIVE SIGNAL WALLS');
+    dock.appendChild(s);
+    return initSignalWalls({ viewer, mount: s, chip, trackLayer, t });
   });
 
   // — Wave 5: grid carbon ticker —
