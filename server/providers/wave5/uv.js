@@ -7,7 +7,7 @@
  * (verified live 2026-09-27; CC-BY 4.0 attribution required).
  *
  * Routes:
- *   GET /api/uv                           → default coords (37.2673, -80.7266)
+ *   GET /api/uv                           → default coords (40.7580, -73.9855, Times Square — neutral demo default)
  *   GET /api/uv?latitude=..&longitude=..  → arbitrary pinned point
  *
  * Latitude/longitude are validated, clamped, and rounded to 2 decimals for
@@ -22,8 +22,9 @@
 
 import { fetchJsonCapped, makeCache, numOrNull, sendJson, buildProxy } from './_lib.js';
 
-const DEFAULT_LAT = 37.2673;
-const DEFAULT_LON = -80.7266;
+// Neutral demo default — never a personal location (ghost-first, 2026-09-30).
+const DEFAULT_LAT = 40.7580; // Times Square
+const DEFAULT_LON = -73.9855;
 const UPSTREAM_TIMEOUT_MS = 15_000;
 const BODY_CAP_BYTES = 64 * 1024; // ~1 KB response; generous cap
 const CACHE_TTL_MS = 30 * 60_000;

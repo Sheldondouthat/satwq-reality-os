@@ -40,6 +40,7 @@ import { nwsAlertsProxy } from './wave3/nwsAlerts.js';
 import { sigmetsProxy } from './wave3/sigmets.js';
 import { dartCouplingProxy } from './wave3/dart.js';
 import { wxstationsProxy } from './wave5/wxstations.js';
+import { phoneSensorsProxy } from './wave5/phoneSensors.js';
 import { timeProxy } from './wave5/time.js';
 import { quakesProxy } from './wave5/quakes.js';
 import { feltProxy } from './wave5/felt.js';
@@ -173,6 +174,7 @@ function localProviderPlugins() {
     argoProxy(),
     reentriesProxy(),
     wxstationsProxy(),
+    phoneSensorsProxy(),
     timeProxy(),
     quakesProxy(),
     feltProxy(),

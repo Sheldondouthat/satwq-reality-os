@@ -27,8 +27,8 @@ function mount(provider) {
 }
 
 const SAMPLE_UPSTREAM = {
-  latitude: 37.27,
-  longitude: -80.73,
+  latitude: 40.76,
+  longitude: -73.99,
   current_units: { uv_index: '' },
   current: { time: '2026-09-27T15:30', temperature_2m: 20.1, uv_index: 4.15, is_day: 1 },
   daily: {
@@ -45,7 +45,7 @@ test('uvProxy mounts /api/uv on both server shapes', () => {
 });
 
 test('parseLatLon defaults, clamps, and rounds', () => {
-  assert.deepEqual(parseLatLon({}), { latitude: 37.27, longitude: -80.73 });
+  assert.deepEqual(parseLatLon({}), { latitude: 40.76, longitude: -73.99 });
   assert.deepEqual(parseLatLon({ latitude: '40.71277', longitude: '-74.00597' }), {
     latitude: 40.71,
     longitude: -74.01,
@@ -54,18 +54,18 @@ test('parseLatLon defaults, clamps, and rounds', () => {
     latitude: 90,
     longitude: -180,
   });
-  assert.deepEqual(parseLatLon({ latitude: 'garbage' }), { latitude: 37.27, longitude: -80.73 });
+  assert.deepEqual(parseLatLon({ latitude: 'garbage' }), { latitude: 40.76, longitude: -73.99 });
 });
 
 test('openMeteoUrl carries the required params', () => {
-  const url = openMeteoUrl({ latitude: 37.27, longitude: -80.73 });
+  const url = openMeteoUrl({ latitude: 40.76, longitude: -73.99 });
   assert.match(url, /^https:\/\/api\.open-meteo\.com\/v1\/forecast\?/);
   assert.match(url, /current=temperature_2m,uv_index,is_day/);
   assert.match(url, /daily=sunrise,sunset,uv_index_max/);
 });
 
 test('trimUvPayload extracts current + today fields', () => {
-  const p = trimUvPayload(SAMPLE_UPSTREAM, { latitude: 37.27, longitude: -80.73 });
+  const p = trimUvPayload(SAMPLE_UPSTREAM, { latitude: 40.76, longitude: -73.99 });
   assert.equal(p.value, 4.15);
   assert.equal(p.uvIndex, 4.15);
   assert.equal(p.unit, 'UV index');
@@ -87,7 +87,7 @@ test('handler serves trimmed payload with mocked fetch', async () => {
   globalThis.fetch = async () => new Response(JSON.stringify(SAMPLE_UPSTREAM), { status: 200 });
   try {
     const res = fakeRes();
-    await calls[0].handler(fakeReq('/api/uv?latitude=37.2673&longitude=-80.7266'), res);
+    await calls[0].handler(fakeReq('/api/uv?latitude=40.7580&longitude=-73.9855'), res);
     assert.equal(res.statusCode, 200);
     const payload = JSON.parse(res.body);
     assert.equal(payload.uvIndex, 4.15);

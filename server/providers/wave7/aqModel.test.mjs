@@ -46,8 +46,8 @@ test('aqModelProxy mounts /api/aq-model on both server shapes', () => {
 });
 
 test('parseLocation validates lat/lon', () => {
-  const loc = parseLocation(new URLSearchParams('lat=37.2673&lon=-80.7266'));
-  assert.deepEqual(loc, { lat: 37.267, lon: -80.727 });
+  const loc = parseLocation(new URLSearchParams('lat=40.7580&lon=-73.9855'));
+  assert.deepEqual(loc, { lat: 40.758, lon: -73.985 });
   assert.throws(() => parseLocation(new URLSearchParams('lat=91&lon=0')), /aq_bad_lat/);
   assert.throws(() => parseLocation(new URLSearchParams('lat=0&lon=181')), /aq_bad_lon/);
   assert.throws(() => parseLocation(new URLSearchParams('lat=abc&lon=0')), /aq_bad_lat/);
@@ -97,7 +97,7 @@ test('handler serves model-labeled snapshot with mocked fetch', async () => {
   };
   try {
     const res = fakeRes();
-    await calls[0].handler(fakeReq('/api/aq-model?lat=37.2673&lon=-80.7266'), res);
+    await calls[0].handler(fakeReq('/api/aq-model?lat=40.7580&lon=-73.9855'), res);
     assert.equal(res.statusCode, 200);
     const payload = JSON.parse(res.body);
     assert.equal(payload.model, true);

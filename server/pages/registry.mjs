@@ -13,6 +13,12 @@
  *    no AISSTREAM_API_KEY, so it is excluded by design.
  *  - local-receivers.js       — proxies LAN-local receivers (dump1090 etc.)
  *    via node:dns + node:http(s); unreachable from the edge by design.
+ *  - wave5/phoneSensors.js    — EXCLUDED 2026-09-30 (Build 4, R2-24): the S21
+ *    barometer feed reads the VM-local poller state file; the phone's live
+ *    data never leaves the VM by design, and the pressure-only public shape
+ *    carries no coordinates. The full feed (pressure + position dot) serves
+ *    ONLY from the private key-gated ONE PULSE plane. Same exclusion class
+ *    as local-receivers.
  *  - standalone/key-setup.js  — writes provider keys to a local .env via
  *    the UI; there is no writable .env on Pages.
  *  - wind.js                  — SUPERSEDED 2026-09-27: /api/wind is served on

@@ -21,7 +21,7 @@ import {
 const STATIC_FIXTURE = [
   {
     sensor: { id: 1001, sensor_type: { name: 'SDS011' } },
-    location: { latitude: '37.2673', longitude: '-80.7266', indoor: 0 },
+    location: { latitude: '40.7580', longitude: '-73.9855', indoor: 0 },
     sensordatavalues: [
       { value_type: 'P1', value: '10.5' },
       { value_type: 'P2', value: '6.2' },
@@ -100,10 +100,10 @@ test('haversineKm is sane', () => {
 
 test('filterToArea keeps near sensors and drops far ones', () => {
   const sensors = [
-    { id: 'near', lat: 37.2673, lon: -80.7266 },
+    { id: 'near', lat: 40.7580, lon: -73.9855 },
     { id: 'far', lat: 39.9526, lon: -75.1652 },
   ];
-  const kept = filterToArea(sensors, { lat: 37.2673, lon: -80.7266, r: 10 });
+  const kept = filterToArea(sensors, { lat: 40.7580, lon: -73.9855, r: 10 });
   assert.deepEqual(kept.map((s) => s.id), ['near']);
 });
 
@@ -144,7 +144,7 @@ test('handler area mode still serves via:"area"', async () => {
   };
   const calls = mount(sensorCommunityProxy({ fetchImpl, now: () => 1_000_000 }));
   const res = fakeRes();
-  await calls[0].handler(fakeReq('/api/air-quality?lat=37.2673&lon=-80.7266&r=10'), res);
+  await calls[0].handler(fakeReq('/api/air-quality?lat=40.7580&lon=-73.9855&r=10'), res);
   assert.equal(res.statusCode, 200);
   const payload = JSON.parse(res.body);
   assert.equal(payload.via, 'area');
@@ -159,7 +159,7 @@ test('handler auto mode falls back to the static snapshot when the area API fail
   };
   const calls = mount(sensorCommunityProxy({ fetchImpl, now: () => 1_000_000 }));
   const res = fakeRes();
-  await calls[0].handler(fakeReq('/api/air-quality?lat=37.2673&lon=-80.7266&r=10'), res);
+  await calls[0].handler(fakeReq('/api/air-quality?lat=40.7580&lon=-73.9855&r=10'), res);
   assert.equal(res.statusCode, 200);
   const payload = JSON.parse(res.body);
   assert.equal(payload.via, 'static');
@@ -176,7 +176,7 @@ test('handler explicit static mode serves area-filtered snapshot', async () => {
   };
   const calls = mount(sensorCommunityProxy({ fetchImpl, now: () => 1_000_000 }));
   const res = fakeRes();
-  await calls[0].handler(fakeReq('/api/air-quality?lat=37.2673&lon=-80.7266&r=10&source=static'), res);
+  await calls[0].handler(fakeReq('/api/air-quality?lat=40.7580&lon=-73.9855&r=10&source=static'), res);
   assert.equal(res.statusCode, 200);
   const payload = JSON.parse(res.body);
   assert.equal(payload.via, 'static');
@@ -187,7 +187,7 @@ test('handler explicit static mode 502s honestly when the snapshot fails', async
   const fetchImpl = async () => textResponse({}, { ok: false, status: 503 });
   const calls = mount(sensorCommunityProxy({ fetchImpl, now: () => 1_000_000 }));
   const res = fakeRes();
-  await calls[0].handler(fakeReq('/api/air-quality?lat=37.2673&lon=-80.7266&r=10&source=static'), res);
+  await calls[0].handler(fakeReq('/api/air-quality?lat=40.7580&lon=-73.9855&r=10&source=static'), res);
   assert.equal(res.statusCode, 502);
   assert.match(res.body, /air_static_http_503/);
 });
