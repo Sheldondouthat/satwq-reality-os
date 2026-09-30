@@ -627,6 +627,11 @@ const REGISTRY = [
     routes: ['/api/snotel'],
     load: () => import('../providers/wave9/snotel.js').then((m) => m.snotelProxy()),
   },
+  {
+    name: 'usdm',
+    routes: ['/api/usdm'],
+    load: () => import('../providers/wave9/usdm.js').then((m) => m.usdmProxy()),
+  },
 ];
 
 export { REGISTRY };

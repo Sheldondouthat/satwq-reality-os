@@ -63,6 +63,7 @@ const ROUTES = [
   ['/api/gracedb', 'wave8/gracedb', 'gracedb'],
   ['/api/nexrad', 'wave9/nexrad', 'nexrad'],
   ['/api/goes', 'wave9/goes', 'goes'],
+  ['/api/usdm', 'wave9/usdm', 'usdm'],
 ];
 
 const indexSrc = readFileSync(join(ROOT, 'src', 'frontier', 'index.js'), 'utf8');
@@ -71,8 +72,8 @@ const themeKeys = JSON.parse(
 ).map((entry) => entry.key);
 const indexImports = readFileSync(join(ROOT, 'src', 'frontier', 'index.js'), 'utf8');
 
-test('all 44 audited routes have a model with the exact registry ROUTE', async () => {
-  assert.equal(ROUTES.length, 44);
+test('all 45 audited routes have a model with the exact registry ROUTE', async () => {
+  assert.equal(ROUTES.length, 45);
   const seen = new Set();
   for (const [route, waveDir] of ROUTES) {
     const mod = await import(`./${waveDir}/model.js`);

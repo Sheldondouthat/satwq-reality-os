@@ -148,6 +148,7 @@ import { init as initIssExt } from './wave8/issExt/index.js';
 import { init as initGracedb } from './wave8/gracedb/index.js';
 import { init as initNexrad } from './wave9/nexrad/index.js';
 import { init as initGoes } from './wave9/goes/index.js';
+import { init as initUsdm } from './wave9/usdm/index.js';
 
 const DOCK_ID = 'satwq-frontier-dock';
 
@@ -1092,6 +1093,7 @@ export function initFrontier({ viewer } = {}) {
     attempt('gracedb', () => initGracedb({ viewer, mount: s, chip, trackLayer, t }));
     attempt('nexrad', () => initNexrad({ viewer, mount: s, chip, trackLayer, t }));
     attempt('goes', () => initGoes({ viewer, mount: s, chip, trackLayer, t }));
+    attempt('usdm', () => initUsdm({ viewer, mount: s, chip, trackLayer, t }));
   }
 
   return {
