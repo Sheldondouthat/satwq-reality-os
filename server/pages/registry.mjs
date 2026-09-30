@@ -606,6 +606,11 @@ const REGISTRY = [
     routes: ['/api/gracedb'],
     load: () => import('../providers/wave8/gracedb.js').then((m) => m.gracedbProxy()),
   },
+  {
+    name: 'nexrad',
+    routes: ['/api/nexrad'],
+    load: () => import('../providers/wave9/nexrad.js').then((m) => m.nexradProxy()),
+  },
 ];
 
 export { REGISTRY };

@@ -145,6 +145,7 @@ import { init as initNhcGis } from './wave8/nhcGis/index.js';
 import { init as initFindu } from './wave8/findu/index.js';
 import { init as initIssExt } from './wave8/issExt/index.js';
 import { init as initGracedb } from './wave8/gracedb/index.js';
+import { init as initNexrad } from './wave9/nexrad/index.js';
 
 const DOCK_ID = 'satwq-frontier-dock';
 
@@ -188,6 +189,21 @@ function createDock() {
   });
   dock.append(head, body);
   document.body.appendChild(dock);
+  // Phone-first: on small viewports the dock is a bottom sheet, so start
+  // collapsed — the globe stays visible and the header is always one tap
+  // away. Desktop keeps the expanded default (matchMedia is false there).
+  try {
+    if (
+      typeof window !== 'undefined' &&
+      window.matchMedia &&
+      window.matchMedia('(max-width: 768px)').matches
+    ) {
+      body.style.display = 'none';
+      head.setAttribute('aria-expanded', 'false');
+    }
+  } catch {
+    /* matchMedia unavailable — keep the desktop default */
+  }
   return body;
 }
 
@@ -1065,6 +1081,7 @@ export function initFrontier({ viewer } = {}) {
     attempt('findu', () => initFindu({ viewer, mount: s, chip, trackLayer, t }));
     attempt('issExt', () => initIssExt({ viewer, mount: s, chip, trackLayer, t }));
     attempt('gracedb', () => initGracedb({ viewer, mount: s, chip, trackLayer, t }));
+    attempt('nexrad', () => initNexrad({ viewer, mount: s, chip, trackLayer, t }));
   }
 
   return {
