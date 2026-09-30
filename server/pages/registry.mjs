@@ -622,6 +622,11 @@ const REGISTRY = [
     routes: ['/api/goes'],
     load: () => import('../providers/wave9/goes.js').then((m) => m.goesProxy()),
   },
+  {
+    name: 'snotel',
+    routes: ['/api/snotel'],
+    load: () => import('../providers/wave9/snotel.js').then((m) => m.snotelProxy()),
+  },
 ];
 
 export { REGISTRY };
