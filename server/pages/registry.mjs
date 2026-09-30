@@ -611,6 +611,11 @@ const REGISTRY = [
     routes: ['/api/nexrad'],
     load: () => import('../providers/wave9/nexrad.js').then((m) => m.nexradProxy()),
   },
+  {
+    name: 'goes',
+    routes: ['/api/goes'],
+    load: () => import('../providers/wave9/goes.js').then((m) => m.goesProxy()),
+  },
 ];
 
 export { REGISTRY };
