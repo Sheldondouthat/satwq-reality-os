@@ -632,6 +632,11 @@ const REGISTRY = [
     routes: ['/api/usdm'],
     load: () => import('../providers/wave9/usdm.js').then((m) => m.usdmProxy()),
   },
+  {
+    name: 'exoplanets',
+    routes: ['/api/exoplanets'],
+    load: () => import('../providers/wave9/exoplanets.js').then((m) => m.exoplanetsProxy()),
+  },
 ];
 
 export { REGISTRY };
