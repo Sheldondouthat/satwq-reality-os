@@ -642,6 +642,11 @@ const REGISTRY = [
     routes: ['/api/pollen'],
     load: () => import('../providers/wave9/pollen.js').then((m) => m.pollenProxy()),
   },
+  {
+    name: 'hab',
+    routes: ['/api/hab'],
+    load: () => import('../providers/wave9/hab.js').then((m) => m.habProxy()),
+  },
 ];
 
 export { REGISTRY };
