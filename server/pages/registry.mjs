@@ -637,6 +637,11 @@ const REGISTRY = [
     routes: ['/api/exoplanets'],
     load: () => import('../providers/wave9/exoplanets.js').then((m) => m.exoplanetsProxy()),
   },
+  {
+    name: 'pollen',
+    routes: ['/api/pollen'],
+    load: () => import('../providers/wave9/pollen.js').then((m) => m.pollenProxy()),
+  },
 ];
 
 export { REGISTRY };
