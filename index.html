@@ -16,7 +16,11 @@
        src/materialSymbolsSubset.test.mjs: every glyph the sources render must
        be in it, because a missing glyph does not draw a box — the ligature
        never forms and the element renders the literal word on screen.
-       Material+Symbols+Outlined?icon_names=adjust,arrow_drop_down,arrow_forward,arrow_left,arrow_right,bolt,chevron_left,chevron_right,close,close_fullscreen,dark_mode,degraded,draw,east,flare,flight,layers_clear,light_mode,live,loading,local_fire_department,lookup,mic,my_location,navigation,normal,off,on,open_in_full,partial,public,radar,radio,right_panel_close,right_panel_open,rocket_launch,search,skip_next,skip_previous,unavailable,unknown,view_in_ar -->
+       Every name here must be a REAL Material Symbols icon (checked against
+       scripts/material-symbols-codepoints.txt): plain-text labels such as
+       "live" are not icons and must never be listed — Google's subsetter
+       silently mangles lists containing invalid names.
+       Material+Symbols+Outlined?icon_names=adjust,arrow_drop_down,arrow_forward,arrow_left,arrow_right,bolt,chevron_left,chevron_right,close,close_fullscreen,dark_mode,draw,east,flare,flight,layers_clear,light_mode,local_fire_department,mic,my_location,navigation,open_in_full,public,radar,radio,right_panel_close,right_panel_open,rocket_launch,search,skip_next,skip_previous,view_in_ar -->
 </head>
 <body>
   <!-- gev:template scene-chrome -->

@@ -1,5 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
+import { createHash } from 'node:crypto';
 import { readFileSync, readdirSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -7,6 +8,15 @@ import { fileURLToPath } from 'node:url';
 const SRC_ROOT = fileURLToPath(new URL('.', import.meta.url));
 const REPO_ROOT = path.resolve(SRC_ROOT, '..');
 const INDEX_HTML = path.join(REPO_ROOT, 'index.html');
+const CODEPOINTS_TXT = path.join(
+  REPO_ROOT, 'scripts', 'material-symbols-codepoints.txt',
+);
+const FONT_FILE = path.join(
+  REPO_ROOT, 'public', 'fonts', 'material-symbols-outlined-subset.woff2',
+);
+const FONT_MANIFEST = path.join(
+  REPO_ROOT, 'public', 'fonts', 'material-symbols-outlined-subset.manifest.json',
+);
 
 /** The glyph written as element text: `<span class="material-symbols-outlined">radar</span>`. */
 const SPAN_TEXT =
@@ -41,11 +51,12 @@ function sourceFiles(directory = SRC_ROOT) {
 /**
  * Glyph names the sources ask the icon font for.
  *
- * Errs WIDE on purpose. A name the font does not carry costs nothing — Google
- * ignores an unknown `icon_names` entry and still returns 200 — while a glyph
- * the subset is missing breaks the interface SILENTLY: the ligature never
- * forms, so the element renders the literal word `right_panel_open` instead of
- * falling back to a visible box.
+ * Errs WIDE on purpose: plain-text labels assigned via `textContent`
+ * (`statusEl.textContent = 'live'`) are swept up alongside real icon names.
+ * The valid-icon filter in the test below separates them — a label is not an
+ * icon and must never enter the font's icon_names list (2026-10-01: listing
+ * invalid names such as `live`/`loading` silently corrupted the downloaded
+ * subset because Google's subsetter prefix-matches names).
  *
  * A literal to the LEFT of a `?` is the condition being tested, not the text
  * being shown, so it is dropped: `status === 'loading' ? …` must not enrol
@@ -73,29 +84,84 @@ function referencedGlyphs() {
   return found;
 }
 
-/** The `icon_names` list index.html asks Google for. */
+/** The `icon_names` list index.html declares for the self-hosted subset. */
 function subsettedGlyphs(html = readFileSync(INDEX_HTML, 'utf8')) {
   const match =
     /Material\+Symbols\+Outlined[^"]*[?&]icon_names=([a-z0-9_,]+)/.exec(html);
   assert.ok(
     match,
-    'index.html must request Material Symbols with an icon_names subset',
+    'index.html must declare the Material Symbols icon_names subset',
   );
   return new Set(match[1].split(','));
 }
 
-test('every glyph the sources render is in the icon_names subset', () => {
+/** Every real Material Symbols icon name (checked in from upstream). */
+function validIcons() {
+  return new Set(
+    readFileSync(CODEPOINTS_TXT, 'utf8').split('\n').filter(Boolean),
+  );
+}
+
+test('every real icon the sources render is in the icon_names subset', () => {
   const subset = subsettedGlyphs();
+  const valid = validIcons();
   const missing = [...referencedGlyphs()]
-    .filter(([glyph]) => !subset.has(glyph))
+    .filter(([glyph]) => valid.has(glyph) && !subset.has(glyph))
     .map(([glyph, file]) => `${glyph} (${file})`);
 
   assert.deepEqual(
     missing,
     [],
-    'Glyphs named by the sources but absent from the index.html icon_names list. ' +
-      'Add them there — an unlisted glyph renders as its own name on screen: ' +
+    'Real Material Symbols icons named by the sources but absent from the ' +
+      'index.html icon_names list. Add them there and rebuild the font with ' +
+      'scripts/build-icon-font.py — an unlisted glyph renders as its own ' +
+      'name on screen: ' +
       missing.join(', '),
+  );
+});
+
+test('icon_names contains only real Material Symbols icons', () => {
+  // 2026-10-01: the list once contained plain-text labels (live, loading,
+  // lookup, …). They are not icons; Google's subsetter prefix-matches names,
+  // so invalid entries silently corrupted the downloaded font (extra icons
+  // injected, letter-only garbage for the invalid names). The build script
+  // refuses them, and this test keeps them out of the list.
+  const valid = validIcons();
+  const bogus = [...subsettedGlyphs()].filter((glyph) => !valid.has(glyph));
+  assert.deepEqual(
+    bogus,
+    [],
+    'index.html icon_names lists names that are not Material Symbols icons. ' +
+      'Remove them — they can never render as icons and they corrupt the ' +
+      'subset build: ' +
+      bogus.join(', '),
+  );
+});
+
+test('the shipped font binary matches the icon_names list exactly', () => {
+  // The manifest is written by scripts/build-icon-font.py from the actual
+  // font bytes. This test fails when index.html is edited without rebuilding
+  // the font, or when the font file is hand-mangled.
+  const manifest = JSON.parse(readFileSync(FONT_MANIFEST, 'utf8'));
+  const listed = [...subsettedGlyphs()].sort();
+  assert.deepEqual(
+    manifest.icons,
+    listed,
+    'font manifest does not match index.html icon_names — rebuild with ' +
+      'scripts/build-icon-font.py',
+  );
+  const bytes = readFileSync(FONT_FILE);
+  const sha256 = createHash('sha256').update(bytes).digest('hex');
+  assert.equal(
+    sha256,
+    manifest.sha256,
+    'font file bytes do not match the manifest — the woff2 was replaced ' +
+      'without rebuilding',
+  );
+  assert.equal(
+    bytes.length,
+    manifest.bytes,
+    'font file size does not match the manifest',
   );
 });
 
