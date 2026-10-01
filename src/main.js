@@ -33,9 +33,8 @@ application.subscribe((state) => {
     }
   } else if (state.status === 'ready') {
     splash.reportProgress(1, 'ready');
-  } else if (state.status === 'failed') {
-    splash.fail(new Error('application failed during startup'));
   }
+  // 'failed' is handled by the start().catch() below, which has the real error.
 });
 
 application
