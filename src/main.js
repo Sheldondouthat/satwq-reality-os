@@ -7,6 +7,22 @@ import { showBootSplash } from './ui/bootSplash.js';
 import './ui/bootSplash.css';
 import './ui/voiceCommand.css';
 
+// Icon-font guard: if the self-hosted Material Symbols file ever fails to
+// load, raw ligature names (e.g. "layers_clear") would render as text spilling
+// out of icon buttons. Hide them instead — an empty button beats a garbled one.
+if (document.fonts) {
+  (async () => {
+    try {
+      await document.fonts.load('16px "Material Symbols Outlined"', 'layers_clear');
+    } catch {
+      /* fall through to the check below */
+    }
+    if (!document.fonts.check('16px "Material Symbols Outlined"', 'layers_clear')) {
+      document.documentElement.classList.add('no-symbol-font');
+    }
+  })();
+}
+
 // SATWQ cinematic boot sequence plays over the loading screen while the globe
 // initializes underneath.
 const splash = showBootSplash();

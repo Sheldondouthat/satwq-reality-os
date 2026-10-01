@@ -3,6 +3,43 @@
    Apple meets Blade Runner
    ═══════════════════════════════════════════════ */
 
+/* ── Self-hosted icon font ─────────────────────────────────────────
+   Material Symbols Outlined, subset to the glyphs this app renders (the
+   canonical list lives in index.html and is guarded by
+   src/materialSymbolsSubset.test.mjs). Self-hosted so icons never depend on
+   a third-party font request: a failed icon-font load used to render raw
+   ligature text ("layers_clear") spilling out of its button and overlapping
+   its neighbours. font-display: block keeps text invisible while the file
+   loads; the JS guard in src/main.js hides ligature text entirely if the
+   font file ever fails, so a missing font degrades to empty buttons, never
+   to words on screen. */
+@font-face {
+  font-family: 'Material Symbols Outlined';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url('/fonts/material-symbols-outlined-subset.woff2') format('woff2');
+}
+
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Ligature text must never render as words, on any viewport. */
+.no-symbol-font .material-symbols-outlined {
+  visibility: hidden;
+}
+
 :root {
   --bg-dark: #0a0a0f;
   --glass-bg: rgba(12, 12, 20, 0.72);

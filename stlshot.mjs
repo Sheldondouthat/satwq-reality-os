@@ -1,0 +1,11 @@
+import puppeteer from 'puppeteer';
+const b=await puppeteer.launch({headless:'new',executablePath:'/opt/meta-chromium/chrome',args:['--no-sandbox','--allow-file-access-from-files','--disable-dev-shm-usage','--use-gl=angle','--use-angle=swiftshader']});
+const p=await b.newPage(); await p.setViewport({width:1280,height:800});
+await p.goto('file:///home/hatch/workspace/your_files/washer-twin/wtw8540bw0-digital-twin.html',{waitUntil:'networkidle0',timeout:60000});
+await p.waitForFunction('window.__twin && !document.getElementById("loader").offsetParent',{timeout:30000}).catch(()=>{});
+await new Promise(r=>setTimeout(r,1500));
+await p.evaluate(()=>{const t=window.__twin;document.querySelector('[data-tab="build"]').click();t.setAsmStep(13);});
+await new Promise(r=>setTimeout(r,2500));
+await p.evaluate(()=>{const t=window.__twin;t.camera.position.set(0.9,0.7,1.1);t.camera.lookAt(0,0.35,0);t.renderer.render(t.scene,t.camera);});
+await p.screenshot({path:'/home/hatch/workspace/your_files/washer-twin/shots/63-build-stl-download.png'});
+await b.close(); console.log('shot done');
