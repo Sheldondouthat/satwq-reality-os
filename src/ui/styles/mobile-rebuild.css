@@ -269,6 +269,83 @@
     max-width: none;
   }
 
+  /* ── Display panel → bottom sheet on phones ────────────────────
+     Without this the DISPLAY panel renders as a raw full-page stack on
+     phones (unstyled sliders, no globe visible). Collapsed it is a compact
+     chip under the top action row; expanded it is a proper bottom sheet
+     with a grabber and sticky header, floating above the frontier dock. */
+  #pp-toggles {
+    position: fixed !important;
+    z-index: 9996 !important;
+    align-items: stretch;
+  }
+  #pp-toggles.collapsed {
+    top: calc(124px + env(safe-area-inset-top, 0px)) !important;
+    right: 12px !important;
+    left: auto !important;
+    bottom: auto !important;
+    width: auto !important;
+    max-width: none !important;
+    gap: 0;
+  }
+  #pp-toggles.collapsed .pp-header-row {
+    width: auto !important;
+    min-height: 48px;
+    padding: 0 16px !important;
+    border: 1px solid var(--glass-border) !important;
+    border-radius: 999px !important;
+    background: var(--glass-bg) !important;
+    -webkit-backdrop-filter: blur(24px) saturate(1.4);
+    backdrop-filter: blur(24px) saturate(1.4);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.42);
+  }
+  #pp-toggles:not(.collapsed) {
+    left: 12px !important;
+    right: 12px !important;
+    bottom: 0 !important;
+    top: auto !important;
+    width: auto !important;
+    max-width: none !important;
+    max-height: 70vh;
+    max-height: 70dvh;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    border-radius: 18px 18px 0 0 !important;
+    padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px)) !important;
+  }
+  #pp-toggles:not(.collapsed) > .pp-header-row {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    min-height: 56px;
+    padding-top: 18px !important;
+    background: rgba(8, 12, 20, 0.97) !important;
+  }
+  #pp-toggles:not(.collapsed) > .pp-header-row::before {
+    content: '';
+    position: absolute;
+    top: 7px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 44px;
+    height: 5px;
+    border-radius: 3px;
+    background: rgba(140, 180, 255, 0.45);
+  }
+  /* Finger-sized controls inside the sheet; 16px selects stop iOS zoom. */
+  #pp-toggles .pp-toggle-btn,
+  #pp-toggles .pp-mode-btn {
+    min-height: 44px;
+  }
+  #pp-toggles .pp-slider-row {
+    min-height: 44px;
+  }
+  #pp-toggles .pp-select {
+    min-height: 44px;
+    font-size: 16px;
+  }
+
   /* ── Ticker pills: horizontal snap-scroll, never over the globe ── */
   #location-pills {
     overflow-x: auto;

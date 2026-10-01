@@ -4,9 +4,9 @@
  * Polls the keyless feeds and converts significant events into archive
  * records. Sources (all keyless, browser-fetchable):
  *   - USGS M4.5+ day GeoJSON (direct) → kind 'quake', threshold M≥5.5
- *   - NWS api.weather.gov/alerts/active (direct) → kind 'alert'
+ *   - /api/nws-alerts (same-origin proxy; NWS sends no CORS headers) → kind 'alert'
  *   - GET /api/events (synthesized incidents) → kind 'incident', severity high
- *   - NASA CNEOS fireball API (direct) → kind 'fireball'
+ *   - /api/fireballs (same-origin proxy; CNEOS sends no CORS headers) → kind 'fireball'
  *   - GET /api/launches (LL2 proxy) → kind 'launch'
  *   - GET /api/cyclones → kind 'storm' (hurricane-force named storms)
  *
@@ -14,12 +14,16 @@
  * later. The archiver never throws: each source is isolated and fail-soft.
  */
 import { dayKey, SIGNIFICANCE, ARCHIVE_ALERT_EVENTS } from './schema.js';
+import { coerceFireball } from '../fireballs/model.js';
 
 const USGS_QUAKES_URL =
   'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_day.geojson';
-const NWS_ALERTS_URL = 'https://api.weather.gov/alerts/active?limit=200';
-const FIREBALL_URL =
-  'https://ssd-api.jpl.nasa.gov/fireball.api?date-min=2025-01-01&sort=date&limit=40';
+// Same-origin proxies (the server trims the upstream payloads). Direct
+// browser fetches to api.weather.gov (no CORS headers, no ?limit= param) and
+// ssd-api.jpl.nasa.gov (no CORS headers) are dead in-browser — do NOT point
+// these back at the upstream hosts.
+const NWS_ALERTS_URL = '/api/nws-alerts';
+const FIREBALL_URL = '/api/fireballs';
 
 function truncate(text, max) {
   const s = String(text ?? '');
@@ -145,8 +149,11 @@ export function fireballRecord(row, capturedMs = Date.now()) {
   if (String(row?.['lon-dir']).toUpperCase() === 'W') lon = -Math.abs(lon);
   const day = dayKey(atMs);
   if (!day) return null;
-  const vel = Number(row?.vel);
-  const altKm = Number(row?.alt);
+  // Number('') and Number(null) are both 0 — treat blank as unreported (null),
+  // never as a measured zero.
+  const numField = (v) => (v === null || v === undefined || v === '' ? null : Number(v));
+  const vel = numField(row?.vel);
+  const altKm = numField(row?.alt);
   return {
     id: `akashic:fireball:${dateStr.replace(/[^0-9]/g, '').slice(0, 14)}`,
     day,
@@ -164,7 +171,7 @@ export function fireballRecord(row, capturedMs = Date.now()) {
     sources: ['cneos'],
     snapshot: {
       energyKt: Number.isFinite(energyKt) ? energyKt : null,
-      radiatedEnergy1e10J: Number.isFinite(Number(row?.energy)) ? Number(row?.energy) : null,
+      radiatedEnergy1e10J: numField(row?.energy),
       altitudeKm: Number.isFinite(altKm) ? altKm : null,
       velocityKms: Number.isFinite(vel) ? vel : null,
     },
@@ -318,11 +325,80 @@ export async function runArchiveSweep(store, { fetchImpl = fetchJson } = {}) {
   };
 
   await sweep('quakes', USGS_QUAKES_URL, (p) => p?.features, quakeRecord);
-  await sweep('alerts', NWS_ALERTS_URL, (p) => p?.features, nwsAlertRecord);
+  await sweep('alerts', NWS_ALERTS_URL, (p) => p?.alerts, trimmedAlertRecord);
   await sweep('incidents', '/api/events', (p) => p?.incidents, incidentRecord);
-  await sweep('fireballs', FIREBALL_URL, fireballRowsToObjects, fireballRecord);
+  await sweep('fireballs', FIREBALL_URL, (p) => p?.events, normalizedFireballRecord);
   await sweep('launches', '/api/launches', (p) => p?.results ?? p?.launches, launchRecord);
   await sweep('storms', '/api/cyclones', (p) => p?.storms ?? p?.cyclones, stormRecord);
 
   return summary;
+}
+
+/**
+ * /api/nws-alerts returns server-trimmed alerts:
+ * {id, event, headline, description, severity, certainty, urgency, effective,
+ *  expires, onset, senderName, areaDesc, affectedZones, geometry}.
+ * Adapt one trimmed alert to the GeoJSON-feature shape nwsAlertRecord expects
+ * (representative point = first polygon coordinate), then build the record.
+ * The trimmed payload carries no `instruction` text, so that snapshot field
+ * stays empty rather than being fabricated.
+ */
+function trimmedAlertToFeature(alert) {
+  const geo = alert?.geometry;
+  let point = null;
+  if (geo && (geo.type === 'Polygon' || geo.type === 'MultiPolygon')) {
+    const rings = geo.type === 'Polygon' ? geo.coordinates : geo.coordinates?.[0];
+    const first = Array.isArray(rings) ? rings[0]?.[0] : null;
+    if (Array.isArray(first) && Number.isFinite(first[0]) && Number.isFinite(first[1])) {
+      point = { type: 'Point', coordinates: [first[0], first[1]] };
+    }
+  }
+  return {
+    properties: {
+      id: alert?.id ?? '',
+      event: alert?.event ?? '',
+      sent: alert?.effective ?? alert?.onset ?? null,
+      effective: alert?.effective ?? null,
+      areaDesc: alert?.areaDesc ?? '',
+      headline: alert?.headline ?? '',
+      severity: alert?.severity ?? '',
+      certainty: alert?.certainty ?? '',
+      instruction: '',
+    },
+    geometry: point,
+  };
+}
+
+/** Build an archive record from one trimmed /api/nws-alerts alert. */
+export function trimmedAlertRecord(alert, capturedMs = Date.now()) {
+  return nwsAlertRecord(trimmedAlertToFeature(alert), capturedMs);
+}
+
+/**
+ * /api/fireballs returns server-normalized events:
+ * {id, dateUtc, energyKt, impactEnergyKt, radiatedE10J, lat, lon, altKm,
+ *  velKms, recent}. coerceFireball accepts exactly this shape; convert the
+ * coerced event back to the CNEOS-row shape fireballRecord parses so the
+ * significance floor and snapshot logic stay in one place.
+ */
+function coercedFireballToRow(ev) {
+  const dateStr = String(ev.dateUtc ?? '').replace('T', ' ').slice(0, 19);
+  return {
+    date: dateStr,
+    energy: ev.radiatedE10J ?? '',
+    'impact-e': ev.energyKt ?? '',
+    lat: Math.abs(ev.lat),
+    'lat-dir': ev.lat < 0 ? 'S' : 'N',
+    lon: Math.abs(ev.lon),
+    'lon-dir': ev.lon < 0 ? 'W' : 'E',
+    alt: ev.altKm ?? '',
+    vel: ev.velKms ?? '',
+  };
+}
+
+/** Build an archive record from one normalized /api/fireballs event. */
+export function normalizedFireballRecord(event, capturedMs = Date.now()) {
+  const coerced = coerceFireball(event);
+  if (!coerced) return null;
+  return fireballRecord(coercedFireballToRow(coerced), capturedMs);
 }

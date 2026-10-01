@@ -17,6 +17,27 @@ const application = createStandaloneApplication({
   allowQaRegistration: import.meta.env.DEV,
 });
 
+// Real load progress: application publishes {status, phase} as it moves
+// through scene → controls → data → tools → ready. Reflect them in the
+// splash's progress bar + status line so the boot sequence is driven by
+// actual load, never by timers.
+const BOOT_PHASES = ['scene', 'controls', 'data', 'tools'];
+application.subscribe((state) => {
+  if (state.status === 'starting' && state.phase) {
+    const idx = BOOT_PHASES.indexOf(state.phase);
+    if (idx >= 0) {
+      splash.reportProgress(
+        (idx + 1) / (BOOT_PHASES.length + 1),
+        `loading ${state.phase}…`,
+      );
+    }
+  } else if (state.status === 'ready') {
+    splash.reportProgress(1, 'ready');
+  } else if (state.status === 'failed') {
+    splash.fail(new Error('application failed during startup'));
+  }
+});
+
 application
   .start()
   .then((components) => {

@@ -522,6 +522,22 @@
   gap: 0;
 }
 
+/* Product skin: every control group carries a small section caption so the
+   panel reads as labeled groups, not an anonymous stack of toggles. */
+.pp-group-caption {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  padding: 10px 10px 6px;
+  user-select: none;
+}
+.pp-toggle-group:first-child .pp-group-caption {
+  padding-top: 2px;
+}
+
 .pp-slider-row {
   display: none;
   align-items: center;

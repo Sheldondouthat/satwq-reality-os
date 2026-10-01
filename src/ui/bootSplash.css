@@ -85,7 +85,8 @@
 
 .satwq-boot-line--banner {
   color: #eafcff;
-  font-size: clamp(18px, 4vw, 30px);
+  font-family: 'Space Grotesk', 'JetBrains Mono', ui-monospace, monospace;
+  font-size: clamp(20px, 4.4vw, 32px);
   font-weight: 700;
   letter-spacing: 0.06em;
   text-shadow:
@@ -124,4 +125,30 @@
   color: rgba(159, 216, 232, 0.4);
   font-size: 11px;
   letter-spacing: 0.12em;
+}
+
+/* Real load progress: driven by application phase events, never by timers. */
+.satwq-boot-progress {
+  margin-top: 24px;
+  height: 2px;
+  background: rgba(0, 212, 255, 0.12);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.satwq-boot-progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #00d4ff, #7de3a8);
+  box-shadow: 0 0 12px rgba(0, 212, 255, 0.8);
+  transition: width 0.4s ease;
+}
+
+.satwq-boot-status {
+  margin-top: 10px;
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(159, 216, 232, 0.55);
+  min-height: 1.6em;
 }

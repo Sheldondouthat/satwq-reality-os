@@ -20,7 +20,9 @@ export const WATCH_POLL_MS = 60_000;
 
 const USGS_QUAKES_URL =
   'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_day.geojson';
-const NWS_ALERTS_URL = 'https://api.weather.gov/alerts/active?limit=100';
+// Same-origin proxy: api.weather.gov sends no CORS headers and rejects the
+// ?limit= param, so a direct browser fetch is dead two ways.
+const NWS_ALERTS_URL = '/api/nws-alerts';
 
 async function fetchJson(url, { timeoutMs = 12000 } = {}) {
   const ctrl = new AbortController();
@@ -70,10 +72,13 @@ export function normalizeWatchItems({ quakes = [], alerts = [], incidents = [] }
     });
   }
   for (const f of alerts) {
-    const props = f?.properties ?? {};
+    // Accepts raw NWS GeoJSON features ({properties:{event,…}}) and the
+    // server-trimmed /api/nws-alerts shape ({event, areaDesc, …} top-level).
+    const props = f?.properties ?? f ?? {};
     if (!props?.event) continue;
+    const sentish = props?.sent ?? props?.effective ?? props?.onset ?? '';
     out.push({
-      id: `gaia:alert:${String(props?.id || '').split('/').pop() || props?.sent}`,
+      id: `gaia:alert:${String(props?.id || '').split('/').pop() || sentish}`,
       kind: 'alert',
       event: props.event,
       area: props?.areaDesc,
@@ -115,7 +120,9 @@ export function startGaiaWatcher({
       ]);
       items = normalizeWatchItems({
         quakes: quakes?.features ?? [],
-        alerts: alerts?.features ?? [],
+        // /api/nws-alerts returns server-trimmed alerts ({event, areaDesc, …}
+        // at top level, not GeoJSON features with .properties.
+        alerts: alerts?.alerts ?? [],
         incidents: events?.incidents ?? [],
       });
     } catch {
