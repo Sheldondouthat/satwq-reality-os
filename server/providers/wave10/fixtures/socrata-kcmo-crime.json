@@ -1,0 +1,1478 @@
+[
+ {
+  "report": "KC25082012",
+  "report_date": "2025-12-31T23:57:44.000",
+  "reported_time": "23:57",
+  "from_date": "2025-12-31T23:50:00.000",
+  "from_time": "23:50",
+  "offense": "Assault (Non-Aggravated)",
+  "ibrs": "13B",
+  "description": "Simple Assault",
+  "beat": "113",
+  "address": "100  E 13TH ST",
+  "city": "KANSAS CITY",
+  "zipcode": "64106",
+  "rep_dist": "PJ1177",
+  "area": "CPD",
+  "dvflag": false,
+  "involvement": "SUS",
+  "race": "W",
+  "sex": "M",
+  "firearmusedflag": false,
+  "location": {
+   "type": "Point",
+   "coordinates": [
+    -94.58198,
+    39.09855
+   ]
+  }
+ },
+ {
+  "report": "KC25082012",
+  "report_date": "2025-12-31T23:57:44.000",
+  "reported_time": "23:57",
+  "from_date": "2025-12-31T23:50:00.000",
+  "from_time": "23:50",
+  "offense": "Assault (Non-Aggravated)",
+  "ibrs": "13B",
+  "description": "Simple Assault",
+  "beat": "113",
+  "address": "100  E 13TH ST",
+  "city": "KANSAS CITY",
+  "zipcode": "64106",
+  "rep_dist": "PJ1177",
+  "area": "CPD",
+  "dvflag": false,
+  "involvement": "VIC",
+  "race": "W",
+  "sex": "M",
+  "age": "22",
+  "firearmusedflag": false,
+  "location": {
+   "type": "Point",
+   "coordinates": [
+    -94.58198,
+    39.09855
+   ]
+  },
+  "age_range": "18-24"
+ },
+ {
+  "report": "KC26000005",
+  "report_date": "2025-12-31T23:43:15.000",
+  "reported_time": "23:43",
+  "from_date": "2025-12-31T23:40:00.000",
+  "from_time": "23:40",
+  "offense": "Assault (Aggravated)",
+  "ibrs": "13A",
+  "description": "Aggravated Assault",
+  "beat": "333",
+  "address": "3700  MERSINGTON AVE",
+  "city": "KANSAS CITY",
+  "zipcode": "64127",
+  "rep_dist": "PJ3044",
+  "area": "EPD",
+  "dvflag": false,
+  "involvement": "SUS",
+  "race": "U",
+  "sex": "U",
+  "firearmusedflag": true,
+  "location": {
+   "type": "Point",
+   "coordinates": [
+    -94.53852,
+    39.05841
+   ]
+  }
+ },
+ {
+  "report": "KC26000005",
+  "report_date": "2025-12-31T23:43:15.000",
+  "reported_time": "23:43",
+  "from_date": "2025-12-31T23:40:00.000",
+  "from_time": "23:40",
+  "offense": "Assault (Aggravated)",
+  "ibrs": "13A",
+  "description": "Aggravated Assault",
+  "beat": "333",
+  "address": "3700  MERSINGTON AVE",
+  "city": "KANSAS CITY",
+  "zipcode": "64127",
+  "rep_dist": "PJ3044",
+  "area": "EPD",
+  "dvflag": false,
+  "involvement": "VIC",
+  "race": "B",
+  "sex": "M",
+  "age": "44",
+  "firearmusedflag": true,
+  "location": {
+   "type": "Point",
+   "coordinates": [
+    -94.53852,
+    39.05841
+   ]
+  },
+  "age_range": "35-44"
+ },
+ {
+  "report": "KC25082011",
+  "report_date": "2025-12-31T23:36:27.000",
+  "reported_time": "23:36",
+  "from_date": "2025-12-31T23:39:00.000",
+  "from_time": "23:39",
+  "offense": "Burglary (Residential)",
+  "ibrs": "220",
+  "description": "Burglary/Breaking and Entering",
+  "beat": "124",
+  "address": "3000  WABASH AVE",
+  "city": "KANSAS CITY",
+  "zipcode": "64109",
+  "rep_dist": "PJ2481",
+  "area": "CPD",
+  "dvflag": false,
+  "involvement": "VIC",
+  "race": "B",
+  "sex": "F",
+  "age": "55",
+  "firearmusedflag": false,
+  "location": {
+   "type": "Point",
+   "coordinates": [
+    -94.55393,
+    39.07161
+   ]
+  },
+  "age_range": "55-64"
+ },
+ {
+  "report": "KC25082010",
+  "report_date": "2025-12-31T23:34:20.000",
+  "reported_time": "23:34",
+  "from_date": "2025-12-31T23:34:00.000",
+  "from_time": "23:34",
+  "to_date": "2026-01-01T00:32:00.000",
+  "to_time": "00:32",
+  "offense": "Alcohol Influence Report",
+  "ibrs": "90D",
+  "description": "Driving Under the Influence",
+  "beat": "412",
+  "address": "N US 169 HWY N and NW ENGLEWOOD RD",
+  "city": "KANSAS CITY",
+  "zipcode": "64118",
+  "rep_dist": "PC0678",
+  "area": "NPD",
+  "dvflag": false,
+  "involvement": "SUS",
+  "firearmusedflag": false,
+  "location": {
+   "type": "Point",
+   "coordinates": [
+    -94.58298,
+    39.19696
+   ]
+  }
+ },
+ {
+  "report": "KC25082010",
+  "report_date": "2025-12-31T23:34:20.000",
+  "reported_time": "23:34",
+  "from_date": "2025-12-31T23:34:00.000",
+  "from_time": "23:34",
+  "to_date": "2026-01-01T00:32:00.000",
+  "to_time": "00:32",
+  "offense": "Alcohol Influence Report",
+  "ibrs": "90D",
+  "description": "Driving Under the Influence",
+  "beat": "412",
+  "address": "N US 169 HWY N and NW ENGLEWOOD RD",
+  "city": "KANSAS CITY",
+  "zipcode": "64118",
+  "rep_dist": "PC0678",
+  "area": "NPD",
+  "dvflag": false,
+  "involvement": "ARR CHA SUS",
+  "race": "W",
+  "sex": "F",
+  "age": "18",
+  "firearmusedflag": false,
+  "location": {
+   "type": "Point",
+   "coordinates": [
+    -94.58298,
+    39.19696
+   ]
+  },
+  "age_range": "18-24"
+ },
+ {
+  "report": "KC25082006",
+  "report_date": "2025-12-31T23:18:36.000",
+  "reported_time": "23:18",
+  "from_date": "2025-12-31T23:00:00.000",
+  "from_time": "23:00",
+  "offense": "Robbery (Armed Street)",
+  "ibrs": "120",
+  "description": "Robbery",
+  "beat": "111",
+  "address": "W 3RD ST and WYANDOTTE ST",
+  "city": "KANSAS CITY",
+  "zipcode": "64105",
+  "rep_dist": "PJ0375",
+  "area": "CPD",
+  "dvflag": false,
+  "involvement": "VIC",
+  "race": "W",
+  "sex": "M",
+  "age": "23",
+  "firearmusedflag": true,
+  "location": {
+   "type": "Point",
+   "coordinates": [
+    -94.58581,
+    39.10937
+   ]
+  },
+  "age_range": "18-24"
+ },
+ {
+  "report": "KC25082006",
+  "report_date": "2025-12-31T23:18:36.000",
+  "reported_time": "23:18",
+  "from_date": "2025-12-31T23:00:00.000",
+  "from_time": "23:00",
+  "offense": "Robbery (Armed Street)",
+  "ibrs": "120",
+  "description": "Robbery",
+  "beat": "111",
+  "address": "W 3RD ST and WYANDOTTE ST",
+  "city": "KANSAS CITY",
+  "zipcode": "64105",
+  "rep_dist": "PJ0375",
+  "area": "CPD",
+  "dvflag": false,
+  "involvement": "SUS",
+  "race": "B",
+  "sex": "M",
+  "firearmusedflag": true,
+  "location": {
+   "type": "Point",
+   "coordinates": [
+    -94.58581,
+    39.10937
+   ]
+  }
+ },
+ {
+  "report": "KC25082004",
+  "report_date": "2025-12-31T23:11:05.000",
+  "reported_time": "23:11",
+  "from_date": "2025-12-31T23:05:00.000",
+  "from_time": "23:05",
+  "offense": "Assault (Aggravated)",
+  "ibrs": "13A",
+  "description": "Aggravated Assault",
+  "beat": "213",
+  "address": "8600  E 54TH TER",
+  "city": "KANSAS CITY",
+  "zipcode": "64129",
+  "rep_dist": "PJ4455",
+  "area": "MPD",
+  "dvflag": false,
+  "involvement": "VIC",
+  "race": "B",
+  "sex": "F",
+  "firearmusedflag": true,
+  "location": {
+   "type": "Point",
+   "coordinates": [
+    -94.48545,
+    39.02511
+   ]
+  }
+ },
+ {
+  "report": "KC25082004",
+  "report_date": "2025-12-31T23:11:05.000",
+  "reported_time": "23:11",
+  "from_date": "2025-12-31T23:05:00.000",
+  "from_time": "23:05",
+  "offense": "Assault (Aggravated)",
+  "ibrs": "13A",
+  "description": "Aggravated Assault",
+  "beat": "213",
+  "address": "8600  E 54TH TER",
+  "city": "KANSAS CITY",
+  "zipcode": "64129",
+  "rep_dist": "PJ4455",
+  "area": "MPD",
+  "dvflag": false,
+  "involvement": "VIC",
+  "race": "B",
+  "sex": "F",
+  "age": "36",
+  "firearmusedflag": true,
+  "location": {
+   "type": "Point",
+   "coordinates": [
+    -94.48545,
+    39.02511
+   ]
+  },
+  "age_range": "35-44"
+ },
+ {
+  "report": "KC25082004",
+  "report_date": "2025-12-31T23:11:05.000",
+  "reported_time": "23:11",
+  "from_date": "2025-12-31T23:05:00.000",
+  "from_time": "23:05",
+  "offense": "Assault (Aggravated)",
+  "ibrs": "13A",
+  "description": "Aggravated Assault",
+  "beat": "213",
+  "address": "8600  E 54TH TER",
+  "city": "KANSAS CITY",
+  "zipcode": "64129",
+  "rep_dist": "PJ4455",
+  "area": "MPD",
+  "dvflag": false,
+  "involvement": "VIC",
+  "race": "B",
+  "sex": "F",
+  "firearmusedflag": true,
+  "location": {
+   "type": "Point",
+   "coordinates": [
+    -94.48545,
+    39.02511
+   ]
+  }
+ },
+ {
+  "report": "KC25082004",
+  "report_date": "2025-12-31T23:11:05.000",
+  "reported_time": "23:11",
+  "from_date": "2025-12-31T23:05:00.000",
+  "from_time": "23:05",
+  "offense": "Assault (Aggravated)",
+  "ibrs": "13A",
+  "description": "Aggravated Assault",
+  "beat": "213",
+  "address": "8600  E 54TH TER",
+  "city": "KANSAS CITY",
+  "zipcode": "64129",
+  "rep_dist": "PJ4455",
+  "area": "MPD",
+  "dvflag": false,
+  "involvement": "VIC",
+  "race": "B",
+  "sex": "M",
+  "firearmusedflag": true,
+  "location": {
+   "type": "Point",
+   "coordinates": [
+    -94.48545,
+    39.02511
+   ]
+  }
+ },
+ {
+  "report": "KC25082004",
+  "report_date": "2025-12-31T23:11:05.000",
+  "reported_time": "23:11",
+  "from_date": "2025-12-31T23:05:00.000",
+  "from_time": "23:05",
+  "offense": "Assault (Aggravated)",
+  "ibrs": "13A",
+  "description": "Aggravated Assault",
+  "beat": "213",
+  "address": "8600  E 54TH TER",
+  "city": "KANSAS CITY",
+  "zipcode": "64129",
+  "rep_dist": "PJ4455",
+  "area": "MPD",
+  "dvflag": false,
+  "involvement": "SUS",
+  "race": "U",
+  "sex": "U",
+  "firearmusedflag": true,
+  "location": {
+   "type": "Point",
+   "coordinates": [
+    -94.48545,
+    39.02511
+   ]
+  }
+ },
+ {
+  "report": "KC25082004",
+  "report_date": "2025-12-31T23:11:05.000",
+  "reported_time": "23:11",
+  "from_date": "2025-12-31T23:05:00.000",
+  "from_time": "23:05",
+  "offense": "Assault (Aggravated)",
+  "ibrs": "13A",
+  "description": "Aggravated Assault",
+  "beat": "213",
+  "address": "8600  E 54TH TER",
+  "city": "KANSAS CITY",
+  "zipcode": "64129",
+  "rep_dist": "PJ4455",
+  "area": "MPD",
+  "dvflag": false,
+  "involvement": "VIC",
+  "race": "B",
+  "sex": "M",
+  "age": "37",
+  "firearmusedflag": true,
+  "location": {
+   "type": "Point",
+   "coordinates": [
+    -94.48545,
+    39.02511
+   ]
+  },
+  "age_range": "35-44"
+ },
+ {
+  "report": "KC25082009",
+  "report_date": "2025-12-31T23:09:58.000",
+  "reported_time": "23:09",
+  "from_date": "2025-12-31T23:09:00.000",
+  "from_time": "23:09",
+  "to_date": "2025-12-31T23:57:00.000",
+  "to_time": "23:57",
+  "offense": "Stealing - Pickpocket",
+  "ibrs": "23H",
+  "description": "All Other Larceny",
+  "beat": "125",
+  "address": "1200  E LINWOOD BLVD",
+  "city": "KANSAS CITY",
+  "zipcode": "64109",
+  "rep_dist": "PJ2543",
+  "area": "CPD",
+  "dvflag": false,
+  "involvement": "SUS",
+  "race": "B",
+  "sex": "M",
+  "age": "64",
+  "firearmusedflag": false,
+  "location": {
+   "type": "Point",
+   "coordinates": [
+    -94.56971,
+    39.06892
+   ]
+  },
+  "age_range": "55-64"
+ },
+ {
+  "report": "KC25082009",
+  "report_date": "2025-12-31T23:09:58.000",
+  "reported_time": "23:09",
+  "from_date": "2025-12-31T23:09:00.000",
+  "from_time": "23:09",
+  "to_date": "2025-12-31T23:57:00.000",
+  "to_time": "23:57",
+  "offense": "Stealing - Pickpocket",
+  "ibrs": "23H",
+  "description": "All Other Larceny",
+  "beat": "125",
+  "address": "1200  E LINWOOD BLVD",
+  "city": "KANSAS CITY",
+  "zipcode": "64109",
+  "rep_dist": "PJ2543",
+  "area": "CPD",
+  "dvflag": false,
+  "involvement": "VIC",
+  "race": "B",
+  "sex": "M",
+  "age": "43",
+  "firearmusedflag": false,
+  "location": {
+   "type": "Point",
+   "coordinates": [
+    -94.56971,
+    39.06892
+   ]
+  },
+  "age_range": "35-44"
+ },
+ {
+  "report": "KC25082003",
+  "report_date": "2025-12-31T22:58:38.000",
+  "reported_time": "22:58",
+  "from_date": "2025-12-31T22:58:00.000",
+  "from_time": "22:58",
+  "offense": "Domestic Violence Assault (Non-Aggravated)",
+  "ibrs": "13B",
+  "description": "Simple Assault",
+  "beat": "311",
+  "address": "3600  SMART AVE",
+  "city": "KANSAS CITY",
+  "zipcode": "64124",
+  "rep_dist": "PJ0434",
+  "area": "EPD",
+  "dvflag": true,
+  "involvement": "ARR CHA SUS",
+  "race": "W",
+  "sex": "F",
+  "age": "25",
+  "firearmusedflag": false,
+  "location": {
+   "type": "Point",
+   "coordinates": [
+    -94.53873,
+    39.10949
+   ]
+  },
+  "age_range": "25-34"
+ },
+ {
+  "report": "KC25082003",
+  "report_date": "2025-12-31T22:58:38.000",
+  "reported_time": "22:58",
+  "from_date": "2025-12-31T22:58:00.000",
+  "from_time": "22:58",
+  "offense": "Domestic Violence Assault (Non-Aggravated)",
+  "ibrs": "13B",
+  "description": "Simple Assault",
+  "beat": "311",
+  "address": "3600  SMART AVE",
+  "city": "KANSAS CITY",
+  "zipcode": "64124",
+  "rep_dist": "PJ0434",
+  "area": "EPD",
+  "dvflag": false,
+  "involvement": "VIC",
+  "race": "W",
+  "sex": "M",
+  "age": "43",
+  "firearmusedflag": false,
+  "location": {
+   "type": "Point",
+   "coordinates": [
+    -94.53873,
+    39.10949
+   ]
+  },
+  "age_range": "35-44"
+ },
+ {
+  "report": "KC26000021",
+  "report_date": "2025-12-31T22:44:59.000",
+  "reported_time": "22:44",
+  "from_date": "2026-01-01T02:30:00.000",
+  "from_time": "02:30",
+  "offense": "Trespass of Real Property",
+  "ibrs": "90J",
+  "description": "Trespass of Real Property",
+  "beat": "133",
+  "address": "500  WESTPORT RD",
+  "city": "KANSAS CITY",
+  "zipcode": "64111",
+  "rep_dist": "PJ3361",
+  "area": "CPD",
+  "dvflag": false,
+  "involvement": "SUS ARR",
+  "race": "U",
+  "sex": "M",
+  "age": "30",
+  "firearmusedflag": false,
+  "location": {
+   "type": "Point",
+   "coordinates": [
+    -94.59158,
+    39.05279
+   ]
+  },
+  "age_range": "25-34"
+ },
+ {
+  "report": "KC25082005",
+  "report_date": "2025-12-31T22:06:30.000",
+  "reported_time": "22:06",
+  "from_date": "2025-12-31T22:06:00.000",
+  "from_time": "22:06",
+  "offense": "Alcohol Influence Report",
+  "ibrs": "90D",
+  "description": "Driving Under the Influence",
+  "beat": "425",
+  "address": "9600  N AMBASSADOR DR",
+  "city": "KANSAS CITY",
+  "zipcode": "64154",
+  "rep_dist": "PP0266",
+  "area": "NPD",
+  "dvflag": false,
+  "involvement": "ARR CHA SUS",
+  "race": "W",
+  "sex": "M",
+  "age": "25",
+  "firearmusedflag": false,
+  "location": {
+   "type": "Point",
+   "coordinates": [
+    -94.65221,
+    39.26412
+   ]
+  },
+  "age_range": "25-34"
+ },
+ {
+  "report": "KC25081999",
+  "report_date": "2025-12-31T21:58:03.000",
+  "reported_time": "21:58",
+  "from_date": "2025-12-31T21:58:00.000",
+  "from_time": "21:58",
+  "offense": "Property Damage",
+  "ibrs": "220",
+  "description": "Burglary/Breaking and Entering",
+  "beat": "542",
+  "address": "9200  MANCHESTER AVE",
+  "city": "KANSAS CITY",
+  "zipcode": "64138",
+  "rep_dist": "PJ6461",
+  "area": "SPD",
+  "dvflag": false,
+  "involvement": "SUS",
+  "race": "U",
+  "sex": "U",
+  "firearmusedflag": false,
+  "location": {
+   "type": "Point",
+   "coordinates": [
+    -94.49787,
+    38.95704
+   ]
+  }
+ },
+ {
+  "report": "KC25081999",
+  "report_date": "2025-12-31T21:58:03.000",
+  "reported_time": "21:58",
+  "from_date": "2025-12-31T21:58:00.000",
+  "from_time": "21:58",
+  "offense": "Property Damage",
+  "ibrs": "220",
+  "description": "Burglary/Breaking and Entering",
+  "beat": "542",
+  "address": "9200  MANCHESTER AVE",
+  "city": "KANSAS CITY",
+  "zipcode": "64138",
+  "rep_dist": "PJ6461",
+  "area": "SPD",
+  "dvflag": false,
+  "involvement": "VIC",
+  "race": "B",
+  "sex": "M",
+  "age": "42",
+  "firearmusedflag": false,
+  "location": {
+   "type": "Point",
+   "coordinates": [
+    -94.49787,
+    38.95704
+   ]
+  },
+  "age_range": "35-44"
+ },
+ {
+  "report": "KC25081998",
+  "report_date": "2025-12-31T21:50:51.000",
+  "reported_time": "21:50",
+  "from_date": "2025-12-31T21:50:00.000",
+  "from_time": "21:50",
+  "offense": "Domestic Violence Assault (Aggravated)",
+  "ibrs": "13A",
+  "description": "Aggravated Assault",
+  "beat": "421",
+  "address": "6900  NW 83RD ST",
+  "city": "KANSAS CITY",
+  "zipcode": "64152",
+  "rep_dist": "PP0398",
+  "area": "NPD",
+  "dvflag": true,
+  "involvement": "VIC",
+  "race": "B",
+  "sex": "F",
+  "age": "29",
+  "firearmusedflag": false,
+  "location": {
+   "type": "Point",
+   "coordinates": [
+    -94.66061,
+    39.24447
+   ]
+  },
+  "age_range": "25-34"
+ },
+ {
+  "report": "KC25081998",
+  "report_date": "2025-12-31T21:50:51.000",
+  "reported_time": "21:50",
+  "from_date": "2025-12-31T21:50:00.000",
+  "from_time": "21:50",
+  "offense": "Domestic Violence Assault (Aggravated)",
+  "ibrs": "13A",
+  "description": "Aggravated Assault",
+  "beat": "421",
+  "address": "6900  NW 83RD ST",
+  "city": "KANSAS CITY",
+  "zipcode": "64152",
+  "rep_dist": "PP0398",
+  "area": "NPD",
+  "dvflag": true,
+  "involvement": "ARR CHA SUS",
+  "race": "B",
+  "sex": "M",
+  "age": "24",
+  "firearmusedflag": false,
+  "location": {
+   "type": "Point",
+   "coordinates": [
+    -94.66061,
+    39.24447
+   ]
+  },
+  "age_range": "18-24"
+ },
+ {
+  "report": "KC25081995",
+  "report_date": "2025-12-31T21:46:31.000",
+  "reported_time": "21:46",
+  "from_date": "2025-12-31T21:46:00.000",
+  "from_time": "21:46",
+  "offense": "Property Damage",
+  "ibrs": "290",
+  "description": "Vandalism/Destruction of Property",
+  "beat": "224",
+  "address": "5900  PASEO",
+  "city": "KANSAS CITY",
+  "zipcode": "64110",
+  "rep_dist": "PJ4732",
+  "area": "MPD",
+  "dvflag": false,
+  "involvement": "CMP VIC",
+  "race": "B",
+  "sex": "F",
+  "age": "68",
+  "firearmusedflag": false,
+  "location": {
+   "type": "Point",
+   "coordinates": [
+    -94.57011,
+    39.01967
+   ]
+  },
+  "age_range": "65-74"
+ },
+ {
+  "report": "KC25081995",
+  "report_date": "2025-12-31T21:46:31.000",
+  "reported_time": "21:46",
+  "from_date": "2025-12-31T21:46:00.000",
+  "from_time": "21:46",
+  "offense": "Property Damage",
+  "ibrs": "290",
+  "description": "Vandalism/Destruction of Property",
+  "beat": "224",
+  "address": "5900  PASEO",
+  "city": "KANSAS CITY",
+  "zipcode": "64110",
+  "rep_dist": "PJ4732",
+  "area": "MPD",
+  "dvflag": false,
+  "involvement": "SUS",
+  "race": "B",
+  "sex": "M",
+  "age": "19",
+  "firearmusedflag": false,
+  "location": {
+   "type": "Point",
+   "coordinates": [
+    -94.57011,
+    39.01967
+   ]
+  },
+  "age_range": "18-24"
+ },
+ {
+  "report": "KC25081990",
+  "report_date": "2025-12-31T21:43:12.000",
+  "reported_time": "21:43",
+  "from_date": "2025-12-31T21:43:00.000",
+  "from_time": "21:43",
+  "offense": "Assault (Non-Aggravated) on Department Member/Outside Law Enforcement Officer",
+  "ibrs": "13B",
+  "description": "Simple Assault",
+  "beat": "133",
+  "address": "400  WESTPORT RD",
+  "city": "KANSAS CITY",
+  "zipcode": "64111",
+  "rep_dist": "PJ3229",
+  "area": "CPD",
+  "dvflag": false,
+  "involvement": "VIC",
+  "race": "W",
+  "sex": "M",
+  "age": "25",
+  "firearmusedflag": false,
+  "location": {
+   "type": "Point",
+   "coordinates": [
+    -94.59071,
+    39.05322
+   ]
+  },
+  "age_range": "25-34"
+ },
+ {
+  "report": "KC25081990",
+  "report_date": "2025-12-31T21:43:12.000",
+  "reported_time": "21:43",
+  "from_date": "2025-12-31T21:43:00.000",
+  "from_time": "21:43",
+  "offense": "Assault (Non-Aggravated) on Department Member/Outside Law Enforcement Officer",
+  "ibrs": "13B",
+  "description": "Simple Assault",
+  "beat": "133",
+  "address": "400  WESTPORT RD",
+  "city": "KANSAS CITY",
+  "zipcode": "64111",
+  "rep_dist": "PJ3229",
+  "area": "CPD",
+  "dvflag": false,
+  "involvement": "ARR SUS",
+  "race": "W",
+  "sex": "F",
+  "age": "40",
+  "firearmusedflag": false,
+  "location": {
+   "type": "Point",
+   "coordinates": [
+    -94.59071,
+    39.05322
+   ]
+  },
+  "age_range": "35-44"
+ },
+ {
+  "report": "KC25081993",
+  "report_date": "2025-12-31T21:41:21.000",
+  "reported_time": "21:41",
+  "from_date": "2025-12-31T21:41:00.000",
+  "from_time": "21:41",
+  "offense": "Trespass of Real Property",
+  "ibrs": "90J",
+  "description": "Trespass of Real Property",
+  "beat": "121",
+  "address": "1100  E 4TH ST",
+  "city": "KANSAS CITY",
+  "zipcode": "64120",
+  "rep_dist": "PJ0321",
+  "area": "CPD",
+  "dvflag": true,
+  "involvement": "CHA SUS",
+  "race": "B",
+  "sex": "M",
+  "age": "34",
+  "firearmusedflag": false,
+  "location": {
+   "type": "Point",
+   "coordinates": [
+    -94.56939,
+    39.11186
+   ]
+  },
+  "age_range": "25-34"
+ },
+ {
+  "report": "KC25081993",
+  "report_date": "2025-12-31T21:41:21.000",
+  "reported_time": "21:41",
+  "from_date": "2025-12-31T21:41:00.000",
+  "from_time": "21:41",
+  "offense": "Trespass of Real Property",
+  "ibrs": "90J",
+  "description": "Trespass of Real Property",
+  "beat": "121",
+  "address": "1100  E 4TH ST",
+  "city": "KANSAS CITY",
+  "zipcode": "64120",
+  "rep_dist": "PJ0321",
+  "area": "CPD",
+  "dvflag": true,
+  "involvement": "VIC",
+  "race": "B",
+  "sex": "F",
+  "age": "38",
+  "firearmusedflag": false,
+  "location": {
+   "type": "Point",
+   "coordinates": [
+    -94.56939,
+    39.11186
+   ]
+  },
+  "age_range": "35-44"
+ },
+ {
+  "report": "KC25081989",
+  "report_date": "2025-12-31T21:36:11.000",
+  "reported_time": "21:36",
+  "from_date": "2025-12-31T21:36:00.000",
+  "from_time": "21:36",
+  "offense": "Assault (Non-Aggravated)",
+  "ibrs": "13B",
+  "description": "Simple Assault",
+  "beat": "133",
+  "address": "400  WESTPORT RD",
+  "city": "KANSAS CITY",
+  "zipcode": "64111",
+  "rep_dist": "PJ3229",
+  "area": "CPD",
+  "dvflag": false,
+  "involvement": "VIC",
+  "race": "W",
+  "sex": "M",
+  "age": "30",
+  "firearmusedflag": false,
+  "location": {
+   "type": "Point",
+   "coordinates": [
+    -94.59071,
+    39.05322
+   ]
+  },
+  "age_range": "25-34"
+ },
+ {
+  "report": "KC25081989",
+  "report_date": "2025-12-31T21:36:11.000",
+  "reported_time": "21:36",
+  "from_date": "2025-12-31T21:36:00.000",
+  "from_time": "21:36",
+  "offense": "Assault (Non-Aggravated)",
+  "ibrs": "90Z",
+  "description": "All Other Offenses",
+  "beat": "133",
+  "address": "400  WESTPORT RD",
+  "city": "KANSAS CITY",
+  "zipcode": "64111",
+  "rep_dist": "PJ3229",
+  "area": "CPD",
+  "dvflag": false,
+  "involvement": "ARR CHA SUS",
+  "race": "W",
+  "sex": "F",
+  "age": "40",
+  "firearmusedflag": false,
+  "location": {
+   "type": "Point",
+   "coordinates": [
+    -94.59071,
+    39.05322
+   ]
+  },
+  "age_range": "35-44"
+ },
+ {
+  "report": "KC25081989",
+  "report_date": "2025-12-31T21:36:11.000",
+  "reported_time": "21:36",
+  "from_date": "2025-12-31T21:36:00.000",
+  "from_time": "21:36",
+  "offense": "Assault (Non-Aggravated)",
+  "ibrs": "90J",
+  "description": "Trespass of Real Property",
+  "beat": "133",
+  "address": "400  WESTPORT RD",
+  "city": "KANSAS CITY",
+  "zipcode": "64111",
+  "rep_dist": "PJ3229",
+  "area": "CPD",
+  "dvflag": false,
+  "involvement": "VIC",
+  "firearmusedflag": false,
+  "location": {
+   "type": "Point",
+   "coordinates": [
+    -94.59071,
+    39.05322
+   ]
+  }
+ },
+ {
+  "report": "KC25081989",
+  "report_date": "2025-12-31T21:36:11.000",
+  "reported_time": "21:36",
+  "from_date": "2025-12-31T21:36:00.000",
+  "from_time": "21:36",
+  "offense": "Assault (Non-Aggravated)",
+  "ibrs": "13B",
+  "description": "Simple Assault",
+  "beat": "133",
+  "address": "400  WESTPORT RD",
+  "city": "KANSAS CITY",
+  "zipcode": "64111",
+  "rep_dist": "PJ3229",
+  "area": "CPD",
+  "dvflag": false,
+  "involvement": "ARR CHA SUS",
+  "race": "W",
+  "sex": "F",
+  "age": "40",
+  "firearmusedflag": false,
+  "location": {
+   "type": "Point",
+   "coordinates": [
+    -94.59071,
+    39.05322
+   ]
+  },
+  "age_range": "35-44"
+ },
+ {
+  "report": "KC25081989",
+  "report_date": "2025-12-31T21:36:11.000",
+  "reported_time": "21:36",
+  "from_date": "2025-12-31T21:36:00.000",
+  "from_time": "21:36",
+  "offense": "Assault (Non-Aggravated)",
+  "ibrs": "90J",
+  "description": "Trespass of Real Property",
+  "beat": "133",
+  "address": "400  WESTPORT RD",
+  "city": "KANSAS CITY",
+  "zipcode": "64111",
+  "rep_dist": "PJ3229",
+  "area": "CPD",
+  "dvflag": false,
+  "involvement": "VIC",
+  "race": "W",
+  "sex": "M",
+  "age": "30",
+  "firearmusedflag": false,
+  "location": {
+   "type": "Point",
+   "coordinates": [
+    -94.59071,
+    39.05322
+   ]
+  },
+  "age_range": "25-34"
+ },
+ {
+  "report": "KC25081989",
+  "report_date": "2025-12-31T21:36:11.000",
+  "reported_time": "21:36",
+  "from_date": "2025-12-31T21:36:00.000",
+  "from_time": "21:36",
+  "offense": "Assault (Non-Aggravated)",
+  "ibrs": "13B",
+  "description": "Simple Assault",
+  "beat": "133",
+  "address": "400  WESTPORT RD",
+  "city": "KANSAS CITY",
+  "zipcode": "64111",
+  "rep_dist": "PJ3229",
+  "area": "CPD",
+  "dvflag": false,
+  "involvement": "VIC",
+  "firearmusedflag": false,
+  "location": {
+   "type": "Point",
+   "coordinates": [
+    -94.59071,
+    39.05322
+   ]
+  }
+ },
+ {
+  "report": "KC25081989",
+  "report_date": "2025-12-31T21:36:11.000",
+  "reported_time": "21:36",
+  "from_date": "2025-12-31T21:36:00.000",
+  "from_time": "21:36",
+  "offense": "Assault (Non-Aggravated)",
+  "ibrs": "90J",
+  "description": "Trespass of Real Property",
+  "beat": "133",
+  "address": "400  WESTPORT RD",
+  "city": "KANSAS CITY",
+  "zipcode": "64111",
+  "rep_dist": "PJ3229",
+  "area": "CPD",
+  "dvflag": false,
+  "involvement": "ARR CHA SUS",
+  "race": "W",
+  "sex": "F",
+  "age": "40",
+  "firearmusedflag": false,
+  "location": {
+   "type": "Point",
+   "coordinates": [
+    -94.59071,
+    39.05322
+   ]
+  },
+  "age_range": "35-44"
+ },
+ {
+  "report": "KC25081989",
+  "report_date": "2025-12-31T21:36:11.000",
+  "reported_time": "21:36",
+  "from_date": "2025-12-31T21:36:00.000",
+  "from_time": "21:36",
+  "offense": "Assault (Non-Aggravated)",
+  "ibrs": "90Z",
+  "description": "All Other Offenses",
+  "beat": "133",
+  "address": "400  WESTPORT RD",
+  "city": "KANSAS CITY",
+  "zipcode": "64111",
+  "rep_dist": "PJ3229",
+  "area": "CPD",
+  "dvflag": false,
+  "involvement": "VIC",
+  "race": "W",
+  "sex": "M",
+  "age": "30",
+  "firearmusedflag": false,
+  "location": {
+   "type": "Point",
+   "coordinates": [
+    -94.59071,
+    39.05322
+   ]
+  },
+  "age_range": "25-34"
+ },
+ {
+  "report": "KC25081989",
+  "report_date": "2025-12-31T21:36:11.000",
+  "reported_time": "21:36",
+  "from_date": "2025-12-31T21:36:00.000",
+  "from_time": "21:36",
+  "offense": "Assault (Non-Aggravated)",
+  "ibrs": "90Z",
+  "description": "All Other Offenses",
+  "beat": "133",
+  "address": "400  WESTPORT RD",
+  "city": "KANSAS CITY",
+  "zipcode": "64111",
+  "rep_dist": "PJ3229",
+  "area": "CPD",
+  "dvflag": false,
+  "involvement": "VIC",
+  "firearmusedflag": false,
+  "location": {
+   "type": "Point",
+   "coordinates": [
+    -94.59071,
+    39.05322
+   ]
+  }
+ },
+ {
+  "report": "KC25081988",
+  "report_date": "2025-12-31T21:28:52.000",
+  "reported_time": "21:28",
+  "from_date": "2025-12-31T19:40:00.000",
+  "from_time": "19:40",
+  "offense": "Felon/Prohibited Person in Possession of a Firearm/Ammunition/Body Armor",
+  "ibrs": "520",
+  "description": "Weapon Law Violations",
+  "beat": "533",
+  "address": "900  W RED BRIDGE RD",
+  "city": "KANSAS CITY",
+  "zipcode": "64114",
+  "rep_dist": "PJ6888",
+  "area": "SPD",
+  "dvflag": false,
+  "involvement": "ARR CHA SUS",
+  "race": "B",
+  "sex": "M",
+  "age": "63",
+  "firearmusedflag": true,
+  "location": {
+   "type": "Point",
+   "coordinates": [
+    -94.60287,
+    38.92772
+   ]
+  },
+  "age_range": "55-64"
+ },
+ {
+  "report": "KC25082007",
+  "report_date": "2025-12-31T21:19:35.000",
+  "reported_time": "21:19",
+  "from_date": "2025-12-31T23:30:00.000",
+  "from_time": "23:30",
+  "offense": "Assault (Non-Aggravated)",
+  "ibrs": "13B",
+  "description": "Simple Assault",
+  "beat": "113",
+  "address": "100  E 13TH ST",
+  "city": "KANSAS CITY",
+  "zipcode": "64106",
+  "rep_dist": "PJ1177",
+  "area": "CPD",
+  "dvflag": false,
+  "involvement": "VIC",
+  "race": "W",
+  "sex": "M",
+  "age": "36",
+  "firearmusedflag": false,
+  "location": {
+   "type": "Point",
+   "coordinates": [
+    -94.58198,
+    39.09855
+   ]
+  },
+  "age_range": "35-44"
+ },
+ {
+  "report": "KC25082007",
+  "report_date": "2025-12-31T21:19:35.000",
+  "reported_time": "21:19",
+  "from_date": "2025-12-31T23:30:00.000",
+  "from_time": "23:30",
+  "offense": "Assault (Non-Aggravated)",
+  "ibrs": "13B",
+  "description": "Simple Assault",
+  "beat": "113",
+  "address": "100  E 13TH ST",
+  "city": "KANSAS CITY",
+  "zipcode": "64106",
+  "rep_dist": "PJ1177",
+  "area": "CPD",
+  "dvflag": false,
+  "involvement": "VIC",
+  "race": "B",
+  "sex": "M",
+  "age": "43",
+  "firearmusedflag": false,
+  "location": {
+   "type": "Point",
+   "coordinates": [
+    -94.58198,
+    39.09855
+   ]
+  },
+  "age_range": "35-44"
+ },
+ {
+  "report": "KC25082007",
+  "report_date": "2025-12-31T21:19:35.000",
+  "reported_time": "21:19",
+  "from_date": "2025-12-31T23:30:00.000",
+  "from_time": "23:30",
+  "offense": "Assault (Non-Aggravated)",
+  "ibrs": "13B",
+  "description": "Simple Assault",
+  "beat": "113",
+  "address": "100  E 13TH ST",
+  "city": "KANSAS CITY",
+  "zipcode": "64106",
+  "rep_dist": "PJ1177",
+  "area": "CPD",
+  "dvflag": false,
+  "involvement": "ARR CHA SUS",
+  "race": "B",
+  "sex": "F",
+  "age": "30",
+  "firearmusedflag": false,
+  "location": {
+   "type": "Point",
+   "coordinates": [
+    -94.58198,
+    39.09855
+   ]
+  },
+  "age_range": "25-34"
+ },
+ {
+  "report": "KC25082007",
+  "report_date": "2025-12-31T21:19:35.000",
+  "reported_time": "21:19",
+  "from_date": "2025-12-31T23:30:00.000",
+  "from_time": "23:30",
+  "offense": "Assault (Non-Aggravated)",
+  "ibrs": "13B",
+  "description": "Simple Assault",
+  "beat": "113",
+  "address": "100  E 13TH ST",
+  "city": "KANSAS CITY",
+  "zipcode": "64106",
+  "rep_dist": "PJ1177",
+  "area": "CPD",
+  "dvflag": false,
+  "involvement": "VIC",
+  "race": "W",
+  "sex": "M",
+  "age": "26",
+  "firearmusedflag": false,
+  "location": {
+   "type": "Point",
+   "coordinates": [
+    -94.58198,
+    39.09855
+   ]
+  },
+  "age_range": "25-34"
+ },
+ {
+  "report": "KC25081987",
+  "report_date": "2025-12-31T20:59:14.000",
+  "reported_time": "20:59",
+  "from_date": "2025-12-31T20:59:00.000",
+  "from_time": "20:59",
+  "offense": "Vehicular - Non-Injury Hit and Run",
+  "ibrs": "90Z",
+  "description": "All Other Offenses",
+  "beat": "213",
+  "address": "E 71ST ST and MANCHESTER AVE",
+  "city": "KANSAS CITY",
+  "zipcode": "64133",
+  "rep_dist": "PJ5507",
+  "area": "MPD",
+  "dvflag": false,
+  "involvement": "SUS",
+  "race": "W",
+  "sex": "M",
+  "age": "18",
+  "firearmusedflag": false,
+  "location": {
+   "type": "Point",
+   "coordinates": [
+    -94.49653,
+    38.99564
+   ]
+  },
+  "age_range": "18-24"
+ },
+ {
+  "report": "KC25081984",
+  "report_date": "2025-12-31T20:47:45.000",
+  "reported_time": "20:47",
+  "from_date": "2025-12-31T20:40:00.000",
+  "from_time": "20:40",
+  "offense": "Harassment / Intimidation - Domestic Violence",
+  "ibrs": "290",
+  "description": "Vandalism/Destruction of Property",
+  "beat": "535",
+  "address": "1000  TAM-O-SHANTER DR",
+  "city": "KANSAS CITY",
+  "zipcode": "64145",
+  "rep_dist": "PJ7365",
+  "area": "SPD",
+  "dvflag": false,
+  "involvement": "SUS",
+  "race": "B",
+  "sex": "F",
+  "age": "48",
+  "firearmusedflag": false,
+  "location": {
+   "type": "Point",
+   "coordinates": [
+    -94.60652,
+    38.89384
+   ]
+  },
+  "age_range": "45-54"
+ },
+ {
+  "report": "KC25081984",
+  "report_date": "2025-12-31T20:47:45.000",
+  "reported_time": "20:47",
+  "from_date": "2025-12-31T20:40:00.000",
+  "from_time": "20:40",
+  "offense": "Harassment / Intimidation - Domestic Violence",
+  "ibrs": "290",
+  "description": "Vandalism/Destruction of Property",
+  "beat": "535",
+  "address": "1000  TAM-O-SHANTER DR",
+  "city": "KANSAS CITY",
+  "zipcode": "64145",
+  "rep_dist": "PJ7365",
+  "area": "SPD",
+  "dvflag": false,
+  "involvement": "VIC",
+  "race": "W",
+  "sex": "M",
+  "age": "49",
+  "firearmusedflag": false,
+  "location": {
+   "type": "Point",
+   "coordinates": [
+    -94.60652,
+    38.89384
+   ]
+  },
+  "age_range": "45-54"
+ },
+ {
+  "report": "KC25081984",
+  "report_date": "2025-12-31T20:47:45.000",
+  "reported_time": "20:47",
+  "from_date": "2025-12-31T20:40:00.000",
+  "from_time": "20:40",
+  "offense": "Harassment / Intimidation - Domestic Violence",
+  "ibrs": "13C",
+  "description": "Intimidation",
+  "beat": "535",
+  "address": "1000  TAM-O-SHANTER DR",
+  "city": "KANSAS CITY",
+  "zipcode": "64145",
+  "rep_dist": "PJ7365",
+  "area": "SPD",
+  "dvflag": false,
+  "involvement": "SUS",
+  "race": "B",
+  "sex": "F",
+  "age": "48",
+  "firearmusedflag": false,
+  "location": {
+   "type": "Point",
+   "coordinates": [
+    -94.60652,
+    38.89384
+   ]
+  },
+  "age_range": "45-54"
+ },
+ {
+  "report": "KC25081984",
+  "report_date": "2025-12-31T20:47:45.000",
+  "reported_time": "20:47",
+  "from_date": "2025-12-31T20:40:00.000",
+  "from_time": "20:40",
+  "offense": "Harassment / Intimidation - Domestic Violence",
+  "ibrs": "290",
+  "description": "Vandalism/Destruction of Property",
+  "beat": "535",
+  "address": "1000  TAM-O-SHANTER DR",
+  "city": "KANSAS CITY",
+  "zipcode": "64145",
+  "rep_dist": "PJ7365",
+  "area": "SPD",
+  "dvflag": false,
+  "involvement": "VIC",
+  "race": "W",
+  "sex": "F",
+  "age": "47",
+  "firearmusedflag": false,
+  "location": {
+   "type": "Point",
+   "coordinates": [
+    -94.60652,
+    38.89384
+   ]
+  },
+  "age_range": "45-54"
+ }
+]

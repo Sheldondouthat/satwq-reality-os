@@ -1,6 +1,18 @@
 /**
  * Surge-500 spec index — AUTO-GENERATED. Do not edit by hand.
  */
+import { SPEC as _census_tiger_cd119_va } from './specs/census-tiger-cd119-va.mjs';
+import { SPEC as _census_tiger_cdp_va } from './specs/census-tiger-cdp-va.mjs';
+import { SPEC as _census_tiger_counties_ca } from './specs/census-tiger-counties-ca.mjs';
+import { SPEC as _census_tiger_counties_va } from './specs/census-tiger-counties-va.mjs';
+import { SPEC as _census_tiger_csa } from './specs/census-tiger-csa.mjs';
+import { SPEC as _census_tiger_divisions } from './specs/census-tiger-divisions.mjs';
+import { SPEC as _census_tiger_places_va } from './specs/census-tiger-places-va.mjs';
+import { SPEC as _census_tiger_puma_va } from './specs/census-tiger-puma-va.mjs';
+import { SPEC as _census_tiger_regions } from './specs/census-tiger-regions.mjs';
+import { SPEC as _census_tiger_sld_lower_va } from './specs/census-tiger-sld-lower-va.mjs';
+import { SPEC as _census_tiger_sld_upper_va } from './specs/census-tiger-sld-upper-va.mjs';
+import { SPEC as _census_tiger_states } from './specs/census-tiger-states.mjs';
 import { SPEC as _coops_airpressure_nome } from './specs/coops-airpressure-nome.mjs';
 import { SPEC as _coops_airpressure_sf } from './specs/coops-airpressure-sf.mjs';
 import { SPEC as _coops_airtemp_boston } from './specs/coops-airtemp-boston.mjs';
@@ -99,6 +111,17 @@ import { SPEC as _socrata_austin_traffic } from './specs/socrata-austin-traffic.
 import { SPEC as _socrata_chicago_crashes } from './specs/socrata-chicago-crashes.mjs';
 import { SPEC as _socrata_chicago_crime } from './specs/socrata-chicago-crime.mjs';
 import { SPEC as _socrata_chicago_food } from './specs/socrata-chicago-food.mjs';
+import { SPEC as _socrata_edmonton_311 } from './specs/socrata-edmonton-311.mjs';
+import { SPEC as _socrata_edmonton_fire } from './specs/socrata-edmonton-fire.mjs';
+import { SPEC as _socrata_edmonton_permits } from './specs/socrata-edmonton-permits.mjs';
+import { SPEC as _socrata_edmonton_traffic } from './specs/socrata-edmonton-traffic.mjs';
+import { SPEC as _socrata_honolulu_311 } from './specs/socrata-honolulu-311.mjs';
+import { SPEC as _socrata_honolulu_crime } from './specs/socrata-honolulu-crime.mjs';
+import { SPEC as _socrata_honolulu_permits } from './specs/socrata-honolulu-permits.mjs';
+import { SPEC as _socrata_honolulu_traffic } from './specs/socrata-honolulu-traffic.mjs';
+import { SPEC as _socrata_kcmo_311 } from './specs/socrata-kcmo-311.mjs';
+import { SPEC as _socrata_kcmo_crime } from './specs/socrata-kcmo-crime.mjs';
+import { SPEC as _socrata_kcmo_permits } from './specs/socrata-kcmo-permits.mjs';
 import { SPEC as _socrata_la_permits } from './specs/socrata-la-permits.mjs';
 import { SPEC as _socrata_nyc_311 } from './specs/socrata-nyc-311.mjs';
 import { SPEC as _socrata_nyc_crashes } from './specs/socrata-nyc-crashes.mjs';
@@ -106,9 +129,25 @@ import { SPEC as _socrata_nyc_crime } from './specs/socrata-nyc-crime.mjs';
 import { SPEC as _socrata_nyc_dob_permits } from './specs/socrata-nyc-dob-permits.mjs';
 import { SPEC as _socrata_nyc_evictions } from './specs/socrata-nyc-evictions.mjs';
 import { SPEC as _socrata_nyc_restaurants } from './specs/socrata-nyc-restaurants.mjs';
+import { SPEC as _socrata_oakland_311 } from './specs/socrata-oakland-311.mjs';
+import { SPEC as _socrata_oakland_crime } from './specs/socrata-oakland-crime.mjs';
 import { SPEC as _socrata_seattle_911 } from './specs/socrata-seattle-911.mjs';
 import { SPEC as _socrata_seattle_police911 } from './specs/socrata-seattle-police911.mjs';
 import { SPEC as _socrata_sf_311 } from './specs/socrata-sf-311.mjs';
+import { SPEC as _socrata_sonoma_arrests } from './specs/socrata-sonoma-arrests.mjs';
+import { SPEC as _socrata_sonoma_events } from './specs/socrata-sonoma-events.mjs';
+import { SPEC as _usgs_quakes_10_day } from './specs/usgs-quakes-10-day.mjs';
+import { SPEC as _usgs_quakes_25_day } from './specs/usgs-quakes-25-day.mjs';
+import { SPEC as _usgs_quakes_25_week } from './specs/usgs-quakes-25-week.mjs';
+import { SPEC as _usgs_quakes_45_week } from './specs/usgs-quakes-45-week.mjs';
+import { SPEC as _usgs_quakes_alaska } from './specs/usgs-quakes-alaska.mjs';
+import { SPEC as _usgs_quakes_all_week } from './specs/usgs-quakes-all-week.mjs';
+import { SPEC as _usgs_quakes_california } from './specs/usgs-quakes-california.mjs';
+import { SPEC as _usgs_quakes_hawaii } from './specs/usgs-quakes-hawaii.mjs';
+import { SPEC as _usgs_quakes_pacific_nw } from './specs/usgs-quakes-pacific-nw.mjs';
+import { SPEC as _usgs_quakes_puerto_rico } from './specs/usgs-quakes-puerto-rico.mjs';
+import { SPEC as _usgs_quakes_significant_month } from './specs/usgs-quakes-significant-month.mjs';
+import { SPEC as _usgs_quakes_significant_week } from './specs/usgs-quakes-significant-week.mjs';
 import { SPEC as _usgs_sig_quakes } from './specs/usgs-sig-quakes.mjs';
 import { SPEC as _usgs_water_arkansas_flow } from './specs/usgs-water-arkansas-flow.mjs';
 import { SPEC as _usgs_water_chattahoochee_flow } from './specs/usgs-water-chattahoochee-flow.mjs';
@@ -140,6 +179,18 @@ import { SPEC as _usgs_water_tennessee_flow } from './specs/usgs-water-tennessee
 import { SPEC as _usgs_water_willamette_flow } from './specs/usgs-water-willamette-flow.mjs';
 
 export const SPECS = {
+  'census-tiger-cd119-va': _census_tiger_cd119_va,
+  'census-tiger-cdp-va': _census_tiger_cdp_va,
+  'census-tiger-counties-ca': _census_tiger_counties_ca,
+  'census-tiger-counties-va': _census_tiger_counties_va,
+  'census-tiger-csa': _census_tiger_csa,
+  'census-tiger-divisions': _census_tiger_divisions,
+  'census-tiger-places-va': _census_tiger_places_va,
+  'census-tiger-puma-va': _census_tiger_puma_va,
+  'census-tiger-regions': _census_tiger_regions,
+  'census-tiger-sld-lower-va': _census_tiger_sld_lower_va,
+  'census-tiger-sld-upper-va': _census_tiger_sld_upper_va,
+  'census-tiger-states': _census_tiger_states,
   'coops-airpressure-nome': _coops_airpressure_nome,
   'coops-airpressure-sf': _coops_airpressure_sf,
   'coops-airtemp-boston': _coops_airtemp_boston,
@@ -238,6 +289,17 @@ export const SPECS = {
   'socrata-chicago-crashes': _socrata_chicago_crashes,
   'socrata-chicago-crime': _socrata_chicago_crime,
   'socrata-chicago-food': _socrata_chicago_food,
+  'socrata-edmonton-311': _socrata_edmonton_311,
+  'socrata-edmonton-fire': _socrata_edmonton_fire,
+  'socrata-edmonton-permits': _socrata_edmonton_permits,
+  'socrata-edmonton-traffic': _socrata_edmonton_traffic,
+  'socrata-honolulu-311': _socrata_honolulu_311,
+  'socrata-honolulu-crime': _socrata_honolulu_crime,
+  'socrata-honolulu-permits': _socrata_honolulu_permits,
+  'socrata-honolulu-traffic': _socrata_honolulu_traffic,
+  'socrata-kcmo-311': _socrata_kcmo_311,
+  'socrata-kcmo-crime': _socrata_kcmo_crime,
+  'socrata-kcmo-permits': _socrata_kcmo_permits,
   'socrata-la-permits': _socrata_la_permits,
   'socrata-nyc-311': _socrata_nyc_311,
   'socrata-nyc-crashes': _socrata_nyc_crashes,
@@ -245,9 +307,25 @@ export const SPECS = {
   'socrata-nyc-dob-permits': _socrata_nyc_dob_permits,
   'socrata-nyc-evictions': _socrata_nyc_evictions,
   'socrata-nyc-restaurants': _socrata_nyc_restaurants,
+  'socrata-oakland-311': _socrata_oakland_311,
+  'socrata-oakland-crime': _socrata_oakland_crime,
   'socrata-seattle-911': _socrata_seattle_911,
   'socrata-seattle-police911': _socrata_seattle_police911,
   'socrata-sf-311': _socrata_sf_311,
+  'socrata-sonoma-arrests': _socrata_sonoma_arrests,
+  'socrata-sonoma-events': _socrata_sonoma_events,
+  'usgs-quakes-10-day': _usgs_quakes_10_day,
+  'usgs-quakes-25-day': _usgs_quakes_25_day,
+  'usgs-quakes-25-week': _usgs_quakes_25_week,
+  'usgs-quakes-45-week': _usgs_quakes_45_week,
+  'usgs-quakes-alaska': _usgs_quakes_alaska,
+  'usgs-quakes-all-week': _usgs_quakes_all_week,
+  'usgs-quakes-california': _usgs_quakes_california,
+  'usgs-quakes-hawaii': _usgs_quakes_hawaii,
+  'usgs-quakes-pacific-nw': _usgs_quakes_pacific_nw,
+  'usgs-quakes-puerto-rico': _usgs_quakes_puerto_rico,
+  'usgs-quakes-significant-month': _usgs_quakes_significant_month,
+  'usgs-quakes-significant-week': _usgs_quakes_significant_week,
   'usgs-sig-quakes': _usgs_sig_quakes,
   'usgs-water-arkansas-flow': _usgs_water_arkansas_flow,
   'usgs-water-chattahoochee-flow': _usgs_water_chattahoochee_flow,

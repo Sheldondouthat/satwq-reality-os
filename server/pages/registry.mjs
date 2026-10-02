@@ -1773,6 +1773,318 @@ const REGISTRY = [
       return g.specProxy('usgs-water-willamette-flow', s.SPEC);
     }),
   },
+  {
+    name: 'census-tiger-cd119-va',
+    routes: ['/api/census-tiger-cd119-va'],
+    load: () => import('../providers/wave10/specs/census-tiger-cd119-va.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('census-tiger-cd119-va', s.SPEC);
+    }),
+  },
+  {
+    name: 'census-tiger-cdp-va',
+    routes: ['/api/census-tiger-cdp-va'],
+    load: () => import('../providers/wave10/specs/census-tiger-cdp-va.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('census-tiger-cdp-va', s.SPEC);
+    }),
+  },
+  {
+    name: 'census-tiger-counties-ca',
+    routes: ['/api/census-tiger-counties-ca'],
+    load: () => import('../providers/wave10/specs/census-tiger-counties-ca.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('census-tiger-counties-ca', s.SPEC);
+    }),
+  },
+  {
+    name: 'census-tiger-counties-va',
+    routes: ['/api/census-tiger-counties-va'],
+    load: () => import('../providers/wave10/specs/census-tiger-counties-va.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('census-tiger-counties-va', s.SPEC);
+    }),
+  },
+  {
+    name: 'census-tiger-csa',
+    routes: ['/api/census-tiger-csa'],
+    load: () => import('../providers/wave10/specs/census-tiger-csa.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('census-tiger-csa', s.SPEC);
+    }),
+  },
+  {
+    name: 'census-tiger-divisions',
+    routes: ['/api/census-tiger-divisions'],
+    load: () => import('../providers/wave10/specs/census-tiger-divisions.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('census-tiger-divisions', s.SPEC);
+    }),
+  },
+  {
+    name: 'census-tiger-places-va',
+    routes: ['/api/census-tiger-places-va'],
+    load: () => import('../providers/wave10/specs/census-tiger-places-va.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('census-tiger-places-va', s.SPEC);
+    }),
+  },
+  {
+    name: 'census-tiger-puma-va',
+    routes: ['/api/census-tiger-puma-va'],
+    load: () => import('../providers/wave10/specs/census-tiger-puma-va.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('census-tiger-puma-va', s.SPEC);
+    }),
+  },
+  {
+    name: 'census-tiger-regions',
+    routes: ['/api/census-tiger-regions'],
+    load: () => import('../providers/wave10/specs/census-tiger-regions.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('census-tiger-regions', s.SPEC);
+    }),
+  },
+  {
+    name: 'census-tiger-sld-lower-va',
+    routes: ['/api/census-tiger-sld-lower-va'],
+    load: () => import('../providers/wave10/specs/census-tiger-sld-lower-va.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('census-tiger-sld-lower-va', s.SPEC);
+    }),
+  },
+  {
+    name: 'census-tiger-sld-upper-va',
+    routes: ['/api/census-tiger-sld-upper-va'],
+    load: () => import('../providers/wave10/specs/census-tiger-sld-upper-va.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('census-tiger-sld-upper-va', s.SPEC);
+    }),
+  },
+  {
+    name: 'census-tiger-states',
+    routes: ['/api/census-tiger-states'],
+    load: () => import('../providers/wave10/specs/census-tiger-states.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('census-tiger-states', s.SPEC);
+    }),
+  },
+  {
+    name: 'socrata-honolulu-traffic',
+    routes: ['/api/socrata-honolulu-traffic'],
+    load: () => import('../providers/wave10/specs/socrata-honolulu-traffic.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('socrata-honolulu-traffic', s.SPEC);
+    }),
+  },
+  {
+    name: 'socrata-kcmo-311',
+    routes: ['/api/socrata-kcmo-311'],
+    load: () => import('../providers/wave10/specs/socrata-kcmo-311.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('socrata-kcmo-311', s.SPEC);
+    }),
+  },
+  {
+    name: 'socrata-kcmo-crime',
+    routes: ['/api/socrata-kcmo-crime'],
+    load: () => import('../providers/wave10/specs/socrata-kcmo-crime.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('socrata-kcmo-crime', s.SPEC);
+    }),
+  },
+  {
+    name: 'socrata-kcmo-permits',
+    routes: ['/api/socrata-kcmo-permits'],
+    load: () => import('../providers/wave10/specs/socrata-kcmo-permits.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('socrata-kcmo-permits', s.SPEC);
+    }),
+  },
+  {
+    name: 'usgs-quakes-10-day',
+    routes: ['/api/usgs-quakes-10-day'],
+    load: () => import('../providers/wave10/specs/usgs-quakes-10-day.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('usgs-quakes-10-day', s.SPEC);
+    }),
+  },
+  {
+    name: 'usgs-quakes-25-day',
+    routes: ['/api/usgs-quakes-25-day'],
+    load: () => import('../providers/wave10/specs/usgs-quakes-25-day.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('usgs-quakes-25-day', s.SPEC);
+    }),
+  },
+  {
+    name: 'usgs-quakes-25-week',
+    routes: ['/api/usgs-quakes-25-week'],
+    load: () => import('../providers/wave10/specs/usgs-quakes-25-week.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('usgs-quakes-25-week', s.SPEC);
+    }),
+  },
+  {
+    name: 'usgs-quakes-45-week',
+    routes: ['/api/usgs-quakes-45-week'],
+    load: () => import('../providers/wave10/specs/usgs-quakes-45-week.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('usgs-quakes-45-week', s.SPEC);
+    }),
+  },
+  {
+    name: 'usgs-quakes-alaska',
+    routes: ['/api/usgs-quakes-alaska'],
+    load: () => import('../providers/wave10/specs/usgs-quakes-alaska.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('usgs-quakes-alaska', s.SPEC);
+    }),
+  },
+  {
+    name: 'usgs-quakes-all-week',
+    routes: ['/api/usgs-quakes-all-week'],
+    load: () => import('../providers/wave10/specs/usgs-quakes-all-week.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('usgs-quakes-all-week', s.SPEC);
+    }),
+  },
+  {
+    name: 'usgs-quakes-california',
+    routes: ['/api/usgs-quakes-california'],
+    load: () => import('../providers/wave10/specs/usgs-quakes-california.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('usgs-quakes-california', s.SPEC);
+    }),
+  },
+  {
+    name: 'usgs-quakes-hawaii',
+    routes: ['/api/usgs-quakes-hawaii'],
+    load: () => import('../providers/wave10/specs/usgs-quakes-hawaii.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('usgs-quakes-hawaii', s.SPEC);
+    }),
+  },
+  {
+    name: 'usgs-quakes-pacific-nw',
+    routes: ['/api/usgs-quakes-pacific-nw'],
+    load: () => import('../providers/wave10/specs/usgs-quakes-pacific-nw.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('usgs-quakes-pacific-nw', s.SPEC);
+    }),
+  },
+  {
+    name: 'usgs-quakes-puerto-rico',
+    routes: ['/api/usgs-quakes-puerto-rico'],
+    load: () => import('../providers/wave10/specs/usgs-quakes-puerto-rico.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('usgs-quakes-puerto-rico', s.SPEC);
+    }),
+  },
+  {
+    name: 'usgs-quakes-significant-month',
+    routes: ['/api/usgs-quakes-significant-month'],
+    load: () => import('../providers/wave10/specs/usgs-quakes-significant-month.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('usgs-quakes-significant-month', s.SPEC);
+    }),
+  },
+  {
+    name: 'usgs-quakes-significant-week',
+    routes: ['/api/usgs-quakes-significant-week'],
+    load: () => import('../providers/wave10/specs/usgs-quakes-significant-week.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('usgs-quakes-significant-week', s.SPEC);
+    }),
+  },
+  {
+    name: 'socrata-edmonton-311',
+    routes: ['/api/socrata-edmonton-311'],
+    load: () => import('../providers/wave10/specs/socrata-edmonton-311.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('socrata-edmonton-311', s.SPEC);
+    }),
+  },
+  {
+    name: 'socrata-edmonton-fire',
+    routes: ['/api/socrata-edmonton-fire'],
+    load: () => import('../providers/wave10/specs/socrata-edmonton-fire.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('socrata-edmonton-fire', s.SPEC);
+    }),
+  },
+  {
+    name: 'socrata-edmonton-permits',
+    routes: ['/api/socrata-edmonton-permits'],
+    load: () => import('../providers/wave10/specs/socrata-edmonton-permits.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('socrata-edmonton-permits', s.SPEC);
+    }),
+  },
+  {
+    name: 'socrata-edmonton-traffic',
+    routes: ['/api/socrata-edmonton-traffic'],
+    load: () => import('../providers/wave10/specs/socrata-edmonton-traffic.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('socrata-edmonton-traffic', s.SPEC);
+    }),
+  },
+  {
+    name: 'socrata-honolulu-311',
+    routes: ['/api/socrata-honolulu-311'],
+    load: () => import('../providers/wave10/specs/socrata-honolulu-311.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('socrata-honolulu-311', s.SPEC);
+    }),
+  },
+  {
+    name: 'socrata-honolulu-crime',
+    routes: ['/api/socrata-honolulu-crime'],
+    load: () => import('../providers/wave10/specs/socrata-honolulu-crime.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('socrata-honolulu-crime', s.SPEC);
+    }),
+  },
+  {
+    name: 'socrata-honolulu-permits',
+    routes: ['/api/socrata-honolulu-permits'],
+    load: () => import('../providers/wave10/specs/socrata-honolulu-permits.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('socrata-honolulu-permits', s.SPEC);
+    }),
+  },
+  {
+    name: 'socrata-oakland-311',
+    routes: ['/api/socrata-oakland-311'],
+    load: () => import('../providers/wave10/specs/socrata-oakland-311.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('socrata-oakland-311', s.SPEC);
+    }),
+  },
+  {
+    name: 'socrata-oakland-crime',
+    routes: ['/api/socrata-oakland-crime'],
+    load: () => import('../providers/wave10/specs/socrata-oakland-crime.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('socrata-oakland-crime', s.SPEC);
+    }),
+  },
+  {
+    name: 'socrata-sonoma-arrests',
+    routes: ['/api/socrata-sonoma-arrests'],
+    load: () => import('../providers/wave10/specs/socrata-sonoma-arrests.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('socrata-sonoma-arrests', s.SPEC);
+    }),
+  },
+  {
+    name: 'socrata-sonoma-events',
+    routes: ['/api/socrata-sonoma-events'],
+    load: () => import('../providers/wave10/specs/socrata-sonoma-events.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('socrata-sonoma-events', s.SPEC);
+    }),
+  },
 ];
 
 export { REGISTRY };

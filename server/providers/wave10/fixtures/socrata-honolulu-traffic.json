@@ -1,0 +1,378 @@
+[
+ {
+  "date": "10/02/2026",
+  "time": "07:20:44 AM",
+  "type": "MVC",
+  "address": "460047 Kam Hwy",
+  "location": "KANEOHE BAY SC - CPB",
+  "area": "Kaneohe"
+ },
+ {
+  "date": "10/02/2026",
+  "time": "07:17:25 AM",
+  "type": "MVC",
+  "address": "890340 Mokiawe St",
+  "area": "Nanakuli"
+ },
+ {
+  "date": "10/02/2026",
+  "time": "07:16:57 AM",
+  "type": "MVC",
+  "address": "Sand Island Acc Rd / Keehi Marina",
+  "area": "Kalihi"
+ },
+ {
+  "date": "10/02/2026",
+  "time": "07:12:10 AM",
+  "type": "MVC",
+  "address": "Kam Hwy / Mokulele Dr",
+  "area": "Kaneohe"
+ },
+ {
+  "date": "10/02/2026",
+  "time": "07:10:49 AM",
+  "type": "MVC",
+  "address": "Kam Hwy / Mokulele Dr",
+  "area": "Kaneohe"
+ },
+ {
+  "date": "10/02/2026",
+  "time": "07:00:36 AM",
+  "type": "Traffic Complaint",
+  "address": "255 H1w Fwy",
+  "location": "H1W KAPIOLANI OFF",
+  "area": "Kaimuki"
+ },
+ {
+  "date": "10/02/2026",
+  "time": "06:57:35 AM",
+  "type": "Traffic Complaint",
+  "address": "Rose St / Middle St",
+  "area": "Kalihi"
+ },
+ {
+  "date": "10/02/2026",
+  "time": "06:56:15 AM",
+  "type": "Hazardous Driver",
+  "address": "920501 Farrington Hwy",
+  "location": "KOOLINA RESORT",
+  "area": "Kapolei"
+ },
+ {
+  "date": "10/02/2026",
+  "time": "06:55:13 AM",
+  "type": "Traffic Control Device",
+  "address": "Kam Hwy / Pua Inia St",
+  "area": "Kaneohe"
+ },
+ {
+  "date": "10/02/2026",
+  "time": "06:52:38 AM",
+  "type": "Hazardous Driver",
+  "address": "167 H1e Fwy",
+  "location": "H1E AIRPORT OFF",
+  "area": "Airport"
+ },
+ {
+  "date": "10/02/2026",
+  "time": "06:11:19 AM",
+  "type": "Traffic Complaint",
+  "address": "23 H2n Fwy",
+  "location": "H2N KA UKA OFF",
+  "area": "Pearl City"
+ },
+ {
+  "date": "10/02/2026",
+  "time": "06:09:39 AM",
+  "type": "MVC Veh Towed",
+  "address": "Peltier Ave / N Nimitz Hwy",
+  "area": "Airport"
+ },
+ {
+  "date": "10/02/2026",
+  "time": "06:07:48 AM",
+  "type": "Stalled/Hazard Veh",
+  "address": "H3e W Harano Tunnel",
+  "location": "H3E W HARANO TUNNEL",
+  "area": "Aiea"
+ },
+ {
+  "date": "10/02/2026",
+  "time": "06:01:55 AM",
+  "type": "MVC",
+  "address": "611 University Ave",
+  "area": "Mccully"
+ },
+ {
+  "date": "10/02/2026",
+  "time": "06:01:43 AM",
+  "type": "Stalled/Hazard Veh",
+  "address": "73 H1e Fwy",
+  "location": "H1E WAIKELE ON",
+  "area": "Waipahu"
+ },
+ {
+  "date": "10/02/2026",
+  "time": "05:43:48 AM",
+  "type": "Hazardous Driver",
+  "address": "H1e E Likelike Off",
+  "location": "H1E E LIKELIKE OFF",
+  "area": "Kalihi"
+ },
+ {
+  "date": "10/02/2026",
+  "time": "05:33:43 AM",
+  "type": "MVC",
+  "address": "Kalihi St / N Nimitz Hwy",
+  "area": "Kalihi"
+ },
+ {
+  "date": "10/02/2026",
+  "time": "05:15:38 AM",
+  "type": "Traffic Complaint",
+  "address": "3161 Ala Ilima",
+  "area": "Salt Lake"
+ },
+ {
+  "date": "10/02/2026",
+  "time": "05:13:26 AM",
+  "type": "Traffic Complaint",
+  "address": "950281 Kaloapau St",
+  "location": "MILILANI REC CENTER 3",
+  "area": "Mililani"
+ },
+ {
+  "date": "10/02/2026",
+  "time": "05:13:18 AM",
+  "type": "Traffic Incident",
+  "address": "Kalakaua Ave / Dukes Ln",
+  "area": "Waikiki"
+ },
+ {
+  "date": "10/02/2026",
+  "time": "03:45:47 AM",
+  "type": "Traffic Complaint",
+  "address": "1308 N School St",
+  "location": "BS 175",
+  "area": "Kalihi"
+ },
+ {
+  "date": "10/02/2026",
+  "time": "02:31:05 AM",
+  "type": "MVC Veh Towed",
+  "address": "Kam Hwy / Hiiaka Rd",
+  "area": "Kaaawa"
+ },
+ {
+  "date": "10/02/2026",
+  "time": "01:47:07 AM",
+  "type": "MVC",
+  "address": "Moanalua Rd / Heleconia Pl",
+  "area": "Aiea"
+ },
+ {
+  "date": "10/02/2026",
+  "time": "12:25:45 AM",
+  "type": "MVC",
+  "address": "Coyne St / Kaialiu St",
+  "area": "Mccully"
+ },
+ {
+  "date": "10/02/2026",
+  "time": "12:10:06 AM",
+  "type": "MVC Veh Towed",
+  "address": "Kamokila Blvd / Kapolei Pkwy",
+  "area": "Kapolei"
+ },
+ {
+  "date": "10/01/2026",
+  "time": "11:54:05 PM",
+  "type": "MVC",
+  "address": "1620 N School St",
+  "location": "MCDONALDS KALIHI",
+  "area": "Kalihi"
+ },
+ {
+  "date": "10/01/2026",
+  "time": "11:49:02 PM",
+  "type": "Hazardous Driver",
+  "address": "6001 PALI HWY",
+  "location": "PALI TUNNELS D4 N",
+  "area": "Kailua"
+ },
+ {
+  "date": "10/01/2026",
+  "time": "11:11:21 PM",
+  "type": "Hazardous Driver",
+  "address": "Likelike Hwy / Nalanieha St",
+  "area": "Kalihi"
+ },
+ {
+  "date": "10/01/2026",
+  "time": "10:44:52 PM",
+  "type": "MVC",
+  "address": "Ala Wai Blvd / Ainakea Way",
+  "area": "Waikiki"
+ },
+ {
+  "date": "10/01/2026",
+  "time": "10:43:46 PM",
+  "type": "Hazardous Driver",
+  "address": "217 H1w Fwy",
+  "location": "H1W SCHOOL OFF",
+  "area": "Nuuanu"
+ },
+ {
+  "date": "10/01/2026",
+  "time": "10:21:04 PM",
+  "type": "Stalled/Hazard Veh",
+  "address": "8 H2s Fwy",
+  "location": "H2S WAIANAE OFF",
+  "area": "Waipio"
+ },
+ {
+  "date": "10/01/2026",
+  "time": "10:12:12 PM",
+  "type": "Hazardous Driver",
+  "address": "410741 Kalanianaole Hwy",
+  "location": "WAIMANALO BEACH PK",
+  "area": "Waimanalo"
+ },
+ {
+  "date": "10/01/2026",
+  "time": "09:45:30 PM",
+  "type": "Traffic Complaint",
+  "address": "Kam Hwy / Plantation Rd",
+  "area": "Wahiawa"
+ },
+ {
+  "date": "10/01/2026",
+  "time": "09:40:11 PM",
+  "type": "MVC",
+  "address": "Kaupu Way / Kaupu Pl",
+  "area": "Waipahu"
+ },
+ {
+  "date": "10/01/2026",
+  "time": "09:36:23 PM",
+  "type": "MVC",
+  "address": "802 Mapunapuna St",
+  "location": "ARMSTRONG PRODUCE",
+  "area": "Mapunapuna"
+ },
+ {
+  "date": "10/01/2026",
+  "time": "09:28:33 PM",
+  "type": "Traffic Complaint",
+  "address": "226 H1w Fwy",
+  "location": "H1W VINEYARD OFF",
+  "area": "Punchbowl"
+ },
+ {
+  "date": "10/01/2026",
+  "time": "09:13:29 PM",
+  "type": "MVC",
+  "address": "Farrington Hwy / Waipahu Depot St",
+  "area": "Waipahu"
+ },
+ {
+  "date": "10/01/2026",
+  "time": "09:03:25 PM",
+  "type": "MVC",
+  "address": "93 H1E FWY",
+  "location": "H1E WAIAWA OP",
+  "area": "Waipahu"
+ },
+ {
+  "date": "10/01/2026",
+  "time": "08:59:56 PM",
+  "type": "MVC",
+  "address": "941040 Waipio Uka St",
+  "location": "WAIPIO SC",
+  "area": "Waipio"
+ },
+ {
+  "date": "10/01/2026",
+  "time": "08:46:11 PM",
+  "type": "Hazardous Driver",
+  "address": "Date St / Citron St",
+  "area": "Mccully"
+ },
+ {
+  "date": "10/01/2026",
+  "time": "08:46:02 PM",
+  "type": "Traffic Complaint",
+  "address": "H2s Exit1b Waianae",
+  "location": "H2S EXIT1B WAIANAE",
+  "area": "Waipio"
+ },
+ {
+  "date": "10/01/2026",
+  "time": "08:44:51 PM",
+  "type": "Hazardous Driver",
+  "address": "Analii St / Kalanianaole Hwy",
+  "area": "Kahala"
+ },
+ {
+  "date": "10/01/2026",
+  "time": "08:32:58 PM",
+  "type": "MVC",
+  "address": "626 Whitmore Ave",
+  "location": "BS 2792",
+  "area": "Wahiawa"
+ },
+ {
+  "date": "10/01/2026",
+  "time": "08:25:56 PM",
+  "type": "Hazardous Driver",
+  "address": "H2n Wahiawa Off",
+  "location": "H2N WAHIAWA OFF",
+  "area": "Mililani"
+ },
+ {
+  "date": "10/01/2026",
+  "time": "08:14:04 PM",
+  "type": "MVC",
+  "address": "Kilauea Ave / 7th Ave",
+  "area": "Kaimuki"
+ },
+ {
+  "date": "10/01/2026",
+  "time": "07:58:22 PM",
+  "type": "MVC Veh Towed",
+  "address": "90 H1E FWY",
+  "location": "H1E FARR OP WAIAWA",
+  "area": "Waipahu"
+ },
+ {
+  "date": "10/01/2026",
+  "time": "07:57:25 PM",
+  "type": "MVC",
+  "address": "105 H1e Fwy",
+  "location": "H1E WAIMALU OFF",
+  "area": "Pearl City"
+ },
+ {
+  "date": "10/01/2026",
+  "time": "07:55:11 PM",
+  "type": "Stalled/Hazard Veh",
+  "address": "H2n Exit2 Ka Uka",
+  "location": "H2N EXIT2 KA UKA",
+  "area": "Pearl City"
+ },
+ {
+  "date": "10/01/2026",
+  "time": "07:45:18 PM",
+  "type": "Stalled/Hazard Veh",
+  "address": "305 W MOANALUA FWY",
+  "location": "MFW RED HILL OFF",
+  "area": "Moanalua V"
+ },
+ {
+  "date": "10/01/2026",
+  "time": "07:32:44 PM",
+  "type": "Traffic Complaint",
+  "address": "Kaamea St / Kaeele St",
+  "area": "Waipio"
+ }
+]

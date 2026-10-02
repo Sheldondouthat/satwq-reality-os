@@ -1,0 +1,1220 @@
+[
+ {
+  "reported_issue": "3443717",
+  "workorder_": "NPD-2026-16629",
+  "current_status": "new",
+  "open_date_time": "2026-09-28T08:55:00.000",
+  "days_to_close": "0",
+  "report_source": "Phone Answered",
+  "issue_type": "Property Violations",
+  "issue_sub_type": "Outside Storage of Inappropriate Items",
+  "department_work_group": "NHS Preservation",
+  "incident_address": "8605 Highland Ave Kansas City 64131",
+  "latitude": "38.970883730111",
+  "longitude": "-94.5683527900738",
+  "lat_long": {
+   "type": "Point",
+   "coordinates": [
+    -94.5683527900738,
+    38.970883730111
+   ]
+  },
+  "additional_questions": "{Did you witness this?\":\"YES\"}\"",
+  "last_updated": "2026-09-28T08:55:00.000",
+  "council_district": "5",
+  "source_category": "Staff (Internal)"
+ },
+ {
+  "reported_issue": "3443708",
+  "current_status": "new",
+  "open_date_time": "2026-09-28T08:48:00.000",
+  "days_to_close": "0",
+  "report_source": "Phone Answered",
+  "issue_type": "Health Code Violations",
+  "issue_sub_type": "Noise",
+  "department_work_group": "Health Environmental Services",
+  "incident_address": "10700 N McGee St Kansas City 64155",
+  "latitude": "39.2877754330871",
+  "longitude": "-94.5770331690117",
+  "lat_long": {
+   "type": "Point",
+   "coordinates": [
+    -94.5770331690117,
+    39.2877754330871
+   ]
+  },
+  "additional_questions": "{When did this occur?\":\"09-28-2026 08:47 AM\"|\"Is this an ongoing problem?\":\"NO\"|\"Type of noise\":\"Other\"}\"",
+  "last_updated": "2026-09-28T08:48:00.000",
+  "council_district": "1",
+  "source_category": "Staff (Internal)"
+ },
+ {
+  "reported_issue": "3443707",
+  "workorder_": "14235970",
+  "current_status": "new",
+  "open_date_time": "2026-09-28T08:48:00.000",
+  "days_to_close": "0",
+  "report_source": "Phone Answered",
+  "issue_type": "Sewer and Stormwater",
+  "issue_sub_type": "Storm Drain Cleaning",
+  "department_work_group": "WSD Stormwater Investigation",
+  "incident_address": "3412 Birchwood Dr Kansas City 64137",
+  "latitude": "38.9355784446386",
+  "longitude": "-94.5500207657674",
+  "lat_long": {
+   "type": "Point",
+   "coordinates": [
+    -94.5500207657674,
+    38.9355784446386
+   ]
+  },
+  "additional_questions": "{Problem\":\"Clogged\"|\"Location of the drain\":\"Curb\"|\"If item dropped is a phone| please provide alternative contact number\":\"1\"}\"",
+  "last_updated": "2026-09-28T08:48:00.000",
+  "council_district": "6",
+  "source_category": "Staff (Internal)"
+ },
+ {
+  "reported_issue": "3443706",
+  "current_status": "new",
+  "open_date_time": "2026-09-28T08:48:00.000",
+  "days_to_close": "0",
+  "report_source": "Phone Answered",
+  "issue_type": "Healthy Homes",
+  "issue_sub_type": "Rental Property  Healthy Homes Rental Inspection",
+  "department_work_group": "Health Environmental Services",
+  "incident_address": "4427 Holly St Kansas City 64111",
+  "latitude": "39.047007298902",
+  "longitude": "-94.6003183755534",
+  "lat_long": {
+   "type": "Point",
+   "coordinates": [
+    -94.6003183755534,
+    39.047007298902
+   ]
+  },
+  "additional_questions": "{What issues are the inside the home?\":\"Electrical\"|\"Is this an apartment complex?\":\"YES\"|\"If yes| provide the name of the complex\":\"Plaza LA Belle Apartments\"|\"If yes| provide the unit number\":\"F\"|\"Please provide contact information for the property management\":\"662-596-0591  Daniel Thompson\"|\"Is the property management aware of this issue?\":\"YES\"|\"Please verify the correct address\":\"4429 Holly St  Unit F Kansas City| Mo  64111\"}\"",
+  "last_updated": "2026-09-28T08:48:00.000",
+  "council_district": "6",
+  "source_category": "Staff (Internal)"
+ },
+ {
+  "reported_issue": "3443703",
+  "current_status": "new",
+  "open_date_time": "2026-09-28T08:43:00.000",
+  "days_to_close": "0",
+  "report_source": "iOS",
+  "issue_type": "Animal Services",
+  "issue_sub_type": "Dead Animal On or Within the Right of Way",
+  "department_work_group": "PW Solid Waste",
+  "incident_address": "4600 E 63rd St Kansas City 64130",
+  "latitude": "39.0132012059498",
+  "longitude": "-94.5319216788558",
+  "lat_long": {
+   "type": "Point",
+   "coordinates": [
+    -94.5319216788558,
+    39.0132012059498
+   ]
+  },
+  "additional_questions": "{Type of Animal\":\"Deer\"|\"Location of Animal\":\"Street\"|\"Please provide any additional information\":\"In median infront of parks and rec admin building \"}\"",
+  "last_updated": "2026-09-28T08:44:31.000",
+  "council_district": "5",
+  "source_category": "Public (External)"
+ },
+ {
+  "reported_issue": "3443701",
+  "workorder_": "NAS-2026-12494",
+  "current_status": "new",
+  "open_date_time": "2026-09-28T08:43:00.000",
+  "days_to_close": "0",
+  "report_source": "Phone Answered",
+  "issue_type": "Animal Services",
+  "issue_sub_type": "Animal on Animal Bite",
+  "department_work_group": "Animal Services",
+  "incident_address": "4551 Pennsylvania Ave Kansas City 64111",
+  "latitude": "39.0448515755106",
+  "longitude": "-94.5928303091064",
+  "lat_long": {
+   "type": "Point",
+   "coordinates": [
+    -94.5928303091064,
+    39.0448515755106
+   ]
+  },
+  "additional_questions": "{Aggressor\":\"Owned Dog\"|\"If any dog owner information is known| please enter it here\":\"May have been Door dash driver with two pit bulls in the back.  The windows were left down so the dog got out.  \"|\"Has the victim received medical attention?\":\"YES\"}\"",
+  "last_updated": "2026-09-28T08:43:00.000",
+  "council_district": "6",
+  "source_category": "Staff (Internal)"
+ },
+ {
+  "reported_issue": "3443702",
+  "current_status": "new",
+  "open_date_time": "2026-09-28T08:43:00.000",
+  "days_to_close": "0",
+  "report_source": "WEB RAI",
+  "issue_type": "Recycling Cart Program",
+  "issue_sub_type": "Damaged Cart",
+  "department_work_group": "PW Solid Waste",
+  "incident_address": "12020 NW Skyview Ave Kansas City 64164",
+  "latitude": "39.3117144812586",
+  "longitude": "-94.6491884558867",
+  "lat_long": {
+   "type": "Point",
+   "coordinates": [
+    -94.6491884558867,
+    39.3117144812586
+   ]
+  },
+  "additional_questions": "{What is damaged on your cart?\":\"Lid Broken\"|\"What is your cart number? The number begins with RPC.\":\"2469446\"|\"Are you an assisted stop? If so| please choose the location that your recycling cart is placed on your recycling day.\":\"No\"}\"",
+  "last_updated": "2026-09-28T08:54:00.000",
+  "council_district": "1",
+  "source_category": "Public (External)"
+ },
+ {
+  "reported_issue": "3443700",
+  "workorder_": "NAS-2026-12493",
+  "current_status": "new",
+  "open_date_time": "2026-09-28T08:42:00.000",
+  "days_to_close": "0",
+  "report_source": "Phone Answered",
+  "issue_type": "Animal Services",
+  "issue_sub_type": "Wildlife",
+  "department_work_group": "Animal Services",
+  "incident_address": "8820 Elm Ave Kansas City 64138",
+  "latitude": "38.9623952604109",
+  "longitude": "-94.4752345840079",
+  "lat_long": {
+   "type": "Point",
+   "coordinates": [
+    -94.4752345840079,
+    38.9623952604109
+   ]
+  },
+  "additional_questions": "{Wildlife Concern\":\"Bat| Fox| Raccoon| or Skunk inside Living Area\"}\"",
+  "last_updated": "2026-09-28T08:42:00.000",
+  "council_district": "5",
+  "source_category": "Staff (Internal)"
+ },
+ {
+  "reported_issue": "3443699",
+  "workorder_": "NPD-2026-16627",
+  "current_status": "new",
+  "open_date_time": "2026-09-28T08:42:00.000",
+  "days_to_close": "0",
+  "report_source": "iOS",
+  "issue_type": "Property Violations",
+  "issue_sub_type": "Weeds",
+  "department_work_group": "NHS Preservation",
+  "incident_address": "6701 NE Cotter Ave Kansas City 64119",
+  "latitude": "39.18655",
+  "longitude": "-94.501617",
+  "lat_long": {
+   "type": "Point",
+   "coordinates": [
+    -94.501617,
+    39.18655
+   ]
+  },
+  "additional_questions": "{Is this private property (not owned by the City| Land Bank| or Homesteading Authority)?\":\"Yes\"}\"",
+  "last_updated": "2026-09-28T08:42:55.000",
+  "council_district": "2",
+  "source_category": "Public (External)"
+ },
+ {
+  "reported_issue": "3443696",
+  "workorder_": "375196",
+  "current_status": "new",
+  "open_date_time": "2026-09-28T08:41:00.000",
+  "days_to_close": "0",
+  "report_source": "Phone Answered",
+  "issue_type": "Right-of-Way / Inspections",
+  "issue_sub_type": "Sidewalk Utility/Contractor Worksite",
+  "department_work_group": "PW Permits",
+  "incident_address": "5114 E 40th Ter Kansas City 64130",
+  "latitude": "39.0522836612227",
+  "longitude": "-94.5243897157327",
+  "lat_long": {
+   "type": "Point",
+   "coordinates": [
+    -94.5243897157327,
+    39.0522836612227
+   ]
+  },
+  "additional_questions": "{Issue\":\"Site Restoration\"}\"",
+  "last_updated": "2026-09-28T08:41:00.000",
+  "council_district": "3",
+  "source_category": "Staff (Internal)"
+ },
+ {
+  "reported_issue": "3443693",
+  "workorder_": "NAS-2026-12492",
+  "current_status": "new",
+  "open_date_time": "2026-09-28T08:40:00.000",
+  "days_to_close": "0",
+  "report_source": "Phone Answered",
+  "issue_type": "Animal Services",
+  "issue_sub_type": "Stray Confined",
+  "department_work_group": "Animal Services",
+  "incident_address": "5305 Oakleaf Dr BLD 24 Kansas City 64129",
+  "latitude": "39.0286136044661",
+  "longitude": "-94.5032802689647",
+  "lat_long": {
+   "type": "Point",
+   "coordinates": [
+    -94.5032802689647,
+    39.0286136044661
+   ]
+  },
+  "additional_questions": "{Description of the animal(s)\":\"Small - Black and white\"|\"Address or Intersection where animal was last seen\":\"5305 Oak Leaf Dr| apartment # 2 - Eastwood Crossing. \"}\"",
+  "last_updated": "2026-09-28T08:40:00.000",
+  "council_district": "3",
+  "source_category": "Staff (Internal)"
+ },
+ {
+  "reported_issue": "3443690",
+  "workorder_": "NAS-2026-12491",
+  "current_status": "new",
+  "open_date_time": "2026-09-28T08:39:00.000",
+  "days_to_close": "0",
+  "report_source": "Phone Answered",
+  "issue_type": "Animal Services",
+  "issue_sub_type": "Stray Confined",
+  "department_work_group": "Animal Services",
+  "incident_address": "8515 E 47th Ter Kansas City 64129",
+  "latitude": "39.0370496940389",
+  "longitude": "-94.4855143101741",
+  "lat_long": {
+   "type": "Point",
+   "coordinates": [
+    -94.4855143101741,
+    39.0370496940389
+   ]
+  },
+  "additional_questions": "{Description of the animal(s)\":\"Large dog\"|\"Address or Intersection where animal was last seen\":\"8515 E 47th Ter\"}\"",
+  "last_updated": "2026-09-28T08:39:00.000",
+  "council_district": "3",
+  "source_category": "Staff (Internal)"
+ },
+ {
+  "reported_issue": "3443684",
+  "workorder_": "NAS-2026-12490",
+  "current_status": "received",
+  "open_date_time": "2026-09-28T08:38:00.000",
+  "days_to_close": "0",
+  "report_source": "Android",
+  "issue_type": "Animal Services",
+  "issue_sub_type": "Stray At Large",
+  "department_work_group": "Animal Services",
+  "incident_address": "5017 E 24th St Kansas City 64127",
+  "latitude": "39.0816943239185",
+  "longitude": "-94.5238186379021",
+  "lat_long": {
+   "type": "Point",
+   "coordinates": [
+    -94.5238186379021,
+    39.0816943239185
+   ]
+  },
+  "additional_questions": "{Stray Type\":\"Needs Rescued\"|\"Description of the animal(s)\":\"pregnant orange\\/brown dog\"|\"Address or Intersection where animal was last seen\":\"24th and Quincy \"}\"",
+  "last_updated": "2026-09-28T08:45:19.000",
+  "council_district": "3",
+  "source_category": "Public (External)"
+ },
+ {
+  "reported_issue": "3443683",
+  "workorder_": "14235962",
+  "current_status": "new",
+  "open_date_time": "2026-09-28T08:38:00.000",
+  "days_to_close": "0",
+  "report_source": "Phone Answered",
+  "issue_type": "Water Service",
+  "issue_sub_type": "Street/Yard Leak or Repair Issue",
+  "department_work_group": "WSD Leak Investigation",
+  "incident_address": "8312 E 91st St Kansas City 64138",
+  "latitude": "38.9586952476721",
+  "longitude": "-94.4929439070172",
+  "lat_long": {
+   "type": "Point",
+   "coordinates": [
+    -94.4929439070172,
+    38.9586952476721
+   ]
+  },
+  "additional_questions": "{Leak or Issue Location\":\"In Yard\"|\"Type of Flow or Issue\":\"Streaming\"|\"Is Leak Causing Damage?\":\"NO\"|\"Is Issue From a Previous Repair?\":\"NO\"}\"",
+  "last_updated": "2026-09-28T08:38:00.000",
+  "council_district": "5",
+  "source_category": "Staff (Internal)"
+ },
+ {
+  "reported_issue": "3443676",
+  "current_status": "new",
+  "open_date_time": "2026-09-28T08:37:00.000",
+  "days_to_close": "0",
+  "report_source": "iOS",
+  "issue_type": "Trash Cart Program",
+  "issue_sub_type": "Damaged Trash Cart",
+  "department_work_group": "PW Solid Waste",
+  "incident_address": "12020 NW Skyview Ave Kansas City 64164",
+  "latitude": "39.3117144812586",
+  "longitude": "-94.6491884558867",
+  "lat_long": {
+   "type": "Point",
+   "coordinates": [
+    -94.6491884558867,
+    39.3117144812586
+   ]
+  },
+  "additional_questions": "{What is damaged on your trash cart?\":\"Container Broken\\/Cracked\"|\"What is your cart number? The number begins with RPC.\":\"6209331\"|\"Are you an assisted stop location?\":\"No\"}\"",
+  "last_updated": "2026-09-28T08:54:16.000",
+  "council_district": "1",
+  "source_category": "Public (External)"
+ },
+ {
+  "reported_issue": "3443675",
+  "workorder_": "3443675",
+  "current_status": "Received",
+  "open_date_time": "2026-09-28T08:36:00.000",
+  "days_to_close": "0",
+  "report_source": "Phone Answered",
+  "issue_type": "Trash  Recycling  Bulky Services",
+  "issue_sub_type": "Missed Trash",
+  "department_work_group": "PW Solid Waste",
+  "incident_address": "11200 Bennington Ave Kansas City 64134",
+  "latitude": "38.9208173090263",
+  "longitude": "-94.5143843781876",
+  "lat_long": {
+   "type": "Point",
+   "coordinates": [
+    -94.5143843781876,
+    38.9208173090263
+   ]
+  },
+  "additional_questions": "{Commodity\":\"Trash MSW\"|\"What is your regular trash day?\":\"Friday\"|\"Which Trash Area are you located in?\":\"South (South of 63rd St and East of Blue Ridge Cut Off)\"}\"",
+  "last_updated": "2026-09-28T08:36:00.000",
+  "council_district": "5",
+  "source_category": "Staff (Internal)"
+ },
+ {
+  "reported_issue": "3443671",
+  "current_status": "new",
+  "open_date_time": "2026-09-28T08:34:00.000",
+  "days_to_close": "0",
+  "report_source": "iOS",
+  "issue_type": "Illegal Dumping",
+  "issue_sub_type": "NPD Illegal Dumping Abatement",
+  "department_work_group": "PW Solid Waste",
+  "incident_address": "1464 E 67th St Kansas City 64131",
+  "latitude": "39.005981",
+  "longitude": "-94.567528",
+  "lat_long": {
+   "type": "Point",
+   "coordinates": [
+    -94.567528,
+    39.005981
+   ]
+  },
+  "additional_questions": "{What needs to be cleared?\":\"Trash Bags| Trash| Bulky Items\"}\"",
+  "last_updated": "2026-09-28T08:34:07.000",
+  "council_district": "5",
+  "source_category": "Public (External)"
+ },
+ {
+  "reported_issue": "3443670",
+  "current_status": "new",
+  "open_date_time": "2026-09-28T08:33:00.000",
+  "days_to_close": "0",
+  "report_source": "Phone Answered",
+  "issue_type": "Food Safety",
+  "issue_sub_type": "Other",
+  "department_work_group": "Health Food Safety",
+  "additional_questions": "{Location Description| including address if applicable\":\"8744 Blue Ridge Blvd 64138\"|\"When did you visit?\":\"09-18-2026 05:00 PM\"}\"",
+  "last_updated": "2026-09-28T08:33:00.000",
+  "source_category": "Staff (Internal)"
+ },
+ {
+  "reported_issue": "3443666",
+  "current_status": "new",
+  "open_date_time": "2026-09-28T08:32:00.000",
+  "days_to_close": "0",
+  "report_source": "Phone Answered",
+  "issue_type": "Animal Services",
+  "issue_sub_type": "Dead Animal On or Within the Right of Way",
+  "department_work_group": "PW Solid Waste",
+  "incident_address": "8513 E 108th Ter Kansas City 64134",
+  "latitude": "38.9265005272994",
+  "longitude": "-94.4921377905812",
+  "lat_long": {
+   "type": "Point",
+   "coordinates": [
+    -94.4921377905812,
+    38.9265005272994
+   ]
+  },
+  "additional_questions": "{Type of Animal\":\"Cat\"|\"Location of Animal\":\"Right of Way\"|\"Please provide any additional information\":\"dead cat on ROW\"}\"",
+  "last_updated": "2026-09-28T08:32:00.000",
+  "council_district": "5",
+  "source_category": "Staff (Internal)"
+ },
+ {
+  "reported_issue": "3443663",
+  "workorder_": "375195",
+  "current_status": "received",
+  "open_date_time": "2026-09-28T08:31:00.000",
+  "days_to_close": "0",
+  "report_source": "iOS",
+  "issue_type": "Trees City Row",
+  "issue_sub_type": "Dead Tree",
+  "department_work_group": "Parks and Recreation - Forestry",
+  "incident_address": "3417 Birchwood Dr Kansas City 64137",
+  "latitude": "38.935425",
+  "longitude": "-94.54974",
+  "lat_long": {
+   "type": "Point",
+   "coordinates": [
+    -94.54974,
+    38.935425
+   ]
+  },
+  "last_updated": "2026-09-28T08:32:07.000",
+  "council_district": "6",
+  "source_category": "Public (External)"
+ },
+ {
+  "reported_issue": "3443662",
+  "current_status": "new",
+  "open_date_time": "2026-09-28T08:31:00.000",
+  "days_to_close": "0",
+  "report_source": "Phone Answered",
+  "issue_type": "Solid Waste Services",
+  "issue_sub_type": "Request for Assistance Stop",
+  "department_work_group": "PW Solid Waste",
+  "incident_address": "3306 Askew Ave Kansas City 64128",
+  "latitude": "39.0655375989612",
+  "longitude": "-94.5418719472282",
+  "lat_long": {
+   "type": "Point",
+   "coordinates": [
+    -94.5418719472282,
+    39.0655375989612
+   ]
+  },
+  "additional_questions": "{Requester Name\":\"David & Deborah Hansen\"|\"Requester Email\":\"jazzvoix@mindspring.com\"|\"Requester Phone\":\"816-529-6793\"|\"What type of request is this?\":\"Start Assistance Stop\"}\"",
+  "last_updated": "2026-09-28T08:31:00.000",
+  "council_district": "3",
+  "source_category": "Staff (Internal)"
+ },
+ {
+  "reported_issue": "3443659",
+  "current_status": "new",
+  "open_date_time": "2026-09-28T08:30:00.000",
+  "days_to_close": "0",
+  "report_source": "Phone Answered",
+  "issue_type": "Trash Cart Program",
+  "issue_sub_type": "Trash Cart Needed",
+  "department_work_group": "PW Solid Waste",
+  "incident_address": "8522 Euclid Ave Kansas City 64132",
+  "latitude": "38.9719218609233",
+  "longitude": "-94.5653683407483",
+  "lat_long": {
+   "type": "Point",
+   "coordinates": [
+    -94.5653683407483,
+    38.9719218609233
+   ]
+  },
+  "additional_questions": "{Are you an assisted stop? If so| where is your collection location?\":\"No\"|\"Is this a duplex| tri plex or multi-family?\":\"NO\"|\"New Construction? (Either a certificate of occupancy or temporary certificate of occupancy needs to be issued by City Planning Department to be eligible for trash\\/recycling\\/bulky services)\":\"NO\"|\"Which Trash Area are you located in?\":\"South (South of 63rd Street and East of Blue Ridge Cut Off)\"|\"What is your trash day?\":\"Tuesday\"}\"",
+  "last_updated": "2026-09-28T08:30:00.000",
+  "council_district": "5",
+  "source_category": "Staff (Internal)"
+ },
+ {
+  "reported_issue": "3443658",
+  "current_status": "new",
+  "open_date_time": "2026-09-28T08:30:00.000",
+  "days_to_close": "0",
+  "report_source": "Phone Answered",
+  "issue_type": "Recycling Cart Program",
+  "issue_sub_type": "Cart Removal - Do Not Want A Recycling Cart",
+  "department_work_group": "PW Solid Waste",
+  "incident_address": "8522 Euclid Ave Kansas City 64132",
+  "latitude": "38.9719218609233",
+  "longitude": "-94.5653683407483",
+  "lat_long": {
+   "type": "Point",
+   "coordinates": [
+    -94.5653683407483,
+    38.9719218609233
+   ]
+  },
+  "additional_questions": "{Number of Carts - Each valid dwelling unit was to receive one cart\":\"1 cart\"|\"What is your cart number? The number begins with RPC.\":\"3205864\"|\"Are you an assisted stop? If so| please choose the location that your recycling cart is placed on your recycling day.\":\"No\"|\"Why are you returning your cart?\":\"Second Cart was delivered.\"}\"",
+  "last_updated": "2026-09-28T08:30:00.000",
+  "council_district": "5",
+  "source_category": "Staff (Internal)"
+ },
+ {
+  "reported_issue": "3443657",
+  "workorder_": "NID-2026-01089",
+  "current_status": "received",
+  "open_date_time": "2026-09-28T08:30:00.000",
+  "days_to_close": "0",
+  "report_source": "Android",
+  "issue_type": "Illegal Dumping",
+  "issue_sub_type": "Dumping in a Right of Way",
+  "department_work_group": "NHS Illegal Dumping",
+  "incident_address": "5302 Michigan Ave Kansas City 64130",
+  "latitude": "39.0302775173835",
+  "longitude": "-94.5632643252611",
+  "lat_long": {
+   "type": "Point",
+   "coordinates": [
+    -94.5632643252611,
+    39.0302775173835
+   ]
+  },
+  "additional_questions": "{What has been dumped\":\"Bulky Items (without appointment)| Other\"|\"Where are the items\":\"Between the Curb and Sidewalk\"|\"Did you see the dumping occurring\":\"NO\"}\"",
+  "last_updated": "2026-09-28T08:32:04.000",
+  "council_district": "5",
+  "source_category": "Public (External)"
+ },
+ {
+  "reported_issue": "3443644",
+  "workorder_": "375194",
+  "current_status": "new",
+  "open_date_time": "2026-09-28T08:25:00.000",
+  "days_to_close": "0",
+  "report_source": "Phone Answered",
+  "issue_type": "Right-of-Way / Inspections",
+  "issue_sub_type": "Sidewalk Utility/Contractor Worksite",
+  "department_work_group": "PW Permits",
+  "incident_address": "923 W 33rd St Kansas City 64111",
+  "latitude": "39.0675633226973",
+  "longitude": "-94.5972803717964",
+  "lat_long": {
+   "type": "Point",
+   "coordinates": [
+    -94.5972803717964,
+    39.0675633226973
+   ]
+  },
+  "additional_questions": "{Issue\":\"Site Restoration\"}\"",
+  "last_updated": "2026-09-28T08:25:00.000",
+  "council_district": "4",
+  "source_category": "Staff (Internal)"
+ },
+ {
+  "reported_issue": "3443639",
+  "workorder_": "375192",
+  "current_status": "received",
+  "open_date_time": "2026-09-28T08:23:00.000",
+  "days_to_close": "0",
+  "report_source": "Phone Answered",
+  "issue_type": "Trees City Row",
+  "issue_sub_type": "Limbs Down",
+  "department_work_group": "Parks and Recreation - Forestry",
+  "incident_address": "5555 Cambridge Ext Kansas City 64129",
+  "latitude": "39.0231687560521",
+  "longitude": "-94.504068602135",
+  "lat_long": {
+   "type": "Point",
+   "coordinates": [
+    -94.504068602135,
+    39.0231687560521
+   ]
+  },
+  "additional_questions": "{Is the limb blocking the street?\":\"YES\"|\"Is the limb on a vehicle?\":\"NO\"|\"Is the limb on a power line?\":\"NO\"|\"Is the limb blocking the driveway?\":\"NO\"}\"",
+  "last_updated": "2026-09-28T08:31:15.000",
+  "council_district": "5",
+  "source_category": "Staff (Internal)"
+ },
+ {
+  "reported_issue": "3443634",
+  "current_status": "new",
+  "open_date_time": "2026-09-28T08:20:00.000",
+  "days_to_close": "0",
+  "report_source": "Phone Answered",
+  "issue_type": "Trash  Recycling  Bulky Services",
+  "issue_sub_type": "Missed Recycling",
+  "department_work_group": "PW Solid Waste",
+  "incident_address": "5519 Prospect Ave Kansas City 64130",
+  "latitude": "39.0258515643253",
+  "longitude": "-94.5549236245882",
+  "lat_long": {
+   "type": "Point",
+   "coordinates": [
+    -94.5549236245882,
+    39.0258515643253
+   ]
+  },
+  "additional_questions": "{What is your regular recycling day?\":\"Friday\"|\"Which Recycling Area area are you located in?\":\"Central (South of Missouri River to 63rd Street and West of Blue Ridge Cut Off)\"}\"",
+  "last_updated": "2026-09-28T08:20:00.000",
+  "council_district": "5",
+  "source_category": "Staff (Internal)"
+ },
+ {
+  "reported_issue": "3443629",
+  "current_status": "new",
+  "open_date_time": "2026-09-28T08:18:00.000",
+  "days_to_close": "0",
+  "report_source": "Phone Answered",
+  "issue_type": "Recycling Cart Program",
+  "issue_sub_type": "Cart Removal - Do Not Want A Recycling Cart",
+  "department_work_group": "PW Solid Waste",
+  "incident_address": "3525 Walnut St Kansas City 64111",
+  "latitude": "39.0625538750284",
+  "longitude": "-94.5842244954082",
+  "lat_long": {
+   "type": "Point",
+   "coordinates": [
+    -94.5842244954082,
+    39.0625538750284
+   ]
+  },
+  "additional_questions": "{Number of Carts - Each valid dwelling unit was to receive one cart\":\"1 cart\"|\"What is your cart number? The number begins with RPC.\":\"n\\/a\"|\"Are you an assisted stop? If so| please choose the location that your recycling cart is placed on your recycling day.\":\"No\"|\"Why are you returning your cart?\":\"Second Cart was delivered.\"}\"",
+  "last_updated": "2026-09-28T08:18:00.000",
+  "council_district": "4",
+  "source_category": "Staff (Internal)"
+ },
+ {
+  "reported_issue": "3443620",
+  "workorder_": "3443620",
+  "current_status": "Received",
+  "open_date_time": "2026-09-28T08:15:00.000",
+  "days_to_close": "0",
+  "report_source": "Phone Answered",
+  "issue_type": "Trash  Recycling  Bulky Services",
+  "issue_sub_type": "Missed Trash",
+  "department_work_group": "PW Solid Waste",
+  "incident_address": "6100 N Cypress Ave Kansas City 64119",
+  "latitude": "39.2044033267476",
+  "longitude": "-94.5264063301533",
+  "lat_long": {
+   "type": "Point",
+   "coordinates": [
+    -94.5264063301533,
+    39.2044033267476
+   ]
+  },
+  "additional_questions": "{Commodity\":\"Trash MSW\"|\"What is your regular trash day?\":\"Friday\"|\"Which Trash Area are you located in?\":\"North (North of Missouri River)\"}\"",
+  "last_updated": "2026-09-28T08:15:00.000",
+  "council_district": "2",
+  "source_category": "Staff (Internal)"
+ },
+ {
+  "reported_issue": "3443622",
+  "workorder_": "375189",
+  "current_status": "received",
+  "open_date_time": "2026-09-28T08:15:00.000",
+  "days_to_close": "0",
+  "report_source": "WEB RAI",
+  "issue_type": "Trees City Row",
+  "issue_sub_type": "Dead Tree",
+  "department_work_group": "Parks and Recreation - Forestry",
+  "incident_address": "146 N Oakley Ave Kansas City 64123",
+  "latitude": "39.114066375523",
+  "longitude": "-94.5165281576752",
+  "lat_long": {
+   "type": "Point",
+   "coordinates": [
+    -94.5165281576752,
+    39.114066375523
+   ]
+  },
+  "last_updated": "2026-09-28T08:31:15.000",
+  "council_district": "4",
+  "source_category": "Public (External)"
+ },
+ {
+  "reported_issue": "3443618",
+  "workorder_": "NPDBU-2026-00892",
+  "current_status": "received",
+  "open_date_time": "2026-09-28T08:14:00.000",
+  "days_to_close": "0",
+  "report_source": "Phone Answered",
+  "issue_type": "Property Violations",
+  "issue_sub_type": "Open to Entry",
+  "department_work_group": "NHS Preservation",
+  "incident_address": "5112 E 42nd St Kansas City 64130",
+  "latitude": "39.0499133735237",
+  "longitude": "-94.5247135143074",
+  "lat_long": {
+   "type": "Point",
+   "coordinates": [
+    -94.5247135143074,
+    39.0499133735237
+   ]
+  },
+  "additional_questions": "{Have people been seen entering\\/exiting this building?\":\"YES\"}\"",
+  "last_updated": "2026-09-28T08:36:52.000",
+  "council_district": "3",
+  "source_category": "Staff (Internal)"
+ },
+ {
+  "reported_issue": "3443617",
+  "workorder_": "NAS-2026-12489",
+  "current_status": "received",
+  "open_date_time": "2026-09-28T08:13:00.000",
+  "days_to_close": "0",
+  "report_source": "Phone Answered",
+  "issue_type": "Animal Services",
+  "issue_sub_type": "Stray Confined",
+  "department_work_group": "Animal Services",
+  "incident_address": "5412 E 16th St Kansas City 64127",
+  "latitude": "39.0930480665886",
+  "longitude": "-94.5187608018436",
+  "lat_long": {
+   "type": "Point",
+   "coordinates": [
+    -94.5187608018436,
+    39.0930480665886
+   ]
+  },
+  "additional_questions": "{Description of the animal(s)\":\"chihuahua  about two months old.  \"|\"Address or Intersection where animal was last seen\":\"5412 E 16th St\"}\"",
+  "last_updated": "2026-09-28T08:24:58.000",
+  "council_district": "3",
+  "source_category": "Staff (Internal)"
+ },
+ {
+  "reported_issue": "3443614",
+  "workorder_": "NPDBU-2026-00891",
+  "current_status": "received",
+  "open_date_time": "2026-09-28T08:12:00.000",
+  "days_to_close": "0",
+  "report_source": "Phone Answered",
+  "issue_type": "Property Violations",
+  "issue_sub_type": "Open to Entry",
+  "department_work_group": "NHS Preservation",
+  "incident_address": "718 Monroe Ave Kansas City 64124",
+  "latitude": "39.1033118884157",
+  "longitude": "-94.5391928063204",
+  "lat_long": {
+   "type": "Point",
+   "coordinates": [
+    -94.5391928063204,
+    39.1033118884157
+   ]
+  },
+  "additional_questions": "{Have people been seen entering\\/exiting this building?\":\"YES\"}\"",
+  "last_updated": "2026-09-28T08:36:54.000",
+  "council_district": "3",
+  "source_category": "Staff (Internal)"
+ },
+ {
+  "reported_issue": "3443612",
+  "workorder_": "NID-2026-01088",
+  "current_status": "received",
+  "open_date_time": "2026-09-28T08:10:00.000",
+  "days_to_close": "0",
+  "report_source": "Phone Answered",
+  "issue_type": "Illegal Dumping",
+  "issue_sub_type": "Dumping in a Right of Way",
+  "department_work_group": "NHS Illegal Dumping",
+  "incident_address": "4712 N Bristol Ave Kansas City 64117",
+  "latitude": "39.1796913521624",
+  "longitude": "-94.4979805811537",
+  "lat_long": {
+   "type": "Point",
+   "coordinates": [
+    -94.4979805811537,
+    39.1796913521624
+   ]
+  },
+  "additional_questions": "{What has been dumped\":\"Trash\"|\"Where are the items\":\"Between the Curb and Sidewalk\"|\"Did you see the dumping occurring\":\"YES\"}\"",
+  "last_updated": "2026-09-28T08:28:15.000",
+  "council_district": "2",
+  "source_category": "Staff (Internal)"
+ },
+ {
+  "reported_issue": "3443603",
+  "current_status": "new",
+  "open_date_time": "2026-09-28T08:07:00.000",
+  "days_to_close": "0",
+  "report_source": "Phone Answered",
+  "issue_type": "Trash  Recycling  Bulky Services",
+  "issue_sub_type": "Missed Recycling",
+  "department_work_group": "PW Solid Waste",
+  "incident_address": "6204 Longview Rd Kansas City 64134",
+  "latitude": "38.9161485501043",
+  "longitude": "-94.5181372801821",
+  "lat_long": {
+   "type": "Point",
+   "coordinates": [
+    -94.5181372801821,
+    38.9161485501043
+   ]
+  },
+  "additional_questions": "{What is your regular recycling day?\":\"Friday\"|\"Which Recycling Area area are you located in?\":\"South (South of 63rd Street and East of Blue Ridge Cut Off)\"}\"",
+  "last_updated": "2026-09-28T08:07:00.000",
+  "council_district": "5",
+  "source_category": "Staff (Internal)"
+ },
+ {
+  "reported_issue": "3443606",
+  "current_status": "assigned",
+  "open_date_time": "2026-09-28T08:07:00.000",
+  "days_to_close": "0",
+  "report_source": "iOS",
+  "issue_type": "Trash  Recycling  Bulky Services",
+  "issue_sub_type": "Missed Recycling",
+  "department_work_group": "PW Solid Waste",
+  "incident_address": "7807 E 118th Ter Kansas City 64134",
+  "latitude": "38.9079086395059",
+  "longitude": "-94.5017438369095",
+  "lat_long": {
+   "type": "Point",
+   "coordinates": [
+    -94.5017438369095,
+    38.9079086395059
+   ]
+  },
+  "additional_questions": "{What is your regular recycling day?\":\"Friday\"|\"Which Recycling Area area are you located in?\":\"South (South of 63rd Street and East of Blue Ridge Cut Off)\"}\"",
+  "last_updated": "2026-09-28T08:26:20.000",
+  "council_district": "5",
+  "source_category": "Public (External)"
+ },
+ {
+  "reported_issue": "3443597",
+  "workorder_": "375188",
+  "current_status": "received",
+  "open_date_time": "2026-09-28T08:05:00.000",
+  "days_to_close": "0",
+  "report_source": "iOS",
+  "issue_type": "Trees City Row",
+  "issue_sub_type": "Limbs Down",
+  "department_work_group": "Parks and Recreation - Forestry",
+  "incident_address": "5429 Garfield Ave Kansas City 64130",
+  "latitude": "39.027579",
+  "longitude": "-94.560596",
+  "lat_long": {
+   "type": "Point",
+   "coordinates": [
+    -94.560596,
+    39.027579
+   ]
+  },
+  "additional_questions": "{Is the limb blocking the street?\":\"No\"|\"Is the limb on a vehicle?\":\"No\"|\"Is the limb on a power line?\":\"No\"|\"Is the limb blocking the driveway?\":\"No\"}\"",
+  "last_updated": "2026-09-28T08:31:16.000",
+  "council_district": "5",
+  "source_category": "Public (External)"
+ },
+ {
+  "reported_issue": "3443594",
+  "current_status": "new",
+  "open_date_time": "2026-09-28T08:04:00.000",
+  "days_to_close": "0",
+  "report_source": "Phone Answered",
+  "issue_type": "Trash  Recycling  Bulky Services",
+  "issue_sub_type": "Bulky Cancellation",
+  "department_work_group": "PW Solid Waste",
+  "incident_address": "4227 Greenwood Pl Kansas City 64111",
+  "latitude": "39.0514353333437",
+  "longitude": "-94.5979916137278",
+  "lat_long": {
+   "type": "Point",
+   "coordinates": [
+    -94.5979916137278,
+    39.0514353333437
+   ]
+  },
+  "additional_questions": "{Please choose the appointment date you want to cancel\":\"09-28-2026\"|\"Please provide reservation ID Number\":\"26091809415812\"}\"",
+  "last_updated": "2026-09-28T08:04:00.000",
+  "council_district": "4",
+  "source_category": "Staff (Internal)"
+ },
+ {
+  "reported_issue": "3443590",
+  "workorder_": "14235950",
+  "current_status": "new",
+  "open_date_time": "2026-09-28T08:00:00.000",
+  "days_to_close": "0",
+  "report_source": "Phone Answered",
+  "issue_type": "Water Service",
+  "issue_sub_type": "Meter Leak or Issue",
+  "department_work_group": "WSD Meter and Field Services",
+  "incident_address": "3601 Charlotte St Kansas City 64109",
+  "latitude": "39.0613607290694",
+  "longitude": "-94.5750170723432",
+  "lat_long": {
+   "type": "Point",
+   "coordinates": [
+    -94.5750170723432,
+    39.0613607290694
+   ]
+  },
+  "additional_questions": "{Meter Problem\":\"Leaking\"|\"Meter Location\":\"Outside\"}\"",
+  "last_updated": "2026-09-28T08:00:00.000",
+  "council_district": "4",
+  "source_category": "Staff (Internal)"
+ },
+ {
+  "reported_issue": "3443588",
+  "workorder_": "375187",
+  "current_status": "received",
+  "open_date_time": "2026-09-28T07:58:00.000",
+  "days_to_close": "0",
+  "report_source": "iOS",
+  "issue_type": "Trees City Row",
+  "issue_sub_type": "Trimming",
+  "department_work_group": "Parks and Recreation - Forestry",
+  "incident_address": "8196 N Kirkwood Dr Kansas City 64151",
+  "latitude": "39.243134",
+  "longitude": "-94.637036",
+  "lat_long": {
+   "type": "Point",
+   "coordinates": [
+    -94.637036,
+    39.243134
+   ]
+  },
+  "additional_questions": "{Is the tree in the City Right of Way (between the curb and the sidewalk)?\":\"Yes\"|\"Approximate Number of Trees\":\"1\"|\"Are the tree limbs blocking visibility of signs| signals| or at an intersection?\":\"No\"}\"",
+  "last_updated": "2026-09-28T07:59:37.000",
+  "council_district": "2",
+  "source_category": "Public (External)"
+ },
+ {
+  "reported_issue": "3443587",
+  "workorder_": "375186",
+  "current_status": "received",
+  "open_date_time": "2026-09-28T07:57:00.000",
+  "days_to_close": "0",
+  "report_source": "iOS",
+  "issue_type": "Trees City Row",
+  "issue_sub_type": "Dead Tree",
+  "department_work_group": "Parks and Recreation - Forestry",
+  "incident_address": "5301 Budd Park Esplanade Kansas City 64124",
+  "latitude": "39.109671",
+  "longitude": "-94.519981",
+  "lat_long": {
+   "type": "Point",
+   "coordinates": [
+    -94.519981,
+    39.109671
+   ]
+  },
+  "last_updated": "2026-09-28T08:04:25.000",
+  "council_district": "4",
+  "source_category": "Public (External)"
+ },
+ {
+  "reported_issue": "3443581",
+  "workorder_": "375185",
+  "current_status": "received",
+  "open_date_time": "2026-09-28T07:55:00.000",
+  "days_to_close": "0",
+  "report_source": "iOS",
+  "issue_type": "Trees City Row",
+  "issue_sub_type": "Declining Tree",
+  "department_work_group": "Parks and Recreation - Forestry",
+  "incident_address": "5301 Budd Park Esplanade Kansas City 64124",
+  "latitude": "39.109623",
+  "longitude": "-94.519998",
+  "lat_long": {
+   "type": "Point",
+   "coordinates": [
+    -94.519998,
+    39.109623
+   ]
+  },
+  "last_updated": "2026-09-28T07:55:37.000",
+  "council_district": "4",
+  "source_category": "Public (External)"
+ },
+ {
+  "reported_issue": "3443574",
+  "workorder_": "375184",
+  "current_status": "received",
+  "open_date_time": "2026-09-28T07:52:00.000",
+  "days_to_close": "0",
+  "report_source": "iOS",
+  "issue_type": "Trees City Row",
+  "issue_sub_type": "Stump Removal",
+  "department_work_group": "Parks and Recreation - Forestry",
+  "incident_address": "5309 Budd Park Esplanade Kansas City 64124",
+  "latitude": "39.109814",
+  "longitude": "-94.519502",
+  "lat_long": {
+   "type": "Point",
+   "coordinates": [
+    -94.519502,
+    39.109814
+   ]
+  },
+  "last_updated": "2026-09-28T07:52:59.000",
+  "council_district": "4",
+  "source_category": "Public (External)"
+ },
+ {
+  "reported_issue": "3443566",
+  "workorder_": "375183",
+  "current_status": "received",
+  "open_date_time": "2026-09-28T07:44:00.000",
+  "days_to_close": "0",
+  "report_source": "iOS",
+  "issue_type": "A Pothole",
+  "issue_sub_type": "Pothole in the Street",
+  "department_work_group": "PW Streets",
+  "incident_address": "4300 E 155th St Kansas City 64147",
+  "latitude": "38.844296",
+  "longitude": "-94.545094",
+  "lat_long": {
+   "type": "Point",
+   "coordinates": [
+    -94.545094,
+    38.844296
+   ]
+  },
+  "additional_questions": "{Number of Potholes\":\"One pothole\"}\"",
+  "last_updated": "2026-09-28T07:44:27.000",
+  "council_district": "6",
+  "source_category": "Public (External)"
+ },
+ {
+  "reported_issue": "3443544",
+  "workorder_": "375180",
+  "current_status": "received",
+  "open_date_time": "2026-09-28T07:27:00.000",
+  "days_to_close": "0",
+  "report_source": "WEB RAI",
+  "issue_type": "Trees City Row",
+  "issue_sub_type": "Declining Tree",
+  "department_work_group": "Parks and Recreation - Forestry",
+  "incident_address": "102 W 116th St Kansas City 64114",
+  "latitude": "38.9161357947665",
+  "longitude": "-94.5949102765806",
+  "lat_long": {
+   "type": "Point",
+   "coordinates": [
+    -94.5949102765806,
+    38.9161357947665
+   ]
+  },
+  "last_updated": "2026-09-28T07:49:15.000",
+  "council_district": "6",
+  "source_category": "Public (External)"
+ },
+ {
+  "reported_issue": "3443541",
+  "workorder_": "14235948",
+  "current_status": "new",
+  "open_date_time": "2026-09-28T07:25:00.000",
+  "days_to_close": "0",
+  "report_source": "Phone Answered",
+  "issue_type": "Water Service",
+  "issue_sub_type": "No Water",
+  "department_work_group": "WSD Meter and Field Services",
+  "incident_address": "2911 Main St Kansas City 64108",
+  "latitude": "39.074117341884",
+  "longitude": "-94.5844980305992",
+  "lat_long": {
+   "type": "Point",
+   "coordinates": [
+    -94.5844980305992,
+    39.074117341884
+   ]
+  },
+  "additional_questions": "{When did you experience the loss of service?\":\"09-28-2026 07:24 AM\"|\"Do you know if others in your area are without water?\":\"NO\"}\"",
+  "last_updated": "2026-09-28T07:25:00.000",
+  "council_district": "4",
+  "source_category": "Staff (Internal)"
+ },
+ {
+  "reported_issue": "3443535",
+  "workorder_": "375179",
+  "current_status": "received",
+  "open_date_time": "2026-09-28T07:22:00.000",
+  "days_to_close": "0",
+  "report_source": "WEB RAI",
+  "issue_type": "Trees City Row",
+  "issue_sub_type": "Limbs Down",
+  "department_work_group": "Parks and Recreation - Forestry",
+  "incident_address": "102 W 116th St Kansas City 64114",
+  "latitude": "38.9161357947665",
+  "longitude": "-94.5949102765806",
+  "lat_long": {
+   "type": "Point",
+   "coordinates": [
+    -94.5949102765806,
+    38.9161357947665
+   ]
+  },
+  "additional_questions": "{Is the limb blocking the street?\":\"YES\"|\"Is the limb on a vehicle?\":\"NO\"|\"Is the limb on a power line?\":\"NO\"|\"Is the limb blocking the driveway?\":\"YES\"}\"",
+  "last_updated": "2026-09-28T08:15:53.000",
+  "council_district": "6",
+  "source_category": "Public (External)"
+ },
+ {
+  "reported_issue": "3443495",
+  "workorder_": "NAS-2026-12488",
+  "current_status": "received",
+  "open_date_time": "2026-09-28T06:45:00.000",
+  "days_to_close": "0",
+  "report_source": "Phone Answered",
+  "issue_type": "Animal Services",
+  "issue_sub_type": "Government Agency Assist",
+  "department_work_group": "Animal Services",
+  "incident_address": "4110 Main St Kansas City 64111",
+  "latitude": "39.0513396570362",
+  "longitude": "-94.5867834017779",
+  "lat_long": {
+   "type": "Point",
+   "coordinates": [
+    -94.5867834017779,
+    39.0513396570362
+   ]
+  },
+  "additional_questions": "{Agency Type\":\"KCPD\"}\"",
+  "last_updated": "2026-09-28T08:19:53.000",
+  "council_district": "4",
+  "source_category": "Staff (Internal)"
+ },
+ {
+  "reported_issue": "3443494",
+  "workorder_": "NAS-2026-12487",
+  "current_status": "resolved",
+  "open_date_time": "2026-09-28T06:42:00.000",
+  "resolved_date": "2026-09-28T00:00:00.000",
+  "days_to_close": "0",
+  "report_source": "Phone Answered",
+  "issue_type": "Animal Services",
+  "issue_sub_type": "Stray At Large",
+  "department_work_group": "Animal Services",
+  "incident_address": "6300 Bellefontaine Ave Kansas City 64132",
+  "latitude": "39.0120913330283",
+  "longitude": "-94.550661649065",
+  "lat_long": {
+   "type": "Point",
+   "coordinates": [
+    -94.550661649065,
+    39.0120913330283
+   ]
+  },
+  "additional_questions": "{Stray Type\":\"Needs Rescued\"|\"Description of the animal(s)\":\"Cat\"|\"Address or Intersection where animal was last seen\":\"63rd & Bellefontaine\"}\"",
+  "last_updated": "2026-09-28T07:50:04.000",
+  "council_district": "5",
+  "source_category": "Staff (Internal)"
+ },
+ {
+  "reported_issue": "3443464",
+  "workorder_": "CPIN-PC-2026-00667",
+  "current_status": "new",
+  "open_date_time": "2026-09-28T06:07:00.000",
+  "days_to_close": "0",
+  "report_source": "iOS",
+  "issue_type": "Zoning and Permits",
+  "issue_sub_type": "Work without a Permit",
+  "department_work_group": "CPD Development Services",
+  "incident_address": "3320 Prospect Ave Kansas City 64128",
+  "latitude": "39.0654470094006",
+  "longitude": "-94.5533984358662",
+  "lat_long": {
+   "type": "Point",
+   "coordinates": [
+    -94.5533984358662,
+    39.0654470094006
+   ]
+  },
+  "additional_questions": "{Type of work being done\":\"This whole row of houses is undergoing interior and exterior structural remodels not included in original permits of 2024. Evidence is in the new porch being built| new roof| and interior work. Check all houses on this block as most have workers and wood exposed to the public . Permit compliance issues \"}\"",
+  "last_updated": "2026-09-28T08:08:16.000",
+  "council_district": "3",
+  "source_category": "Public (External)"
+ }
+]
