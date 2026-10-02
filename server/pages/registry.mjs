@@ -2724,6 +2724,550 @@ const REGISTRY = [
       return g.specProxy('socrata-orlando-permits', s.SPEC);
     }),
   },
+  {
+    name: 'apac-bom-sydney-daily',
+    routes: ['/api/apac-bom-sydney-daily'],
+    load: () => import('../providers/wave10/specs/apac-bom-sydney-daily.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('apac-bom-sydney-daily', s.SPEC);
+    }),
+  },
+  {
+    name: 'apac-eccc-citypage-conditions',
+    routes: ['/api/apac-eccc-citypage-conditions'],
+    load: () => import('../providers/wave10/specs/apac-eccc-citypage-conditions.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('apac-eccc-citypage-conditions', s.SPEC);
+    }),
+  },
+  {
+    name: 'apac-hko-9day',
+    routes: ['/api/apac-hko-9day'],
+    load: () => import('../providers/wave10/specs/apac-hko-9day.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('apac-hko-9day', s.SPEC);
+    }),
+  },
+  {
+    name: 'apac-hko-current-temp',
+    routes: ['/api/apac-hko-current-temp'],
+    load: () => import('../providers/wave10/specs/apac-hko-current-temp.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('apac-hko-current-temp', s.SPEC);
+    }),
+  },
+  {
+    name: 'apac-hko-warnings',
+    routes: ['/api/apac-hko-warnings'],
+    load: () => import('../providers/wave10/specs/apac-hko-warnings.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('apac-hko-warnings', s.SPEC);
+    }),
+  },
+  {
+    name: 'apac-ipma-faro-daily',
+    routes: ['/api/apac-ipma-faro-daily'],
+    load: () => import('../providers/wave10/specs/apac-ipma-faro-daily.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('apac-ipma-faro-daily', s.SPEC);
+    }),
+  },
+  {
+    name: 'apac-ipma-funchal-daily',
+    routes: ['/api/apac-ipma-funchal-daily'],
+    load: () => import('../providers/wave10/specs/apac-ipma-funchal-daily.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('apac-ipma-funchal-daily', s.SPEC);
+    }),
+  },
+  {
+    name: 'apac-ipma-lisbon-daily',
+    routes: ['/api/apac-ipma-lisbon-daily'],
+    load: () => import('../providers/wave10/specs/apac-ipma-lisbon-daily.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('apac-ipma-lisbon-daily', s.SPEC);
+    }),
+  },
+  {
+    name: 'apac-ipma-porto-daily',
+    routes: ['/api/apac-ipma-porto-daily'],
+    load: () => import('../providers/wave10/specs/apac-ipma-porto-daily.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('apac-ipma-porto-daily', s.SPEC);
+    }),
+  },
+  {
+    name: 'apac-jma-fukuoka-daily',
+    routes: ['/api/apac-jma-fukuoka-daily'],
+    load: () => import('../providers/wave10/specs/apac-jma-fukuoka-daily.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('apac-jma-fukuoka-daily', s.SPEC);
+    }),
+  },
+  {
+    name: 'apac-jma-osaka-daily',
+    routes: ['/api/apac-jma-osaka-daily'],
+    load: () => import('../providers/wave10/specs/apac-jma-osaka-daily.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('apac-jma-osaka-daily', s.SPEC);
+    }),
+  },
+  {
+    name: 'apac-jma-sapporo-daily',
+    routes: ['/api/apac-jma-sapporo-daily'],
+    load: () => import('../providers/wave10/specs/apac-jma-sapporo-daily.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('apac-jma-sapporo-daily', s.SPEC);
+    }),
+  },
+  {
+    name: 'apac-jma-tokyo-daily',
+    routes: ['/api/apac-jma-tokyo-daily'],
+    load: () => import('../providers/wave10/specs/apac-jma-tokyo-daily.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('apac-jma-tokyo-daily', s.SPEC);
+    }),
+  },
+  {
+    name: 'apac-nea-2hour-forecast',
+    routes: ['/api/apac-nea-2hour-forecast'],
+    load: () => import('../providers/wave10/specs/apac-nea-2hour-forecast.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('apac-nea-2hour-forecast', s.SPEC);
+    }),
+  },
+  {
+    name: 'apac-nea-4day-forecast',
+    routes: ['/api/apac-nea-4day-forecast'],
+    load: () => import('../providers/wave10/specs/apac-nea-4day-forecast.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('apac-nea-4day-forecast', s.SPEC);
+    }),
+  },
+  {
+    name: 'fda-animal-events-2026',
+    routes: ['/api/fda-animal-events-2026'],
+    load: () => import('../providers/wave10/specs/fda-animal-events-2026.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('fda-animal-events-2026', s.SPEC);
+    }),
+  },
+  {
+    name: 'fda-animal-events-dog',
+    routes: ['/api/fda-animal-events-dog'],
+    load: () => import('../providers/wave10/specs/fda-animal-events-dog.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('fda-animal-events-dog', s.SPEC);
+    }),
+  },
+  {
+    name: 'fda-device-events-2026',
+    routes: ['/api/fda-device-events-2026'],
+    load: () => import('../providers/wave10/specs/fda-device-events-2026.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('fda-device-events-2026', s.SPEC);
+    }),
+  },
+  {
+    name: 'fda-device-recall-2026',
+    routes: ['/api/fda-device-recall-2026'],
+    load: () => import('../providers/wave10/specs/fda-device-recall-2026.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('fda-device-recall-2026', s.SPEC);
+    }),
+  },
+  {
+    name: 'fda-device-recall-va',
+    routes: ['/api/fda-device-recall-va'],
+    load: () => import('../providers/wave10/specs/fda-device-recall-va.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('fda-device-recall-va', s.SPEC);
+    }),
+  },
+  {
+    name: 'fda-drug-enforcement-2026',
+    routes: ['/api/fda-drug-enforcement-2026'],
+    load: () => import('../providers/wave10/specs/fda-drug-enforcement-2026.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('fda-drug-enforcement-2026', s.SPEC);
+    }),
+  },
+  {
+    name: 'fda-drug-enforcement-class1',
+    routes: ['/api/fda-drug-enforcement-class1'],
+    load: () => import('../providers/wave10/specs/fda-drug-enforcement-class1.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('fda-drug-enforcement-class1', s.SPEC);
+    }),
+  },
+  {
+    name: 'fda-drug-enforcement-va',
+    routes: ['/api/fda-drug-enforcement-va'],
+    load: () => import('../providers/wave10/specs/fda-drug-enforcement-va.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('fda-drug-enforcement-va', s.SPEC);
+    }),
+  },
+  {
+    name: 'fda-faers-2026',
+    routes: ['/api/fda-faers-2026'],
+    load: () => import('../providers/wave10/specs/fda-faers-2026.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('fda-faers-2026', s.SPEC);
+    }),
+  },
+  {
+    name: 'fda-food-enforcement-2026',
+    routes: ['/api/fda-food-enforcement-2026'],
+    load: () => import('../providers/wave10/specs/fda-food-enforcement-2026.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('fda-food-enforcement-2026', s.SPEC);
+    }),
+  },
+  {
+    name: 'fda-food-enforcement-class1',
+    routes: ['/api/fda-food-enforcement-class1'],
+    load: () => import('../providers/wave10/specs/fda-food-enforcement-class1.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('fda-food-enforcement-class1', s.SPEC);
+    }),
+  },
+  {
+    name: 'fda-food-enforcement-va',
+    routes: ['/api/fda-food-enforcement-va'],
+    load: () => import('../providers/wave10/specs/fda-food-enforcement-va.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('fda-food-enforcement-va', s.SPEC);
+    }),
+  },
+  {
+    name: 'fda-tobacco-problems-2026',
+    routes: ['/api/fda-tobacco-problems-2026'],
+    load: () => import('../providers/wave10/specs/fda-tobacco-problems-2026.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('fda-tobacco-problems-2026', s.SPEC);
+    }),
+  },
+  {
+    name: 'fda-tobacco-problems',
+    routes: ['/api/fda-tobacco-problems'],
+    load: () => import('../providers/wave10/specs/fda-tobacco-problems.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('fda-tobacco-problems', s.SPEC);
+    }),
+  },
+  {
+    name: 'mb-artist-beyonce',
+    routes: ['/api/mb-artist-beyonce'],
+    load: () => import('../providers/wave10/specs/mb-artist-beyonce.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('mb-artist-beyonce', s.SPEC);
+    }),
+  },
+  {
+    name: 'mb-artist-led-zeppelin',
+    routes: ['/api/mb-artist-led-zeppelin'],
+    load: () => import('../providers/wave10/specs/mb-artist-led-zeppelin.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('mb-artist-led-zeppelin', s.SPEC);
+    }),
+  },
+  {
+    name: 'mb-artist-michael-jackson',
+    routes: ['/api/mb-artist-michael-jackson'],
+    load: () => import('../providers/wave10/specs/mb-artist-michael-jackson.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('mb-artist-michael-jackson', s.SPEC);
+    }),
+  },
+  {
+    name: 'mb-artist-nirvana',
+    routes: ['/api/mb-artist-nirvana'],
+    load: () => import('../providers/wave10/specs/mb-artist-nirvana.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('mb-artist-nirvana', s.SPEC);
+    }),
+  },
+  {
+    name: 'mb-artist-radiohead',
+    routes: ['/api/mb-artist-radiohead'],
+    load: () => import('../providers/wave10/specs/mb-artist-radiohead.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('mb-artist-radiohead', s.SPEC);
+    }),
+  },
+  {
+    name: 'mb-artist-taylor-swift',
+    routes: ['/api/mb-artist-taylor-swift'],
+    load: () => import('../providers/wave10/specs/mb-artist-taylor-swift.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('mb-artist-taylor-swift', s.SPEC);
+    }),
+  },
+  {
+    name: 'mb-artist-the-beatles',
+    routes: ['/api/mb-artist-the-beatles'],
+    load: () => import('../providers/wave10/specs/mb-artist-the-beatles.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('mb-artist-the-beatles', s.SPEC);
+    }),
+  },
+  {
+    name: 'mb-label-blue-note',
+    routes: ['/api/mb-label-blue-note'],
+    load: () => import('../providers/wave10/specs/mb-label-blue-note.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('mb-label-blue-note', s.SPEC);
+    }),
+  },
+  {
+    name: 'mb-place-royal-albert-hall',
+    routes: ['/api/mb-place-royal-albert-hall'],
+    load: () => import('../providers/wave10/specs/mb-place-royal-albert-hall.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('mb-place-royal-albert-hall', s.SPEC);
+    }),
+  },
+  {
+    name: 'mb-release-group-dark-side-of-the-moon',
+    routes: ['/api/mb-release-group-dark-side-of-the-moon'],
+    load: () => import('../providers/wave10/specs/mb-release-group-dark-side-of-the-moon.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('mb-release-group-dark-side-of-the-moon', s.SPEC);
+    }),
+  },
+  {
+    name: 'mb-release-group-nevermind',
+    routes: ['/api/mb-release-group-nevermind'],
+    load: () => import('../providers/wave10/specs/mb-release-group-nevermind.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('mb-release-group-nevermind', s.SPEC);
+    }),
+  },
+  {
+    name: 'socrata-austin-311',
+    routes: ['/api/socrata-austin-311'],
+    load: () => import('../providers/wave10/specs/socrata-austin-311.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('socrata-austin-311', s.SPEC);
+    }),
+  },
+  {
+    name: 'socrata-austin-cameras',
+    routes: ['/api/socrata-austin-cameras'],
+    load: () => import('../providers/wave10/specs/socrata-austin-cameras.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('socrata-austin-cameras', s.SPEC);
+    }),
+  },
+  {
+    name: 'socrata-chicago-311',
+    routes: ['/api/socrata-chicago-311'],
+    load: () => import('../providers/wave10/specs/socrata-chicago-311.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('socrata-chicago-311', s.SPEC);
+    }),
+  },
+  {
+    name: 'socrata-chicago-permits',
+    routes: ['/api/socrata-chicago-permits'],
+    load: () => import('../providers/wave10/specs/socrata-chicago-permits.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('socrata-chicago-permits', s.SPEC);
+    }),
+  },
+  {
+    name: 'socrata-la-311',
+    routes: ['/api/socrata-la-311'],
+    load: () => import('../providers/wave10/specs/socrata-la-311.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('socrata-la-311', s.SPEC);
+    }),
+  },
+  {
+    name: 'socrata-la-collisions',
+    routes: ['/api/socrata-la-collisions'],
+    load: () => import('../providers/wave10/specs/socrata-la-collisions.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('socrata-la-collisions', s.SPEC);
+    }),
+  },
+  {
+    name: 'socrata-la-inspections',
+    routes: ['/api/socrata-la-inspections'],
+    load: () => import('../providers/wave10/specs/socrata-la-inspections.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('socrata-la-inspections', s.SPEC);
+    }),
+  },
+  {
+    name: 'socrata-nyc-collisions',
+    routes: ['/api/socrata-nyc-collisions'],
+    load: () => import('../providers/wave10/specs/socrata-nyc-collisions.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('socrata-nyc-collisions', s.SPEC);
+    }),
+  },
+  {
+    name: 'socrata-seattle-fire911',
+    routes: ['/api/socrata-seattle-fire911'],
+    load: () => import('../providers/wave10/specs/socrata-seattle-fire911.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('socrata-seattle-fire911', s.SPEC);
+    }),
+  },
+  {
+    name: 'socrata-sf-permits',
+    routes: ['/api/socrata-sf-permits'],
+    load: () => import('../providers/wave10/specs/socrata-sf-permits.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('socrata-sf-permits', s.SPEC);
+    }),
+  },
+  {
+    name: 'usgsx-gw-centralvalley',
+    routes: ['/api/usgsx-gw-centralvalley'],
+    load: () => import('../providers/wave10/specs/usgsx-gw-centralvalley.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('usgsx-gw-centralvalley', s.SPEC);
+    }),
+  },
+  {
+    name: 'usgsx-gw-edwards',
+    routes: ['/api/usgsx-gw-edwards'],
+    load: () => import('../providers/wave10/specs/usgsx-gw-edwards.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('usgsx-gw-edwards', s.SPEC);
+    }),
+  },
+  {
+    name: 'usgsx-quakes-chile',
+    routes: ['/api/usgsx-quakes-chile'],
+    load: () => import('../providers/wave10/specs/usgsx-quakes-chile.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('usgsx-quakes-chile', s.SPEC);
+    }),
+  },
+  {
+    name: 'usgsx-quakes-greece',
+    routes: ['/api/usgsx-quakes-greece'],
+    load: () => import('../providers/wave10/specs/usgsx-quakes-greece.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('usgsx-quakes-greece', s.SPEC);
+    }),
+  },
+  {
+    name: 'usgsx-quakes-indonesia',
+    routes: ['/api/usgsx-quakes-indonesia'],
+    load: () => import('../providers/wave10/specs/usgsx-quakes-indonesia.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('usgsx-quakes-indonesia', s.SPEC);
+    }),
+  },
+  {
+    name: 'usgsx-quakes-italy',
+    routes: ['/api/usgsx-quakes-italy'],
+    load: () => import('../providers/wave10/specs/usgsx-quakes-italy.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('usgsx-quakes-italy', s.SPEC);
+    }),
+  },
+  {
+    name: 'usgsx-quakes-japan',
+    routes: ['/api/usgsx-quakes-japan'],
+    load: () => import('../providers/wave10/specs/usgsx-quakes-japan.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('usgsx-quakes-japan', s.SPEC);
+    }),
+  },
+  {
+    name: 'usgsx-quakes-mexico',
+    routes: ['/api/usgsx-quakes-mexico'],
+    load: () => import('../providers/wave10/specs/usgsx-quakes-mexico.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('usgsx-quakes-mexico', s.SPEC);
+    }),
+  },
+  {
+    name: 'usgsx-quakes-newzealand',
+    routes: ['/api/usgsx-quakes-newzealand'],
+    load: () => import('../providers/wave10/specs/usgsx-quakes-newzealand.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('usgsx-quakes-newzealand', s.SPEC);
+    }),
+  },
+  {
+    name: 'usgsx-quakes-turkey',
+    routes: ['/api/usgsx-quakes-turkey'],
+    load: () => import('../providers/wave10/specs/usgsx-quakes-turkey.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('usgsx-quakes-turkey', s.SPEC);
+    }),
+  },
+  {
+    name: 'usgsx-volcano-avo',
+    routes: ['/api/usgsx-volcano-avo'],
+    load: () => import('../providers/wave10/specs/usgsx-volcano-avo.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('usgsx-volcano-avo', s.SPEC);
+    }),
+  },
+  {
+    name: 'usgsx-volcano-monitored',
+    routes: ['/api/usgsx-volcano-monitored'],
+    load: () => import('../providers/wave10/specs/usgsx-volcano-monitored.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('usgsx-volcano-monitored', s.SPEC);
+    }),
+  },
+  {
+    name: 'usgsx-volcano-notices',
+    routes: ['/api/usgsx-volcano-notices'],
+    load: () => import('../providers/wave10/specs/usgsx-volcano-notices.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('usgsx-volcano-notices', s.SPEC);
+    }),
+  },
+  {
+    name: 'usgsx-water-allegheny-fox',
+    routes: ['/api/usgsx-water-allegheny-fox'],
+    load: () => import('../providers/wave10/specs/usgsx-water-allegheny-fox.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('usgsx-water-allegheny-fox', s.SPEC);
+    }),
+  },
+  {
+    name: 'usgsx-water-minnesota-desmoines',
+    routes: ['/api/usgsx-water-minnesota-desmoines'],
+    load: () => import('../providers/wave10/specs/usgsx-water-minnesota-desmoines.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('usgsx-water-minnesota-desmoines', s.SPEC);
+    }),
+  },
+  {
+    name: 'usgsx-water-mohawk-oswego',
+    routes: ['/api/usgsx-water-mohawk-oswego'],
+    load: () => import('../providers/wave10/specs/usgsx-water-mohawk-oswego.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('usgsx-water-mohawk-oswego', s.SPEC);
+    }),
+  },
+  {
+    name: 'usgsx-water-pecos-green',
+    routes: ['/api/usgsx-water-pecos-green'],
+    load: () => import('../providers/wave10/specs/usgsx-water-pecos-green.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('usgsx-water-pecos-green', s.SPEC);
+    }),
+  },
+  {
+    name: 'usgsx-wq-do-mississippi',
+    routes: ['/api/usgsx-wq-do-mississippi'],
+    load: () => import('../providers/wave10/specs/usgsx-wq-do-mississippi.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('usgsx-wq-do-mississippi', s.SPEC);
+    }),
+  },
 ];
 
 export { REGISTRY };

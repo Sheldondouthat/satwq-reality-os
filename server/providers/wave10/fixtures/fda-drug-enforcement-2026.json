@@ -1,0 +1,1272 @@
+{
+  "meta": {
+    "disclaimer": "Do not rely on openFDA to make decisions regarding medical care. While we make every effort to ensure that data is accurate, you should assume all results are unvalidated. We may limit or otherwise restrict your access to the API in line with our Terms of Service.",
+    "terms": "https://open.fda.gov/terms/",
+    "license": "https://open.fda.gov/license/",
+    "last_updated": "2026-09-23",
+    "results": {
+      "skip": 0,
+      "limit": 20,
+      "total": 616
+    }
+  },
+  "results": [
+    {
+      "status": "Ongoing",
+      "city": "East Brunswick",
+      "state": "NJ",
+      "country": "United States",
+      "classification": "Class II",
+      "openfda": {
+        "application_number": [
+          "ANDA079106"
+        ],
+        "brand_name": [
+          "BISOPROLOL FUMARATE AND HYDROCHLOROTHIAZIDE"
+        ],
+        "generic_name": [
+          "BISOPROLOL FUMARATE AND HYDROCHLOROTHIAZIDE"
+        ],
+        "manufacturer_name": [
+          "Unichem Pharmaceuticals (USA), Inc."
+        ],
+        "product_ndc": [
+          "29300-187",
+          "29300-188",
+          "29300-189"
+        ],
+        "product_type": [
+          "HUMAN PRESCRIPTION DRUG"
+        ],
+        "route": [
+          "ORAL"
+        ],
+        "substance_name": [
+          "HYDROCHLOROTHIAZIDE",
+          "BISOPROLOL FUMARATE"
+        ],
+        "rxcui": [
+          "854908",
+          "854916",
+          "854919"
+        ],
+        "spl_id": [
+          "14845631-19ff-46a4-bb21-361f023941f6"
+        ],
+        "spl_set_id": [
+          "b9ee689a-ea12-435d-b01c-70d45891e62f"
+        ],
+        "package_ndc": [
+          "29300-187-13",
+          "29300-187-01",
+          "29300-187-05",
+          "29300-187-10",
+          "29300-188-13",
+          "29300-188-01",
+          "29300-188-05",
+          "29300-188-10",
+          "29300-189-13",
+          "29300-189-01",
+          "29300-189-05",
+          "29300-189-10"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "nui": [
+          "N0000175359",
+          "N0000175419",
+          "M0471776"
+        ],
+        "pharm_class_pe": [
+          "Increased Diuresis [PE]"
+        ],
+        "pharm_class_epc": [
+          "Thiazide Diuretic [EPC]"
+        ],
+        "pharm_class_cs": [
+          "Thiazides [CS]"
+        ],
+        "unii": [
+          "UR59KN573L",
+          "0J48LPH2TH"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "98323",
+      "recalling_firm": "Unichem Pharmaceuticals USA Inc.",
+      "address_1": "1 Tower Center Blvd Ste 2200",
+      "address_2": "N/A",
+      "postal_code": "08816-1145",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "US Nationwide and PR.",
+      "recall_number": "D-0301-2026",
+      "product_description": "Bisoprolol Fumarate and Hydrochlorothiazide tablets, USP, 2.5 mg/6.25 mg, 100-count bottle, Rx Only, Manufactured by: UNICHEM LABORATORIS LTD., Pilerne Ind. Estate, Pilerne, Bardez, Goa 403 511, India, Manufactured for: UNICHEM PHARMACEUTICALS (USA), INC., East Brunswick, NJ 08816, NDC 29300-187-01",
+      "product_quantity": "N/A",
+      "reason_for_recall": "cGMP Deviations: recall due to not meeting the N-Nitroso Bisoprolol impurity specification limits.",
+      "recall_initiation_date": "20260121",
+      "center_classification_date": "20260130",
+      "report_date": "20260211",
+      "code_info": "Lot # GBHL24005A, Exp Date: 09/2026"
+    },
+    {
+      "status": "Ongoing",
+      "city": "Cary",
+      "state": "NC",
+      "country": "United States",
+      "classification": "Class II",
+      "openfda": {
+        "application_number": [
+          "NDA022156"
+        ],
+        "brand_name": [
+          "CLEVIPREX"
+        ],
+        "generic_name": [
+          "CLEVIPIDINE"
+        ],
+        "manufacturer_name": [
+          "Chiesi USA, Inc."
+        ],
+        "product_ndc": [
+          "10122-610",
+          "10122-611"
+        ],
+        "product_type": [
+          "HUMAN PRESCRIPTION DRUG"
+        ],
+        "route": [
+          "INTRAVENOUS"
+        ],
+        "substance_name": [
+          "CLEVIDIPINE"
+        ],
+        "rxcui": [
+          "1790239",
+          "1790242",
+          "1790245",
+          "1790246"
+        ],
+        "spl_id": [
+          "e472cde4-d29e-44b2-b1ca-a6f4fcc01b1d"
+        ],
+        "spl_set_id": [
+          "f9290625-b723-4eda-bab8-a97bef6041f6"
+        ],
+        "package_ndc": [
+          "10122-611-01",
+          "10122-611-10",
+          "10122-610-01",
+          "10122-610-10"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "nui": [
+          "N0000000069",
+          "N0000175421",
+          "M0006414"
+        ],
+        "pharm_class_moa": [
+          "Calcium Channel Antagonists [MoA]"
+        ],
+        "pharm_class_epc": [
+          "Dihydropyridine Calcium Channel Blocker [EPC]"
+        ],
+        "pharm_class_cs": [
+          "Dihydropyridines [CS]"
+        ],
+        "unii": [
+          "19O2GP3B7Q"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "99376",
+      "recalling_firm": "Chiesi USA, Inc.",
+      "address_1": "175 Regency Woods Pl Ste 600",
+      "address_2": "",
+      "postal_code": "27518-6007",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "Nationwide within the United States",
+      "recall_number": "D-0689-2026",
+      "product_description": "CLEVIPREX (clevidipine injectable emulsion) 50 mg/100 mL (0.5 mg/mL), 10 Single Use Vials, Rx Only, Manufactured for: Chiesi USA, Inc., Cary, NC 27518, by Fresenius Kabi, Graz, Austria, NDC 10122-611-10.",
+      "product_quantity": "44280 vials",
+      "reason_for_recall": "Lack of Assurance of Sterility",
+      "recall_initiation_date": "20260706",
+      "center_classification_date": "20260714",
+      "report_date": "20260722",
+      "code_info": "Lot #: 1239521, 1237454, Exp. Date 10/2027",
+      "more_code_info": ""
+    },
+    {
+      "status": "Ongoing",
+      "city": "Santa Fe Springs",
+      "state": "CA",
+      "country": "United States",
+      "classification": "Class II",
+      "openfda": {
+        "application_number": [
+          "M005"
+        ],
+        "brand_name": [
+          "TERPENICOL"
+        ],
+        "generic_name": [
+          "UNDECYLENIC ACID"
+        ],
+        "manufacturer_name": [
+          "Blaine Labs Inc."
+        ],
+        "product_ndc": [
+          "63347-600"
+        ],
+        "product_type": [
+          "HUMAN OTC DRUG"
+        ],
+        "route": [
+          "TOPICAL"
+        ],
+        "substance_name": [
+          "UNDECYLENIC ACID"
+        ],
+        "rxcui": [
+          "998329",
+          "2745978"
+        ],
+        "spl_id": [
+          "92f83cae-7224-46f8-a9ac-550118c21f29"
+        ],
+        "spl_set_id": [
+          "a020334e-aac9-4ea5-a0ea-8e5b021fe2eb"
+        ],
+        "package_ndc": [
+          "63347-600-01"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "K3D86KJ24N"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "98731",
+      "recalling_firm": "Blaine Labs Inc",
+      "address_1": "11037 Lockport Pl",
+      "address_2": "N/A",
+      "postal_code": "90670-4634",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Press Release",
+      "distribution_pattern": "Nationwide in the USA",
+      "recall_number": "D-0697-2026",
+      "product_description": "TERPENICOL Antifungal Solution, (Undecylenic (10-Undecenoic) acid 25%), 1.0 Fl Oz (29.6 mL), Manufactured By: Blaine Labs, Inc., 11037 Lockport Place, Santa Fe Springs, CA 90670. NDC 63347-600-01",
+      "product_quantity": "5,801 bottles",
+      "reason_for_recall": "CGMP Deviations; the firm discontinued required stability testing for products on the market still within expiry",
+      "recall_initiation_date": "20260408",
+      "center_classification_date": "20260716",
+      "report_date": "20260708",
+      "code_info": "Lots BL3411R, Exp Date 06/08/2027, BL3468, Exp Date 03/07/2027, & BL3535, Exp Date 09/25/2027."
+    },
+    {
+      "status": "Ongoing",
+      "city": "El Paso",
+      "state": "TX",
+      "country": "United States",
+      "classification": "Class II",
+      "openfda": {
+        "application_number": [
+          "NDA020832"
+        ],
+        "brand_name": [
+          "CHLORAPREP ONE-STEP"
+        ],
+        "generic_name": [
+          "CHLORHEXIDINE GLUCONATE AND ISOPROPYL ALCOHOL"
+        ],
+        "manufacturer_name": [
+          "CareFusion 213, LLC"
+        ],
+        "product_ndc": [
+          "54365-400"
+        ],
+        "product_type": [
+          "HUMAN OTC DRUG"
+        ],
+        "route": [
+          "TOPICAL"
+        ],
+        "substance_name": [
+          "CHLORHEXIDINE GLUCONATE",
+          "ISOPROPYL ALCOHOL"
+        ],
+        "rxcui": [
+          "858726",
+          "998282"
+        ],
+        "spl_id": [
+          "41ee78a5-45e8-b98d-e063-6394a90aa057"
+        ],
+        "spl_set_id": [
+          "8541f219-c060-399a-e053-2991aa0ab05c"
+        ],
+        "package_ndc": [
+          "54365-400-35"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "MOR84MUD8E",
+          "ND2M416302"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "99217",
+      "recalling_firm": "CareFusion 213, LLC",
+      "address_1": "1550 Northwestern Dr",
+      "address_2": "N/A",
+      "postal_code": "79912-8000",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "Distributed Nationwide in the USA",
+      "recall_number": "D-0643-2026",
+      "product_description": "BD ChloraPrep Hi-Lite Orange, (2% w/v chlorhexidine gluconate (CHG) and 70% v/v isopropyl alcohol (IPA)), packaged as a) 100 x 10.5 mL applicators/case, NDC 54365-400-35, Catalog Number: 930715NS; b) 100 x 10.5 mL applicators/case, Catalog Number bulk 930715NSB, NDC 54365-400-35; STERILE SOLUTION, CAREFUSION 213, LLC, EL PASO, TX 79912, subsidiary of Beckton, Dickson and Co.",
+      "product_quantity": "1,800 units",
+      "reason_for_recall": "Lack of assurance of sterility: Unsterilized ChloraPrep & PurPrep Applicators, intended for further processing and sterilization were instead distributed to customers outside of the intended distribution channel",
+      "recall_initiation_date": "20260611",
+      "center_classification_date": "20260629",
+      "report_date": "20260708",
+      "code_info": "Lot: a) 3362296, expires: 12/31/2026, 4066870, expires: 02/28/2027, 4104107, expires: 03/31/2027, 4276125, expires: 09/30/2027; b) 4080695, expires: 03/31/2027, 4233300 expires: 08/31/2027."
+    },
+    {
+      "status": "Ongoing",
+      "city": "Irving",
+      "state": "TX",
+      "country": "United States",
+      "classification": "Class I",
+      "openfda": {
+        "application_number": [
+          "BLA761039"
+        ],
+        "brand_name": [
+          "UDENYCA"
+        ],
+        "generic_name": [
+          "PEGFILGRASTIM-CBQV"
+        ],
+        "manufacturer_name": [
+          "Accord BioPharma, Inc."
+        ],
+        "product_ndc": [
+          "69448-025",
+          "69448-026",
+          "69448-027"
+        ],
+        "product_type": [
+          "HUMAN PRESCRIPTION DRUG"
+        ],
+        "route": [
+          "SUBCUTANEOUS"
+        ],
+        "substance_name": [
+          "PEGFILGRASTIM"
+        ],
+        "rxcui": [
+          "2102703",
+          "2102705",
+          "2632544",
+          "2632547",
+          "2673598",
+          "2673602"
+        ],
+        "spl_id": [
+          "b9326155-8307-4ac1-9c13-6598e6c7a361"
+        ],
+        "spl_set_id": [
+          "77a8576f-b91e-42ce-b613-2fa3c3d4a571"
+        ],
+        "package_ndc": [
+          "69448-025-63",
+          "69448-026-63",
+          "69448-027-63"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0369448025632"
+        ],
+        "nui": [
+          "M0024696",
+          "N0000009451",
+          "N0000175666"
+        ],
+        "pharm_class_cs": [
+          "Granulocyte Colony-Stimulating Factor [CS]"
+        ],
+        "pharm_class_pe": [
+          "Increased Myeloid Cell Production [PE]"
+        ],
+        "pharm_class_epc": [
+          "Leukocyte Growth Factor [EPC]"
+        ],
+        "unii": [
+          "3A58010674"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "98366",
+      "recalling_firm": "McKesson",
+      "address_1": "6555 State Highway 161",
+      "address_2": "N/A",
+      "postal_code": "75039-2402",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "E-Mail",
+      "distribution_pattern": "Nationwide in the USA",
+      "recall_number": "D-0353-2026",
+      "product_description": "UDENYCA, pegfilgrastim-cbqv injection, 6 mg/0.6mL Single Dose Prefilled Syringe, Rx only,  Manufactured by Accord BioPharma, Inc., 8041 Arco Corporate Drive, Suite 200, Raleigh, NC 27617, NDC 69448-025-63",
+      "product_quantity": "116 cartons",
+      "reason_for_recall": "Temperature Abuse. 116 cartons with specific serial numbers of Lot 2199821, were stored incorrectly in a controlled room temperature environment instead of the required refrigerated environment.",
+      "recall_initiation_date": "20260116",
+      "center_classification_date": "20260226",
+      "report_date": "20260218",
+      "code_info": "Subset of Lot 2199821, Expires: 05/31/2027 Specific Serial Numbers being Recalled: 160R694TT06X; 1C74A686RPPG; 1W6A2M777N3V; 20825394KR8P; 242E2RK3EA92; 2DG49VH89EPG; 2WEA2ADK1P4H; 3KR2TVAG3VDH; 42M0V0G9PM84; 46E9XKDPTH1R; 4AM12WEAE48H; 4FGHR096DMNV; 4MWGWM991XNA; 4NEW8XD9DNM2; 4Y2PYDFN9YA1; 61EPX42R4K2A; 63FN9VW5CAV7; 69TG160DW2CV; 69XFP3TMTP7X; 6AWVDCNHTV61; 6CEFY72W5GPA; 6FHF1A59X0X4; 6GA64FNDVGXY; 6NW5FACPPWDW; 75V19CF2A0PA; 7HK7155YNAK3; 7R51VVA1WX9T; 7XCKXMH2EERC; 85D8MFVM66D4; 8F3Y5NFFHC64; 8RDWKPM53N5R; 8W1PVXC5NAFW; 9338DPED7P3R; 9A4CXFTGCPYN; 9FKN5NRDX99A; 9G79AR0RGAY4; 9K28G80GGYXN; 9NN7NXE40M13; A48PXEPE77YE; A8M168K58G64; AMR0RNWHTWMW; AR145NW8WTVX; AY19W6DEGRX4; C276HMDGRE49; CAY0ARAEGMCF; CKT370X2G4NP; D0DFAXCN6G5W; D54TXR8AD9Y8; DAK3XP1P3DMP; DH44AGKTX27F; E69E9K6C29VD; EK1D8P703RCH; EX947FYVW7Y6; F2K148YVNRDD; F4EVX8573F1V; FEXA7MENKWF1; FNDNMPAFH89D; G2W3WTMP5HK9; G5MN0F418FFY; G6XECANG6P01; G7FNVGWW3D72; GAHFFNX336GA; GKNTDP4AV6AA; GVPN5C4D23H6; GVPPYARK1FCD; GVXDAAA87GA1; GX7AP73W4HMH; HDTFT2W59K52; HDVG3W6VW59Y; HP703MKWGGM7; K8CGDV1301TP; KN6Y35T0A198; KVGC92YVC6XF; KYCP1Y7CK4R4; MEY2VW5MC0N9; MGH40F2679X3; N11XGETGDAVM; N9DGTY65NFGN; NH9VM1K2ECGP; NNCFT59RD1KF; NVFCXRWHX93N; P3XY0RNV0VPY; P609NH6W670V; P9Y7926YN82A; PA88CCXMWCMG; PKADTN18YR1X; PM0YHNNK6P4T; R11TYM5VE9CK; R45AXAEK4TTN; R6C3533P943P; RMW35MXX4R4K; RX75F9DA58W4; RXRCRP9272DG; RXTH041DMT5D; T2FW4C24F364; T442NHDFD7H8; TC3443DCR4F8; TK8TRR8NT92A; TT8K21TGYFWY; V255NE533X59; V6MYKEA7HN7P; V764DEYM4RYP; VCPTYV1EF0R1; VECGDTDV1Y3A; VEE09A07R9X5; VEER64AW2C51; VRN2TE3HPK5N; WF14WA03FNT2; WTP5TKRGNFGW; WWPMXV50FRM4; X1DKP0T2AE1W; X59C5AV3VDTG; XKG3T7811TD2; Y0CYY950EYK8; YCRW0EPK620Y; YNYA64T18DPW."
+    },
+    {
+      "status": "Ongoing",
+      "city": "Dayton",
+      "state": "NJ",
+      "country": "United States",
+      "classification": "Class II",
+      "openfda": {},
+      "product_type": "Drugs",
+      "event_id": "99098",
+      "recalling_firm": "Guardian Drug Co. Inc.",
+      "address_1": "2 Charles Ct",
+      "address_2": "",
+      "postal_code": "08810-1508",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "U.S.A. Nationwide",
+      "recall_number": "D-0558-2026",
+      "product_description": "HALEON CALCIUM CARBONATE TUMS ANTACID, Assorted Fruit Tablets, 1000 mg, 160-count bottle, Haleon, Warren, NJ 07059, UPC 3 07660 74610 2.",
+      "product_quantity": "",
+      "reason_for_recall": "Presence of foreign substance: small metallic particles in chewable tablets.",
+      "recall_initiation_date": "20260528",
+      "center_classification_date": "20260603",
+      "report_date": "20260610",
+      "code_info": "Lot #: 1096075, 1096076, 1096077, 1096078, Exp 1/31/2029.",
+      "more_code_info": ""
+    },
+    {
+      "status": "Ongoing",
+      "city": "Birmingham",
+      "state": "AL",
+      "country": "United States",
+      "classification": "Class II",
+      "openfda": {},
+      "product_type": "Drugs",
+      "event_id": "98344",
+      "recalling_firm": "F.H. INVESTMENTS, Inc. (dba Asteria Health)",
+      "address_1": "432 Industrial Ln",
+      "address_2": "N/A",
+      "postal_code": "35211-4465",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "Nationwide in the USA",
+      "recall_number": "D-0323-2026",
+      "product_description": "Testosterone, 100 mg, 1 Sterile Pellet, Asteria Health 432 Industrial Ln, Birmingham, AL 35211, NDC:79559-1100-32.",
+      "product_quantity": "153,498 pellets",
+      "reason_for_recall": "Presence of Foreign substance - potential presence of metal particulate matter",
+      "recall_initiation_date": "20260126",
+      "center_classification_date": "20260211",
+      "report_date": "20260218",
+      "code_info": "Lot#: 251000132, Exp. 06/16/2026; 251000142, Exp. 06/30/2026; 251000144, Exp. 07/14/2026; 251000146, Exp. 07/21/2026; 251000162, 251000163, Exp. 08/16/2026; 251000167, Exp. 08/22/2026; 251000177, Exp. 09/12/2026."
+    },
+    {
+      "status": "Ongoing",
+      "city": "Dublin",
+      "state": "OH",
+      "country": "United States",
+      "classification": "Class II",
+      "openfda": {
+        "application_number": [
+          "ANDA215458"
+        ],
+        "brand_name": [
+          "OMEGA-3-ACID ETHYL ESTERS"
+        ],
+        "generic_name": [
+          "OMEGA-3-ACID ETHYL ESTERS"
+        ],
+        "manufacturer_name": [
+          "Major Pharmaceuticals"
+        ],
+        "product_ndc": [
+          "0904-7495"
+        ],
+        "product_type": [
+          "HUMAN PRESCRIPTION DRUG"
+        ],
+        "route": [
+          "ORAL"
+        ],
+        "substance_name": [
+          "OMEGA-3-ACID ETHYL ESTERS"
+        ],
+        "rxcui": [
+          "577208"
+        ],
+        "spl_id": [
+          "6e3a56a7-0197-44b8-a345-996d1555a025"
+        ],
+        "spl_set_id": [
+          "e40d55f2-db9f-4a48-8639-9aa7491e4de5"
+        ],
+        "package_ndc": [
+          "0904-7495-06"
+        ],
+        "original_packager_product_ndc": [
+          "70756-423"
+        ],
+        "unii": [
+          "D87YGH4Z0Q"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "98763",
+      "recalling_firm": "The Harvard Drug Group LLC",
+      "address_1": "7000 Cardinal Pl",
+      "address_2": "N/A",
+      "postal_code": "43017-1091",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "Nationwide in the USA",
+      "recall_number": "D-0493-2026",
+      "product_description": "Omega-3-Acid, Ethyl Esters, Capsules, USP, 1 gram, 50 capsules (5 x 10 unit dose blister cards) per carton, Rx only, Packaged and Distributed by: Major Pharmaceuticals, Indianapolis, IN 46288.  NDC: 0904-7495-06",
+      "product_quantity": "2,238 5 x 10 unit dose cartons",
+      "reason_for_recall": "Failed Capsule Specifications: Out of specification results obtained during routine stability testing for Loss on Drying of Capsule Shells.",
+      "recall_initiation_date": "20260409",
+      "center_classification_date": "20260424",
+      "report_date": "20260429",
+      "code_info": "Lot#: Lot N02406, Exp 10/31/2026; Lot N02845, Exp 12/31/2026",
+      "more_code_info": ""
+    },
+    {
+      "status": "Ongoing",
+      "city": "Woburn",
+      "state": "MA",
+      "country": "United States",
+      "classification": "Class II",
+      "openfda": {},
+      "product_type": "Drugs",
+      "event_id": "99654",
+      "recalling_firm": "Safecor Health, LLC",
+      "address_1": "317 New Boston St",
+      "address_2": "N/A",
+      "postal_code": "01801-6231",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "Nationwide in the USA.",
+      "recall_number": "D-0845-2026",
+      "product_description": "Fluphenazine HCl Elixir, USP, 15 mg per 3 mL, Delivers: 10 mL, Oral Elixir, PAI, Alcohol 14% by volume, For Oral Use Only, Rx Only, Pkg by: Safecor Health, Woburn, MA 01801.  NDC:  00121-0653-04",
+      "product_quantity": "N/A",
+      "reason_for_recall": "Failed Stability Specifications",
+      "recall_initiation_date": "20260813",
+      "center_classification_date": "20260914",
+      "report_date": "20260923",
+      "code_info": "Lot#:26080483; Exp :03/13/2027  Lot#:25310327; Exp :08/12/2026  Lot#:25330414; Exp :08/26/2026  Lot#:25430340; Exp :11/22/2026",
+      "more_code_info": ""
+    },
+    {
+      "status": "Ongoing",
+      "city": "Wilmington",
+      "state": "MA",
+      "country": "United States",
+      "classification": "Class II",
+      "openfda": {
+        "application_number": [
+          "ANDA208017"
+        ],
+        "brand_name": [
+          "LIDOCAINE HYDROCHLORIDE"
+        ],
+        "generic_name": [
+          "LIDOCAINE HYDROCHLORIDE ANHYDROUS"
+        ],
+        "manufacturer_name": [
+          "Spectra Medical Devices, LLC"
+        ],
+        "product_ndc": [
+          "65282-1605"
+        ],
+        "product_type": [
+          "HUMAN PRESCRIPTION DRUG"
+        ],
+        "route": [
+          "EPIDURAL",
+          "INFILTRATION",
+          "INTRACAUDAL",
+          "PERINEURAL"
+        ],
+        "substance_name": [
+          "LIDOCAINE HYDROCHLORIDE ANHYDROUS"
+        ],
+        "rxcui": [
+          "1737566"
+        ],
+        "spl_id": [
+          "447bfde4-fff3-32a6-e063-6394a90a667e"
+        ],
+        "spl_set_id": [
+          "e8ba012a-08a9-4f67-9f88-3284377e80be"
+        ],
+        "package_ndc": [
+          "65282-1605-1"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0365282160515"
+        ],
+        "unii": [
+          "EC2CNF7XFP"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "98976",
+      "recalling_firm": "Spectra Medical Devices, Llc",
+      "address_1": "299 Ballardvale St",
+      "address_2": "Ste 1",
+      "postal_code": "01887-1066",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "USA Nationwide",
+      "recall_number": "D-0554-2026",
+      "product_description": "Lidocaine HCl Injection USP, 25x5 mL, Single-Dose Ampules, Rx Only, Distributed by: Spectra Medical Devices, LLC, Wilmington, Made in S. Korea, NDC 65282-1605-1.",
+      "product_quantity": "210625 ampules",
+      "reason_for_recall": "Lack of Assurance of Sterility",
+      "recall_initiation_date": "20260512",
+      "center_classification_date": "20260602",
+      "report_date": "20260610",
+      "code_info": "Lot#: AE4013, Exp 1/31/2027; AE5032 & AE5039, Exp 3/31/2028; AE5104, Exp 8/31/2028.",
+      "more_code_info": ""
+    },
+    {
+      "status": "Ongoing",
+      "city": "Weston",
+      "state": "FL",
+      "country": "United States",
+      "classification": "Class II",
+      "openfda": {
+        "application_number": [
+          "ANDA091442"
+        ],
+        "brand_name": [
+          "BRIMONIDINE TARTRATE/TIMOLOL MALEATE OPHTHALMIC SOLUTION"
+        ],
+        "generic_name": [
+          "BRIMONIDINE TARTRATE AND TIMOLOL MALEATE"
+        ],
+        "manufacturer_name": [
+          "Apotex Corp."
+        ],
+        "product_ndc": [
+          "60505-0589"
+        ],
+        "product_type": [
+          "HUMAN PRESCRIPTION DRUG"
+        ],
+        "route": [
+          "OPHTHALMIC"
+        ],
+        "substance_name": [
+          "BRIMONIDINE TARTRATE",
+          "TIMOLOL MALEATE"
+        ],
+        "rxcui": [
+          "861635"
+        ],
+        "spl_id": [
+          "afc08ce8-3d89-644d-abdc-61a96ad5d107"
+        ],
+        "spl_set_id": [
+          "268c3f6b-8798-7987-3b8c-7b7f560af5d7"
+        ],
+        "package_ndc": [
+          "60505-0589-1",
+          "60505-0589-2",
+          "60505-0589-3"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "4S9CL2DY2H",
+          "P8Y54F701R"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "98536",
+      "recalling_firm": "Apotex Corp.",
+      "address_1": "2400 N Commerce Pkwy Ste 400",
+      "address_2": "N/A",
+      "postal_code": "33326-3253",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "U.S. Nationwide",
+      "recall_number": "D-0407-2026",
+      "product_description": "Brimonidine Tartrate/Timolol Maleate Ophthalmic Solution 0.2%/0.5%*, 5 mL, Rx Only, Sterile, Apotex Corp. Manufactured for: Apotex Corp., Weston, FL 33326, NDC 60505-0589-1.",
+      "product_quantity": "107,136 vials",
+      "reason_for_recall": "Lack of Assurance of Sterility",
+      "recall_initiation_date": "20260305",
+      "center_classification_date": "20260327",
+      "report_date": "20260325",
+      "code_info": "Lots VJ8599, Exp Date 09/30/2026 & VL1668, Exp Date 01/31/2027",
+      "more_code_info": ""
+    },
+    {
+      "status": "Ongoing",
+      "city": "Hyderabad",
+      "state": "N/A",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {
+        "application_number": [
+          "ANDA204787"
+        ],
+        "brand_name": [
+          "LACOSAMIDE"
+        ],
+        "generic_name": [
+          "LACOSAMIDE"
+        ],
+        "manufacturer_name": [
+          "Camber Pharmaceuticals, Inc."
+        ],
+        "product_ndc": [
+          "31722-812",
+          "31722-813",
+          "31722-814",
+          "31722-815"
+        ],
+        "product_type": [
+          "HUMAN PRESCRIPTION DRUG"
+        ],
+        "route": [
+          "ORAL"
+        ],
+        "substance_name": [
+          "LACOSAMIDE"
+        ],
+        "rxcui": [
+          "809987",
+          "809992",
+          "809996",
+          "810000"
+        ],
+        "spl_id": [
+          "54d629b7-e234-69f1-e063-6294a90ab0e7"
+        ],
+        "spl_set_id": [
+          "c5b91128-f838-4e98-9684-5f477fc7af06"
+        ],
+        "package_ndc": [
+          "31722-812-60",
+          "31722-812-18",
+          "31722-812-05",
+          "31722-812-32",
+          "31722-813-60",
+          "31722-813-18",
+          "31722-813-05",
+          "31722-813-32",
+          "31722-814-60",
+          "31722-814-18",
+          "31722-814-05",
+          "31722-814-32",
+          "31722-815-60",
+          "31722-815-18",
+          "31722-815-05",
+          "31722-815-32"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0331722815604",
+          "0331722813600",
+          "0331722814607",
+          "0331722812603"
+        ],
+        "nui": [
+          "N0000008486"
+        ],
+        "pharm_class_pe": [
+          "Decreased Central Nervous System Disorganized Electrical Activity [PE]"
+        ],
+        "unii": [
+          "563KS2PQY5"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "99200",
+      "recalling_firm": "Annora Pharma Private Limited",
+      "address_1": "Sy. No.261, Plot No. 13 And 14, Annaram Village, Gummadidal Mandal",
+      "address_2": "Jinnaram Mandal, Sangareddy District, Medak",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "E-Mail",
+      "distribution_pattern": "Nationwide in the USA",
+      "recall_number": "D-0626-2026",
+      "product_description": "Lacosamide Tablets, USP, C V, 100mg, Rx only, 60-count bottle, By: Annora Pharma Pvt., Ltd, Sangareddy -502313, Telangana, India, Manufactured for: Camber Pharmaceuticals, Inc., Piscataway, NJ 08854, NDC 31722-813-60.",
+      "product_quantity": "31,392 60-count bottles",
+      "reason_for_recall": "Presence of a Foreign Tablets: Complaint received, possible mix-up of Selexipag 1000 mcg tablet in a bottle of Lacosamide Tablets USP, 100mg.",
+      "recall_initiation_date": "20260604",
+      "center_classification_date": "20260625",
+      "report_date": "20260701",
+      "code_info": "Lot: A253999, A254000, Expires: 09/30/2027."
+    },
+    {
+      "status": "Ongoing",
+      "city": "Princeton",
+      "state": "NJ",
+      "country": "United States",
+      "classification": "Class II",
+      "openfda": {
+        "application_number": [
+          "ANDA071500"
+        ],
+        "brand_name": [
+          "FLUOCINONIDE"
+        ],
+        "generic_name": [
+          "FLUOCINONIDE"
+        ],
+        "manufacturer_name": [
+          "Sun Pharmaceutical Industries, Inc."
+        ],
+        "product_ndc": [
+          "51672-1386"
+        ],
+        "product_type": [
+          "HUMAN PRESCRIPTION DRUG"
+        ],
+        "route": [
+          "TOPICAL"
+        ],
+        "substance_name": [
+          "FLUOCINONIDE"
+        ],
+        "rxcui": [
+          "103456"
+        ],
+        "spl_id": [
+          "3972605f-b081-0289-e063-6294a90ab0e3"
+        ],
+        "spl_set_id": [
+          "5782d791-48fd-4cee-853d-235eb4d04a40"
+        ],
+        "package_ndc": [
+          "51672-1386-1",
+          "51672-1386-2",
+          "51672-1386-3",
+          "51672-1386-4"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "nui": [
+          "N0000175576",
+          "N0000175450"
+        ],
+        "pharm_class_epc": [
+          "Corticosteroid [EPC]"
+        ],
+        "pharm_class_moa": [
+          "Corticosteroid Hormone Receptor Agonists [MoA]"
+        ],
+        "unii": [
+          "2W4A77YPAN"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "98677",
+      "recalling_firm": "SUN PHARMACEUTICAL INDUSTRIES INC",
+      "address_1": "2 Independence Way",
+      "address_2": "N/A",
+      "postal_code": "08540-6620",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "Nationwide in the USA.",
+      "recall_number": "D-0476-2026",
+      "product_description": "Fluocinonide, USP, 0.05% Cream, 30g tube, Rx only, Mfd by: Taro Pharmaceuticals Inc., Brampton, Ontario, Canada L6T 1C1, Dist. by: Taro Pharmaceuticals U.S.A., Inc., Hawthorne, NY 10532, NDC 51672-1386-2.",
+      "product_quantity": "41,712 30g tubes",
+      "reason_for_recall": "Failed Viscosity Specifications:  Out of Specification results, above the specification limit, in viscosity, noted during stability testing.",
+      "recall_initiation_date": "20260325",
+      "center_classification_date": "20260413",
+      "report_date": "20260422",
+      "code_info": "Lot# AD76251, Exp Date: 6/30/2026."
+    },
+    {
+      "status": "Ongoing",
+      "city": "Deerfield",
+      "state": "IL",
+      "country": "United States",
+      "classification": "Class II",
+      "openfda": {
+        "application_number": [
+          "ANDA208084"
+        ],
+        "brand_name": [
+          "CLINDAMYCIN PHOSPHATE"
+        ],
+        "generic_name": [
+          "CLINDAMYCIN PHOSPHATE"
+        ],
+        "manufacturer_name": [
+          "Baxter Healthcare Company"
+        ],
+        "product_ndc": [
+          "0338-3410",
+          "0338-3612",
+          "0338-3814"
+        ],
+        "product_type": [
+          "HUMAN PRESCRIPTION DRUG"
+        ],
+        "route": [
+          "INTRAVENOUS"
+        ],
+        "substance_name": [
+          "CLINDAMYCIN PHOSPHATE"
+        ],
+        "rxcui": [
+          "309335",
+          "309336",
+          "309339"
+        ],
+        "spl_id": [
+          "c8906ab2-37d2-4fde-9784-0442bf7b9565"
+        ],
+        "spl_set_id": [
+          "78832ac6-04c5-45e0-ae4d-f56d7920dda9"
+        ],
+        "package_ndc": [
+          "0338-3410-50",
+          "0338-3410-24",
+          "0338-3612-50",
+          "0338-3612-24",
+          "0338-3814-50",
+          "0338-3814-24"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "EH6D7113I8"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "99500",
+      "recalling_firm": "Baxter Healthcare Corporation",
+      "address_1": "1 Baxter Pkwy",
+      "address_2": "N/A",
+      "postal_code": "60015-4625",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "US Nationwide; Puerto Rico; and Chile.",
+      "recall_number": "D-0815-2026",
+      "product_description": "Clindamycin Injection USP in 5% Dextrose, 900 mg per 50 mL (12 mg/mL) in GALAXY 50 mL Single Dose Container, Rx only, Sterile Nonpyrogenic, Baxter Healthcare Corporation, Deerfield, IL 60015 USA, NDC 0338-3814-50.",
+      "product_quantity": "N/A",
+      "reason_for_recall": "CGMP Deviations",
+      "recall_initiation_date": "20260806",
+      "center_classification_date": "20260828",
+      "report_date": "20260909",
+      "code_info": "Lot # NC185424, Exp Date: 2/12/2027; Lot # NC185479, Exp Date: 2/13/2027; Lot # NC193948, Exp Date: 10/23/2027.",
+      "more_code_info": ""
+    },
+    {
+      "status": "Ongoing",
+      "city": "Waltham",
+      "state": "MA",
+      "country": "United States",
+      "classification": "Class II",
+      "openfda": {},
+      "product_type": "Drugs",
+      "event_id": "98792",
+      "recalling_firm": "Thea Pharma, Inc.",
+      "address_1": "303 Wyman St",
+      "address_2": "",
+      "postal_code": "02451-1208",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "Nationwide within the United States",
+      "recall_number": "D-0501-2026",
+      "product_description": "Similasan, iVIZIA, Sterile Lubricant Eye Drops (Povidone 0.5%), 0.33 Fl oz (10 mL), Made in France, Distributed by: Thea Pharma Inc., Waltham, MA 02451, NDC 59262-700-11",
+      "product_quantity": "",
+      "reason_for_recall": "Lack of Assurance of Sterility: This recall has been initiated due to CGMP deviations found by the FDA during an inspection of the manufacturer.",
+      "recall_initiation_date": "20260423",
+      "center_classification_date": "20260428",
+      "report_date": "20260506",
+      "code_info": "Lot# 5S30B, 5S30C, Exp Date: April 30, 2026; Lot# 5S31B, 6S57B, Exp Date: May 31, 2026.",
+      "more_code_info": ""
+    },
+    {
+      "status": "Ongoing",
+      "city": "Bedminster",
+      "state": "NJ",
+      "country": "United States",
+      "classification": "Class II",
+      "openfda": {
+        "application_number": [
+          "ANDA204453"
+        ],
+        "brand_name": [
+          "MINOCYCLINE HYDROCHLORIDE"
+        ],
+        "generic_name": [
+          "MINOCYCLINE HYDROCHLORIDE"
+        ],
+        "manufacturer_name": [
+          "Ascend Laboratories, LLC"
+        ],
+        "product_ndc": [
+          "67877-436",
+          "67877-578",
+          "67877-576",
+          "67877-577",
+          "67877-643",
+          "67877-644",
+          "67877-437",
+          "67877-438"
+        ],
+        "product_type": [
+          "HUMAN PRESCRIPTION DRUG"
+        ],
+        "route": [
+          "ORAL"
+        ],
+        "substance_name": [
+          "MINOCYCLINE HYDROCHLORIDE"
+        ],
+        "rxcui": [
+          "629695",
+          "629697",
+          "629699",
+          "858062",
+          "858372",
+          "1013659",
+          "1013662",
+          "1013665"
+        ],
+        "spl_id": [
+          "51213aa1-873c-4b55-a36d-3ebbb73fa220"
+        ],
+        "spl_set_id": [
+          "a8f95207-b259-4f50-87f2-3652d9268890"
+        ],
+        "package_ndc": [
+          "67877-578-14",
+          "67877-578-30",
+          "67877-578-01",
+          "67877-578-05",
+          "67877-576-14",
+          "67877-576-30",
+          "67877-576-01",
+          "67877-576-05",
+          "67877-577-14",
+          "67877-577-30",
+          "67877-577-01",
+          "67877-577-05",
+          "67877-643-14",
+          "67877-643-30",
+          "67877-643-01",
+          "67877-643-05",
+          "67877-644-14",
+          "67877-644-30",
+          "67877-644-01",
+          "67877-644-05",
+          "67877-436-14",
+          "67877-436-30",
+          "67877-436-01",
+          "67877-436-05",
+          "67877-437-14",
+          "67877-437-30",
+          "67877-437-01",
+          "67877-437-05",
+          "67877-438-14",
+          "67877-438-30",
+          "67877-438-01",
+          "67877-438-05"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "0020414E5U"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "99129",
+      "recalling_firm": "Ascend Laboratories, LLC",
+      "address_1": "135 Us Highway 202 206 Ste 15",
+      "address_2": "N/A",
+      "postal_code": "07921-2608",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "Nationwide in the USA",
+      "recall_number": "D-0597-2026",
+      "product_description": "Minocycline Hydrochloride Extended-Release Tablets, USP, 115 mg, 30-count bottle, Rx Only, Manufactured by: Alkem Laboratories Ltd., INDIA. Distributed by: Ascend Laboratories, LLC, Parsippany, NJ 07054.  NDC: 67877-644-30",
+      "product_quantity": "360 30-count bottles",
+      "reason_for_recall": "Failed Dissolution Specifications: An out-of-specification (OOS) result was observed during the 9th month of dissolution test analysis",
+      "recall_initiation_date": "20260601",
+      "center_classification_date": "20260617",
+      "report_date": "20260617",
+      "code_info": "Lot#  25141635, Exp 4/30/2028"
+    },
+    {
+      "status": "Ongoing",
+      "city": "Bhiwadi",
+      "state": "N/A",
+      "country": "India",
+      "classification": "Class II",
+      "openfda": {},
+      "product_type": "Drugs",
+      "event_id": "98253",
+      "recalling_firm": "Wizcure Pharmaa Private Limited",
+      "address_1": "H - 881",
+      "address_2": "N/A",
+      "postal_code": "N/A",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "Distributed Nationwide in the USA",
+      "recall_number": "D-0352-2026",
+      "product_description": "BioGlo Fluorescein Sodium Ophthalmic Strips USP, 100 diagnostic strips, Manufactured by Omni Lens PVT. Ltd., 5 - Samrudhhi, Opp. Sakar-III, Navrangpura, Ahmedabad, Gujarat, India - 380014, Email:info@omnilens.in, Manufactured for & disibruted by: HUB Pharmaceuticals, LLC, 8767 E Via de Ventura #175, Scottsdale, AZ, 85258, NDC 17238-900-11.",
+      "product_quantity": "184,320 containers",
+      "reason_for_recall": "Lack of Assurance of Sterility: Products have not been manufactured in conformance with current good manufacturing practices.",
+      "recall_initiation_date": "20251231",
+      "center_classification_date": "20260225",
+      "report_date": "20260304",
+      "code_info": "All lots"
+    },
+    {
+      "status": "Ongoing",
+      "city": "Dayton",
+      "state": "NJ",
+      "country": "United States",
+      "classification": "Class II",
+      "openfda": {},
+      "product_type": "Drugs",
+      "event_id": "99098",
+      "recalling_firm": "Guardian Drug Co. Inc.",
+      "address_1": "2 Charles Ct",
+      "address_2": "",
+      "postal_code": "08810-1508",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "U.S.A. Nationwide",
+      "recall_number": "D-0572-2026",
+      "product_description": "HyVee, Ultra Strength Antacid, Calcium Carbonate 1000 mg, 72 CHEWABLE TABLETS, DISTRIBUTED BY: HY-VEE INC., Inc., WEST DES MOINES, IA 50266, UPC: 0 75450 82514 5.",
+      "product_quantity": "",
+      "reason_for_recall": "Presence of foreign substance: small metallic particles in chewable tablets.",
+      "recall_initiation_date": "20260528",
+      "center_classification_date": "20260603",
+      "report_date": "20260610",
+      "code_info": "Lot #: 1716089, expires: JAN 2029.",
+      "more_code_info": ""
+    },
+    {
+      "status": "Ongoing",
+      "city": "Palm Bay",
+      "state": "FL",
+      "country": "United States",
+      "classification": "Class II",
+      "openfda": {
+        "brand_name": [
+          "PRO NUMB"
+        ],
+        "generic_name": [
+          "TATTOO NUMBING SPRAY"
+        ],
+        "manufacturer_name": [
+          "Pro Numb Tattoo Numbing Spray LLC"
+        ],
+        "product_ndc": [
+          "83389-111"
+        ],
+        "product_type": [
+          "HUMAN OTC DRUG"
+        ],
+        "route": [
+          "TOPICAL"
+        ],
+        "substance_name": [
+          "EPINEPHRINE HYDROCHLORIDE",
+          "LIDOCAINE HYDROCHLORIDE"
+        ],
+        "spl_id": [
+          "45375094-9ea8-2376-e063-6394a90a57ea"
+        ],
+        "spl_set_id": [
+          "f923860d-977a-c55f-e053-6294a90ae982"
+        ],
+        "package_ndc": [
+          "83389-111-11"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "WBB047OO38",
+          "V13007Z41A"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "98361",
+      "recalling_firm": "Pro Numb Tattoo Numbing Spray LLC",
+      "address_1": "3778 Dixie Hwy Ne Ste C",
+      "address_2": "N/A",
+      "postal_code": "32905-2727",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "Nationwide in the USA",
+      "recall_number": "D-0302-2026",
+      "product_description": "Pro Numb Tattoo Numbing Spray, 5% Lidocaine, [1 FL OZ/28.4 ML or 4 oz/120 mL] per bottle, Distributed by: Pro Numb Tattoo numbing spray LLC, Melbourne, FL 32907, NDC 83389-111-11",
+      "product_quantity": "N/A",
+      "reason_for_recall": "cGMP deviations",
+      "recall_initiation_date": "20260202",
+      "center_classification_date": "20260209",
+      "report_date": "20260218",
+      "code_info": "Lot Numbers J01 through J14, J55 through J69"
+    },
+    {
+      "status": "Ongoing",
+      "city": "Minneapolis",
+      "state": "MN",
+      "country": "United States",
+      "classification": "Class II",
+      "openfda": {},
+      "product_type": "Drugs",
+      "event_id": "98239",
+      "recalling_firm": "GOLD STAR DISTRIBUTION INC",
+      "address_1": "1000 Humboldt Ave N",
+      "address_2": "",
+      "postal_code": "55411-3964",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Two or more of the following: Email, Fax, Letter, Press Release, Telephone, Visit",
+      "distribution_pattern": "US Nationwide.",
+      "recall_number": "D-0277-2026",
+      "product_description": "TYLENOL a) 500 MG., 2'S DISPLAY, 50CT; b) COLD & FLU, 25CT/2S; c) COLD & FLU SEVERE, 2PK, 50CT; d) PM, 50CT; e) SINUS SEVERE, 2PK, 50CT",
+      "product_quantity": "",
+      "reason_for_recall": "CGMP Deviations: Insanitary conditions including rodent exposure/activity in their distribution center.",
+      "recall_initiation_date": "20251226",
+      "center_classification_date": "20260114",
+      "report_date": "20260121",
+      "code_info": "All lots within expiry distributed by Gold Star Distribution.",
+      "more_code_info": ""
+    }
+  ]
+}

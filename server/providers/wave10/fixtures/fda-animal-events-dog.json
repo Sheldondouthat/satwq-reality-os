@@ -1,0 +1,2547 @@
+{
+  "meta": {
+    "disclaimer": "Do not rely on openFDA to make decisions regarding medical care. While we make every effort to ensure that data is accurate, you should assume all results are unvalidated. We may limit or otherwise restrict your access to the API in line with our Terms of Service.",
+    "terms": "https://open.fda.gov/terms/",
+    "license": "https://open.fda.gov/license/",
+    "last_updated": "2026-07-02",
+    "results": {
+      "skip": 0,
+      "limit": 20,
+      "total": 985705
+    }
+  },
+  "results": [
+    {
+      "reaction": [
+        {
+          "veddra_version": "11",
+          "veddra_term_code": "334",
+          "veddra_term_name": "Vomiting",
+          "number_of_animals_affected": "1",
+          "accuracy": "Actual"
+        }
+      ],
+      "receiver": {
+        "organization": "Food and Drug Administration Center for Veterinary Medicine",
+        "street_address": "7500 Standish Place (HFV-210) Room N403",
+        "city": "Rockville",
+        "state": "MD",
+        "postal_code": "20855",
+        "country": "USA"
+      },
+      "unique_aer_id_number": "USA-USFDACVM-2017-US-037696",
+      "original_receive_date": "20170721",
+      "number_of_animals_affected": "1",
+      "primary_reporter": "Other Health Care Professional",
+      "number_of_animals_treated": "1",
+      "drug": [
+        {
+          "first_exposure_date": "20170715",
+          "last_exposure_date": "20170715",
+          "frequency_of_administration": {
+            "value": "1",
+            "unit": "Day"
+          },
+          "administered_by": "Animal Owner",
+          "route": "Oral",
+          "dose": {
+            "numerator": "1",
+            "numerator_unit": "tablet",
+            "denominator": "1",
+            "denominator_unit": "dose"
+          },
+          "used_according_to_label": "true",
+          "previous_exposure_to_drug": "true",
+          "previous_ae_to_drug": "false",
+          "lot_number": "UNKNOWN",
+          "brand_name": "MSK",
+          "dosage_form": "Tablet",
+          "manufacturer": {
+            "name": "MSK",
+            "registration_number": "USA-USFDACVM-N141084"
+          },
+          "atc_vet_code": "QP54AB51",
+          "active_ingredients": [
+            {
+              "name": "Milbemycin Oxime, Lufenuron",
+              "dose": {
+                "numerator": "1",
+                "numerator_unit": "Unknown",
+                "denominator": "1",
+                "denominator_unit": "Unknown"
+              }
+            }
+          ]
+        }
+      ],
+      "health_assessment_prior_to_exposure": {
+        "condition": "Good",
+        "assessed_by": "Veterinarian"
+      },
+      "onset_date": "20170715",
+      "foreign_or_domestic": "Domestic",
+      "report_id": "N141084",
+      "animal": {
+        "species": "Dog",
+        "gender": "Male",
+        "reproductive_status": "Intact",
+        "female_animal_physiological_status": "NOT APPLICABLE",
+        "age": {
+          "min": "1.00",
+          "unit": "Year",
+          "qualifier": "Measured"
+        },
+        "weight": {
+          "min": "8.936",
+          "unit": "Kilogram",
+          "qualifier": "Measured"
+        },
+        "breed": {
+          "is_crossbred": "false",
+          "breed_component": "Poodle - Miniature"
+        }
+      },
+      "type_of_information": "Safety Issue",
+      "serious_ae": "false",
+      "outcome": [
+        {
+          "medical_status": "Recovered/Normal",
+          "number_of_animals_affected": "1"
+        }
+      ]
+    },
+    {
+      "treated_for_ae": "false",
+      "reaction": [
+        {
+          "veddra_version": "11",
+          "veddra_term_code": "959",
+          "veddra_term_name": "Scratching",
+          "number_of_animals_affected": "1",
+          "accuracy": "Actual"
+        }
+      ],
+      "receiver": {
+        "organization": "Food and Drug Administration Center for Veterinary Medicine",
+        "street_address": "7500 Standish Place (HFV-210) Room N403",
+        "city": "Rockville",
+        "state": "MD",
+        "postal_code": "20855",
+        "country": "USA"
+      },
+      "unique_aer_id_number": "USA-USFDACVM-2017-US-043556",
+      "original_receive_date": "20170803",
+      "number_of_animals_affected": "1",
+      "primary_reporter": "Animal Owner",
+      "number_of_animals_treated": "1",
+      "drug": [
+        {
+          "first_exposure_date": "20170512",
+          "last_exposure_date": "20170712",
+          "frequency_of_administration": {
+            "value": "1",
+            "unit": "Month"
+          },
+          "administered_by": "Animal Owner",
+          "route": "Oral",
+          "dose": {
+            "numerator": "1",
+            "numerator_unit": "tablet",
+            "denominator": "1",
+            "denominator_unit": "Unknown"
+          },
+          "used_according_to_label": "true",
+          "previous_exposure_to_drug": "false",
+          "brand_name": "MSK",
+          "dosage_form": "Tablet, chewable",
+          "manufacturer": {
+            "name": "MSK",
+            "registration_number": "USA-USFDACVM-N141277"
+          },
+          "atc_vet_code": "QP53BX03",
+          "active_ingredients": [
+            {
+              "name": "Spinosad",
+              "dose": {
+                "numerator": "1620",
+                "numerator_unit": "Milligram",
+                "denominator": "1",
+                "denominator_unit": "dose"
+              }
+            }
+          ]
+        },
+        {
+          "first_exposure_date": "20170101",
+          "last_exposure_date": "20170801",
+          "administered_by": "Unknown",
+          "route": "Unknown",
+          "brand_name": "MSK",
+          "manufacturer": {
+            "name": "MSK"
+          },
+          "active_ingredients": [
+            {
+              "name": "Oclacitinib Maleate",
+              "dose": {
+                "numerator": "1",
+                "numerator_unit": "Unknown",
+                "denominator": "1",
+                "denominator_unit": "Unknown"
+              }
+            }
+          ]
+        }
+      ],
+      "health_assessment_prior_to_exposure": {
+        "condition": "Unknown",
+        "assessed_by": "Veterinarian"
+      },
+      "onset_date": "20170802",
+      "foreign_or_domestic": "Domestic",
+      "report_id": "N141277",
+      "animal": {
+        "species": "Dog",
+        "gender": "Male",
+        "reproductive_status": "Neutered",
+        "female_animal_physiological_status": "NOT APPLICABLE",
+        "age": {
+          "min": "12.00",
+          "unit": "Year",
+          "qualifier": "Measured"
+        },
+        "weight": {
+          "min": "33.112",
+          "unit": "Kilogram",
+          "qualifier": "Measured"
+        },
+        "breed": {
+          "is_crossbred": "true",
+          "breed_component": [
+            "Retriever - Golden",
+            "Poodle (unspecified)"
+          ]
+        }
+      },
+      "type_of_information": "Safety Issue",
+      "serious_ae": "false",
+      "outcome": [
+        {
+          "medical_status": "Ongoing",
+          "number_of_animals_affected": "1"
+        }
+      ]
+    },
+    {
+      "treated_for_ae": "false",
+      "reaction": [
+        {
+          "veddra_version": "11",
+          "veddra_term_code": "334",
+          "veddra_term_name": "Vomiting",
+          "number_of_animals_affected": "1",
+          "accuracy": "Actual"
+        }
+      ],
+      "receiver": {
+        "organization": "Food and Drug Administration Center for Veterinary Medicine",
+        "street_address": "7500 Standish Place (HFV-210) Room N403",
+        "city": "Rockville",
+        "state": "MD",
+        "postal_code": "20855",
+        "country": "USA"
+      },
+      "unique_aer_id_number": "USA-USFDACVM-2016-US-062606",
+      "original_receive_date": "20161207",
+      "number_of_animals_affected": "1",
+      "primary_reporter": "Other",
+      "number_of_animals_treated": "1",
+      "secondary_reporter": "Animal Owner",
+      "drug": [
+        {
+          "first_exposure_date": "20160701",
+          "last_exposure_date": "20161206",
+          "frequency_of_administration": {
+            "value": "1",
+            "unit": "Month"
+          },
+          "administered_by": "Animal Owner",
+          "route": "Oral",
+          "dose": {
+            "numerator": "1",
+            "numerator_unit": "tablet",
+            "denominator": "1",
+            "denominator_unit": "Unknown"
+          },
+          "used_according_to_label": "true",
+          "previous_exposure_to_drug": "false",
+          "brand_name": "MSK",
+          "dosage_form": "Tablet, chewable",
+          "manufacturer": {
+            "name": "MSK",
+            "registration_number": "USA-USFDACVM-N141321"
+          },
+          "atc_vet_code": "QP54AB51",
+          "active_ingredients": [
+            {
+              "name": "Spinosad",
+              "dose": {
+                "numerator": "1620",
+                "numerator_unit": "Milligram",
+                "denominator": "1",
+                "denominator_unit": "dose"
+              }
+            },
+            {
+              "name": "Milbemycin Oxime",
+              "dose": {
+                "numerator": "27",
+                "numerator_unit": "Milligram",
+                "denominator": "1",
+                "denominator_unit": "dose"
+              }
+            }
+          ]
+        }
+      ],
+      "duration": {
+        "value": "1",
+        "unit": "Day"
+      },
+      "health_assessment_prior_to_exposure": {
+        "condition": "Good",
+        "assessed_by": "Veterinarian"
+      },
+      "onset_date": "20161206",
+      "foreign_or_domestic": "Domestic",
+      "report_id": "N141321",
+      "animal": {
+        "species": "Dog",
+        "gender": "Female",
+        "reproductive_status": "Neutered",
+        "female_animal_physiological_status": "NOT APPLICABLE",
+        "age": {
+          "min": "12.00",
+          "unit": "Month",
+          "qualifier": "Measured"
+        },
+        "weight": {
+          "min": "35.607",
+          "unit": "Kilogram",
+          "qualifier": "Measured"
+        },
+        "breed": {
+          "is_crossbred": "false",
+          "breed_component": "Retriever - Labrador"
+        }
+      },
+      "type_of_information": "Safety Issue",
+      "serious_ae": "false",
+      "outcome": [
+        {
+          "medical_status": "Recovered/Normal",
+          "number_of_animals_affected": "1"
+        }
+      ]
+    },
+    {
+      "treated_for_ae": "false",
+      "reaction": [
+        {
+          "veddra_version": "11",
+          "veddra_term_code": "335",
+          "veddra_term_name": "Emesis",
+          "number_of_animals_affected": "1",
+          "accuracy": "Actual"
+        }
+      ],
+      "receiver": {
+        "organization": "Food and Drug Administration Center for Veterinary Medicine",
+        "street_address": "7500 Standish Place (HFV-210) Room N403",
+        "city": "Rockville",
+        "state": "MD",
+        "postal_code": "20855",
+        "country": "USA"
+      },
+      "unique_aer_id_number": "USA-USFDACVM-2016-US-056428",
+      "original_receive_date": "20161028",
+      "number_of_animals_affected": "1",
+      "primary_reporter": "Other",
+      "number_of_animals_treated": "1",
+      "secondary_reporter": "Animal Owner",
+      "drug": [
+        {
+          "first_exposure_date": "20150601",
+          "last_exposure_date": "20160714",
+          "frequency_of_administration": {
+            "value": "1",
+            "unit": "Month"
+          },
+          "administered_by": "Animal Owner",
+          "route": "Oral",
+          "dose": {
+            "numerator": "1",
+            "numerator_unit": "tablet",
+            "denominator": "1",
+            "denominator_unit": "Unknown"
+          },
+          "used_according_to_label": "true",
+          "previous_exposure_to_drug": "false",
+          "lot_number": "1052358",
+          "lot_expiration": "2018-10",
+          "brand_name": "MSK",
+          "dosage_form": "Tablet, chewable",
+          "manufacturer": {
+            "name": "MSK",
+            "registration_number": "USA-USFDACVM-N141321"
+          },
+          "atc_vet_code": "QP54AB51",
+          "active_ingredients": [
+            {
+              "name": "Spinosad",
+              "dose": {
+                "numerator": "1620",
+                "numerator_unit": "Milligram",
+                "denominator": "1",
+                "denominator_unit": "dose"
+              }
+            },
+            {
+              "name": "Milbemycin Oxime",
+              "dose": {
+                "numerator": "27",
+                "numerator_unit": "Milligram",
+                "denominator": "1",
+                "denominator_unit": "dose"
+              }
+            }
+          ]
+        }
+      ],
+      "duration": {
+        "value": "4",
+        "unit": "Week"
+      },
+      "health_assessment_prior_to_exposure": {
+        "condition": "Good",
+        "assessed_by": "Veterinarian"
+      },
+      "onset_date": "20160714",
+      "foreign_or_domestic": "Domestic",
+      "report_id": "N141321",
+      "animal": {
+        "species": "Dog",
+        "gender": "Male",
+        "reproductive_status": "Neutered",
+        "female_animal_physiological_status": "NOT APPLICABLE",
+        "age": {
+          "min": "1.50",
+          "unit": "Year",
+          "qualifier": "Measured"
+        },
+        "weight": {
+          "min": "33.112",
+          "unit": "Kilogram",
+          "qualifier": "Measured"
+        },
+        "breed": {
+          "is_crossbred": "false",
+          "breed_component": "Retriever - Labrador"
+        }
+      },
+      "type_of_information": "Safety Issue",
+      "serious_ae": "false",
+      "outcome": [
+        {
+          "medical_status": "Recovered/Normal",
+          "number_of_animals_affected": "1"
+        }
+      ]
+    },
+    {
+      "treated_for_ae": "true",
+      "reaction": [
+        {
+          "veddra_version": "11",
+          "veddra_term_code": "305",
+          "veddra_term_name": "Digestive tract disorder NOS",
+          "number_of_animals_affected": "1",
+          "accuracy": "Actual"
+        },
+        {
+          "veddra_version": "11",
+          "veddra_term_code": "1221",
+          "veddra_term_name": "Other abnormal test result NOS",
+          "number_of_animals_affected": "1",
+          "accuracy": "Actual"
+        },
+        {
+          "veddra_version": "",
+          "veddra_term_code": "2798",
+          "veddra_term_name": "Lack of efficacy (endoparasite) - hookworm",
+          "number_of_animals_affected": "1",
+          "accuracy": "Actual"
+        }
+      ],
+      "receiver": {
+        "organization": "Food and Drug Administration Center for Veterinary Medicine",
+        "street_address": "7500 Standish Place (HFV-210) Room N403",
+        "city": "Rockville",
+        "state": "MD",
+        "postal_code": "20855",
+        "country": "USA"
+      },
+      "unique_aer_id_number": "USA-USFDACVM-2017-US-012915",
+      "original_receive_date": "20170322",
+      "number_of_animals_affected": "1",
+      "primary_reporter": "Other",
+      "number_of_animals_treated": "1",
+      "secondary_reporter": "Veterinarian",
+      "drug": [
+        {
+          "first_exposure_date": "20161021",
+          "last_exposure_date": "20170301",
+          "route": "Oral",
+          "dose": {
+            "numerator": "1",
+            "numerator_unit": "dose",
+            "denominator": "1",
+            "denominator_unit": "Unknown"
+          },
+          "used_according_to_label": "true",
+          "previous_exposure_to_drug": "true",
+          "lot_number": "UNKNOWN",
+          "brand_name": "MSK",
+          "dosage_form": "Tablet, chewable",
+          "manufacturer": {
+            "name": "MSK",
+            "registration_number": "USA-USFDACVM-N140971"
+          },
+          "atc_vet_code": "QP54AA51",
+          "active_ingredients": [
+            {
+              "name": "Ivermectin",
+              "dose": {
+                "numerator": "272",
+                "numerator_unit": "Microgram",
+                "denominator": "1",
+                "denominator_unit": "dose"
+              }
+            },
+            {
+              "name": "Pyrantel As Pamoate Salt",
+              "dose": {
+                "numerator": "227",
+                "numerator_unit": "Milligram",
+                "denominator": "1",
+                "denominator_unit": "dose"
+              }
+            }
+          ]
+        }
+      ],
+      "health_assessment_prior_to_exposure": {
+        "condition": "Unknown",
+        "assessed_by": "Veterinarian"
+      },
+      "foreign_or_domestic": "Domestic",
+      "report_id": "N140971",
+      "animal": {
+        "species": "Dog",
+        "gender": "Female",
+        "reproductive_status": "Neutered",
+        "female_animal_physiological_status": "NOT APPLICABLE",
+        "age": {
+          "min": "6.00",
+          "unit": "Year",
+          "qualifier": "Measured"
+        },
+        "weight": {
+          "min": "31.298",
+          "unit": "Kilogram",
+          "qualifier": "Measured"
+        },
+        "breed": {
+          "is_crossbred": "true",
+          "breed_component": "Retriever - Labrador"
+        }
+      },
+      "type_of_information": "Lack Of Expected Effectiveness",
+      "serious_ae": "true",
+      "outcome": [
+        {
+          "medical_status": "Outcome Unknown",
+          "number_of_animals_affected": "1"
+        }
+      ]
+    },
+    {
+      "treated_for_ae": "false",
+      "reaction": [
+        {
+          "veddra_version": "11",
+          "veddra_term_code": "334",
+          "veddra_term_name": "Vomiting",
+          "number_of_animals_affected": "1",
+          "accuracy": "Actual"
+        }
+      ],
+      "receiver": {
+        "organization": "Food and Drug Administration Center for Veterinary Medicine",
+        "street_address": "7500 Standish Place (HFV-210) Room N403",
+        "city": "Rockville",
+        "state": "MD",
+        "postal_code": "20855",
+        "country": "USA"
+      },
+      "unique_aer_id_number": "USA-USFDACVM-2016-US-068424",
+      "original_receive_date": "20160830",
+      "number_of_animals_affected": "1",
+      "primary_reporter": "Other Health Care Professional",
+      "number_of_animals_treated": "1",
+      "drug": [
+        {
+          "first_exposure_date": "20160401",
+          "last_exposure_date": "20160401",
+          "frequency_of_administration": {
+            "value": "1",
+            "unit": "Day"
+          },
+          "administered_by": "Animal Owner",
+          "route": "Oral",
+          "dose": {
+            "numerator": "1",
+            "numerator_unit": "tablet",
+            "denominator": "1",
+            "denominator_unit": "dose"
+          },
+          "used_according_to_label": "true",
+          "previous_exposure_to_drug": "false",
+          "lot_number": "UNKNOWN",
+          "brand_name": "MSK",
+          "dosage_form": "Tablet",
+          "manufacturer": {
+            "name": "MSK",
+            "registration_number": "USA-USFDACVM-N141084"
+          },
+          "atc_vet_code": "QP54AB51",
+          "active_ingredients": [
+            {
+              "name": "Milbemycin Oxime, Lufenuron",
+              "dose": {
+                "numerator": "1",
+                "numerator_unit": "Unknown",
+                "denominator": "1",
+                "denominator_unit": "Unknown"
+              }
+            }
+          ]
+        }
+      ],
+      "health_assessment_prior_to_exposure": {
+        "condition": "Good",
+        "assessed_by": "Veterinarian"
+      },
+      "onset_date": "20160401",
+      "foreign_or_domestic": "Domestic",
+      "report_id": "N141084",
+      "animal": {
+        "species": "Dog",
+        "gender": "Female",
+        "reproductive_status": "Neutered",
+        "female_animal_physiological_status": "NOT APPLICABLE",
+        "age": {
+          "min": "21.00",
+          "unit": "Month",
+          "qualifier": "Measured"
+        },
+        "weight": {
+          "min": "27.896",
+          "unit": "Kilogram",
+          "qualifier": "Measured"
+        },
+        "breed": {
+          "is_crossbred": "false",
+          "breed_component": "Bulldog - American"
+        }
+      },
+      "type_of_information": "Safety Issue",
+      "serious_ae": "false",
+      "outcome": [
+        {
+          "medical_status": "Recovered/Normal",
+          "number_of_animals_affected": "1"
+        }
+      ]
+    },
+    {
+      "treated_for_ae": "false",
+      "reaction": [
+        {
+          "veddra_version": "6",
+          "veddra_term_code": "99951",
+          "veddra_term_name": "UNPALATABLE",
+          "number_of_animals_affected": "1",
+          "accuracy": "Actual"
+        }
+      ],
+      "receiver": {
+        "organization": "Food and Drug Administration Center for Veterinary Medicine",
+        "street_address": "7500 Standish Place (HFV-210) Room N403",
+        "city": "Rockville",
+        "state": "MD",
+        "postal_code": "20855",
+        "country": "USA"
+      },
+      "unique_aer_id_number": "USA-USFDACVM-2016-US-000750",
+      "original_receive_date": "20160108",
+      "number_of_animals_affected": "2",
+      "primary_reporter": "Animal Owner",
+      "number_of_animals_treated": "2",
+      "secondary_reporter": "Veterinarian",
+      "drug": [
+        {
+          "frequency_of_administration": {
+            "value": "1",
+            "unit": "Month"
+          },
+          "dose": {
+            "numerator": "272",
+            "numerator_unit": "Microgram",
+            "denominator": "1",
+            "denominator_unit": "tablet"
+          },
+          "lot_number": "SD1548",
+          "brand_name": "MSK",
+          "dosage_form": "Tablet",
+          "manufacturer": {
+            "name": "MSK",
+            "registration_number": "USA-USFDACVM-A200338"
+          },
+          "atc_vet_code": "QP54AA51",
+          "active_ingredients": [
+            {
+              "name": "Ivermectin",
+              "dose": {
+                "numerator": "272",
+                "numerator_unit": "Microgram",
+                "denominator": "1",
+                "denominator_unit": "tablet"
+              }
+            },
+            {
+              "name": "Pyrantel",
+              "dose": {
+                "numerator": "227",
+                "numerator_unit": "Microgram",
+                "denominator": "1",
+                "denominator_unit": "tablet"
+              }
+            }
+          ]
+        }
+      ],
+      "health_assessment_prior_to_exposure": {
+        "condition": "Unknown",
+        "assessed_by": "Veterinarian"
+      },
+      "onset_date": "20160107",
+      "foreign_or_domestic": "Domestic",
+      "report_id": "A200338",
+      "animal": {
+        "species": "Dog",
+        "age": {
+          "qualifier": "Unknown"
+        },
+        "weight": {
+          "qualifier": "Unknown"
+        }
+      },
+      "type_of_information": "Lack Of Expected Effectiveness",
+      "serious_ae": "false",
+      "outcome": [
+        {
+          "medical_status": "Outcome Unknown",
+          "number_of_animals_affected": "2"
+        }
+      ]
+    },
+    {
+      "treated_for_ae": "false",
+      "reaction": [
+        {
+          "veddra_version": "11",
+          "veddra_term_code": "1039",
+          "veddra_term_name": "Lack of efficacy - NOS",
+          "number_of_animals_affected": "1",
+          "accuracy": "Actual"
+        }
+      ],
+      "receiver": {
+        "organization": "Food and Drug Administration Center for Veterinary Medicine",
+        "street_address": "7500 Standish Place (HFV-210) Room N403",
+        "city": "Rockville",
+        "state": "MD",
+        "postal_code": "20855",
+        "country": "USA"
+      },
+      "unique_aer_id_number": "USA-USFDACVM-2016-US-052423",
+      "original_receive_date": "20160926",
+      "number_of_animals_affected": "1",
+      "primary_reporter": "Veterinarian",
+      "number_of_animals_treated": "1",
+      "secondary_reporter": "Animal Owner",
+      "drug": [
+        {
+          "first_exposure_date": "20160701",
+          "frequency_of_administration": {
+            "value": "1",
+            "unit": "Day"
+          },
+          "administered_by": "Animal Owner",
+          "route": "Oral",
+          "dose": {
+            "numerator": "2.70",
+            "numerator_unit": "Milligram",
+            "denominator": "1",
+            "denominator_unit": "Animal"
+          },
+          "used_according_to_label": "true",
+          "previous_exposure_to_drug": "false",
+          "brand_name": "MSK",
+          "dosage_form": "Tablet",
+          "manufacturer": {
+            "name": "MSK",
+            "registration_number": "USA-USFDACVM-N141345"
+          },
+          "atc_vet_code": "QD11AH90",
+          "active_ingredients": [
+            {
+              "name": "Oclacitinib Maleate",
+              "dose": {
+                "numerator": "1",
+                "numerator_unit": "Unknown",
+                "denominator": "1",
+                "denominator_unit": "Unknown"
+              }
+            }
+          ]
+        },
+        {
+          "first_exposure_date": "20160926",
+          "administered_by": "Unknown",
+          "route": "Unknown",
+          "brand_name": "MSK",
+          "dosage_form": "Unassigned",
+          "manufacturer": {
+            "name": "MSK"
+          },
+          "active_ingredients": [
+            {
+              "name": "Benazepril Hydrochloride",
+              "dose": {
+                "numerator": "1",
+                "numerator_unit": "Unknown",
+                "denominator": "1",
+                "denominator_unit": "Unknown"
+              }
+            }
+          ]
+        },
+        {
+          "first_exposure_date": "20160926",
+          "administered_by": "Unknown",
+          "route": "Unknown",
+          "brand_name": "MSK",
+          "dosage_form": "Unassigned",
+          "manufacturer": {
+            "name": "MSK"
+          },
+          "active_ingredients": [
+            {
+              "name": "Omega-3",
+              "dose": {
+                "numerator": "1",
+                "numerator_unit": "Unknown",
+                "denominator": "1",
+                "denominator_unit": "Unknown"
+              }
+            }
+          ]
+        }
+      ],
+      "health_assessment_prior_to_exposure": {
+        "condition": "Fair",
+        "assessed_by": "Veterinarian"
+      },
+      "onset_date": "20160926",
+      "foreign_or_domestic": "Domestic",
+      "report_id": "N141345",
+      "animal": {
+        "species": "Dog",
+        "gender": "Male",
+        "reproductive_status": "Neutered",
+        "female_animal_physiological_status": "NOT APPLICABLE",
+        "age": {
+          "min": "6.00",
+          "unit": "Year",
+          "qualifier": "Measured"
+        },
+        "weight": {
+          "min": "5.670",
+          "unit": "Kilogram",
+          "qualifier": "Measured"
+        },
+        "breed": {
+          "is_crossbred": "false",
+          "breed_component": "Terrier - Yorkshire"
+        }
+      },
+      "type_of_information": "Lack Of Expected Effectiveness",
+      "serious_ae": "false",
+      "outcome": [
+        {
+          "medical_status": "Ongoing",
+          "number_of_animals_affected": "1"
+        }
+      ]
+    },
+    {
+      "treated_for_ae": "false",
+      "reaction": [
+        {
+          "veddra_version": "",
+          "veddra_term_code": "2649",
+          "veddra_term_name": "Lack of efficacy (ectoparasite) - flea"
+        }
+      ],
+      "receiver": {
+        "organization": "Food and Drug Administration Center for Veterinary Medicine",
+        "street_address": "7500 Standish Place (HFV-210) Room N403",
+        "city": "Rockville",
+        "state": "MD",
+        "postal_code": "20855",
+        "country": "USA"
+      },
+      "unique_aer_id_number": "USA-USFDACVM-2015-US-418427",
+      "original_receive_date": "20151212",
+      "number_of_animals_affected": "1",
+      "primary_reporter": "Animal Owner",
+      "number_of_animals_treated": "1",
+      "secondary_reporter": "Other",
+      "drug": [
+        {
+          "first_exposure_date": "20151001",
+          "last_exposure_date": "20151201",
+          "frequency_of_administration": {
+            "value": "1",
+            "unit": "Month"
+          },
+          "administered_by": "Animal Owner",
+          "route": "Oral",
+          "dose": {
+            "numerator": "1",
+            "numerator_unit": "tablet",
+            "denominator": "1",
+            "denominator_unit": "Unknown"
+          },
+          "used_according_to_label": "false",
+          "previous_exposure_to_drug": "false",
+          "lot_number": "1032701",
+          "brand_name": "MSK",
+          "dosage_form": "Tablet, chewable",
+          "manufacturer": {
+            "name": "MSK",
+            "registration_number": "USA-USFDACVM-N141321"
+          },
+          "atc_vet_code": "QP54AB51",
+          "active_ingredients": [
+            {
+              "name": "Spinosad",
+              "dose": {
+                "numerator": "810",
+                "numerator_unit": "Milligram",
+                "denominator": "1",
+                "denominator_unit": "dose"
+              }
+            },
+            {
+              "name": "Milbemycin Oxime",
+              "dose": {
+                "numerator": "13.50",
+                "numerator_unit": "Milligram",
+                "denominator": "1",
+                "denominator_unit": "dose"
+              }
+            }
+          ]
+        },
+        {
+          "first_exposure_date": "201207",
+          "last_exposure_date": "201509",
+          "frequency_of_administration": {
+            "value": "1",
+            "unit": "Month"
+          },
+          "administered_by": "Animal Owner",
+          "route": "Oral",
+          "dose": {
+            "numerator": "1",
+            "numerator_unit": "tablet",
+            "denominator": "1",
+            "denominator_unit": "Unknown"
+          },
+          "previous_exposure_to_drug": "false",
+          "brand_name": "MSK",
+          "dosage_form": "Tablet, chewable",
+          "manufacturer": {
+            "name": "MSK",
+            "registration_number": "USA-USFDACVM-N141277"
+          },
+          "atc_vet_code": "QP53BX03",
+          "active_ingredients": [
+            {
+              "name": "Spinosad",
+              "dose": {
+                "numerator": "1",
+                "numerator_unit": "Unknown",
+                "denominator": "1",
+                "denominator_unit": "Unknown"
+              }
+            }
+          ]
+        }
+      ],
+      "health_assessment_prior_to_exposure": {
+        "condition": "Unknown",
+        "assessed_by": "Veterinarian"
+      },
+      "onset_date": "20151115",
+      "foreign_or_domestic": "Domestic",
+      "report_id": "N141321",
+      "animal": {
+        "species": "Dog",
+        "gender": "Female",
+        "reproductive_status": "Neutered",
+        "female_animal_physiological_status": "NOT APPLICABLE",
+        "age": {
+          "min": "5.00",
+          "unit": "Year",
+          "qualifier": "Measured"
+        },
+        "weight": {
+          "min": "27.216",
+          "unit": "Kilogram",
+          "qualifier": "Measured"
+        },
+        "breed": {
+          "is_crossbred": "false",
+          "breed_component": "Crossbred Canine/dog"
+        }
+      },
+      "type_of_information": "Lack Of Expected Effectiveness",
+      "serious_ae": "false",
+      "outcome": [
+        {
+          "medical_status": "Outcome Unknown",
+          "number_of_animals_affected": "1"
+        }
+      ]
+    },
+    {
+      "treated_for_ae": "false",
+      "reaction": [
+        {
+          "veddra_version": "11",
+          "veddra_term_code": "1888",
+          "veddra_term_name": "Regurgitation"
+        },
+        {
+          "veddra_version": "11",
+          "veddra_term_code": "334",
+          "veddra_term_name": "Vomiting"
+        }
+      ],
+      "receiver": {
+        "organization": "Food and Drug Administration Center for Veterinary Medicine",
+        "street_address": "7500 Standish Place (HFV-210) Room N403",
+        "city": "Rockville",
+        "state": "MD",
+        "postal_code": "20855",
+        "country": "USA"
+      },
+      "unique_aer_id_number": "USA-USFDACVM-2015-US-399188",
+      "original_receive_date": "20150825",
+      "number_of_animals_affected": "1",
+      "primary_reporter": "Animal Owner",
+      "number_of_animals_treated": "1",
+      "secondary_reporter": "Other",
+      "drug": [
+        {
+          "first_exposure_date": "20140824",
+          "last_exposure_date": "20150823",
+          "frequency_of_administration": {
+            "value": "1",
+            "unit": "Month"
+          },
+          "administered_by": "Animal Owner",
+          "route": "Oral",
+          "dose": {
+            "numerator": "1",
+            "numerator_unit": "tablet",
+            "denominator": "1",
+            "denominator_unit": "Unknown"
+          },
+          "used_according_to_label": "true",
+          "previous_exposure_to_drug": "false",
+          "brand_name": "MSK",
+          "dosage_form": "Tablet, chewable",
+          "manufacturer": {
+            "name": "MSK",
+            "registration_number": "USA-USFDACVM-N141277"
+          },
+          "atc_vet_code": "QP53BX03",
+          "active_ingredients": [
+            {
+              "name": "Spinosad",
+              "dose": {
+                "numerator": "140",
+                "numerator_unit": "Milligram",
+                "denominator": "1",
+                "denominator_unit": "dose"
+              }
+            }
+          ]
+        }
+      ],
+      "health_assessment_prior_to_exposure": {
+        "condition": "Unknown",
+        "assessed_by": "Veterinarian"
+      },
+      "foreign_or_domestic": "Domestic",
+      "report_id": "N141277",
+      "animal": {
+        "species": "Dog",
+        "gender": "Male",
+        "reproductive_status": "Neutered",
+        "female_animal_physiological_status": "NOT APPLICABLE",
+        "age": {
+          "min": "5.00",
+          "unit": "Year",
+          "qualifier": "Estimated"
+        },
+        "weight": {
+          "min": "3.402",
+          "unit": "Kilogram",
+          "qualifier": "Measured"
+        },
+        "breed": {
+          "is_crossbred": "true",
+          "breed_component": [
+            "Bichon Frise",
+            "Poodle (unspecified)"
+          ]
+        }
+      },
+      "type_of_information": "Safety Issue",
+      "serious_ae": "false",
+      "outcome": [
+        {
+          "medical_status": "Recovered/Normal",
+          "number_of_animals_affected": "1"
+        }
+      ]
+    },
+    {
+      "treated_for_ae": "false",
+      "reaction": [
+        {
+          "veddra_version": "11",
+          "veddra_term_code": "334",
+          "veddra_term_name": "Vomiting",
+          "number_of_animals_affected": "1",
+          "accuracy": "Actual"
+        },
+        {
+          "veddra_version": "11",
+          "veddra_term_code": "302",
+          "veddra_term_name": "Diarrhoea"
+        },
+        {
+          "veddra_version": "11",
+          "veddra_term_code": "1207",
+          "veddra_term_name": "Not eating",
+          "number_of_animals_affected": "1",
+          "accuracy": "Actual"
+        },
+        {
+          "veddra_version": "11",
+          "veddra_term_code": "541",
+          "veddra_term_name": "Not drinking",
+          "number_of_animals_affected": "1",
+          "accuracy": "Actual"
+        },
+        {
+          "veddra_version": "11",
+          "veddra_term_code": "2082",
+          "veddra_term_name": "Emesis (multiple)"
+        },
+        {
+          "veddra_version": "11",
+          "veddra_term_code": "2231",
+          "veddra_term_name": "Increased bowel movements (frequency)"
+        }
+      ],
+      "receiver": {
+        "organization": "Food and Drug Administration Center for Veterinary Medicine",
+        "street_address": "7500 Standish Place (HFV-210) Room N403",
+        "city": "Rockville",
+        "state": "MD",
+        "postal_code": "20855",
+        "country": "USA"
+      },
+      "unique_aer_id_number": "USA-USFDACVM-2016-US-006283",
+      "original_receive_date": "20160227",
+      "number_of_animals_affected": "1",
+      "primary_reporter": "Animal Owner",
+      "number_of_animals_treated": "1",
+      "drug": [
+        {
+          "first_exposure_date": "20160225",
+          "last_exposure_date": "20160225",
+          "administered_by": "Animal Owner",
+          "route": "Oral",
+          "dose": {
+            "numerator": "1",
+            "numerator_unit": "tablet",
+            "denominator": "1",
+            "denominator_unit": "Unknown"
+          },
+          "used_according_to_label": "true",
+          "previous_exposure_to_drug": "false",
+          "lot_number": "13B191",
+          "lot_expiration": "2018-06",
+          "brand_name": "MSK",
+          "dosage_form": "Tablet, chewable",
+          "manufacturer": {
+            "name": "MSK",
+            "registration_number": "USA-USFDACVM-N141321"
+          },
+          "atc_vet_code": "QP54AB51",
+          "active_ingredients": [
+            {
+              "name": "Spinosad",
+              "dose": {
+                "numerator": "270",
+                "numerator_unit": "Milligram",
+                "denominator": "1",
+                "denominator_unit": "dose"
+              }
+            },
+            {
+              "name": "Milbemycin Oxime",
+              "dose": {
+                "numerator": "4.50",
+                "numerator_unit": "Milligram",
+                "denominator": "1",
+                "denominator_unit": "dose"
+              }
+            }
+          ]
+        }
+      ],
+      "health_assessment_prior_to_exposure": {
+        "condition": "Unknown",
+        "assessed_by": "Veterinarian"
+      },
+      "foreign_or_domestic": "Domestic",
+      "report_id": "N141321",
+      "animal": {
+        "species": "Dog",
+        "gender": "Male",
+        "reproductive_status": "Neutered",
+        "female_animal_physiological_status": "NOT APPLICABLE",
+        "age": {
+          "min": "5.00",
+          "unit": "Year",
+          "qualifier": "Measured"
+        },
+        "weight": {
+          "min": "5.216",
+          "unit": "Kilogram",
+          "qualifier": "Measured"
+        },
+        "breed": {
+          "is_crossbred": "false",
+          "breed_component": "Poodle - Miniature"
+        }
+      },
+      "type_of_information": "Safety Issue",
+      "serious_ae": "false",
+      "outcome": [
+        {
+          "medical_status": "Ongoing",
+          "number_of_animals_affected": "1"
+        }
+      ]
+    },
+    {
+      "treated_for_ae": "false",
+      "reaction": [
+        {
+          "veddra_version": "11",
+          "veddra_term_code": "334",
+          "veddra_term_name": "Vomiting",
+          "number_of_animals_affected": "1",
+          "accuracy": "Actual"
+        }
+      ],
+      "receiver": {
+        "organization": "Food and Drug Administration Center for Veterinary Medicine",
+        "street_address": "7500 Standish Place (HFV-210) Room N403",
+        "city": "Rockville",
+        "state": "MD",
+        "postal_code": "20855",
+        "country": "USA"
+      },
+      "unique_aer_id_number": "USA-USFDACVM-2015-US-405009",
+      "time_between_exposure_and_onset": "<1 Hour",
+      "original_receive_date": "20151007",
+      "number_of_animals_affected": "1",
+      "primary_reporter": "Other",
+      "number_of_animals_treated": "1",
+      "drug": [
+        {
+          "first_exposure_date": "20150624",
+          "last_exposure_date": "20150924",
+          "administered_by": "Animal Owner",
+          "route": "Oral",
+          "dose": {
+            "numerator": "500",
+            "numerator_unit": "Milligram",
+            "denominator": "1",
+            "denominator_unit": "Unknown"
+          },
+          "used_according_to_label": "true",
+          "previous_exposure_to_drug": "true",
+          "previous_ae_to_drug": "false",
+          "lot_number": "UNKNOWN",
+          "brand_name": "MSK",
+          "dosage_form": "Tablet, chewable",
+          "manufacturer": {
+            "name": "MSK",
+            "registration_number": "USA-USFDACVM-N141426"
+          },
+          "atc_vet_code": "QP53BX05",
+          "active_ingredients": [
+            {
+              "name": "Fluralaner Chew Tablets",
+              "dose": {
+                "numerator": "1",
+                "numerator_unit": "Other",
+                "denominator": "1",
+                "denominator_unit": "Other"
+              }
+            }
+          ]
+        }
+      ],
+      "health_assessment_prior_to_exposure": {
+        "condition": "Good",
+        "assessed_by": "Veterinarian"
+      },
+      "onset_date": "20150924",
+      "foreign_or_domestic": "Domestic",
+      "report_id": "N141426",
+      "animal": {
+        "species": "Dog",
+        "gender": "Male",
+        "reproductive_status": "Neutered",
+        "female_animal_physiological_status": "NOT APPLICABLE",
+        "age": {
+          "min": "5.00",
+          "unit": "Year",
+          "qualifier": "Measured"
+        },
+        "weight": {
+          "min": "12.840",
+          "unit": "Kilogram",
+          "qualifier": "Measured"
+        },
+        "breed": {
+          "is_crossbred": "false",
+          "breed_component": "Terrier (unspecified)"
+        }
+      },
+      "type_of_information": "Safety Issue",
+      "serious_ae": "true",
+      "outcome": [
+        {
+          "medical_status": "Recovered/Normal",
+          "number_of_animals_affected": "1"
+        }
+      ]
+    },
+    {
+      "treated_for_ae": "true",
+      "reaction": [
+        {
+          "veddra_version": "6",
+          "veddra_term_code": "99115",
+          "veddra_term_name": "INEFFECTIVE, HEARTWORM LARVAE",
+          "number_of_animals_affected": "1",
+          "accuracy": "Actual"
+        }
+      ],
+      "receiver": {
+        "organization": "Food and Drug Administration Center for Veterinary Medicine",
+        "street_address": "7500 Standish Place (HFV-210) Room N403",
+        "city": "Rockville",
+        "state": "MD",
+        "postal_code": "20855",
+        "country": "USA"
+      },
+      "unique_aer_id_number": "USA-USFDACVM-2016-US-046563",
+      "original_receive_date": "20160909",
+      "number_of_animals_affected": "1",
+      "primary_reporter": "Veterinarian",
+      "number_of_animals_treated": "1",
+      "secondary_reporter": "Animal Owner",
+      "drug": [
+        {
+          "first_exposure_date": "20151207",
+          "last_exposure_date": "20160201",
+          "route": "Oral",
+          "dose": {
+            "numerator": "1",
+            "numerator_unit": "dose",
+            "denominator": "1",
+            "denominator_unit": "Unknown"
+          },
+          "used_according_to_label": "true",
+          "previous_exposure_to_drug": "true",
+          "lot_number": "UNKNOWN",
+          "brand_name": "MSK",
+          "dosage_form": "Tablet, chewable",
+          "manufacturer": {
+            "name": "MSK",
+            "registration_number": "USA-USFDACVM-N140971"
+          },
+          "atc_vet_code": "QP54AA51",
+          "active_ingredients": [
+            {
+              "name": "Ivermectin",
+              "dose": {
+                "numerator": "272",
+                "numerator_unit": "Microgram",
+                "denominator": "1",
+                "denominator_unit": "dose"
+              }
+            },
+            {
+              "name": "Pyrantel As Pamoate Salt",
+              "dose": {
+                "numerator": "227",
+                "numerator_unit": "Milligram",
+                "denominator": "1",
+                "denominator_unit": "dose"
+              }
+            }
+          ]
+        },
+        {
+          "first_exposure_date": "20141207",
+          "last_exposure_date": "20151101",
+          "brand_name": "MSK",
+          "manufacturer": {
+            "name": "MSK"
+          },
+          "active_ingredients": [
+            {
+              "dose": {
+                "numerator": "1",
+                "numerator_unit": "Unknown",
+                "denominator": "1",
+                "denominator_unit": "Unknown"
+              }
+            }
+          ]
+        }
+      ],
+      "health_assessment_prior_to_exposure": {
+        "condition": "Fair",
+        "assessed_by": "Veterinarian"
+      },
+      "foreign_or_domestic": "Domestic",
+      "report_id": "N140971",
+      "animal": {
+        "species": "Dog",
+        "gender": "Male",
+        "reproductive_status": "Intact",
+        "female_animal_physiological_status": "NOT APPLICABLE",
+        "age": {
+          "min": "2.00",
+          "unit": "Year",
+          "qualifier": "Measured"
+        },
+        "weight": {
+          "min": "29.937",
+          "unit": "Kilogram",
+          "qualifier": "Measured"
+        },
+        "breed": {
+          "is_crossbred": "false",
+          "breed_component": "Dog (unknown)"
+        }
+      },
+      "type_of_information": "Lack Of Expected Effectiveness",
+      "serious_ae": "true",
+      "outcome": [
+        {
+          "medical_status": "Outcome Unknown",
+          "number_of_animals_affected": "1"
+        }
+      ]
+    },
+    {
+      "treated_for_ae": "false",
+      "reaction": [
+        {
+          "veddra_version": "11",
+          "veddra_term_code": "334",
+          "veddra_term_name": "Vomiting",
+          "number_of_animals_affected": "1",
+          "accuracy": "Actual"
+        }
+      ],
+      "receiver": {
+        "organization": "Food and Drug Administration Center for Veterinary Medicine",
+        "street_address": "7500 Standish Place (HFV-210) Room N403",
+        "city": "Rockville",
+        "state": "MD",
+        "postal_code": "20855",
+        "country": "USA"
+      },
+      "unique_aer_id_number": "USA-USFDACVM-2016-US-012062",
+      "original_receive_date": "20160408",
+      "number_of_animals_affected": "1",
+      "primary_reporter": "Veterinarian",
+      "number_of_animals_treated": "1",
+      "secondary_reporter": "Animal Owner",
+      "drug": [
+        {
+          "first_exposure_date": "20160406",
+          "last_exposure_date": "20160406",
+          "administered_by": "Animal Owner",
+          "route": "Oral",
+          "dose": {
+            "numerator": "112.50",
+            "numerator_unit": "Milligram",
+            "denominator": "1",
+            "denominator_unit": "Animal"
+          },
+          "lot_number": "A024A03",
+          "lot_expiration": "2017-07",
+          "brand_name": "MSK",
+          "dosage_form": "Tablet, chewable",
+          "manufacturer": {
+            "name": "MSK",
+            "registration_number": "USA-USFDACVM-N141426"
+          },
+          "atc_vet_code": "QP53BX05",
+          "active_ingredients": [
+            {
+              "name": "Fluralaner Chew Tablets",
+              "dose": {
+                "numerator": "1",
+                "numerator_unit": "Unknown",
+                "denominator": "1",
+                "denominator_unit": "Unknown"
+              }
+            }
+          ]
+        },
+        {
+          "first_exposure_date": "20160406",
+          "last_exposure_date": "20160406",
+          "administered_by": "Veterinarian",
+          "route": "Unknown",
+          "brand_name": "MSK",
+          "manufacturer": {
+            "name": "MSK"
+          },
+          "active_ingredients": [
+            {
+              "name": "Proheart Injection",
+              "dose": {
+                "numerator": "1",
+                "numerator_unit": "Unknown",
+                "denominator": "1",
+                "denominator_unit": "Unknown"
+              }
+            }
+          ]
+        },
+        {
+          "first_exposure_date": "20160406",
+          "last_exposure_date": "20160406",
+          "administered_by": "Animal Owner",
+          "route": "Oral",
+          "brand_name": "MSK",
+          "manufacturer": {
+            "name": "MSK"
+          },
+          "active_ingredients": [
+            {
+              "name": "Amoxicillin Drops",
+              "dose": {
+                "numerator": "1",
+                "numerator_unit": "Unknown",
+                "denominator": "1",
+                "denominator_unit": "Unknown"
+              }
+            }
+          ]
+        }
+      ],
+      "health_assessment_prior_to_exposure": {
+        "condition": "Good",
+        "assessed_by": "Veterinarian"
+      },
+      "onset_date": "20160406",
+      "foreign_or_domestic": "Domestic",
+      "report_id": "N141426",
+      "animal": {
+        "species": "Dog",
+        "gender": "Female",
+        "reproductive_status": "Intact",
+        "age": {
+          "min": "2.50",
+          "unit": "Year",
+          "qualifier": "Measured"
+        },
+        "weight": {
+          "min": "2.676",
+          "unit": "Kilogram",
+          "qualifier": "Measured"
+        },
+        "breed": {
+          "is_crossbred": "true",
+          "breed_component": [
+            "Crossbred Canine/dog",
+            "Terrier - Yorkshire"
+          ]
+        }
+      },
+      "type_of_information": "Safety Issue",
+      "serious_ae": "true",
+      "outcome": [
+        {
+          "medical_status": "Recovered/Normal",
+          "number_of_animals_affected": "1"
+        }
+      ]
+    },
+    {
+      "treated_for_ae": "true",
+      "reaction": [
+        {
+          "veddra_version": "11",
+          "veddra_term_code": "1018",
+          "veddra_term_name": "Lethargy (see also Central nervous system depression in 'Neurological')",
+          "number_of_animals_affected": "1",
+          "accuracy": "Actual"
+        },
+        {
+          "veddra_version": "11",
+          "veddra_term_code": "2252",
+          "veddra_term_name": "Limpness",
+          "number_of_animals_affected": "1",
+          "accuracy": "Actual"
+        },
+        {
+          "veddra_version": "11",
+          "veddra_term_code": "1207",
+          "veddra_term_name": "Not eating",
+          "number_of_animals_affected": "1",
+          "accuracy": "Actual"
+        },
+        {
+          "veddra_version": "11",
+          "veddra_term_code": "645",
+          "veddra_term_name": "Seizure NOS",
+          "number_of_animals_affected": "1",
+          "accuracy": "Actual"
+        },
+        {
+          "veddra_version": "11",
+          "veddra_term_code": "334",
+          "veddra_term_name": "Vomiting",
+          "number_of_animals_affected": "1",
+          "accuracy": "Actual"
+        },
+        {
+          "veddra_version": "11",
+          "veddra_term_code": "541",
+          "veddra_term_name": "Not drinking",
+          "number_of_animals_affected": "1",
+          "accuracy": "Actual"
+        },
+        {
+          "veddra_version": "11",
+          "veddra_term_code": "1043",
+          "veddra_term_name": "Weight loss",
+          "number_of_animals_affected": "1",
+          "accuracy": "Actual"
+        },
+        {
+          "veddra_version": "11",
+          "veddra_term_code": "163",
+          "veddra_term_name": "Leucocytosis NOS",
+          "number_of_animals_affected": "1",
+          "accuracy": "Actual"
+        },
+        {
+          "veddra_version": "11",
+          "veddra_term_code": "2050",
+          "veddra_term_name": "Elevated alanine aminotransferase (ALT)",
+          "number_of_animals_affected": "1",
+          "accuracy": "Actual"
+        },
+        {
+          "veddra_version": "11",
+          "veddra_term_code": "1166",
+          "veddra_term_name": "Vaginal discharge",
+          "number_of_animals_affected": "1",
+          "accuracy": "Actual"
+        },
+        {
+          "veddra_version": "11",
+          "veddra_term_code": "1981",
+          "veddra_term_name": "Abnormal stool colouration",
+          "number_of_animals_affected": "1",
+          "accuracy": "Actual"
+        },
+        {
+          "veddra_version": "11",
+          "veddra_term_code": "304",
+          "veddra_term_name": "Loose stool",
+          "number_of_animals_affected": "1",
+          "accuracy": "Actual"
+        },
+        {
+          "veddra_version": "11",
+          "veddra_term_code": "1210",
+          "veddra_term_name": "Dry mucous membrane",
+          "number_of_animals_affected": "1",
+          "accuracy": "Actual"
+        },
+        {
+          "veddra_version": "11",
+          "veddra_term_code": "2118",
+          "veddra_term_name": "Lip smacking",
+          "number_of_animals_affected": "1",
+          "accuracy": "Actual"
+        },
+        {
+          "veddra_version": "11",
+          "veddra_term_code": "2010",
+          "veddra_term_name": "Abdominal discomfort",
+          "number_of_animals_affected": "1",
+          "accuracy": "Actual"
+        },
+        {
+          "veddra_version": "11",
+          "veddra_term_code": "812",
+          "veddra_term_name": "Pyometra",
+          "number_of_animals_affected": "1",
+          "accuracy": "Actual"
+        },
+        {
+          "veddra_version": "11",
+          "veddra_term_code": "2227",
+          "veddra_term_name": "Dental disease",
+          "number_of_animals_affected": "1",
+          "accuracy": "Actual"
+        },
+        {
+          "veddra_version": "11",
+          "veddra_term_code": "819",
+          "veddra_term_name": "Vaginal prolapse",
+          "number_of_animals_affected": "1",
+          "accuracy": "Actual"
+        },
+        {
+          "veddra_version": "11",
+          "veddra_term_code": "168",
+          "veddra_term_name": "Neutrophilia",
+          "number_of_animals_affected": "1",
+          "accuracy": "Actual"
+        },
+        {
+          "veddra_version": "11",
+          "veddra_term_code": "1221",
+          "veddra_term_name": "Other abnormal test result NOS",
+          "number_of_animals_affected": "1",
+          "accuracy": "Actual"
+        },
+        {
+          "veddra_version": "",
+          "veddra_term_code": "2420",
+          "veddra_term_name": "Monocytosis"
+        },
+        {
+          "veddra_version": "6",
+          "veddra_term_code": "99310",
+          "veddra_term_name": "HEMOGLOBIN(HB) HIGH, BLOOD"
+        }
+      ],
+      "receiver": {
+        "organization": "Food and Drug Administration Center for Veterinary Medicine",
+        "street_address": "7500 Standish Place (HFV-210) Room N403",
+        "city": "Rockville",
+        "state": "MD",
+        "postal_code": "20855",
+        "country": "USA"
+      },
+      "unique_aer_id_number": "USA-USFDACVM-2016-US-010537",
+      "original_receive_date": "20160328",
+      "number_of_animals_affected": "1",
+      "primary_reporter": "Animal Owner",
+      "number_of_animals_treated": "1",
+      "secondary_reporter": "Veterinarian",
+      "drug": [
+        {
+          "first_exposure_date": "20160320",
+          "last_exposure_date": "20160320",
+          "administered_by": "Animal Owner",
+          "route": "Oral",
+          "dose": {
+            "numerator": "1",
+            "numerator_unit": "tablet",
+            "denominator": "1",
+            "denominator_unit": "Unknown"
+          },
+          "used_according_to_label": "true",
+          "previous_exposure_to_drug": "false",
+          "brand_name": "MSK",
+          "dosage_form": "Tablet, chewable",
+          "manufacturer": {
+            "name": "MSK",
+            "registration_number": "USA-USFDACVM-N141321"
+          },
+          "atc_vet_code": "QP54AB51",
+          "active_ingredients": [
+            {
+              "name": "Spinosad",
+              "dose": {
+                "numerator": "140",
+                "numerator_unit": "Milligram",
+                "denominator": "1",
+                "denominator_unit": "dose"
+              }
+            },
+            {
+              "name": "Milbemycin Oxime",
+              "dose": {
+                "numerator": "2.30",
+                "numerator_unit": "Milligram",
+                "denominator": "1",
+                "denominator_unit": "dose"
+              }
+            }
+          ]
+        },
+        {
+          "first_exposure_date": "20130801",
+          "last_exposure_date": "20130801",
+          "administered_by": "Unknown",
+          "route": "Oral",
+          "dose": {
+            "numerator": "1",
+            "numerator_unit": "tablet",
+            "denominator": "1",
+            "denominator_unit": "Unknown"
+          },
+          "brand_name": "MSK",
+          "dosage_form": "Tablet",
+          "manufacturer": {
+            "name": "MSK",
+            "registration_number": "FRA-FRAANMVF-N141204"
+          },
+          "atc_vet_code": "QP54AB51",
+          "active_ingredients": [
+            {
+              "name": "Nitenpyram",
+              "dose": {
+                "numerator": "1",
+                "numerator_unit": "Unknown",
+                "denominator": "1",
+                "denominator_unit": "Unknown"
+              }
+            }
+          ]
+        }
+      ],
+      "health_assessment_prior_to_exposure": {
+        "condition": "Unknown",
+        "assessed_by": "Veterinarian"
+      },
+      "foreign_or_domestic": "Domestic",
+      "report_id": "N141321",
+      "animal": {
+        "species": "Dog",
+        "gender": "Female",
+        "reproductive_status": "Neutered",
+        "female_animal_physiological_status": "NOT APPLICABLE",
+        "age": {
+          "min": "11.00",
+          "unit": "Year",
+          "qualifier": "Measured"
+        },
+        "weight": {
+          "min": "4.309",
+          "unit": "Kilogram",
+          "qualifier": "Measured"
+        },
+        "breed": {
+          "is_crossbred": "true",
+          "breed_component": [
+            "Spitz - German Pomeranian",
+            "Chihuahua"
+          ]
+        }
+      },
+      "type_of_information": "Safety Issue",
+      "serious_ae": "true",
+      "outcome": [
+        {
+          "medical_status": "Recovered/Normal",
+          "number_of_animals_affected": "1"
+        }
+      ]
+    },
+    {
+      "treated_for_ae": "true",
+      "reaction": [
+        {
+          "veddra_version": "11",
+          "veddra_term_code": "1896",
+          "veddra_term_name": "Immune mediated haemolytic anaemia"
+        }
+      ],
+      "receiver": {
+        "organization": "Food and Drug Administration Center for Veterinary Medicine",
+        "street_address": "7500 Standish Place (HFV-210) Room N403",
+        "city": "Rockville",
+        "state": "MD",
+        "postal_code": "20855",
+        "country": "USA"
+      },
+      "unique_aer_id_number": "USA-USFDACVM-2016-US-000728",
+      "time_between_exposure_and_onset": ">30 Days and <6 Months",
+      "original_receive_date": "20160114",
+      "number_of_animals_affected": "1",
+      "primary_reporter": "Other Health Care Professional",
+      "number_of_animals_treated": "1",
+      "secondary_reporter": "Animal Owner",
+      "drug": [
+        {
+          "first_exposure_date": "20151125",
+          "frequency_of_administration": {
+            "value": "1",
+            "unit": "Day"
+          },
+          "administered_by": "Animal Owner",
+          "route": "Oral",
+          "dose": {
+            "numerator": "16",
+            "numerator_unit": "Milligram",
+            "denominator": "1",
+            "denominator_unit": "Animal"
+          },
+          "used_according_to_label": "false",
+          "off_label_use": "Treatment regimen Off-Label",
+          "previous_exposure_to_drug": "false",
+          "brand_name": "MSK",
+          "dosage_form": "Tablet",
+          "manufacturer": {
+            "name": "MSK",
+            "registration_number": "USA-USFDACVM-N141345"
+          },
+          "atc_vet_code": "QD11AH90",
+          "active_ingredients": [
+            {
+              "name": "Oclacitinib Maleate",
+              "dose": {
+                "numerator": "1",
+                "numerator_unit": "Unknown",
+                "denominator": "1",
+                "denominator_unit": "Unknown"
+              }
+            }
+          ]
+        }
+      ],
+      "health_assessment_prior_to_exposure": {
+        "condition": "Fair",
+        "assessed_by": "Veterinarian"
+      },
+      "onset_date": "20160105",
+      "foreign_or_domestic": "Domestic",
+      "report_id": "N141345",
+      "animal": {
+        "species": "Dog",
+        "gender": "Male",
+        "reproductive_status": "Neutered",
+        "female_animal_physiological_status": "NOT APPLICABLE",
+        "age": {
+          "min": "7.00",
+          "unit": "Year",
+          "qualifier": "Measured"
+        },
+        "weight": {
+          "min": "32.704",
+          "unit": "Kilogram",
+          "qualifier": "Measured"
+        },
+        "breed": {
+          "is_crossbred": "false",
+          "breed_component": "Retriever - Labrador"
+        }
+      },
+      "type_of_information": "Safety Issue",
+      "serious_ae": "true",
+      "outcome": [
+        {
+          "medical_status": "Outcome Unknown",
+          "number_of_animals_affected": "1"
+        }
+      ]
+    },
+    {
+      "treated_for_ae": "true",
+      "reaction": [
+        {
+          "veddra_version": "11",
+          "veddra_term_code": "305",
+          "veddra_term_name": "Digestive tract disorder NOS",
+          "number_of_animals_affected": "1",
+          "accuracy": "Actual"
+        },
+        {
+          "veddra_version": "6",
+          "veddra_term_code": "99088",
+          "veddra_term_name": "INEFFECTIVE, ASCARIDS NOS",
+          "number_of_animals_affected": "1",
+          "accuracy": "Actual"
+        }
+      ],
+      "receiver": {
+        "organization": "Food and Drug Administration Center for Veterinary Medicine",
+        "street_address": "7500 Standish Place (HFV-210) Room N403",
+        "city": "Rockville",
+        "state": "MD",
+        "postal_code": "20855",
+        "country": "USA"
+      },
+      "unique_aer_id_number": "USA-USFDACVM-2016-US-031326",
+      "original_receive_date": "20160630",
+      "number_of_animals_affected": "1",
+      "primary_reporter": "Other",
+      "number_of_animals_treated": "1",
+      "secondary_reporter": "Veterinarian",
+      "drug": [
+        {
+          "first_exposure_date": "20151103",
+          "last_exposure_date": "20160601",
+          "route": "Oral",
+          "dose": {
+            "numerator": "1",
+            "numerator_unit": "dose",
+            "denominator": "1",
+            "denominator_unit": "Unknown"
+          },
+          "used_according_to_label": "true",
+          "previous_exposure_to_drug": "true",
+          "previous_ae_to_drug": "false",
+          "lot_number": "UNKNOWN",
+          "brand_name": "MSK",
+          "dosage_form": "Tablet, chewable",
+          "manufacturer": {
+            "name": "MSK",
+            "registration_number": "USA-USFDACVM-N140971"
+          },
+          "atc_vet_code": "QP54AA51",
+          "active_ingredients": [
+            {
+              "name": "Ivermectin",
+              "dose": {
+                "numerator": "272",
+                "numerator_unit": "Microgram",
+                "denominator": "1",
+                "denominator_unit": "dose"
+              }
+            },
+            {
+              "name": "Pyrantel As Pamoate Salt",
+              "dose": {
+                "numerator": "227",
+                "numerator_unit": "Milligram",
+                "denominator": "1",
+                "denominator_unit": "dose"
+              }
+            }
+          ]
+        }
+      ],
+      "health_assessment_prior_to_exposure": {
+        "condition": "Good",
+        "assessed_by": "Veterinarian"
+      },
+      "foreign_or_domestic": "Domestic",
+      "report_id": "N140971",
+      "animal": {
+        "species": "Dog",
+        "gender": "Male",
+        "reproductive_status": "Neutered",
+        "female_animal_physiological_status": "NOT APPLICABLE",
+        "age": {
+          "min": "11.00",
+          "unit": "Month",
+          "qualifier": "Measured"
+        },
+        "weight": {
+          "min": "23.133",
+          "unit": "Kilogram",
+          "qualifier": "Measured"
+        },
+        "breed": {
+          "is_crossbred": "false",
+          "breed_component": "Hound - Basset"
+        }
+      },
+      "type_of_information": "Lack Of Expected Effectiveness",
+      "serious_ae": "true",
+      "outcome": [
+        {
+          "medical_status": "Outcome Unknown",
+          "number_of_animals_affected": "1"
+        }
+      ]
+    },
+    {
+      "treated_for_ae": "false",
+      "reaction": [
+        {
+          "veddra_version": "11",
+          "veddra_term_code": "334",
+          "veddra_term_name": "Vomiting",
+          "number_of_animals_affected": "1",
+          "accuracy": "Actual"
+        }
+      ],
+      "receiver": {
+        "organization": "Food and Drug Administration Center for Veterinary Medicine",
+        "street_address": "7500 Standish Place (HFV-210) Room N403",
+        "city": "Rockville",
+        "state": "MD",
+        "postal_code": "20855",
+        "country": "USA"
+      },
+      "unique_aer_id_number": "USA-USFDACVM-2016-US-016436",
+      "original_receive_date": "20160503",
+      "number_of_animals_affected": "1",
+      "primary_reporter": "Veterinarian",
+      "number_of_animals_treated": "1",
+      "secondary_reporter": "Animal Owner",
+      "drug": [
+        {
+          "first_exposure_date": "20150503",
+          "last_exposure_date": "20160503",
+          "frequency_of_administration": {
+            "value": "3",
+            "unit": "Month"
+          },
+          "administered_by": "Animal Owner",
+          "route": "Oral",
+          "dose": {
+            "numerator": "1000",
+            "numerator_unit": "Milligram",
+            "denominator": "1",
+            "denominator_unit": "Animal"
+          },
+          "used_according_to_label": "true",
+          "previous_exposure_to_drug": "false",
+          "lot_number": "UNKNOWN",
+          "brand_name": "MSK",
+          "dosage_form": "Tablet, chewable",
+          "manufacturer": {
+            "name": "MSK",
+            "registration_number": "USA-USFDACVM-N141426"
+          },
+          "atc_vet_code": "QP53BX05",
+          "active_ingredients": [
+            {
+              "name": "Fluralaner Chew Tablets",
+              "dose": {
+                "numerator": "1",
+                "numerator_unit": "Unknown",
+                "denominator": "1",
+                "denominator_unit": "Unknown"
+              }
+            }
+          ]
+        }
+      ],
+      "health_assessment_prior_to_exposure": {
+        "condition": "Good",
+        "assessed_by": "Veterinarian"
+      },
+      "onset_date": "20160503",
+      "foreign_or_domestic": "Domestic",
+      "report_id": "N141426",
+      "animal": {
+        "species": "Dog",
+        "gender": "Female",
+        "reproductive_status": "Neutered",
+        "female_animal_physiological_status": "NOT APPLICABLE",
+        "age": {
+          "min": "6.00",
+          "unit": "Year",
+          "qualifier": "Measured"
+        },
+        "weight": {
+          "min": "23.133",
+          "unit": "Kilogram",
+          "qualifier": "Measured"
+        },
+        "breed": {
+          "is_crossbred": "false",
+          "breed_component": "Crossbred Canine/dog"
+        }
+      },
+      "type_of_information": "Safety Issue",
+      "serious_ae": "true",
+      "outcome": [
+        {
+          "medical_status": "Recovered/Normal",
+          "number_of_animals_affected": "1"
+        }
+      ]
+    },
+    {
+      "treated_for_ae": "true",
+      "reaction": [
+        {
+          "veddra_version": "11",
+          "veddra_term_code": "1414",
+          "veddra_term_name": "Dilated pupils",
+          "number_of_animals_affected": "1",
+          "accuracy": "Actual"
+        },
+        {
+          "veddra_version": "11",
+          "veddra_term_code": "1018",
+          "veddra_term_name": "Lethargy (see also Central nervous system depression in 'Neurological')",
+          "number_of_animals_affected": "1",
+          "accuracy": "Actual"
+        },
+        {
+          "veddra_version": "11",
+          "veddra_term_code": "1033",
+          "veddra_term_name": "Elevated temperature",
+          "number_of_animals_affected": "1",
+          "accuracy": "Actual"
+        },
+        {
+          "veddra_version": "11",
+          "veddra_term_code": "193",
+          "veddra_term_name": "Increased heart rate",
+          "number_of_animals_affected": "1",
+          "accuracy": "Actual"
+        },
+        {
+          "veddra_version": "11",
+          "veddra_term_code": "654",
+          "veddra_term_name": "Ataxia",
+          "number_of_animals_affected": "1",
+          "accuracy": "Actual"
+        },
+        {
+          "veddra_version": "11",
+          "veddra_term_code": "1133",
+          "veddra_term_name": "Drunken gait"
+        },
+        {
+          "veddra_version": "11",
+          "veddra_term_code": "651",
+          "veddra_term_name": "Falling"
+        },
+        {
+          "veddra_version": "11",
+          "veddra_term_code": "372",
+          "veddra_term_name": "Balance problem"
+        }
+      ],
+      "receiver": {
+        "organization": "Food and Drug Administration Center for Veterinary Medicine",
+        "street_address": "7500 Standish Place (HFV-210) Room N403",
+        "city": "Rockville",
+        "state": "MD",
+        "postal_code": "20855",
+        "country": "USA"
+      },
+      "unique_aer_id_number": "USA-USFDACVM-2016-US-010152",
+      "original_receive_date": "20160205",
+      "number_of_animals_affected": "1",
+      "primary_reporter": "Veterinarian",
+      "number_of_animals_treated": "1",
+      "secondary_reporter": "Animal Owner",
+      "drug": [
+        {
+          "first_exposure_date": "20160205",
+          "last_exposure_date": "20160205",
+          "administered_by": "Animal Owner",
+          "route": "Oral",
+          "dose": {
+            "numerator": "1",
+            "numerator_unit": "tablet",
+            "denominator": "1",
+            "denominator_unit": "Unknown"
+          },
+          "used_according_to_label": "true",
+          "previous_exposure_to_drug": "false",
+          "lot_number": "1004308",
+          "lot_expiration": "2015-03",
+          "brand_name": "MSK",
+          "dosage_form": "Tablet, chewable",
+          "manufacturer": {
+            "name": "MSK",
+            "registration_number": "USA-USFDACVM-N141321"
+          },
+          "atc_vet_code": "QP54AB51",
+          "active_ingredients": [
+            {
+              "name": "Spinosad",
+              "dose": {
+                "numerator": "270",
+                "numerator_unit": "Milligram",
+                "denominator": "1",
+                "denominator_unit": "dose"
+              }
+            },
+            {
+              "name": "Milbemycin Oxime",
+              "dose": {
+                "numerator": "4.50",
+                "numerator_unit": "Milligram",
+                "denominator": "1",
+                "denominator_unit": "dose"
+              }
+            }
+          ]
+        },
+        {
+          "first_exposure_date": "20151201",
+          "last_exposure_date": "20160204",
+          "administered_by": "Veterinarian",
+          "route": "Parenteral",
+          "brand_name": "MSK",
+          "manufacturer": {
+            "name": "MSK"
+          },
+          "active_ingredients": [
+            {
+              "name": "Da2Pp Vaccine",
+              "dose": {
+                "numerator": "1",
+                "numerator_unit": "Unknown",
+                "denominator": "1",
+                "denominator_unit": "Unknown"
+              }
+            }
+          ]
+        },
+        {
+          "first_exposure_date": "20160204",
+          "last_exposure_date": "20160204",
+          "administered_by": "Veterinarian",
+          "route": "Oral",
+          "brand_name": "MSK",
+          "manufacturer": {
+            "name": "MSK"
+          },
+          "active_ingredients": [
+            {
+              "name": "Pyrantel Pamoate",
+              "dose": {
+                "numerator": "1",
+                "numerator_unit": "Unknown",
+                "denominator": "1",
+                "denominator_unit": "Unknown"
+              }
+            }
+          ]
+        }
+      ],
+      "health_assessment_prior_to_exposure": {
+        "condition": "Good",
+        "assessed_by": "Veterinarian"
+      },
+      "foreign_or_domestic": "Domestic",
+      "report_id": "N141321",
+      "animal": {
+        "species": "Dog",
+        "gender": "Male",
+        "reproductive_status": "Intact",
+        "female_animal_physiological_status": "NOT APPLICABLE",
+        "age": {
+          "min": "12.00",
+          "unit": "Week",
+          "qualifier": "Measured"
+        },
+        "weight": {
+          "min": "6.713",
+          "unit": "Kilogram",
+          "qualifier": "Measured"
+        },
+        "breed": {
+          "is_crossbred": "false",
+          "breed_component": "Bulldog - French"
+        }
+      },
+      "type_of_information": "Safety Issue",
+      "serious_ae": "false",
+      "outcome": [
+        {
+          "medical_status": "Recovered/Normal",
+          "number_of_animals_affected": "1"
+        }
+      ]
+    },
+    {
+      "treated_for_ae": "true",
+      "reaction": [
+        {
+          "veddra_version": "11",
+          "veddra_term_code": "115",
+          "veddra_term_name": "Anxiety",
+          "number_of_animals_affected": "1",
+          "accuracy": "Actual"
+        },
+        {
+          "veddra_version": "6",
+          "veddra_term_code": "99115",
+          "veddra_term_name": "INEFFECTIVE, HEARTWORM LARVAE",
+          "number_of_animals_affected": "1",
+          "accuracy": "Actual"
+        },
+        {
+          "veddra_version": "7",
+          "veddra_term_code": "99825",
+          "veddra_term_name": "Drug dose omission",
+          "number_of_animals_affected": "1",
+          "accuracy": "Actual"
+        }
+      ],
+      "receiver": {
+        "organization": "Food and Drug Administration Center for Veterinary Medicine",
+        "street_address": "7500 Standish Place (HFV-210) Room N403",
+        "city": "Rockville",
+        "state": "MD",
+        "postal_code": "20855",
+        "country": "USA"
+      },
+      "unique_aer_id_number": "USA-USFDACVM-2017-US-003084",
+      "original_receive_date": "20170123",
+      "number_of_animals_affected": "1",
+      "primary_reporter": "Veterinarian",
+      "number_of_animals_treated": "1",
+      "secondary_reporter": "Animal Owner",
+      "drug": [
+        {
+          "first_exposure_date": "20160222",
+          "last_exposure_date": "20170101",
+          "frequency_of_administration": {
+            "value": "1",
+            "unit": "Month"
+          },
+          "administered_by": "Animal Owner",
+          "route": "Oral",
+          "dose": {
+            "numerator": "1",
+            "numerator_unit": "tablet",
+            "denominator": "1",
+            "denominator_unit": "Unknown"
+          },
+          "used_according_to_label": "false",
+          "off_label_use": "Treatment regimen Off-Label",
+          "previous_exposure_to_drug": "false",
+          "brand_name": "MSK",
+          "dosage_form": "Tablet, chewable",
+          "manufacturer": {
+            "name": "MSK",
+            "registration_number": "USA-USFDACVM-N141321"
+          },
+          "atc_vet_code": "QP54AB51",
+          "active_ingredients": [
+            {
+              "name": "Spinosad",
+              "dose": {
+                "numerator": "560",
+                "numerator_unit": "Milligram",
+                "denominator": "1",
+                "denominator_unit": "dose"
+              }
+            },
+            {
+              "name": "Milbemycin Oxime",
+              "dose": {
+                "numerator": "9.30",
+                "numerator_unit": "Milligram",
+                "denominator": "1",
+                "denominator_unit": "dose"
+              }
+            }
+          ]
+        }
+      ],
+      "health_assessment_prior_to_exposure": {
+        "condition": "Unknown",
+        "assessed_by": "Veterinarian"
+      },
+      "onset_date": "20161212",
+      "foreign_or_domestic": "Domestic",
+      "report_id": "N141321",
+      "animal": {
+        "species": "Dog",
+        "gender": "Female",
+        "reproductive_status": "Neutered",
+        "female_animal_physiological_status": "NOT APPLICABLE",
+        "age": {
+          "min": "3.00",
+          "unit": "Year",
+          "qualifier": "Measured"
+        },
+        "weight": {
+          "min": "16.012",
+          "unit": "Kilogram",
+          "qualifier": "Measured"
+        },
+        "breed": {
+          "is_crossbred": "false",
+          "breed_component": "Beagle"
+        }
+      },
+      "type_of_information": "Safety Issue",
+      "serious_ae": "false",
+      "outcome": [
+        {
+          "medical_status": "Ongoing",
+          "number_of_animals_affected": "1"
+        }
+      ]
+    }
+  ]
+}

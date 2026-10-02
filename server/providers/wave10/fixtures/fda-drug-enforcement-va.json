@@ -1,0 +1,686 @@
+{
+  "meta": {
+    "disclaimer": "Do not rely on openFDA to make decisions regarding medical care. While we make every effort to ensure that data is accurate, you should assume all results are unvalidated. We may limit or otherwise restrict your access to the API in line with our Terms of Service.",
+    "terms": "https://open.fda.gov/terms/",
+    "license": "https://open.fda.gov/license/",
+    "last_updated": "2026-09-23",
+    "results": {
+      "skip": 0,
+      "limit": 20,
+      "total": 420
+    }
+  },
+  "results": [
+    {
+      "status": "Terminated",
+      "city": "Chesapeake",
+      "state": "VA",
+      "country": "United States",
+      "classification": "Class II",
+      "openfda": {},
+      "product_type": "Drugs",
+      "event_id": "91466",
+      "recalling_firm": "Sentara Infusion Services",
+      "address_1": "535 Independence Pkwy Ste 300",
+      "address_2": "N/A",
+      "postal_code": "23320-5176",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Telephone",
+      "distribution_pattern": "Dispensed to Patients Nationwide.",
+      "recall_number": "D-0296-2023",
+      "product_description": "HYDROMORPHONE (a) 1MG/ML IN NS,  50ML, 75 ML, 100ML, 175ML(NDC 00703-0018-01 and NDC 00409-2634-50) ; (b) 5MG/ML IN NS 60ML, 100ML, 250ML; pain, Rx only, used with a Curlin pump or no pump, Sentara Home Infusion Pharmacy Services, 535 Independence Pkwy, Ste 300, Chesapeake, VA 23320, NDC# 00409-2634-50",
+      "product_quantity": "37 bags",
+      "reason_for_recall": "Lack of sterility assurance",
+      "recall_initiation_date": "20221227",
+      "center_classification_date": "20230215",
+      "termination_date": "20260220",
+      "report_date": "20230222",
+      "code_info": "Beyond Use Date: December 24-31, 2022"
+    },
+    {
+      "status": "Ongoing",
+      "city": "Chesapeake",
+      "state": "VA",
+      "country": "United States",
+      "classification": "Class II",
+      "openfda": {},
+      "product_type": "Drugs",
+      "event_id": "90566",
+      "recalling_firm": "Family Dollar Stores, Llc.",
+      "address_1": "500 Volvo Pkwy",
+      "address_2": "",
+      "postal_code": "23320-1604",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Other",
+      "distribution_pattern": "Nationwide within the United States",
+      "recall_number": "D-1461-2022",
+      "product_description": "QP COUGH COLD TABLET 16 CT distributed to specific Family Dollar Stores 04/30/2022 through 06/10/2022.",
+      "product_quantity": "Unknown",
+      "reason_for_recall": "CGMP Deviations: product held outside appropriate storage temperature conditions.",
+      "recall_initiation_date": "20220623",
+      "center_classification_date": "20220822",
+      "report_date": "20220831",
+      "code_info": "SKU: 916922",
+      "more_code_info": ""
+    },
+    {
+      "status": "Terminated",
+      "city": "Chesapeake",
+      "state": "VA",
+      "country": "United States",
+      "classification": "Class II",
+      "openfda": {},
+      "product_type": "Drugs",
+      "event_id": "91466",
+      "recalling_firm": "Sentara Infusion Services",
+      "address_1": "535 Independence Pkwy Ste 300",
+      "address_2": "N/A",
+      "postal_code": "23320-5176",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Telephone",
+      "distribution_pattern": "Dispensed to Patients Nationwide.",
+      "recall_number": "D-0323-2023",
+      "product_description": "VANCOMYCIN (a)700 MG NS 140ML, (b) 1000MG IN NS 200ML, abtibiotic, Rx only, use with home pump, Sentara Home Infusion Pharmacy Services, 535 Independence Pkwy, Ste 300, Chesapeake, VA 23320",
+      "product_quantity": "18 bags",
+      "reason_for_recall": "Lack of sterility assurance",
+      "recall_initiation_date": "20221227",
+      "center_classification_date": "20230215",
+      "termination_date": "20260220",
+      "report_date": "20230222",
+      "code_info": "Beyond Use Date: December 28-31, 2022"
+    },
+    {
+      "status": "Terminated",
+      "city": "Richmond",
+      "state": "VA",
+      "country": "United States",
+      "classification": "Class II",
+      "openfda": {},
+      "product_type": "Drugs",
+      "event_id": "89646",
+      "recalling_firm": "Mckesson Medical-Surgical Inc. Corporate Office",
+      "address_1": "9954 Maryland Drive",
+      "address_2": "Deep Run Iii Ste. 4000",
+      "postal_code": "23233",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "USA nationwide.",
+      "recall_number": "D-1099-2022",
+      "product_description": "Thrombin JMI, Vial 5,000IU 2/diluent, kit, Rx only, MFG: Pfizer   NDC 60793-215-05",
+      "product_quantity": "157 kits",
+      "reason_for_recall": "cGMP deviations: Temperature abuse",
+      "recall_initiation_date": "20220413",
+      "center_classification_date": "20220609",
+      "termination_date": "20231130",
+      "report_date": "20220615",
+      "code_info": "McKesson Medical-Surgical (MMS) is not able to identify the particular lot number received by a particular consignee for the recalled prescription products. Each letter includes the date it was distributed to customers and the dates that impacted product may have been shipped to the customer.",
+      "more_code_info": ""
+    },
+    {
+      "status": "Ongoing",
+      "city": "Chesapeake",
+      "state": "VA",
+      "country": "United States",
+      "classification": "Class II",
+      "openfda": {},
+      "product_type": "Drugs",
+      "event_id": "90566",
+      "recalling_firm": "Family Dollar Stores, Llc.",
+      "address_1": "500 Volvo Pkwy",
+      "address_2": "",
+      "postal_code": "23320-1604",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Other",
+      "distribution_pattern": "Nationwide within the United States",
+      "recall_number": "D-1432-2022",
+      "product_description": "AMBI NRSHNG DAILY FACIAL MSTURZER 1.7 OZ distributed to specific Family Dollar Stores 04/30/2022 through 06/10/2022.",
+      "product_quantity": "Unknown",
+      "reason_for_recall": "CGMP Deviations: product held outside appropriate storage temperature conditions.",
+      "recall_initiation_date": "20220623",
+      "center_classification_date": "20220822",
+      "report_date": "20220831",
+      "code_info": "SKU: 2096628",
+      "more_code_info": ""
+    },
+    {
+      "status": "Terminated",
+      "city": "Richmond",
+      "state": "VA",
+      "country": "United States",
+      "classification": "Class II",
+      "openfda": {
+        "application_number": [
+          "NDA050779"
+        ],
+        "brand_name": [
+          "CEFAZOLIN SODIUM"
+        ],
+        "generic_name": [
+          "CEFAZOLIN SODIUM"
+        ],
+        "manufacturer_name": [
+          "B. Braun Medical Inc."
+        ],
+        "product_ndc": [
+          "0264-3103",
+          "0264-3105",
+          "0264-3107"
+        ],
+        "product_type": [
+          "HUMAN PRESCRIPTION DRUG"
+        ],
+        "route": [
+          "INTRAVENOUS"
+        ],
+        "substance_name": [
+          "CEFAZOLIN SODIUM"
+        ],
+        "rxcui": [
+          "1665050",
+          "1665060",
+          "2630753"
+        ],
+        "spl_id": [
+          "fb2f076a-22b3-46e0-86c8-7678e89c9edf"
+        ],
+        "spl_set_id": [
+          "17f8f038-c204-4dab-80d7-6f7ac41ddbec"
+        ],
+        "package_ndc": [
+          "0264-3103-11",
+          "0264-3105-11",
+          "0264-3107-11"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "P380M0454Z"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "89646",
+      "recalling_firm": "Mckesson Medical-Surgical Inc. Corporate Office",
+      "address_1": "9954 Maryland Drive",
+      "address_2": "Deep Run Iii Ste. 4000",
+      "postal_code": "23233",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "USA nationwide.",
+      "recall_number": "D-1118-2022",
+      "product_description": "Cefazolin for injection USP, and Dextrose Injection, USP, 2 g, 50 mL duplex container, Rx only, MFG: B. Braun Medical Inc., NDC 0264-3105-11",
+      "product_quantity": "39 cases",
+      "reason_for_recall": "cGMP deviations: Temperature abuse",
+      "recall_initiation_date": "20220413",
+      "center_classification_date": "20220609",
+      "termination_date": "20231130",
+      "report_date": "20220615",
+      "code_info": "McKesson Medical-Surgical (MMS) is not able to identify the particular lot number received by a particular consignee for the recalled prescription products. Each letter includes the date it was distributed to customers and the dates that impacted product may have been shipped to the customer.",
+      "more_code_info": ""
+    },
+    {
+      "status": "Terminated",
+      "city": "Virginia Beach",
+      "state": "VA",
+      "country": "United States",
+      "classification": "Class I",
+      "openfda": {},
+      "product_type": "Drugs",
+      "event_id": "69729",
+      "recalling_firm": "REFA Enterprises, LLC",
+      "address_1": "900 Commonwealth Pl Ste 104",
+      "address_2": "N/A",
+      "postal_code": "23464-4517",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "E-Mail",
+      "distribution_pattern": "Nationwide",
+      "recall_number": "D-0994-2015",
+      "product_description": "Forever Beautiful BEE POLLEN, capsules, 250mg in 60-count bottles, 900 Commonwealth Place, Ste 104, Virginia Beach, VA",
+      "product_quantity": "92 bottles",
+      "reason_for_recall": "Marketed Without an Approved NDA/ANDA: FDA analysis found product to contain sibutramine and phenolphthalein",
+      "recall_initiation_date": "20141103",
+      "center_classification_date": "20150506",
+      "termination_date": "20151104",
+      "report_date": "20150513",
+      "code_info": "UPC CODE: 633090804632, Exp unknown"
+    },
+    {
+      "status": "Ongoing",
+      "city": "Chesapeake",
+      "state": "VA",
+      "country": "United States",
+      "classification": "Class II",
+      "openfda": {},
+      "product_type": "Drugs",
+      "event_id": "90566",
+      "recalling_firm": "Family Dollar Stores, Llc.",
+      "address_1": "500 Volvo Pkwy",
+      "address_2": "",
+      "postal_code": "23320-1604",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Other",
+      "distribution_pattern": "Nationwide within the United States",
+      "recall_number": "D-1404-2022",
+      "product_description": "DR SCHOLLS CLR AWAY LIQ WART REMVR 20CT SKU 998384   DR SCHOLLS CALLUS REMOVER PADS 4CT SKU 998431   DR SCHOLLS CORN REMOVERS 9CT SKU 998403 distributed to specific Family Dollar Stores 04/30/2022 through 06/10/2022.",
+      "product_quantity": "Unknown",
+      "reason_for_recall": "CGMP Deviations: product held outside appropriate storage temperature conditions.",
+      "recall_initiation_date": "20220623",
+      "center_classification_date": "20220822",
+      "report_date": "20220831",
+      "code_info": "SKUs: 998384; 998431; 998403",
+      "more_code_info": ""
+    },
+    {
+      "status": "Ongoing",
+      "city": "Chesapeake",
+      "state": "VA",
+      "country": "United States",
+      "classification": "Class II",
+      "openfda": {},
+      "product_type": "Drugs",
+      "event_id": "90566",
+      "recalling_firm": "Family Dollar Stores, Llc.",
+      "address_1": "500 Volvo Pkwy",
+      "address_2": "",
+      "postal_code": "23320-1604",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Other",
+      "distribution_pattern": "Nationwide within the United States",
+      "recall_number": "D-1414-2022",
+      "product_description": "GUARDIAN ANTACID EX STRGTH TBLT FRT 96CT SKU 901379   GUARDIAN CHWABLE SMTHIES BRRY FSION 60CT SKU 999845   GS EFFERVESCENT ANTACID TABLET 36 CT SKU 913102   GUARDIAN ANTCD TBLT XTRA STGTH BRY 96 CT SKU 914109 \t  GUARDIAN ANTCID TBLT REG STTH FRT 150 CT SKU 914726   GC ANTACID SUPREME CHERRY 12 FL OZ SKU 914112   GUARDIAN ANTD ULTR STRGTH 1000 FRT 72 CT SKU 902322  distributed to specific Family Dollar Stores 04/30/2022 through 06/10/2022.",
+      "product_quantity": "Unknown",
+      "reason_for_recall": "CGMP Deviations: product held outside appropriate storage temperature conditions.",
+      "recall_initiation_date": "20220623",
+      "center_classification_date": "20220822",
+      "report_date": "20220831",
+      "code_info": "SKUs: 901379; 999845; 913102; 914109; 914726; 914112; 902322",
+      "more_code_info": ""
+    },
+    {
+      "status": "Terminated",
+      "city": "Sterling",
+      "state": "VA",
+      "country": "United States",
+      "classification": "Class II",
+      "openfda": {},
+      "product_type": "Drugs",
+      "event_id": "91443",
+      "recalling_firm": "Northern VA Compounders PLLC",
+      "address_1": "23475 Rock Haven Way",
+      "address_2": "Suite 105",
+      "postal_code": "20166-4444",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Two or more of the following: Email, Fax, Letter, Press Release, Telephone, Visit",
+      "distribution_pattern": "Nationwide in the USA",
+      "recall_number": "D-0103-2023",
+      "product_description": "QuadMix Plus (PGE1/Papaverine HCl/Phentolamine Mesylate/Atropine) 20mcg/30mg/2mg/0.2mg/mL INJECTABLE, packaged in 2.5 mL Multiple-Dose vials, Rx Only, Compounded by: Akina Pharmacy, 23475 Rock Haven Way Suite 105, Sterling, VA  20166.",
+      "product_quantity": "78 vials",
+      "reason_for_recall": "Lack of Assurance of Sterility",
+      "recall_initiation_date": "20221230",
+      "center_classification_date": "20230112",
+      "termination_date": "20230621",
+      "report_date": "20230118",
+      "code_info": "Lot#: 11182022@1, Exp 1/2/2023; 12012022@9, Exp 1/15/2023; 11142022@8, Exp 12/29/2022; 11292022@10, Exp 1/13/2023",
+      "more_code_info": ""
+    },
+    {
+      "status": "Terminated",
+      "city": "Richmond",
+      "state": "VA",
+      "country": "United States",
+      "classification": "Class II",
+      "openfda": {
+        "application_number": [
+          "NDA020615"
+        ],
+        "brand_name": [
+          "DURACLON"
+        ],
+        "generic_name": [
+          "CLONIDINE HYDROCHLORIDE"
+        ],
+        "manufacturer_name": [
+          "Mylan Institutional LLC"
+        ],
+        "product_ndc": [
+          "67457-218"
+        ],
+        "product_type": [
+          "HUMAN PRESCRIPTION DRUG"
+        ],
+        "route": [
+          "EPIDURAL"
+        ],
+        "substance_name": [
+          "CLONIDINE HYDROCHLORIDE"
+        ],
+        "rxcui": [
+          "884221",
+          "884223"
+        ],
+        "spl_id": [
+          "671a0224-c38b-4f2e-a132-fa38aa1a0797"
+        ],
+        "spl_set_id": [
+          "8c126bb8-732a-4949-8754-2f50b5543638"
+        ],
+        "package_ndc": [
+          "67457-218-10"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "W76I6XXF06"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "89646",
+      "recalling_firm": "Mckesson Medical-Surgical Inc. Corporate Office",
+      "address_1": "9954 Maryland Drive",
+      "address_2": "Deep Run Iii Ste. 4000",
+      "postal_code": "23233",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "USA nationwide.",
+      "recall_number": "D-1091-2022",
+      "product_description": "Duraclon (clonidine HCl injection, USP), 1000 mcg/10 mL (100 mcg/mL), 10 mL single-dose vial, Rx only, MFG: Mylan Pharma, NDC 67457-218-10",
+      "product_quantity": "9 vials",
+      "reason_for_recall": "cGMP deviations: Temperature abuse",
+      "recall_initiation_date": "20220413",
+      "center_classification_date": "20220609",
+      "termination_date": "20231130",
+      "report_date": "20220615",
+      "code_info": "McKesson Medical-Surgical (MMS) is not able to identify the particular lot number received by a particular consignee for the recalled prescription products. Each letter includes the date it was distributed to customers and the dates that impacted product may have been shipped to the customer.",
+      "more_code_info": ""
+    },
+    {
+      "status": "Terminated",
+      "city": "Chesapeake",
+      "state": "VA",
+      "country": "United States",
+      "classification": "Class II",
+      "openfda": {},
+      "product_type": "Drugs",
+      "event_id": "91466",
+      "recalling_firm": "Sentara Infusion Services",
+      "address_1": "535 Independence Pkwy Ste 300",
+      "address_2": "N/A",
+      "postal_code": "23320-5176",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Telephone",
+      "distribution_pattern": "Dispensed to Patients Nationwide.",
+      "recall_number": "D-0306-2023",
+      "product_description": "METRONIDAZOLE 500MG 100ML, antibiotic, Rx Only, use with a home pump or no pump, Sentara Home Infusion Pharmacy Services, 535 Independence Pkwy, Ste 300, Chesapeake, VA 23320",
+      "product_quantity": "30 bags",
+      "reason_for_recall": "Lack of sterility assurance",
+      "recall_initiation_date": "20221227",
+      "center_classification_date": "20230215",
+      "termination_date": "20260220",
+      "report_date": "20230222",
+      "code_info": "Beyond Use Date: December 24-29, 2022"
+    },
+    {
+      "status": "Terminated",
+      "city": "Richmond",
+      "state": "VA",
+      "country": "United States",
+      "classification": "Class II",
+      "openfda": {},
+      "product_type": "Drugs",
+      "event_id": "89646",
+      "recalling_firm": "Mckesson Medical-Surgical Inc. Corporate Office",
+      "address_1": "9954 Maryland Drive",
+      "address_2": "Deep Run Iii Ste. 4000",
+      "postal_code": "23233",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "USA nationwide.",
+      "recall_number": "D-1017-2022",
+      "product_description": "GlucaGen (glucagon) for injection, 1 mg per vial, single dose kit, Rx only, Manufactured for: Boehringer Mannheim, NDC 0597-0260-10",
+      "product_quantity": "187 vials",
+      "reason_for_recall": "cGMP deviations: Temperature abuse",
+      "recall_initiation_date": "20220413",
+      "center_classification_date": "20220609",
+      "termination_date": "20231130",
+      "report_date": "20220615",
+      "code_info": "McKesson Medical-Surgical (MMS) is not able to identify the particular lot number received by a particular consignee for the recalled prescription products. Each letter includes the date it was distributed to customers and the dates that impacted product may have been shipped to the customer.",
+      "more_code_info": ""
+    },
+    {
+      "status": "Terminated",
+      "city": "Chesapeake",
+      "state": "VA",
+      "country": "United States",
+      "classification": "Class II",
+      "openfda": {},
+      "product_type": "Drugs",
+      "event_id": "91466",
+      "recalling_firm": "Sentara Infusion Services",
+      "address_1": "535 Independence Pkwy Ste 300",
+      "address_2": "N/A",
+      "postal_code": "23320-5176",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Telephone",
+      "distribution_pattern": "Dispensed to Patients Nationwide.",
+      "recall_number": "D-0297-2023",
+      "product_description": "IMIPENEM/CILASTATIN 2000MG IN NS 400ML, antibiotic, Rx Only, use with a Curlin Pump,  Sentara Home Infusion Pharmacy Services, 535 Independence Pkwy, Ste 300, Chesapeake, VA 23320, NDC#  63323-0322-25",
+      "product_quantity": "7 bags",
+      "reason_for_recall": "Lack of sterility assurance",
+      "recall_initiation_date": "20221227",
+      "center_classification_date": "20230215",
+      "termination_date": "20260220",
+      "report_date": "20230222",
+      "code_info": "Beyond Use Date: December 25-30, 2022"
+    },
+    {
+      "status": "Terminated",
+      "city": "Richmond",
+      "state": "VA",
+      "country": "United States",
+      "classification": "Class II",
+      "openfda": {},
+      "product_type": "Drugs",
+      "event_id": "89646",
+      "recalling_firm": "Mckesson Medical-Surgical Inc. Corporate Office",
+      "address_1": "9954 Maryland Drive",
+      "address_2": "Deep Run Iii Ste. 4000",
+      "postal_code": "23233",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "USA nationwide.",
+      "recall_number": "D-1030-2022",
+      "product_description": "Spinal Tray (A4058-25 Spinal Tray 25G Whitacre No Epinephrine), Rx only, Manufacturer: Smiths Medical ASD, Inc., NJ",
+      "product_quantity": "8 cases",
+      "reason_for_recall": "cGMP deviations: Temperature abuse",
+      "recall_initiation_date": "20220413",
+      "center_classification_date": "20220609",
+      "termination_date": "20231130",
+      "report_date": "20220615",
+      "code_info": "McKesson Medical-Surgical (MMS) is not able to identify the particular lot number received by a particular consignee for the recalled prescription products. Each letter includes the date it was distributed to customers and the dates that impacted product may have been shipped to the customer.",
+      "more_code_info": ""
+    },
+    {
+      "status": "Terminated",
+      "city": "Richmond",
+      "state": "VA",
+      "country": "United States",
+      "classification": "Class II",
+      "openfda": {
+        "application_number": [
+          "ANDA077200"
+        ],
+        "brand_name": [
+          "ZADITOR"
+        ],
+        "generic_name": [
+          "KETOTIFEN FUMARATE"
+        ],
+        "manufacturer_name": [
+          "Alcon Laboratories, Inc."
+        ],
+        "product_ndc": [
+          "0065-4011"
+        ],
+        "product_type": [
+          "HUMAN OTC DRUG"
+        ],
+        "route": [
+          "OPHTHALMIC"
+        ],
+        "substance_name": [
+          "KETOTIFEN FUMARATE"
+        ],
+        "rxcui": [
+          "284380",
+          "311237"
+        ],
+        "spl_id": [
+          "bed738a0-2943-46e7-a65e-2440dac7971b"
+        ],
+        "spl_set_id": [
+          "ac66b1e4-c2b0-a4c3-09e3-ebd44a2f7c9f"
+        ],
+        "package_ndc": [
+          "0065-4011-05",
+          "0065-4011-06",
+          "0065-4011-11",
+          "0065401105"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0300654011057"
+        ],
+        "unii": [
+          "HBD503WORO"
+        ]
+      },
+      "product_type": "Drugs",
+      "event_id": "90553",
+      "recalling_firm": "Mckesson Medical-Surgical Inc. Corporate Office",
+      "address_1": "9954 Maryland Drive",
+      "address_2": "Deep Run Iii Ste. 4000",
+      "postal_code": "23233",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "Nationwide in the USA.",
+      "recall_number": "D-1317-2022",
+      "product_description": "Systane Zaditor, ketotifen fumarate ophthalmic solution 0.035%, Antihistamine eye drops, Eye Itch Relief, up to 12 Hours, Sterile, 30 day supply, 5mL (0.17 FL OZ) bottle per box, Alcon, NDC 0065-4011-05.",
+      "product_quantity": "9 boxes",
+      "reason_for_recall": "CGMP Deviations: products were stored outside the drug label specifications.",
+      "recall_initiation_date": "20220629",
+      "center_classification_date": "20220805",
+      "termination_date": "20240213",
+      "report_date": "20220817",
+      "code_info": "Part# 0065401105",
+      "more_code_info": ""
+    },
+    {
+      "status": "Terminated",
+      "city": "Charlottesville",
+      "state": "VA",
+      "country": "United States",
+      "classification": "Class I",
+      "openfda": {},
+      "product_type": "Drugs",
+      "event_id": "93150",
+      "recalling_firm": "Biomic Sciences, LLC dba ION Intelligence of Nature",
+      "address_1": "4351 Seminole Trl",
+      "address_2": "N/A",
+      "postal_code": "22911-8225",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Press Release",
+      "distribution_pattern": "Nationwide in the United States and to Canada, New Zealand, Australia, Indonesia, Malaysia, Great Britain, and the Netherlands",
+      "recall_number": "D-0067-2024",
+      "product_description": "ION*Sinus Spray, 1 fl oz/ 30 mL, Manufactured by: ION* Biome Charlottesville, VA",
+      "product_quantity": "N/A",
+      "reason_for_recall": "Microbial contamination of Non-Sterile Products",
+      "recall_initiation_date": "20230929",
+      "center_classification_date": "20231024",
+      "termination_date": "20240710",
+      "report_date": "20231101",
+      "code_info": "All lots within expiry."
+    },
+    {
+      "status": "Terminated",
+      "city": "Richmond",
+      "state": "VA",
+      "country": "United States",
+      "classification": "Class II",
+      "openfda": {},
+      "product_type": "Drugs",
+      "event_id": "89646",
+      "recalling_firm": "Mckesson Medical-Surgical Inc. Corporate Office",
+      "address_1": "9954 Maryland Drive",
+      "address_2": "Deep Run Iii Ste. 4000",
+      "postal_code": "23233",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Letter",
+      "distribution_pattern": "USA nationwide.",
+      "recall_number": "D-1003-2022",
+      "product_description": "Dexmedetomidine HCL Single Dose Vial 200 mcg per 2 mL (100mcg/mL), Rx only, Manufacturer: Auromedics Pharma LLC, NDC 55150-0209-02",
+      "product_quantity": "5 cartons/2 ml single dose vials",
+      "reason_for_recall": "cGMP deviations: Temperature abuse",
+      "recall_initiation_date": "20220413",
+      "center_classification_date": "20220609",
+      "termination_date": "20231130",
+      "report_date": "20220615",
+      "code_info": "McKesson Medical-Surgical (MMS) is not able to identify the particular lot number received by a particular consignee for the recalled prescription products. Each letter includes the date it was distributed to customers and the dates that impacted product may have been shipped to the customer.",
+      "more_code_info": ""
+    },
+    {
+      "status": "Ongoing",
+      "city": "Chesapeake",
+      "state": "VA",
+      "country": "United States",
+      "classification": "Class II",
+      "openfda": {},
+      "product_type": "Drugs",
+      "event_id": "90566",
+      "recalling_firm": "Family Dollar Stores, Llc.",
+      "address_1": "500 Volvo Pkwy",
+      "address_2": "",
+      "postal_code": "23320-1604",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Other",
+      "distribution_pattern": "Nationwide within the United States",
+      "recall_number": "D-1419-2022",
+      "product_description": "PEPCID COMPLETE CHEWABLE TAB BERRY 8CT SKU 903365   PEPCID AC MAXIMUM STRENGTH TABLET 25 CT SKU 902063   PEPCID AC MAXIMUM STRENGTH TABLET 8 CT SKU 914773 distributed to specific Family Dollar Stores 04/30/2022 through 06/10/2022.",
+      "product_quantity": "Unknown",
+      "reason_for_recall": "CGMP Deviations: product held outside appropriate storage temperature conditions.",
+      "recall_initiation_date": "20220623",
+      "center_classification_date": "20220822",
+      "report_date": "20220831",
+      "code_info": "SKUs: 903365; 902063; 914773",
+      "more_code_info": ""
+    },
+    {
+      "status": "Ongoing",
+      "city": "Chesapeake",
+      "state": "VA",
+      "country": "United States",
+      "classification": "Class II",
+      "openfda": {},
+      "product_type": "Drugs",
+      "event_id": "90566",
+      "recalling_firm": "Family Dollar Stores, Llc.",
+      "address_1": "500 Volvo Pkwy",
+      "address_2": "",
+      "postal_code": "23320-1604",
+      "voluntary_mandated": "Voluntary: Firm initiated",
+      "initial_firm_notification": "Other",
+      "distribution_pattern": "Nationwide within the United States",
+      "recall_number": "D-1425-2022",
+      "product_description": "QP LAXATIVE BISACODYL 5 MG TABLET 50 CT SKU 902449   QP WOMEN LAXATIVE BISCODYL TABLET 25 CT SKU 915221  distributed to specific Family Dollar Stores 04/30/2022 through 06/10/2022.",
+      "product_quantity": "Unknown",
+      "reason_for_recall": "CGMP Deviations: product held outside appropriate storage temperature conditions.",
+      "recall_initiation_date": "20220623",
+      "center_classification_date": "20220822",
+      "report_date": "20220831",
+      "code_info": "SKUs: 902449; 915221",
+      "more_code_info": ""
+    }
+  ]
+}

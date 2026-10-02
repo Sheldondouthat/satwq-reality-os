@@ -1,0 +1,390 @@
+{
+  "meta": {
+    "disclaimer": "Do not rely on openFDA to make decisions regarding medical care. While we make every effort to ensure that data is accurate, you should assume all results are unvalidated. We may limit or otherwise restrict your access to the API in line with our Terms of Service.",
+    "terms": "https://open.fda.gov/terms/",
+    "license": "https://open.fda.gov/license/",
+    "last_updated": "2026-07-31",
+    "results": {
+      "skip": 0,
+      "limit": 20,
+      "total": 1383
+    }
+  },
+  "results": [
+    {
+      "date_submitted": "04/05/2019",
+      "nonuser_affected": "No",
+      "reported_health_problems": [
+        "Epilepsy"
+      ],
+      "number_tobacco_products": 1,
+      "report_id": 748,
+      "number_health_problems": 1,
+      "reported_product_problems": [
+        "No information provided"
+      ],
+      "tobacco_products": [
+        "Electronic cigarette, electronic nicotine or vaping product (E-cigarette, e-cigars, e-hookahs, e-pipes, vape pens, hookah pens, and personal vaporizers; E-liquids, e-juice or vape juice)"
+      ],
+      "number_product_problems": 0
+    },
+    {
+      "date_submitted": "05/26/2021",
+      "nonuser_affected": "No",
+      "reported_health_problems": [
+        "No information provided"
+      ],
+      "number_tobacco_products": 1,
+      "report_id": 2111993,
+      "number_health_problems": 0,
+      "reported_product_problems": [
+        "Damaged, broken, or defective part",
+        "Overheated"
+      ],
+      "tobacco_products": [
+        "Electronic cigarette or vaping product (also known as E-cigarette, vape pen, hookah pen, mod, e-cigar, e-hookah, and e-pipe; E-liquid (also known as \"e-juice\" or \"vape juice\"))"
+      ],
+      "number_product_problems": 2
+    },
+    {
+      "date_submitted": "07/17/2018",
+      "nonuser_affected": "No information provided",
+      "reported_health_problems": [
+        "No information provided"
+      ],
+      "number_tobacco_products": 1,
+      "report_id": 593,
+      "number_health_problems": 0,
+      "reported_product_problems": [
+        "Other"
+      ],
+      "tobacco_products": [
+        "Electronic cigarette, electronic nicotine or vaping product (E-cigarette, e-cigars, e-hookahs, e-pipes, vape pens, hookah pens, and personal vaporizers; E-liquids, e-juice or vape juice)"
+      ],
+      "number_product_problems": 1
+    },
+    {
+      "date_submitted": "09/12/2019",
+      "nonuser_affected": "No",
+      "reported_health_problems": [
+        "Flu like symptoms"
+      ],
+      "number_tobacco_products": 1,
+      "report_id": 1125,
+      "number_health_problems": 1,
+      "reported_product_problems": [
+        "No information provided"
+      ],
+      "tobacco_products": [
+        "Electronic cigarette, electronic nicotine or vaping product (E-cigarette, e-cigars, e-hookahs, e-pipes, vape pens, hookah pens, and personal vaporizers; E-liquids, e-juice or vape juice)"
+      ],
+      "number_product_problems": 0
+    },
+    {
+      "date_submitted": "05/25/2025",
+      "nonuser_affected": "No",
+      "reported_health_problems": [
+        "Seizure",
+        "Confusion",
+        "Muscle twitching"
+      ],
+      "number_tobacco_products": 1,
+      "report_id": 2177469,
+      "number_health_problems": 3,
+      "reported_product_problems": [
+        "No information provided"
+      ],
+      "tobacco_products": [
+        "Electronic cigarette or vaping product (for example, E-cigarette, vape or vape pen, ENDS, personal vaporizer, cigalike, e-pen, hookah pen, mod, e-cigar, e-hookah, and e-pipe; E-liquid (also known as \"e-juice\" or \"vape juice\"))"
+      ],
+      "number_product_problems": 0
+    },
+    {
+      "date_submitted": "04/06/2019",
+      "nonuser_affected": "No",
+      "reported_health_problems": [
+        "Seizure"
+      ],
+      "number_tobacco_products": 1,
+      "report_id": 756,
+      "number_health_problems": 1,
+      "reported_product_problems": [
+        "No information provided"
+      ],
+      "tobacco_products": [
+        "Electronic cigarette, electronic nicotine or vaping product (E-cigarette, e-cigars, e-hookahs, e-pipes, vape pens, hookah pens, and personal vaporizers; E-liquids, e-juice or vape juice)"
+      ],
+      "number_product_problems": 0
+    },
+    {
+      "date_submitted": "09/24/2025",
+      "nonuser_affected": "No",
+      "reported_health_problems": [
+        "No information provided"
+      ],
+      "number_tobacco_products": 1,
+      "report_id": 2187559,
+      "number_health_problems": 0,
+      "reported_product_problems": [
+        "Damaged, broken, or defective product",
+        "Appearance or look issue"
+      ],
+      "tobacco_products": [
+        "Cigarette"
+      ],
+      "number_product_problems": 2
+    },
+    {
+      "date_submitted": "09/14/2017",
+      "nonuser_affected": "No information provided",
+      "reported_health_problems": [
+        "No information provided"
+      ],
+      "number_tobacco_products": 1,
+      "report_id": 423,
+      "number_health_problems": 0,
+      "reported_product_problems": [
+        "Leaked or spilled",
+        "Damaged, broken or defective product, part, accessory, or package",
+        "Overheated",
+        "Foreign material (something in the product that does not belong)",
+        "Appearance, look, smell, or taste issue",
+        "Product failed or did not work correctly"
+      ],
+      "tobacco_products": [
+        "Electronic cigarette, electronic nicotine or vaping product (E-cigarette, e-cigars, e-hookahs, e-pipes, vape pens, hookah pens, and personal vaporizers; E-liquids, e-juice or vape juice)"
+      ],
+      "number_product_problems": 6
+    },
+    {
+      "date_submitted": "09/13/2019",
+      "nonuser_affected": "No",
+      "reported_health_problems": [
+        "Other"
+      ],
+      "number_tobacco_products": 1,
+      "report_id": 1133,
+      "number_health_problems": 1,
+      "reported_product_problems": [
+        "No information provided"
+      ],
+      "tobacco_products": [
+        "Electronic cigarette, electronic nicotine or vaping product (E-cigarette, e-cigars, e-hookahs, e-pipes, vape pens, hookah pens, and personal vaporizers; E-liquids, e-juice or vape juice)"
+      ],
+      "number_product_problems": 0
+    },
+    {
+      "date_submitted": "06/02/2025",
+      "nonuser_affected": "No",
+      "reported_health_problems": [
+        "Body odor",
+        "Dry mouth"
+      ],
+      "number_tobacco_products": 1,
+      "report_id": 2177922,
+      "number_health_problems": 2,
+      "reported_product_problems": [
+        "Child safety hazard",
+        "Other"
+      ],
+      "tobacco_products": [
+        "Electronic cigarette or vaping product (for example, E-cigarette, vape or vape pen, ENDS, personal vaporizer, cigalike, e-pen, hookah pen, mod, e-cigar, e-hookah, and e-pipe; E-liquid (also known as \"e-juice\" or \"vape juice\"))"
+      ],
+      "number_product_problems": 2
+    },
+    {
+      "date_submitted": "04/05/2019",
+      "nonuser_affected": "Yes",
+      "reported_health_problems": [
+        "Epilepsy aggravated"
+      ],
+      "number_tobacco_products": 1,
+      "report_id": 750,
+      "number_health_problems": 1,
+      "reported_product_problems": [
+        "No information provided"
+      ],
+      "tobacco_products": [
+        "Electronic cigarette, electronic nicotine or vaping product (E-cigarette, e-cigars, e-hookahs, e-pipes, vape pens, hookah pens, and personal vaporizers; E-liquids, e-juice or vape juice)"
+      ],
+      "number_product_problems": 0
+    },
+    {
+      "date_submitted": "05/17/2021",
+      "nonuser_affected": "No",
+      "reported_health_problems": [
+        "Vomiting",
+        "Dizziness",
+        "Headache",
+        "Addiction"
+      ],
+      "number_tobacco_products": 1,
+      "report_id": 2113063,
+      "number_health_problems": 4,
+      "reported_product_problems": [
+        "No information provided"
+      ],
+      "tobacco_products": [
+        "Electronic cigarette or vaping product (also known as E-cigarette, vape pen, hookah pen, mod, e-cigar, e-hookah, and e-pipe; E-liquid (also known as \"e-juice\" or \"vape juice\"))"
+      ],
+      "number_product_problems": 0
+    },
+    {
+      "date_submitted": "07/19/2018",
+      "nonuser_affected": "No",
+      "reported_health_problems": [
+        "Lip blister"
+      ],
+      "number_tobacco_products": 1,
+      "report_id": 596,
+      "number_health_problems": 1,
+      "reported_product_problems": [
+        "Exploded, caught on fire, or burned abnormally"
+      ],
+      "tobacco_products": [
+        "Electronic cigarette, electronic nicotine or vaping product (E-cigarette, e-cigars, e-hookahs, e-pipes, vape pens, hookah pens, and personal vaporizers; E-liquids, e-juice or vape juice)"
+      ],
+      "number_product_problems": 1
+    },
+    {
+      "date_submitted": "09/12/2019",
+      "nonuser_affected": "No",
+      "reported_health_problems": [
+        "Acute respiratory insufficiency",
+        "Bilateral pulmonary infiltrates",
+        "Hypoxemia",
+        "Acute lung injury"
+      ],
+      "number_tobacco_products": 1,
+      "report_id": 1127,
+      "number_health_problems": 4,
+      "reported_product_problems": [
+        "No information provided"
+      ],
+      "tobacco_products": [
+        "Electronic cigarette, electronic nicotine or vaping product (E-cigarette, e-cigars, e-hookahs, e-pipes, vape pens, hookah pens, and personal vaporizers; E-liquids, e-juice or vape juice)"
+      ],
+      "number_product_problems": 0
+    },
+    {
+      "date_submitted": "05/29/2025",
+      "nonuser_affected": "No",
+      "reported_health_problems": [
+        "Seizures"
+      ],
+      "number_tobacco_products": 1,
+      "report_id": 2177717,
+      "number_health_problems": 1,
+      "reported_product_problems": [
+        "No information provided"
+      ],
+      "tobacco_products": [
+        "Electronic cigarette or vaping product (for example, E-cigarette, vape or vape pen, ENDS, personal vaporizer, cigalike, e-pen, hookah pen, mod, e-cigar, e-hookah, and e-pipe; E-liquid (also known as \"e-juice\" or \"vape juice\"))"
+      ],
+      "number_product_problems": 0
+    },
+    {
+      "date_submitted": "04/05/2019",
+      "nonuser_affected": "No",
+      "reported_health_problems": [
+        "Shortness of breath",
+        "Sore throat",
+        "Nicotine addiction",
+        "Headache",
+        "Epistaxis"
+      ],
+      "number_tobacco_products": 1,
+      "report_id": 749,
+      "number_health_problems": 5,
+      "reported_product_problems": [
+        "No information provided"
+      ],
+      "tobacco_products": [
+        "Electronic cigarette, electronic nicotine or vaping product (E-cigarette, e-cigars, e-hookahs, e-pipes, vape pens, hookah pens, and personal vaporizers; E-liquids, e-juice or vape juice)"
+      ],
+      "number_product_problems": 0
+    },
+    {
+      "date_submitted": "05/26/2021",
+      "nonuser_affected": "No",
+      "reported_health_problems": [
+        "Bilateral pulmonary infiltrates",
+        "Oxygen saturation decreased",
+        "Pneumothorax",
+        "Pneumomediastinum",
+        "Increased shortness of breath",
+        "Pulmonary toxicity",
+        "Tachycardia"
+      ],
+      "number_tobacco_products": 1,
+      "report_id": 2112033,
+      "number_health_problems": 7,
+      "reported_product_problems": [
+        "No information provided"
+      ],
+      "tobacco_products": [
+        "Other"
+      ],
+      "number_product_problems": 0
+    },
+    {
+      "date_submitted": "07/20/2018",
+      "nonuser_affected": "No information provided",
+      "reported_health_problems": [
+        "No information provided"
+      ],
+      "number_tobacco_products": 1,
+      "report_id": 595,
+      "number_health_problems": 0,
+      "reported_product_problems": [
+        "Label or instruction issue"
+      ],
+      "tobacco_products": [
+        "Electronic cigarette, electronic nicotine or vaping product (E-cigarette, e-cigars, e-hookahs, e-pipes, vape pens, hookah pens, and personal vaporizers; E-liquids, e-juice or vape juice)"
+      ],
+      "number_product_problems": 1
+    },
+    {
+      "date_submitted": "09/12/2019",
+      "nonuser_affected": "No",
+      "reported_health_problems": [
+        "Chest pain",
+        "Pain mucosal"
+      ],
+      "number_tobacco_products": 1,
+      "report_id": 1126,
+      "number_health_problems": 2,
+      "reported_product_problems": [
+        "Other"
+      ],
+      "tobacco_products": [
+        "Electronic cigarette, electronic nicotine or vaping product (E-cigarette, e-cigars, e-hookahs, e-pipes, vape pens, hookah pens, and personal vaporizers; E-liquids, e-juice or vape juice)"
+      ],
+      "number_product_problems": 1
+    },
+    {
+      "date_submitted": "05/08/2025",
+      "nonuser_affected": "No",
+      "reported_health_problems": [
+        "Breathing arrested",
+        "Intoxication",
+        "Unconscious",
+        "Unresponsive to verbal stimuli",
+        "Addiction"
+      ],
+      "number_tobacco_products": 2,
+      "report_id": 2177539,
+      "number_health_problems": 5,
+      "reported_product_problems": [
+        "Label issue",
+        "Other",
+        "Appearance or look issue"
+      ],
+      "tobacco_products": [
+        "Electronic cigarette or vaping product (for example, E-cigarette, vape or vape pen, ENDS, personal vaporizer, cigalike, e-pen, hookah pen, mod, e-cigar, e-hookah, and e-pipe; E-liquid (also known as \"e-juice\" or \"vape juice\"))",
+        "Other"
+      ],
+      "number_product_problems": 3
+    }
+  ]
+}
