@@ -657,6 +657,11 @@ const REGISTRY = [
     routes: ['/api/great-lakes'],
     load: () => import('../providers/wave9/greatLakes.js').then((m) => m.greatLakesProxy()),
   },
+  {
+    name: 'ocearch',
+    routes: ['/api/ocearch'],
+    load: () => import('../providers/wave9/ocearch.js').then((m) => m.ocearchProxy()),
+  },
 ];
 
 export { REGISTRY };

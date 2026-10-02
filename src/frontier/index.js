@@ -154,6 +154,7 @@ import { init as initPollen } from './wave9/pollen/index.js';
 import { init as initHab } from './wave9/hab/index.js';
 import { init as initUsace } from './wave9/usace/index.js';
 import { init as initGreatLakes } from './wave9/greatlakes/index.js';
+import { init as initOcearch } from './wave9/ocearch/index.js';
 
 const DOCK_ID = 'satwq-frontier-dock';
 
@@ -1104,6 +1105,7 @@ export function initFrontier({ viewer } = {}) {
     attempt('hab', () => initHab({ viewer, mount: s, chip, trackLayer, t }));
     attempt('usace', () => initUsace({ viewer, mount: s, chip, trackLayer, t }));
     attempt('great-lakes', () => initGreatLakes({ viewer, mount: s, chip, trackLayer, t }));
+    attempt('ocearch', () => initOcearch({ viewer, mount: s, chip, trackLayer, t }));
   }
 
   return {
