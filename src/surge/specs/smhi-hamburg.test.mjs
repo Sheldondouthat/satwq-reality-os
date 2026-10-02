@@ -27,13 +27,12 @@ test('spec validates against the schema', () => {
   assert.equal(spec.id, 'smhi-hamburg');
 });
 
-test('extract.items resolves to a non-empty array on the live fixture', () => {
+test('extract.items resolves ' + (false ? 'to an array (honest-empty allowed)' : 'to a non-empty array on the live fixture'), () => {
   const items = extractItems(spec, fixture);
   assert.ok(Array.isArray(items), 'items must be an array');
-  assert.ok(items.length > 0, 'live probe returned zero items — must not ship');
-});
+  assert.ok(items.length > 0, 'live probe returned zero items — must not ship');});
 
-test('map resolves required fields on at least one row', () => {
+test('map resolves required fields ' + (false ? 'when rows exist' : 'on at least one row'), () => {
   const required = ["time"];
   const rows = extractItems(spec, fixture).map((item) => applyMap(spec, item));
   const { rows: kept } = filterRequired(spec, rows);

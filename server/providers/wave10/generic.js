@@ -113,6 +113,7 @@ export function validateSpec(spec) {
   if (typeof spec.honesty !== 'string' || spec.honesty.trim() === '') fail('honesty required');
   if (typeof spec.verifiedAt !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(spec.verifiedAt)) fail('verifiedAt YYYY-MM-DD required');
   if (typeof spec.verifiedBy !== 'string' || spec.verifiedBy.trim() === '') fail('verifiedBy required');
+  if (spec.honestEmpty != null && typeof spec.honestEmpty !== 'boolean') fail('honestEmpty must be a boolean');
   const blob = JSON.stringify(spec).toLowerCase();
   for (const marker of FAKE_MARKERS) {
     if (blob.includes(marker)) fail(`fake-data marker '${marker}'`);
