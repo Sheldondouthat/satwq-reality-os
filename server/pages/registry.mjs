@@ -2085,6 +2085,539 @@ const REGISTRY = [
       return g.specProxy('socrata-sonoma-events', s.SPEC);
     }),
   },
+  {
+    name: 'cagov-algal-bloom-cases',
+    routes: ['/api/cagov-algal-bloom-cases'],
+    load: () => import('../providers/wave10/specs/cagov-algal-bloom-cases.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('cagov-algal-bloom-cases', s.SPEC);
+    }),
+  },
+  {
+    name: 'cagov-algal-bloom-reports',
+    routes: ['/api/cagov-algal-bloom-reports'],
+    load: () => import('../providers/wave10/specs/cagov-algal-bloom-reports.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('cagov-algal-bloom-reports', s.SPEC);
+    }),
+  },
+  {
+    name: 'cagov-beach-advisories',
+    routes: ['/api/cagov-beach-advisories'],
+    load: () => import('../providers/wave10/specs/cagov-beach-advisories.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('cagov-beach-advisories', s.SPEC);
+    }),
+  },
+  {
+    name: 'cagov-beach-waterquality',
+    routes: ['/api/cagov-beach-waterquality'],
+    load: () => import('../providers/wave10/specs/cagov-beach-waterquality.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('cagov-beach-waterquality', s.SPEC);
+    }),
+  },
+  {
+    name: 'cdec-reservoir-elevation',
+    routes: ['/api/cdec-reservoir-elevation'],
+    load: () => import('../providers/wave10/specs/cdec-reservoir-elevation.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('cdec-reservoir-elevation', s.SPEC);
+    }),
+  },
+  {
+    name: 'cdec-reservoir-storage',
+    routes: ['/api/cdec-reservoir-storage'],
+    load: () => import('../providers/wave10/specs/cdec-reservoir-storage.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('cdec-reservoir-storage', s.SPEC);
+    }),
+  },
+  {
+    name: 'cdec-snow-swe',
+    routes: ['/api/cdec-snow-swe'],
+    load: () => import('../providers/wave10/specs/cdec-snow-swe.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('cdec-snow-swe', s.SPEC);
+    }),
+  },
+  {
+    name: 'cg-markets-top50',
+    routes: ['/api/cg-markets-top50'],
+    load: () => import('../providers/wave10/specs/cg-markets-top50.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('cg-markets-top50', s.SPEC);
+    }),
+  },
+  {
+    name: 'cg-trending',
+    routes: ['/api/cg-trending'],
+    load: () => import('../providers/wave10/specs/cg-trending.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('cg-trending', s.SPEC);
+    }),
+  },
+  {
+    name: 'coops-currents-capecod',
+    routes: ['/api/coops-currents-capecod'],
+    load: () => import('../providers/wave10/specs/coops-currents-capecod.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('coops-currents-capecod', s.SPEC);
+    }),
+  },
+  {
+    name: 'coops-currents-chesapeakebridge',
+    routes: ['/api/coops-currents-chesapeakebridge'],
+    load: () => import('../providers/wave10/specs/coops-currents-chesapeakebridge.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('coops-currents-chesapeakebridge', s.SPEC);
+    }),
+  },
+  {
+    name: 'coops-currents-norfolk',
+    routes: ['/api/coops-currents-norfolk'],
+    load: () => import('../providers/wave10/specs/coops-currents-norfolk.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('coops-currents-norfolk', s.SPEC);
+    }),
+  },
+  {
+    name: 'coops-salinity-baltimore',
+    routes: ['/api/coops-salinity-baltimore'],
+    load: () => import('../providers/wave10/specs/coops-salinity-baltimore.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('coops-salinity-baltimore', s.SPEC);
+    }),
+  },
+  {
+    name: 'coops-waterlevel-dauphinisland',
+    routes: ['/api/coops-waterlevel-dauphinisland'],
+    load: () => import('../providers/wave10/specs/coops-waterlevel-dauphinisland.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('coops-waterlevel-dauphinisland', s.SPEC);
+    }),
+  },
+  {
+    name: 'coops-waterlevel-shellbeach',
+    routes: ['/api/coops-waterlevel-shellbeach'],
+    load: () => import('../providers/wave10/specs/coops-waterlevel-shellbeach.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('coops-waterlevel-shellbeach', s.SPEC);
+    }),
+  },
+  {
+    name: 'coops-watertemp-baltimore',
+    routes: ['/api/coops-watertemp-baltimore'],
+    load: () => import('../providers/wave10/specs/coops-watertemp-baltimore.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('coops-watertemp-baltimore', s.SPEC);
+    }),
+  },
+  {
+    name: 'coops-watertemp-providence',
+    routes: ['/api/coops-watertemp-providence'],
+    load: () => import('../providers/wave10/specs/coops-watertemp-providence.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('coops-watertemp-providence', s.SPEC);
+    }),
+  },
+  {
+    name: 'mb-artist-search-queen',
+    routes: ['/api/mb-artist-search-queen'],
+    load: () => import('../providers/wave10/specs/mb-artist-search-queen.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('mb-artist-search-queen', s.SPEC);
+    }),
+  },
+  {
+    name: 'ol-search-solar',
+    routes: ['/api/ol-search-solar'],
+    load: () => import('../providers/wave10/specs/ol-search-solar.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('ol-search-solar', s.SPEC);
+    }),
+  },
+  {
+    name: 'ol-subject-science',
+    routes: ['/api/ol-subject-science'],
+    load: () => import('../providers/wave10/specs/ol-subject-science.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('ol-subject-science', s.SPEC);
+    }),
+  },
+  {
+    name: 'ol-trending-daily',
+    routes: ['/api/ol-trending-daily'],
+    load: () => import('../providers/wave10/specs/ol-trending-daily.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('ol-trending-daily', s.SPEC);
+    }),
+  },
+  {
+    name: 'ol-trending-weekly',
+    routes: ['/api/ol-trending-weekly'],
+    load: () => import('../providers/wave10/specs/ol-trending-weekly.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('ol-trending-weekly', s.SPEC);
+    }),
+  },
+  {
+    name: 'om-aq-current-europe',
+    routes: ['/api/om-aq-current-europe'],
+    load: () => import('../providers/wave10/specs/om-aq-current-europe.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('om-aq-current-europe', s.SPEC);
+    }),
+  },
+  {
+    name: 'om-aq-current-us',
+    routes: ['/api/om-aq-current-us'],
+    load: () => import('../providers/wave10/specs/om-aq-current-us.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('om-aq-current-us', s.SPEC);
+    }),
+  },
+  {
+    name: 'om-elevation-extremes',
+    routes: ['/api/om-elevation-extremes'],
+    load: () => import('../providers/wave10/specs/om-elevation-extremes.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('om-elevation-extremes', s.SPEC);
+    }),
+  },
+  {
+    name: 'om-elevation-uscities',
+    routes: ['/api/om-elevation-uscities'],
+    load: () => import('../providers/wave10/specs/om-elevation-uscities.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('om-elevation-uscities', s.SPEC);
+    }),
+  },
+  {
+    name: 'om-ensemble-gfs-us',
+    routes: ['/api/om-ensemble-gfs-us'],
+    load: () => import('../providers/wave10/specs/om-ensemble-gfs-us.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('om-ensemble-gfs-us', s.SPEC);
+    }),
+  },
+  {
+    name: 'om-ensemble-icon-europe',
+    routes: ['/api/om-ensemble-icon-europe'],
+    load: () => import('../providers/wave10/specs/om-ensemble-icon-europe.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('om-ensemble-icon-europe', s.SPEC);
+    }),
+  },
+  {
+    name: 'om-era5-aug2026-cities',
+    routes: ['/api/om-era5-aug2026-cities'],
+    load: () => import('../providers/wave10/specs/om-era5-aug2026-cities.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('om-era5-aug2026-cities', s.SPEC);
+    }),
+  },
+  {
+    name: 'om-flood-discharge-rivers',
+    routes: ['/api/om-flood-discharge-rivers'],
+    load: () => import('../providers/wave10/specs/om-flood-discharge-rivers.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('om-flood-discharge-rivers', s.SPEC);
+    }),
+  },
+  {
+    name: 'om-geocode-cambridge',
+    routes: ['/api/om-geocode-cambridge'],
+    load: () => import('../providers/wave10/specs/om-geocode-cambridge.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('om-geocode-cambridge', s.SPEC);
+    }),
+  },
+  {
+    name: 'om-geocode-portland',
+    routes: ['/api/om-geocode-portland'],
+    load: () => import('../providers/wave10/specs/om-geocode-portland.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('om-geocode-portland', s.SPEC);
+    }),
+  },
+  {
+    name: 'om-marine-current-us',
+    routes: ['/api/om-marine-current-us'],
+    load: () => import('../providers/wave10/specs/om-marine-current-us.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('om-marine-current-us', s.SPEC);
+    }),
+  },
+  {
+    name: 'om-marine-current-world',
+    routes: ['/api/om-marine-current-world'],
+    load: () => import('../providers/wave10/specs/om-marine-current-world.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('om-marine-current-world', s.SPEC);
+    }),
+  },
+  {
+    name: 'usgs-volcano-elevated',
+    routes: ['/api/usgs-volcano-elevated'],
+    load: () => import('../providers/wave10/specs/usgs-volcano-elevated.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('usgs-volcano-elevated', s.SPEC);
+    }),
+  },
+  {
+    name: 'usgs-volcano-status-all',
+    routes: ['/api/usgs-volcano-status-all'],
+    load: () => import('../providers/wave10/specs/usgs-volcano-status-all.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('usgs-volcano-status-all', s.SPEC);
+    }),
+  },
+  {
+    name: 'usgs-volcano-status-geojson',
+    routes: ['/api/usgs-volcano-status-geojson'],
+    load: () => import('../providers/wave10/specs/usgs-volcano-status-geojson.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('usgs-volcano-status-geojson', s.SPEC);
+    }),
+  },
+  {
+    name: 'usgs-water-brazos-flow',
+    routes: ['/api/usgs-water-brazos-flow'],
+    load: () => import('../providers/wave10/specs/usgs-water-brazos-flow.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('usgs-water-brazos-flow', s.SPEC);
+    }),
+  },
+  {
+    name: 'usgs-water-capefear-flow',
+    routes: ['/api/usgs-water-capefear-flow'],
+    load: () => import('../providers/wave10/specs/usgs-water-capefear-flow.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('usgs-water-capefear-flow', s.SPEC);
+    }),
+  },
+  {
+    name: 'usgs-water-cumberland-flow',
+    routes: ['/api/usgs-water-cumberland-flow'],
+    load: () => import('../providers/wave10/specs/usgs-water-cumberland-flow.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('usgs-water-cumberland-flow', s.SPEC);
+    }),
+  },
+  {
+    name: 'usgs-water-deschutes-flow',
+    routes: ['/api/usgs-water-deschutes-flow'],
+    load: () => import('../providers/wave10/specs/usgs-water-deschutes-flow.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('usgs-water-deschutes-flow', s.SPEC);
+    }),
+  },
+  {
+    name: 'usgs-water-gila-flow',
+    routes: ['/api/usgs-water-gila-flow'],
+    load: () => import('../providers/wave10/specs/usgs-water-gila-flow.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('usgs-water-gila-flow', s.SPEC);
+    }),
+  },
+  {
+    name: 'usgs-water-gw-ogallala',
+    routes: ['/api/usgs-water-gw-ogallala'],
+    load: () => import('../providers/wave10/specs/usgs-water-gw-ogallala.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('usgs-water-gw-ogallala', s.SPEC);
+    }),
+  },
+  {
+    name: 'usgs-water-klamath-flow',
+    routes: ['/api/usgs-water-klamath-flow'],
+    load: () => import('../providers/wave10/specs/usgs-water-klamath-flow.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('usgs-water-klamath-flow', s.SPEC);
+    }),
+  },
+  {
+    name: 'usgs-water-merrimack-flow',
+    routes: ['/api/usgs-water-merrimack-flow'],
+    load: () => import('../providers/wave10/specs/usgs-water-merrimack-flow.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('usgs-water-merrimack-flow', s.SPEC);
+    }),
+  },
+  {
+    name: 'usgs-water-platte-flow',
+    routes: ['/api/usgs-water-platte-flow'],
+    load: () => import('../providers/wave10/specs/usgs-water-platte-flow.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('usgs-water-platte-flow', s.SPEC);
+    }),
+  },
+  {
+    name: 'usgs-water-quality-do-midatlantic',
+    routes: ['/api/usgs-water-quality-do-midatlantic'],
+    load: () => import('../providers/wave10/specs/usgs-water-quality-do-midatlantic.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('usgs-water-quality-do-midatlantic', s.SPEC);
+    }),
+  },
+  {
+    name: 'usgs-water-quality-ph-west',
+    routes: ['/api/usgs-water-quality-ph-west'],
+    load: () => import('../providers/wave10/specs/usgs-water-quality-ph-west.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('usgs-water-quality-ph-west', s.SPEC);
+    }),
+  },
+  {
+    name: 'usgs-water-quality-turbidity',
+    routes: ['/api/usgs-water-quality-turbidity'],
+    load: () => import('../providers/wave10/specs/usgs-water-quality-turbidity.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('usgs-water-quality-turbidity', s.SPEC);
+    }),
+  },
+  {
+    name: 'usgs-water-redriver-flow',
+    routes: ['/api/usgs-water-redriver-flow'],
+    load: () => import('../providers/wave10/specs/usgs-water-redriver-flow.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('usgs-water-redriver-flow', s.SPEC);
+    }),
+  },
+  {
+    name: 'usgs-water-rogue-flow',
+    routes: ['/api/usgs-water-rogue-flow'],
+    load: () => import('../providers/wave10/specs/usgs-water-rogue-flow.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('usgs-water-rogue-flow', s.SPEC);
+    }),
+  },
+  {
+    name: 'usgs-water-sanjoaquin-flow',
+    routes: ['/api/usgs-water-sanjoaquin-flow'],
+    load: () => import('../providers/wave10/specs/usgs-water-sanjoaquin-flow.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('usgs-water-sanjoaquin-flow', s.SPEC);
+    }),
+  },
+  {
+    name: 'usgs-water-skagit-flow',
+    routes: ['/api/usgs-water-skagit-flow'],
+    load: () => import('../providers/wave10/specs/usgs-water-skagit-flow.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('usgs-water-skagit-flow', s.SPEC);
+    }),
+  },
+  {
+    name: 'usgs-water-stage-redriver-fargo',
+    routes: ['/api/usgs-water-stage-redriver-fargo'],
+    load: () => import('../providers/wave10/specs/usgs-water-stage-redriver-fargo.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('usgs-water-stage-redriver-fargo', s.SPEC);
+    }),
+  },
+  {
+    name: 'usgs-water-trinity-tx-flow',
+    routes: ['/api/usgs-water-trinity-tx-flow'],
+    load: () => import('../providers/wave10/specs/usgs-water-trinity-tx-flow.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('usgs-water-trinity-tx-flow', s.SPEC);
+    }),
+  },
+  {
+    name: 'usgs-water-truckee-flow',
+    routes: ['/api/usgs-water-truckee-flow'],
+    load: () => import('../providers/wave10/specs/usgs-water-truckee-flow.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('usgs-water-truckee-flow', s.SPEC);
+    }),
+  },
+  {
+    name: 'usgs-water-wabash-flow',
+    routes: ['/api/usgs-water-wabash-flow'],
+    load: () => import('../providers/wave10/specs/usgs-water-wabash-flow.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('usgs-water-wabash-flow', s.SPEC);
+    }),
+  },
+  {
+    name: 'usgs-water-wisconsin-flow',
+    routes: ['/api/usgs-water-wisconsin-flow'],
+    load: () => import('../providers/wave10/specs/usgs-water-wisconsin-flow.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('usgs-water-wisconsin-flow', s.SPEC);
+    }),
+  },
+  {
+    name: 'usgs-water-yellowstone-flow',
+    routes: ['/api/usgs-water-yellowstone-flow'],
+    load: () => import('../providers/wave10/specs/usgs-water-yellowstone-flow.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('usgs-water-yellowstone-flow', s.SPEC);
+    }),
+  },
+  {
+    name: 'usgs-water-yukon-flow',
+    routes: ['/api/usgs-water-yukon-flow'],
+    load: () => import('../providers/wave10/specs/usgs-water-yukon-flow.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('usgs-water-yukon-flow', s.SPEC);
+    }),
+  },
+  {
+    name: 'wb-gdp-usa',
+    routes: ['/api/wb-gdp-usa'],
+    load: () => import('../providers/wave10/specs/wb-gdp-usa.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('wb-gdp-usa', s.SPEC);
+    }),
+  },
+  {
+    name: 'wb-indicator-catalog',
+    routes: ['/api/wb-indicator-catalog'],
+    load: () => import('../providers/wave10/specs/wb-indicator-catalog.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('wb-indicator-catalog', s.SPEC);
+    }),
+  },
+  {
+    name: 'wb-life-expectancy-usa',
+    routes: ['/api/wb-life-expectancy-usa'],
+    load: () => import('../providers/wave10/specs/wb-life-expectancy-usa.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('wb-life-expectancy-usa', s.SPEC);
+    }),
+  },
+  {
+    name: 'wb-population-usa',
+    routes: ['/api/wb-population-usa'],
+    load: () => import('../providers/wave10/specs/wb-population-usa.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('wb-population-usa', s.SPEC);
+    }),
+  },
+  {
+    name: 'wb-population-world',
+    routes: ['/api/wb-population-world'],
+    load: () => import('../providers/wave10/specs/wb-population-world.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('wb-population-world', s.SPEC);
+    }),
+  },
+  {
+    name: 'wb-unemployment-usa',
+    routes: ['/api/wb-unemployment-usa'],
+    load: () => import('../providers/wave10/specs/wb-unemployment-usa.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('wb-unemployment-usa', s.SPEC);
+    }),
+  },
+  {
+    name: 'king-tides',
+    routes: ['/api/king-tides'],
+    load: () => import('../providers/wave6/tides.js').then((m) => m.kingTidesProxy()),
+  },
 ];
 
 export { REGISTRY };

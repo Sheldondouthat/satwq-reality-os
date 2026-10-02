@@ -85,7 +85,19 @@ function moonEcliptic(d, Ms, ws) {
     0.046 * s(M + Fm - 2 * Dm) +
     0.033 * s(Fm + 2 * Dm) +
     0.017 * s(2 * M + Fm);
-  return { lon: norm360(lon), lat };
+  return { lon: norm360(lon), lat, distEarthRadii: r };
+}
+
+/**
+ * Geocentric lunar distance in km (low-precision model).
+ * r is the two-body orbital distance; the perturbation terms adjust lon/lat
+ * only. Range ≈ 363,000–405,500 km; perigee timing within ~±1 day.
+ * Used by the king-tides provider for perigean-spring labeling.
+ */
+export function moonDistanceKm(date) {
+  const d = dayNumber(date);
+  const sun = sunEcliptic(d);
+  return moonEcliptic(d, sun.M, sun.w).distEarthRadii * 6378.14;
 }
 
 function eclipticToRaDec(lon, lat, d) {

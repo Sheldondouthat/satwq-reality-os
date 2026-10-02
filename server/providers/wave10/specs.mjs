@@ -1,360 +1,140 @@
 /**
  * Surge-500 spec index — AUTO-GENERATED. Do not edit by hand.
  */
-import { SPEC as _census_tiger_cd119_va } from './specs/census-tiger-cd119-va.mjs';
-import { SPEC as _census_tiger_cdp_va } from './specs/census-tiger-cdp-va.mjs';
-import { SPEC as _census_tiger_counties_ca } from './specs/census-tiger-counties-ca.mjs';
-import { SPEC as _census_tiger_counties_va } from './specs/census-tiger-counties-va.mjs';
-import { SPEC as _census_tiger_csa } from './specs/census-tiger-csa.mjs';
-import { SPEC as _census_tiger_divisions } from './specs/census-tiger-divisions.mjs';
-import { SPEC as _census_tiger_places_va } from './specs/census-tiger-places-va.mjs';
-import { SPEC as _census_tiger_puma_va } from './specs/census-tiger-puma-va.mjs';
-import { SPEC as _census_tiger_regions } from './specs/census-tiger-regions.mjs';
-import { SPEC as _census_tiger_sld_lower_va } from './specs/census-tiger-sld-lower-va.mjs';
-import { SPEC as _census_tiger_sld_upper_va } from './specs/census-tiger-sld-upper-va.mjs';
-import { SPEC as _census_tiger_states } from './specs/census-tiger-states.mjs';
-import { SPEC as _coops_airpressure_nome } from './specs/coops-airpressure-nome.mjs';
-import { SPEC as _coops_airpressure_sf } from './specs/coops-airpressure-sf.mjs';
-import { SPEC as _coops_airtemp_boston } from './specs/coops-airtemp-boston.mjs';
-import { SPEC as _coops_airtemp_sf } from './specs/coops-airtemp-sf.mjs';
-import { SPEC as _coops_tides_boston } from './specs/coops-tides-boston.mjs';
-import { SPEC as _coops_tides_sandiego } from './specs/coops-tides-sandiego.mjs';
-import { SPEC as _coops_tides_seattle } from './specs/coops-tides-seattle.mjs';
-import { SPEC as _coops_tides_sf } from './specs/coops-tides-sf.mjs';
-import { SPEC as _coops_tides_virginiakey } from './specs/coops-tides-virginiakey.mjs';
-import { SPEC as _coops_waterlevel_atlanticcity } from './specs/coops-waterlevel-atlanticcity.mjs';
-import { SPEC as _coops_waterlevel_baltimore } from './specs/coops-waterlevel-baltimore.mjs';
-import { SPEC as _coops_waterlevel_boston } from './specs/coops-waterlevel-boston.mjs';
-import { SPEC as _coops_waterlevel_charleston } from './specs/coops-waterlevel-charleston.mjs';
-import { SPEC as _coops_waterlevel_galveston } from './specs/coops-waterlevel-galveston.mjs';
-import { SPEC as _coops_waterlevel_honolulu } from './specs/coops-waterlevel-honolulu.mjs';
-import { SPEC as _coops_waterlevel_keywest } from './specs/coops-waterlevel-keywest.mjs';
-import { SPEC as _coops_waterlevel_losangeles } from './specs/coops-waterlevel-losangeles.mjs';
-import { SPEC as _coops_waterlevel_montauk } from './specs/coops-waterlevel-montauk.mjs';
-import { SPEC as _coops_waterlevel_newport } from './specs/coops-waterlevel-newport.mjs';
-import { SPEC as _coops_waterlevel_nome } from './specs/coops-waterlevel-nome.mjs';
-import { SPEC as _coops_waterlevel_nybattery } from './specs/coops-waterlevel-nybattery.mjs';
-import { SPEC as _coops_waterlevel_portlandme } from './specs/coops-waterlevel-portlandme.mjs';
-import { SPEC as _coops_waterlevel_sandiego } from './specs/coops-waterlevel-sandiego.mjs';
-import { SPEC as _coops_waterlevel_sandyhook } from './specs/coops-waterlevel-sandyhook.mjs';
-import { SPEC as _coops_waterlevel_santabarbara } from './specs/coops-waterlevel-santabarbara.mjs';
-import { SPEC as _coops_waterlevel_seattle } from './specs/coops-waterlevel-seattle.mjs';
-import { SPEC as _coops_waterlevel_sf } from './specs/coops-waterlevel-sf.mjs';
-import { SPEC as _coops_waterlevel_virginiakey } from './specs/coops-waterlevel-virginiakey.mjs';
-import { SPEC as _coops_watertemp_sandiego } from './specs/coops-watertemp-sandiego.mjs';
-import { SPEC as _coops_watertemp_virginiakey } from './specs/coops-watertemp-virginiakey.mjs';
-import { SPEC as _coops_wind_keywest } from './specs/coops-wind-keywest.mjs';
-import { SPEC as _coops_wind_montauk } from './specs/coops-wind-montauk.mjs';
-import { SPEC as _coops_wind_sf } from './specs/coops-wind-sf.mjs';
-import { SPEC as _fda_device_recalls } from './specs/fda-device-recalls.mjs';
-import { SPEC as _fda_drug_recalls } from './specs/fda-drug-recalls.mjs';
-import { SPEC as _fda_drug_shortages } from './specs/fda-drug-shortages.mjs';
-import { SPEC as _fda_food_recalls } from './specs/fda-food-recalls.mjs';
-import { SPEC as _metno_atlanta } from './specs/metno-atlanta.mjs';
-import { SPEC as _metno_boston } from './specs/metno-boston.mjs';
-import { SPEC as _metno_chicago } from './specs/metno-chicago.mjs';
-import { SPEC as _metno_dallas } from './specs/metno-dallas.mjs';
-import { SPEC as _metno_dc } from './specs/metno-dc.mjs';
-import { SPEC as _metno_denver } from './specs/metno-denver.mjs';
-import { SPEC as _metno_houston } from './specs/metno-houston.mjs';
-import { SPEC as _metno_la } from './specs/metno-la.mjs';
-import { SPEC as _metno_madrid } from './specs/metno-madrid.mjs';
-import { SPEC as _metno_miami } from './specs/metno-miami.mjs';
-import { SPEC as _metno_minneapolis } from './specs/metno-minneapolis.mjs';
-import { SPEC as _metno_nyc } from './specs/metno-nyc.mjs';
-import { SPEC as _metno_paris } from './specs/metno-paris.mjs';
-import { SPEC as _metno_phoenix } from './specs/metno-phoenix.mjs';
-import { SPEC as _metno_portland } from './specs/metno-portland.mjs';
-import { SPEC as _metno_reykjavik } from './specs/metno-reykjavik.mjs';
-import { SPEC as _metno_rome } from './specs/metno-rome.mjs';
-import { SPEC as _metno_seattle } from './specs/metno-seattle.mjs';
-import { SPEC as _metno_sf } from './specs/metno-sf.mjs';
-import { SPEC as _nws_alerts_ca } from './specs/nws-alerts-ca.mjs';
-import { SPEC as _nws_alerts_co } from './specs/nws-alerts-co.mjs';
-import { SPEC as _nws_alerts_fl } from './specs/nws-alerts-fl.mjs';
-import { SPEC as _nws_alerts_ks } from './specs/nws-alerts-ks.mjs';
-import { SPEC as _nws_alerts_ny } from './specs/nws-alerts-ny.mjs';
-import { SPEC as _nws_alerts_ok } from './specs/nws-alerts-ok.mjs';
-import { SPEC as _nws_alerts_tx } from './specs/nws-alerts-tx.mjs';
-import { SPEC as _nws_alerts_wa } from './specs/nws-alerts-wa.mjs';
-import { SPEC as _nws_forecast_chicago } from './specs/nws-forecast-chicago.mjs';
-import { SPEC as _nws_forecast_dallas } from './specs/nws-forecast-dallas.mjs';
-import { SPEC as _nws_forecast_dc } from './specs/nws-forecast-dc.mjs';
-import { SPEC as _nws_forecast_denver } from './specs/nws-forecast-denver.mjs';
-import { SPEC as _nws_forecast_houston } from './specs/nws-forecast-houston.mjs';
-import { SPEC as _nws_forecast_kansascity } from './specs/nws-forecast-kansascity.mjs';
-import { SPEC as _nws_forecast_miami } from './specs/nws-forecast-miami.mjs';
-import { SPEC as _nws_forecast_nyc } from './specs/nws-forecast-nyc.mjs';
-import { SPEC as _nws_forecast_phoenix } from './specs/nws-forecast-phoenix.mjs';
-import { SPEC as _nws_forecast_seattle } from './specs/nws-forecast-seattle.mjs';
-import { SPEC as _nws_hourly_chicago } from './specs/nws-hourly-chicago.mjs';
-import { SPEC as _nws_hourly_dallas } from './specs/nws-hourly-dallas.mjs';
-import { SPEC as _nws_hourly_dc } from './specs/nws-hourly-dc.mjs';
-import { SPEC as _nws_hourly_denver } from './specs/nws-hourly-denver.mjs';
-import { SPEC as _nws_hourly_houston } from './specs/nws-hourly-houston.mjs';
-import { SPEC as _nws_hourly_kansascity } from './specs/nws-hourly-kansascity.mjs';
-import { SPEC as _nws_hourly_miami } from './specs/nws-hourly-miami.mjs';
-import { SPEC as _nws_hourly_nyc } from './specs/nws-hourly-nyc.mjs';
-import { SPEC as _nws_hourly_phoenix } from './specs/nws-hourly-phoenix.mjs';
-import { SPEC as _nws_hourly_seattle } from './specs/nws-hourly-seattle.mjs';
-import { SPEC as _smhi_amsterdam } from './specs/smhi-amsterdam.mjs';
-import { SPEC as _smhi_berlin } from './specs/smhi-berlin.mjs';
-import { SPEC as _smhi_copenhagen } from './specs/smhi-copenhagen.mjs';
-import { SPEC as _smhi_gothenburg } from './specs/smhi-gothenburg.mjs';
-import { SPEC as _smhi_hamburg } from './specs/smhi-hamburg.mjs';
-import { SPEC as _smhi_helsinki } from './specs/smhi-helsinki.mjs';
-import { SPEC as _smhi_london } from './specs/smhi-london.mjs';
-import { SPEC as _smhi_oslo } from './specs/smhi-oslo.mjs';
-import { SPEC as _smhi_stockholm } from './specs/smhi-stockholm.mjs';
-import { SPEC as _smhi_warsaw } from './specs/smhi-warsaw.mjs';
-import { SPEC as _socrata_austin_traffic } from './specs/socrata-austin-traffic.mjs';
-import { SPEC as _socrata_chicago_crashes } from './specs/socrata-chicago-crashes.mjs';
-import { SPEC as _socrata_chicago_crime } from './specs/socrata-chicago-crime.mjs';
-import { SPEC as _socrata_chicago_food } from './specs/socrata-chicago-food.mjs';
-import { SPEC as _socrata_edmonton_311 } from './specs/socrata-edmonton-311.mjs';
-import { SPEC as _socrata_edmonton_fire } from './specs/socrata-edmonton-fire.mjs';
-import { SPEC as _socrata_edmonton_permits } from './specs/socrata-edmonton-permits.mjs';
-import { SPEC as _socrata_edmonton_traffic } from './specs/socrata-edmonton-traffic.mjs';
-import { SPEC as _socrata_honolulu_311 } from './specs/socrata-honolulu-311.mjs';
-import { SPEC as _socrata_honolulu_crime } from './specs/socrata-honolulu-crime.mjs';
-import { SPEC as _socrata_honolulu_permits } from './specs/socrata-honolulu-permits.mjs';
-import { SPEC as _socrata_honolulu_traffic } from './specs/socrata-honolulu-traffic.mjs';
-import { SPEC as _socrata_kcmo_311 } from './specs/socrata-kcmo-311.mjs';
-import { SPEC as _socrata_kcmo_crime } from './specs/socrata-kcmo-crime.mjs';
-import { SPEC as _socrata_kcmo_permits } from './specs/socrata-kcmo-permits.mjs';
-import { SPEC as _socrata_la_permits } from './specs/socrata-la-permits.mjs';
-import { SPEC as _socrata_nyc_311 } from './specs/socrata-nyc-311.mjs';
-import { SPEC as _socrata_nyc_crashes } from './specs/socrata-nyc-crashes.mjs';
-import { SPEC as _socrata_nyc_crime } from './specs/socrata-nyc-crime.mjs';
-import { SPEC as _socrata_nyc_dob_permits } from './specs/socrata-nyc-dob-permits.mjs';
-import { SPEC as _socrata_nyc_evictions } from './specs/socrata-nyc-evictions.mjs';
-import { SPEC as _socrata_nyc_restaurants } from './specs/socrata-nyc-restaurants.mjs';
-import { SPEC as _socrata_oakland_311 } from './specs/socrata-oakland-311.mjs';
-import { SPEC as _socrata_oakland_crime } from './specs/socrata-oakland-crime.mjs';
-import { SPEC as _socrata_seattle_911 } from './specs/socrata-seattle-911.mjs';
-import { SPEC as _socrata_seattle_police911 } from './specs/socrata-seattle-police911.mjs';
-import { SPEC as _socrata_sf_311 } from './specs/socrata-sf-311.mjs';
-import { SPEC as _socrata_sonoma_arrests } from './specs/socrata-sonoma-arrests.mjs';
-import { SPEC as _socrata_sonoma_events } from './specs/socrata-sonoma-events.mjs';
-import { SPEC as _usgs_quakes_10_day } from './specs/usgs-quakes-10-day.mjs';
-import { SPEC as _usgs_quakes_25_day } from './specs/usgs-quakes-25-day.mjs';
-import { SPEC as _usgs_quakes_25_week } from './specs/usgs-quakes-25-week.mjs';
-import { SPEC as _usgs_quakes_45_week } from './specs/usgs-quakes-45-week.mjs';
-import { SPEC as _usgs_quakes_alaska } from './specs/usgs-quakes-alaska.mjs';
-import { SPEC as _usgs_quakes_all_week } from './specs/usgs-quakes-all-week.mjs';
-import { SPEC as _usgs_quakes_california } from './specs/usgs-quakes-california.mjs';
-import { SPEC as _usgs_quakes_hawaii } from './specs/usgs-quakes-hawaii.mjs';
-import { SPEC as _usgs_quakes_pacific_nw } from './specs/usgs-quakes-pacific-nw.mjs';
-import { SPEC as _usgs_quakes_puerto_rico } from './specs/usgs-quakes-puerto-rico.mjs';
-import { SPEC as _usgs_quakes_significant_month } from './specs/usgs-quakes-significant-month.mjs';
-import { SPEC as _usgs_quakes_significant_week } from './specs/usgs-quakes-significant-week.mjs';
-import { SPEC as _usgs_sig_quakes } from './specs/usgs-sig-quakes.mjs';
-import { SPEC as _usgs_water_arkansas_flow } from './specs/usgs-water-arkansas-flow.mjs';
-import { SPEC as _usgs_water_chattahoochee_flow } from './specs/usgs-water-chattahoochee-flow.mjs';
-import { SPEC as _usgs_water_colorado_flow } from './specs/usgs-water-colorado-flow.mjs';
-import { SPEC as _usgs_water_columbia_flow } from './specs/usgs-water-columbia-flow.mjs';
-import { SPEC as _usgs_water_connecticut_flow } from './specs/usgs-water-connecticut-flow.mjs';
-import { SPEC as _usgs_water_delaware_flow } from './specs/usgs-water-delaware-flow.mjs';
-import { SPEC as _usgs_water_dv_major_rivers } from './specs/usgs-water-dv-major-rivers.mjs';
-import { SPEC as _usgs_water_dv_southeast } from './specs/usgs-water-dv-southeast.mjs';
-import { SPEC as _usgs_water_gw_piedmont } from './specs/usgs-water-gw-piedmont.mjs';
-import { SPEC as _usgs_water_hudson_flow } from './specs/usgs-water-hudson-flow.mjs';
-import { SPEC as _usgs_water_james_flow } from './specs/usgs-water-james-flow.mjs';
-import { SPEC as _usgs_water_mississippi_flow } from './specs/usgs-water-mississippi-flow.mjs';
-import { SPEC as _usgs_water_missouri_flow } from './specs/usgs-water-missouri-flow.mjs';
-import { SPEC as _usgs_water_newriver_valley } from './specs/usgs-water-newriver-valley.mjs';
-import { SPEC as _usgs_water_ohio_flow } from './specs/usgs-water-ohio-flow.mjs';
-import { SPEC as _usgs_water_potomac_flow } from './specs/usgs-water-potomac-flow.mjs';
-import { SPEC as _usgs_water_potomac_stage } from './specs/usgs-water-potomac-stage.mjs';
-import { SPEC as _usgs_water_rio_grande_flow } from './specs/usgs-water-rio-grande-flow.mjs';
-import { SPEC as _usgs_water_sacramento_flow } from './specs/usgs-water-sacramento-flow.mjs';
-import { SPEC as _usgs_water_savannah_flow } from './specs/usgs-water-savannah-flow.mjs';
-import { SPEC as _usgs_water_snake_flow } from './specs/usgs-water-snake-flow.mjs';
-import { SPEC as _usgs_water_stage_northeast } from './specs/usgs-water-stage-northeast.mjs';
-import { SPEC as _usgs_water_susquehanna_flow } from './specs/usgs-water-susquehanna-flow.mjs';
-import { SPEC as _usgs_water_temp_chattahoochee } from './specs/usgs-water-temp-chattahoochee.mjs';
-import { SPEC as _usgs_water_temp_midatlantic } from './specs/usgs-water-temp-midatlantic.mjs';
-import { SPEC as _usgs_water_temp_west } from './specs/usgs-water-temp-west.mjs';
-import { SPEC as _usgs_water_tennessee_flow } from './specs/usgs-water-tennessee-flow.mjs';
-import { SPEC as _usgs_water_willamette_flow } from './specs/usgs-water-willamette-flow.mjs';
+import { SPEC as _cagov_algal_bloom_cases } from './specs/cagov-algal-bloom-cases.mjs';
+import { SPEC as _cagov_algal_bloom_reports } from './specs/cagov-algal-bloom-reports.mjs';
+import { SPEC as _cagov_beach_advisories } from './specs/cagov-beach-advisories.mjs';
+import { SPEC as _cagov_beach_waterquality } from './specs/cagov-beach-waterquality.mjs';
+import { SPEC as _cdec_reservoir_elevation } from './specs/cdec-reservoir-elevation.mjs';
+import { SPEC as _cdec_reservoir_storage } from './specs/cdec-reservoir-storage.mjs';
+import { SPEC as _cdec_snow_swe } from './specs/cdec-snow-swe.mjs';
+import { SPEC as _cg_markets_top50 } from './specs/cg-markets-top50.mjs';
+import { SPEC as _cg_trending } from './specs/cg-trending.mjs';
+import { SPEC as _coops_currents_capecod } from './specs/coops-currents-capecod.mjs';
+import { SPEC as _coops_currents_chesapeakebridge } from './specs/coops-currents-chesapeakebridge.mjs';
+import { SPEC as _coops_currents_norfolk } from './specs/coops-currents-norfolk.mjs';
+import { SPEC as _coops_salinity_baltimore } from './specs/coops-salinity-baltimore.mjs';
+import { SPEC as _coops_waterlevel_dauphinisland } from './specs/coops-waterlevel-dauphinisland.mjs';
+import { SPEC as _coops_waterlevel_shellbeach } from './specs/coops-waterlevel-shellbeach.mjs';
+import { SPEC as _coops_watertemp_baltimore } from './specs/coops-watertemp-baltimore.mjs';
+import { SPEC as _coops_watertemp_providence } from './specs/coops-watertemp-providence.mjs';
+import { SPEC as _mb_artist_search_queen } from './specs/mb-artist-search-queen.mjs';
+import { SPEC as _ol_search_solar } from './specs/ol-search-solar.mjs';
+import { SPEC as _ol_subject_science } from './specs/ol-subject-science.mjs';
+import { SPEC as _ol_trending_daily } from './specs/ol-trending-daily.mjs';
+import { SPEC as _ol_trending_weekly } from './specs/ol-trending-weekly.mjs';
+import { SPEC as _om_aq_current_europe } from './specs/om-aq-current-europe.mjs';
+import { SPEC as _om_aq_current_us } from './specs/om-aq-current-us.mjs';
+import { SPEC as _om_elevation_extremes } from './specs/om-elevation-extremes.mjs';
+import { SPEC as _om_elevation_uscities } from './specs/om-elevation-uscities.mjs';
+import { SPEC as _om_ensemble_gfs_us } from './specs/om-ensemble-gfs-us.mjs';
+import { SPEC as _om_ensemble_icon_europe } from './specs/om-ensemble-icon-europe.mjs';
+import { SPEC as _om_era5_aug2026_cities } from './specs/om-era5-aug2026-cities.mjs';
+import { SPEC as _om_flood_discharge_rivers } from './specs/om-flood-discharge-rivers.mjs';
+import { SPEC as _om_geocode_cambridge } from './specs/om-geocode-cambridge.mjs';
+import { SPEC as _om_geocode_portland } from './specs/om-geocode-portland.mjs';
+import { SPEC as _om_marine_current_us } from './specs/om-marine-current-us.mjs';
+import { SPEC as _om_marine_current_world } from './specs/om-marine-current-world.mjs';
+import { SPEC as _usgs_volcano_elevated } from './specs/usgs-volcano-elevated.mjs';
+import { SPEC as _usgs_volcano_status_all } from './specs/usgs-volcano-status-all.mjs';
+import { SPEC as _usgs_volcano_status_geojson } from './specs/usgs-volcano-status-geojson.mjs';
+import { SPEC as _usgs_water_brazos_flow } from './specs/usgs-water-brazos-flow.mjs';
+import { SPEC as _usgs_water_capefear_flow } from './specs/usgs-water-capefear-flow.mjs';
+import { SPEC as _usgs_water_cumberland_flow } from './specs/usgs-water-cumberland-flow.mjs';
+import { SPEC as _usgs_water_deschutes_flow } from './specs/usgs-water-deschutes-flow.mjs';
+import { SPEC as _usgs_water_gila_flow } from './specs/usgs-water-gila-flow.mjs';
+import { SPEC as _usgs_water_gw_ogallala } from './specs/usgs-water-gw-ogallala.mjs';
+import { SPEC as _usgs_water_klamath_flow } from './specs/usgs-water-klamath-flow.mjs';
+import { SPEC as _usgs_water_merrimack_flow } from './specs/usgs-water-merrimack-flow.mjs';
+import { SPEC as _usgs_water_platte_flow } from './specs/usgs-water-platte-flow.mjs';
+import { SPEC as _usgs_water_quality_do_midatlantic } from './specs/usgs-water-quality-do-midatlantic.mjs';
+import { SPEC as _usgs_water_quality_ph_west } from './specs/usgs-water-quality-ph-west.mjs';
+import { SPEC as _usgs_water_quality_turbidity } from './specs/usgs-water-quality-turbidity.mjs';
+import { SPEC as _usgs_water_redriver_flow } from './specs/usgs-water-redriver-flow.mjs';
+import { SPEC as _usgs_water_rogue_flow } from './specs/usgs-water-rogue-flow.mjs';
+import { SPEC as _usgs_water_sanjoaquin_flow } from './specs/usgs-water-sanjoaquin-flow.mjs';
+import { SPEC as _usgs_water_skagit_flow } from './specs/usgs-water-skagit-flow.mjs';
+import { SPEC as _usgs_water_stage_redriver_fargo } from './specs/usgs-water-stage-redriver-fargo.mjs';
+import { SPEC as _usgs_water_trinity_tx_flow } from './specs/usgs-water-trinity-tx-flow.mjs';
+import { SPEC as _usgs_water_truckee_flow } from './specs/usgs-water-truckee-flow.mjs';
+import { SPEC as _usgs_water_wabash_flow } from './specs/usgs-water-wabash-flow.mjs';
+import { SPEC as _usgs_water_wisconsin_flow } from './specs/usgs-water-wisconsin-flow.mjs';
+import { SPEC as _usgs_water_yellowstone_flow } from './specs/usgs-water-yellowstone-flow.mjs';
+import { SPEC as _usgs_water_yukon_flow } from './specs/usgs-water-yukon-flow.mjs';
+import { SPEC as _wb_gdp_usa } from './specs/wb-gdp-usa.mjs';
+import { SPEC as _wb_indicator_catalog } from './specs/wb-indicator-catalog.mjs';
+import { SPEC as _wb_life_expectancy_usa } from './specs/wb-life-expectancy-usa.mjs';
+import { SPEC as _wb_population_usa } from './specs/wb-population-usa.mjs';
+import { SPEC as _wb_population_world } from './specs/wb-population-world.mjs';
+import { SPEC as _wb_unemployment_usa } from './specs/wb-unemployment-usa.mjs';
 
 export const SPECS = {
-  'census-tiger-cd119-va': _census_tiger_cd119_va,
-  'census-tiger-cdp-va': _census_tiger_cdp_va,
-  'census-tiger-counties-ca': _census_tiger_counties_ca,
-  'census-tiger-counties-va': _census_tiger_counties_va,
-  'census-tiger-csa': _census_tiger_csa,
-  'census-tiger-divisions': _census_tiger_divisions,
-  'census-tiger-places-va': _census_tiger_places_va,
-  'census-tiger-puma-va': _census_tiger_puma_va,
-  'census-tiger-regions': _census_tiger_regions,
-  'census-tiger-sld-lower-va': _census_tiger_sld_lower_va,
-  'census-tiger-sld-upper-va': _census_tiger_sld_upper_va,
-  'census-tiger-states': _census_tiger_states,
-  'coops-airpressure-nome': _coops_airpressure_nome,
-  'coops-airpressure-sf': _coops_airpressure_sf,
-  'coops-airtemp-boston': _coops_airtemp_boston,
-  'coops-airtemp-sf': _coops_airtemp_sf,
-  'coops-tides-boston': _coops_tides_boston,
-  'coops-tides-sandiego': _coops_tides_sandiego,
-  'coops-tides-seattle': _coops_tides_seattle,
-  'coops-tides-sf': _coops_tides_sf,
-  'coops-tides-virginiakey': _coops_tides_virginiakey,
-  'coops-waterlevel-atlanticcity': _coops_waterlevel_atlanticcity,
-  'coops-waterlevel-baltimore': _coops_waterlevel_baltimore,
-  'coops-waterlevel-boston': _coops_waterlevel_boston,
-  'coops-waterlevel-charleston': _coops_waterlevel_charleston,
-  'coops-waterlevel-galveston': _coops_waterlevel_galveston,
-  'coops-waterlevel-honolulu': _coops_waterlevel_honolulu,
-  'coops-waterlevel-keywest': _coops_waterlevel_keywest,
-  'coops-waterlevel-losangeles': _coops_waterlevel_losangeles,
-  'coops-waterlevel-montauk': _coops_waterlevel_montauk,
-  'coops-waterlevel-newport': _coops_waterlevel_newport,
-  'coops-waterlevel-nome': _coops_waterlevel_nome,
-  'coops-waterlevel-nybattery': _coops_waterlevel_nybattery,
-  'coops-waterlevel-portlandme': _coops_waterlevel_portlandme,
-  'coops-waterlevel-sandiego': _coops_waterlevel_sandiego,
-  'coops-waterlevel-sandyhook': _coops_waterlevel_sandyhook,
-  'coops-waterlevel-santabarbara': _coops_waterlevel_santabarbara,
-  'coops-waterlevel-seattle': _coops_waterlevel_seattle,
-  'coops-waterlevel-sf': _coops_waterlevel_sf,
-  'coops-waterlevel-virginiakey': _coops_waterlevel_virginiakey,
-  'coops-watertemp-sandiego': _coops_watertemp_sandiego,
-  'coops-watertemp-virginiakey': _coops_watertemp_virginiakey,
-  'coops-wind-keywest': _coops_wind_keywest,
-  'coops-wind-montauk': _coops_wind_montauk,
-  'coops-wind-sf': _coops_wind_sf,
-  'fda-device-recalls': _fda_device_recalls,
-  'fda-drug-recalls': _fda_drug_recalls,
-  'fda-drug-shortages': _fda_drug_shortages,
-  'fda-food-recalls': _fda_food_recalls,
-  'metno-atlanta': _metno_atlanta,
-  'metno-boston': _metno_boston,
-  'metno-chicago': _metno_chicago,
-  'metno-dallas': _metno_dallas,
-  'metno-dc': _metno_dc,
-  'metno-denver': _metno_denver,
-  'metno-houston': _metno_houston,
-  'metno-la': _metno_la,
-  'metno-madrid': _metno_madrid,
-  'metno-miami': _metno_miami,
-  'metno-minneapolis': _metno_minneapolis,
-  'metno-nyc': _metno_nyc,
-  'metno-paris': _metno_paris,
-  'metno-phoenix': _metno_phoenix,
-  'metno-portland': _metno_portland,
-  'metno-reykjavik': _metno_reykjavik,
-  'metno-rome': _metno_rome,
-  'metno-seattle': _metno_seattle,
-  'metno-sf': _metno_sf,
-  'nws-alerts-ca': _nws_alerts_ca,
-  'nws-alerts-co': _nws_alerts_co,
-  'nws-alerts-fl': _nws_alerts_fl,
-  'nws-alerts-ks': _nws_alerts_ks,
-  'nws-alerts-ny': _nws_alerts_ny,
-  'nws-alerts-ok': _nws_alerts_ok,
-  'nws-alerts-tx': _nws_alerts_tx,
-  'nws-alerts-wa': _nws_alerts_wa,
-  'nws-forecast-chicago': _nws_forecast_chicago,
-  'nws-forecast-dallas': _nws_forecast_dallas,
-  'nws-forecast-dc': _nws_forecast_dc,
-  'nws-forecast-denver': _nws_forecast_denver,
-  'nws-forecast-houston': _nws_forecast_houston,
-  'nws-forecast-kansascity': _nws_forecast_kansascity,
-  'nws-forecast-miami': _nws_forecast_miami,
-  'nws-forecast-nyc': _nws_forecast_nyc,
-  'nws-forecast-phoenix': _nws_forecast_phoenix,
-  'nws-forecast-seattle': _nws_forecast_seattle,
-  'nws-hourly-chicago': _nws_hourly_chicago,
-  'nws-hourly-dallas': _nws_hourly_dallas,
-  'nws-hourly-dc': _nws_hourly_dc,
-  'nws-hourly-denver': _nws_hourly_denver,
-  'nws-hourly-houston': _nws_hourly_houston,
-  'nws-hourly-kansascity': _nws_hourly_kansascity,
-  'nws-hourly-miami': _nws_hourly_miami,
-  'nws-hourly-nyc': _nws_hourly_nyc,
-  'nws-hourly-phoenix': _nws_hourly_phoenix,
-  'nws-hourly-seattle': _nws_hourly_seattle,
-  'smhi-amsterdam': _smhi_amsterdam,
-  'smhi-berlin': _smhi_berlin,
-  'smhi-copenhagen': _smhi_copenhagen,
-  'smhi-gothenburg': _smhi_gothenburg,
-  'smhi-hamburg': _smhi_hamburg,
-  'smhi-helsinki': _smhi_helsinki,
-  'smhi-london': _smhi_london,
-  'smhi-oslo': _smhi_oslo,
-  'smhi-stockholm': _smhi_stockholm,
-  'smhi-warsaw': _smhi_warsaw,
-  'socrata-austin-traffic': _socrata_austin_traffic,
-  'socrata-chicago-crashes': _socrata_chicago_crashes,
-  'socrata-chicago-crime': _socrata_chicago_crime,
-  'socrata-chicago-food': _socrata_chicago_food,
-  'socrata-edmonton-311': _socrata_edmonton_311,
-  'socrata-edmonton-fire': _socrata_edmonton_fire,
-  'socrata-edmonton-permits': _socrata_edmonton_permits,
-  'socrata-edmonton-traffic': _socrata_edmonton_traffic,
-  'socrata-honolulu-311': _socrata_honolulu_311,
-  'socrata-honolulu-crime': _socrata_honolulu_crime,
-  'socrata-honolulu-permits': _socrata_honolulu_permits,
-  'socrata-honolulu-traffic': _socrata_honolulu_traffic,
-  'socrata-kcmo-311': _socrata_kcmo_311,
-  'socrata-kcmo-crime': _socrata_kcmo_crime,
-  'socrata-kcmo-permits': _socrata_kcmo_permits,
-  'socrata-la-permits': _socrata_la_permits,
-  'socrata-nyc-311': _socrata_nyc_311,
-  'socrata-nyc-crashes': _socrata_nyc_crashes,
-  'socrata-nyc-crime': _socrata_nyc_crime,
-  'socrata-nyc-dob-permits': _socrata_nyc_dob_permits,
-  'socrata-nyc-evictions': _socrata_nyc_evictions,
-  'socrata-nyc-restaurants': _socrata_nyc_restaurants,
-  'socrata-oakland-311': _socrata_oakland_311,
-  'socrata-oakland-crime': _socrata_oakland_crime,
-  'socrata-seattle-911': _socrata_seattle_911,
-  'socrata-seattle-police911': _socrata_seattle_police911,
-  'socrata-sf-311': _socrata_sf_311,
-  'socrata-sonoma-arrests': _socrata_sonoma_arrests,
-  'socrata-sonoma-events': _socrata_sonoma_events,
-  'usgs-quakes-10-day': _usgs_quakes_10_day,
-  'usgs-quakes-25-day': _usgs_quakes_25_day,
-  'usgs-quakes-25-week': _usgs_quakes_25_week,
-  'usgs-quakes-45-week': _usgs_quakes_45_week,
-  'usgs-quakes-alaska': _usgs_quakes_alaska,
-  'usgs-quakes-all-week': _usgs_quakes_all_week,
-  'usgs-quakes-california': _usgs_quakes_california,
-  'usgs-quakes-hawaii': _usgs_quakes_hawaii,
-  'usgs-quakes-pacific-nw': _usgs_quakes_pacific_nw,
-  'usgs-quakes-puerto-rico': _usgs_quakes_puerto_rico,
-  'usgs-quakes-significant-month': _usgs_quakes_significant_month,
-  'usgs-quakes-significant-week': _usgs_quakes_significant_week,
-  'usgs-sig-quakes': _usgs_sig_quakes,
-  'usgs-water-arkansas-flow': _usgs_water_arkansas_flow,
-  'usgs-water-chattahoochee-flow': _usgs_water_chattahoochee_flow,
-  'usgs-water-colorado-flow': _usgs_water_colorado_flow,
-  'usgs-water-columbia-flow': _usgs_water_columbia_flow,
-  'usgs-water-connecticut-flow': _usgs_water_connecticut_flow,
-  'usgs-water-delaware-flow': _usgs_water_delaware_flow,
-  'usgs-water-dv-major-rivers': _usgs_water_dv_major_rivers,
-  'usgs-water-dv-southeast': _usgs_water_dv_southeast,
-  'usgs-water-gw-piedmont': _usgs_water_gw_piedmont,
-  'usgs-water-hudson-flow': _usgs_water_hudson_flow,
-  'usgs-water-james-flow': _usgs_water_james_flow,
-  'usgs-water-mississippi-flow': _usgs_water_mississippi_flow,
-  'usgs-water-missouri-flow': _usgs_water_missouri_flow,
-  'usgs-water-newriver-valley': _usgs_water_newriver_valley,
-  'usgs-water-ohio-flow': _usgs_water_ohio_flow,
-  'usgs-water-potomac-flow': _usgs_water_potomac_flow,
-  'usgs-water-potomac-stage': _usgs_water_potomac_stage,
-  'usgs-water-rio-grande-flow': _usgs_water_rio_grande_flow,
-  'usgs-water-sacramento-flow': _usgs_water_sacramento_flow,
-  'usgs-water-savannah-flow': _usgs_water_savannah_flow,
-  'usgs-water-snake-flow': _usgs_water_snake_flow,
-  'usgs-water-stage-northeast': _usgs_water_stage_northeast,
-  'usgs-water-susquehanna-flow': _usgs_water_susquehanna_flow,
-  'usgs-water-temp-chattahoochee': _usgs_water_temp_chattahoochee,
-  'usgs-water-temp-midatlantic': _usgs_water_temp_midatlantic,
-  'usgs-water-temp-west': _usgs_water_temp_west,
-  'usgs-water-tennessee-flow': _usgs_water_tennessee_flow,
-  'usgs-water-willamette-flow': _usgs_water_willamette_flow,
+  'cagov-algal-bloom-cases': _cagov_algal_bloom_cases,
+  'cagov-algal-bloom-reports': _cagov_algal_bloom_reports,
+  'cagov-beach-advisories': _cagov_beach_advisories,
+  'cagov-beach-waterquality': _cagov_beach_waterquality,
+  'cdec-reservoir-elevation': _cdec_reservoir_elevation,
+  'cdec-reservoir-storage': _cdec_reservoir_storage,
+  'cdec-snow-swe': _cdec_snow_swe,
+  'cg-markets-top50': _cg_markets_top50,
+  'cg-trending': _cg_trending,
+  'coops-currents-capecod': _coops_currents_capecod,
+  'coops-currents-chesapeakebridge': _coops_currents_chesapeakebridge,
+  'coops-currents-norfolk': _coops_currents_norfolk,
+  'coops-salinity-baltimore': _coops_salinity_baltimore,
+  'coops-waterlevel-dauphinisland': _coops_waterlevel_dauphinisland,
+  'coops-waterlevel-shellbeach': _coops_waterlevel_shellbeach,
+  'coops-watertemp-baltimore': _coops_watertemp_baltimore,
+  'coops-watertemp-providence': _coops_watertemp_providence,
+  'mb-artist-search-queen': _mb_artist_search_queen,
+  'ol-search-solar': _ol_search_solar,
+  'ol-subject-science': _ol_subject_science,
+  'ol-trending-daily': _ol_trending_daily,
+  'ol-trending-weekly': _ol_trending_weekly,
+  'om-aq-current-europe': _om_aq_current_europe,
+  'om-aq-current-us': _om_aq_current_us,
+  'om-elevation-extremes': _om_elevation_extremes,
+  'om-elevation-uscities': _om_elevation_uscities,
+  'om-ensemble-gfs-us': _om_ensemble_gfs_us,
+  'om-ensemble-icon-europe': _om_ensemble_icon_europe,
+  'om-era5-aug2026-cities': _om_era5_aug2026_cities,
+  'om-flood-discharge-rivers': _om_flood_discharge_rivers,
+  'om-geocode-cambridge': _om_geocode_cambridge,
+  'om-geocode-portland': _om_geocode_portland,
+  'om-marine-current-us': _om_marine_current_us,
+  'om-marine-current-world': _om_marine_current_world,
+  'usgs-volcano-elevated': _usgs_volcano_elevated,
+  'usgs-volcano-status-all': _usgs_volcano_status_all,
+  'usgs-volcano-status-geojson': _usgs_volcano_status_geojson,
+  'usgs-water-brazos-flow': _usgs_water_brazos_flow,
+  'usgs-water-capefear-flow': _usgs_water_capefear_flow,
+  'usgs-water-cumberland-flow': _usgs_water_cumberland_flow,
+  'usgs-water-deschutes-flow': _usgs_water_deschutes_flow,
+  'usgs-water-gila-flow': _usgs_water_gila_flow,
+  'usgs-water-gw-ogallala': _usgs_water_gw_ogallala,
+  'usgs-water-klamath-flow': _usgs_water_klamath_flow,
+  'usgs-water-merrimack-flow': _usgs_water_merrimack_flow,
+  'usgs-water-platte-flow': _usgs_water_platte_flow,
+  'usgs-water-quality-do-midatlantic': _usgs_water_quality_do_midatlantic,
+  'usgs-water-quality-ph-west': _usgs_water_quality_ph_west,
+  'usgs-water-quality-turbidity': _usgs_water_quality_turbidity,
+  'usgs-water-redriver-flow': _usgs_water_redriver_flow,
+  'usgs-water-rogue-flow': _usgs_water_rogue_flow,
+  'usgs-water-sanjoaquin-flow': _usgs_water_sanjoaquin_flow,
+  'usgs-water-skagit-flow': _usgs_water_skagit_flow,
+  'usgs-water-stage-redriver-fargo': _usgs_water_stage_redriver_fargo,
+  'usgs-water-trinity-tx-flow': _usgs_water_trinity_tx_flow,
+  'usgs-water-truckee-flow': _usgs_water_truckee_flow,
+  'usgs-water-wabash-flow': _usgs_water_wabash_flow,
+  'usgs-water-wisconsin-flow': _usgs_water_wisconsin_flow,
+  'usgs-water-yellowstone-flow': _usgs_water_yellowstone_flow,
+  'usgs-water-yukon-flow': _usgs_water_yukon_flow,
+  'wb-gdp-usa': _wb_gdp_usa,
+  'wb-indicator-catalog': _wb_indicator_catalog,
+  'wb-life-expectancy-usa': _wb_life_expectancy_usa,
+  'wb-population-usa': _wb_population_usa,
+  'wb-population-world': _wb_population_world,
+  'wb-unemployment-usa': _wb_unemployment_usa,
 };
 
 export const SPEC_IDS = Object.keys(SPECS);

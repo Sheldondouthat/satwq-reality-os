@@ -36,7 +36,13 @@
  * Shapes VERIFIED by live probe from the build VM on 2026-09-27
  * (both endpoints HTTP 200 JSON; no redirect observed on
  * api.tidesandcurrents.noaa.gov).
+ *
+ * R2-17 king-tide calendar (2026-10-02): this module also exports
+ * kingTidesProxy() — pure synthesis over the same predictions endpoint
+ * (one year-long interval=hilo call per station; zero new API cost).
  */
+
+import { moonPhase, moonDistanceKm } from '../../../src/layers/moon/model.js';
 
 const COOPS_BASE = 'https://api.tidesandcurrents.noaa.gov/api/prod/datagetter';
 const UPSTREAM_TIMEOUT_MS = 20_000;
@@ -429,3 +435,303 @@ export const _tidesInternals = {
     inflight = null;
   },
 };
+
+// ---------------------------------------------------------------------------
+// R2-17 king-tide calendar (2026-10-02): pure synthesis over CO-OPS
+// predictions — zero new API cost. One year-long `interval=hilo` predictions
+// call per station; the top-N predicted highs of the year are the king tides
+// (NOAA's own definition), annotated with computed lunar geometry. These are
+// harmonic-model PREDICTIONS, never observed water levels — see
+// KING_TIDES_HONESTY on the payload.
+// ---------------------------------------------------------------------------
+
+const KING_TIDES_TTL_MS = 24 * 60 * 60_000; // predictions refresh ~yearly
+const KING_TIDES_STALE_MS = 7 * 24 * 3600_000;
+const KING_TIDES_COOLDOWN_MS = 60_000;
+const KING_TIDES_DEFAULT_TOP = 5;
+const KING_TIDES_MAX_TOP = 20;
+const KING_TIDES_MAX_STATIONS = 10;
+const KING_TIDES_YEAR_RE = /^(19|20)\d{2}$/;
+// Perigean = computed lunar distance in the bottom ~15% of the low-precision
+// model's range (≈363,290–405,493 km). Perigee timing ±~1 day on this model.
+const PERIGEAN_KM = 370_000;
+// Spring-tide window: elongation within ~±2 days of new (0°) / full (180°).
+const SPRING_NEW_DEG = 25;
+const SPRING_FULL_DEG = 155;
+
+let kingCache = null; // { at, key, payload }
+let kingInflight = null;
+let kingRetryAt = 0;
+
+function yearPredictionsUrl(station, year) {
+  return (
+    `${COOPS_BASE}?product=predictions&station=${station}&datum=MLLW` +
+    `&begin_date=${year}0101&end_date=${year}1231&time_zone=gmt` +
+    `&units=english&interval=hilo&format=json`
+  );
+}
+
+async function fetchYearPredictions(station, year) {
+  const started = Date.now();
+  try {
+    const upstream = await fetchJsonCapped(yearPredictionsUrl(station, year));
+    return {
+      key: 'kingtides',
+      ok: true,
+      latencyMs: Date.now() - started,
+      metadata: upstream?.metadata ?? null,
+      readings: parsePredictions(upstream),
+    };
+  } catch (error) {
+    return {
+      key: 'kingtides',
+      ok: false,
+      latencyMs: Date.now() - started,
+      error: error?.message ?? 'unknown',
+      readings: [],
+    };
+  }
+}
+
+/** Annotate one high-water prediction with computed lunar geometry. */
+export function annotateKingTideEvent(pred) {
+  const date = new Date(pred.time);
+  const phase = moonPhase(date);
+  const distKm = moonDistanceKm(date);
+  const elong = phase.elongationDeg;
+  const nearNewMoon = elong < SPRING_NEW_DEG;
+  const nearFullMoon = elong > SPRING_FULL_DEG;
+  return {
+    time: pred.time,
+    feet: pred.feet,
+    moonPhase: phase.name,
+    elongationDeg: roundNum(elong, 1),
+    illumination: roundNum(phase.illumination, 3),
+    waxing: phase.waxing,
+    nearNewMoon,
+    nearFullMoon,
+    springWindow: nearNewMoon || nearFullMoon,
+    moonDistanceKm: Math.round(distKm),
+    perigean: distKm < PERIGEAN_KM,
+  };
+}
+
+/** Top-N predicted highs of the year = the king tides (ranked). */
+export function rankKingTides(readings, top) {
+  const ranked = readings
+    .filter((r) => r.type === 'H')
+    .slice()
+    .sort((a, b) => b.feet - a.feet)
+    .slice(0, top);
+  return ranked.map((p, i) => ({
+    rank: i + 1,
+    kingTide: true,
+    ...annotateKingTideEvent(p),
+  }));
+}
+
+/** Highest predicted high per calendar month (the calendar view). */
+export function monthlyMaxima(readings) {
+  const byMonth = new Map();
+  for (const r of readings) {
+    if (r.type !== 'H') continue;
+    const month = r.time.slice(0, 7); // ISO 'YYYY-MM'
+    const cur = byMonth.get(month);
+    if (!cur || r.feet > cur.feet) byMonth.set(month, r);
+  }
+  return [...byMonth.entries()]
+    .sort(([a], [b]) => (a < b ? -1 : a > b ? 1 : 0))
+    .map(([month, p]) => ({ month, monthlyMax: true, ...annotateKingTideEvent(p) }));
+}
+
+const KING_TIDES_HONESTY = {
+  kingTideDefinition:
+    'A king tide is the highest predicted high tide of the year at a coastal location (NOAA usage). These are harmonic-model PREDICTIONS, not observed water levels.',
+  predictionsNotObserved:
+    'Values come from the NOAA CO-OPS tide-prediction model. Real water levels can exceed predictions during storms, onshore winds, or low-pressure systems.',
+  lunarGeometry:
+    'Moon phase/perigee are COMPUTED from the repo low-precision lunar ephemeris (src/layers/moon/model.js): phase ±~0.5 day, perigee timing ±~1 day. "perigean" = computed distance in the bottom ~15% of the model range.',
+  springWindow:
+    'springWindow marks events within ~±2 days of new or full moon (computed elongation <25° or >155°).',
+  datum: 'Feet above Mean Lower Low Water (MLLW).',
+};
+
+function buildKingTidesEntry(station, year, top, result) {
+  if (!result.ok) {
+    return {
+      station: { id: String(station), name: null, lat: null, lon: null },
+      ok: false,
+      error: result.error,
+    };
+  }
+  const meta = result.metadata;
+  const known = STATIONS.find((s) => s.id === String(station));
+  const kingTides = rankKingTides(result.readings, top);
+  return {
+    station: {
+      id: String(station),
+      // The year-range predictions product returns no station metadata;
+      // use the curated STATIONS list (verified live 2026-09-27) when known.
+      name: known?.name ?? (meta?.name ? String(meta.name) : null),
+      lat: known?.lat ?? numOrNull(meta?.lat),
+      lon: known?.lon ?? numOrNull(meta?.lon),
+    },
+    ok: true,
+    year,
+    top,
+    predictionCount: result.readings.length,
+    yearMaxFeet: kingTides.length ? kingTides[0].feet : null,
+    kingTides,
+    monthlyMaxima: monthlyMaxima(result.readings),
+    sources: {
+      kingtides: {
+        ok: result.ok,
+        count: result.readings.length,
+        latencyMs: result.latencyMs,
+      },
+    },
+  };
+}
+
+async function getKingTidesSnapshot(stations, year, top) {
+  const key = `king:${stations.join(',')}:${year}:${top}`;
+  const now = Date.now();
+  if (kingCache && kingCache.key === key && now - kingCache.at < KING_TIDES_TTL_MS)
+    return kingCache.payload;
+  if (kingInflight) return kingInflight;
+  if (now < kingRetryAt && kingCache && now - kingCache.at < KING_TIDES_STALE_MS)
+    return { ...kingCache.payload, stale: true };
+  kingInflight = Promise.all(stations.map((s) => fetchYearPredictions(s, year)))
+    .then((results) => {
+      const entries = stations.map((s, i) => buildKingTidesEntry(s, year, top, results[i]));
+      if (!entries.some((e) => e.ok)) {
+        kingRetryAt = Date.now() + KING_TIDES_COOLDOWN_MS;
+        const detail = entries.map((e) => `${e.station.id}:${e.error}`).join('; ');
+        throw Object.assign(new Error(`kingtides_all_upstream_down: ${detail}`), {
+          status: 502,
+        });
+      }
+      const payload = {
+        generatedAt: new Date().toISOString(),
+        route: '/api/king-tides',
+        year,
+        top,
+        count: entries.length,
+        okCount: entries.filter((e) => e.ok).length,
+        units: 'feet MLLW',
+        stations: entries,
+        honesty: KING_TIDES_HONESTY,
+        attribution:
+          'NOAA CO-OPS (public domain, keyless); lunar geometry: repo low-precision ephemeris',
+      };
+      kingCache = { at: Date.now(), key, payload };
+      return payload;
+    })
+    .catch((error) => {
+      if (kingCache && now - kingCache.at < KING_TIDES_STALE_MS)
+        return { ...kingCache.payload, stale: true };
+      throw error;
+    })
+    .finally(() => {
+      kingInflight = null;
+    });
+  return kingInflight;
+}
+
+export function parseKingTidesQuery(req) {
+  const url = new URL(req.url ?? '/api/king-tides', 'http://localhost');
+  const station = url.searchParams.get('station') ?? '8638610';
+  if (!STATION_RE.test(station))
+    throw Object.assign(new Error(`kingtides_bad_station:${station.slice(0, 32)}`), {
+      status: 400,
+    });
+  const yearRaw = url.searchParams.get('year') ?? String(new Date().getUTCFullYear());
+  if (!KING_TIDES_YEAR_RE.test(yearRaw))
+    throw Object.assign(new Error(`kingtides_bad_year:${yearRaw.slice(0, 8)}`), {
+      status: 400,
+    });
+  const topRaw = url.searchParams.get('top') ?? String(KING_TIDES_DEFAULT_TOP);
+  const top = Number(topRaw);
+  if (!Number.isInteger(top) || top < 1 || top > KING_TIDES_MAX_TOP)
+    throw Object.assign(new Error(`kingtides_bad_top:${topRaw.slice(0, 8)}`), {
+      status: 400,
+    });
+  const stationsRaw = url.searchParams.get('stations');
+  let stations = null;
+  if (stationsRaw != null && stationsRaw.trim() !== '') {
+    stations = [...new Set(stationsRaw.split(',').map((s) => s.trim()).filter(Boolean))];
+    if (stations.length === 0 || stations.length > KING_TIDES_MAX_STATIONS)
+      throw Object.assign(new Error(`kingtides_too_many_stations:${stations.length}`), {
+        status: 400,
+      });
+    for (const st of stations) {
+      if (!STATION_RE.test(st))
+        throw Object.assign(new Error(`kingtides_bad_station:${st.slice(0, 32)}`), {
+          status: 400,
+        });
+    }
+  }
+  return { station, stations, year: Number(yearRaw), top };
+}
+
+/** Mount the king-tide calendar proxy. Mirrors the tides provider shape. */
+export function kingTidesProxy() {
+  async function handler(req, res) {
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
+    try {
+      const { station, stations, year, top } = parseKingTidesQuery(req);
+      const list = stations ?? [station];
+      sendJson(
+        res,
+        200,
+        await getKingTidesSnapshot(list, year, top),
+        'public, max-age=86400',
+      );
+    } catch (error) {
+      if (error?.status === 400)
+        return sendJson(
+          res,
+          400,
+          { error: 'kingtides_bad_request', detail: error?.message ?? 'unknown' },
+          'no-store',
+        );
+      const upstreamFail =
+        error?.status === 502 ||
+        error?.name === 'AbortError' ||
+        /aborted?/i.test(error?.message ?? '');
+      sendJson(
+        res,
+        upstreamFail ? 502 : 500,
+        { error: 'kingtides_unavailable', detail: error?.message ?? 'unknown' },
+        'no-store',
+      );
+    }
+  }
+
+  return {
+    name: 'king-tides',
+    configureServer({ middlewares }) {
+      middlewares.use('/api/king-tides', handler);
+    },
+    configurePreviewServer({ middlewares }) {
+      middlewares.use('/api/king-tides', handler);
+    },
+  };
+}
+
+// R2-17 test internals — assigned after the king-tides section above
+// (avoids TDZ: the _tidesInternals literal evaluates at module position).
+Object.assign(_tidesInternals, {
+  parseKingTidesQuery,
+  rankKingTides,
+  monthlyMaxima,
+  annotateKingTideEvent,
+  yearPredictionsUrl,
+  KING_TIDES_HONESTY,
+  clearKingCaches: () => {
+    kingCache = null;
+    kingInflight = null;
+    kingRetryAt = 0;
+  },
+});
