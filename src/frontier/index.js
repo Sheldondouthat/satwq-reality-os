@@ -157,6 +157,7 @@ import { init as initGreatLakes } from './wave9/greatlakes/index.js';
 import { init as initOcearch } from './wave9/ocearch/index.js';
 import { init as initFaaDelays } from './wave9/faaDelays/index.js';
 import { init as initMirova } from './wave9/mirova/index.js';
+import { init as initSurf } from './wave9/surf/index.js';
 
 const DOCK_ID = 'satwq-frontier-dock';
 
@@ -1110,6 +1111,7 @@ export function initFrontier({ viewer } = {}) {
     attempt('ocearch', () => initOcearch({ viewer, mount: s, chip, trackLayer, t }));
     attempt('faaDelays', () => initFaaDelays({ viewer, mount: s, chip, trackLayer, t }));
     attempt('mirova', () => initMirova({ viewer, mount: s, chip, trackLayer, t }));
+    attempt('surf', () => initSurf({ viewer, mount: s, chip, trackLayer, t }));
   }
 
   return {

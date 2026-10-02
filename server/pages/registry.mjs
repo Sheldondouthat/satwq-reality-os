@@ -1272,6 +1272,11 @@ const REGISTRY = [
     routes: ['/api/mirova'],
     load: () => import('../providers/wave9/mirova.js').then((m) => m.mirovaProxy()),
   },
+  {
+    name: 'surf',
+    routes: ['/api/surf'],
+    load: () => import('../providers/wave9/surf.js').then((m) => m.surfProxy()),
+  },
 ];
 
 export { REGISTRY };
