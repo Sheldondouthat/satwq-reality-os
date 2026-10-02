@@ -1,0 +1,6 @@
+// Vercel: GET /api/metno-dallas — surge-500 generic spec mount (auto-generated).
+import { mountProvider } from './_lib/connect.js';
+import { specProxy } from '../server/providers/wave10/generic.js';
+import { SPEC } from '../server/providers/wave10/specs/metno-dallas.mjs';
+
+export default mountProvider(() => specProxy('metno-dallas', SPEC));
