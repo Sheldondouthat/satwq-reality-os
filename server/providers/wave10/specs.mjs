@@ -8,8 +8,6 @@ import { SPEC as _cagov_beach_waterquality } from './specs/cagov-beach-waterqual
 import { SPEC as _cdec_reservoir_elevation } from './specs/cdec-reservoir-elevation.mjs';
 import { SPEC as _cdec_reservoir_storage } from './specs/cdec-reservoir-storage.mjs';
 import { SPEC as _cdec_snow_swe } from './specs/cdec-snow-swe.mjs';
-import { SPEC as _cg_markets_top50 } from './specs/cg-markets-top50.mjs';
-import { SPEC as _cg_trending } from './specs/cg-trending.mjs';
 import { SPEC as _coops_currents_capecod } from './specs/coops-currents-capecod.mjs';
 import { SPEC as _coops_currents_chesapeakebridge } from './specs/coops-currents-chesapeakebridge.mjs';
 import { SPEC as _coops_currents_norfolk } from './specs/coops-currents-norfolk.mjs';
@@ -76,8 +74,6 @@ export const SPECS = {
   'cdec-reservoir-elevation': _cdec_reservoir_elevation,
   'cdec-reservoir-storage': _cdec_reservoir_storage,
   'cdec-snow-swe': _cdec_snow_swe,
-  'cg-markets-top50': _cg_markets_top50,
-  'cg-trending': _cg_trending,
   'coops-currents-capecod': _coops_currents_capecod,
   'coops-currents-chesapeakebridge': _coops_currents_chesapeakebridge,
   'coops-currents-norfolk': _coops_currents_norfolk,

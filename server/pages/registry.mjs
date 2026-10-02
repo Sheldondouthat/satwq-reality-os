@@ -2141,22 +2141,8 @@ const REGISTRY = [
       return g.specProxy('cdec-snow-swe', s.SPEC);
     }),
   },
-  {
-    name: 'cg-markets-top50',
-    routes: ['/api/cg-markets-top50'],
-    load: () => import('../providers/wave10/specs/cg-markets-top50.mjs').then(async (s) => {
-      const g = await import('../providers/wave10/generic.js');
-      return g.specProxy('cg-markets-top50', s.SPEC);
-    }),
-  },
-  {
-    name: 'cg-trending',
-    routes: ['/api/cg-trending'],
-    load: () => import('../providers/wave10/specs/cg-trending.mjs').then(async (s) => {
-      const g = await import('../providers/wave10/generic.js');
-      return g.specProxy('cg-trending', s.SPEC);
-    }),
-  },
+
+
   {
     name: 'coops-currents-capecod',
     routes: ['/api/coops-currents-capecod'],
