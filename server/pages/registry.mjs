@@ -1267,6 +1267,11 @@ const REGISTRY = [
     routes: ['/api/faa-delays'],
     load: () => import('../providers/wave9/faaDelays.js').then((m) => m.faaDelaysProxy()),
   },
+  {
+    name: 'mirova',
+    routes: ['/api/mirova'],
+    load: () => import('../providers/wave9/mirova.js').then((m) => m.mirovaProxy()),
+  },
 ];
 
 export { REGISTRY };
