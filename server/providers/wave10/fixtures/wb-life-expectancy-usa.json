@@ -1,0 +1,412 @@
+[
+ {
+  "page": 1,
+  "pages": 1,
+  "per_page": 60,
+  "total": 25,
+  "sourceid": "2",
+  "lastupdated": "2026-07-13"
+ },
+ [
+  {
+   "indicator": {
+    "id": "SP.DYN.LE00.IN",
+    "value": "Life expectancy at birth, total (years)"
+   },
+   "country": {
+    "id": "US",
+    "value": "United States"
+   },
+   "countryiso3code": "USA",
+   "date": "2024",
+   "value": 78.890243902439,
+   "unit": "",
+   "obs_status": "",
+   "decimal": 0
+  },
+  {
+   "indicator": {
+    "id": "SP.DYN.LE00.IN",
+    "value": "Life expectancy at birth, total (years)"
+   },
+   "country": {
+    "id": "US",
+    "value": "United States"
+   },
+   "countryiso3code": "USA",
+   "date": "2023",
+   "value": 78.3853658536585,
+   "unit": "",
+   "obs_status": "",
+   "decimal": 0
+  },
+  {
+   "indicator": {
+    "id": "SP.DYN.LE00.IN",
+    "value": "Life expectancy at birth, total (years)"
+   },
+   "country": {
+    "id": "US",
+    "value": "United States"
+   },
+   "countryiso3code": "USA",
+   "date": "2022",
+   "value": 77.4341463414634,
+   "unit": "",
+   "obs_status": "",
+   "decimal": 0
+  },
+  {
+   "indicator": {
+    "id": "SP.DYN.LE00.IN",
+    "value": "Life expectancy at birth, total (years)"
+   },
+   "country": {
+    "id": "US",
+    "value": "United States"
+   },
+   "countryiso3code": "USA",
+   "date": "2021",
+   "value": 76.3292682926829,
+   "unit": "",
+   "obs_status": "",
+   "decimal": 0
+  },
+  {
+   "indicator": {
+    "id": "SP.DYN.LE00.IN",
+    "value": "Life expectancy at birth, total (years)"
+   },
+   "country": {
+    "id": "US",
+    "value": "United States"
+   },
+   "countryiso3code": "USA",
+   "date": "2020",
+   "value": 76.9804878048781,
+   "unit": "",
+   "obs_status": "",
+   "decimal": 0
+  },
+  {
+   "indicator": {
+    "id": "SP.DYN.LE00.IN",
+    "value": "Life expectancy at birth, total (years)"
+   },
+   "country": {
+    "id": "US",
+    "value": "United States"
+   },
+   "countryiso3code": "USA",
+   "date": "2019",
+   "value": 78.7878048780488,
+   "unit": "",
+   "obs_status": "",
+   "decimal": 0
+  },
+  {
+   "indicator": {
+    "id": "SP.DYN.LE00.IN",
+    "value": "Life expectancy at birth, total (years)"
+   },
+   "country": {
+    "id": "US",
+    "value": "United States"
+   },
+   "countryiso3code": "USA",
+   "date": "2018",
+   "value": 78.6390243902439,
+   "unit": "",
+   "obs_status": "",
+   "decimal": 0
+  },
+  {
+   "indicator": {
+    "id": "SP.DYN.LE00.IN",
+    "value": "Life expectancy at birth, total (years)"
+   },
+   "country": {
+    "id": "US",
+    "value": "United States"
+   },
+   "countryiso3code": "USA",
+   "date": "2017",
+   "value": 78.5390243902439,
+   "unit": "",
+   "obs_status": "",
+   "decimal": 0
+  },
+  {
+   "indicator": {
+    "id": "SP.DYN.LE00.IN",
+    "value": "Life expectancy at birth, total (years)"
+   },
+   "country": {
+    "id": "US",
+    "value": "United States"
+   },
+   "countryiso3code": "USA",
+   "date": "2016",
+   "value": 78.5390243902439,
+   "unit": "",
+   "obs_status": "",
+   "decimal": 0
+  },
+  {
+   "indicator": {
+    "id": "SP.DYN.LE00.IN",
+    "value": "Life expectancy at birth, total (years)"
+   },
+   "country": {
+    "id": "US",
+    "value": "United States"
+   },
+   "countryiso3code": "USA",
+   "date": "2015",
+   "value": 78.690243902439,
+   "unit": "",
+   "obs_status": "",
+   "decimal": 0
+  },
+  {
+   "indicator": {
+    "id": "SP.DYN.LE00.IN",
+    "value": "Life expectancy at birth, total (years)"
+   },
+   "country": {
+    "id": "US",
+    "value": "United States"
+   },
+   "countryiso3code": "USA",
+   "date": "2014",
+   "value": 78.8414634146341,
+   "unit": "",
+   "obs_status": "",
+   "decimal": 0
+  },
+  {
+   "indicator": {
+    "id": "SP.DYN.LE00.IN",
+    "value": "Life expectancy at birth, total (years)"
+   },
+   "country": {
+    "id": "US",
+    "value": "United States"
+   },
+   "countryiso3code": "USA",
+   "date": "2013",
+   "value": 78.7414634146342,
+   "unit": "",
+   "obs_status": "",
+   "decimal": 0
+  },
+  {
+   "indicator": {
+    "id": "SP.DYN.LE00.IN",
+    "value": "Life expectancy at birth, total (years)"
+   },
+   "country": {
+    "id": "US",
+    "value": "United States"
+   },
+   "countryiso3code": "USA",
+   "date": "2012",
+   "value": 78.7414634146342,
+   "unit": "",
+   "obs_status": "",
+   "decimal": 0
+  },
+  {
+   "indicator": {
+    "id": "SP.DYN.LE00.IN",
+    "value": "Life expectancy at birth, total (years)"
+   },
+   "country": {
+    "id": "US",
+    "value": "United States"
+   },
+   "countryiso3code": "USA",
+   "date": "2011",
+   "value": 78.6414634146341,
+   "unit": "",
+   "obs_status": "",
+   "decimal": 0
+  },
+  {
+   "indicator": {
+    "id": "SP.DYN.LE00.IN",
+    "value": "Life expectancy at birth, total (years)"
+   },
+   "country": {
+    "id": "US",
+    "value": "United States"
+   },
+   "countryiso3code": "USA",
+   "date": "2010",
+   "value": 78.5414634146342,
+   "unit": "",
+   "obs_status": "",
+   "decimal": 0
+  },
+  {
+   "indicator": {
+    "id": "SP.DYN.LE00.IN",
+    "value": "Life expectancy at birth, total (years)"
+   },
+   "country": {
+    "id": "US",
+    "value": "United States"
+   },
+   "countryiso3code": "USA",
+   "date": "2009",
+   "value": 78.390243902439,
+   "unit": "",
+   "obs_status": "",
+   "decimal": 0
+  },
+  {
+   "indicator": {
+    "id": "SP.DYN.LE00.IN",
+    "value": "Life expectancy at birth, total (years)"
+   },
+   "country": {
+    "id": "US",
+    "value": "United States"
+   },
+   "countryiso3code": "USA",
+   "date": "2008",
+   "value": 78.0390243902439,
+   "unit": "",
+   "obs_status": "",
+   "decimal": 0
+  },
+  {
+   "indicator": {
+    "id": "SP.DYN.LE00.IN",
+    "value": "Life expectancy at birth, total (years)"
+   },
+   "country": {
+    "id": "US",
+    "value": "United States"
+   },
+   "countryiso3code": "USA",
+   "date": "2007",
+   "value": 77.9878048780488,
+   "unit": "",
+   "obs_status": "",
+   "decimal": 0
+  },
+  {
+   "indicator": {
+    "id": "SP.DYN.LE00.IN",
+    "value": "Life expectancy at birth, total (years)"
+   },
+   "country": {
+    "id": "US",
+    "value": "United States"
+   },
+   "countryiso3code": "USA",
+   "date": "2006",
+   "value": 77.6878048780488,
+   "unit": "",
+   "obs_status": "",
+   "decimal": 0
+  },
+  {
+   "indicator": {
+    "id": "SP.DYN.LE00.IN",
+    "value": "Life expectancy at birth, total (years)"
+   },
+   "country": {
+    "id": "US",
+    "value": "United States"
+   },
+   "countryiso3code": "USA",
+   "date": "2005",
+   "value": 77.4878048780488,
+   "unit": "",
+   "obs_status": "",
+   "decimal": 0
+  },
+  {
+   "indicator": {
+    "id": "SP.DYN.LE00.IN",
+    "value": "Life expectancy at birth, total (years)"
+   },
+   "country": {
+    "id": "US",
+    "value": "United States"
+   },
+   "countryiso3code": "USA",
+   "date": "2004",
+   "value": 77.4878048780488,
+   "unit": "",
+   "obs_status": "",
+   "decimal": 0
+  },
+  {
+   "indicator": {
+    "id": "SP.DYN.LE00.IN",
+    "value": "Life expectancy at birth, total (years)"
+   },
+   "country": {
+    "id": "US",
+    "value": "United States"
+   },
+   "countryiso3code": "USA",
+   "date": "2003",
+   "value": 77.0365853658537,
+   "unit": "",
+   "obs_status": "",
+   "decimal": 0
+  },
+  {
+   "indicator": {
+    "id": "SP.DYN.LE00.IN",
+    "value": "Life expectancy at birth, total (years)"
+   },
+   "country": {
+    "id": "US",
+    "value": "United States"
+   },
+   "countryiso3code": "USA",
+   "date": "2002",
+   "value": 76.9365853658537,
+   "unit": "",
+   "obs_status": "",
+   "decimal": 0
+  },
+  {
+   "indicator": {
+    "id": "SP.DYN.LE00.IN",
+    "value": "Life expectancy at birth, total (years)"
+   },
+   "country": {
+    "id": "US",
+    "value": "United States"
+   },
+   "countryiso3code": "USA",
+   "date": "2001",
+   "value": 76.8365853658537,
+   "unit": "",
+   "obs_status": "",
+   "decimal": 0
+  },
+  {
+   "indicator": {
+    "id": "SP.DYN.LE00.IN",
+    "value": "Life expectancy at birth, total (years)"
+   },
+   "country": {
+    "id": "US",
+    "value": "United States"
+   },
+   "countryiso3code": "USA",
+   "date": "2000",
+   "value": 76.6365853658537,
+   "unit": "",
+   "obs_status": "",
+   "decimal": 0
+  }
+ ]
+]

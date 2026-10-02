@@ -1,0 +1,1682 @@
+{
+ "q": "solar",
+ "numFound": 32650,
+ "docs": [
+  {
+   "author_key": [
+    "OL3338243A"
+   ],
+   "author_name": [
+    "Joanna Cole"
+   ],
+   "cover_edition_key": "OL2191470M",
+   "cover_height": 475,
+   "cover_i": 383710,
+   "cover_width": 569,
+   "ebook_access": "borrowable",
+   "edition_count": 25,
+   "first_publish_year": 1990,
+   "has_fulltext": true,
+   "ia": [
+    "lautobusmagiquep0000cole",
+    "lostinsolarsyste0000cole",
+    "magicschoolbuslo0000cole_n3p5",
+    "elautobsmgicoene0000cole_v0n4",
+    "magicschoolbuslo00scho",
+    "magicschoolbuslo00cole"
+   ],
+   "ia_collection": [
+    "americana",
+    "cnusd-ol",
+    "delawarecountydistrictlibrary",
+    "inlibrary",
+    "internetarchivebooks",
+    "printdisabled"
+   ],
+   "key": "/works/OL83103W",
+   "language": [
+    "ita",
+    "chi",
+    "gre",
+    "fre",
+    "spa",
+    "eng"
+   ],
+   "lending_edition_s": "OL20061830M",
+   "lending_identifier_s": "lautobusmagiquep0000cole",
+   "public_scan_b": false,
+   "subtitle": "lost in the solar system",
+   "title": "The Magic School Bus"
+  },
+  {
+   "author_key": [
+    "OL222146A"
+   ],
+   "author_name": [
+    "Ian McEwan"
+   ],
+   "cover_edition_key": "OL24088296M",
+   "cover_height": 500,
+   "cover_i": 6298660,
+   "cover_width": 329,
+   "ebook_access": "printdisabled",
+   "edition_count": 23,
+   "first_publish_year": 2010,
+   "has_fulltext": true,
+   "ia": [
+    "solar0000mcew_o5v3",
+    "solar0000mcew",
+    "solarnovel0000mcew",
+    "solar0000mcew_y5a8",
+    "solarnovel0000mcew_r6o8",
+    "solarnovel00mcew_0",
+    "solarnovel00mcew_1",
+    "solar0000mcew_o4t4"
+   ],
+   "ia_collection": [
+    "americanuniversity-ol",
+    "belmont-ol",
+    "binghamton-ol",
+    "cua-ol",
+    "dartmouthlibrary-ol",
+    "delawarecountydistrictlibrary-ol",
+    "drakeuniversity-ol",
+    "georgetown-university-law-library-ol",
+    "gwulibraries-ol",
+    "internetarchivebooks",
+    "ithacacollege-ol",
+    "johnshopkins-ol",
+    "openlibrary-d-ol",
+    "printdisabled",
+    "rochester-ol",
+    "salisburyfreelibrary-ol",
+    "stmaryscountylibrary",
+    "the-claremont-colleges-ol",
+    "uhmauicollege-ol",
+    "unb-ol",
+    "uni-ol",
+    "universityofarizona-ol",
+    "universityofcoloradoboulder-ol",
+    "universityofoklahoma-ol",
+    "wilsoncollege-ol"
+   ],
+   "key": "/works/OL14919749W",
+   "language": [
+    "por",
+    "ger",
+    "eng",
+    "fre",
+    "spa"
+   ],
+   "public_scan_b": false,
+   "subtitle": "a novel",
+   "title": "Solar"
+  },
+  {
+   "author_key": [
+    "OL333916A",
+    "OL1122469A",
+    "OL5215642A"
+   ],
+   "author_name": [
+    "Linda Hogan",
+    "Ben Hogan",
+    "Linda Hogan"
+   ],
+   "cover_edition_key": "OL792015M",
+   "cover_i": 425351,
+   "ebook_access": "printdisabled",
+   "edition_count": 5,
+   "first_publish_year": 1994,
+   "has_fulltext": true,
+   "ia": [
+    "solarstormsnovel00hoga",
+    "solarstormsnovel0000hoga_n4s9"
+   ],
+   "ia_collection": [
+    "internetarchivebooks",
+    "printdisabled"
+   ],
+   "key": "/works/OL2423169W",
+   "language": [
+    "eng"
+   ],
+   "public_scan_b": false,
+   "title": "Solar Storms"
+  },
+  {
+   "author_key": [
+    "OL274606A"
+   ],
+   "author_name": [
+    "Philip K. Dick"
+   ],
+   "cover_edition_key": "OL17576765M",
+   "cover_height": 200,
+   "cover_i": 9249829,
+   "cover_width": 133,
+   "ebook_access": "printdisabled",
+   "edition_count": 17,
+   "first_publish_year": 1955,
+   "has_fulltext": true,
+   "ia": [
+    "solarlottery0000dick"
+   ],
+   "ia_collection": [
+    "internetarchivebooks",
+    "printdisabled"
+   ],
+   "key": "/works/OL2172509W",
+   "language": [
+    "fre",
+    "spa",
+    "eng"
+   ],
+   "public_scan_b": false,
+   "title": "Solar Lottery"
+  },
+  {
+   "author_key": [
+    "OL18865A"
+   ],
+   "author_name": [
+    "Megan McDonald"
+   ],
+   "cover_edition_key": "OL25448159M",
+   "cover_height": 2604,
+   "cover_i": 12838067,
+   "cover_width": 1730,
+   "ebook_access": "borrowable",
+   "edition_count": 19,
+   "first_publish_year": 2009,
+   "has_fulltext": true,
+   "ia": [
+    "stinksolarsystem0000mcdo",
+    "stinksuperhroede0000mcdo",
+    "stinksolarsystem00mcdo",
+    "solarsystemsuper0000mcdo",
+    "stinksolarsystem0000mcdo_p1l3",
+    "stinksolarsystem0000mega"
+   ],
+   "ia_collection": [
+    "americana",
+    "delawarecountydistrictlibrary",
+    "inlibrary",
+    "internetarchivebooks",
+    "printdisabled"
+   ],
+   "key": "/works/OL16821101W",
+   "language": [
+    "spa",
+    "eng"
+   ],
+   "lending_edition_s": "OL32144357M",
+   "lending_identifier_s": "stinksolarsystem0000mcdo",
+   "public_scan_b": false,
+   "title": "Stink Solar System Superhero"
+  },
+  {
+   "author_key": [
+    "OL1395819A",
+    "OL452085A",
+    "OL49037A",
+    "OL2664536A",
+    "OL2789350A"
+   ],
+   "author_name": [
+    "Roger A. Freedman",
+    "William J. Kaufmann",
+    "Thomas Krause",
+    "Neil Comins",
+    "Roger Freedman"
+   ],
+   "cover_edition_key": "OL3313911M",
+   "cover_i": 4247199,
+   "ebook_access": "printdisabled",
+   "edition_count": 22,
+   "first_publish_year": 2001,
+   "has_fulltext": true,
+   "ia": [
+    "universe0000free",
+    "universesolarsys0000free",
+    "universe00free"
+   ],
+   "ia_collection": [
+    "americana",
+    "binghamton-ol",
+    "internetarchivebooks",
+    "johnshopkins-ol",
+    "printdisabled",
+    "riceuniversity-ol",
+    "universityofoklahoma-ol"
+   ],
+   "key": "/works/OL5741183W",
+   "language": [
+    "eng"
+   ],
+   "public_scan_b": false,
+   "title": "Universe"
+  },
+  {
+   "author_key": [
+    "OL20532A",
+    "OL6783413A"
+   ],
+   "author_name": [
+    "Seymour Simon",
+    "Seymour Simon"
+   ],
+   "cover_edition_key": "OL9243339M",
+   "cover_i": 46420,
+   "ebook_access": "printdisabled",
+   "edition_count": 5,
+   "first_publish_year": 1992,
+   "has_fulltext": true,
+   "ia": [
+    "oursolarsystem0000simo",
+    "oursolarsystem100simo"
+   ],
+   "ia_collection": [
+    "internetarchivebooks",
+    "printdisabled"
+   ],
+   "key": "/works/OL118098W",
+   "language": [
+    "eng"
+   ],
+   "public_scan_b": false,
+   "title": "Our Solar System"
+  },
+  {
+   "author_key": [
+    "OL2685945A",
+    "OL765718A",
+    "OL2685735A",
+    "OL711204A",
+    "OL2685734A",
+    "OL2031470A",
+    "OL2685736A",
+    "OL2685737A"
+   ],
+   "author_name": [
+    "Jeffrey S. Hester",
+    "David Burstein",
+    "George Blumenthal",
+    "Ronald Greeley",
+    "Jeff Hester",
+    "Bradford Smith",
+    "Howard Voss",
+    "Gary Wegner"
+   ],
+   "cover_edition_key": "OL7455638M",
+   "cover_i": 253247,
+   "ebook_access": "printdisabled",
+   "edition_count": 46,
+   "first_publish_year": 2002,
+   "has_fulltext": true,
+   "ia": [
+    "21stcenturyastro0000unse_q7t7",
+    "21stcenturyastro0000unse_n0j6",
+    "21stcenturyastro0000kayl_l3p8"
+   ],
+   "ia_collection": [
+    "internetarchivebooks",
+    "printdisabled"
+   ],
+   "key": "/works/OL21725900W",
+   "language": [
+    "eng"
+   ],
+   "public_scan_b": false,
+   "title": "21st Century Astronomy"
+  },
+  {
+   "author_key": [
+    "OL7879757A"
+   ],
+   "author_name": [
+    "Chetan Singh Solanki"
+   ],
+   "cover_edition_key": "OL37253527M",
+   "cover_i": 13236805,
+   "ebook_access": "no_ebook",
+   "edition_count": 2,
+   "first_publish_year": 2011,
+   "has_fulltext": false,
+   "key": "/works/OL27383610W",
+   "language": [
+    "eng",
+    "hin"
+   ],
+   "public_scan_b": false,
+   "title": "Solar Photovoltaics"
+  },
+  {
+   "author_key": [
+    "OL19173A"
+   ],
+   "author_name": [
+    "Franklyn M. Branley"
+   ],
+   "cover_edition_key": "OL6225330M",
+   "cover_i": 7014060,
+   "ebook_access": "borrowable",
+   "edition_count": 3,
+   "first_publish_year": 1957,
+   "has_fulltext": true,
+   "ia": [
+    "solarenergy00bran"
+   ],
+   "ia_collection": [
+    "inlibrary",
+    "internetarchivebooks",
+    "printdisabled"
+   ],
+   "key": "/works/OL121306W",
+   "language": [
+    "eng"
+   ],
+   "lending_edition_s": "OL6225330M",
+   "lending_identifier_s": "solarenergy00bran",
+   "public_scan_b": false,
+   "title": "Solar energy"
+  },
+  {
+   "author_key": [
+    "OL27951A"
+   ],
+   "author_name": [
+    "Andre Norton"
+   ],
+   "cover_edition_key": "OL4556142M",
+   "cover_height": 189,
+   "cover_i": 4418101,
+   "cover_width": 128,
+   "ebook_access": "borrowable",
+   "edition_count": 25,
+   "first_publish_year": 1955,
+   "has_fulltext": true,
+   "ia": [
+    "bwb_S0-BBI-857",
+    "sargassoofspace0000andr"
+   ],
+   "ia_collection": [
+    "inlibrary",
+    "internetarchivebooks",
+    "printdisabled"
+   ],
+   "key": "/works/OL473292W",
+   "language": [
+    "eng"
+   ],
+   "lending_edition_s": "OL58696841M",
+   "lending_identifier_s": "bwb_S0-BBI-857",
+   "public_scan_b": false,
+   "title": "Sargasso of Space"
+  },
+  {
+   "author_key": [
+    "OL2744759A"
+   ],
+   "author_name": [
+    "Tomas Markvart"
+   ],
+   "cover_edition_key": "OL7632338M",
+   "cover_i": 1253317,
+   "ebook_access": "no_ebook",
+   "edition_count": 2,
+   "first_publish_year": 2000,
+   "has_fulltext": false,
+   "key": "/works/OL8245939W",
+   "language": [
+    "eng"
+   ],
+   "public_scan_b": false,
+   "title": "Solar Electricity"
+  },
+  {
+   "author_key": [
+    "OL888340A"
+   ],
+   "author_name": [
+    "John A. Duffie"
+   ],
+   "cover_edition_key": "OL3417303M",
+   "cover_i": 1249914,
+   "ebook_access": "printdisabled",
+   "edition_count": 9,
+   "first_publish_year": 1980,
+   "has_fulltext": true,
+   "ia": [
+    "solarengineering0000duff",
+    "solarengineering00duff"
+   ],
+   "ia_collection": [
+    "internetarchivebooks",
+    "printdisabled",
+    "trent_university"
+   ],
+   "key": "/works/OL4457722W",
+   "language": [
+    "eng"
+   ],
+   "public_scan_b": false,
+   "title": "Solar engineering of thermal processes"
+  },
+  {
+   "author_key": [
+    "OL27951A"
+   ],
+   "author_name": [
+    "Andre Norton"
+   ],
+   "cover_edition_key": "OL7526281M",
+   "cover_height": 3301,
+   "cover_i": 9839176,
+   "cover_width": 2550,
+   "ebook_access": "public",
+   "edition_count": 91,
+   "first_publish_year": 1956,
+   "has_fulltext": true,
+   "ia": [
+    "bwb_S0-ASU-193",
+    "plagueship00nort",
+    "plagueship0000nort_z2p3"
+   ],
+   "ia_collection": [
+    "inlibrary",
+    "internetarchivebooks",
+    "printdisabled"
+   ],
+   "key": "/works/OL473283W",
+   "language": [
+    "eng"
+   ],
+   "lending_edition_s": "OL58690206M",
+   "lending_identifier_s": "bwb_S0-ASU-193",
+   "public_scan_b": true,
+   "title": "Plague Ship",
+   "id_standard_ebooks": [
+    "andre-norton/plague-ship"
+   ]
+  },
+  {
+   "author_key": [
+    "OL649364A"
+   ],
+   "author_name": [
+    "S. P. Sukhatme"
+   ],
+   "cover_edition_key": "OL13834538M",
+   "cover_i": 6291387,
+   "ebook_access": "no_ebook",
+   "edition_count": 1,
+   "first_publish_year": 1984,
+   "has_fulltext": false,
+   "key": "/works/OL3724200W",
+   "language": [
+    "eng"
+   ],
+   "public_scan_b": false,
+   "title": "Solar energy"
+  },
+  {
+   "author_key": [
+    "OL240187A"
+   ],
+   "author_name": [
+    "Mike McCormack"
+   ],
+   "cover_i": 8981147,
+   "ebook_access": "printdisabled",
+   "edition_count": 2,
+   "first_publish_year": 2016,
+   "has_fulltext": true,
+   "ia": [
+    "isbn_9789913768979"
+   ],
+   "ia_collection": [
+    "internetarchivebooks",
+    "printdisabled"
+   ],
+   "key": "/works/OL19717457W",
+   "language": [
+    "eng"
+   ],
+   "public_scan_b": false,
+   "title": "Solar bones"
+  },
+  {
+   "author_key": [
+    "OL1412764A"
+   ],
+   "author_name": [
+    "Khaled Hosseini"
+   ],
+   "cover_edition_key": "OL26338622M",
+   "cover_height": 505,
+   "cover_i": 8579790,
+   "cover_width": 335,
+   "ebook_access": "borrowable",
+   "edition_count": 61,
+   "first_publish_year": 2007,
+   "has_fulltext": true,
+   "ia": [
+    "millesplendidiso0000khal",
+    "millesplendidiso0000hoss",
+    "tusenstrlandesol0000khal",
+    "underenstralende0000hoss",
+    "milsolsesplndids0000khal",
+    "cidadedosol0000hoss",
+    "isbn_9789866973635",
+    "isbn_9789146218807",
+    "milsolesesplendi0000hoss",
+    "millesoleilssple0000hoss_w5t8",
+    "thousandsplendid0000hoss_r1c3",
+    "thousandsplendid0000hoss",
+    "millesoleilssple0000hoss",
+    "thousandsplendid0000hoss_k6w1",
+    "unset0000unse_d9l3",
+    "thousandsplendid00khal",
+    "isbn_9780739489505",
+    "thousandsplendid00ho",
+    "canlanqianyangth0001hoss",
+    "thousandsplendid0000hoss_z6f3",
+    "thousandsplendid00hoss_2",
+    "thousandsplendid00hoss"
+   ],
+   "ia_collection": [
+    "americana",
+    "delawarecountydistrictlibrary",
+    "inlibrary",
+    "internetarchivebooks",
+    "openlibrary-d-ol",
+    "popularchinesebooks",
+    "printdisabled",
+    "schroederlibrary-ol",
+    "stmaryscountylibrary",
+    "uslprototype"
+   ],
+   "key": "/works/OL5782000W",
+   "language": [
+    "ita",
+    "cat",
+    "jpn",
+    "swe",
+    "eng",
+    "nob",
+    "dan",
+    "heb",
+    "fre",
+    "spa",
+    "por",
+    "chi",
+    "ger"
+   ],
+   "lending_edition_s": "OL47850315M",
+   "lending_identifier_s": "millesplendidiso0000khal",
+   "public_scan_b": false,
+   "title": "A Thousand Splendid Suns"
+  },
+  {
+   "author_key": [
+    "OL34221A",
+    "OL1758415A",
+    "OL2629271A",
+    "OL3947309A",
+    "OL767331A",
+    "OL231796A",
+    "OL886261A",
+    "OL24072A",
+    "OL34434A",
+    "OL2623461A",
+    "OL29390A",
+    "OL1009783A",
+    "OL33881A",
+    "OL1548860A",
+    "OL1289801A"
+   ],
+   "author_name": [
+    "Isaac Asimov",
+    "Martin H. Greenberg",
+    "Charles G. Waugh",
+    "Theodore L. Thomas",
+    "Alan Edward Nourse",
+    "Robert Sheckley",
+    "Terry Carr",
+    "Poul Anderson",
+    "James Blish",
+    "Arthur C. Clarke",
+    "Fritz Leiber",
+    "Alexei Panshin",
+    "Larry Niven",
+    "Robert F. Young",
+    "Duncan Lunan"
+   ],
+   "cover_edition_key": "OL4731675M",
+   "cover_height": 735,
+   "cover_i": 13794195,
+   "cover_width": 480,
+   "ebook_access": "borrowable",
+   "edition_count": 5,
+   "first_publish_year": 1979,
+   "has_fulltext": true,
+   "ia": [
+    "sciencefictional0000unse_z3b5",
+    "sciencefictional0000unse_d7r3"
+   ],
+   "ia_collection": [
+    "inlibrary",
+    "internetarchivebooks",
+    "printdisabled"
+   ],
+   "key": "/works/OL16510921W",
+   "language": [
+    "eng"
+   ],
+   "lending_edition_s": "OL21561161M",
+   "lending_identifier_s": "sciencefictional0000unse_z3b5",
+   "public_scan_b": false,
+   "title": "The Science Fictional Solar System"
+  },
+  {
+   "author_key": [
+    "OL24257A",
+    "OL399459A"
+   ],
+   "author_name": [
+    "Melvin Berger",
+    "Gilda Berger"
+   ],
+   "cover_edition_key": "OL16211747M",
+   "cover_i": 12461846,
+   "ebook_access": "borrowable",
+   "edition_count": 4,
+   "first_publish_year": 2004,
+   "has_fulltext": true,
+   "ia": [
+    "elsistemasolarso0000berg",
+    "solarsystem00berg",
+    "thinkfactorysola00berg"
+   ],
+   "ia_collection": [
+    "americana",
+    "inlibrary",
+    "internetarchivebooks",
+    "printdisabled"
+   ],
+   "key": "/works/OL15152430W",
+   "language": [
+    "spa",
+    "eng"
+   ],
+   "lending_edition_s": "OL16211747M",
+   "lending_identifier_s": "elsistemasolarso0000berg",
+   "public_scan_b": false,
+   "title": "The solar system"
+  },
+  {
+   "author_key": [
+    "OL19173A",
+    "OL32559A",
+    "OL2708598A"
+   ],
+   "author_name": [
+    "Franklyn M. Branley",
+    "O'Malley, Kevin",
+    "Kevin O'Malley"
+   ],
+   "cover_edition_key": "OL656104M",
+   "cover_i": 3776922,
+   "ebook_access": "borrowable",
+   "edition_count": 10,
+   "first_publish_year": 1981,
+   "has_fulltext": true,
+   "ia": [
+    "planetsinoursola00fran_0",
+    "planetsinoursola00bran",
+    "planetsinoursola00bran_0",
+    "planetsinoursola0000bran",
+    "planetsinoursola00fran",
+    "planetsinoursola0000bran_m0h0"
+   ],
+   "ia_collection": [
+    "americana",
+    "delawarecountydistrictlibrary",
+    "inlibrary",
+    "internetarchivebooks",
+    "printdisabled"
+   ],
+   "key": "/works/OL121302W",
+   "language": [
+    "eng"
+   ],
+   "lending_edition_s": "OL16583873M",
+   "lending_identifier_s": "planetsinoursola00fran_0",
+   "public_scan_b": false,
+   "title": "The Planets in Our Solar System"
+  },
+  {
+   "author_key": [
+    "OL538066A",
+    "OL6959027A",
+    "OL226333A",
+    "OL835833A"
+   ],
+   "author_name": [
+    "Andrew Chaikin",
+    "J. Kelly Beatty",
+    "Carolyn Collins Petersen",
+    "Brian O'Leary"
+   ],
+   "cover_edition_key": "OL7749976M",
+   "cover_i": 351714,
+   "ebook_access": "borrowable",
+   "edition_count": 9,
+   "first_publish_year": 1981,
+   "has_fulltext": true,
+   "ia": [
+    "newsolarsystem0000unse_z6a8",
+    "newsolarsystem00syst",
+    "newsolarsystem0000unse"
+   ],
+   "ia_collection": [
+    "belmont-ol",
+    "binghamton-ol",
+    "calacademy-ol",
+    "gwulibraries-ol",
+    "inlibrary",
+    "internetarchivebooks",
+    "johnshopkins-ol",
+    "occidentalcollegelibrary-ol",
+    "openlibrary-d-ol",
+    "printdisabled",
+    "riceuniversity-ol",
+    "udc-ol",
+    "unb-ol",
+    "universityofarizona-ol",
+    "universityofcoloradoboulder-ol",
+    "universityofoklahoma-ol"
+   ],
+   "key": "/works/OL8325712W",
+   "language": [
+    "eng"
+   ],
+   "lending_edition_s": "OL372817M",
+   "lending_identifier_s": "newsolarsystem0000unse_z6a8",
+   "public_scan_b": false,
+   "title": "The New Solar System"
+  },
+  {
+   "author_key": [
+    "OL26259A",
+    "OL2777310A",
+    "OL2777311A",
+    "OL2777225A"
+   ],
+   "author_name": [
+    "Michael A. Seeds",
+    "Seeds",
+    "Michael A.  Foundations of Astronomy Seeds",
+    "Michael Seeds"
+   ],
+   "cover_edition_key": "OL3699116M",
+   "cover_i": 4312358,
+   "ebook_access": "printdisabled",
+   "edition_count": 9,
+   "first_publish_year": 1998,
+   "has_fulltext": true,
+   "ia": [
+    "starsgalaxies0000seed_p8c6",
+    "solarsystemwithi0000mich"
+   ],
+   "ia_collection": [
+    "internetarchivebooks",
+    "printdisabled"
+   ],
+   "key": "/works/OL27181W",
+   "language": [
+    "eng"
+   ],
+   "public_scan_b": false,
+   "title": "The solar system"
+  },
+  {
+   "author_key": [
+    "OL244300A",
+    "OL1129108A",
+    "OL10136421A",
+    "OL8003127A"
+   ],
+   "author_name": [
+    "August Derleth",
+    "David Marcum",
+    "Allan J. Hubin",
+    "Derrick Belanger"
+   ],
+   "cover_edition_key": "OL5466867M",
+   "cover_height": 600,
+   "cover_i": 7266316,
+   "cover_width": 418,
+   "ebook_access": "borrowable",
+   "edition_count": 6,
+   "first_publish_year": 1973,
+   "has_fulltext": true,
+   "ia": [
+    "chroniclesofsola00augu",
+    "bwb_P8-AKU-909"
+   ],
+   "ia_collection": [
+    "inlibrary",
+    "internetarchivebooks",
+    "printdisabled",
+    "unb-ol"
+   ],
+   "key": "/works/OL2023354W",
+   "language": [
+    "eng"
+   ],
+   "lending_edition_s": "OL26331095M",
+   "lending_identifier_s": "chroniclesofsola00augu",
+   "public_scan_b": false,
+   "title": "The Chronicles of Solar Pons"
+  },
+  {
+   "author_key": [
+    "OL27951A"
+   ],
+   "author_name": [
+    "Andre Norton"
+   ],
+   "cover_edition_key": "OL3689076M",
+   "cover_height": 475,
+   "cover_i": 523820,
+   "cover_width": 317,
+   "ebook_access": "borrowable",
+   "edition_count": 3,
+   "first_publish_year": 2003,
+   "has_fulltext": true,
+   "ia": [
+    "solarqueen0000nort"
+   ],
+   "ia_collection": [
+    "inlibrary",
+    "internetarchivebooks",
+    "printdisabled"
+   ],
+   "key": "/works/OL473301W",
+   "language": [
+    "eng"
+   ],
+   "lending_edition_s": "OL3689076M",
+   "lending_identifier_s": "solarqueen0000nort",
+   "public_scan_b": false,
+   "title": "The Solar Queen"
+  },
+  {
+   "author_key": [
+    "OL6189347A"
+   ],
+   "author_name": [
+    "David A. Aguilar"
+   ],
+   "cover_edition_key": "OL24411831M",
+   "cover_i": 9250278,
+   "ebook_access": "printdisabled",
+   "edition_count": 2,
+   "first_publish_year": 2011,
+   "has_fulltext": true,
+   "ia": [
+    "13planetslatestv0000agui",
+    "13planetslatestv0000davi"
+   ],
+   "ia_collection": [
+    "internetarchivebooks",
+    "printdisabled"
+   ],
+   "key": "/works/OL15444279W",
+   "language": [
+    "eng"
+   ],
+   "public_scan_b": false,
+   "title": "13 planets"
+  },
+  {
+   "author_key": [
+    "OL41308A"
+   ],
+   "author_name": [
+    "Larry Burkett"
+   ],
+   "cover_edition_key": "OL8681159M",
+   "cover_i": 927617,
+   "ebook_access": "printdisabled",
+   "edition_count": 3,
+   "first_publish_year": 1997,
+   "has_fulltext": true,
+   "ia": [
+    "solarflarenovel00burk"
+   ],
+   "ia_collection": [
+    "americana",
+    "internetarchivebooks",
+    "printdisabled"
+   ],
+   "key": "/works/OL566695W",
+   "language": [
+    "eng"
+   ],
+   "public_scan_b": false,
+   "title": "Solar Flare"
+  },
+  {
+   "author_key": [
+    "OL19196A"
+   ],
+   "author_name": [
+    "Loreen Leedy"
+   ],
+   "cover_edition_key": "OL8119560M",
+   "cover_i": 625728,
+   "ebook_access": "borrowable",
+   "edition_count": 7,
+   "first_publish_year": 1993,
+   "has_fulltext": true,
+   "ia": [
+    "postcardsfromplu00leed",
+    "postcardsfromplu00lore"
+   ],
+   "ia_collection": [
+    "americana",
+    "bpljordan-ol",
+    "cnusd-ol",
+    "inlibrary",
+    "internetarchivebooks",
+    "openlibrary-d-ol",
+    "printdisabled",
+    "universityofoklahoma-ol"
+   ],
+   "key": "/works/OL121470W",
+   "language": [
+    "eng"
+   ],
+   "lending_edition_s": "OL24229265M",
+   "lending_identifier_s": "postcardsfromplu00leed",
+   "public_scan_b": false,
+   "subtitle": "a tour of the solar system",
+   "title": "Postcards from Pluto"
+  },
+  {
+   "author_key": [
+    "OL217099A",
+    "OL225766A"
+   ],
+   "author_name": [
+    "David Armentrout",
+    "Patricia Armentrout"
+   ],
+   "cover_edition_key": "OL18868323M",
+   "cover_i": 8340322,
+   "ebook_access": "borrowable",
+   "edition_count": 7,
+   "first_publish_year": 2008,
+   "has_fulltext": true,
+   "ia": [
+    "laenergiasolar0000arme",
+    "solarenergy0000arme"
+   ],
+   "ia_collection": [
+    "inlibrary",
+    "internetarchivebooks",
+    "printdisabled"
+   ],
+   "key": "/works/OL1809914W",
+   "language": [
+    "spa",
+    "eng"
+   ],
+   "lending_edition_s": "OL32113901M",
+   "lending_identifier_s": "laenergiasolar0000arme",
+   "public_scan_b": false,
+   "title": "Solar energy"
+  },
+  {
+   "author_key": [
+    "OL1425547A"
+   ],
+   "author_name": [
+    "Christine Petersen"
+   ],
+   "cover_edition_key": "OL9720919M",
+   "cover_i": 1262791,
+   "ebook_access": "borrowable",
+   "edition_count": 3,
+   "first_publish_year": 2004,
+   "has_fulltext": true,
+   "ia": [
+    "solarpowertruebo00chri"
+   ],
+   "ia_collection": [
+    "americana",
+    "delawarecountydistrictlibrary",
+    "inlibrary",
+    "internetarchivebooks",
+    "printdisabled"
+   ],
+   "key": "/works/OL5818361W",
+   "language": [
+    "eng"
+   ],
+   "lending_edition_s": "OL9720919M",
+   "lending_identifier_s": "solarpowertruebo00chri",
+   "public_scan_b": false,
+   "title": "Solar Power"
+  },
+  {
+   "author_key": [
+    "OL240164A"
+   ],
+   "author_name": [
+    "Daniel D. Chiras"
+   ],
+   "cover_i": 956722,
+   "ebook_access": "borrowable",
+   "edition_count": 2,
+   "first_publish_year": 2002,
+   "has_fulltext": true,
+   "ia": [
+    "solarhousepassiv00chir"
+   ],
+   "ia_collection": [
+    "inlibrary",
+    "internetarchivebooks",
+    "printdisabled"
+   ],
+   "key": "/works/OL1995034W",
+   "language": [
+    "eng"
+   ],
+   "lending_edition_s": "OL3563108M",
+   "lending_identifier_s": "solarhousepassiv00chir",
+   "public_scan_b": false,
+   "title": "The solar house"
+  },
+  {
+   "author_key": [
+    "OL2328289A"
+   ],
+   "author_name": [
+    "Alice A. Bailey"
+   ],
+   "cover_edition_key": "OL6647692M",
+   "cover_i": 7212661,
+   "ebook_access": "public",
+   "edition_count": 4,
+   "first_publish_year": 1922,
+   "has_fulltext": true,
+   "ia": [
+    "initiationhuman00bail",
+    "initiationhumans0000bail",
+    "initiationhumans00bail"
+   ],
+   "ia_collection": [
+    "americana",
+    "claremont_school_of_theology",
+    "inlibrary",
+    "internetarchivebooks",
+    "library_of_congress",
+    "printdisabled"
+   ],
+   "key": "/works/OL2465759W",
+   "language": [
+    "eng"
+   ],
+   "lending_edition_s": "OL6647692M",
+   "lending_identifier_s": "initiationhuman00bail",
+   "public_scan_b": true,
+   "title": "Initiation, human and solar"
+  },
+  {
+   "author_key": [
+    "OL1394683A"
+   ],
+   "author_name": [
+    "Kris Hirschmann"
+   ],
+   "cover_edition_key": "OL3399467M",
+   "cover_i": 464942,
+   "ebook_access": "borrowable",
+   "edition_count": 1,
+   "first_publish_year": 2005,
+   "has_fulltext": true,
+   "ia": [
+    "solarenergy0000hirs"
+   ],
+   "ia_collection": [
+    "inlibrary",
+    "internetarchivebooks",
+    "printdisabled"
+   ],
+   "key": "/works/OL5737257W",
+   "language": [
+    "eng"
+   ],
+   "lending_edition_s": "OL3399467M",
+   "lending_identifier_s": "solarenergy0000hirs",
+   "public_scan_b": false,
+   "title": "Solar energy"
+  },
+  {
+   "author_key": [
+    "OL458899A"
+   ],
+   "author_name": [
+    "Connie Cummings"
+   ],
+   "cover_edition_key": "OL46873361M",
+   "cover_i": 14519139,
+   "ebook_access": "borrowable",
+   "edition_count": 2,
+   "first_publish_year": 1981,
+   "has_fulltext": true,
+   "ia": [
+    "solarreturns0000conn"
+   ],
+   "ia_collection": [
+    "inlibrary",
+    "internetarchivebooks",
+    "printdisabled"
+   ],
+   "key": "/works/OL2994264W",
+   "language": [
+    "eng"
+   ],
+   "lending_edition_s": "OL46873361M",
+   "lending_identifier_s": "solarreturns0000conn",
+   "public_scan_b": false,
+   "title": "Solar returns"
+  },
+  {
+   "author_key": [
+    "OL242053A"
+   ],
+   "author_name": [
+    "Jean Meeus"
+   ],
+   "cover_edition_key": "OL2050334M",
+   "cover_i": 9330259,
+   "ebook_access": "no_ebook",
+   "edition_count": 1,
+   "first_publish_year": 1989,
+   "has_fulltext": false,
+   "key": "/works/OL2009484W",
+   "language": [
+    "eng"
+   ],
+   "public_scan_b": false,
+   "title": "Elements of solar eclipses, 1951-2200"
+  },
+  {
+   "author_key": [
+    "OL9228052A"
+   ],
+   "author_name": [
+    "Jon Nelsen"
+   ],
+   "cover_edition_key": "OL39706099M",
+   "cover_i": 13922376,
+   "ebook_access": "no_ebook",
+   "edition_count": 1,
+   "first_publish_year": 2022,
+   "has_fulltext": false,
+   "key": "/works/OL28884045W",
+   "language": [
+    "eng"
+   ],
+   "public_scan_b": false,
+   "title": "Solar Panels"
+  },
+  {
+   "author_key": [
+    "OL221219A"
+   ],
+   "author_name": [
+    "Noel Tyl"
+   ],
+   "cover_edition_key": "OL7902839M",
+   "cover_i": 466474,
+   "ebook_access": "borrowable",
+   "edition_count": 1,
+   "first_publish_year": 2001,
+   "has_fulltext": true,
+   "ia": [
+    "solararcsastrolo0000tyln"
+   ],
+   "ia_collection": [
+    "inlibrary",
+    "internetarchivebooks",
+    "printdisabled"
+   ],
+   "key": "/works/OL1848254W",
+   "language": [
+    "eng"
+   ],
+   "lending_edition_s": "OL7902839M",
+   "lending_identifier_s": "solararcsastrolo0000tyln",
+   "public_scan_b": false,
+   "subtitle": "Astrology's Most Successful Predictive System",
+   "title": "Solar Arcs"
+  },
+  {
+   "author_key": [
+    "OL1658719A"
+   ],
+   "author_name": [
+    "James A. Eshelman"
+   ],
+   "ebook_access": "no_ebook",
+   "edition_count": 1,
+   "first_publish_year": 1984,
+   "has_fulltext": false,
+   "key": "/works/OL6340927W",
+   "public_scan_b": false,
+   "title": "Interpreting Solar Returns"
+  },
+  {
+   "author_key": [
+    "OL1516061A"
+   ],
+   "author_name": [
+    "Dr. Mike Goldsmith"
+   ],
+   "cover_edition_key": "OL3681472M",
+   "cover_i": 500446,
+   "ebook_access": "borrowable",
+   "edition_count": 7,
+   "first_publish_year": 2004,
+   "has_fulltext": true,
+   "ia": [
+    "solarsystem0000gold_l0s5",
+    "solarsystem0000gold_l6v1",
+    "solarsystem0000gold_k9o5",
+    "solarsystem0000gold_n7x1",
+    "solarsystem0000gold_m4s8"
+   ],
+   "ia_collection": [
+    "delawarecountydistrictlibrary-ol",
+    "inlibrary",
+    "internetarchivebooks",
+    "printdisabled",
+    "worthingtonlibraries-ol"
+   ],
+   "key": "/works/OL6032190W",
+   "language": [
+    "eng"
+   ],
+   "lending_edition_s": "OL26145280M",
+   "lending_identifier_s": "solarsystem0000gold_l0s5",
+   "public_scan_b": false,
+   "title": "Solar system"
+  },
+  {
+   "author_key": [
+    "OL6853939A"
+   ],
+   "author_name": [
+    "Michael Boxwell"
+   ],
+   "cover_edition_key": "OL25900050M",
+   "cover_i": 7402325,
+   "ebook_access": "borrowable",
+   "edition_count": 1,
+   "first_publish_year": 2015,
+   "has_fulltext": true,
+   "ia": [
+    "solarelectricity0000boxw"
+   ],
+   "ia_collection": [
+    "inlibrary",
+    "internetarchivebooks",
+    "printdisabled"
+   ],
+   "key": "/works/OL17323908W",
+   "language": [
+    "eng"
+   ],
+   "lending_edition_s": "OL25900050M",
+   "lending_identifier_s": "solarelectricity0000boxw",
+   "public_scan_b": false,
+   "title": "Solar Electricity Handbook"
+  },
+  {
+   "author_key": [
+    "OL27951A",
+    "OL32958A"
+   ],
+   "author_name": [
+    "Andre Norton",
+    "Sherwood Smith"
+   ],
+   "cover_edition_key": "OL669516M",
+   "cover_i": 182513,
+   "ebook_access": "borrowable",
+   "edition_count": 6,
+   "first_publish_year": 1997,
+   "has_fulltext": true,
+   "ia": [
+    "mindfortradegrea00nort",
+    "mindfortrade00andr"
+   ],
+   "ia_collection": [
+    "americana",
+    "delawarecountydistrictlibrary",
+    "delawarecountydistrictlibrary-ol",
+    "inlibrary",
+    "internetarchivebooks",
+    "johnshopkins-ol",
+    "library_of_atlantis",
+    "printdisabled",
+    "riceuniversity-ol",
+    "rochester-ol",
+    "universityofarizona-ol",
+    "universityofcoloradoboulder-ol"
+   ],
+   "key": "/works/OL473403W",
+   "language": [
+    "eng"
+   ],
+   "lending_edition_s": "OL669516M",
+   "lending_identifier_s": "mindfortradegrea00nort",
+   "public_scan_b": false,
+   "subtitle": "A Great New Solar Queen Adventure",
+   "title": "A mind for trade"
+  },
+  {
+   "author_key": [
+    "OL19896A"
+   ],
+   "author_name": [
+    "Chris Oxlade"
+   ],
+   "cover_edition_key": "OL20754642M",
+   "cover_i": 9259387,
+   "ebook_access": "borrowable",
+   "edition_count": 3,
+   "first_publish_year": 2008,
+   "has_fulltext": true,
+   "ia": [
+    "solarenergy0000oxla_y2f5",
+    "solarenergy0000unse",
+    "solarenergy0000oxla"
+   ],
+   "ia_collection": [
+    "inlibrary",
+    "internetarchivebooks",
+    "printdisabled"
+   ],
+   "key": "/works/OL15077723W",
+   "language": [
+    "eng"
+   ],
+   "lending_edition_s": "OL33031589M",
+   "lending_identifier_s": "solarenergy0000oxla_y2f5",
+   "public_scan_b": false,
+   "title": "Solar energy"
+  },
+  {
+   "author_key": [
+    "OL28641A"
+   ],
+   "author_name": [
+    "Robert A. Heinlein"
+   ],
+   "cover_edition_key": "OL51727813M",
+   "cover_height": 628,
+   "cover_i": 14632228,
+   "cover_width": 374,
+   "ebook_access": "borrowable",
+   "edition_count": 34,
+   "first_publish_year": 1951,
+   "has_fulltext": true,
+   "ia": [
+    "bwb_KR-589-793",
+    "greenhillsofeart0000robe_q9z0",
+    "greenhillsofeart0000robe_c0x5",
+    "greenhillsofeart0000hein",
+    "greenhillsofeart0000robe",
+    "greenhillsofeart00robe"
+   ],
+   "ia_collection": [
+    "inlibrary",
+    "internetarchivebooks",
+    "printdisabled"
+   ],
+   "key": "/works/OL59734W",
+   "language": [
+    "ger",
+    "heb",
+    "eng"
+   ],
+   "lending_edition_s": "OL51727840M",
+   "lending_identifier_s": "bwb_KR-589-793",
+   "public_scan_b": false,
+   "title": "The Green Hills of Earth"
+  },
+  {
+   "author_key": [
+    "OL43344A"
+   ],
+   "author_name": [
+    "Tish Rabe"
+   ],
+   "cover_edition_key": "OL703278M",
+   "cover_i": 424187,
+   "ebook_access": "printdisabled",
+   "edition_count": 1,
+   "first_publish_year": 1999,
+   "has_fulltext": true,
+   "ia": [
+    "theresnoplacelik00rabe"
+   ],
+   "ia_collection": [
+    "bpljordan-ol",
+    "calacademy-ol",
+    "cnusd-ol",
+    "delawarecountydistrictlibrary-ol",
+    "goffstownlibrary-ol",
+    "hamiltonpubliclibrary-ol",
+    "internetarchivebooks",
+    "printdisabled",
+    "salisburyfreelibrary-ol",
+    "stmaryscountylibrary",
+    "universityofoklahoma-ol"
+   ],
+   "key": "/works/OL15025650W",
+   "language": [
+    "eng"
+   ],
+   "public_scan_b": false,
+   "title": "There's no place like space"
+  },
+  {
+   "author_key": [
+    "OL559A"
+   ],
+   "author_name": [
+    "Sivananda Saraswati"
+   ],
+   "ebook_access": "no_ebook",
+   "edition_count": 1,
+   "first_publish_year": 1973,
+   "has_fulltext": false,
+   "key": "/works/OL293906W",
+   "language": [
+    "eng"
+   ],
+   "public_scan_b": false,
+   "title": "Surya namaskar"
+  },
+  {
+   "author_key": [
+    "OL12707246A",
+    "OL8592182A",
+    "OL8592184A"
+   ],
+   "author_name": [
+    "Mario Baselga Carreras",
+    "Limited 123RF",
+    "Images Getty"
+   ],
+   "cover_edition_key": "OL47513065M",
+   "cover_i": 14127144,
+   "ebook_access": "no_ebook",
+   "edition_count": 2,
+   "has_fulltext": false,
+   "key": "/works/OL35132243W",
+   "public_scan_b": false,
+   "title": "Instalaciones solares fotovoltaicas"
+  },
+  {
+   "author_key": [
+    "OL956362A"
+   ],
+   "author_name": [
+    "Kathryn Whyman"
+   ],
+   "cover_edition_key": "OL3302136M",
+   "cover_i": 2127201,
+   "ebook_access": "borrowable",
+   "edition_count": 3,
+   "first_publish_year": 1987,
+   "has_fulltext": true,
+   "ia": [
+    "solarsystem00whym"
+   ],
+   "ia_collection": [
+    "inlibrary",
+    "internetarchivebooks",
+    "printdisabled"
+   ],
+   "key": "/works/OL4653334W",
+   "language": [
+    "eng"
+   ],
+   "lending_edition_s": "OL2414926M",
+   "lending_identifier_s": "solarsystem00whym",
+   "public_scan_b": false,
+   "title": "Solar system"
+  },
+  {
+   "author_key": [
+    "OL8072091A",
+    "OL7551442A",
+    "OL4384550A",
+    "OL2685735A"
+   ],
+   "author_name": [
+    "Stacy Palen",
+    "Laura Kay",
+    "Bradford Smith",
+    "George Blumenthal"
+   ],
+   "cover_edition_key": "OL28554700M",
+   "cover_i": 12778424,
+   "ebook_access": "printdisabled",
+   "edition_count": 18,
+   "first_publish_year": 2011,
+   "has_fulltext": true,
+   "ia": [
+    "understandingour0000pale_v7q1"
+   ],
+   "ia_collection": [
+    "internetarchivebooks",
+    "printdisabled"
+   ],
+   "key": "/works/OL21094959W",
+   "language": [
+    "eng"
+   ],
+   "public_scan_b": false,
+   "title": "Understanding Our Universe"
+  },
+  {
+   "author_key": [
+    "OL1385982A"
+   ],
+   "author_name": [
+    "Susan Kearney"
+   ],
+   "cover_edition_key": "OL10936485M",
+   "cover_i": 2615814,
+   "ebook_access": "borrowable",
+   "edition_count": 1,
+   "first_publish_year": 2008,
+   "has_fulltext": true,
+   "ia": [
+    "solarheat00kear"
+   ],
+   "ia_collection": [
+    "inlibrary",
+    "internetarchivebooks",
+    "printdisabled"
+   ],
+   "key": "/works/OL5691191W",
+   "language": [
+    "eng"
+   ],
+   "lending_edition_s": "OL10936485M",
+   "lending_identifier_s": "solarheat00kear",
+   "public_scan_b": false,
+   "title": "Solar Heat"
+  },
+  {
+   "author_key": [
+    "OL6473536A"
+   ],
+   "author_name": [
+    "JENNY NELSON"
+   ],
+   "ebook_access": "no_ebook",
+   "edition_count": 1,
+   "has_fulltext": false,
+   "key": "/works/OL13615364W",
+   "language": [
+    "und"
+   ],
+   "public_scan_b": false,
+   "title": "PHYSICS OF SOLAR CELLS"
+  },
+  {
+   "author_key": [
+    "OL244300A"
+   ],
+   "author_name": [
+    "August Derleth"
+   ],
+   "cover_edition_key": "OL4887304M",
+   "cover_height": 190,
+   "cover_i": 4451401,
+   "cover_width": 128,
+   "ebook_access": "borrowable",
+   "edition_count": 1,
+   "first_publish_year": 1982,
+   "has_fulltext": true,
+   "ia": [
+    "solarponsomnibus01derl"
+   ],
+   "ia_collection": [
+    "inlibrary",
+    "internetarchivebooks",
+    "printdisabled"
+   ],
+   "key": "/works/OL2023431W",
+   "language": [
+    "eng"
+   ],
+   "lending_edition_s": "OL4887304M",
+   "lending_identifier_s": "solarponsomnibus01derl",
+   "public_scan_b": false,
+   "title": "The Solar Pons omnibus"
+  }
+ ]
+}

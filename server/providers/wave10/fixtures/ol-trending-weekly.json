@@ -1,0 +1,6583 @@
+{
+ "query": "/trending/weekly",
+ "works": [
+  {
+   "key": "/works/OL17930368W",
+   "title": "Atomic Habits",
+   "author_name": [
+    "James Clear"
+   ],
+   "author_key": [
+    "OL7422948A"
+   ],
+   "cover_edition_key": "OL36647151M",
+   "cover_height": 500,
+   "cover_i": 12539702,
+   "cover_width": 369,
+   "ebook_access": "printdisabled",
+   "edition_count": 42,
+   "first_publish_year": 2016,
+   "has_fulltext": true,
+   "ia": [
+    "hbitosatmicos0000jame",
+    "hbitosatmicosumm0000jona",
+    "die1methodeminim0000clea",
+    "atomichabitseasy0000clea"
+   ],
+   "ia_collection": [
+    "internetarchivebooks",
+    "printdisabled"
+   ],
+   "language": [
+    "por",
+    "fre",
+    "eng",
+    "ger",
+    "spa",
+    "ind",
+    "tur"
+   ],
+   "public_scan_b": false,
+   "editions": {
+    "numFound": 42,
+    "start": 0,
+    "numFoundExact": true,
+    "docs": [
+     {
+      "key": "/books/OL27918581M",
+      "title": "Atomic Habits",
+      "subtitle": "An Easy & Proven Way to Build Good Habits & Break Bad Ones",
+      "cover_i": 15217381,
+      "cover_width": 2104,
+      "cover_height": 3209,
+      "language": [
+       "eng"
+      ],
+      "ia": [
+       "atomichabitseasy0000clea"
+      ],
+      "ia_collection": [
+       "printdisabled",
+       "internetarchivebooks"
+      ],
+      "ebook_access": "printdisabled",
+      "has_fulltext": true,
+      "public_scan_b": false,
+      "providers": [
+       {
+        "access": "sample",
+        "format": "web",
+        "price": null,
+        "url": "https://archive.org/details/atomichabitseasy0000clea?view=theater&wrapper=false",
+        "provider_name": "ia"
+       }
+      ],
+      "availability": {
+       "status": "private",
+       "available_to_browse": false,
+       "available_to_borrow": false,
+       "available_to_waitlist": false,
+       "is_printdisabled": true,
+       "is_readable": false,
+       "is_lendable": false,
+       "is_previewable": true,
+       "identifier": "atomichabitseasy0000clea",
+       "isbn": "9781847941831",
+       "oclc": null,
+       "openlibrary_work": "OL17930368W",
+       "openlibrary_edition": "OL27918581M",
+       "last_loan_date": null,
+       "num_waitlist": null,
+       "last_waitlist_date": null,
+       "is_restricted": true,
+       "is_browseable": false,
+       "__src__": "core.models.lending.get_availability"
+      }
+     }
+    ]
+   },
+   "providers": []
+  },
+  {
+   "key": "/works/OL1968368W",
+   "title": "The 48 Laws of Power",
+   "author_name": [
+    "Robert Greene"
+   ],
+   "author_key": [
+    "OL236414A"
+   ],
+   "cover_edition_key": "OL24274306M",
+   "cover_height": 680,
+   "cover_i": 6424160,
+   "cover_width": 510,
+   "ebook_access": "borrowable",
+   "edition_count": 51,
+   "first_publish_year": 1998,
+   "has_fulltext": true,
+   "ia": [
+    "powerdie48gesetz0000robe",
+    "48lawsofpow00gree",
+    "48lawsofpower00greerich",
+    "48lawsofpower00gree"
+   ],
+   "ia_collection": [
+    "americana",
+    "delawarecountydistrictlibrary",
+    "gbell",
+    "inlibrary",
+    "internetarchivebooks",
+    "nclive",
+    "printdisabled",
+    "unclibraries"
+   ],
+   "language": [
+    "ara",
+    "eng",
+    "fre",
+    "ger",
+    "spa",
+    "ind",
+    "tur",
+    "rus"
+   ],
+   "lending_edition_s": "OL9036414M",
+   "lending_identifier_s": "powerdie48gesetz0000robe",
+   "public_scan_b": false,
+   "editions": {
+    "numFound": 51,
+    "start": 0,
+    "numFoundExact": true,
+    "docs": [
+     {
+      "key": "/books/OL16120130M",
+      "title": "The 48 laws of power",
+      "cover_i": 15258283,
+      "cover_width": 1219,
+      "cover_height": 1796,
+      "language": [
+       "eng"
+      ],
+      "ia": [
+       "48lawsofpower00gree"
+      ],
+      "ia_collection": [
+       "printdisabled",
+       "americana",
+       "internetarchivebooks",
+       "delawarecountydistrictlibrary"
+      ],
+      "ebook_access": "printdisabled",
+      "has_fulltext": true,
+      "public_scan_b": false,
+      "providers": [
+       {
+        "access": "sample",
+        "format": "web",
+        "price": null,
+        "url": "https://archive.org/details/48lawsofpower00gree?view=theater&wrapper=false",
+        "provider_name": "ia"
+       }
+      ],
+      "availability": {
+       "status": "private",
+       "available_to_browse": false,
+       "available_to_borrow": false,
+       "available_to_waitlist": false,
+       "is_printdisabled": true,
+       "is_readable": false,
+       "is_lendable": false,
+       "is_previewable": true,
+       "identifier": "48lawsofpower00gree",
+       "isbn": "0140280197",
+       "oclc": null,
+       "openlibrary_work": "OL1968368W",
+       "openlibrary_edition": "OL16120130M",
+       "last_loan_date": "2020-09-07T22:59:43Z",
+       "num_waitlist": "1",
+       "last_waitlist_date": "2020-09-08T11:35:27Z",
+       "is_restricted": true,
+       "is_browseable": false,
+       "__src__": "core.models.lending.get_availability"
+      }
+     }
+    ]
+   },
+   "providers": []
+  },
+  {
+   "key": "/works/OL24178205W",
+   "title": "The Love Hypothesis",
+   "author_name": [
+    "Ali Hazelwood"
+   ],
+   "author_key": [
+    "OL9096427A"
+   ],
+   "cover_height": 500,
+   "cover_i": 10601402,
+   "cover_width": 333,
+   "ebook_access": "printdisabled",
+   "edition_count": 13,
+   "first_publish_year": 2021,
+   "has_fulltext": true,
+   "ia": [
+    "bwb_S0-ATZ-444"
+   ],
+   "ia_collection": [
+    "internetarchivebooks",
+    "printdisabled"
+   ],
+   "language": [
+    "ita",
+    "spa",
+    "eng",
+    "por",
+    "dut"
+   ],
+   "public_scan_b": false,
+   "editions": {
+    "numFound": 13,
+    "start": 0,
+    "numFoundExact": true,
+    "docs": [
+     {
+      "key": "/books/OL36010073M",
+      "title": "The Love Hypothesis",
+      "cover_i": 15161033,
+      "cover_width": 353,
+      "cover_height": 530,
+      "language": [
+       "eng"
+      ],
+      "ia": [
+       "bwb_S0-ATZ-444"
+      ],
+      "ia_collection": [
+       "printdisabled",
+       "internetarchivebooks"
+      ],
+      "ebook_access": "printdisabled",
+      "has_fulltext": true,
+      "public_scan_b": false,
+      "providers": [
+       {
+        "access": "sample",
+        "format": "web",
+        "price": null,
+        "url": "https://archive.org/details/bwb_S0-ATZ-444?view=theater&wrapper=false",
+        "provider_name": "ia"
+       }
+      ],
+      "availability": {
+       "status": "private",
+       "available_to_browse": false,
+       "available_to_borrow": false,
+       "available_to_waitlist": false,
+       "is_printdisabled": true,
+       "is_readable": false,
+       "is_lendable": false,
+       "is_previewable": true,
+       "identifier": "bwb_S0-ATZ-444",
+       "isbn": null,
+       "oclc": null,
+       "openlibrary_work": "OL24178205W",
+       "openlibrary_edition": "OL36010073M",
+       "last_loan_date": null,
+       "num_waitlist": null,
+       "last_waitlist_date": null,
+       "is_restricted": true,
+       "is_browseable": false,
+       "__src__": "core.models.lending.get_availability"
+      }
+     }
+    ]
+   },
+   "providers": []
+  },
+  {
+   "key": "/works/OL2010879W",
+   "title": "Rich Dad, Poor Dad",
+   "author_name": [
+    "Robert T. Kiyosaki",
+    "Sharon L. Lechter"
+   ],
+   "author_key": [
+    "OL242220A",
+    "OL2711033A"
+   ],
+   "cover_edition_key": "OL26632040M",
+   "cover_height": 500,
+   "cover_i": 8315603,
+   "cover_width": 333,
+   "ebook_access": "borrowable",
+   "edition_count": 115,
+   "first_publish_year": 1990,
+   "has_fulltext": true,
+   "ia": [
+    "perericheperepau0000kiyo",
+    "pairicopaipobreo0000kiyo",
+    "richdadpoordadwh0000kiyo",
+    "fubabaqiongbabar0000kiyo_r0c3",
+    "fubabaqiongbaba0001kiyo_k5t1",
+    "fubabaqiongbaba0001kiyo",
+    "fubabaqiongbabar0000kiyo",
+    "kanemochitsanbin0000kiyo",
+    "bogatypapabednyp0000kiyo",
+    "richdadpoordadwh0000kiyo_t8n6",
+    "richdadpoordadwh00kiyo",
+    "paparicopapapobr0000kiyo",
+    "fubabaqiongbabar0000kiyo_g2v1",
+    "isbn_9780453677455",
+    "richdadpoordadwi0000kiyo",
+    "padrericopadrepo0000kiyo",
+    "fubabaqiongbabar0004kiyo",
+    "ricadaidapuarada0000kiyo"
+   ],
+   "ia_collection": [
+    "americana",
+    "binghamton-ol",
+    "cnusd-ol",
+    "delawarecountydistrictlibrary",
+    "delawarecountydistrictlibrary-ol",
+    "drakeuniversity-ol",
+    "inlibrary",
+    "internetarchivebooks",
+    "library_of_atlantis",
+    "miltonpubliclibrary-ol",
+    "popularchinesebooks",
+    "printdisabled",
+    "riceuniversity-ol",
+    "rochester-ol",
+    "worthingtonlibraries-ol"
+   ],
+   "language": [
+    "ita",
+    "jpn",
+    "eng",
+    "ind",
+    "rus",
+    "hin",
+    "fre",
+    "spa",
+    "por",
+    "chi",
+    "ger",
+    "tur"
+   ],
+   "lending_edition_s": "OL30091063M",
+   "lending_identifier_s": "perericheperepau0000kiyo",
+   "public_scan_b": false,
+   "editions": {
+    "numFound": 115,
+    "start": 0,
+    "numFoundExact": true,
+    "docs": [
+     {
+      "key": "/books/OL27085675M",
+      "title": "Rich dad poor dad",
+      "subtitle": "what the rich teach their kids about money-- that the poor and middle class do not!",
+      "cover_i": 8715673,
+      "cover_width": 3555,
+      "cover_height": 5450,
+      "language": [
+       "eng",
+       "ind"
+      ],
+      "ia": [
+       "richdadpoordadwh0000kiyo"
+      ],
+      "ia_collection": [
+       "inlibrary",
+       "printdisabled",
+       "internetarchivebooks"
+      ],
+      "ebook_access": "borrowable",
+      "has_fulltext": true,
+      "public_scan_b": false,
+      "providers": [
+       {
+        "access": "borrow",
+        "format": "web",
+        "price": null,
+        "url": "https://archive.org/details/richdadpoordadwh0000kiyo?view=theater&wrapper=false",
+        "provider_name": "ia"
+       }
+      ],
+      "availability": {
+       "status": "borrow_available",
+       "available_to_browse": true,
+       "available_to_borrow": false,
+       "available_to_waitlist": false,
+       "is_printdisabled": true,
+       "is_readable": false,
+       "is_lendable": true,
+       "is_previewable": true,
+       "identifier": "richdadpoordadwh0000kiyo",
+       "isbn": "9780446567404",
+       "oclc": null,
+       "openlibrary_work": "OL19899994W",
+       "openlibrary_edition": "OL27085675M",
+       "last_loan_date": null,
+       "num_waitlist": null,
+       "last_waitlist_date": null,
+       "is_restricted": true,
+       "is_browseable": true,
+       "__src__": "core.models.lending.get_availability"
+      }
+     }
+    ]
+   },
+   "providers": []
+  },
+  {
+   "key": "/works/OL82563W",
+   "title": "Harry Potter and the Philosopher's Stone",
+   "author_name": [
+    "J. K. Rowling"
+   ],
+   "author_key": [
+    "OL23919A"
+   ],
+   "cover_edition_key": "OL61027601M",
+   "cover_height": 4358,
+   "cover_i": 15155833,
+   "cover_width": 2676,
+   "ebook_access": "borrowable",
+   "edition_count": 400,
+   "first_publish_year": 1997,
+   "has_fulltext": true,
+   "ia": [
+    "isbn_9757501956008",
+    "harrypotterylapi0000rowl_q5r6",
+    "harrypottervefel0000rowl",
+    "isbn_9788204086600",
+    "rbanms.24646.harrypotterphilo000jkro_e4c6",
+    "bwb_W9-DHS-647",
+    "harrypotter01har0000joan",
+    "harrypotterochde0000unse",
+    "harijspotersunfi0000unse",
+    "halibote0000rowl",
+    "harrypotterikami0000unse",
+    "isbn_9783551317254",
+    "isbn_9788000007885",
+    "isbn_6780180353427",
+    "harryzzauberboxb0000jkro",
+    "harrypottertome10000jkro",
+    "harrypotterylapi0000unse",
+    "snj.harrypotterphilo0000jkro_t6f3",
+    "snj.harrypotterphilo0001jkro",
+    "snj.harrypotterphilo0000jkro_s9g6",
+    "harrypotterilape0000jkro",
+    "haliboteyumofash0000rowl",
+    "harrypotterphilo0000jkro",
+    "harrypotterepedr0000jkro",
+    "harrypotterogdev0000rowl",
+    "harrypotterkamen0000rowl",
+    "lccn_078073006991",
+    "harrypotterphilo0000jkro_j6k0",
+    "harrypottersorce0000unse",
+    "harrypotteresbol0000rowl",
+    "harrypottersorce0000rowl_a6t2",
+    "harrypotterylapi0000rowl",
+    "harrypotterylapi0000rowl_d7v1",
+    "harrypottermagic0000rowl_p4p3",
+    "harrypotteraleco0000rowl",
+    "harrypottersorce0000rowl_t5a1",
+    "harrypottersorce0000rowl_l6l8",
+    "harrypottersorce0000rowl_i9p5",
+    "harrypottersorce0000rowl_1998",
+    "harrypottersorce0000rowl",
+    "harrypotterylapi0000jkro",
+    "harrypotterphilo0000rowl_d8d4",
+    "harrypotterphilo0000rowl_i7z2",
+    "harriuspotteretp0000rowl",
+    "harrypotterphilo0000rowl_k0s6",
+    "haliboteshenmide0000rowl",
+    "hirparaauraprasa0000rowl",
+    "haripattervasang0000rowl",
+    "areiospoterkaihe00rowl",
+    "harrypotterelapi00jkro",
+    "harrypottersorce00rowl_1",
+    "harrypottersorce00jkro_0",
+    "harrypotterikami0000jkro",
+    "harrypotterylapi00",
+    "haripottatokenja00jkro",
+    "harrypottersorce00rowl",
+    "harrypottersorc00rowl",
+    "harrypottersorce00rowl_0",
+    "harrypotterphilo0000rowl_t2o9",
+    "harrypotterphilo0000rowl_j1k7",
+    "harrypottersorce00jkro",
+    "isbn_9789984053851",
+    "harrypotterylapi00rowl",
+    "harrypotteraguso0000rowl",
+    "garripotterifilo00jkro",
+    "harrypotterundde0000jkro",
+    "harrypotterdhegu0000jkro",
+    "harrypotterphilo0000rowl_u9v4",
+    "harispoterisiris0000jkro",
+    "harripottermaeny0000jkro",
+    "harrypotterlcole0000unse",
+    "harrypotterochde0000unse_c9n9",
+    "harrypotteriharr0000jkro",
+    "harrypotterphilo0000rowl",
+    "harrypottersorce0000rowl_h8m5",
+    "harrypotterundde0000rowl",
+    "harriuspotteretp00jkro",
+    "harrypotterphilo00rowl_044",
+    "harriuspotteretp00rowl",
+    "bdrc-W1KG14543"
+   ],
+   "ia_collection": [
+    "JaiGyan",
+    "ServantsOfKnowledge-Print",
+    "ambslibrary-ol",
+    "americana",
+    "americanuniversity-ol",
+    "bannedbooks",
+    "barryuniversity-ol",
+    "belmont-ol",
+    "binghamton-ol",
+    "bpljordan-ol",
+    "brynmawr-ol",
+    "buddhist-digital-resource-center",
+    "buddhist-digital-resource-center-restricted",
+    "cnusd-ol",
+    "cua-ol",
+    "dartmouthlibrary-ol",
+    "delawarecountydistrictlibrary",
+    "delawarecountydistrictlibrary-ol",
+    "denverpubliclibrary-ol",
+    "drakeuniversity-ol",
+    "goffstownlibrary-ol",
+    "gwulibraries-ol",
+    "hamiltonpubliclibrary-ol",
+    "inlibrary",
+    "internetarchivebooks",
+    "ithacacollege-ol",
+    "johnshopkins-ol",
+    "marymount-ol",
+    "miltonpubliclibrary-ol",
+    "occidentalcollegelibrary-ol",
+    "openlibrary-d-ol",
+    "popularchinesebooks",
+    "printdisabled",
+    "randolph-macon-college-ol",
+    "rochester-ol",
+    "salisburyfreelibrary-ol",
+    "spokanepubliclibrary-ol",
+    "the-claremont-colleges-ol",
+    "tulsacc-ol",
+    "uhmauicollege-ol",
+    "unb-ol",
+    "uni-ol",
+    "universityofarizona-ol",
+    "universityofcoloradoboulder-ol",
+    "universityofthewest-ol",
+    "wilsoncollege-ol",
+    "worthingtonlibraries-ol"
+   ],
+   "language": [
+    "heb",
+    "ukr",
+    "lat",
+    "gla",
+    "ara",
+    "alb",
+    "fin",
+    "fre",
+    "lav",
+    "kor",
+    "dut",
+    "pol",
+    "yid",
+    "tha",
+    "gre",
+    "hrv",
+    "nep",
+    "nor",
+    "ben",
+    "kal",
+    "eng",
+    "rum",
+    "spa",
+    "mar",
+    "tur",
+    "ice",
+    "afr",
+    "urd",
+    "por",
+    "per",
+    "jpn",
+    "ger",
+    "lit",
+    "tib",
+    "swe",
+    "hun",
+    "hin",
+    "bul",
+    "rus",
+    "gle",
+    "grc",
+    "wel",
+    "dan",
+    "ita",
+    "cze",
+    "ltz",
+    "vie",
+    "chi",
+    "cat"
+   ],
+   "lending_edition_s": "OL61057835M",
+   "lending_identifier_s": "isbn_9757501956008",
+   "public_scan_b": false,
+   "series_key": [
+    "OL326110L"
+   ],
+   "series_name": [
+    "Harry Potter"
+   ],
+   "series_position": [
+    "1"
+   ],
+   "editions": {
+    "numFound": 400,
+    "start": 0,
+    "numFoundExact": true,
+    "docs": [
+     {
+      "key": "/books/OL59004869M",
+      "title": "Harry Potter and the Philosopher's Stone",
+      "cover_i": 15159585,
+      "cover_width": 2592,
+      "cover_height": 4035,
+      "language": [
+       "eng"
+      ],
+      "ia": [
+       "rbanms.24646.harrypotterphilo000jkro_e4c6"
+      ],
+      "ia_collection": [
+       "printdisabled",
+       "ServantsOfKnowledge-Print",
+       "JaiGyan"
+      ],
+      "ebook_access": "printdisabled",
+      "has_fulltext": true,
+      "public_scan_b": false,
+      "providers": [
+       {
+        "access": "sample",
+        "format": "web",
+        "price": null,
+        "url": "https://archive.org/details/rbanms.24646.harrypotterphilo000jkro_e4c6?view=theater&wrapper=false",
+        "provider_name": "ia"
+       }
+      ],
+      "availability": {
+       "status": "private",
+       "available_to_browse": false,
+       "available_to_borrow": false,
+       "available_to_waitlist": false,
+       "is_printdisabled": true,
+       "is_readable": false,
+       "is_lendable": false,
+       "is_previewable": true,
+       "identifier": "rbanms.24646.harrypotterphilo000jkro_e4c6",
+       "isbn": "9781408855898",
+       "oclc": null,
+       "openlibrary_work": "OL82563W",
+       "openlibrary_edition": "OL59004869M",
+       "last_loan_date": null,
+       "num_waitlist": null,
+       "last_waitlist_date": null,
+       "is_restricted": true,
+       "is_browseable": false,
+       "__src__": "core.models.lending.get_availability"
+      }
+     }
+    ]
+   },
+   "providers": []
+  },
+  {
+   "key": "/works/OL21640039W",
+   "title": "The Psychology of Money",
+   "author_name": [
+    "Morgan Housel"
+   ],
+   "author_key": [
+    "OL8276761A"
+   ],
+   "cover_edition_key": "OL29412746M",
+   "cover_height": 500,
+   "cover_i": 10389354,
+   "cover_width": 319,
+   "ebook_access": "printdisabled",
+   "edition_count": 27,
+   "first_publish_year": 2020,
+   "has_fulltext": true,
+   "ia": [
+    "psychologyofmone0000unse_e5d2",
+    "psychologyofmone0000hous",
+    "lapsicologadeldi0000unse"
+   ],
+   "ia_collection": [
+    "internetarchivebooks",
+    "printdisabled"
+   ],
+   "language": [
+    "fre",
+    "eng",
+    "ger",
+    "spa",
+    "ind"
+   ],
+   "public_scan_b": false,
+   "editions": {
+    "numFound": 27,
+    "start": 0,
+    "numFoundExact": true,
+    "docs": [
+     {
+      "key": "/books/OL51726888M",
+      "title": "The Psychology of Money",
+      "subtitle": "Timeless lessons on wealth, greed, and happiness",
+      "cover_i": 15215448,
+      "cover_width": 1080,
+      "cover_height": 1771,
+      "language": [
+       "eng"
+      ],
+      "ia": [
+       "psychologyofmone0000unse_e5d2"
+      ],
+      "ia_collection": [
+       "printdisabled",
+       "internetarchivebooks"
+      ],
+      "ebook_access": "printdisabled",
+      "has_fulltext": true,
+      "public_scan_b": false,
+      "providers": [
+       {
+        "access": "sample",
+        "format": "web",
+        "price": null,
+        "url": "https://archive.org/details/psychologyofmone0000unse_e5d2?view=theater&wrapper=false",
+        "provider_name": "ia"
+       }
+      ],
+      "availability": {
+       "status": "private",
+       "available_to_browse": false,
+       "available_to_borrow": false,
+       "available_to_waitlist": false,
+       "is_printdisabled": true,
+       "is_readable": false,
+       "is_lendable": false,
+       "is_previewable": true,
+       "identifier": "psychologyofmone0000unse_e5d2",
+       "isbn": "9781804090114",
+       "oclc": null,
+       "openlibrary_work": "OL38076643W",
+       "openlibrary_edition": "OL51726888M",
+       "last_loan_date": null,
+       "num_waitlist": null,
+       "last_waitlist_date": null,
+       "is_restricted": true,
+       "is_browseable": false,
+       "__src__": "core.models.lending.get_availability"
+      }
+     }
+    ]
+   },
+   "providers": []
+  },
+  {
+   "key": "/works/OL1063267W",
+   "title": "How to Win Friends and Influence People",
+   "author_name": [
+    "Dale Carnegie"
+   ],
+   "author_key": [
+    "OL107569A"
+   ],
+   "cover_edition_key": "OL38563878M",
+   "cover_height": 500,
+   "cover_i": 13314878,
+   "cover_width": 328,
+   "ebook_access": "borrowable",
+   "edition_count": 188,
+   "first_publish_year": 1936,
+   "has_fulltext": true,
+   "ia": [
+    "comoganaramigose0000dale_e9l0",
+    "bwb_W9-AED-143",
+    "renxingderuodian0000kane_h0y9",
+    "renxingderuodian0000carn_j6u2",
+    "renxingderuodian0000meik",
+    "commentsefairede0000carn",
+    "renxingderuodian0000unse_k6x9",
+    "renxingderuodian0000carn_f1r3",
+    "renxingderuodian0002carn",
+    "renxingderuodian0000kane",
+    "renxingderuodian0002kane",
+    "renxingderuodian0000kana",
+    "kanaijichenggong0000carn_s8q2",
+    "yingzaiyingxiang0000carn",
+    "hitoougokasuhowt0000carn",
+    "comoganaramigose0000carn",
+    "isbn_9781501188640",
+    "bwb_C0-ANZ-238",
+    "bwb_S0-ALI-633",
+    "bwb_S0-AIL-202",
+    "howtowinfriendsi0000carn_i0d7",
+    "bwb_KS-365-216",
+    "isbn_9781443455619",
+    "isbn_9789387873209",
+    "howtowinfriendsi0000carn_b2r3",
+    "howtowinfriendsi0000unse_x7f7",
+    "howtowinfriendsi0000carn_x2s0",
+    "howtowinfriendsi0000unse_z9y6",
+    "howtowinfriendsi0000dale_v1p2",
+    "howtowinfriendsi00carn",
+    "howtowinfriendsi0000unse_s3h2",
+    "howtowinfriendsi0000carn_q9t6",
+    "isbn_0671752847",
+    "howtowinfriendsi0000unse",
+    "howtowinfriendsi0000carn_k4n5",
+    "howtowinfriendsi00carn_2",
+    "bwb_S0-DGF-343",
+    "howtowinfriendscarni00carn",
+    "howtowinfriendsi00dale",
+    "howtowinfriendsinfl00dale",
+    "howtowinfriendsi0000carn",
+    "howtowinfriendsi0000unse_a5a6",
+    "howtowinfriendsi0000dale",
+    "jerusallamahaled0000dhir",
+    "howtowinfriendsi0000dale_s0y4",
+    "howtowinfriendsi0000dale_s5t3",
+    "isbn_9787546301907",
+    "bwb_P8-APW-395",
+    "comoganaramigos00dale"
+   ],
+   "ia_collection": [
+    "americana",
+    "americanuniversity-ol",
+    "belmont-ol",
+    "bpljordan-ol",
+    "claremont_school_of_theology",
+    "cmsbschool-ol",
+    "cnusd-ol",
+    "cua-ol",
+    "dartmouthlibrary-ol",
+    "delawarecountydistrictlibrary",
+    "delawarecountydistrictlibrary-ol",
+    "denverpubliclibrary-ol",
+    "drakeuniversity-ol",
+    "georgetown-university-law-library-ol",
+    "gwulibraries-ol",
+    "hamiltonpubliclibrary-ol",
+    "inlibrary",
+    "internetarchivebooks",
+    "ithacacollege-ol",
+    "johnshopkins-ol",
+    "library_of_atlantis",
+    "marymount-ol",
+    "miltonpubliclibrary-ol",
+    "openlibrary-d-ol",
+    "pendinglending",
+    "popularchinesebooks",
+    "printdisabled",
+    "randolph-macon-college-ol",
+    "rochester-ol",
+    "schroederlibrary-ol",
+    "stmaryscountylibrary",
+    "the-claremont-colleges-ol",
+    "tulsacc-ol",
+    "uhmauicollege-ol",
+    "unb-ol",
+    "uni-ol",
+    "universityofcoloradoboulder-ol",
+    "universityofoklahoma-ol",
+    "uslprototype",
+    "wilsoncollege-ol",
+    "worthingtonlibraries-ol"
+   ],
+   "language": [
+    "por",
+    "eng",
+    "fre",
+    "jpn",
+    "pan",
+    "ita",
+    "kor",
+    "vie",
+    "spa",
+    "chi",
+    "rus"
+   ],
+   "lending_edition_s": "OL48116212M",
+   "lending_identifier_s": "comoganaramigose0000dale_e9l0",
+   "public_scan_b": false,
+   "editions": {
+    "numFound": 188,
+    "start": 0,
+    "numFoundExact": true,
+    "docs": [
+     {
+      "key": "/books/OL58718718M",
+      "title": "How To Win Friends And Influence People",
+      "cover_i": 15257903,
+      "cover_width": 1938,
+      "cover_height": 2909,
+      "language": [
+       "eng"
+      ],
+      "ia": [
+       "bwb_W9-AED-143"
+      ],
+      "ia_collection": [
+       "inlibrary",
+       "internetarchivebooks",
+       "printdisabled"
+      ],
+      "ebook_access": "borrowable",
+      "has_fulltext": true,
+      "public_scan_b": false,
+      "providers": [
+       {
+        "access": "borrow",
+        "format": "web",
+        "price": null,
+        "url": "https://archive.org/details/bwb_W9-AED-143?view=theater&wrapper=false",
+        "provider_name": "ia"
+       }
+      ],
+      "availability": {
+       "status": "borrow_available",
+       "available_to_browse": true,
+       "available_to_borrow": false,
+       "available_to_waitlist": false,
+       "is_printdisabled": true,
+       "is_readable": false,
+       "is_lendable": true,
+       "is_previewable": true,
+       "identifier": "bwb_W9-AED-143",
+       "isbn": null,
+       "oclc": null,
+       "openlibrary_work": "OL43110591W",
+       "openlibrary_edition": "OL58718718M",
+       "last_loan_date": null,
+       "num_waitlist": null,
+       "last_waitlist_date": null,
+       "is_restricted": true,
+       "is_browseable": true,
+       "__src__": "core.models.lending.get_availability"
+      }
+     }
+    ]
+   },
+   "providers": []
+  },
+  {
+   "key": "/works/OL527464W",
+   "title": "Think and Grow Rich",
+   "author_name": [
+    "Napoleon Hill"
+   ],
+   "author_key": [
+    "OL37117A"
+   ],
+   "cover_edition_key": "OL49833602M",
+   "cover_height": 724,
+   "cover_i": 14542536,
+   "cover_width": 444,
+   "ebook_access": "borrowable",
+   "edition_count": 309,
+   "first_publish_year": 1937,
+   "has_fulltext": true,
+   "ia": [
+    "quempensaenrique0000_",
+    "rflchissezetdeve0000napo",
+    "thinkgrowrich1940000napo",
+    "thinkgrowrichtea0000napo",
+    "denkenachundwerd0000hill",
+    "isbn_9781607381716",
+    "pienseyhgaserico0000napo",
+    "thinkgrowrich0000napo_q8p9",
+    "thinkgrowrich0000unse_z9j7",
+    "thinkgrowrich0000napo_k8s2",
+    "isbn_9781463538002",
+    "thinkgrowrich0000napo_r7b6",
+    "thinkgrowrich0000napo_i1q6",
+    "thinkgrowrichbyn00hill",
+    "thinkgrowrich0000unse_x4h7",
+    "thinkgrowrich0000unse_j8c6",
+    "thinkgrowrichhow0000napo",
+    "thinkgrowrich00hill",
+    "thinkgrowrich0000napo",
+    "thinkgrowrich0000napo_c8v2",
+    "thinkgrowrich0000napo_p2x8",
+    "thinkgrowrich0000napo_i8t1",
+    "thinkgrowrich0000unse_x5f2",
+    "sociyeauraamirab0000hill",
+    "isbn_9780974571720",
+    "isbn_9781936041602",
+    "pienseyhagaseric0000hill_x0n1",
+    "thinkgrowrichori0000napo",
+    "thinkgrowrich0000hill_q2s7",
+    "thinkgrowrichori0000hill",
+    "thinkgrowrich0000hill_w0e1",
+    "thinkgrowrich0000hill_r6d9",
+    "thinkgrowrichsec0000hill",
+    "pienseyhagaseric0000hill_n8p1",
+    "sikaozhifuthinkg0000hill",
+    "pienseyhagaseric0000hill",
+    "pienseyhagaseric0000hill_n6w7",
+    "thinkgrowrich0000hill_h9m0",
+    "thinkgrowrich0000napo_c7h0",
+    "thinkgrowrich0000hill_p9a1",
+    "thinkgrowrich00hill_3",
+    "thinkgrowrichthe00hill",
+    "thinkgrowrich0000hill_i2s5",
+    "thinkgrowrich0000hill",
+    "thinkgrowric00hill",
+    "thinkgrowrich0000hill_y8b5",
+    "thinkgrowrich21s0000napo",
+    "thinkgrowrich0000hill_l6f4",
+    "thinkgrowrichori0000hill_w5i6",
+    "thinkgrowrichori0000napo_a1y5",
+    "thinkgrowrich0000unse_i3k4",
+    "thinkgrowrich00napo",
+    "thinkgrowrich0000unse",
+    "thinkgrowrich000hill",
+    "thinkgrowrich0000hill_u0s1"
+   ],
+   "ia_collection": [
+    "americana",
+    "belmont-ol",
+    "cmsbschool-ol",
+    "delawarecountydistrictlibrary",
+    "delawarecountydistrictlibrary-ol",
+    "denverpubliclibrary-ol",
+    "hamiltonpubliclibrary-ol",
+    "inlibrary",
+    "internetarchivebooks",
+    "openlibrary-d-ol",
+    "popularchinesebooks",
+    "printdisabled",
+    "rochester-ol",
+    "stmaryscountylibrary",
+    "toronto"
+   ],
+   "language": [
+    "fre",
+    "spa",
+    "hin",
+    "tam",
+    "ben",
+    "arm",
+    "kor",
+    "ger",
+    "mar",
+    "chi",
+    "eng",
+    "por"
+   ],
+   "lending_edition_s": "OL45064545M",
+   "lending_identifier_s": "quempensaenrique0000_",
+   "public_scan_b": false,
+   "editions": {
+    "numFound": 309,
+    "start": 0,
+    "numFoundExact": true,
+    "docs": [
+     {
+      "key": "/books/OL49356517M",
+      "title": "Think and Grow Rich",
+      "cover_i": 15175095,
+      "cover_width": 1632,
+      "cover_height": 2625,
+      "language": [
+       "eng"
+      ],
+      "ia": [
+       "thinkgrowrich1940000napo"
+      ],
+      "ia_collection": [
+       "inlibrary",
+       "printdisabled",
+       "internetarchivebooks"
+      ],
+      "ebook_access": "borrowable",
+      "has_fulltext": true,
+      "public_scan_b": false,
+      "providers": [
+       {
+        "access": "borrow",
+        "format": "web",
+        "price": null,
+        "url": "https://archive.org/details/thinkgrowrich1940000napo?view=theater&wrapper=false",
+        "provider_name": "ia"
+       }
+      ],
+      "availability": {
+       "status": "borrow_available",
+       "available_to_browse": true,
+       "available_to_borrow": false,
+       "available_to_waitlist": false,
+       "is_printdisabled": true,
+       "is_readable": false,
+       "is_lendable": true,
+       "is_previewable": true,
+       "identifier": "thinkgrowrich1940000napo",
+       "isbn": null,
+       "oclc": null,
+       "openlibrary_work": "OL527464W",
+       "openlibrary_edition": "OL49356517M",
+       "last_loan_date": null,
+       "num_waitlist": null,
+       "last_waitlist_date": null,
+       "is_restricted": true,
+       "is_browseable": true,
+       "__src__": "core.models.lending.get_availability"
+      }
+     }
+    ]
+   },
+   "providers": []
+  },
+  {
+   "key": "/works/OL27310398W",
+   "title": "Haunting Adeline",
+   "author_name": [
+    "H. D. Carlton"
+   ],
+   "author_key": [
+    "OL10218224A"
+   ],
+   "cover_edition_key": "OL37077814M",
+   "cover_height": 1360,
+   "cover_i": 12992962,
+   "cover_width": 880,
+   "ebook_access": "no_ebook",
+   "edition_count": 18,
+   "first_publish_year": 2021,
+   "has_fulltext": false,
+   "language": [
+    "spa",
+    "ger",
+    "eng"
+   ],
+   "public_scan_b": false,
+   "series_key": [
+    "OL330244L"
+   ],
+   "series_name": [
+    "Cat and Mouse Duet"
+   ],
+   "series_position": [
+    "1"
+   ],
+   "editions": {
+    "numFound": 18,
+    "start": 0,
+    "numFoundExact": true,
+    "docs": [
+     {
+      "key": "/books/OL60825897M",
+      "title": "Haunting Adeline",
+      "cover_i": 15255434,
+      "cover_width": 324,
+      "cover_height": 500,
+      "language": [
+       "eng"
+      ],
+      "ebook_access": "no_ebook",
+      "has_fulltext": false,
+      "public_scan_b": false,
+      "providers": []
+     }
+    ]
+   },
+   "providers": []
+  },
+  {
+   "key": "/works/OL796465W",
+   "title": "O Alquimista",
+   "author_name": [
+    "Paulo Coelho"
+   ],
+   "author_key": [
+    "OL66700A"
+   ],
+   "cover_height": 291,
+   "cover_i": 7414780,
+   "cover_width": 192,
+   "ebook_access": "borrowable",
+   "edition_count": 141,
+   "first_publish_year": 1988,
+   "has_fulltext": true,
+   "ia": [
+    "alchemik0000coel",
+    "alkhimik0000coel_d7c2",
+    "alkhimik0000coel",
+    "muyangshaonianqi0000coel",
+    "elalquimista0000coel",
+    "alchemistkoreane00paul",
+    "simyacroman0000coel",
+    "lalchimiste0000coel",
+    "lalchimiste00paul",
+    "alchemist00paul",
+    "alchemist0000coel_h2j8",
+    "elalquimistaunaf00coel",
+    "alchemist000coel",
+    "alchemist0000coel_w2i7",
+    "alchemist0000coel",
+    "isbn_9789584205506",
+    "alchemist00coel",
+    "alchemistfableab00coel"
+   ],
+   "ia_collection": [
+    "americana",
+    "cnusd-ol",
+    "delawarecountydistrictlibrary",
+    "delawarecountydistrictlibrary-ol",
+    "denverpubliclibrary-ol",
+    "gwulibraries-ol",
+    "inlibrary",
+    "internetarchivebooks",
+    "library_of_atlantis",
+    "openlibrary-d-ol",
+    "printdisabled",
+    "stmaryscountylibrary",
+    "uhmauicollege-ol",
+    "worthingtonlibraries-ol"
+   ],
+   "language": [
+    "urd",
+    "ger",
+    "ita",
+    "tha",
+    "kor",
+    "dan",
+    "chi",
+    "rus",
+    "eng",
+    "spa",
+    "vie",
+    "por",
+    "may",
+    "tur",
+    "ind",
+    "pol",
+    "fre",
+    "gre",
+    "dut"
+   ],
+   "lending_edition_s": "OL16412090M",
+   "lending_identifier_s": "alchemik0000coel",
+   "public_scan_b": false,
+   "editions": {
+    "numFound": 141,
+    "start": 0,
+    "numFoundExact": true,
+    "docs": [
+     {
+      "key": "/books/OL7288233M",
+      "title": "The Alchemist",
+      "cover_i": 15121528,
+      "cover_width": 2625,
+      "cover_height": 3963,
+      "language": [
+       "eng"
+      ],
+      "ia": [
+       "alchemist00paul"
+      ],
+      "ia_collection": [
+       "printdisabled",
+       "internetarchivebooks"
+      ],
+      "ebook_access": "printdisabled",
+      "has_fulltext": true,
+      "public_scan_b": false,
+      "providers": [
+       {
+        "access": "sample",
+        "format": "web",
+        "price": null,
+        "url": "https://archive.org/details/alchemist00paul?view=theater&wrapper=false",
+        "provider_name": "ia"
+       }
+      ],
+      "availability": {
+       "status": "private",
+       "available_to_browse": false,
+       "available_to_borrow": false,
+       "available_to_waitlist": false,
+       "is_printdisabled": true,
+       "is_readable": false,
+       "is_lendable": false,
+       "is_previewable": true,
+       "identifier": "alchemist00paul",
+       "isbn": "0061122416",
+       "oclc": null,
+       "openlibrary_work": "OL796465W",
+       "openlibrary_edition": "OL7288233M",
+       "last_loan_date": "2020-09-07T05:50:11Z",
+       "num_waitlist": "8",
+       "last_waitlist_date": "2020-09-07T23:39:33Z",
+       "is_restricted": true,
+       "is_browseable": false,
+       "__src__": "core.models.lending.get_availability"
+      }
+     }
+    ]
+   },
+   "providers": []
+  },
+  {
+   "key": "/works/OL20068530W",
+   "title": "Verity",
+   "author_name": [
+    "Colleen Hoover"
+   ],
+   "author_key": [
+    "OL7315784A"
+   ],
+   "cover_edition_key": "OL27248516M",
+   "cover_height": 499,
+   "cover_i": 8747160,
+   "cover_width": 324,
+   "ebook_access": "no_ebook",
+   "edition_count": 25,
+   "first_publish_year": 2018,
+   "has_fulltext": false,
+   "language": [
+    "heb",
+    "por",
+    "eng",
+    "ger",
+    "spa",
+    "chi",
+    "tur",
+    "pol"
+   ],
+   "public_scan_b": false,
+   "editions": {
+    "numFound": 25,
+    "start": 0,
+    "numFoundExact": true,
+    "docs": [
+     {
+      "key": "/books/OL39128605M",
+      "title": "Verity",
+      "cover_i": 13009038,
+      "cover_width": 224,
+      "cover_height": 346,
+      "language": [
+       "eng"
+      ],
+      "ebook_access": "no_ebook",
+      "has_fulltext": false,
+      "public_scan_b": false,
+      "providers": []
+     }
+    ]
+   },
+   "providers": []
+  },
+  {
+   "key": "/works/OL25740044W",
+   "title": "Esquire's The New Rules for Men",
+   "author_name": [
+    "Esquire"
+   ],
+   "author_key": [
+    "OL3085520A"
+   ],
+   "cover_edition_key": "OL34627046M",
+   "cover_height": 1214,
+   "cover_i": 15123375,
+   "cover_width": 1000,
+   "ebook_access": "borrowable",
+   "edition_count": 1,
+   "first_publish_year": 2016,
+   "has_fulltext": true,
+   "ia": [
+    "esquiresnewrules0000unse"
+   ],
+   "ia_collection": [
+    "inlibrary",
+    "internetarchivebooks",
+    "printdisabled"
+   ],
+   "language": [
+    "eng"
+   ],
+   "lending_edition_s": "OL34627046M",
+   "lending_identifier_s": "esquiresnewrules0000unse",
+   "public_scan_b": false,
+   "editions": {
+    "numFound": 1,
+    "start": 0,
+    "numFoundExact": true,
+    "docs": [
+     {
+      "key": "/books/OL34627046M",
+      "title": "Esquire's The New Rules for Men",
+      "subtitle": "A Man's Guide to Life",
+      "cover_i": 15242728,
+      "cover_width": 1821,
+      "cover_height": 2218,
+      "language": [
+       "eng"
+      ],
+      "ia": [
+       "esquiresnewrules0000unse"
+      ],
+      "ia_collection": [
+       "inlibrary",
+       "printdisabled",
+       "internetarchivebooks"
+      ],
+      "ebook_access": "borrowable",
+      "has_fulltext": true,
+      "public_scan_b": false,
+      "providers": [
+       {
+        "access": "borrow",
+        "format": "web",
+        "price": null,
+        "url": "https://archive.org/details/esquiresnewrules0000unse?view=theater&wrapper=false",
+        "provider_name": "ia"
+       }
+      ],
+      "availability": {
+       "status": "borrow_unavailable",
+       "available_to_browse": false,
+       "available_to_borrow": false,
+       "available_to_waitlist": false,
+       "is_printdisabled": true,
+       "is_readable": false,
+       "is_lendable": true,
+       "is_previewable": true,
+       "identifier": "esquiresnewrules0000unse",
+       "isbn": "9781618371867",
+       "oclc": null,
+       "openlibrary_work": "OL25740044W",
+       "openlibrary_edition": "OL34627046M",
+       "last_loan_date": null,
+       "num_waitlist": null,
+       "last_waitlist_date": null,
+       "is_restricted": true,
+       "is_browseable": false,
+       "__src__": "core.models.lending.get_availability"
+      }
+     }
+    ]
+   },
+   "providers": []
+  },
+  {
+   "key": "/works/OL19761410W",
+   "title": "The Laws of Human Nature",
+   "author_name": [
+    "Robert Greene"
+   ],
+   "author_key": [
+    "OL236414A"
+   ],
+   "cover_edition_key": "OL28238975M",
+   "cover_height": 500,
+   "cover_i": 10170095,
+   "cover_width": 331,
+   "ebook_access": "printdisabled",
+   "edition_count": 7,
+   "first_publish_year": 2018,
+   "has_fulltext": true,
+   "ia": [
+    "lawsofhumannatur0000gree"
+   ],
+   "ia_collection": [
+    "internetarchivebooks",
+    "printdisabled"
+   ],
+   "language": [
+    "eng"
+   ],
+   "public_scan_b": false,
+   "editions": {
+    "numFound": 7,
+    "start": 0,
+    "numFoundExact": true,
+    "docs": [
+     {
+      "key": "/books/OL26974419M",
+      "title": "The Laws of human nature",
+      "cover_i": 15254578,
+      "cover_width": 2147,
+      "cover_height": 3288,
+      "language": [
+       "eng"
+      ],
+      "ia": [
+       "lawsofhumannatur0000gree"
+      ],
+      "ia_collection": [
+       "printdisabled",
+       "internetarchivebooks"
+      ],
+      "ebook_access": "printdisabled",
+      "has_fulltext": true,
+      "public_scan_b": false,
+      "providers": [
+       {
+        "access": "sample",
+        "format": "web",
+        "price": null,
+        "url": "https://archive.org/details/lawsofhumannatur0000gree?view=theater&wrapper=false",
+        "provider_name": "ia"
+       }
+      ],
+      "availability": {
+       "status": "private",
+       "available_to_browse": false,
+       "available_to_borrow": false,
+       "available_to_waitlist": false,
+       "is_printdisabled": true,
+       "is_readable": false,
+       "is_lendable": false,
+       "is_previewable": true,
+       "identifier": "lawsofhumannatur0000gree",
+       "isbn": "9780525428145",
+       "oclc": null,
+       "openlibrary_work": "OL19761410W",
+       "openlibrary_edition": "OL26974419M",
+       "last_loan_date": null,
+       "num_waitlist": null,
+       "last_waitlist_date": null,
+       "is_restricted": true,
+       "is_browseable": false,
+       "__src__": "core.models.lending.get_availability"
+      }
+     }
+    ]
+   },
+   "providers": []
+  },
+  {
+   "key": "/works/OL15992072W",
+   "title": "Thinking, fast and slow",
+   "author_name": [
+    "Daniel Kahneman"
+   ],
+   "author_key": [
+    "OL2066695A"
+   ],
+   "cover_edition_key": "OL38090969M",
+   "cover_height": 500,
+   "cover_i": 13290711,
+   "cover_width": 386,
+   "ebook_access": "borrowable",
+   "edition_count": 36,
+   "first_publish_year": 2011,
+   "has_fulltext": true,
+   "ia": [
+    "onsfeilbaredenke0000kahn",
+    "thinkingfastslow0000unse",
+    "sikaokuaiyuman0000kahn",
+    "schnellesdenkenl0000kahn",
+    "kuaisimanxiang0000kahn",
+    "thinkingfastslow0000kahn_b1q8",
+    "thinkingfastslow0000kahn_x5z0",
+    "thinkingfastslow0000kahn_o1l6"
+   ],
+   "ia_collection": [
+    "hamiltonpubliclibrary-ol",
+    "inlibrary",
+    "internetarchivebooks",
+    "popularchinesebooks",
+    "printdisabled",
+    "unb-ol",
+    "universityofthewest-ol"
+   ],
+   "language": [
+    "fre",
+    "pol",
+    "tur",
+    "dut",
+    "kor",
+    "ger",
+    "chi",
+    "eng"
+   ],
+   "lending_edition_s": "OL39216579M",
+   "lending_identifier_s": "onsfeilbaredenke0000kahn",
+   "public_scan_b": false,
+   "editions": {
+    "numFound": 36,
+    "start": 0,
+    "numFoundExact": true,
+    "docs": [
+     {
+      "key": "/books/OL36689110M",
+      "title": "Thinking, fast and slow",
+      "cover_i": 15129456,
+      "cover_width": 2057,
+      "cover_height": 3239,
+      "language": [
+       "eng"
+      ],
+      "ia": [
+       "thinkingfastslow0000kahn_b1q8"
+      ],
+      "ia_collection": [
+       "unb-ol",
+       "printdisabled",
+       "internetarchivebooks"
+      ],
+      "ebook_access": "printdisabled",
+      "has_fulltext": true,
+      "public_scan_b": false,
+      "providers": [
+       {
+        "access": "sample",
+        "format": "web",
+        "price": null,
+        "url": "https://archive.org/details/thinkingfastslow0000kahn_b1q8?view=theater&wrapper=false",
+        "provider_name": "ia"
+       }
+      ],
+      "availability": {
+       "status": "private",
+       "available_to_browse": false,
+       "available_to_borrow": false,
+       "available_to_waitlist": false,
+       "is_printdisabled": true,
+       "is_readable": false,
+       "is_lendable": false,
+       "is_previewable": true,
+       "identifier": "thinkingfastslow0000kahn_b1q8",
+       "isbn": "9780385676519",
+       "oclc": null,
+       "openlibrary_work": "OL15992072W",
+       "openlibrary_edition": "OL36689110M",
+       "last_loan_date": null,
+       "num_waitlist": null,
+       "last_waitlist_date": null,
+       "is_restricted": true,
+       "is_browseable": false,
+       "__src__": "core.models.lending.get_availability"
+      }
+     }
+    ]
+   },
+   "providers": []
+  },
+  {
+   "key": "/works/OL2629977W",
+   "title": "The 7 Habits of Highly Effective People",
+   "author_name": [
+    "Stephen R. Covey"
+   ],
+   "author_key": [
+    "OL383159A"
+   ],
+   "cover_edition_key": "OL28136651M",
+   "cover_height": 500,
+   "cover_i": 10079937,
+   "cover_width": 329,
+   "ebook_access": "borrowable",
+   "edition_count": 78,
+   "first_publish_year": 1989,
+   "has_fulltext": true,
+   "ia": [
+    "gaoxiaonengrensh0000cove_a2i5",
+    "gaoxiaonengrensh0000step",
+    "gaoxiaonengrensh0007cove",
+    "yuchenggongyouyu0000cove",
+    "sevenhabitshigly00cove",
+    "sevenhabitsofhig00cove",
+    "los7habitosdelag0000cove_m9q0",
+    "sevenhabitsofhi00cove",
+    "os7hbitosdaspess0000inva",
+    "sevenhabitsofhig00cove_0",
+    "7habitsofhighlye0000cove_c0q4",
+    "7habitsofhighlye00cove_0",
+    "7habitsofhighlye00cove",
+    "7habitsofhighlye0000cove_q9q4",
+    "isbn_5961402517"
+   ],
+   "ia_collection": [
+    "ambslibrary-ol",
+    "americana",
+    "barryuniversity-ol",
+    "belmont-ol",
+    "binghamton-ol",
+    "cnusd-ol",
+    "cua-ol",
+    "dartmouthlibrary-ol",
+    "delawarecountydistrictlibrary",
+    "delawarecountydistrictlibrary-ol",
+    "georgetown-university-law-library-ol",
+    "goffstownlibrary-ol",
+    "gwulibraries-ol",
+    "hamiltonpubliclibrary-ol",
+    "howard-ol",
+    "inlibrary",
+    "internetarchivebooks",
+    "johnshopkins-ol",
+    "kalamazoocollege-ol",
+    "marymount-ol",
+    "miltonpubliclibrary-ol",
+    "openlibrary-d-ol",
+    "popularchinesebooks",
+    "printdisabled",
+    "rochester-ol",
+    "salisburyfreelibrary-ol",
+    "schroederlibrary-ol",
+    "stmaryscountylibrary",
+    "udc-ol",
+    "uhmauicollege-ol",
+    "uni-ol",
+    "universityofcoloradoboulder-ol",
+    "uslprototype"
+   ],
+   "language": [
+    "jpn",
+    "por",
+    "spa",
+    "kor",
+    "rus",
+    "eng",
+    "chi",
+    "cze",
+    "vie"
+   ],
+   "lending_edition_s": "OL27934042M",
+   "lending_identifier_s": "gaoxiaonengrensh0000cove_a2i5",
+   "public_scan_b": false,
+   "editions": {
+    "numFound": 78,
+    "start": 0,
+    "numFoundExact": true,
+    "docs": [
+     {
+      "key": "/books/OL24362766M",
+      "title": "The 7 Habits of Highly Effective People",
+      "cover_i": 15134031,
+      "cover_width": 2371,
+      "cover_height": 3646,
+      "language": [
+       "eng"
+      ],
+      "ia": [
+       "sevenhabitshigly00cove"
+      ],
+      "ia_collection": [
+       "stmaryscountylibrary",
+       "inlibrary",
+       "printdisabled",
+       "americana"
+      ],
+      "ebook_access": "borrowable",
+      "has_fulltext": true,
+      "public_scan_b": false,
+      "providers": [
+       {
+        "access": "borrow",
+        "format": "web",
+        "price": null,
+        "url": "https://archive.org/details/sevenhabitshigly00cove?view=theater&wrapper=false",
+        "provider_name": "ia"
+       }
+      ],
+      "availability": {
+       "status": "borrow_unavailable",
+       "available_to_browse": false,
+       "available_to_borrow": false,
+       "available_to_waitlist": false,
+       "is_printdisabled": true,
+       "is_readable": false,
+       "is_lendable": true,
+       "is_previewable": true,
+       "identifier": "sevenhabitshigly00cove",
+       "isbn": "0671663984",
+       "oclc": null,
+       "openlibrary_work": "OL2629977W",
+       "openlibrary_edition": "OL24362766M",
+       "last_loan_date": null,
+       "num_waitlist": null,
+       "last_waitlist_date": null,
+       "is_restricted": true,
+       "is_browseable": false,
+       "__src__": "core.models.lending.get_availability"
+      }
+     }
+    ]
+   },
+   "providers": []
+  },
+  {
+   "key": "/works/OL24390422W",
+   "title": "Twisted Love",
+   "author_name": [
+    "Ana Huang"
+   ],
+   "author_key": [
+    "OL9180803A"
+   ],
+   "cover_height": 2560,
+   "cover_i": 12940491,
+   "cover_width": 1604,
+   "ebook_access": "no_ebook",
+   "edition_count": 18,
+   "first_publish_year": 2021,
+   "has_fulltext": false,
+   "language": [
+    "eng",
+    "fre",
+    "spa"
+   ],
+   "public_scan_b": false,
+   "series_key": [
+    "OL327005L"
+   ],
+   "series_name": [
+    "Twisted"
+   ],
+   "series_position": [
+    "1"
+   ],
+   "editions": {
+    "numFound": 18,
+    "start": 0,
+    "numFoundExact": true,
+    "docs": [
+     {
+      "key": "/books/OL37985553M",
+      "title": "Twisted Love",
+      "cover_i": 15243951,
+      "cover_width": 638,
+      "cover_height": 1000,
+      "language": [
+       "eng"
+      ],
+      "ebook_access": "no_ebook",
+      "has_fulltext": false,
+      "public_scan_b": false,
+      "providers": []
+     }
+    ]
+   },
+   "providers": []
+  },
+  {
+   "key": "/works/OL498556W",
+   "title": "Metamorphosis",
+   "author_name": [
+    "Franz Kafka"
+   ],
+   "author_key": [
+    "OL33146A"
+   ],
+   "cover_edition_key": "OL26965562M",
+   "cover_height": 1360,
+   "cover_i": 12820198,
+   "cover_width": 907,
+   "ebook_access": "public",
+   "edition_count": 957,
+   "first_publish_year": 1915,
+   "has_fulltext": true,
+   "ia": [
+    "lamtamorphosedes0000fran",
+    "lametamorphose0000kafk_e3h9",
+    "metamorfose0000fran",
+    "lametamorphose0000kafk_h9v1",
+    "lametamorphosesu0000kafk",
+    "metamorphosisfka00fran",
+    "metamorphosis0000kafk_y8c1",
+    "metamorphosistra0000kafk",
+    "metamorphosiswit0000kafk",
+    "metamorphosis0000kafk_o2x9",
+    "metamorphosistri00fran",
+    "metamorphosis0000kafk_m2d2",
+    "metamorfosisla00fran",
+    "lametamorfosisme0000kafk",
+    "lametamorphose0000kafk",
+    "metamorphosisnew0000kafk",
+    "metamorphosis0000fran",
+    "dieverwandlung0000unse",
+    "metamorphosis0000kafk_h2h1",
+    "metamorphosis0000kafk_r3c3",
+    "metamorphosis0000kafk_j6l2",
+    "metamorphosisoth0000kafk_g1k2",
+    "metamorphosis00kafk_0",
+    "metamorphosis00kafk",
+    "metamorphosistra00kafk",
+    "dieverwandlung0000unse"
+   ],
+   "ia_collection": [
+    "americana",
+    "americanuniversity-ol",
+    "binghamton-ol",
+    "bpljordan-ol",
+    "cnusd-ol",
+    "dartmouthlibrary-ol",
+    "delawarecountydistrictlibrary",
+    "gwulibraries-ol",
+    "inlibrary",
+    "internetarchivebooks",
+    "ithacacollege-ol",
+    "johnshopkins-ol",
+    "library_of_atlantis",
+    "marygrovecollege",
+    "miltonpubliclibrary-ol",
+    "occidentalcollegelibrary-ol",
+    "openlibrary-d-ol",
+    "phillipsacademy-preview",
+    "printdisabled",
+    "randolph-macon-college-ol",
+    "rochester-ol",
+    "stmaryscountylibrary",
+    "the-claremont-colleges-ol",
+    "tulsacc-ol",
+    "unb-ol",
+    "uni-ol",
+    "wilsoncollege-ol"
+   ],
+   "language": [
+    "jpn",
+    "ita",
+    "eng",
+    "mul",
+    "fre",
+    "spa",
+    "por",
+    "chi",
+    "ger",
+    "tur"
+   ],
+   "lending_edition_s": "OL8841812M",
+   "lending_identifier_s": "lamtamorphosedes0000fran",
+   "public_scan_b": true,
+   "id_project_gutenberg": [
+    "22367",
+    "5200"
+   ],
+   "editions": {
+    "numFound": 957,
+    "start": 0,
+    "numFoundExact": true,
+    "docs": [
+     {
+      "key": "/books/OL24506210M",
+      "title": "Metamorphosis",
+      "cover_i": 15200982,
+      "cover_width": 935,
+      "cover_height": 1500,
+      "language": [
+       "eng"
+      ],
+      "id_project_gutenberg": [
+       "5200"
+      ],
+      "ebook_access": "public",
+      "has_fulltext": true,
+      "public_scan_b": true,
+      "providers": [
+       {
+        "access": "open-access",
+        "format": "web",
+        "price": null,
+        "url": "https://www.gutenberg.org/ebooks/5200",
+        "provider_name": "gutenberg"
+       }
+      ]
+     }
+    ]
+   },
+   "providers": []
+  },
+  {
+   "key": "/works/OL17590212W",
+   "title": "The Subtle Art of Not Giving a F*ck",
+   "author_name": [
+    "Mark Manson"
+   ],
+   "author_key": [
+    "OL2964000A"
+   ],
+   "cover_height": 269,
+   "cover_i": 8231990,
+   "cover_width": 180,
+   "ebook_access": "borrowable",
+   "edition_count": 48,
+   "first_publish_year": 2016,
+   "has_fulltext": true,
+   "ia": [
+    "sutilartedeligar0000mark",
+    "lartsubtildesenf0000mark",
+    "subtleartofnotgi0000mans_n2n5",
+    "elsutilartedeque0000mans",
+    "subtleartofnotgi0000mans_h2r6"
+   ],
+   "ia_collection": [
+    "inlibrary",
+    "internetarchivebooks",
+    "printdisabled"
+   ],
+   "language": [
+    "ara",
+    "ger",
+    "tur",
+    "spa",
+    "nob",
+    "alb",
+    "fre",
+    "rus",
+    "eng",
+    "por"
+   ],
+   "lending_edition_s": "OL26948417M",
+   "lending_identifier_s": "sutilartedeligar0000mark",
+   "public_scan_b": false,
+   "editions": {
+    "numFound": 48,
+    "start": 0,
+    "numFoundExact": true,
+    "docs": [
+     {
+      "key": "/books/OL27351482M",
+      "title": "The Subtle Art of Not Giving a Fuck",
+      "subtitle": "A Counterintuitive Approach to Living a Good Life",
+      "cover_i": 15161037,
+      "cover_width": 223,
+      "cover_height": 342,
+      "language": [
+       "eng"
+      ],
+      "ia": [
+       "subtleartofnotgi0000mans_n2n5"
+      ],
+      "ia_collection": [
+       "printdisabled",
+       "internetarchivebooks"
+      ],
+      "ebook_access": "printdisabled",
+      "has_fulltext": true,
+      "public_scan_b": false,
+      "providers": [
+       {
+        "access": "sample",
+        "format": "web",
+        "price": null,
+        "url": "https://archive.org/details/subtleartofnotgi0000mans_n2n5?view=theater&wrapper=false",
+        "provider_name": "ia"
+       }
+      ],
+      "availability": {
+       "status": "private",
+       "available_to_browse": false,
+       "available_to_borrow": false,
+       "available_to_waitlist": false,
+       "is_printdisabled": true,
+       "is_readable": false,
+       "is_lendable": false,
+       "is_previewable": true,
+       "identifier": "subtleartofnotgi0000mans_n2n5",
+       "isbn": "9780062899149",
+       "oclc": null,
+       "openlibrary_work": "OL17590212W",
+       "openlibrary_edition": "OL27351482M",
+       "last_loan_date": null,
+       "num_waitlist": null,
+       "last_waitlist_date": null,
+       "is_restricted": true,
+       "is_browseable": false,
+       "__src__": "core.models.lending.get_availability"
+      }
+     }
+    ]
+   },
+   "providers": []
+  },
+  {
+   "key": "/works/OL18108064W",
+   "title": "Can't Hurt Me",
+   "author_name": [
+    "David Goggins"
+   ],
+   "author_key": [
+    "OL7440751A"
+   ],
+   "cover_edition_key": "OL26618658M",
+   "cover_height": 500,
+   "cover_i": 8305903,
+   "cover_width": 324,
+   "ebook_access": "no_ebook",
+   "edition_count": 11,
+   "first_publish_year": 2018,
+   "has_fulltext": false,
+   "language": [
+    "fre",
+    "eng",
+    "spa"
+   ],
+   "public_scan_b": false,
+   "editions": {
+    "numFound": 11,
+    "start": 0,
+    "numFoundExact": true,
+    "docs": [
+     {
+      "key": "/books/OL28024418M",
+      "title": "Can't Hurt Me",
+      "subtitle": "Master Your Mind and Defy the Odds",
+      "cover_i": 9406261,
+      "cover_width": 333,
+      "cover_height": 500,
+      "language": [
+       "eng"
+      ],
+      "ebook_access": "no_ebook",
+      "has_fulltext": false,
+      "public_scan_b": false,
+      "providers": []
+     }
+    ]
+   },
+   "providers": []
+  },
+  {
+   "key": "/works/OL66554W",
+   "title": "Pride and Prejudice",
+   "author_name": [
+    "Jane Austen"
+   ],
+   "author_key": [
+    "OL21594A"
+   ],
+   "cover_edition_key": "OL47044678M",
+   "cover_height": 1422,
+   "cover_i": 14348537,
+   "cover_width": 891,
+   "ebook_access": "public",
+   "edition_count": 4042,
+   "first_publish_year": 1813,
+   "has_fulltext": true,
+   "ia": [
+    "bwb_KS-179-237",
+    "bwb_W8-AAE-980",
+    "synapseml_gutenberg_pride_and_prejudice_by_jane_austen",
+    "prideprejudicese0000jane",
+    "prideprejudice0000jane_l6i1",
+    "prideprejudicear0000jane",
+    "prideprejudiceby0000jane",
+    "prideprejudice0000jane_e7b9",
+    "prideprejudiceth0000jane",
+    "prideprejudiceno121aust",
+    "prideprejudice0000unse_r8e0",
+    "prideprejudice0000jane_h2f2",
+    "austen_jane_1775_1817_pride_and_prejudice",
+    "prideprejudice0000unse_d2r0",
+    "prideprejudice0000unse_r8l2",
+    "prideprejudice0000unse_f3y4",
+    "bwb_KR-215-980",
+    "prideprejudiceno00aust_1",
+    "prideprejudice0000unse_e8g7",
+    "prideprejudice00austuoft",
+    "prideprejudicewi00austuoft",
+    "pride_and_prejudice_librivox",
+    "novelsofjaneaust02aust",
+    "austensnovels05aust",
+    "22578415.1582.emory.edu",
+    "prideprejudice01aust",
+    "prideprejudice00aust",
+    "prideprejudice0000aust_c5r0",
+    "prideprejudiceno00austuoft",
+    "prideprejudice00aust_5",
+    "novelstextbasedo02austuoft",
+    "orgullo_y_prejuicio_vol_2_2101_librivox",
+    "prideandprejudice_1107_librivox",
+    "pride_prejudice_1102_librivox",
+    "prideandprejudice_1005_librivox",
+    "solo_pride_librivox",
+    "pride_prejudice_krs_librivox",
+    "prideandprejudic42671gut",
+    "ylpeysjaennakkol45186gut",
+    "prideandprejudi00howegoog",
+    "prideandprejudi04austgoog",
+    "prideandprejudi02austgoog",
+    "prideprejudice190000jane",
+    "bwb_W6-BCM-521",
+    "bwb_P8-AKY-400",
+    "bwb_P8-BAF-390",
+    "bwb_KS-149-156",
+    "isbn_9788990324788",
+    "isbn_9780007874699",
+    "bwb_P1-AAV-191",
+    "bwb_KS-474-309",
+    "bwb_P2-BIH-152",
+    "isbn_9782352875109",
+    "bwb_KR-658-231",
+    "prideprejudice0000jane_z7c8",
+    "prideprejudiceli0000jane_w3t8",
+    "prideprejudiceri0000jane",
+    "prideprejudicegr0000jane",
+    "prideprejudiceea0000jane",
+    "isbn_1573353868",
+    "bwb_O6-BLU-232",
+    "bwb_O6-CUO-559",
+    "prideprejudicecl0000jane",
+    "prideprejudice0000jane_b8n2",
+    "prideprejudicein0000jane",
+    "prideprejudicew20000jane",
+    "bwb_W8-AFM-752",
+    "prideprejudice0000jane_z0i5",
+    "prideprejudice0000robe",
+    "isbn_9780199209217",
+    "prideprejudicecr0000jane",
+    "prideprejudice0000jane_b7y2",
+    "prideprejudicehe0000unse",
+    "prideprejudice0000jane_l5i1",
+    "omankwapyongyon0000aust_w2d4",
+    "prideprjudice0000jane",
+    "omankwapyongyon0000aust",
+    "prideprejudice0000jane_f7l0",
+    "prideprejudice0000jane_n2s7",
+    "prideprejudice0000unse_q0x8",
+    "prideprejudice0000unse_w0q0",
+    "prideprejudice0000unse_r9d8",
+    "prideprejudice0000unse_r8q2",
+    "prideprejudice0000unse_r7l6",
+    "prideprejudice0000unse_v8w0",
+    "prideprejudice0000unse_x0d0",
+    "prideprejudice0000unse_v9v5",
+    "orgoglioepregiud0000aust_v7y6",
+    "prideprejudice0000jane_g3z2",
+    "prideprejudice0000jane_c8r6",
+    "aomanyupianjian0016aust",
+    "prideprejudice0000unse_z3h7",
+    "prideprejudice0000unse_h5r2",
+    "prideprejudice0000unse_r4s9",
+    "prideprejudice0000unse_q9b4",
+    "classicsreimagin0000unse",
+    "aomanyupianjianp0000aust_e6b5",
+    "prideprejudice0000aust_k9h3",
+    "aomanyupianjian0000unse",
+    "aomanyupianjian0000unse_x8f8",
+    "aomanyupianjian0000unse_q2f7",
+    "aomanyupianjian0000unse_c0x1",
+    "prideprejudice0000unse_i3x0",
+    "prideprejudice0000unse_h5p8",
+    "prideprejudice0000unse_g7n8",
+    "prideprejudiceja0000unse_e8z7",
+    "prideprejudice0000unse_q5p7",
+    "prideprejudice0000unse_f6p0",
+    "prideprejudice0000unse_c4m0",
+    "prideprejudice0000unse_w7z9",
+    "prideprejudice0000unse_u8f2",
+    "prideprejudice0000unse_b1a0",
+    "prideprejudice0000unse_i7m1",
+    "prideprejudice0000unse_b1y9",
+    "prideprejudice0000unse_s7l8",
+    "prideprejudice0000unse_h4y1",
+    "prideprejudice0000unse_n7s8",
+    "prideprejudice0000unse_l9f0",
+    "kabzaatepachanap0000aust",
+    "prideprejudice0000unse_m5h8",
+    "prideprejudice0000jane_q6n6",
+    "prideprejudice0000unse_k0w4",
+    "prideprejudice0000unse_k8f9",
+    "prideprejudice0002unse",
+    "prideprejudice0000unse_c1z9",
+    "prideprejudice00univ",
+    "manayayiagatiyay00aust",
+    "prideprejudice0000unse_n7k7",
+    "prideprejudicede0000jane",
+    "prideprejudice0000jane_o6q8",
+    "prideprejudice0000aust_l9s5",
+    "prideprejudice0000aust_w0h2",
+    "bwb_W6-BIA-064",
+    "isbn_9781482576153",
+    "prideprejudice0000aust_k2c8",
+    "orgoglioepregiud0000aust",
+    "aomanyupianjianp0000aust_q4m1",
+    "gordostpredubezh0000aust",
+    "prideprejudice0000aust_y1a9",
+    "orgueiletprejuge0000aust_s0u2",
+    "aomanyupianjian0000aust_k8n1",
+    "aomanyupianjian0000aust_v8q0",
+    "aomanyupianjian0000aust_f1z1",
+    "prideprejudice0000aust_b6s9",
+    "isbn_0553210181",
+    "orgulloyprejuici00jane_0",
+    "prideprejudice0000aust_y3q1",
+    "orgulloyprejuici0000jane",
+    "prideprejudice0000jane_u8w1",
+    "prideprejudice100aust",
+    "prideprejudice0000aust_w9t9",
+    "orgueiletprejuge0000aust_g7p1",
+    "prideprejudice0000aust_e1w4",
+    "prideprejudiceno0000aust_f7y4",
+    "prideprejudicepu00jane",
+    "prideprejudice0000aust_t5o8",
+    "prideprejudice0000aust_z5x0",
+    "prideprejudicewo00jane",
+    "prideprejudice0000aust_f9w2",
+    "prideprejudice0000aust_x5k9",
+    "prideprejudice0000aust_p6x7",
+    "prideprejudice0000aust_x9p2",
+    "prideprejudice0000aust_l0o0",
+    "prideprejudiceto00jane",
+    "prideprejudice0000aust_b9e9",
+    "prideprejudice0000aust",
+    "orgueiletprejuge0000aust",
+    "stolzundvorurtei0000aust",
+    "prideprejudice1940aust",
+    "prideprejudice2003aust",
+    "aomanyupianjianp0000aust",
+    "prideprejudice00aust_fm2",
+    "prideprejudice0000unse",
+    "prideprejudice0000aust_a6c1",
+    "prideprejudice0000aust_h8r8",
+    "prideprejudice0000aust_l7o7",
+    "prideprejudice0000aust_c2q5",
+    "prideprejudice0000aust_d6p2",
+    "prideprejudicete0000aust",
+    "aomanyupianjian0000aust_k7b0",
+    "prideprejudice0000aust_k5e5",
+    "isbn_9780140238211",
+    "prideprejudice0000aust_a4w0",
+    "orgulloyprejuici00aust",
+    "aomanyupianjian0000aust",
+    "prideandprejudice00aust",
+    "prideprejudiceaust",
+    "isbn_9785170051281",
+    "prideprejudice0000aust_w7f2",
+    "prideprejudice0000aust_t0y9",
+    "prideprejud00aust",
+    "prideprejudice0001aust",
+    "prideprejudice0000aust_l8l8",
+    "orgulloyprejuici0000aust",
+    "aomanyupianjian0000aust_j8j7",
+    "prideprejudice180000aust",
+    "prideprejudicean0000aust",
+    "prideprejudice0000aust_u5k0",
+    "prideprejudice0000aust_u9y6",
+    "prideprejudice00austrich",
+    "aomanyupianjian0000ying",
+    "aomanyupianjian0000aust_r9g1",
+    "prideprejudiceno0000unse",
+    "prideprejudice19940000aust_j7h5",
+    "prideprejudice0000aust_j1p4",
+    "prideprejudice00jane_0",
+    "orgulloyprejuici0000aust_d8hf",
+    "aomanyupianjian0000aust_j0t6",
+    "prideprejudice0000aust_t0l6",
+    "prideprejudiceno0000aust_q9o8",
+    "prideprejudiceru0000aust",
+    "orgulloyprejuici0000aust_n2r4",
+    "prideprejudice0000jane",
+    "prideprejudice0000unse_a7z0",
+    "prideprejudice0000unse_t5o0",
+    "prideprejudice0000unse_c8u6",
+    "prideprejudicesc00jane",
+    "bwb_KS-315-133",
+    "isbn_9788854165052",
+    "isbn_9787511024831",
+    "isbn_9781509896370",
+    "isbn_9789388333061",
+    "isbn_001741749",
+    "prideprejudicebe0000jane",
+    "isbn_9781478107163",
+    "dumaiuprzedzenie0000jane",
+    "isbn_9780486453941",
+    "prideprejudicela0000easy",
+    "isbn_9780755339419",
+    "isbn_9781407214320",
+    "prideprejudiceab0000jane",
+    "prideprejudicde0000jane",
+    "bwb_T2-EBX-028",
+    "prideprejudiceil0000unse",
+    "prideprejudice0000aust_q7i1",
+    "prideprejudice0000jane_m1r5",
+    "prideprejudicewi0000jane",
+    "prideandprejudic0000aust",
+    "prideprejudiceli0000jane_g6h7",
+    "isbn_9781490900582",
+    "prideprejudiceli0000jane_k4s7",
+    "prideprejudice0000jane_c5v7",
+    "prideprejudice0000unse_n5m8",
+    "northangerabbeyb00aust_1",
+    "prideprejudice0000unse_z8h2",
+    "prideprejudice0001unse",
+    "prideprejudice0000jane_q9l1",
+    "prideprejudice0000unse_f4v8",
+    "annotatedpridepr0000aust_z5a2",
+    "isbn_9788804506157",
+    "prideprejudice0000unse_b6b3",
+    "prideprejudice0000unse_l2r2",
+    "prideprejudice0000unse_b8h9",
+    "prideprejudice0000unse_b6l5",
+    "prideprejudice0000unse_x6q4",
+    "prideprejudicewi0000aust",
+    "prideprejudice0000unse_h7p9",
+    "prideprejudice0000aust_g2c3",
+    "prideprejudice0000aust_m5w3",
+    "kieuhanhvadinhki0000jane",
+    "novelsofjaneaust0002aust_3ed",
+    "prideprejudice0000unse_d9p2",
+    "prideprejudice0000aust_d8g7",
+    "prideprejudice1972aust",
+    "prideprejudice00jane",
+    "prideprejudice200aust",
+    "prideprejudice300aust",
+    "prideprejudice400aust",
+    "prideprejudice0000aust_v9a3",
+    "isbn_9780451523655",
+    "prideprejudice700aust",
+    "prideprejudiceba00jane",
+    "prideprejudice0000aust_a8q0",
+    "prideprejudice0000aust_d7r2",
+    "prideprejudice0000aust_f9z9",
+    "prideprejudice0000aust_l4b4",
+    "isbn_9780307386861",
+    "prideprejudice0000aust_z1y1",
+    "annotatedpridepr0000aust",
+    "prideprejudice0000aust_f0s7",
+    "prideprejudice0000unse_n8s8",
+    "prideprejudice0000aust_k9t1",
+    "prideprejudice0000aust_t8i9",
+    "prideprejudice1975aust",
+    "prideprejudice0000aust_w8a1",
+    "prideprejudice0000aust_m3i2",
+    "prideprejudice0000aust_e8f2",
+    "prideprejudice0000aust_t4q1",
+    "prideprejudice0000aust_s1e1"
+   ],
+   "ia_collection": [
+    "365-Books-by-Women-Authors",
+    "americana",
+    "americanuniversity-ol",
+    "audio_bookspoetry",
+    "belmont-ol",
+    "binghamton-ol",
+    "bpljordan-ol",
+    "brucepeel",
+    "cnusd-ol",
+    "community",
+    "cua-ol",
+    "dartmouthlibrary-ol",
+    "delawarecountydistrictlibrary",
+    "delawarecountydistrictlibrary-ol",
+    "denverpubliclibrary-ol",
+    "drakeuniversity-ol",
+    "duke_libraries",
+    "emory",
+    "framingham-ol",
+    "georgetown-university-law-library-ol",
+    "gutenberg",
+    "gutenberg-audiobooks",
+    "gwulibraries-ol",
+    "hamiltonpubliclibrary-ol",
+    "inlibrary",
+    "internetarchivebooks",
+    "ithacacollege-ol",
+    "johnshopkins-ol",
+    "kalamazoocollege-ol",
+    "kellylibrary",
+    "library_of_congress",
+    "librivoxaudio",
+    "marygrovecollege",
+    "miltonpubliclibrary-ol",
+    "newyorkpubliclibrary",
+    "occidentalcollegelibrary-ol",
+    "openlibrary-d-ol",
+    "opensource",
+    "phillipsacademy-preview",
+    "popularchinesebooks",
+    "printdisabled",
+    "randolph-macon-college-ol",
+    "riceuniversity-ol",
+    "robarts",
+    "rochester-ol",
+    "spokanepubliclibrary-ol",
+    "stmaryscountylibrary",
+    "the-claremont-colleges-ol",
+    "toronto",
+    "udc-ol",
+    "unb-ol",
+    "uni-ol",
+    "university_of_alberta_libraries",
+    "university_of_illinois_urbana-champaign",
+    "university_of_toronto",
+    "universityofcoloradoboulder-ol",
+    "universityofoklahoma-ol",
+    "uslprototype",
+    "wilsoncollege-ol",
+    "worthingtonlibraries-ol",
+    "yellowbacks"
+   ],
+   "language": [
+    "spa",
+    "ind",
+    "rum",
+    "hin",
+    "hun",
+    "vie",
+    "cze",
+    "rus",
+    "dut",
+    "swe",
+    "srp",
+    "guj",
+    "ita",
+    "por",
+    "sin",
+    "ger",
+    "pan",
+    "eng",
+    "mul",
+    "fre",
+    "tam",
+    "pol",
+    "chi",
+    "cor",
+    "jpn",
+    "kor",
+    "fin"
+   ],
+   "lending_edition_s": "OL50444320M",
+   "lending_identifier_s": "bwb_KS-179-237",
+   "public_scan_b": true,
+   "id_project_gutenberg": [
+    "1342",
+    "42671",
+    "45186"
+   ],
+   "id_librivox": [
+    "253",
+    "orgullo-y-prejuicio-vol-2-by-jane-austen",
+    "5349",
+    "969",
+    "4023",
+    "254",
+    "1480"
+   ],
+   "id_standard_ebooks": [
+    "jane-austen/pride-and-prejudice"
+   ],
+   "editions": {
+    "numFound": 4042,
+    "start": 0,
+    "numFoundExact": true,
+    "docs": [
+     {
+      "key": "/books/OL50444320M",
+      "title": "Pride and Prejudice",
+      "cover_i": 15095637,
+      "cover_width": 608,
+      "cover_height": 997,
+      "language": [
+       "eng"
+      ],
+      "ia": [
+       "bwb_KS-179-237"
+      ],
+      "ia_collection": [
+       "internetarchivebooks"
+      ],
+      "ebook_access": "public",
+      "has_fulltext": true,
+      "public_scan_b": true,
+      "providers": [
+       {
+        "access": "open-access",
+        "format": "web",
+        "price": null,
+        "url": "https://archive.org/details/bwb_KS-179-237?view=theater&wrapper=false",
+        "provider_name": "ia"
+       },
+       {
+        "access": "open-access",
+        "format": "pdf",
+        "price": null,
+        "url": "https://archive.org/download/bwb_KS-179-237/bwb_KS-179-237.pdf",
+        "provider_name": "ia"
+       },
+       {
+        "access": "open-access",
+        "format": "epub",
+        "price": null,
+        "url": "https://archive.org/download/bwb_KS-179-237/bwb_KS-179-237.epub",
+        "provider_name": "ia"
+       }
+      ],
+      "availability": {
+       "status": "open",
+       "available_to_browse": false,
+       "available_to_borrow": false,
+       "available_to_waitlist": false,
+       "is_printdisabled": false,
+       "is_readable": true,
+       "is_lendable": false,
+       "is_previewable": true,
+       "identifier": "bwb_KS-179-237",
+       "isbn": null,
+       "oclc": null,
+       "openlibrary_work": "OL66554W",
+       "openlibrary_edition": "OL50444320M",
+       "last_loan_date": null,
+       "num_waitlist": null,
+       "last_waitlist_date": null,
+       "is_restricted": false,
+       "is_browseable": false,
+       "__src__": "core.models.lending.get_availability"
+      }
+     }
+    ]
+   },
+   "providers": []
+  },
+  {
+   "key": "/works/OL1168083W",
+   "title": "Nineteen Eighty-Four",
+   "author_name": [
+    "George Orwell"
+   ],
+   "author_key": [
+    "OL15318546A"
+   ],
+   "cover_height": 958,
+   "cover_i": 9267242,
+   "cover_width": 632,
+   "ebook_access": "borrowable",
+   "edition_count": 727,
+   "first_publish_year": 1949,
+   "has_fulltext": true,
+   "ia": [
+    "bwb_KS-393-950",
+    "nineteeneightyfo0000geor_t8a6",
+    "nineteeneightyfo0000geor_d6p5",
+    "19840000aowe",
+    "milnovecientosoc0000orwe",
+    "nineteeneightyfo0000orwe_z8u8",
+    "nineteeneightyf00orwe",
+    "nineteeneightyfo0000unse_d3d1",
+    "nineteeneightyfo0000orwe_f1k5",
+    "nineteeneightyfo0000orwe_k1u2",
+    "yijiubasi0000orwe",
+    "1984orwe00orwe",
+    "omienouasuteoptz0000orwe",
+    "19840000unse_w5q3",
+    "isbn_9788194215813",
+    "isbn_9789955135005",
+    "nineteeneightyfo0000unse_r2r2",
+    "bwb_S0-AWJ-404",
+    "bwb_KU-573-568",
+    "bwb_S0-BYS-340",
+    "bwb_KV-351-285",
+    "1984novelbygeorg0000eric",
+    "1984georgeorwell0000eric",
+    "19840000geor",
+    "nineteeneightyfo0000geor_a4u8",
+    "rok19840000unse",
+    "1984paperback0000unse",
+    "1984latestclassi0000unse",
+    "19842v0000geor",
+    "completeunabridg0000geor",
+    "nineteeneightyfo0000unse_o4v6",
+    "nineteeneightyfo0000unse_e0y3",
+    "1984ieji0000unse",
+    "1984edicinilustr0000geor",
+    "bwb_KS-393-057",
+    "nineteeneightyfo0000geor_e0z5",
+    "1984illustretann0000geor",
+    "bwb_P8-AMS-375",
+    "isbn_9791280035158",
+    "nineteeneightyfo0000unse_z9f0",
+    "isbn_9780143440314",
+    "bwb_S0-CRV-087",
+    "bwb_Y0-BUV-560",
+    "nineteeneightyfo0000geor_w0g8",
+    "1984novel0000orwe",
+    "nineteeneightyfo0000geor_r7h0",
+    "19840000geor_g6d1",
+    "19840000goer",
+    "nineteeneightyfo0000geor_y2c9",
+    "19840000unse_n6g0",
+    "19840000geor_f1w6",
+    "19840000geor_u9l2",
+    "1984novel0000geor_j5j0",
+    "bwb_Y0-BMB-578",
+    "bwb_Y0-BAN-899",
+    "bwb_C0-AEA-351",
+    "bwb_Y0-CHQ-711",
+    "bwb_S0-EEV-515",
+    "bwb_Y0-CIO-414",
+    "bwb_C0-BIX-219",
+    "bwb_C0-ADZ-045",
+    "bwb_Y0-DAN-451",
+    "bwb_S0-BUM-804",
+    "bwb_S0-ECZ-102",
+    "bwb_S0-EBZ-104",
+    "nineteeneightyfo0000unse_y7h5",
+    "bwb_S0-EME-549",
+    "nineteeneightyfo0000geor_m9j9",
+    "bwb_S0-EKX-794",
+    "bwb_W9-CVU-008",
+    "isbn_9787553468358",
+    "bwb_S0-DTO-157",
+    "isbn_9789937062749",
+    "bwb_Y0-BWD-817",
+    "bwb_Y0-BUT-646",
+    "bwb_KU-995-327",
+    "19840000dzor",
+    "19840000geor_a4o6",
+    "bwb_KU-999-683",
+    "19840000orwe_g7p5",
+    "nineteeneightyfo0000geor",
+    "19840000orwe_e0j7",
+    "19840000unse_i6u0",
+    "nineteeneightyfo0000unse_t8z6",
+    "nineteeneightyfo00orwe_0",
+    "1984novel1981orwe",
+    "milnovecentoseoi0000unse",
+    "19840000orwe_p3x9",
+    "19840000orwe_p4z8",
+    "19840000orwe_n8y3",
+    "1984novel1977orwe",
+    "nineteeneightyfo00orwe",
+    "1984novelcommemo00geor",
+    "nineteeneightyfo0000geor_k4n0",
+    "1984novel0000geor",
+    "nineteeneightyfo0000geor_m5u4",
+    "ge198400orwe",
+    "1984novel00orwe",
+    "bwb_T5-DGV-130",
+    "bwb_KU-415-000",
+    "bwb_KU-466-008",
+    "bwb_W9-DDC-146",
+    "isbn_9780758797414",
+    "bwb_C0-BNX-991",
+    "bwb_T5-CUU-923",
+    "bwb_T5-AXN-149",
+    "bwb_Y0-BYJ-405",
+    "bwb_KU-346-960",
+    "bwb_KU-147-669",
+    "isbn_9789029587099",
+    "isbn_9787567504424",
+    "isbn_9786055114343",
+    "19840000geor_l0r8",
+    "nineteeneightfou0000geor",
+    "isbn_9781405965347",
+    "bwb_P9-EEP-238",
+    "bwb_KS-034-297",
+    "isbn_9780241334669",
+    "19840000geor_o4r3",
+    "nineteeneightyfo0000unse_x7x2",
+    "nineteeneightyfo0000unse_p9d2",
+    "nineteeneightyfo0000geor_z9j6",
+    "19840000geor_c6a1",
+    "1984famousnovelo0000unse",
+    "nineteeneightyfo0000orwe_w3r8",
+    "198400geor",
+    "bwb_P8-BNZ-877",
+    "198400orwe",
+    "19840000geor_c4l6",
+    "nineteeneightyfo0000unse_w2i7",
+    "1984novel00orwe_0",
+    "nineteeneightyfo00orwe_1",
+    "nineteeneightyfo0000orwe_l3h6",
+    "nineteeneightyfo0000geor_o6v5",
+    "1984novel00orwe_1",
+    "1984nove00orwe",
+    "1984novelorwe00orwe",
+    "bwb_Y0-BVY-648",
+    "19840000unse",
+    "19840000orwe_o6n1",
+    "nineteeneightyfo0000orwe_q5v1",
+    "neunzehnhundertv0000geor",
+    "bwb_S0-BGU-623",
+    "19840000orwe",
+    "nineteeneightyfo0000geor_t6k0",
+    "yijiubasi0000orwe_y0s9",
+    "19840000orwe_y0d7",
+    "19840000orwe_l5q6",
+    "bwb_S0-AKI-268",
+    "yijiubasininetee0000orwe",
+    "yijiubasininetee0000orwe_p0v5",
+    "1984iemilnueveci0000orwe",
+    "nineteeneightyfo0000geor_n1g9",
+    "nineteeneightyfo0000orwe_g7l1"
+   ],
+   "ia_collection": [
+    "ambslibrary-ol",
+    "americana",
+    "americanuniversity-ol",
+    "bannedbooks",
+    "belmont-ol",
+    "binghamton-ol",
+    "cnusd-ol",
+    "cua-ol",
+    "dartmouthlibrary-ol",
+    "delawarecountydistrictlibrary",
+    "delawarecountydistrictlibrary-ol",
+    "denverpubliclibrary-ol",
+    "drakeuniversity-ol",
+    "georgetown-university-law-library-ol",
+    "goffstownlibrary-ol",
+    "graduatetheologicalunion",
+    "gwulibraries-ol",
+    "hamiltonpubliclibrary-ol",
+    "inlibrary",
+    "internetarchivebooks",
+    "ithacacollege-ol",
+    "johnshopkins-ol",
+    "johnsonandwalesuniversitydenver",
+    "library_of_atlantis",
+    "marygrovecollege",
+    "marymount-ol",
+    "occidentalcollegelibrary-ol",
+    "openlibrary-d-ol",
+    "popularchinesebooks",
+    "printdisabled",
+    "randolph-macon-college-ol",
+    "riceuniversity-ol",
+    "rochester-ol",
+    "salisburyfreelibrary-ol",
+    "schroederlibrary-ol",
+    "spokanepubliclibrary-ol",
+    "stmaryscountylibrary",
+    "the-claremont-colleges-ol",
+    "toronto",
+    "tulsacc-ol",
+    "uhmauicollege-ol",
+    "unb-ol",
+    "universityofcoloradoboulder-ol",
+    "universityofoklahoma-ol",
+    "universityofthewest-ol",
+    "uslprototype",
+    "wilsoncollege-ol",
+    "worthingtonlibraries-ol",
+    "wrlc-ol"
+   ],
+   "language": [
+    "cat",
+    "gre",
+    "urd",
+    "srp",
+    "spa",
+    "pol",
+    "ukr",
+    "eng",
+    "ind",
+    "rus",
+    "fre",
+    "por",
+    "chi",
+    "swe",
+    "dut",
+    "lit",
+    "per",
+    "heb",
+    "rum",
+    "ara",
+    "tur",
+    "ita",
+    "jpn",
+    "pus",
+    "dan",
+    "nor",
+    "ger"
+   ],
+   "lending_edition_s": "OL58626452M",
+   "lending_identifier_s": "bwb_KS-393-950",
+   "public_scan_b": false,
+   "editions": {
+    "numFound": 727,
+    "start": 0,
+    "numFoundExact": true,
+    "docs": [
+     {
+      "key": "/books/OL58626452M",
+      "title": "Nineteen Eighty-Four",
+      "cover_i": 15256044,
+      "cover_width": 1728,
+      "cover_height": 2709,
+      "language": [
+       "eng"
+      ],
+      "ia": [
+       "bwb_KS-393-950"
+      ],
+      "ia_collection": [
+       "printdisabled",
+       "inlibrary",
+       "internetarchivebooks"
+      ],
+      "ebook_access": "borrowable",
+      "has_fulltext": true,
+      "public_scan_b": false,
+      "providers": [
+       {
+        "access": "borrow",
+        "format": "web",
+        "price": null,
+        "url": "https://archive.org/details/bwb_KS-393-950?view=theater&wrapper=false",
+        "provider_name": "ia"
+       }
+      ],
+      "availability": {
+       "status": "borrow_available",
+       "available_to_browse": true,
+       "available_to_borrow": false,
+       "available_to_waitlist": false,
+       "is_printdisabled": true,
+       "is_readable": false,
+       "is_lendable": true,
+       "is_previewable": true,
+       "identifier": "bwb_KS-393-950",
+       "isbn": null,
+       "oclc": null,
+       "openlibrary_work": "OL1168083W",
+       "openlibrary_edition": "OL58626452M",
+       "last_loan_date": null,
+       "num_waitlist": null,
+       "last_waitlist_date": null,
+       "is_restricted": true,
+       "is_browseable": true,
+       "__src__": "core.models.lending.get_availability"
+      }
+     }
+    ]
+   },
+   "providers": []
+  },
+  {
+   "key": "/works/OL1268413W",
+   "title": "... Trotzdem Ja zum Leben sagen",
+   "author_name": [
+    "Viktor Emil Frankl"
+   ],
+   "author_key": [
+    "OL128213A"
+   ],
+   "cover_edition_key": "OL9032925M",
+   "cover_height": 475,
+   "cover_i": 8516506,
+   "cover_width": 277,
+   "ebook_access": "borrowable",
+   "edition_count": 111,
+   "first_publish_year": 1946,
+   "has_fulltext": true,
+   "ia": [
+    "manssearchformea0000vikt_n7m8",
+    "manssearchformea0000vikt_e5l5",
+    "manssearchformea0000hect",
+    "manssearchformea0000vict",
+    "manssearchformea0000fran_r8s9",
+    "manssearchformea0000unse",
+    "manssearchformea00fran_0",
+    "manssearchforme000fran",
+    "manssearchformea00fran",
+    "manssearchformea1963fran",
+    "manssearchformea00vict",
+    "manssearchformea0000fran_l6z8",
+    "manssearchformea0000vikt_p1h3",
+    "isbn_067182161x",
+    "fromdeathcamptoe0000fran",
+    "manssearchformea0000fran",
+    "manssearchformea0000fran_b9n3",
+    "zhuixunshengming0000fran",
+    "decouvrirunsenss0000fran",
+    "manssearchformea0000fran_f2v4",
+    "manssearchformea0000vikt",
+    "elhombreenbuscad0000fran",
+    "manssearchformea00vikt",
+    "manssearchformea00vikt_0",
+    "manssearchforme00fran",
+    "MansSearchForMeaningJoycenter.net"
+   ],
+   "ia_collection": [
+    "americana",
+    "americanuniversity-ol",
+    "barryuniversity-ol",
+    "binghamton-ol",
+    "claremont_school_of_theology",
+    "cnusd-ol",
+    "dartmouthlibrary-ol",
+    "delawarecountydistrictlibrary",
+    "delawarecountydistrictlibrary-ol",
+    "gwulibraries-ol",
+    "inlibrary",
+    "internetarchivebooks",
+    "johnshopkins-ol",
+    "kalamazoocollege-ol",
+    "library_of_atlantis",
+    "marygrovecollege",
+    "openlibrary-d-ol",
+    "popularchinesebooks",
+    "printdisabled",
+    "rochester-ol",
+    "trent_university",
+    "universityofcoloradoboulder-ol",
+    "universityofoklahoma-ol",
+    "universityofthewest-ol",
+    "wilsoncollege-ol",
+    "worthingtonlibraries-ol"
+   ],
+   "language": [
+    "afr",
+    "fre",
+    "tam",
+    "eng",
+    "ger",
+    "ita",
+    "srp",
+    "mar",
+    "chi",
+    "spa",
+    "und"
+   ],
+   "lending_edition_s": "OL58936271M",
+   "lending_identifier_s": "manssearchformea0000vikt_n7m8",
+   "public_scan_b": false,
+   "editions": {
+    "numFound": 111,
+    "start": 0,
+    "numFoundExact": true,
+    "docs": [
+     {
+      "key": "/books/OL58936271M",
+      "title": "Man's Search for Meaning",
+      "subtitle": "An introduction to logotherapy",
+      "cover_i": 15257391,
+      "cover_width": 544,
+      "cover_height": 563,
+      "language": [
+       "eng"
+      ],
+      "ia": [
+       "manssearchformea0000vikt_n7m8"
+      ],
+      "ia_collection": [
+       "inlibrary",
+       "internetarchivebooks",
+       "printdisabled"
+      ],
+      "ebook_access": "borrowable",
+      "has_fulltext": true,
+      "public_scan_b": false,
+      "providers": [
+       {
+        "access": "borrow",
+        "format": "web",
+        "price": null,
+        "url": "https://archive.org/details/manssearchformea0000vikt_n7m8?view=theater&wrapper=false",
+        "provider_name": "ia"
+       }
+      ],
+      "availability": {
+       "status": "borrow_available",
+       "available_to_browse": true,
+       "available_to_borrow": false,
+       "available_to_waitlist": false,
+       "is_printdisabled": true,
+       "is_readable": false,
+       "is_lendable": true,
+       "is_previewable": true,
+       "identifier": "manssearchformea0000vikt_n7m8",
+       "isbn": null,
+       "oclc": null,
+       "openlibrary_work": "OL43270705W",
+       "openlibrary_edition": "OL58936271M",
+       "last_loan_date": null,
+       "num_waitlist": null,
+       "last_waitlist_date": null,
+       "is_restricted": true,
+       "is_browseable": true,
+       "__src__": "core.models.lending.get_availability"
+      }
+     }
+    ]
+   },
+   "providers": []
+  },
+  {
+   "key": "/works/OL25291486W",
+   "title": "Read People Like a Book",
+   "author_name": [
+    "Patrick King"
+   ],
+   "author_key": [
+    "OL1913182A"
+   ],
+   "cover_height": 500,
+   "cover_i": 11983442,
+   "cover_width": 291,
+   "ebook_access": "no_ebook",
+   "edition_count": 4,
+   "first_publish_year": 2020,
+   "has_fulltext": false,
+   "language": [
+    "ita",
+    "eng"
+   ],
+   "public_scan_b": false,
+   "editions": {
+    "numFound": 4,
+    "start": 0,
+    "numFoundExact": true,
+    "docs": [
+     {
+      "key": "/books/OL42605917M",
+      "title": "Read People Like a Book",
+      "subtitle": "How to Analyze, Understand, and Predict People's Emotions, Thoughts, Intentions, and Behaviors",
+      "cover_i": 15248103,
+      "cover_width": 793,
+      "cover_height": 1360,
+      "language": [
+       "eng"
+      ],
+      "ebook_access": "no_ebook",
+      "has_fulltext": false,
+      "public_scan_b": false,
+      "providers": []
+     }
+    ]
+   },
+   "providers": []
+  },
+  {
+   "key": "/works/OL1968364W",
+   "title": "The Art of Seduction",
+   "author_name": [
+    "Robert Greene",
+    "Joost Elffers",
+    "Robert Greene / Joost Elffers"
+   ],
+   "author_key": [
+    "OL236414A",
+    "OL224036A",
+    "OL12538230A"
+   ],
+   "cover_edition_key": "OL8631721M",
+   "cover_height": 475,
+   "cover_i": 917840,
+   "cover_width": 327,
+   "ebook_access": "printdisabled",
+   "edition_count": 19,
+   "first_publish_year": 2001,
+   "has_fulltext": true,
+   "ia": [
+    "artofseduction0000gree",
+    "artofseduction00robe_0",
+    "elartedelaseducc0000gree"
+   ],
+   "ia_collection": [
+    "internetarchivebooks",
+    "printdisabled"
+   ],
+   "language": [
+    "spa",
+    "eng"
+   ],
+   "public_scan_b": false,
+   "editions": {
+    "numFound": 19,
+    "start": 0,
+    "numFoundExact": true,
+    "docs": [
+     {
+      "key": "/books/OL8631770M",
+      "title": "The Art of Seduction",
+      "cover_i": 15118291,
+      "cover_width": 2190,
+      "cover_height": 3240,
+      "language": [
+       "eng"
+      ],
+      "ia": [
+       "artofseduction0000gree"
+      ],
+      "ia_collection": [
+       "internetarchivebooks",
+       "printdisabled"
+      ],
+      "ebook_access": "printdisabled",
+      "has_fulltext": true,
+      "public_scan_b": false,
+      "providers": [
+       {
+        "access": "sample",
+        "format": "web",
+        "price": null,
+        "url": "https://archive.org/details/artofseduction0000gree?view=theater&wrapper=false",
+        "provider_name": "ia"
+       }
+      ],
+      "availability": {
+       "status": "private",
+       "available_to_browse": false,
+       "available_to_borrow": false,
+       "available_to_waitlist": false,
+       "is_printdisabled": true,
+       "is_readable": false,
+       "is_lendable": false,
+       "is_previewable": true,
+       "identifier": "artofseduction0000gree",
+       "isbn": "1861977697",
+       "oclc": null,
+       "openlibrary_work": "OL1968403W",
+       "openlibrary_edition": "OL8631770M",
+       "last_loan_date": null,
+       "num_waitlist": null,
+       "last_waitlist_date": null,
+       "is_restricted": true,
+       "is_browseable": false,
+       "__src__": "core.models.lending.get_availability"
+      }
+     }
+    ]
+   },
+   "providers": []
+  },
+  {
+   "key": "/works/OL17370186W",
+   "title": "A Little Life",
+   "author_name": [
+    "Hanya Yanagihara"
+   ],
+   "author_key": [
+    "OL9325164A"
+   ],
+   "cover_edition_key": "OL35136778M",
+   "cover_height": 834,
+   "cover_i": 12065783,
+   "cover_width": 534,
+   "ebook_access": "borrowable",
+   "edition_count": 38,
+   "first_publish_year": 2008,
+   "has_fulltext": true,
+   "ia": [
+    "unavitacometante0000hany",
+    "malenkaiazhizn0000yana",
+    "litullaipulittle0000yana",
+    "littlelifenovel0000yana_p3t9",
+    "littlelifenovel0000yana_g7i1",
+    "matezycie0000hany",
+    "littlelifenovel0000yana",
+    "littlelife0000yana"
+   ],
+   "ia_collection": [
+    "americanuniversity-ol",
+    "belmont-ol",
+    "cua-ol",
+    "dartmouthlibrary-ol",
+    "delawarecountydistrictlibrary-ol",
+    "drakeuniversity-ol",
+    "georgetown-university-law-library-ol",
+    "goffstownlibrary-ol",
+    "gwulibraries-ol",
+    "hamiltonpubliclibrary-ol",
+    "inlibrary",
+    "internetarchivebooks",
+    "ithacacollege-ol",
+    "miltonpubliclibrary-ol",
+    "printdisabled",
+    "riceuniversity-ol",
+    "rochester-ol",
+    "unb-ol",
+    "universityofarizona-ol",
+    "universityofcoloradoboulder-ol",
+    "wilsoncollege-ol",
+    "worthingtonlibraries-ol"
+   ],
+   "language": [
+    "fin",
+    "dut",
+    "ita",
+    "por",
+    "ger",
+    "rus",
+    "kor",
+    "pol",
+    "spa",
+    "eng"
+   ],
+   "lending_edition_s": "OL36186781M",
+   "lending_identifier_s": "unavitacometante0000hany",
+   "public_scan_b": false,
+   "editions": {
+    "numFound": 38,
+    "start": 0,
+    "numFoundExact": true,
+    "docs": [
+     {
+      "key": "/books/OL35136778M",
+      "title": "A Little Life",
+      "cover_i": 15231386,
+      "cover_width": 2136,
+      "cover_height": 3333,
+      "language": [
+       "eng"
+      ],
+      "ia": [
+       "littlelifenovel0000yana_p3t9"
+      ],
+      "ia_collection": [
+       "internetarchivebooks",
+       "printdisabled"
+      ],
+      "ebook_access": "printdisabled",
+      "has_fulltext": true,
+      "public_scan_b": false,
+      "providers": [
+       {
+        "access": "sample",
+        "format": "web",
+        "price": null,
+        "url": "https://archive.org/details/littlelifenovel0000yana_p3t9?view=theater&wrapper=false",
+        "provider_name": "ia"
+       }
+      ],
+      "availability": {
+       "status": "private",
+       "available_to_browse": false,
+       "available_to_borrow": false,
+       "available_to_waitlist": false,
+       "is_printdisabled": true,
+       "is_readable": false,
+       "is_lendable": false,
+       "is_previewable": true,
+       "identifier": "littlelifenovel0000yana_p3t9",
+       "isbn": "9780385539258",
+       "oclc": null,
+       "openlibrary_work": "OL17370186W",
+       "openlibrary_edition": "OL35136778M",
+       "last_loan_date": null,
+       "num_waitlist": null,
+       "last_waitlist_date": null,
+       "is_restricted": true,
+       "is_browseable": false,
+       "__src__": "core.models.lending.get_availability"
+      }
+     }
+    ]
+   },
+   "providers": []
+  },
+  {
+   "key": "/works/OL25907018W",
+   "title": "Dark Psychology and Manipulation",
+   "author_name": [
+    "William Cooper"
+   ],
+   "author_key": [
+    "OL15217183A"
+   ],
+   "cover_edition_key": "OL34975716M",
+   "cover_i": 15131420,
+   "ebook_access": "no_ebook",
+   "edition_count": 2,
+   "first_publish_year": 2020,
+   "has_fulltext": false,
+   "language": [
+    "eng"
+   ],
+   "public_scan_b": false,
+   "editions": {
+    "numFound": 2,
+    "start": 0,
+    "numFoundExact": true,
+    "docs": [
+     {
+      "key": "/books/OL34975716M",
+      "title": "Dark Psychology and Manipulation",
+      "subtitle": "Discover 40 Covert Emotional Manipulation Techniques, Mind Control and Brainwashing. Learn How to Analyze People, NLP Secret and Science of Persuasion to Influence Anyone",
+      "cover_i": 15131420,
+      "language": [
+       "eng"
+      ],
+      "ebook_access": "no_ebook",
+      "has_fulltext": false,
+      "public_scan_b": false,
+      "providers": []
+     }
+    ]
+   },
+   "providers": []
+  },
+  {
+   "key": "/works/OL21177W",
+   "title": "Wuthering Heights",
+   "author_name": [
+    "Emily Bronte\u0308"
+   ],
+   "author_key": [
+    "OL24529A"
+   ],
+   "cover_edition_key": "OL38586477M",
+   "cover_height": 738,
+   "cover_i": 12818862,
+   "cover_width": 457,
+   "ebook_access": "public",
+   "edition_count": 2888,
+   "first_publish_year": 1846,
+   "has_fulltext": true,
+   "ia": [
+    "wutheringheights0000kesh",
+    "bwb_P8-AHF-117",
+    "wutheringheights0000emil_l5o2",
+    "wutheringheights0000unse_m5h3",
+    "wutheringheights0000unse_l4d9",
+    "wutheringheights0000emil_h1v6",
+    "synapseml_gutenberg_wuthering_heights_by_emily_bronte",
+    "bwb_W6-BBN-965",
+    "wutheringheights0000emil_p4x9",
+    "wutheringheights0000emil_z8q3",
+    "wutheringheights0000emil_s0b8",
+    "wutheringheights0000unse_b2b2",
+    "wutheringheights0000unse_a7o7",
+    "wutheringheights0000unse_r9y4",
+    "wutheringheights0000emil_m8k2",
+    "wutheringheights0000unse_d0g3",
+    "wutheringheights0000unse_d9k8",
+    "wutheringheights0000unse_h5f7",
+    "leshautsdehurlev00bron",
+    "wutheringheights0000unse_o9l5",
+    "wutheringheights0000unse_d9m1",
+    "wutheringheights0000unse_p7v2",
+    "bwb_P8-CED-736",
+    "wutheringheights0000unse_x2c3",
+    "wutheringheights0000emil_g9r3",
+    "wutheringheights0000emil_x8m4",
+    "cu31924013440759",
+    "wutheringheights0000unse_i0r3",
+    "wutheringheights0000unse_d4t9",
+    "wutheringheights00768gut",
+    "wutheringheights0000bron_x3t1",
+    "wuthering_heights_0801_librivox",
+    "wutheringheights04bron",
+    "wutheringheights01bron_0",
+    "wuthering_heights_rg_librivox",
+    "wutheringheights_1306_librivox",
+    "cumbresborrascosas_1608_librivox",
+    "wutheringheights0000unse_w3m0",
+    "wutheringheights0000unse_d3g0",
+    "wutheringheights0000unse_y5u8",
+    "novelsofsistersb11bron",
+    "bwb_KR-597-226",
+    "wutheringheights0000unse_i8y7",
+    "wutheringheights0000unse_w7g1",
+    "wutheringheight00bron",
+    "wutheringheight09brongoog",
+    "wutheringheight06brongoog",
+    "wutheringheight05brongoog",
+    "wutheringheight08brongoog",
+    "wutheringheights0000emil_k8i9",
+    "wutheringheights0000emil_s2t1",
+    "wutheringheights0000bron_t5i8",
+    "wutheringheights0000unse_t6t1",
+    "bwb_O6-EKG-532",
+    "wutheringheights0000unse_b0j4",
+    "wutheringheights0000emil_s9y3",
+    "bwb_KU-774-202",
+    "bwb_KU-190-080",
+    "bwb_W9-CNA-539",
+    "bdrc-W3KG111",
+    "byemilybrontewut0000unse",
+    "wutheringheights0000unse_t2x3",
+    "wutheringheights0000unse_b6h8",
+    "bwb_KP-552-474",
+    "bwb_P7-CBX-420",
+    "wutheringheights0000emil_l5o6",
+    "bwb_W3-ECR-178",
+    "bwb_O7-COO-507",
+    "wutheringheights0000bron_i6n7",
+    "wutheringheights0000barn",
+    "bwb_KS-371-746",
+    "bwb_P8-AYB-156",
+    "bwb_KS-158-468",
+    "wutheringheights0000unse_s0e8",
+    "wutheringheights0000emil_y6l9",
+    "isbn_9781402797026",
+    "isbn_9780199209286",
+    "isbn_0671485202",
+    "isbn_9781453064153",
+    "isbn_9780706427639",
+    "woestehoogten0000bron",
+    "bwb_W1-CCW-927",
+    "wutheringheights0000unse_n8y3",
+    "bwb_KP-577-174",
+    "isbn_9781606802373",
+    "wutheringheights0000emil_y2q7",
+    "huxiaoshanzhuang0000bola_f2s8",
+    "wutheringheights0000unse_r1z6",
+    "bwb_W8-BQU-813",
+    "isbn_0393964140_h9b3",
+    "isbn_0393964140",
+    "bwb_P8-CCO-589",
+    "bwb_KR-494-755",
+    "completehistorie0000shak",
+    "isbn_9781974492374",
+    "isbn_9780486453996",
+    "bwb_KR-633-568",
+    "bwb_KR-515-705",
+    "wutheringheights0000emil_i9j3",
+    "wutheringheights0000unse_j5o7",
+    "wutheringheights0000emil_g1k0",
+    "popularclassicso0000emil",
+    "wutheringheigths0000emil",
+    "wutheringheights0000emil_g6h6",
+    "wutheringheights0000unse_k5o1",
+    "wutheringheights0000unse_u8c8",
+    "isbn_9781535564618",
+    "wutheringheights0000emil_p9d8",
+    "wutheringheights0000unse_m5x8",
+    "huxiaoshanzhuan0000bron",
+    "pokpunguiondokwu0000bron",
+    "wutheringheights0000emil_m9s1",
+    "wutheringheights0000emil_c0j2",
+    "wutheringheights0000emil_g3f6",
+    "wutheringheights0000emil_b1c7",
+    "wutheringheights0000bola",
+    "wutheringheights0000emil_s9y3",
+    "wutheringheights0000emil_g2x4",
+    "wutheringheights0000bron_g1c3",
+    "hurlemont0000bron",
+    "cimetempestose0000bron",
+    "wutheringheights0000emil_q9p9",
+    "wutheringheights0000emil_z4m3",
+    "wutheringheights0000emil_w6d3",
+    "wutheringheights0000emil_e2x1",
+    "isbn_0394601068",
+    "wutheringheights0000unse_q1d6",
+    "emilybronteswuth0000unse_v7d7",
+    "wutheringheights0000unse_y1q9",
+    "isbn_9781482515923",
+    "wutheringheights0000unse_i4t4",
+    "wutheringheights0000emil_e0v1",
+    "wutheringheights0000emil_s9c5",
+    "wutheringheights0000bron_u1w2",
+    "wutheringheights0000emil_v4j1",
+    "emilybrontewuthe0000sale",
+    "wutheringheights0000unse_k9t0",
+    "wutheringheights0000unse_j9r0",
+    "huxiaoshanzhuang0000bola_n7e8",
+    "huxiaoshanzhuang0000bola_i8j7",
+    "dracula0000stok_r1j5",
+    "wutheringheights0000unse_o8g5",
+    "wutheringheights0000unse_s1p9",
+    "wutheringheights0000unse_d8g0",
+    "wutheringheights0000unse_e4c3",
+    "wutheringheights0000unse_u0w6",
+    "wutheringheights0000unse_r9m9",
+    "isbn_9780141196039",
+    "wutheringheights0000unse_u0y8",
+    "wutheringheights0000unse_h0g2",
+    "wutheringheights0000bron_s9x5",
+    "wutheringheights0000unse_h9b8",
+    "wutheringheights0000bron_f6w5",
+    "wutheringheights0000bron_d0v9",
+    "wutheringheights0000bron_t8p8",
+    "wutheringheights0000bron_e0r0",
+    "wutheringheights0000wsom",
+    "arashigaoka0000bron",
+    "murtafatwudhirng0000bron",
+    "wutheringheights0000unse_b8b8",
+    "wutheringheights0000unse_x1g8",
+    "wutheringheights0000unse_f4l0",
+    "wutheringheights0000unse_t6x3",
+    "wutheringheights0000unse_c4w9",
+    "leshautsdehurlev0000bron_q3b9",
+    "wutheringheights0000bron_f9s4",
+    "wutheringheights0000bron_b8y9",
+    "wutheringheights0000bron_x2n9",
+    "wutheringheights0000bron_k6r5",
+    "wutheringheights0000bron_q6u1",
+    "wutheringheights0000bron_q3y9",
+    "huxiaoshanzhuang0000ying_u2b5",
+    "huxiaoshanzhuang0000bron_y9y7",
+    "huxiaoshanzhuang0000bron_r0l4",
+    "huxiaoshanzhuang0000bron",
+    "huxiaoshanzhuang0000bron_w0c7",
+    "huxiaoshanzhuang0000ying",
+    "leshautsdehurlev0000bron_i9s1",
+    "wutheringheights0000unse_p6g9",
+    "wutheringheights0000unse_z8t0",
+    "wutheringheights0000unse_e1k3",
+    "wutheringheights0000unse_b3d4",
+    "wutheringheights0000unse_w5p8",
+    "wutheringheights0000unse_h1p0",
+    "wutheringheights0000unse_r1v3",
+    "wutheringheights0000unse_g9z7",
+    "wutheringheights0000unse_q8f8",
+    "cumbresborrascos0000bron_o4h1",
+    "wutheringheights1850bron",
+    "wutheringheights0000bron_n4a0",
+    "wutheringheights0000bron_t9c9",
+    "wutheringheightsbro00bron",
+    "wutheringheights0000emil_j4s4",
+    "wutheringheights0000emil_l8v5",
+    "wutheringheights0000unse_m8s0",
+    "wutheringheights0000bron_r3t2",
+    "wutheringheights0000unse_m9m7",
+    "wutheringheights0000bron_w4a2",
+    "wutheringheights0000emil_g5s7",
+    "wutheringheights0000bron_t5m3",
+    "wutheringheights0000bron_y3l7",
+    "wutheringheights00bron_10",
+    "wutheringheights0000bron_p9x0",
+    "wutheringheights0000unse_j5n1",
+    "wutheringheightsbron00bron",
+    "wutheringheights0000bron_v2b8",
+    "wutheringheights0000bron_g1j8",
+    "wutheringheights0000emil_g8r1",
+    "wutheringheights0000bron_l1c6",
+    "hurlevent0000bron",
+    "wutheringheights00bro_95p",
+    "wutheringheights0000bron_h6n3",
+    "wutheringheights0000unse_f3f4",
+    "wutheringheights0000unse_v2x0",
+    "wutheringheights0000bron_r2l8",
+    "wutheringheights0000bron_t3l7",
+    "wutheringheights00bron_2",
+    "wutheringheights0000bron_l2k5",
+    "wutheringheights0000bron_w7b7",
+    "wutheringheights0000unse_j3a6",
+    "bwb_KS-488-776",
+    "wutheringheight000bron",
+    "wutheringheights0000unse_d4q6",
+    "wutheringheights0000unse_r4m1",
+    "wutheringheights1958bron",
+    "isbn_0896731715",
+    "wutheringheights00emil_4",
+    "isbn_0671455079",
+    "isbn_9700760839",
+    "cumbresborrascos0000bron_d0d1",
+    "cumbresborrascos0000bron_n0m4",
+    "wutheringheights0000emil_w6x2",
+    "wutheringheights0000bron_o0w0",
+    "wutheringheights0000bron_b3q2",
+    "annotatedwutheri0000bron",
+    "wutheringheights0000bron_a6i4",
+    "wutheringheights0000bron_l8v5",
+    "wutheringheights0000bron_e3l9",
+    "wutheringheights0000bron_k4y1",
+    "wutheringheights0000bron_o1j6",
+    "bwb_W6-AGQ-373",
+    "bwb_388-ABB-917",
+    "wutheringheights0000emil",
+    "bwb_T3-AFA-171",
+    "wutheringheights0000emil_e6w8",
+    "wutheringheights0000unse_j4i0",
+    "wutheringheights0000unse",
+    "wutheringheights0000bron_u8b6",
+    "wutheringheights0000emil_x5c1",
+    "wutheringheights0000bron_i8t0",
+    "wutheringheights0000unse_j8d7",
+    "wutheringheights00emil",
+    "shakespeareheadb08wise",
+    "wutheringheights0000emil_h8z5",
+    "wutheringheights00emil_0",
+    "wutheringheights0000bron_z1w8",
+    "wutheringheights0000emil_m9a2",
+    "wutheringheights0000bron_q0e8",
+    "wutheringheights0000bron_g4n3",
+    "wutheringheights0000unse_a7y6",
+    "wutheringheights0000emil_x5b6",
+    "wutheringheights0000bron_w8e5",
+    "wutheringheights0000bron_z9j2",
+    "wutheringheights0000unse_y7u7",
+    "isbn_9798542843742",
+    "isbn_9781926444253",
+    "wutheringheights0000unse_d1l2",
+    "wutheringheights0000unse_v9p2",
+    "wutheringheights0000unse_d0o7",
+    "wutheringheights0000unse_s7o8",
+    "bwb_T2-AXY-056",
+    "wutheringheights0000juan",
+    "isbn_1573354031",
+    "wutheringheights0000bron_g9q4",
+    "wutheringheights0000unse_z2b9",
+    "wutheringheights0000unse_n4h9",
+    "wichrowewzglrzae0000unse",
+    "isbn_9780140954517_m1t7",
+    "isbn_0881032131",
+    "isbn_9788882891497",
+    "bwb_KR-685-639",
+    "isbn_9789706666727",
+    "rbanms.24554.illustratedclass0000emil",
+    "wutheringheights0000emil_g3l2",
+    "originalswutheri0000emil",
+    "cumbresborrascos0000unse_f2r2",
+    "wutheringheights0000bron_i7j0",
+    "wutheringheights0000unse_z0z2",
+    "wutheringheights0000unse_i6x0",
+    "nortonanthologyo0000unse_g5f5",
+    "bwb_P8-CEY-540",
+    "isbn_9798467132082",
+    "isbn_9788253026718",
+    "isbn_9781494366612",
+    "isbn_0862250587",
+    "isbn_9781509896356",
+    "isbn_9780615845531",
+    "wutheringheights0000emil_f0o0",
+    "wutheringheights0000unse_k2d3",
+    "zdanh_test_031_wutheringheights00bron",
+    "zdanh_test_031_wutheringheights00bron",
+    "leshautsdehurlev0000bron",
+    "hautsdehurlevent0000thod",
+    "cumbresborrascos0000unse",
+    "cumbresborrascos0000unse_q1s9",
+    "cumbresborrascos0000unse_m6q1",
+    "wutheringheights0000bron_i4g0",
+    "wutheringheights0000emil_j6f9",
+    "wutheringheights0000emil_l3e9",
+    "wutheringheights0000unse_w7q0",
+    "wutheringheights0000unse_k4w8",
+    "wutheringheights0000bron_k5p8",
+    "wutheringheights0000unse_r6p2",
+    "wutheringheights0000bron_t4w0",
+    "isbn_9789941028519",
+    "wutheringheights0000bron_m2t0",
+    "huxiaoshanzhuang0000bron_a6r7",
+    "wutheringheights0000bron_d0g5",
+    "wutheringheights0000bron_z0e2",
+    "wutheringheights0000blac",
+    "huxiaoshanzhuang0000bola",
+    "wutheringheights0000unse_v2q5",
+    "wutheringheights0000bron_c7y0",
+    "isbn_9780606015820",
+    "wutheringheights0000bron_a1a6",
+    "wutheringheights0000bron_i3f6",
+    "wutheringheights0001bron_s6t3",
+    "wutheringheights0000bron_y3a5",
+    "wutheringheights0000bron_p5n8",
+    "wutheringheights0000bron_z5w9",
+    "wutheringheights0000bron_i8d9",
+    "wutheringheights0000bron_b5d8",
+    "huxiaoshanzhuang0000bron_k3k0",
+    "leshautsdehurlev0000bron_v2q6",
+    "wutheringheights0000unse_d0q1",
+    "bwb_W8-BHY-208",
+    "wutheringheig00bron",
+    "wutheringheigh00bron",
+    "bwb_W9-BYI-951",
+    "wutheringheights00bron_1",
+    "wutheringheights0000bron_m1q8",
+    "wutheringheig00emil",
+    "wutheringheights0000bron_v9o9",
+    "wutheringheights00bro_odt",
+    "wutheringheights00bron_0",
+    "classicswutherin00emil",
+    "wutheringheight200bron",
+    "isbn_0553211412",
+    "bwb_O8-CGE-677",
+    "isbn_9782869306622",
+    "wutheringheights0000emil_t2a4",
+    "wutheringheights0000unse_z1j9",
+    "wutheringheights00emil_5",
+    "wutheringheights00bron_9",
+    "wutheringheights0000emil_t4e1",
+    "wutheringheights00bron_11",
+    "wutheringheights0000bron_k1f0",
+    "wutheringheights0000bron_i5c5",
+    "wutheringheights0000bron_k2v3",
+    "wutheringheights0000bron_q9a2",
+    "hurlevent0000unse",
+    "wutheringheights0000bron_s7u4",
+    "wutheringhgts00emil",
+    "lp_wuthering-heights-abridged_judith-anderson-claire-bloom-james-maso",
+    "Emily_Bronte__Les_Hauts_De_HurleVent"
+   ],
+   "ia_collection": [
+    "365-Books-by-Women-Authors",
+    "JaiGyan",
+    "ServantsOfKnowledge-Print",
+    "album_recordings",
+    "americana",
+    "americanuniversity-ol",
+    "audio_bookspoetry",
+    "audio_music",
+    "binghamton-ol",
+    "bop-street-records",
+    "bostonpubliclibrary",
+    "bplhoughton",
+    "bpljordan-ol",
+    "brigham_young_university",
+    "buddhist-digital-resource-center",
+    "buddhist-digital-resource-center-restricted",
+    "cnusd-ol",
+    "cornell",
+    "cua-ol",
+    "dartmouthlibrary-ol",
+    "delawarecountydistrictlibrary",
+    "delawarecountydistrictlibrary-ol",
+    "duke_libraries",
+    "europeanlibraries",
+    "geo_restricted",
+    "graduatetheologicalunion",
+    "gutenberg",
+    "gutenberg-audiobooks",
+    "gwulibraries-ol",
+    "inlibrary",
+    "internet-books",
+    "internetarchivebooks",
+    "ithacacollege-ol",
+    "johnshopkins-ol",
+    "library_of_atlantis",
+    "librivoxaudio",
+    "marygrovecollege",
+    "marymount-ol",
+    "occidentalcollegelibrary-ol",
+    "openlibrary-d-ol",
+    "periodicals",
+    "popularchinesebooks",
+    "printdisabled",
+    "pub_worlds-best-reading",
+    "randolph-macon-college-ol",
+    "robarts",
+    "rochester-ol",
+    "samples_only",
+    "stmaryscountylibrary",
+    "the-claremont-colleges-ol",
+    "toronto",
+    "trent_university",
+    "udc-ol",
+    "uic",
+    "university_of_toronto",
+    "universityofarizona-ol",
+    "universityofcoloradoboulder-ol",
+    "universityofthewest-ol",
+    "wilsoncollege-ol",
+    "worthingtonlibraries-ol"
+   ],
+   "language": [
+    "pol",
+    "gle",
+    "heb",
+    "ita",
+    "rus",
+    "ger",
+    "und",
+    "vie",
+    "chi",
+    "tib",
+    "jpn",
+    "arm",
+    "kor",
+    "gre",
+    "nor",
+    "fro",
+    "por",
+    "fre",
+    "dan",
+    "ara",
+    "spa",
+    "hin",
+    "fin",
+    "amh",
+    "dut",
+    "per",
+    "eng",
+    "mul"
+   ],
+   "lending_edition_s": "OL57648863M",
+   "lending_identifier_s": "wutheringheights0000kesh",
+   "public_scan_b": true,
+   "id_standard_ebooks": [
+    "emily-bronte/wuthering-heights"
+   ],
+   "id_project_gutenberg": [
+    "768"
+   ],
+   "id_librivox": [
+    "911",
+    "2994",
+    "6943",
+    "10857"
+   ],
+   "editions": {
+    "numFound": 2888,
+    "start": 0,
+    "numFoundExact": true,
+    "docs": [
+     {
+      "key": "/books/OL57648863M",
+      "title": "Wuthering Heights",
+      "cover_i": 14840482,
+      "cover_width": 1080,
+      "cover_height": 1666,
+      "language": [
+       "eng"
+      ],
+      "ia": [
+       "wutheringheights0000kesh"
+      ],
+      "ia_collection": [
+       "internetarchivebooks"
+      ],
+      "ebook_access": "public",
+      "has_fulltext": true,
+      "public_scan_b": true,
+      "providers": [
+       {
+        "access": "open-access",
+        "format": "web",
+        "price": null,
+        "url": "https://archive.org/details/wutheringheights0000kesh?view=theater&wrapper=false",
+        "provider_name": "ia"
+       },
+       {
+        "access": "open-access",
+        "format": "pdf",
+        "price": null,
+        "url": "https://archive.org/download/wutheringheights0000kesh/wutheringheights0000kesh.pdf",
+        "provider_name": "ia"
+       },
+       {
+        "access": "open-access",
+        "format": "epub",
+        "price": null,
+        "url": "https://archive.org/download/wutheringheights0000kesh/wutheringheights0000kesh.epub",
+        "provider_name": "ia"
+       }
+      ],
+      "availability": {
+       "status": "open",
+       "available_to_browse": false,
+       "available_to_borrow": false,
+       "available_to_waitlist": false,
+       "is_printdisabled": false,
+       "is_readable": true,
+       "is_lendable": false,
+       "is_previewable": true,
+       "identifier": "wutheringheights0000kesh",
+       "isbn": null,
+       "oclc": null,
+       "openlibrary_work": "OL21177W",
+       "openlibrary_edition": "OL57648863M",
+       "last_loan_date": null,
+       "num_waitlist": null,
+       "last_waitlist_date": null,
+       "is_restricted": false,
+       "is_browseable": false,
+       "__src__": "core.models.lending.get_availability"
+      }
+     }
+    ]
+   },
+   "providers": []
+  },
+  {
+   "key": "/works/OL492658W",
+   "title": "The Lightning Thief",
+   "author_name": [
+    "Rick Riordan"
+   ],
+   "author_key": [
+    "OL30765A"
+   ],
+   "cover_height": 315,
+   "cover_i": 7239831,
+   "cover_width": 238,
+   "ebook_access": "borrowable",
+   "edition_count": 108,
+   "first_publish_year": 2005,
+   "has_fulltext": true,
+   "ia": [
+    "boxijiekexunyush0000rior",
+    "percyjacksonligh0000unse",
+    "elladrondelrayo0000rior",
+    "percyjackson0000rior_d1w9",
+    "lightningthiefmo00rick",
+    "lightningthiefmo00rick_0",
+    "lightningthief0000rior_o4d7",
+    "lightningthief0000rior_u3l0",
+    "lightningthief0000rior_k1h1",
+    "percyjacksonligh0000rior_k2j9",
+    "lightningthief0000rior_p3w9",
+    "lightningthief0000rior_s6s5",
+    "percyjacksonligh0000rior",
+    "lightningthief0000rior_j7r4",
+    "lightningthief0000rior",
+    "lightningthief00rior_1",
+    "lightningthief0000rior_d6q1",
+    "lightningthiefpe00rick_0",
+    "lightningthiefpe00rick",
+    "lightningthief00rior",
+    "percyjacksondieb00rior"
+   ],
+   "ia_collection": [
+    "americana",
+    "barryuniversity-ol",
+    "belmont-ol",
+    "bpljordan-ol",
+    "cnusd-ol",
+    "delawarecountydistrictlibrary",
+    "delawarecountydistrictlibrary-ol",
+    "denverpubliclibrary-ol",
+    "framingham-ol",
+    "goffstownlibrary-ol",
+    "gwulibraries-ol",
+    "hamiltonpubliclibrary-ol",
+    "inlibrary",
+    "internetarchivebooks",
+    "ithacacollege-ol",
+    "library_of_atlantis",
+    "marymount-ol",
+    "miltonpubliclibrary-ol",
+    "openlibrary-d-ol",
+    "popularchinesebooks",
+    "printdisabled",
+    "rochester-ol",
+    "salisburyfreelibrary-ol",
+    "schoollibrary",
+    "schroederlibrary-ol",
+    "spokanepubliclibrary-ol",
+    "stmaryscountylibrary",
+    "tulsacc-ol",
+    "unb-ol",
+    "uni-ol",
+    "universityofarizona-ol",
+    "universityofcoloradoboulder-ol",
+    "uslprototype",
+    "worthingtonlibraries-ol"
+   ],
+   "language": [
+    "heb",
+    "por",
+    "eng",
+    "fre",
+    "ger",
+    "ita",
+    "rum",
+    "vie",
+    "chi",
+    "spa",
+    "dut",
+    "pol"
+   ],
+   "lending_edition_s": "OL35344480M",
+   "lending_identifier_s": "boxijiekexunyush0000rior",
+   "public_scan_b": false,
+   "series_key": [
+    "OL327417L"
+   ],
+   "series_name": [
+    "Percy Jackson & the Olympians"
+   ],
+   "series_position": [
+    "1"
+   ],
+   "editions": {
+    "numFound": 108,
+    "start": 0,
+    "numFoundExact": true,
+    "docs": [
+     {
+      "key": "/books/OL27284483M",
+      "title": "Percy Jackson and the Lightning Thief",
+      "cover_i": 15246544,
+      "cover_width": 2109,
+      "cover_height": 3220,
+      "language": [
+       "eng"
+      ],
+      "ia": [
+       "percyjacksonligh0000unse"
+      ],
+      "ia_collection": [
+       "inlibrary",
+       "internetarchivebooks",
+       "printdisabled"
+      ],
+      "ebook_access": "borrowable",
+      "has_fulltext": true,
+      "public_scan_b": false,
+      "providers": [
+       {
+        "access": "borrow",
+        "format": "web",
+        "price": null,
+        "url": "https://archive.org/details/percyjacksonligh0000unse?view=theater&wrapper=false",
+        "provider_name": "ia"
+       }
+      ],
+      "availability": {
+       "status": "borrow_available",
+       "available_to_browse": true,
+       "available_to_borrow": false,
+       "available_to_waitlist": false,
+       "is_printdisabled": true,
+       "is_readable": false,
+       "is_lendable": true,
+       "is_previewable": true,
+       "identifier": "percyjacksonligh0000unse",
+       "isbn": "9781405664387",
+       "oclc": null,
+       "openlibrary_work": "OL492658W",
+       "openlibrary_edition": "OL27284483M",
+       "last_loan_date": null,
+       "num_waitlist": null,
+       "last_waitlist_date": null,
+       "is_restricted": true,
+       "is_browseable": true,
+       "__src__": "core.models.lending.get_availability"
+      }
+     }
+    ]
+   },
+   "providers": []
+  },
+  {
+   "key": "/works/OL45870364W",
+   "title": "Threshing Day",
+   "author_name": [
+    "Rebecca Yarros"
+   ],
+   "author_key": [
+    "OL7825177A"
+   ],
+   "cover_edition_key": "OL62616037M",
+   "cover_height": 1000,
+   "cover_i": 15260919,
+   "cover_width": 668,
+   "ebook_access": "no_ebook",
+   "edition_count": 2,
+   "first_publish_year": 2026,
+   "has_fulltext": false,
+   "public_scan_b": false,
+   "editions": {
+    "numFound": 2,
+    "start": 0,
+    "numFoundExact": true,
+    "docs": [
+     {
+      "key": "/books/OL62616037M",
+      "title": "Dia da Ceifa",
+      "cover_i": 15260919,
+      "cover_width": 668,
+      "cover_height": 1000,
+      "ebook_access": "no_ebook",
+      "has_fulltext": false,
+      "public_scan_b": false,
+      "providers": []
+     }
+    ]
+   },
+   "providers": []
+  },
+  {
+   "key": "/works/OL38128674W",
+   "title": "Lights Out",
+   "author_name": [
+    "Navessa Allen"
+   ],
+   "author_key": [
+    "OL11132702A"
+   ],
+   "cover_edition_key": "OL52222229M",
+   "cover_height": 480,
+   "cover_i": 14641117,
+   "cover_width": 300,
+   "ebook_access": "no_ebook",
+   "edition_count": 8,
+   "first_publish_year": 2024,
+   "has_fulltext": false,
+   "language": [
+    "eng",
+    "por",
+    "spa"
+   ],
+   "public_scan_b": false,
+   "series_key": [
+    "OL329278L"
+   ],
+   "series_name": [
+    "Into Darkness"
+   ],
+   "series_position": [
+    "1"
+   ],
+   "editions": {
+    "numFound": 8,
+    "start": 0,
+    "numFoundExact": true,
+    "docs": [
+     {
+      "key": "/books/OL60907765M",
+      "title": "Lights Out Collector's Edition",
+      "subtitle": "An into Darkness Novel",
+      "cover_i": 15157422,
+      "cover_width": 560,
+      "cover_height": 1000,
+      "language": [
+       "eng"
+      ],
+      "ebook_access": "no_ebook",
+      "has_fulltext": false,
+      "public_scan_b": false,
+      "providers": []
+     }
+    ]
+   },
+   "providers": []
+  },
+  {
+   "key": "/works/OL166894W",
+   "title": "\u041f\u0440\u0435\u0441\u0442\u0443\u043f\u043b\u0435\u043d\u0438\u0435 \u0438 \u043d\u0430\u043a\u0430\u0437\u0430\u043d\u0438\u0435",
+   "author_name": [
+    "Fi\u00f3dor Dostoievski"
+   ],
+   "author_key": [
+    "OL22242A"
+   ],
+   "cover_edition_key": "OL9004678M",
+   "cover_height": 554,
+   "cover_i": 9411873,
+   "cover_width": 348,
+   "ebook_access": "public",
+   "edition_count": 1178,
+   "first_publish_year": 1866,
+   "has_fulltext": true,
+   "ia": [
+    "crimeandpunishme02554gut",
+    "crime_and_punishment_0902_librivox",
+    "harvardclassicss18elio",
+    "elcrimenyelcasti00dostuoft",
+    "farbrekhenunshro01dostuoft",
+    "smtlicheromaneun12dost",
+    "smtlicheromaneun11dost",
+    "nybc211570",
+    "schuldundshnerom00dost",
+    "lecrimeetlechati00dost",
+    "crimepunishment1917dost",
+    "crimepunishment00dostiala",
+    "novelsoffyodordo04dost",
+    "crimepunishment00dostuoft",
+    "crimepunishmentp0000unse_b7b2",
+    "crimepunishmentm0000unse",
+    "crimepunishment0000unse_c4c3",
+    "bwb_O6-CEW-565",
+    "crimepunishment10000unse",
+    "crimepunishment0000dost_i7g5",
+    "crimepunishment0000unse_l1q3",
+    "crimepunishment0000unse_y0n1",
+    "crimepunishment0000unse_r1d0",
+    "crimepunishment0000fyod_x5b7",
+    "crimepunishment0000fyod_t7g0",
+    "crimepunishment0000fyod_k1v0",
+    "crimepunishment0000unse_g4q9",
+    "bwb_KO-153-979",
+    "bwb_Y0-BPV-257",
+    "crimepunishment0000unse_k1p6",
+    "crimepunishment0000unse_s1x1",
+    "crimepunishment0000unse_a5x2",
+    "bwb_W9-DDI-421",
+    "crimepunishment0000fyod",
+    "crimepunishmentb0000unse",
+    "crimepunishmentb00barn",
+    "crimepunishment01dost",
+    "isbn_9789602938775",
+    "crimepunishmente0000unse_f9v1",
+    "rodionraskolniko0000dost",
+    "crimepunishment0000unse_q3u2",
+    "crimepunishment0000unse_h0c8",
+    "crimepunishmentdos00dost",
+    "crimepunishmentcompletedost",
+    "crimepunishmentc00dost",
+    "crimepunishmentc00fyod",
+    "crimepunishmentw0000unse_d7g6",
+    "crimenycastigo00dost",
+    "crimepunishment0000fyod_j5n5",
+    "bwb_KR-279-176",
+    "crimepunishmentf0000unse",
+    "tsumitobatsu00dost",
+    "crimepunishment00dost",
+    "crimepunishme00dost",
+    "crimepunishment0000dost",
+    "crimepunishment00fyod",
+    "crimepunishmentn0000dost",
+    "crimepunishment00dost_4",
+    "biocrimepunishment00dost",
+    "crimepunishment0000unse_y7w3",
+    "crimepunishment0000dost_181",
+    "crimepunishment0000fydo",
+    "crimepunishment0000dost_v4d7",
+    "crimepunishment0000fyod_c9w5",
+    "bwb_O8-CVL-649",
+    "crimepunishment0000fyod_j0d4",
+    "crimepunishment0000fyod_t8b4",
+    "crimepunishment0000dost_p1e8",
+    "crimepunishment0000dost_l1g2",
+    "crimepunishmentw00fyod_0",
+    "isbn_9780679420293",
+    "crimepunishments00fyod",
+    "crimepunishment00dost_0",
+    "crimepunishment0000dost_j3o5",
+    "crimepunishmentn0000dost_t0l4",
+    "isbn_9780743487634",
+    "crimepunishmentn00dost",
+    "crimepunishment0000dost_o9k8",
+    "crimepunishmentdost00dost",
+    "crimepunishment01dost_2",
+    "crimepunishment02dost"
+   ],
+   "ia_collection": [
+    "americana",
+    "americanuniversity-ol",
+    "audio_bookspoetry",
+    "binghamton-ol",
+    "brigham_young_university",
+    "cdl",
+    "claremont_school_of_theology",
+    "clean_list",
+    "dartmouthlibrary-ol",
+    "delawarecountydistrictlibrary",
+    "delawarecountydistrictlibrary-ol",
+    "duke_libraries",
+    "gutenberg",
+    "hamiltonpubliclibrary-ol",
+    "inlibrary",
+    "internetarchivebooks",
+    "kellylibrary",
+    "librivoxaudio",
+    "nationalyiddishbookcenter",
+    "openlibrary-d-ol",
+    "printdisabled",
+    "randolph-macon-college-ol",
+    "robarts",
+    "rochester-ol",
+    "stmaryscountylibrary",
+    "toronto",
+    "uhmauicollege-ol",
+    "uni-ol",
+    "university_of_toronto",
+    "universityofoklahoma-ol",
+    "universityofottawa",
+    "wilsoncollege-ol"
+   ],
+   "language": [
+    "gre",
+    "fin",
+    "spa",
+    "pol",
+    "ukr",
+    "yid",
+    "eng",
+    "est",
+    "rus",
+    "fre",
+    "amh",
+    "por",
+    "chi",
+    "dut",
+    "heb",
+    "cze",
+    "rum",
+    "jpn",
+    "ita",
+    "dan",
+    "hin",
+    "ger"
+   ],
+   "lending_edition_s": "OL46542086M",
+   "lending_identifier_s": "crimeandpunishme02554gut",
+   "public_scan_b": true,
+   "id_standard_ebooks": [
+    "fyodor-dostoevsky/crime-and-punishment/constance-garnett"
+   ],
+   "id_project_gutenberg": [
+    "2554"
+   ],
+   "id_librivox": [
+    "755"
+   ],
+   "id_wikisource": [
+    "uk:\u0412\u0438\u043d\u0430_\u0456_\u043a\u0430\u0440\u0430"
+   ],
+   "editions": {
+    "numFound": 1178,
+    "start": 0,
+    "numFoundExact": true,
+    "docs": [
+     {
+      "key": "/books/OL37044740M",
+      "title": "Crime and Punishment",
+      "cover_i": 12622046,
+      "cover_width": 1400,
+      "cover_height": 2099,
+      "language": [
+       "eng"
+      ],
+      "id_standard_ebooks": [
+       "fyodor-dostoevsky/crime-and-punishment/constance-garnett"
+      ],
+      "ebook_access": "public",
+      "has_fulltext": true,
+      "public_scan_b": true,
+      "providers": [
+       {
+        "access": "open-access",
+        "format": "web",
+        "price": null,
+        "url": "https://standardebooks.org/ebooks/fyodor-dostoevsky/crime-and-punishment/constance-garnett/text/single-page",
+        "provider_name": "standard_ebooks"
+       },
+       {
+        "access": "open-access",
+        "format": "epub",
+        "price": null,
+        "url": "https://standardebooks.org/ebooks/fyodor-dostoevsky/crime-and-punishment/constance-garnett/downloads/fyodor-dostoevsky_crime-and-punishment_constance-garnett.epub",
+        "provider_name": "standard_ebooks"
+       }
+      ]
+     }
+    ]
+   },
+   "providers": []
+  },
+  {
+   "key": "/works/OL18020194W",
+   "title": "It Ends With Us",
+   "author_name": [
+    "Colleen Hoover"
+   ],
+   "author_key": [
+    "OL7315784A"
+   ],
+   "cover_edition_key": "OL30570882M",
+   "cover_height": 500,
+   "cover_i": 10473609,
+   "cover_width": 328,
+   "ebook_access": "printdisabled",
+   "edition_count": 56,
+   "first_publish_year": 2012,
+   "has_fulltext": true,
+   "ia": [
+    "romperelcrculoit0000coll",
+    "itendswithus0000hoov"
+   ],
+   "ia_collection": [
+    "internetarchivebooks",
+    "printdisabled"
+   ],
+   "language": [
+    "por",
+    "eng",
+    "fre",
+    "ger",
+    "kor",
+    "spa",
+    "dut",
+    "tur",
+    "pol",
+    "rus"
+   ],
+   "public_scan_b": false,
+   "series_key": [
+    "OL330996L"
+   ],
+   "series_name": [
+    "It Ends With Us"
+   ],
+   "series_position": [
+    "1"
+   ],
+   "editions": {
+    "numFound": 56,
+    "start": 0,
+    "numFoundExact": true,
+    "docs": [
+     {
+      "key": "/books/OL27213498M",
+      "title": "It Ends With Us",
+      "cover_i": 15123232,
+      "cover_width": 1742,
+      "cover_height": 2760,
+      "language": [
+       "eng"
+      ],
+      "ia": [
+       "itendswithus0000hoov"
+      ],
+      "ia_collection": [
+       "printdisabled",
+       "internetarchivebooks"
+      ],
+      "ebook_access": "printdisabled",
+      "has_fulltext": true,
+      "public_scan_b": false,
+      "providers": [
+       {
+        "access": "sample",
+        "format": "web",
+        "price": null,
+        "url": "https://archive.org/details/itendswithus0000hoov?view=theater&wrapper=false",
+        "provider_name": "ia"
+       }
+      ],
+      "availability": {
+       "status": "private",
+       "available_to_browse": false,
+       "available_to_borrow": false,
+       "available_to_waitlist": false,
+       "is_printdisabled": true,
+       "is_readable": false,
+       "is_lendable": false,
+       "is_previewable": true,
+       "identifier": "itendswithus0000hoov",
+       "isbn": "9781471158254",
+       "oclc": null,
+       "openlibrary_work": "OL20033455W",
+       "openlibrary_edition": "OL27213498M",
+       "last_loan_date": null,
+       "num_waitlist": null,
+       "last_waitlist_date": null,
+       "is_restricted": true,
+       "is_browseable": false,
+       "__src__": "core.models.lending.get_availability"
+      }
+     }
+    ]
+   },
+   "providers": []
+  },
+  {
+   "key": "/works/OL36494600W",
+   "title": "U n Me ... It's Complicated",
+   "author_name": [
+    "Aditya Nighhot"
+   ],
+   "author_key": [
+    "OL8596070A"
+   ],
+   "cover_edition_key": "OL49326538M",
+   "cover_height": 878,
+   "cover_i": 15126897,
+   "cover_width": 564,
+   "ebook_access": "no_ebook",
+   "edition_count": 2,
+   "first_publish_year": 2015,
+   "has_fulltext": false,
+   "language": [
+    "eng"
+   ],
+   "public_scan_b": false,
+   "editions": {
+    "numFound": 2,
+    "start": 0,
+    "numFoundExact": true,
+    "docs": [
+     {
+      "key": "/books/OL49326538M",
+      "title": "U n Me ... It's Complicated",
+      "cover_i": 15126897,
+      "cover_width": 564,
+      "cover_height": 878,
+      "language": [
+       "eng"
+      ],
+      "ebook_access": "no_ebook",
+      "has_fulltext": false,
+      "public_scan_b": false,
+      "providers": []
+     }
+    ]
+   },
+   "providers": []
+  },
+  {
+   "key": "/works/OL55806W",
+   "title": "The Power of Your Subconscious Mind",
+   "author_name": [
+    "Joseph Murphy"
+   ],
+   "author_key": [
+    "OL31176A"
+   ],
+   "cover_edition_key": "OL22857884M",
+   "cover_height": 3344,
+   "cover_i": 6553019,
+   "cover_width": 1980,
+   "ebook_access": "printdisabled",
+   "edition_count": 132,
+   "first_publish_year": 1963,
+   "has_fulltext": true,
+   "ia": [
+    "bwb_S0-AXD-471",
+    "ghs.powerofyoursubco0000jose",
+    "isbn_9788131947791",
+    "powerofyoursubco010386mbp",
+    "powerofyoursubco0000jose",
+    "powerofyoursubco0000murp_c5j2",
+    "powerofyoursubco0000murp_y1b6",
+    "powerofyoursubco00murp_0",
+    "powerofyoursubc000jose",
+    "powerofyoursubco0000murp",
+    "powerofyoursubco0000murp_q2m9",
+    "powerofyoursubco0000murp_e9e1",
+    "powerofyoursubco00murp",
+    "powerofyoursubc00murp"
+   ],
+   "ia_collection": [
+    "GandhiBhavan-Print",
+    "JaiGyan",
+    "americana",
+    "internetarchivebooks",
+    "openlibrary-d-ol",
+    "printdisabled",
+    "universallibrary",
+    "worthingtonlibraries-ol"
+   ],
+   "language": [
+    "mar",
+    "ben",
+    "eng",
+    "spa",
+    "mal"
+   ],
+   "public_scan_b": false,
+   "editions": {
+    "numFound": 132,
+    "start": 0,
+    "numFoundExact": true,
+    "docs": [
+     {
+      "key": "/books/OL27948099M",
+      "title": "The Power of your Subconscious Mind",
+      "cover_i": 15146952,
+      "cover_width": 1688,
+      "cover_height": 2725,
+      "language": [
+       "eng"
+      ],
+      "ia": [
+       "powerofyoursubco0000jose"
+      ],
+      "ia_collection": [
+       "printdisabled",
+       "internetarchivebooks"
+      ],
+      "ebook_access": "printdisabled",
+      "has_fulltext": true,
+      "public_scan_b": false,
+      "providers": [
+       {
+        "access": "sample",
+        "format": "web",
+        "price": null,
+        "url": "https://archive.org/details/powerofyoursubco0000jose?view=theater&wrapper=false",
+        "provider_name": "ia"
+       }
+      ],
+      "availability": {
+       "status": "private",
+       "available_to_browse": false,
+       "available_to_borrow": false,
+       "available_to_waitlist": false,
+       "is_printdisabled": true,
+       "is_readable": false,
+       "is_lendable": false,
+       "is_previewable": true,
+       "identifier": "powerofyoursubco0000jose",
+       "isbn": "9788192910963",
+       "oclc": null,
+       "openlibrary_work": "OL20668238W",
+       "openlibrary_edition": "OL27948099M",
+       "last_loan_date": null,
+       "num_waitlist": null,
+       "last_waitlist_date": null,
+       "is_restricted": true,
+       "is_browseable": false,
+       "__src__": "core.models.lending.get_availability"
+      }
+     }
+    ]
+   },
+   "providers": []
+  },
+  {
+   "key": "/works/OL10263W",
+   "title": "Le petit prince",
+   "author_name": [
+    "Antoine de Saint-Exup\u00e9ry"
+   ],
+   "author_key": [
+    "OL31901A"
+   ],
+   "cover_edition_key": "OL7366018M",
+   "cover_height": 594,
+   "cover_i": 10708272,
+   "cover_width": 355,
+   "ebook_access": "borrowable",
+   "edition_count": 699,
+   "first_publish_year": 1943,
+   "has_fulltext": true,
+   "ia": [
+    "bwb_S0-CBV-436",
+    "kucukprensorijin0000anto",
+    "malenkiiprints0000sain",
+    "elprinciito0000sain",
+    "derkleineprinzpr0000anto",
+    "shahryarikuchulu0000sain",
+    "xiaowangzilittle0000sain_b1x8",
+    "lepetitprince0000sain_c5x5",
+    "xiaowangzilittle0000sain_t5z5",
+    "ilpiccoloprincip0000sain",
+    "opequenoprncip00sain",
+    "antoinedesaintex0000sain",
+    "xiaowangzilittle0000sain",
+    "xiaowangzilittle0000sain_y4w1",
+    "lepetitprince00sain_0",
+    "lepetitprince00sain_1",
+    "lepetitprince0000unse",
+    "derkleineprinz00sain_0",
+    "elprincipitoconl0000sain",
+    "ilpiccoloprincip0000anto",
+    "regulusvelpueris0000sain",
+    "b3274156x",
+    "isbn_9780547978840",
+    "elprincipito0000sain",
+    "littleprince00sain_2",
+    "elprincipito00sain",
+    "lepetitprincebra00sain",
+    "littleprince00anto",
+    "littleprince00anto_1",
+    "littleprince0000sain",
+    "elprincipitolitt00anto",
+    "lepetitprince0000sain_e6p1",
+    "littleprince0000sain_t8q7",
+    "littleprince0000sain_y5b5",
+    "littleprince00sain",
+    "littleprince00sain",
+    "lepetitprince00sain",
+    "isbn_0152465030",
+    "littleprince00sain_0"
+   ],
+   "ia_collection": [
+    "TopChildrensBooks",
+    "ambslibrary-ol",
+    "americana",
+    "americanuniversity-ol",
+    "belmont-ol",
+    "binghamton-ol",
+    "bpljordan-ol",
+    "brynmawr-ol",
+    "cnusd-ol",
+    "cua-ol",
+    "dartmouthlibrary-ol",
+    "delawarecountydistrictlibrary",
+    "delawarecountydistrictlibrary-ol",
+    "denverpubliclibrary-ol",
+    "drakeuniversity-ol",
+    "europeanlibraries",
+    "framingham-ol",
+    "goffstownlibrary-ol",
+    "gwulibraries-ol",
+    "hamiltonpubliclibrary-ol",
+    "inlibrary",
+    "internetarchivebooks",
+    "ithacacollege-ol",
+    "library_of_atlantis",
+    "marymount-ol",
+    "medicallibrary",
+    "miltonpubliclibrary-ol",
+    "occidentalcollegelibrary-ol",
+    "openlibrary-d-ol",
+    "popularchinesebooks",
+    "printdisabled",
+    "randolph-macon-college-ol",
+    "riceuniversity-ol",
+    "rochester-ol",
+    "salisburyfreelibrary-ol",
+    "spokanepubliclibrary-ol",
+    "stmaryscountylibrary",
+    "the-claremont-colleges-ol",
+    "tulsacc-ol",
+    "unb-ol",
+    "uni-ol",
+    "universityofarizona-ol",
+    "universityofcoloradoboulder-ol",
+    "universityofoklahoma-ol",
+    "universityofthewest-ol",
+    "wellcomelibrary",
+    "wellcomeprintdisabled",
+    "wilsoncollege-ol",
+    "worthingtonlibraries-ol"
+   ],
+   "language": [
+    "heb",
+    "lat",
+    "ota",
+    "fre",
+    "fao",
+    "tgl",
+    "und",
+    "kor",
+    "yid",
+    "pol",
+    "hrv",
+    "zul",
+    "amh",
+    "eng",
+    "gsw",
+    "spa",
+    "tur",
+    "mwl",
+    "por",
+    "per",
+    "jpn",
+    "ger",
+    "swe",
+    "ina",
+    "rus",
+    "gle",
+    "grc",
+    "yue",
+    "bre",
+    "arm",
+    "kok",
+    "epo",
+    "wel",
+    "dan",
+    "ita",
+    "cze",
+    "vie",
+    "chi",
+    "roh",
+    "cat"
+   ],
+   "lending_edition_s": "OL58706263M",
+   "lending_identifier_s": "bwb_S0-CBV-436",
+   "public_scan_b": false,
+   "editions": {
+    "numFound": 699,
+    "start": 0,
+    "numFoundExact": true,
+    "docs": [
+     {
+      "key": "/books/OL22007893M",
+      "title": "El Principito / The Little Prince",
+      "cover_i": 14994367,
+      "cover_width": 1080,
+      "cover_height": 1632,
+      "language": [
+       "spa",
+       "eng"
+      ],
+      "ia": [
+       "elprinciito0000sain"
+      ],
+      "ia_collection": [
+       "inlibrary",
+       "internetarchivebooks",
+       "printdisabled"
+      ],
+      "ebook_access": "borrowable",
+      "has_fulltext": true,
+      "public_scan_b": false,
+      "providers": [
+       {
+        "access": "borrow",
+        "format": "web",
+        "price": null,
+        "url": "https://archive.org/details/elprinciito0000sain?view=theater&wrapper=false",
+        "provider_name": "ia"
+       }
+      ],
+      "availability": {
+       "status": "borrow_available",
+       "available_to_browse": true,
+       "available_to_borrow": false,
+       "available_to_waitlist": false,
+       "is_printdisabled": true,
+       "is_readable": false,
+       "is_lendable": true,
+       "is_previewable": true,
+       "identifier": "elprinciito0000sain",
+       "isbn": "8459912019",
+       "oclc": null,
+       "openlibrary_work": "OL15723255W",
+       "openlibrary_edition": "OL22007893M",
+       "last_loan_date": null,
+       "num_waitlist": null,
+       "last_waitlist_date": null,
+       "is_restricted": true,
+       "is_browseable": true,
+       "__src__": "core.models.lending.get_availability"
+      }
+     }
+    ]
+   },
+   "providers": []
+  },
+  {
+   "key": "/works/OL1168007W",
+   "title": "Animal Farm",
+   "author_name": [
+    "George Orwell"
+   ],
+   "author_key": [
+    "OL118077A"
+   ],
+   "cover_edition_key": "OL23269355M",
+   "cover_height": 872,
+   "cover_i": 11261770,
+   "cover_width": 576,
+   "ebook_access": "public",
+   "edition_count": 653,
+   "first_publish_year": 1945,
+   "has_fulltext": true,
+   "ia": [
+    "kolhosptvaryn00orwe",
+    "animalfarm00orwe_0",
+    "animalfarmanimal0000unse",
+    "animalfarm0000unse_q6v0",
+    "dongwunongzhuang00orwe",
+    "unset0000unse_f3m2",
+    "rebelionenlagran0000orwe",
+    "dongwunongchanga0066orwe",
+    "rebelinenlagranj0000geor",
+    "bwb_KR-355-536",
+    "bwb_O7-DNM-713",
+    "isbn_9788888934204",
+    "animalfarm0000unse_k7v0",
+    "animalfarmfairys0000orwe_w5a6",
+    "animalfarm0000geor_w9h5",
+    "animalfarm0000unse_b7h0",
+    "animalfarm0000unse_x1z1",
+    "animalfarm0000orwe_t7m8",
+    "animalfarmfairys0000orwe_w4x3",
+    "animalfarm0000orwe_q6d1",
+    "animalfarmfairys0000orwe_f1e2",
+    "animalfarm0000orwe_b7t8",
+    "animalfarmfairys0000orwe_c2o1",
+    "animalfarm00orwe",
+    "animalfarmfairys00orwe",
+    "animalfarm0000unse",
+    "isbn_9780151002177",
+    "animalfarm00geor_0",
+    "animalfarm0000geor_x4v1",
+    "animalfarm0000unse_g8w0",
+    "animalfarmfairys0000orwe",
+    "animalfarmfairys00orwe_0",
+    "animalfarmfairys0000orwe_v7w7",
+    "animalfarm0000orwe_r3b9",
+    "animalfarmfairys0000orwe_r3g7",
+    "animalfarm0000unse_k0p6",
+    "animalfarm0000unse_j3k3"
+   ],
+   "ia_collection": [
+    "americana",
+    "bannedbooks",
+    "barryuniversity-ol",
+    "binghamton-ol",
+    "cnusd-ol",
+    "cua-ol",
+    "dartmouthlibrary-ol",
+    "delawarecountydistrictlibrary",
+    "delawarecountydistrictlibrary-ol",
+    "denverpubliclibrary-ol",
+    "gwulibraries-ol",
+    "hamiltonpubliclibrary-ol",
+    "hongkongcommunity",
+    "inlibrary",
+    "internetarchivebooks",
+    "library_of_atlantis",
+    "openlibrary-d-ol",
+    "popularchinesebooks",
+    "printdisabled",
+    "randolph-macon-college-ol",
+    "stmaryscountylibrary",
+    "toronto",
+    "ualberta_historical_school",
+    "ualbertawiedrick",
+    "uma",
+    "umadpcamprarebooks",
+    "unb-ol",
+    "uni-ol",
+    "university_of_alberta_libraries",
+    "universityofarizona-ol",
+    "universityofcoloradoboulder-ol",
+    "universityofthewest-ol",
+    "ushmm",
+    "worthingtonlibraries-ol",
+    "wrlc-ol"
+   ],
+   "language": [
+    "cat",
+    "gre",
+    "tib",
+    "som",
+    "urd",
+    "vie",
+    "spa",
+    "pol",
+    "hun",
+    "ukr",
+    "yid",
+    "eng",
+    "tam",
+    "kor",
+    "rus",
+    "fre",
+    "por",
+    "chi",
+    "swe",
+    "dut",
+    "mal",
+    "mul",
+    "tel",
+    "ara",
+    "tur",
+    "jpn",
+    "ita",
+    "und",
+    "dan",
+    "nor",
+    "ger"
+   ],
+   "lending_edition_s": "OL32627922M",
+   "lending_identifier_s": "kolhosptvaryn00orwe",
+   "public_scan_b": true,
+   "editions": {
+    "numFound": 653,
+    "start": 0,
+    "numFoundExact": true,
+    "docs": [
+     {
+      "key": "/books/OL23269355M",
+      "title": "Animal Farm",
+      "cover_i": 15246098,
+      "cover_width": 223,
+      "cover_height": 400,
+      "language": [
+       "eng"
+      ],
+      "ia": [
+       "animalfarm00orwe_0"
+      ],
+      "ia_collection": [
+       "university_of_alberta_libraries",
+       "ualberta_historical_school",
+       "toronto",
+       "ualbertawiedrick"
+      ],
+      "ebook_access": "public",
+      "has_fulltext": true,
+      "public_scan_b": true,
+      "providers": [
+       {
+        "access": "open-access",
+        "format": "web",
+        "price": null,
+        "url": "https://archive.org/details/animalfarm00orwe_0?view=theater&wrapper=false",
+        "provider_name": "ia"
+       },
+       {
+        "access": "open-access",
+        "format": "pdf",
+        "price": null,
+        "url": "https://archive.org/download/animalfarm00orwe_0/animalfarm00orwe_0.pdf",
+        "provider_name": "ia"
+       },
+       {
+        "access": "open-access",
+        "format": "epub",
+        "price": null,
+        "url": "https://archive.org/download/animalfarm00orwe_0/animalfarm00orwe_0.epub",
+        "provider_name": "ia"
+       }
+      ],
+      "availability": {
+       "status": "open",
+       "available_to_browse": false,
+       "available_to_borrow": false,
+       "available_to_waitlist": false,
+       "is_printdisabled": false,
+       "is_readable": true,
+       "is_lendable": false,
+       "is_previewable": true,
+       "identifier": "animalfarm00orwe_0",
+       "isbn": null,
+       "oclc": null,
+       "openlibrary_work": "OL1168007W",
+       "openlibrary_edition": "OL23269355M",
+       "last_loan_date": null,
+       "num_waitlist": null,
+       "last_waitlist_date": null,
+       "is_restricted": false,
+       "is_browseable": false,
+       "__src__": "core.models.lending.get_availability"
+      }
+     }
+    ]
+   },
+   "providers": []
+  },
+  {
+   "key": "/works/OL8483260W",
+   "title": "Diary of a Wimpy Kid",
+   "author_name": [
+    "Jeff Kinney"
+   ],
+   "author_key": [
+    "OL2832500A"
+   ],
+   "cover_height": 500,
+   "cover_i": 14376136,
+   "cover_width": 335,
+   "ebook_access": "borrowable",
+   "edition_count": 96,
+   "first_publish_year": 2007,
+   "has_fulltext": true,
+   "ia": [
+    "wimpykidikkeenda0000jeff",
+    "vonidiotenumzing0000kinn",
+    "gregohefliozurna0000kinn",
+    "diaryofwimpykidg0000kinn_z4k7",
+    "dziennikcwaniacz0000kinn",
+    "gregstagebuchvon0000unse",
+    "diaryofwimpykidn00kinn",
+    "diaryofwimpykidg0000kinn_d1u3",
+    "diariodegregunre0000kinn",
+    "wimpikidkreghepl0000unse",
+    "diaryofwimpykid00amul",
+    "diaryofwimpykidg00kinn",
+    "diaryofwimpykidg0000kinn_s5c2",
+    "diaryofwimpykidg0000kinn_s6o1",
+    "diaryofwimpykidg0000kinn",
+    "0543205133",
+    "0543205133",
+    "0543205133"
+   ],
+   "ia_collection": [
+    "California-State-Suggested-Reading",
+    "americana",
+    "barryuniversity-ol",
+    "books",
+    "cnusd-ol",
+    "delawarecountydistrictlibrary",
+    "delawarecountydistrictlibrary-ol",
+    "denverpubliclibrary-ol",
+    "goffstownlibrary-ol",
+    "gwulibraries-ol",
+    "hamiltonpubliclibrary-ol",
+    "inlibrary",
+    "internetarchivebooks",
+    "ithacacollege-ol",
+    "library_of_atlantis",
+    "marymount-ol",
+    "miltonpubliclibrary-ol",
+    "openlibrary-d-ol",
+    "printdisabled",
+    "salisburyfreelibrary-ol",
+    "schoollibrary",
+    "spokanepubliclibrary-ol",
+    "stmaryscountylibrary",
+    "unb-ol",
+    "uni-ol",
+    "universityofoklahoma-ol",
+    "worthingtonlibraries-ol"
+   ],
+   "language": [
+    "ger",
+    "bul",
+    "lit",
+    "heb",
+    "ita",
+    "kor",
+    "dan",
+    "glg",
+    "mao",
+    "jpn",
+    "baq",
+    "wel",
+    "chi",
+    "rum",
+    "lat",
+    "eng",
+    "por",
+    "spa",
+    "vie",
+    "ara",
+    "pol",
+    "fre",
+    "dut"
+   ],
+   "lending_edition_s": "OL47764112M",
+   "lending_identifier_s": "wimpykidikkeenda0000jeff",
+   "public_scan_b": false,
+   "series_key": [
+    "OL327630L"
+   ],
+   "series_name": [
+    "Diary of a Wimpy Kid"
+   ],
+   "series_position": [
+    "1"
+   ],
+   "editions": {
+    "numFound": 96,
+    "start": 0,
+    "numFoundExact": true,
+    "docs": [
+     {
+      "key": "/books/OL36660032M",
+      "title": "Diary of a Wimpy Kid",
+      "cover_i": 15179456,
+      "cover_width": 1793,
+      "cover_height": 2898,
+      "language": [
+       "eng"
+      ],
+      "ia": [
+       "diaryofwimpykidg0000kinn_z4k7"
+      ],
+      "ia_collection": [
+       "inlibrary",
+       "printdisabled",
+       "internetarchivebooks"
+      ],
+      "ebook_access": "borrowable",
+      "has_fulltext": true,
+      "public_scan_b": false,
+      "providers": [
+       {
+        "access": "borrow",
+        "format": "web",
+        "price": null,
+        "url": "https://archive.org/details/diaryofwimpykidg0000kinn_z4k7?view=theater&wrapper=false",
+        "provider_name": "ia"
+       }
+      ],
+      "availability": {
+       "status": "borrow_available",
+       "available_to_browse": true,
+       "available_to_borrow": false,
+       "available_to_waitlist": false,
+       "is_printdisabled": true,
+       "is_readable": false,
+       "is_lendable": true,
+       "is_previewable": true,
+       "identifier": "diaryofwimpykidg0000kinn_z4k7",
+       "isbn": "0810993139",
+       "oclc": null,
+       "openlibrary_work": "OL27040823W",
+       "openlibrary_edition": "OL36660032M",
+       "last_loan_date": null,
+       "num_waitlist": null,
+       "last_waitlist_date": null,
+       "is_restricted": true,
+       "is_browseable": true,
+       "__src__": "core.models.lending.get_availability"
+      }
+     }
+    ]
+   },
+   "providers": []
+  },
+  {
+   "key": "/works/OL1230613W",
+   "title": "L\u2019\u00e9tranger",
+   "author_name": [
+    "Albert Camus"
+   ],
+   "author_key": [
+    "OL124171A"
+   ],
+   "cover_edition_key": "OL6508147M",
+   "cover_height": 642,
+   "cover_i": 13151269,
+   "cover_width": 396,
+   "ebook_access": "borrowable",
+   "edition_count": 468,
+   "first_publish_year": 1942,
+   "has_fulltext": true,
+   "ia": [
+    "letrangergallima0000unse",
+    "bwb_S0-CCK-903",
+    "bwb_P9-EBZ-229",
+    "devreemdeling0000albe",
+    "elextranjero00camu",
+    "derfremde0000camu",
+    "ihjin0000camu",
+    "bwb_S0-AWN-015",
+    "bwb_S0-BMC-434",
+    "bwb_KG-776-628",
+    "ltranger0000albe",
+    "bwb_KU-153-945",
+    "bwb_W9-CZA-406",
+    "bwb_P9-AGC-432",
+    "bwb_S0-AKV-975",
+    "isbn_9788373893474",
+    "ltrangerroman0000albe",
+    "letrangerdecamus0000anse",
+    "letrangerroman0000albe",
+    "letranger0000albe_y5x5",
+    "letranger0000albe_b6i4",
+    "letrangerdecamus0000albe",
+    "letranger0000albe_l4m9",
+    "letranger0000albe_d7k4",
+    "letrangerlelivre0000albe",
+    "stranger0000albe_h2m6",
+    "bwb_O7-BKM-326",
+    "stranger0000camu_a0e0",
+    "lostraniero0000camu",
+    "stranger0000albe_o7m3",
+    "stranger0000camu_e8q1",
+    "letranger0000albe",
+    "letranger00camu_0",
+    "juwairen0000camu",
+    "isbn_9780241980613",
+    "outsider0000camu_q9g4",
+    "strangercamu00camu",
+    "letranger0000albe_l8t7",
+    "letranger0000albe_i5q8",
+    "stranger0000albe",
+    "outsider0000camu_t5g7",
+    "outsider0000camu",
+    "stranger0000camu_q8l6",
+    "stranger0000camu",
+    "stranger0000camu_o3c0",
+    "outsider0000camu_i2b3",
+    "stranger0000camu_d0o5",
+    "letrangerextrait00camu",
+    "letranger0000camu",
+    "letranger00camu",
+    "stranger0000camu_b4q8",
+    "stranger00albe",
+    "albertcamusoutsi0000unse",
+    "stranger00camu"
+   ],
+   "ia_collection": [
+    "americana",
+    "americanuniversity-ol",
+    "binghamton-ol",
+    "claremont_school_of_theology",
+    "cnusd-ol",
+    "dartmouthlibrary-ol",
+    "delawarecountydistrictlibrary",
+    "delawarecountydistrictlibrary-ol",
+    "denverpubliclibrary-ol",
+    "drakeuniversity-ol",
+    "gwulibraries-ol",
+    "hamiltonpubliclibrary-ol",
+    "inlibrary",
+    "internetarchivebooks",
+    "ithacacollege-ol",
+    "johnshopkins-ol",
+    "kalamazoocollege-ol",
+    "library_of_atlantis",
+    "marygrovecollege",
+    "miltonpubliclibrary-ol",
+    "occidentalcollegelibrary-ol",
+    "openlibrary-d-ol",
+    "popularchinesebooks",
+    "printdisabled",
+    "riceuniversity-ol",
+    "rochester-ol",
+    "salisburyfreelibrary-ol",
+    "stmaryscountylibrary",
+    "swarthmore-ol",
+    "the-claremont-colleges-ol",
+    "trent_university",
+    "tulsacc-ol",
+    "udc-ol",
+    "unb-ol",
+    "uni-ol",
+    "universityofcoloradoboulder-ol",
+    "universityofoklahoma-ol",
+    "universityofthewest-ol",
+    "wilsoncollege-ol",
+    "worthingtonlibraries-ol"
+   ],
+   "language": [
+    "vie",
+    "spa",
+    "pol",
+    "kur",
+    "eng",
+    "fre",
+    "por",
+    "chi",
+    "swe",
+    "dut",
+    "jav",
+    "per",
+    "wel",
+    "heb",
+    "mul",
+    "ara",
+    "ita",
+    "jpn",
+    "hin",
+    "ger"
+   ],
+   "lending_edition_s": "OL58920647M",
+   "lending_identifier_s": "letrangergallima0000unse",
+   "public_scan_b": false,
+   "editions": {
+    "numFound": 468,
+    "start": 0,
+    "numFoundExact": true,
+    "docs": [
+     {
+      "key": "/books/OL50985609M",
+      "title": "The Stranger",
+      "cover_i": 15118287,
+      "cover_width": 1425,
+      "cover_height": 2432,
+      "language": [
+       "eng"
+      ],
+      "ia": [
+       "bwb_KG-776-628"
+      ],
+      "ia_collection": [
+       "printdisabled",
+       "internetarchivebooks"
+      ],
+      "ebook_access": "printdisabled",
+      "has_fulltext": true,
+      "public_scan_b": false,
+      "providers": [
+       {
+        "access": "sample",
+        "format": "web",
+        "price": null,
+        "url": "https://archive.org/details/bwb_KG-776-628?view=theater&wrapper=false",
+        "provider_name": "ia"
+       }
+      ],
+      "availability": {
+       "status": "private",
+       "available_to_browse": false,
+       "available_to_borrow": false,
+       "available_to_waitlist": false,
+       "is_printdisabled": true,
+       "is_readable": false,
+       "is_lendable": false,
+       "is_previewable": true,
+       "identifier": "bwb_KG-776-628",
+       "isbn": null,
+       "oclc": null,
+       "openlibrary_work": "OL1230613W",
+       "openlibrary_edition": "OL50985609M",
+       "last_loan_date": null,
+       "num_waitlist": null,
+       "last_waitlist_date": null,
+       "is_restricted": true,
+       "is_browseable": false,
+       "__src__": "core.models.lending.get_availability"
+      }
+     }
+    ]
+   },
+   "providers": []
+  },
+  {
+   "key": "/works/OL5735363W",
+   "title": "The Hunger Games",
+   "author_name": [
+    "Suzanne Collins"
+   ],
+   "author_key": [
+    "OL1394359A"
+   ],
+   "cover_edition_key": "OL37079404M",
+   "cover_height": 743,
+   "cover_i": 12646537,
+   "cover_width": 488,
+   "ebook_access": "borrowable",
+   "edition_count": 143,
+   "first_publish_year": 2008,
+   "has_fulltext": true,
+   "ia": [
+    "jieyouxi0000coll",
+    "hungergamessamsu0000suza",
+    "dehongerspelende0000suza",
+    "jieyouxii0001coll",
+    "losjuegosdelhamb0000coll",
+    "aclikoyunlari10000suza",
+    "elsjocsdelafami0001suza",
+    "losjuegosdelhamb0000coll_h5v5",
+    "hungergamesmovie0000suza",
+    "golodnyeigryknig0000coll",
+    "igrzyskasmierci0000coll",
+    "isbn_9781590272558",
+    "isbn_9789606665806",
+    "hungergames3volu0000unse",
+    "hungergames0000unse_o0u1",
+    "hungergames0000coll_v3w2",
+    "hungergames0000coll_u4y6",
+    "isbn_8935235200814",
+    "losjuegosdelhamb0000suza_w6g2",
+    "hungergamesitali0000suza",
+    "losjuegosdelhamb0000suza",
+    "hungergames0000suza",
+    "dietributevonpan0000coll_q0l4",
+    "hungergames0000coll_h4z0",
+    "hungergames0000coll_h3b7",
+    "hungergames0000coll_b7x9",
+    "hungergames0000coll_x4i0",
+    "hungergames0000coll_j2i9",
+    "hungergames0000coll_k5p0",
+    "hungergames0000coll_w3l3",
+    "hungergames0000coll_j6r4",
+    "isbn_9781407192239",
+    "hungergames0000coll_s7r6",
+    "hungergames0000coll_s1w4",
+    "catchingfire0000coll_m5h2",
+    "hungergames0000coll",
+    "hungergames0000unse",
+    "hungergamesthe0000suza",
+    "hungergames0000coll_q6d9",
+    "hungergames0000coll_w5z0",
+    "hungergames0000coll_z4i1",
+    "hungergames0000coll_l0b0",
+    "igrzyskamierci0000unse",
+    "hungergames0001coll",
+    "hungergames0000coll_z3q0",
+    "hungergamesfoile0000suza",
+    "hungergames0000coll_o6h5",
+    "hungergames0000coll_k1c1",
+    "hungergames0000coll_s8z6",
+    "hungergames00coll",
+    "hungergames0000coll_f3a8",
+    "hungergames00suza_3",
+    "hungergames00coll_0"
+   ],
+   "ia_collection": [
+    "aceportal",
+    "americana",
+    "bannedbooks",
+    "delawarecountydistrictlibrary",
+    "delawarecountydistrictlibrary-ol",
+    "hamiltonpubliclibrary-ol",
+    "inlibrary",
+    "internetarchivebooks",
+    "popularchinesebooks",
+    "printdisabled",
+    "toronto"
+   ],
+   "language": [
+    "spa",
+    "tgl",
+    "vie",
+    "dan",
+    "swe",
+    "dut",
+    "heb",
+    "gre",
+    "ita",
+    "por",
+    "ger",
+    "eng",
+    "fre",
+    "cat",
+    "pol",
+    "chi",
+    "tur",
+    "jpn",
+    "rus"
+   ],
+   "lending_edition_s": "OL61277346M",
+   "lending_identifier_s": "jieyouxi0000coll",
+   "public_scan_b": false,
+   "editions": {
+    "numFound": 143,
+    "start": 0,
+    "numFoundExact": true,
+    "docs": [
+     {
+      "key": "/books/OL46874697M",
+      "title": "The Hunger Games",
+      "cover_i": 15255535,
+      "cover_width": 1648,
+      "cover_height": 2632,
+      "language": [
+       "eng"
+      ],
+      "ia": [
+       "hungergamessamsu0000suza"
+      ],
+      "ia_collection": [
+       "bannedbooks",
+       "printdisabled",
+       "inlibrary",
+       "internetarchivebooks"
+      ],
+      "ebook_access": "borrowable",
+      "has_fulltext": true,
+      "public_scan_b": false,
+      "providers": [
+       {
+        "access": "borrow",
+        "format": "web",
+        "price": null,
+        "url": "https://archive.org/details/hungergamessamsu0000suza?view=theater&wrapper=false",
+        "provider_name": "ia"
+       }
+      ],
+      "availability": {
+       "status": "borrow_available",
+       "available_to_browse": true,
+       "available_to_borrow": false,
+       "available_to_waitlist": false,
+       "is_printdisabled": true,
+       "is_readable": false,
+       "is_lendable": true,
+       "is_previewable": true,
+       "identifier": "hungergamessamsu0000suza",
+       "isbn": "9781407135397",
+       "oclc": null,
+       "openlibrary_work": "OL5735363W",
+       "openlibrary_edition": "OL46874697M",
+       "last_loan_date": null,
+       "num_waitlist": null,
+       "last_waitlist_date": null,
+       "is_restricted": true,
+       "is_browseable": true,
+       "__src__": "core.models.lending.get_availability"
+      }
+     }
+    ]
+   },
+   "providers": []
+  },
+  {
+   "key": "/works/OL257943W",
+   "title": "A Game of Thrones",
+   "author_name": [
+    "George R. R. Martin"
+   ],
+   "author_key": [
+    "OL234664A"
+   ],
+   "cover_edition_key": "OL7829767M",
+   "cover_height": 840,
+   "cover_i": 9269962,
+   "cover_width": 496,
+   "ebook_access": "borrowable",
+   "edition_count": 136,
+   "first_publish_year": 1996,
+   "has_fulltext": true,
+   "ia": [
+    "buzveatesinsarki0000geor",
+    "juegodetronos0000mart",
+    "bwb_KU-426-196",
+    "gameofthronesspe0000unse",
+    "gameofthrones00mart_0",
+    "letronedeferlint0000mart_p9k2",
+    "canciondehieloyf0001geor",
+    "ilgrandeinverno0000unse",
+    "isbn_0553573403",
+    "bwb_C0-CEK-605",
+    "gameofthronesboo0000unse",
+    "isbn_9780553573404_b8s3",
+    "letrnedeferlintg0000mart",
+    "isbn_0553573403_i1p5",
+    "isbn_9780553573404_r7m9",
+    "gameofthronesaso00geor_1",
+    "juegodetronos0000geor",
+    "gameofthrones0000mart_x2q2",
+    "letronedefer0000mart_x8e2",
+    "gameofthrones0000mart",
+    "isbn_9780553573404",
+    "gameofthrones00mart",
+    "gameofthrones0000mart_t9y7",
+    "gameofthronesill0000mart",
+    "gameofthronesaso00geor",
+    "gameofthronesboo00mart",
+    "gameofthrones0000mart_j5f5",
+    "gameofthrones0001mart"
+   ],
+   "ia_collection": [
+    "americana",
+    "inlibrary",
+    "internetarchivebooks",
+    "printdisabled"
+   ],
+   "language": [
+    "gle",
+    "ukr",
+    "por",
+    "eng",
+    "fre",
+    "jpn",
+    "srp",
+    "ita",
+    "rus",
+    "dan",
+    "swe",
+    "ger",
+    "spa",
+    "ind",
+    "chi",
+    "tur",
+    "pol",
+    "cat"
+   ],
+   "lending_edition_s": "OL35651104M",
+   "lending_identifier_s": "buzveatesinsarki0000geor",
+   "public_scan_b": false,
+   "series_key": [
+    "OL327002L"
+   ],
+   "series_name": [
+    "A Song of Ice and Fire"
+   ],
+   "series_position": [
+    "1"
+   ],
+   "editions": {
+    "numFound": 136,
+    "start": 0,
+    "numFoundExact": true,
+    "docs": [
+     {
+      "key": "/books/OL58636603M",
+      "title": "A Game of Thrones",
+      "cover_i": 15128814,
+      "cover_width": 1857,
+      "cover_height": 2864,
+      "language": [
+       "eng"
+      ],
+      "ia": [
+       "bwb_KU-426-196"
+      ],
+      "ia_collection": [
+       "printdisabled",
+       "internetarchivebooks"
+      ],
+      "ebook_access": "printdisabled",
+      "has_fulltext": true,
+      "public_scan_b": false,
+      "providers": [
+       {
+        "access": "sample",
+        "format": "web",
+        "price": null,
+        "url": "https://archive.org/details/bwb_KU-426-196?view=theater&wrapper=false",
+        "provider_name": "ia"
+       }
+      ],
+      "availability": {
+       "status": "private",
+       "available_to_browse": false,
+       "available_to_borrow": false,
+       "available_to_waitlist": false,
+       "is_printdisabled": true,
+       "is_readable": false,
+       "is_lendable": false,
+       "is_previewable": true,
+       "identifier": "bwb_KU-426-196",
+       "isbn": null,
+       "oclc": null,
+       "openlibrary_work": "OL257943W",
+       "openlibrary_edition": "OL58636603M",
+       "last_loan_date": null,
+       "num_waitlist": null,
+       "last_waitlist_date": null,
+       "is_restricted": true,
+       "is_browseable": false,
+       "__src__": "core.models.lending.get_availability"
+      }
+     }
+    ]
+   },
+   "providers": []
+  },
+  {
+   "key": "/works/OL5759259W",
+   "title": "A love to die for",
+   "author_name": [
+    "Patricia Springer"
+   ],
+   "author_key": [
+    "OL1401489A"
+   ],
+   "cover_edition_key": "OL6897816M",
+   "cover_i": 539199,
+   "ebook_access": "borrowable",
+   "edition_count": 1,
+   "first_publish_year": 2000,
+   "has_fulltext": true,
+   "ia": [
+    "lovetodiefor00spri"
+   ],
+   "ia_collection": [
+    "inlibrary",
+    "internetarchivebooks",
+    "printdisabled"
+   ],
+   "language": [
+    "eng"
+   ],
+   "lending_edition_s": "OL6897816M",
+   "lending_identifier_s": "lovetodiefor00spri",
+   "public_scan_b": false,
+   "editions": {
+    "numFound": 1,
+    "start": 0,
+    "numFoundExact": true,
+    "docs": [
+     {
+      "key": "/books/OL6897816M",
+      "title": "A love to die for",
+      "cover_i": 539199,
+      "language": [
+       "eng"
+      ],
+      "ia": [
+       "lovetodiefor00spri"
+      ],
+      "ia_collection": [
+       "inlibrary",
+       "printdisabled",
+       "internetarchivebooks"
+      ],
+      "ebook_access": "borrowable",
+      "has_fulltext": true,
+      "public_scan_b": false,
+      "providers": [
+       {
+        "access": "borrow",
+        "format": "web",
+        "price": null,
+        "url": "https://archive.org/details/lovetodiefor00spri?view=theater&wrapper=false",
+        "provider_name": "ia"
+       }
+      ],
+      "availability": {
+       "status": "borrow_unavailable",
+       "available_to_browse": false,
+       "available_to_borrow": false,
+       "available_to_waitlist": true,
+       "is_printdisabled": true,
+       "is_readable": false,
+       "is_lendable": true,
+       "is_previewable": true,
+       "identifier": "lovetodiefor00spri",
+       "isbn": "9780786010868",
+       "oclc": null,
+       "openlibrary_work": "OL5759259W",
+       "openlibrary_edition": "OL6897816M",
+       "last_loan_date": null,
+       "num_waitlist": null,
+       "last_waitlist_date": null,
+       "is_restricted": true,
+       "is_browseable": false,
+       "__src__": "core.models.lending.get_availability"
+      }
+     }
+    ]
+   },
+   "providers": []
+  },
+  {
+   "key": "/works/OL1874705W",
+   "title": "How to Talk to Anyone",
+   "author_name": [
+    "Leil Lowndes"
+   ],
+   "author_key": [
+    "OL224469A"
+   ],
+   "cover_edition_key": "OL9254569M",
+   "cover_height": 475,
+   "cover_i": 58950,
+   "cover_width": 317,
+   "ebook_access": "printdisabled",
+   "edition_count": 10,
+   "first_publish_year": 1999,
+   "has_fulltext": true,
+   "ia": [
+    "howtotalktoanyon0000lown"
+   ],
+   "ia_collection": [
+    "internetarchivebooks",
+    "printdisabled"
+   ],
+   "language": [
+    "may",
+    "eng"
+   ],
+   "public_scan_b": false,
+   "editions": {
+    "numFound": 10,
+    "start": 0,
+    "numFoundExact": true,
+    "docs": [
+     {
+      "key": "/books/OL19231290M",
+      "title": "How to Talk to Anyone",
+      "subtitle": "92 little tricks for big success in relationships",
+      "cover_i": 15090733,
+      "cover_width": 1080,
+      "cover_height": 1644,
+      "language": [
+       "eng"
+      ],
+      "ia": [
+       "howtotalktoanyon0000lown"
+      ],
+      "ia_collection": [
+       "printdisabled",
+       "internetarchivebooks"
+      ],
+      "ebook_access": "printdisabled",
+      "has_fulltext": true,
+      "public_scan_b": false,
+      "providers": [
+       {
+        "access": "sample",
+        "format": "web",
+        "price": null,
+        "url": "https://archive.org/details/howtotalktoanyon0000lown?view=theater&wrapper=false",
+        "provider_name": "ia"
+       }
+      ],
+      "availability": {
+       "status": "private",
+       "available_to_browse": false,
+       "available_to_borrow": false,
+       "available_to_waitlist": false,
+       "is_printdisabled": true,
+       "is_readable": false,
+       "is_lendable": false,
+       "is_previewable": true,
+       "identifier": "howtotalktoanyon0000lown",
+       "isbn": "007141858X",
+       "oclc": null,
+       "openlibrary_work": "OL1874705W",
+       "openlibrary_edition": "OL19231290M",
+       "last_loan_date": null,
+       "num_waitlist": null,
+       "last_waitlist_date": null,
+       "is_restricted": true,
+       "is_browseable": false,
+       "__src__": "core.models.lending.get_availability"
+      }
+     }
+    ]
+   },
+   "providers": []
+  },
+  {
+   "key": "/works/OL17850410W",
+   "title": "The Cruel Prince",
+   "author_name": [
+    "Holly Black"
+   ],
+   "author_key": [
+    "OL1430285A"
+   ],
+   "cover_edition_key": "OL26694821M",
+   "cover_height": 475,
+   "cover_i": 8361789,
+   "cover_width": 317,
+   "ebook_access": "no_ebook",
+   "edition_count": 18,
+   "first_publish_year": 2018,
+   "has_fulltext": false,
+   "language": [
+    "eng",
+    "heb",
+    "dut"
+   ],
+   "public_scan_b": false,
+   "series_key": [
+    "OL330571L"
+   ],
+   "series_name": [
+    "The Folk of the Air"
+   ],
+   "series_position": [
+    "1"
+   ],
+   "editions": {
+    "numFound": 18,
+    "start": 0,
+    "numFoundExact": true,
+    "docs": [
+     {
+      "key": "/books/OL48258839M",
+      "title": "The Cruel Prince",
+      "cover_i": 15204736,
+      "cover_width": 663,
+      "cover_height": 1000,
+      "language": [
+       "eng"
+      ],
+      "ebook_access": "no_ebook",
+      "has_fulltext": false,
+      "public_scan_b": false,
+      "providers": []
+     }
+    ]
+   },
+   "providers": []
+  },
+  {
+   "key": "/works/OL17356883W",
+   "title": "Red Queen",
+   "author_name": [
+    "Victoria Aveyard"
+   ],
+   "author_key": [
+    "OL7276129A"
+   ],
+   "cover_height": 475,
+   "cover_i": 7434883,
+   "cover_width": 316,
+   "ebook_access": "borrowable",
+   "edition_count": 35,
+   "first_publish_year": 2015,
+   "has_fulltext": true,
+   "ia": [
+    "redqueenpowerisd0000vict",
+    "redqueentome10000vict",
+    "dieroteknigin0000unse",
+    "reinaroja0000vict",
+    "redqueen0000avey"
+   ],
+   "ia_collection": [
+    "inlibrary",
+    "internetarchivebooks",
+    "printdisabled"
+   ],
+   "language": [
+    "tur",
+    "chi",
+    "por",
+    "ger",
+    "fre",
+    "pol",
+    "spa",
+    "eng"
+   ],
+   "lending_edition_s": "OL49207728M",
+   "lending_identifier_s": "redqueenpowerisd0000vict",
+   "public_scan_b": false,
+   "series_key": [
+    "OL334913L"
+   ],
+   "series_name": [
+    "Red Queen"
+   ],
+   "series_position": [
+    "1"
+   ],
+   "editions": {
+    "numFound": 35,
+    "start": 0,
+    "numFoundExact": true,
+    "docs": [
+     {
+      "key": "/books/OL49207728M",
+      "title": "Red Queen - Power is Dangerous",
+      "cover_i": 15218206,
+      "cover_width": 192,
+      "cover_height": 290,
+      "language": [
+       "eng"
+      ],
+      "ia": [
+       "redqueenpowerisd0000vict"
+      ],
+      "ia_collection": [
+       "internetarchivebooks",
+       "printdisabled",
+       "inlibrary"
+      ],
+      "ebook_access": "borrowable",
+      "has_fulltext": true,
+      "public_scan_b": false,
+      "providers": [
+       {
+        "access": "borrow",
+        "format": "web",
+        "price": null,
+        "url": "https://archive.org/details/redqueenpowerisd0000vict?view=theater&wrapper=false",
+        "provider_name": "ia"
+       }
+      ],
+      "availability": {
+       "status": "borrow_available",
+       "available_to_browse": true,
+       "available_to_borrow": false,
+       "available_to_waitlist": false,
+       "is_printdisabled": true,
+       "is_readable": false,
+       "is_lendable": true,
+       "is_previewable": true,
+       "identifier": "redqueenpowerisd0000vict",
+       "isbn": "9780062442390",
+       "oclc": null,
+       "openlibrary_work": "OL36419211W",
+       "openlibrary_edition": "OL49207728M",
+       "last_loan_date": null,
+       "num_waitlist": null,
+       "last_waitlist_date": null,
+       "is_restricted": true,
+       "is_browseable": true,
+       "__src__": "core.models.lending.get_availability"
+      }
+     }
+    ]
+   },
+   "providers": []
+  },
+  {
+   "key": "/works/OL20646061W",
+   "title": "A Good Girl's Guide to Murder",
+   "author_name": [
+    "Holly Jackson"
+   ],
+   "author_key": [
+    "OL7722491A"
+   ],
+   "cover_height": 475,
+   "cover_i": 13156188,
+   "cover_width": 313,
+   "ebook_access": "printdisabled",
+   "edition_count": 38,
+   "first_publish_year": 2019,
+   "has_fulltext": true,
+   "ia": [
+    "goodgirlsguideto0000unse_z0n0"
+   ],
+   "ia_collection": [
+    "internetarchivebooks",
+    "printdisabled"
+   ],
+   "language": [
+    "ang",
+    "heb",
+    "por",
+    "eng",
+    "ger",
+    "ita",
+    "spa",
+    "dut",
+    "tur",
+    "pol"
+   ],
+   "public_scan_b": false,
+   "editions": {
+    "numFound": 38,
+    "start": 0,
+    "numFoundExact": true,
+    "docs": [
+     {
+      "key": "/books/OL60608485M",
+      "title": "A Good Girl's Guide to Murder: Deluxe Edition",
+      "cover_i": 15140512,
+      "cover_width": 3024,
+      "cover_height": 4676,
+      "language": [
+       "eng"
+      ],
+      "ia": [
+       "goodgirlsguideto0000unse_z0n0"
+      ],
+      "ia_collection": [
+       "printdisabled",
+       "internetarchivebooks"
+      ],
+      "ebook_access": "printdisabled",
+      "has_fulltext": true,
+      "public_scan_b": false,
+      "providers": [
+       {
+        "access": "sample",
+        "format": "web",
+        "price": null,
+        "url": "https://archive.org/details/goodgirlsguideto0000unse_z0n0?view=theater&wrapper=false",
+        "provider_name": "ia"
+       }
+      ],
+      "availability": {
+       "status": "private",
+       "available_to_browse": false,
+       "available_to_borrow": false,
+       "available_to_waitlist": false,
+       "is_printdisabled": true,
+       "is_readable": false,
+       "is_lendable": false,
+       "is_previewable": true,
+       "identifier": "goodgirlsguideto0000unse_z0n0",
+       "isbn": "9798217116775",
+       "oclc": null,
+       "openlibrary_work": "OL20646061W",
+       "openlibrary_edition": "OL60608485M",
+       "last_loan_date": null,
+       "num_waitlist": null,
+       "last_waitlist_date": null,
+       "is_restricted": true,
+       "is_browseable": false,
+       "__src__": "core.models.lending.get_availability"
+      }
+     }
+    ]
+   },
+   "providers": []
+  },
+  {
+   "key": "/works/OL25436364W",
+   "title": "The Mountain Is You",
+   "author_name": [
+    "Brianna Wiest"
+   ],
+   "author_key": [
+    "OL8946931A"
+   ],
+   "cover_edition_key": "OL34105393M",
+   "cover_height": 500,
+   "cover_i": 13838236,
+   "cover_width": 333,
+   "ebook_access": "printdisabled",
+   "edition_count": 7,
+   "first_publish_year": 2020,
+   "has_fulltext": true,
+   "ia": [
+    "mountainisyoutra0000wies"
+   ],
+   "ia_collection": [
+    "internetarchivebooks",
+    "printdisabled"
+   ],
+   "language": [
+    "spa",
+    "eng"
+   ],
+   "public_scan_b": false,
+   "editions": {
+    "numFound": 7,
+    "start": 0,
+    "numFoundExact": true,
+    "docs": [
+     {
+      "key": "/books/OL34105393M",
+      "title": "The Mountain Is You",
+      "subtitle": "Transforming Self-Sabotage into Self-Mastery",
+      "cover_i": 15178768,
+      "cover_width": 1648,
+      "cover_height": 2796,
+      "language": [
+       "eng"
+      ],
+      "ia": [
+       "mountainisyoutra0000wies"
+      ],
+      "ia_collection": [
+       "internetarchivebooks",
+       "printdisabled"
+      ],
+      "ebook_access": "printdisabled",
+      "has_fulltext": true,
+      "public_scan_b": false,
+      "providers": [
+       {
+        "access": "sample",
+        "format": "web",
+        "price": null,
+        "url": "https://archive.org/details/mountainisyoutra0000wies?view=theater&wrapper=false",
+        "provider_name": "ia"
+       }
+      ],
+      "availability": {
+       "status": "private",
+       "available_to_browse": false,
+       "available_to_borrow": false,
+       "available_to_waitlist": false,
+       "is_printdisabled": true,
+       "is_readable": false,
+       "is_lendable": false,
+       "is_previewable": true,
+       "identifier": "mountainisyoutra0000wies",
+       "isbn": "9781949759228",
+       "oclc": null,
+       "openlibrary_work": "OL25436364W",
+       "openlibrary_edition": "OL34105393M",
+       "last_loan_date": null,
+       "num_waitlist": null,
+       "last_waitlist_date": null,
+       "is_restricted": true,
+       "is_browseable": false,
+       "__src__": "core.models.lending.get_availability"
+      }
+     }
+    ]
+   },
+   "providers": []
+  },
+  {
+   "key": "/works/OL19096402W",
+   "title": "The Silent Patient",
+   "author_name": [
+    "Alex Michaelides"
+   ],
+   "author_key": [
+    "OL7471384A"
+   ],
+   "cover_edition_key": "OL28025498M",
+   "cover_height": 500,
+   "cover_i": 9407338,
+   "cover_width": 331,
+   "ebook_access": "no_ebook",
+   "edition_count": 26,
+   "first_publish_year": 2018,
+   "has_fulltext": false,
+   "language": [
+    "por",
+    "est",
+    "eng",
+    "ger",
+    "tur",
+    "cat"
+   ],
+   "public_scan_b": false,
+   "editions": {
+    "numFound": 26,
+    "start": 0,
+    "numFoundExact": true,
+    "docs": [
+     {
+      "key": "/books/OL59645497M",
+      "title": "The Silent Patient",
+      "cover_i": 15105887,
+      "cover_width": 329,
+      "cover_height": 500,
+      "language": [
+       "eng"
+      ],
+      "ebook_access": "no_ebook",
+      "has_fulltext": false,
+      "public_scan_b": false,
+      "providers": []
+     }
+    ]
+   },
+   "providers": []
+  },
+  {
+   "key": "/works/OL42975424W",
+   "title": "Can We Be Strangers Again?",
+   "author_name": [
+    "Shrijeet Shandilya"
+   ],
+   "author_key": [
+    "OL15344594A"
+   ],
+   "cover_edition_key": "OL58549598M",
+   "cover_height": 1562,
+   "cover_i": 15073759,
+   "cover_width": 994,
+   "ebook_access": "no_ebook",
+   "edition_count": 2,
+   "first_publish_year": 2024,
+   "has_fulltext": false,
+   "language": [
+    "eng"
+   ],
+   "public_scan_b": false,
+   "editions": {
+    "numFound": 2,
+    "start": 0,
+    "numFoundExact": true,
+    "docs": [
+     {
+      "key": "/books/OL58549598M",
+      "title": "Can We Be Strangers Again?",
+      "cover_i": 14873833,
+      "cover_width": 177,
+      "cover_height": 284,
+      "language": [
+       "eng"
+      ],
+      "ebook_access": "no_ebook",
+      "has_fulltext": false,
+      "public_scan_b": false,
+      "providers": []
+     }
+    ]
+   },
+   "providers": []
+  },
+  {
+   "key": "/works/OL42430111W",
+   "title": "The Deal",
+   "author_name": [
+    "Elle Kennedy"
+   ],
+   "author_key": [
+    "OL6761347A"
+   ],
+   "cover_edition_key": "OL28274417M",
+   "cover_height": 500,
+   "cover_i": 10201611,
+   "cover_width": 333,
+   "ebook_access": "borrowable",
+   "edition_count": 15,
+   "first_publish_year": 2000,
+   "has_fulltext": true,
+   "ia": [
+    "deal0000elle",
+    "dealreineverhand0000unse",
+    "dealoffcampusnov0000kenn",
+    "ukad0000kenn"
+   ],
+   "ia_collection": [
+    "inlibrary",
+    "internetarchivebooks",
+    "printdisabled"
+   ],
+   "language": [
+    "spa",
+    "pol",
+    "tur",
+    "dut",
+    "ger",
+    "eng",
+    "por"
+   ],
+   "lending_edition_s": "OL30624053M",
+   "lending_identifier_s": "deal0000elle",
+   "public_scan_b": false,
+   "series_key": [
+    "OL334331L"
+   ],
+   "series_name": [
+    "Off-Campus"
+   ],
+   "series_position": [
+    "1"
+   ],
+   "editions": {
+    "numFound": 15,
+    "start": 0,
+    "numFoundExact": true,
+    "docs": [
+     {
+      "key": "/books/OL30624053M",
+      "title": "The Deal",
+      "cover_i": 15123018,
+      "cover_width": 1310,
+      "cover_height": 2048,
+      "language": [
+       "eng"
+      ],
+      "ia": [
+       "deal0000elle"
+      ],
+      "ia_collection": [
+       "inlibrary",
+       "printdisabled",
+       "internetarchivebooks"
+      ],
+      "ebook_access": "borrowable",
+      "has_fulltext": true,
+      "public_scan_b": false,
+      "providers": [
+       {
+        "access": "borrow",
+        "format": "web",
+        "price": null,
+        "url": "https://archive.org/details/deal0000elle?view=theater&wrapper=false",
+        "provider_name": "ia"
+       }
+      ],
+      "availability": {
+       "status": "borrow_available",
+       "available_to_browse": true,
+       "available_to_borrow": false,
+       "available_to_waitlist": false,
+       "is_printdisabled": true,
+       "is_readable": false,
+       "is_lendable": true,
+       "is_previewable": true,
+       "identifier": "deal0000elle",
+       "isbn": "9781537356037",
+       "oclc": null,
+       "openlibrary_work": "OL42430111W",
+       "openlibrary_edition": "OL30624053M",
+       "last_loan_date": null,
+       "num_waitlist": null,
+       "last_waitlist_date": null,
+       "is_restricted": true,
+       "is_browseable": true,
+       "__src__": "core.models.lending.get_availability"
+      }
+     }
+    ]
+   },
+   "providers": []
+  },
+  {
+   "key": "/works/OL27729743W",
+   "title": "The Housemaid",
+   "author_name": [
+    "Freida McFadden"
+   ],
+   "author_key": [
+    "OL8384995A"
+   ],
+   "cover_edition_key": "OL59645491M",
+   "cover_height": 500,
+   "cover_i": 15105883,
+   "cover_width": 326,
+   "ebook_access": "no_ebook",
+   "edition_count": 17,
+   "first_publish_year": 2022,
+   "has_fulltext": false,
+   "language": [
+    "pol",
+    "por",
+    "eng",
+    "ger",
+    "spa",
+    "dut"
+   ],
+   "public_scan_b": false,
+   "editions": {
+    "numFound": 17,
+    "start": 0,
+    "numFoundExact": true,
+    "docs": [
+     {
+      "key": "/books/OL57519600M",
+      "title": "The Housemaid",
+      "subtitle": "An Absolutely Addictive Psychological Thriller with a Jaw-Dropping Twist",
+      "cover_i": 15125026,
+      "cover_width": 1000,
+      "cover_height": 1500,
+      "language": [
+       "eng"
+      ],
+      "ebook_access": "no_ebook",
+      "has_fulltext": false,
+      "public_scan_b": false,
+      "providers": []
+     }
+    ]
+   },
+   "providers": []
+  }
+ ]
+}

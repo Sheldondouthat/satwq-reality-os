@@ -1,0 +1,90 @@
+[
+  {
+    "stationId": "TNY",
+    "durCode": "D",
+    "SENSOR_NUM": 3,
+    "sensorType": "SNOW WC",
+    "date": "2026-9-25 00:00",
+    "obsDate": "2026-9-25 00:00",
+    "value": 0.99,
+    "dataFlag": " ",
+    "units": "INCHES"
+  },
+  {
+    "stationId": "TNY",
+    "durCode": "D",
+    "SENSOR_NUM": 3,
+    "sensorType": "SNOW WC",
+    "date": "2026-9-26 00:00",
+    "obsDate": "2026-9-26 00:00",
+    "value": 0.97,
+    "dataFlag": " ",
+    "units": "INCHES"
+  },
+  {
+    "stationId": "TNY",
+    "durCode": "D",
+    "SENSOR_NUM": 3,
+    "sensorType": "SNOW WC",
+    "date": "2026-9-27 00:00",
+    "obsDate": "2026-9-27 00:00",
+    "value": 0.7,
+    "dataFlag": " ",
+    "units": "INCHES"
+  },
+  {
+    "stationId": "TNY",
+    "durCode": "D",
+    "SENSOR_NUM": 3,
+    "sensorType": "SNOW WC",
+    "date": "2026-9-28 00:00",
+    "obsDate": "2026-9-28 00:00",
+    "value": 0.47,
+    "dataFlag": " ",
+    "units": "INCHES"
+  },
+  {
+    "stationId": "TNY",
+    "durCode": "D",
+    "SENSOR_NUM": 3,
+    "sensorType": "SNOW WC",
+    "date": "2026-9-29 00:00",
+    "obsDate": "2026-9-29 00:00",
+    "value": 0.84,
+    "dataFlag": " ",
+    "units": "INCHES"
+  },
+  {
+    "stationId": "TNY",
+    "durCode": "D",
+    "SENSOR_NUM": 3,
+    "sensorType": "SNOW WC",
+    "date": "2026-9-30 00:00",
+    "obsDate": "2026-9-30 00:00",
+    "value": 0.92,
+    "dataFlag": " ",
+    "units": "INCHES"
+  },
+  {
+    "stationId": "TNY",
+    "durCode": "D",
+    "SENSOR_NUM": 3,
+    "sensorType": "SNOW WC",
+    "date": "2026-10-1 00:00",
+    "obsDate": "2026-10-1 00:00",
+    "value": 1.07,
+    "dataFlag": " ",
+    "units": "INCHES"
+  },
+  {
+    "stationId": "TNY",
+    "durCode": "D",
+    "SENSOR_NUM": 3,
+    "sensorType": "SNOW WC",
+    "date": "2026-10-2 00:00",
+    "obsDate": "2026-10-2 00:00",
+    "value": 1.01,
+    "dataFlag": " ",
+    "units": "INCHES"
+  }
+]
