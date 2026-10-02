@@ -1,7 +1,7 @@
 {
-  "versionCode": 7,
-  "versionName": "7.0-vNext",
-  "apkUrl": "https://github.com/Sheldondouthat/satwq-reality-os/releases/download/v7.0-vNext/MonolithUniversal.apk",
-  "apkSha256": "88e8414afe328bb33c829b32a8e80a8e89c710f17822c69162ed06050b081a63",
-  "notes": "Lockscreen widget (3 sizes) + Quick Settings tiles. The widget reads your Roku from the app — no re-typing. In-app updates from here on."
+  "versionCode": 8,
+  "versionName": "8.0-mega",
+  "apkUrl": "https://github.com/Sheldondouthat/satwq-reality-os/releases/download/v8.0-mega/MonolithUniversal.apk",
+  "apkSha256": "8cff8520ebf6dd1fdbd2d57960cc91ab0977410676108083bc9ad52c7e2fc20e",
+  "notes": "Mega-wave: ~200 new features across 15 domains. Macros & scenes, smart-home (Sonos, Hue, Kasa, etc.), TV platforms, 10 themes, first-run wizard, backup/restore, per-device widgets. 620/620 tests green."
 }
