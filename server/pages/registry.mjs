@@ -2604,6 +2604,126 @@ const REGISTRY = [
     routes: ['/api/king-tides'],
     load: () => import('../providers/wave6/tides.js').then((m) => m.kingTidesProxy()),
   },
+  {
+    name: 'socrata-cambridge-311',
+    routes: ['/api/socrata-cambridge-311'],
+    load: () => import('../providers/wave10/specs/socrata-cambridge-311.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('socrata-cambridge-311', s.SPEC);
+    }),
+  },
+  {
+    name: 'socrata-cambridge-crime',
+    routes: ['/api/socrata-cambridge-crime'],
+    load: () => import('../providers/wave10/specs/socrata-cambridge-crime.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('socrata-cambridge-crime', s.SPEC);
+    }),
+  },
+  {
+    name: 'socrata-cambridge-inspections',
+    routes: ['/api/socrata-cambridge-inspections'],
+    load: () => import('../providers/wave10/specs/socrata-cambridge-inspections.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('socrata-cambridge-inspections', s.SPEC);
+    }),
+  },
+  {
+    name: 'socrata-cambridge-permits',
+    routes: ['/api/socrata-cambridge-permits'],
+    load: () => import('../providers/wave10/specs/socrata-cambridge-permits.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('socrata-cambridge-permits', s.SPEC);
+    }),
+  },
+  {
+    name: 'socrata-cincinnati-311',
+    routes: ['/api/socrata-cincinnati-311'],
+    load: () => import('../providers/wave10/specs/socrata-cincinnati-311.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('socrata-cincinnati-311', s.SPEC);
+    }),
+  },
+  {
+    name: 'socrata-cincinnati-crashes',
+    routes: ['/api/socrata-cincinnati-crashes'],
+    load: () => import('../providers/wave10/specs/socrata-cincinnati-crashes.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('socrata-cincinnati-crashes', s.SPEC);
+    }),
+  },
+  {
+    name: 'socrata-cincinnati-crime',
+    routes: ['/api/socrata-cincinnati-crime'],
+    load: () => import('../providers/wave10/specs/socrata-cincinnati-crime.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('socrata-cincinnati-crime', s.SPEC);
+    }),
+  },
+  {
+    name: 'socrata-cincinnati-permits',
+    routes: ['/api/socrata-cincinnati-permits'],
+    load: () => import('../providers/wave10/specs/socrata-cincinnati-permits.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('socrata-cincinnati-permits', s.SPEC);
+    }),
+  },
+  {
+    name: 'socrata-dallas-311',
+    routes: ['/api/socrata-dallas-311'],
+    load: () => import('../providers/wave10/specs/socrata-dallas-311.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('socrata-dallas-311', s.SPEC);
+    }),
+  },
+  {
+    name: 'socrata-dallas-police-incidents',
+    routes: ['/api/socrata-dallas-police-incidents'],
+    load: () => import('../providers/wave10/specs/socrata-dallas-police-incidents.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('socrata-dallas-police-incidents', s.SPEC);
+    }),
+  },
+  {
+    name: 'socrata-neworleans-311',
+    routes: ['/api/socrata-neworleans-311'],
+    load: () => import('../providers/wave10/specs/socrata-neworleans-311.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('socrata-neworleans-311', s.SPEC);
+    }),
+  },
+  {
+    name: 'socrata-neworleans-code-enforcement',
+    routes: ['/api/socrata-neworleans-code-enforcement'],
+    load: () => import('../providers/wave10/specs/socrata-neworleans-code-enforcement.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('socrata-neworleans-code-enforcement', s.SPEC);
+    }),
+  },
+  {
+    name: 'socrata-neworleans-permits',
+    routes: ['/api/socrata-neworleans-permits'],
+    load: () => import('../providers/wave10/specs/socrata-neworleans-permits.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('socrata-neworleans-permits', s.SPEC);
+    }),
+  },
+  {
+    name: 'socrata-neworleans-police-calls',
+    routes: ['/api/socrata-neworleans-police-calls'],
+    load: () => import('../providers/wave10/specs/socrata-neworleans-police-calls.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('socrata-neworleans-police-calls', s.SPEC);
+    }),
+  },
+  {
+    name: 'socrata-orlando-permits',
+    routes: ['/api/socrata-orlando-permits'],
+    load: () => import('../providers/wave10/specs/socrata-orlando-permits.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('socrata-orlando-permits', s.SPEC);
+    }),
+  },
 ];
 
 export { REGISTRY };
