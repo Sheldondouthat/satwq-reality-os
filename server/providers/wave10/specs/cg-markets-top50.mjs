@@ -48,7 +48,7 @@ export const SPEC = {
     "freshness": "Near-real-time; CoinGecko free tier, no API key.",
     "model": "CoinGecko aggregates exchange tickers; not an official market feed."
   },
-  "honesty": "Top-50 crypto market snapshot by market cap (CoinGecko free API, no key). Indicative aggregate — not financial advice.",
+  "honesty": "Top-50 crypto market snapshot by market cap (CoinGecko free API, no key). Indicative aggregate — not financial advice. Hourly refresh: CoinGecko free tier is aggressively rate-limited on shared egress IPs; the layer serves the last good snapshot (labeled stale) between refreshes.",
   "id": "cg-markets-top50",
   "required": [
     "coin",
@@ -56,7 +56,7 @@ export const SPEC = {
   ],
   "source": "CoinGecko",
   "title": "CoinGecko — top 50 coins by market cap (USD)",
-  "ttlSeconds": 300,
+  "ttlSeconds": 3600,
   "units": {
     "change24hPct": "%",
     "high24h": "USD",

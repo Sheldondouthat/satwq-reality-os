@@ -35,7 +35,7 @@ export const SPEC = {
     "freshness": "Near-real-time; CoinGecko free tier, no API key.",
     "model": "CoinGecko search-activity ranking; not market data."
   },
-  "honesty": "CoinGecko trending coins by search activity (free API, no key). Hype ranking — not financial advice.",
+  "honesty": "CoinGecko trending coins by search activity (free API, no key). Hype ranking — not financial advice. Hourly refresh: CoinGecko free tier is aggressively rate-limited on shared egress IPs; the layer serves the last good snapshot (labeled stale) between refreshes.",
   "id": "cg-trending",
   "required": [
     "name",
@@ -43,7 +43,7 @@ export const SPEC = {
   ],
   "source": "CoinGecko",
   "title": "CoinGecko — trending coins (search activity)",
-  "ttlSeconds": 600,
+  "ttlSeconds": 3600,
   "units": {},
   "url": "https://api.coingecko.com/api/v3/search/trending",
   "verifiedAt": "2026-10-02",
