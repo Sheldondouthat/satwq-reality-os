@@ -647,6 +647,11 @@ const REGISTRY = [
     routes: ['/api/hab'],
     load: () => import('../providers/wave9/hab.js').then((m) => m.habProxy()),
   },
+  {
+    name: 'usace',
+    routes: ['/api/usace'],
+    load: () => import('../providers/wave9/usace.js').then((m) => m.usaceProxy()),
+  },
 ];
 
 export { REGISTRY };

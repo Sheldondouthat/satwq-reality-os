@@ -152,6 +152,7 @@ import { init as initUsdm } from './wave9/usdm/index.js';
 import { init as initExoplanets } from './wave9/exoplanets/index.js';
 import { init as initPollen } from './wave9/pollen/index.js';
 import { init as initHab } from './wave9/hab/index.js';
+import { init as initUsace } from './wave9/usace/index.js';
 
 const DOCK_ID = 'satwq-frontier-dock';
 
@@ -1100,6 +1101,7 @@ export function initFrontier({ viewer } = {}) {
     attempt('exoplanets', () => initExoplanets({ viewer, mount: s, chip, trackLayer, t }));
     attempt('pollen', () => initPollen({ viewer, mount: s, chip, trackLayer, t }));
     attempt('hab', () => initHab({ viewer, mount: s, chip, trackLayer, t }));
+    attempt('usace', () => initUsace({ viewer, mount: s, chip, trackLayer, t }));
   }
 
   return {
