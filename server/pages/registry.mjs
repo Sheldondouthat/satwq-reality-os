@@ -4722,6 +4722,21 @@ const REGISTRY = [
     routes: ['/api/mempool'],
     load: () => import('../providers/wave9/mempool.js').then((m) => m.mempoolProxy()),
   },
+  {
+    name: 'sea-ice',
+    routes: ['/api/sea-ice'],
+    load: () => import('../providers/wave9/earthVitals.js').then((m) => m.seaIceProxy()),
+  },
+  {
+    name: 'ozone',
+    routes: ['/api/ozone'],
+    load: () => import('../providers/wave9/earthVitals.js').then((m) => m.ozoneProxy()),
+  },
+  {
+    name: 'phenology',
+    routes: ['/api/phenology'],
+    load: () => import('../providers/wave9/earthVitals.js').then((m) => m.phenoProxy()),
+  },
 ];
 
 export { REGISTRY };
