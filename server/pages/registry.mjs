@@ -4646,6 +4646,62 @@ const REGISTRY = [
       return g.specProxy('wiki-nobel-peace', s.SPEC);
     }),
   },
+  {
+    name: 'policeuk-crimes-2026-08-bradford',
+    routes: ['/api/policeuk-crimes-2026-08-bradford'],
+    load: () => import('../providers/wave10/specs/policeuk-crimes-2026-08-bradford.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('policeuk-crimes-2026-08-bradford', s.SPEC);
+    }),
+  },
+  {
+    name: 'policeuk-crimes-2026-08-coventry',
+    routes: ['/api/policeuk-crimes-2026-08-coventry'],
+    load: () => import('../providers/wave10/specs/policeuk-crimes-2026-08-coventry.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('policeuk-crimes-2026-08-coventry', s.SPEC);
+    }),
+  },
+  {
+    name: 'policeuk-crimes-2026-08-leicester',
+    routes: ['/api/policeuk-crimes-2026-08-leicester'],
+    load: () => import('../providers/wave10/specs/policeuk-crimes-2026-08-leicester.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('policeuk-crimes-2026-08-leicester', s.SPEC);
+    }),
+  },
+  {
+    name: 'scholar-crossref-carbon-capture',
+    routes: ['/api/scholar-crossref-carbon-capture'],
+    load: () => import('../providers/wave10/specs/scholar-crossref-carbon-capture.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('scholar-crossref-carbon-capture', s.SPEC);
+    }),
+  },
+  {
+    name: 'scholar-crossref-deep-learning',
+    routes: ['/api/scholar-crossref-deep-learning'],
+    load: () => import('../providers/wave10/specs/scholar-crossref-deep-learning.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('scholar-crossref-deep-learning', s.SPEC);
+    }),
+  },
+  {
+    name: 'scholar-crossref-longevity',
+    routes: ['/api/scholar-crossref-longevity'],
+    load: () => import('../providers/wave10/specs/scholar-crossref-longevity.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('scholar-crossref-longevity', s.SPEC);
+    }),
+  },
+  {
+    name: 'scholar-crossref-quantum-error-correction',
+    routes: ['/api/scholar-crossref-quantum-error-correction'],
+    load: () => import('../providers/wave10/specs/scholar-crossref-quantum-error-correction.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('scholar-crossref-quantum-error-correction', s.SPEC);
+    }),
+  },
 ];
 
 export { REGISTRY };
