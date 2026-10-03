@@ -3611,3 +3611,8 @@ export const EXCLUDED = [
   { name: 'local-receivers', routes: ['/api/receivers'], why: 'LAN-local receivers unreachable from the edge' },
   { name: 'key-setup', routes: ['/api/setup/keys', '/api/setup/status'], why: 'writes local .env; no writable fs on Pages' },
 ];
+,{
+    name: 'meteor-showers',
+    routes: ['/api/meteor-showers'],
+    load: () => import('../providers/wave6/meteorShowers.js').then((m) => m.meteorShowersProxy()),
+  }
