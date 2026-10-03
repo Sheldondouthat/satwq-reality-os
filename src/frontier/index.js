@@ -162,6 +162,7 @@ import { init as initKingTides } from './wave9/kingTides/index.js';
 import { init as initStormSurge } from './wave9/stormSurge/index.js';
 import { init as initRaspberryShake } from './wave9/raspberryshake/index.js';
 import { init as initSuperfund } from './wave9/superfund/index.js';
+import { init as initLunar } from './wave9/lunar/index.js';
 
 const DOCK_ID = 'satwq-frontier-dock';
 
@@ -1120,6 +1121,7 @@ export function initFrontier({ viewer } = {}) {
     attempt('stormSurge', () => initStormSurge({ viewer, mount: s, chip, trackLayer, t }));
     attempt('raspberryshake', () => initRaspberryShake({ viewer, mount: s, chip, trackLayer, t }));
     attempt('superfund', () => initSuperfund({ viewer, mount: s, chip, trackLayer, t }));
+    attempt('lunar', () => initLunar({ viewer, mount: s, chip, trackLayer, t }));
   }
 
   return {

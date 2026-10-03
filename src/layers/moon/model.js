@@ -158,3 +158,22 @@ export function moonPhase(date) {
 export function moonIllumination(date) {
   return moonPhase(date).illumination;
 }
+
+/**
+ * Moon's geocentric equatorial coordinates (degrees) for a Date.
+ * Additive export for computed-ephemeris services (R2-21 /api/moon);
+ * existing callers unaffected.
+ */
+export function moonRaDec(date) {
+  const { d, moon } = sunMoon(date);
+  return eclipticToRaDec(moon.lon, moon.lat, d);
+}
+
+/**
+ * Greenwich Mean Sidereal Time (degrees) for a Date.
+ * Additive export for computed-ephemeris services (R2-21 /api/moon);
+ * existing callers unaffected.
+ */
+export function moonGmstDeg(date) {
+  return gmstDeg(date);
+}

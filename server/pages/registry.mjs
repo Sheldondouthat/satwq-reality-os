@@ -4712,6 +4712,11 @@ const REGISTRY = [
     routes: ['/api/superfund'],
     load: () => import('../providers/wave9/superfund.js').then((m) => m.superfundProxy()),
   },
+  {
+    name: 'lunar',
+    routes: ['/api/moon'],
+    load: () => import('../providers/wave9/lunar.js').then((m) => m.lunarProxy()),
+  },
 ];
 
 export { REGISTRY };
