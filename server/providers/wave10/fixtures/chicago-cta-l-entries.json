@@ -1,0 +1,50 @@
+[{"station_id":"41710","stationname":"Damen-Lake","date":"2026-07-31T00:00:00.000","daytype":"W","rides":"938"}
+,{"station_id":"40010","stationname":"Austin-Forest Park","date":"2026-07-31T00:00:00.000","daytype":"W","rides":"750"}
+,{"station_id":"40020","stationname":"Harlem-Lake","date":"2026-07-31T00:00:00.000","daytype":"W","rides":"2797"}
+,{"station_id":"40030","stationname":"Pulaski-Lake","date":"2026-07-31T00:00:00.000","daytype":"W","rides":"1001"}
+,{"station_id":"40040","stationname":"Quincy/Wells","date":"2026-07-31T00:00:00.000","daytype":"W","rides":"4224"}
+,{"station_id":"40050","stationname":"Davis","date":"2026-07-31T00:00:00.000","daytype":"W","rides":"2399"}
+,{"station_id":"40060","stationname":"Belmont-O'Hare","date":"2026-07-31T00:00:00.000","daytype":"W","rides":"3884"}
+,{"station_id":"40070","stationname":"Jackson/Dearborn","date":"2026-07-31T00:00:00.000","daytype":"W","rides":"8173"}
+,{"station_id":"40080","stationname":"Sheridan","date":"2026-07-31T00:00:00.000","daytype":"W","rides":"4004"}
+,{"station_id":"40090","stationname":"Damen-Brown","date":"2026-07-31T00:00:00.000","daytype":"W","rides":"1726"}
+,{"station_id":"40100","stationname":"Morse","date":"2026-07-31T00:00:00.000","daytype":"W","rides":"3041"}
+,{"station_id":"40120","stationname":"35th/Archer","date":"2026-07-31T00:00:00.000","daytype":"W","rides":"1795"}
+,{"station_id":"40130","stationname":"51st","date":"2026-07-31T00:00:00.000","daytype":"W","rides":"748"}
+,{"station_id":"40140","stationname":"Dempster-Skokie","date":"2026-07-31T00:00:00.000","daytype":"W","rides":"1571"}
+,{"station_id":"40150","stationname":"Pulaski-Cermak","date":"2026-07-31T00:00:00.000","daytype":"W","rides":"700"}
+,{"station_id":"40160","stationname":"LaSalle/Van Buren","date":"2026-07-31T00:00:00.000","daytype":"W","rides":"3166"}
+,{"station_id":"40170","stationname":"Ashland-Lake","date":"2026-07-31T00:00:00.000","daytype":"W","rides":"1967"}
+,{"station_id":"40180","stationname":"Oak Park-Forest Park","date":"2026-07-31T00:00:00.000","daytype":"W","rides":"678"}
+,{"station_id":"40190","stationname":"Sox-35th-Dan Ryan","date":"2026-07-31T00:00:00.000","daytype":"W","rides":"2954"}
+,{"station_id":"40210","stationname":"Damen-Cermak","date":"2026-07-31T00:00:00.000","daytype":"W","rides":"1282"}
+,{"station_id":"40220","stationname":"Western-Forest Park","date":"2026-07-31T00:00:00.000","daytype":"W","rides":"683"}
+,{"station_id":"40230","stationname":"Cumberland","date":"2026-07-31T00:00:00.000","daytype":"W","rides":"3222"}
+,{"station_id":"40240","stationname":"79th","date":"2026-07-31T00:00:00.000","daytype":"W","rides":"4167"}
+,{"station_id":"40250","stationname":"Kedzie-Homan-Forest Park","date":"2026-07-31T00:00:00.000","daytype":"W","rides":"894"}
+,{"station_id":"40260","stationname":"State/Lake","date":"2026-07-31T00:00:00.000","daytype":"W","rides":"0"}
+,{"station_id":"40270","stationname":"Main","date":"2026-07-31T00:00:00.000","daytype":"W","rides":"772"}
+,{"station_id":"40280","stationname":"Central-Lake","date":"2026-07-31T00:00:00.000","daytype":"W","rides":"1323"}
+,{"station_id":"40290","stationname":"Ashland/63rd","date":"2026-07-31T00:00:00.000","daytype":"W","rides":"739"}
+,{"station_id":"40300","stationname":"Indiana","date":"2026-07-31T00:00:00.000","daytype":"W","rides":"641"}
+,{"station_id":"40310","stationname":"Western-Orange","date":"2026-07-31T00:00:00.000","daytype":"W","rides":"2614"}
+,{"station_id":"40320","stationname":"Division/Milwaukee","date":"2026-07-31T00:00:00.000","daytype":"W","rides":"5028"}
+,{"station_id":"40330","stationname":"Grand/State","date":"2026-07-31T00:00:00.000","daytype":"W","rides":"13208"}
+,{"station_id":"40340","stationname":"Berwyn","date":"2026-07-31T00:00:00.000","daytype":"W","rides":"2264"}
+,{"station_id":"40350","stationname":"UIC-Halsted","date":"2026-07-31T00:00:00.000","daytype":"W","rides":"2309"}
+,{"station_id":"40360","stationname":"Southport","date":"2026-07-31T00:00:00.000","daytype":"W","rides":"2989"}
+,{"station_id":"40370","stationname":"Washington/Dearborn","date":"2026-07-31T00:00:00.000","daytype":"W","rides":"8976"}
+,{"station_id":"40380","stationname":"Clark/Lake","date":"2026-07-31T00:00:00.000","daytype":"W","rides":"12085"}
+,{"station_id":"40390","stationname":"Forest Park","date":"2026-07-31T00:00:00.000","daytype":"W","rides":"1495"}
+,{"station_id":"40400","stationname":"Noyes","date":"2026-07-31T00:00:00.000","daytype":"W","rides":"651"}
+,{"station_id":"40420","stationname":"Cicero-Cermak","date":"2026-07-31T00:00:00.000","daytype":"W","rides":"817"}
+,{"station_id":"40430","stationname":"Clinton-Forest Park","date":"2026-07-31T00:00:00.000","daytype":"W","rides":"2256"}
+,{"station_id":"40440","stationname":"California-Cermak","date":"2026-07-31T00:00:00.000","daytype":"W","rides":"1007"}
+,{"station_id":"40450","stationname":"95th/Dan Ryan","date":"2026-07-31T00:00:00.000","daytype":"W","rides":"6119"}
+,{"station_id":"40460","stationname":"Merchandise Mart","date":"2026-07-31T00:00:00.000","daytype":"W","rides":"4390"}
+,{"station_id":"40470","stationname":"Racine","date":"2026-07-31T00:00:00.000","daytype":"W","rides":"773"}
+,{"station_id":"40480","stationname":"Cicero-Lake","date":"2026-07-31T00:00:00.000","daytype":"W","rides":"816"}
+,{"station_id":"40490","stationname":"Grand/Milwaukee","date":"2026-07-31T00:00:00.000","daytype":"W","rides":"3085"}
+,{"station_id":"40510","stationname":"Garfield-South Elevated","date":"2026-07-31T00:00:00.000","daytype":"W","rides":"920"}
+,{"station_id":"40520","stationname":"Foster","date":"2026-07-31T00:00:00.000","daytype":"W","rides":"582"}
+,{"station_id":"40530","stationname":"Diversey","date":"2026-07-31T00:00:00.000","daytype":"W","rides":"3578"}]

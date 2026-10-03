@@ -1,90 +1,126 @@
 /**
  * Surge-500 spec index — AUTO-GENERATED. Do not edit by hand.
  */
-import { SPEC as _euro_barcelona_beaches } from './specs/euro-barcelona-beaches.mjs';
-import { SPEC as _euro_paris_bike_counters } from './specs/euro-paris-bike-counters.mjs';
-import { SPEC as _euro_paris_defibrillators } from './specs/euro-paris-defibrillators.mjs';
-import { SPEC as _euro_paris_drinking_fountains } from './specs/euro-paris-drinking-fountains.mjs';
-import { SPEC as _euro_paris_green_spaces } from './specs/euro-paris-green-spaces.mjs';
-import { SPEC as _euro_paris_markets } from './specs/euro-paris-markets.mjs';
-import { SPEC as _euro_paris_parking_garages } from './specs/euro-paris-parking-garages.mjs';
-import { SPEC as _euro_paris_taxi_stations } from './specs/euro-paris-taxi-stations.mjs';
-import { SPEC as _euro_paris_traffic_sensors } from './specs/euro-paris-traffic-sensors.mjs';
-import { SPEC as _euro_paris_velib_realtime } from './specs/euro-paris-velib-realtime.mjs';
-import { SPEC as _euro_paris_velib_stations } from './specs/euro-paris-velib-stations.mjs';
-import { SPEC as _gbif_australia_observations } from './specs/gbif-australia-observations.mjs';
-import { SPEC as _gbif_birds } from './specs/gbif-birds.mjs';
-import { SPEC as _gbif_brazil_observations } from './specs/gbif-brazil-observations.mjs';
-import { SPEC as _gbif_critically_endangered } from './specs/gbif-critically-endangered.mjs';
-import { SPEC as _gbif_endangered } from './specs/gbif-endangered.mjs';
-import { SPEC as _gbif_insects } from './specs/gbif-insects.mjs';
-import { SPEC as _gbif_japan_observations } from './specs/gbif-japan-observations.mjs';
-import { SPEC as _gbif_mammals } from './specs/gbif-mammals.mjs';
-import { SPEC as _gbif_recent_2026 } from './specs/gbif-recent-2026.mjs';
-import { SPEC as _gbif_south_africa_observations } from './specs/gbif-south-africa-observations.mjs';
-import { SPEC as _gbif_usa_observations } from './specs/gbif-usa-observations.mjs';
-import { SPEC as _gbif_virginia_observations } from './specs/gbif-virginia-observations.mjs';
-import { SPEC as _nasa_apod_random_10 } from './specs/nasa-apod-random-10.mjs';
-import { SPEC as _nasa_apod_week_20260925 } from './specs/nasa-apod-week-20260925.mjs';
-import { SPEC as _nasa_donki_cmes } from './specs/nasa-donki-cmes.mjs';
-import { SPEC as _nasa_donki_solar_flares } from './specs/nasa-donki-solar-flares.mjs';
-import { SPEC as _nasa_epic_natural } from './specs/nasa-epic-natural.mjs';
-import { SPEC as _nasa_exoplanet_confirmed_top50 } from './specs/nasa-exoplanet-confirmed-top50.mjs';
-import { SPEC as _nasa_neo_browse } from './specs/nasa-neo-browse.mjs';
-import { SPEC as _tfl_arrivals_oxford_circus } from './specs/tfl-arrivals-oxford-circus.mjs';
-import { SPEC as _tfl_bike_points } from './specs/tfl-bike-points.mjs';
-import { SPEC as _tfl_bus_status } from './specs/tfl-bus-status.mjs';
-import { SPEC as _tfl_central_line_stations } from './specs/tfl-central-line-stations.mjs';
-import { SPEC as _tfl_dlr_status } from './specs/tfl-dlr-status.mjs';
-import { SPEC as _tfl_elizabeth_line_status } from './specs/tfl-elizabeth-line-status.mjs';
-import { SPEC as _tfl_overground_status } from './specs/tfl-overground-status.mjs';
-import { SPEC as _tfl_road_corridor_a406 } from './specs/tfl-road-corridor-a406.mjs';
-import { SPEC as _tfl_road_disruptions } from './specs/tfl-road-disruptions.mjs';
-import { SPEC as _tfl_tram_status } from './specs/tfl-tram-status.mjs';
-import { SPEC as _tfl_tube_status } from './specs/tfl-tube-status.mjs';
+import { SPEC as _bike_baywheels_sf_stations } from './specs/bike-baywheels-sf-stations.mjs';
+import { SPEC as _bike_baywheels_sf_status } from './specs/bike-baywheels-sf-status.mjs';
+import { SPEC as _bike_capital_bikeshare_dc_stations } from './specs/bike-capital-bikeshare-dc-stations.mjs';
+import { SPEC as _bike_capital_bikeshare_dc_status } from './specs/bike-capital-bikeshare-dc-status.mjs';
+import { SPEC as _bike_citibike_nyc_stations } from './specs/bike-citibike-nyc-stations.mjs';
+import { SPEC as _bike_citibike_nyc_status } from './specs/bike-citibike-nyc-status.mjs';
+import { SPEC as _bike_divvy_chicago_stations } from './specs/bike-divvy-chicago-stations.mjs';
+import { SPEC as _bike_divvy_chicago_status } from './specs/bike-divvy-chicago-status.mjs';
+import { SPEC as _chicago_311_requests } from './specs/chicago-311-requests.mjs';
+import { SPEC as _chicago_building_permits } from './specs/chicago-building-permits.mjs';
+import { SPEC as _chicago_crimes } from './specs/chicago-crimes.mjs';
+import { SPEC as _chicago_cta_l_entries } from './specs/chicago-cta-l-entries.mjs';
+import { SPEC as _chicago_food_inspections } from './specs/chicago-food-inspections.mjs';
+import { SPEC as _chicago_taxi_trips } from './specs/chicago-taxi-trips.mjs';
+import { SPEC as _inat_birds } from './specs/inat-birds.mjs';
+import { SPEC as _inat_grand_canyon } from './specs/inat-grand-canyon.mjs';
+import { SPEC as _inat_great_smoky_mountains } from './specs/inat-great-smoky-mountains.mjs';
+import { SPEC as _inat_insects } from './specs/inat-insects.mjs';
+import { SPEC as _inat_mammals } from './specs/inat-mammals.mjs';
+import { SPEC as _inat_plants } from './specs/inat-plants.mjs';
+import { SPEC as _inat_research_grade_birds } from './specs/inat-research-grade-birds.mjs';
+import { SPEC as _inat_research_grade_insects } from './specs/inat-research-grade-insects.mjs';
+import { SPEC as _inat_research_grade_yellowstone } from './specs/inat-research-grade-yellowstone.mjs';
+import { SPEC as _inat_research_grade_yosemite } from './specs/inat-research-grade-yosemite.mjs';
+import { SPEC as _inat_yellowstone } from './specs/inat-yellowstone.mjs';
+import { SPEC as _inat_yosemite } from './specs/inat-yosemite.mjs';
+import { SPEC as _policeuk_crimes_2026_08_belfast } from './specs/policeuk-crimes-2026-08-belfast.mjs';
+import { SPEC as _policeuk_crimes_2026_08_birmingham } from './specs/policeuk-crimes-2026-08-birmingham.mjs';
+import { SPEC as _policeuk_crimes_2026_08_bristol } from './specs/policeuk-crimes-2026-08-bristol.mjs';
+import { SPEC as _policeuk_crimes_2026_08_cardiff } from './specs/policeuk-crimes-2026-08-cardiff.mjs';
+import { SPEC as _policeuk_crimes_2026_08_leeds } from './specs/policeuk-crimes-2026-08-leeds.mjs';
+import { SPEC as _policeuk_crimes_2026_08_westminster } from './specs/policeuk-crimes-2026-08-westminster.mjs';
+import { SPEC as _policeuk_forces } from './specs/policeuk-forces.mjs';
+import { SPEC as _policeuk_stops_2026_07_merseyside } from './specs/policeuk-stops-2026-07-merseyside.mjs';
+import { SPEC as _policeuk_stops_2026_07_metropolitan } from './specs/policeuk-stops-2026-07-metropolitan.mjs';
+import { SPEC as _policeuk_stops_2026_07_west_midlands } from './specs/policeuk-stops-2026-07-west-midlands.mjs';
+import { SPEC as _scholar_crossref_ai } from './specs/scholar-crossref-ai.mjs';
+import { SPEC as _scholar_crossref_climate } from './specs/scholar-crossref-climate.mjs';
+import { SPEC as _scholar_crossref_fusion } from './specs/scholar-crossref-fusion.mjs';
+import { SPEC as _scholar_crossref_quantum } from './specs/scholar-crossref-quantum.mjs';
+import { SPEC as _scholar_crossref_recent_2026 } from './specs/scholar-crossref-recent-2026.mjs';
+import { SPEC as _scholar_openalex_ai } from './specs/scholar-openalex-ai.mjs';
+import { SPEC as _scholar_openalex_crispr } from './specs/scholar-openalex-crispr.mjs';
+import { SPEC as _scholar_openalex_fusion } from './specs/scholar-openalex-fusion.mjs';
+import { SPEC as _scholar_openalex_quantum } from './specs/scholar-openalex-quantum.mjs';
+import { SPEC as _scholar_openalex_recent_2026 } from './specs/scholar-openalex-recent-2026.mjs';
+import { SPEC as _scholar_openalex_top_cited } from './specs/scholar-openalex-top-cited.mjs';
+import { SPEC as _scholar_openalex_topic } from './specs/scholar-openalex-topic.mjs';
+import { SPEC as _wiki_chemical_elements_2 } from './specs/wiki-chemical-elements-2.mjs';
+import { SPEC as _wiki_chemical_elements } from './specs/wiki-chemical-elements.mjs';
+import { SPEC as _wiki_countries_gdp } from './specs/wiki-countries-gdp.mjs';
+import { SPEC as _wiki_countries_population } from './specs/wiki-countries-population.mjs';
+import { SPEC as _wiki_largest_lakes } from './specs/wiki-largest-lakes.mjs';
+import { SPEC as _wiki_longest_rivers } from './specs/wiki-longest-rivers.mjs';
+import { SPEC as _wiki_megacities } from './specs/wiki-megacities.mjs';
+import { SPEC as _wiki_nobel_physics } from './specs/wiki-nobel-physics.mjs';
+import { SPEC as _wiki_tallest_mountains } from './specs/wiki-tallest-mountains.mjs';
+import { SPEC as _wiki_us_presidents } from './specs/wiki-us-presidents.mjs';
+import { SPEC as _wiki_world_capitals } from './specs/wiki-world-capitals.mjs';
 
 export const SPECS = {
-  'euro-barcelona-beaches': _euro_barcelona_beaches,
-  'euro-paris-bike-counters': _euro_paris_bike_counters,
-  'euro-paris-defibrillators': _euro_paris_defibrillators,
-  'euro-paris-drinking-fountains': _euro_paris_drinking_fountains,
-  'euro-paris-green-spaces': _euro_paris_green_spaces,
-  'euro-paris-markets': _euro_paris_markets,
-  'euro-paris-parking-garages': _euro_paris_parking_garages,
-  'euro-paris-taxi-stations': _euro_paris_taxi_stations,
-  'euro-paris-traffic-sensors': _euro_paris_traffic_sensors,
-  'euro-paris-velib-realtime': _euro_paris_velib_realtime,
-  'euro-paris-velib-stations': _euro_paris_velib_stations,
-  'gbif-australia-observations': _gbif_australia_observations,
-  'gbif-birds': _gbif_birds,
-  'gbif-brazil-observations': _gbif_brazil_observations,
-  'gbif-critically-endangered': _gbif_critically_endangered,
-  'gbif-endangered': _gbif_endangered,
-  'gbif-insects': _gbif_insects,
-  'gbif-japan-observations': _gbif_japan_observations,
-  'gbif-mammals': _gbif_mammals,
-  'gbif-recent-2026': _gbif_recent_2026,
-  'gbif-south-africa-observations': _gbif_south_africa_observations,
-  'gbif-usa-observations': _gbif_usa_observations,
-  'gbif-virginia-observations': _gbif_virginia_observations,
-  'nasa-apod-random-10': _nasa_apod_random_10,
-  'nasa-apod-week-20260925': _nasa_apod_week_20260925,
-  'nasa-donki-cmes': _nasa_donki_cmes,
-  'nasa-donki-solar-flares': _nasa_donki_solar_flares,
-  'nasa-epic-natural': _nasa_epic_natural,
-  'nasa-exoplanet-confirmed-top50': _nasa_exoplanet_confirmed_top50,
-  'nasa-neo-browse': _nasa_neo_browse,
-  'tfl-arrivals-oxford-circus': _tfl_arrivals_oxford_circus,
-  'tfl-bike-points': _tfl_bike_points,
-  'tfl-bus-status': _tfl_bus_status,
-  'tfl-central-line-stations': _tfl_central_line_stations,
-  'tfl-dlr-status': _tfl_dlr_status,
-  'tfl-elizabeth-line-status': _tfl_elizabeth_line_status,
-  'tfl-overground-status': _tfl_overground_status,
-  'tfl-road-corridor-a406': _tfl_road_corridor_a406,
-  'tfl-road-disruptions': _tfl_road_disruptions,
-  'tfl-tram-status': _tfl_tram_status,
-  'tfl-tube-status': _tfl_tube_status,
+  'bike-baywheels-sf-stations': _bike_baywheels_sf_stations,
+  'bike-baywheels-sf-status': _bike_baywheels_sf_status,
+  'bike-capital-bikeshare-dc-stations': _bike_capital_bikeshare_dc_stations,
+  'bike-capital-bikeshare-dc-status': _bike_capital_bikeshare_dc_status,
+  'bike-citibike-nyc-stations': _bike_citibike_nyc_stations,
+  'bike-citibike-nyc-status': _bike_citibike_nyc_status,
+  'bike-divvy-chicago-stations': _bike_divvy_chicago_stations,
+  'bike-divvy-chicago-status': _bike_divvy_chicago_status,
+  'chicago-311-requests': _chicago_311_requests,
+  'chicago-building-permits': _chicago_building_permits,
+  'chicago-crimes': _chicago_crimes,
+  'chicago-cta-l-entries': _chicago_cta_l_entries,
+  'chicago-food-inspections': _chicago_food_inspections,
+  'chicago-taxi-trips': _chicago_taxi_trips,
+  'inat-birds': _inat_birds,
+  'inat-grand-canyon': _inat_grand_canyon,
+  'inat-great-smoky-mountains': _inat_great_smoky_mountains,
+  'inat-insects': _inat_insects,
+  'inat-mammals': _inat_mammals,
+  'inat-plants': _inat_plants,
+  'inat-research-grade-birds': _inat_research_grade_birds,
+  'inat-research-grade-insects': _inat_research_grade_insects,
+  'inat-research-grade-yellowstone': _inat_research_grade_yellowstone,
+  'inat-research-grade-yosemite': _inat_research_grade_yosemite,
+  'inat-yellowstone': _inat_yellowstone,
+  'inat-yosemite': _inat_yosemite,
+  'policeuk-crimes-2026-08-belfast': _policeuk_crimes_2026_08_belfast,
+  'policeuk-crimes-2026-08-birmingham': _policeuk_crimes_2026_08_birmingham,
+  'policeuk-crimes-2026-08-bristol': _policeuk_crimes_2026_08_bristol,
+  'policeuk-crimes-2026-08-cardiff': _policeuk_crimes_2026_08_cardiff,
+  'policeuk-crimes-2026-08-leeds': _policeuk_crimes_2026_08_leeds,
+  'policeuk-crimes-2026-08-westminster': _policeuk_crimes_2026_08_westminster,
+  'policeuk-forces': _policeuk_forces,
+  'policeuk-stops-2026-07-merseyside': _policeuk_stops_2026_07_merseyside,
+  'policeuk-stops-2026-07-metropolitan': _policeuk_stops_2026_07_metropolitan,
+  'policeuk-stops-2026-07-west-midlands': _policeuk_stops_2026_07_west_midlands,
+  'scholar-crossref-ai': _scholar_crossref_ai,
+  'scholar-crossref-climate': _scholar_crossref_climate,
+  'scholar-crossref-fusion': _scholar_crossref_fusion,
+  'scholar-crossref-quantum': _scholar_crossref_quantum,
+  'scholar-crossref-recent-2026': _scholar_crossref_recent_2026,
+  'scholar-openalex-ai': _scholar_openalex_ai,
+  'scholar-openalex-crispr': _scholar_openalex_crispr,
+  'scholar-openalex-fusion': _scholar_openalex_fusion,
+  'scholar-openalex-quantum': _scholar_openalex_quantum,
+  'scholar-openalex-recent-2026': _scholar_openalex_recent_2026,
+  'scholar-openalex-top-cited': _scholar_openalex_top_cited,
+  'scholar-openalex-topic': _scholar_openalex_topic,
+  'wiki-chemical-elements-2': _wiki_chemical_elements_2,
+  'wiki-chemical-elements': _wiki_chemical_elements,
+  'wiki-countries-gdp': _wiki_countries_gdp,
+  'wiki-countries-population': _wiki_countries_population,
+  'wiki-largest-lakes': _wiki_largest_lakes,
+  'wiki-longest-rivers': _wiki_longest_rivers,
+  'wiki-megacities': _wiki_megacities,
+  'wiki-nobel-physics': _wiki_nobel_physics,
+  'wiki-tallest-mountains': _wiki_tallest_mountains,
+  'wiki-us-presidents': _wiki_us_presidents,
+  'wiki-world-capitals': _wiki_world_capitals,
 };
 
 export const SPEC_IDS = Object.keys(SPECS);

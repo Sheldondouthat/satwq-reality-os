@@ -1,0 +1,758 @@
+{
+  "head" : {
+    "vars" : [ "mountain", "mountainLabel", "elev" ]
+  },
+  "results" : {
+    "bindings" : [ {
+      "mountain" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q513"
+      },
+      "mountainLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Mount Everest"
+      },
+      "elev" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "8850"
+      }
+    }, {
+      "mountain" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q43512"
+      },
+      "mountainLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "K2"
+      },
+      "elev" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "8611"
+      }
+    }, {
+      "mountain" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q82019"
+      },
+      "mountainLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Kanchenjunga"
+      },
+      "elev" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "8586"
+      }
+    }, {
+      "mountain" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q168702"
+      },
+      "mountainLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Lhotse"
+      },
+      "elev" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "8516"
+      }
+    }, {
+      "mountain" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q169986"
+      },
+      "mountainLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Makalu"
+      },
+      "elev" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "8485"
+      }
+    }, {
+      "mountain" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q11237699"
+      },
+      "mountainLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Lhotse Shar"
+      },
+      "elev" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "8383"
+      }
+    }, {
+      "mountain" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q170089"
+      },
+      "mountainLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Cho Oyu"
+      },
+      "elev" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "8188"
+      }
+    }, {
+      "mountain" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q165440"
+      },
+      "mountainLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Dhaulagiri"
+      },
+      "elev" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "8167"
+      }
+    }, {
+      "mountain" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q170070"
+      },
+      "mountainLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Manaslu"
+      },
+      "elev" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "8163"
+      }
+    }, {
+      "mountain" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q130736"
+      },
+      "mountainLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Nanga Parbat"
+      },
+      "elev" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "8126"
+      }
+    }, {
+      "mountain" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16466024"
+      },
+      "mountainLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Annapurna I"
+      },
+      "elev" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "8091"
+      }
+    }, {
+      "mountain" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q187138"
+      },
+      "mountainLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Gasherbrum"
+      },
+      "elev" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "8080"
+      }
+    }, {
+      "mountain" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q180996"
+      },
+      "mountainLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Broad Peak"
+      },
+      "elev" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "8051"
+      }
+    }, {
+      "mountain" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q186853"
+      },
+      "mountainLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Gasherbrum II"
+      },
+      "elev" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "8034"
+      }
+    }, {
+      "mountain" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q105124"
+      },
+      "mountainLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Shishapangma"
+      },
+      "elev" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "8027"
+      }
+    }, {
+      "mountain" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q582128"
+      },
+      "mountainLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Gyachung Kang"
+      },
+      "elev" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "7952"
+      }
+    }, {
+      "mountain" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1137636"
+      },
+      "mountainLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Gasherbrum III"
+      },
+      "elev" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "7946"
+      }
+    }, {
+      "mountain" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q449534"
+      },
+      "mountainLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Annapurna II"
+      },
+      "elev" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "7937"
+      }
+    }, {
+      "mountain" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q834454"
+      },
+      "mountainLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Gasherbrum IV"
+      },
+      "elev" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "7932"
+      }
+    }, {
+      "mountain" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16901410"
+      },
+      "mountainLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Tenzing Peak"
+      },
+      "elev" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "7916"
+      }
+    }, {
+      "mountain" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1723728"
+      },
+      "mountainLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Kangbachen"
+      },
+      "elev" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "7902"
+      }
+    }, {
+      "mountain" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1145646"
+      },
+      "mountainLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Himalchuli"
+      },
+      "elev" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "7893"
+      }
+    }, {
+      "mountain" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q782496"
+      },
+      "mountainLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Distaghil Sar"
+      },
+      "elev" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "7885"
+      }
+    }, {
+      "mountain" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1754634"
+      },
+      "mountainLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Ngadi Chuli"
+      },
+      "elev" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "7871"
+      }
+    }, {
+      "mountain" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1139538"
+      },
+      "mountainLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Nuptse"
+      },
+      "elev" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "7861"
+      }
+    }, {
+      "mountain" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1480438"
+      },
+      "mountainLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Khunyang Chhish"
+      },
+      "elev" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "7852"
+      }
+    }, {
+      "mountain" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q854295"
+      },
+      "mountainLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Masherbrum"
+      },
+      "elev" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "7821"
+      }
+    }, {
+      "mountain" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q213262"
+      },
+      "mountainLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Nanda Devi"
+      },
+      "elev" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "7816"
+      }
+    }, {
+      "mountain" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q541641"
+      },
+      "mountainLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Chomo Lonzo"
+      },
+      "elev" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "7804"
+      }
+    }, {
+      "mountain" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q811064"
+      },
+      "mountainLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Batura Sar"
+      },
+      "elev" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "7795"
+      }
+    }, {
+      "mountain" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q933778"
+      },
+      "mountainLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Rakaposhi"
+      },
+      "elev" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "7788"
+      }
+    }, {
+      "mountain" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1050238"
+      },
+      "mountainLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Namcha Barwa"
+      },
+      "elev" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "7782"
+      }
+    }, {
+      "mountain" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q8068919"
+      },
+      "mountainLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Zemu Gap Peak"
+      },
+      "elev" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "7780"
+      }
+    }, {
+      "mountain" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1552100"
+      },
+      "mountainLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Kanjut Sar"
+      },
+      "elev" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "7760"
+      }
+    }, {
+      "mountain" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q521248"
+      },
+      "mountainLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Gasherbrum II East"
+      },
+      "elev" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "7758"
+      }
+    }, {
+      "mountain" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1141272"
+      },
+      "mountainLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Kamet"
+      },
+      "elev" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "7756"
+      }
+    }, {
+      "mountain" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1207614"
+      },
+      "mountainLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Dhaulagiri II"
+      },
+      "elev" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "7751"
+      }
+    }, {
+      "mountain" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q728639"
+      },
+      "mountainLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Saltoro Kangri"
+      },
+      "elev" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "7742"
+      }
+    }, {
+      "mountain" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1237414"
+      },
+      "mountainLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Jannu"
+      },
+      "elev" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "7711"
+      }
+    }, {
+      "mountain" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q207132"
+      },
+      "mountainLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Terich Mir"
+      },
+      "elev" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "7708"
+      }
+    }, {
+      "mountain" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1555230"
+      },
+      "mountainLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Gurla Mandhata"
+      },
+      "elev" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "7694"
+      }
+    }, {
+      "mountain" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q20754005"
+      },
+      "mountainLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Kangchungtse"
+      },
+      "elev" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "7678"
+      }
+    }, {
+      "mountain" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2102394"
+      },
+      "mountainLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Saser Kangri"
+      },
+      "elev" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "7672"
+      }
+    }, {
+      "mountain" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1061065"
+      },
+      "mountainLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Chogolisa"
+      },
+      "elev" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "7668"
+      }
+    }, {
+      "mountain" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4300251"
+      },
+      "mountainLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Molamenqing"
+      },
+      "elev" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "7661"
+      }
+    }, {
+      "mountain" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q646398"
+      },
+      "mountainLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Kongur Tagh"
+      },
+      "elev" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "7649"
+      }
+    }, {
+      "mountain" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q31652613"
+      },
+      "mountainLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Varaha Shikhar"
+      },
+      "elev" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "7647"
+      }
+    }, {
+      "mountain" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1550815"
+      },
+      "mountainLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Shispare"
+      },
+      "elev" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "7619"
+      }
+    }, {
+      "mountain" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q7514300"
+      },
+      "mountainLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Silberzacken"
+      },
+      "elev" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "7597"
+      }
+    }, {
+      "mountain" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1526943"
+      },
+      "mountainLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Peak 38"
+      },
+      "elev" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "7590"
+      }
+    } ]
+  }
+}

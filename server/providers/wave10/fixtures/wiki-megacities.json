@@ -1,0 +1,158 @@
+{
+  "head" : {
+    "vars" : [ "city", "cityLabel", "pop" ]
+  },
+  "results" : {
+    "bindings" : [ {
+      "city" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q956"
+      },
+      "pop" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "21893095"
+      },
+      "cityLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Beijing"
+      }
+    }, {
+      "city" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q30002"
+      },
+      "pop" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "20937757"
+      },
+      "cityLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Chengdu"
+      }
+    }, {
+      "city" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q15174"
+      },
+      "pop" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "17494398"
+      },
+      "cityLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Shenzhen"
+      }
+    }, {
+      "city" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1156"
+      },
+      "pop" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "15414288"
+      },
+      "cityLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Mumbai"
+      }
+    }, {
+      "city" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q8673"
+      },
+      "pop" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "15070000"
+      },
+      "cityLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Lagos"
+      }
+    }, {
+      "city" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q11736"
+      },
+      "pop" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "13866009"
+      },
+      "cityLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Tianjin"
+      }
+    }, {
+      "city" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1355"
+      },
+      "pop" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "12327000"
+      },
+      "cityLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Bengaluru"
+      }
+    }, {
+      "city" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q174"
+      },
+      "pop" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "11451999"
+      },
+      "cityLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "São Paulo"
+      }
+    }, {
+      "city" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q11739"
+      },
+      "pop" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "11126285"
+      },
+      "cityLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Lahore"
+      }
+    }, {
+      "city" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q42956"
+      },
+      "pop" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "10009854"
+      },
+      "cityLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Harbin"
+      }
+    } ]
+  }
+}

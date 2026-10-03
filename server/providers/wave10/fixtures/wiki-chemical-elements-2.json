@@ -1,0 +1,958 @@
+{
+  "head" : {
+    "vars" : [ "element", "elementLabel", "num", "symbol" ]
+  },
+  "results" : {
+    "bindings" : [ {
+      "element" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1099"
+      },
+      "num" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "51"
+      },
+      "symbol" : {
+        "type" : "literal",
+        "value" : "Sb"
+      },
+      "elementLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "antimony"
+      }
+    }, {
+      "element" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1100"
+      },
+      "num" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "52"
+      },
+      "symbol" : {
+        "type" : "literal",
+        "value" : "Te"
+      },
+      "elementLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "tellurium"
+      }
+    }, {
+      "element" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1103"
+      },
+      "num" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "53"
+      },
+      "symbol" : {
+        "type" : "literal",
+        "value" : "I"
+      },
+      "elementLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "iodine"
+      }
+    }, {
+      "element" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1106"
+      },
+      "num" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "54"
+      },
+      "symbol" : {
+        "type" : "literal",
+        "value" : "Xe"
+      },
+      "elementLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "xenon"
+      }
+    }, {
+      "element" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1108"
+      },
+      "num" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "55"
+      },
+      "symbol" : {
+        "type" : "literal",
+        "value" : "Cs"
+      },
+      "elementLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "caesium"
+      }
+    }, {
+      "element" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1112"
+      },
+      "num" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "56"
+      },
+      "symbol" : {
+        "type" : "literal",
+        "value" : "Ba"
+      },
+      "elementLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "barium"
+      }
+    }, {
+      "element" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1801"
+      },
+      "num" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "57"
+      },
+      "symbol" : {
+        "type" : "literal",
+        "value" : "La"
+      },
+      "elementLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "lanthanum"
+      }
+    }, {
+      "element" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1385"
+      },
+      "num" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "58"
+      },
+      "symbol" : {
+        "type" : "literal",
+        "value" : "Ce"
+      },
+      "elementLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "cerium"
+      }
+    }, {
+      "element" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1386"
+      },
+      "num" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "59"
+      },
+      "symbol" : {
+        "type" : "literal",
+        "value" : "Pr"
+      },
+      "elementLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "praseodymium"
+      }
+    }, {
+      "element" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1388"
+      },
+      "num" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "60"
+      },
+      "symbol" : {
+        "type" : "literal",
+        "value" : "Nd"
+      },
+      "elementLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "neodymium"
+      }
+    }, {
+      "element" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1809"
+      },
+      "num" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "61"
+      },
+      "symbol" : {
+        "type" : "literal",
+        "value" : "Pm"
+      },
+      "elementLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "promethium"
+      }
+    }, {
+      "element" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1819"
+      },
+      "num" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "62"
+      },
+      "symbol" : {
+        "type" : "literal",
+        "value" : "Sm"
+      },
+      "elementLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "samarium"
+      }
+    }, {
+      "element" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1396"
+      },
+      "num" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "63"
+      },
+      "symbol" : {
+        "type" : "literal",
+        "value" : "Eu"
+      },
+      "elementLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "europium"
+      }
+    }, {
+      "element" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1832"
+      },
+      "num" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "64"
+      },
+      "symbol" : {
+        "type" : "literal",
+        "value" : "Gd"
+      },
+      "elementLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "gadolinium"
+      }
+    }, {
+      "element" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1838"
+      },
+      "num" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "65"
+      },
+      "symbol" : {
+        "type" : "literal",
+        "value" : "Tb"
+      },
+      "elementLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "terbium"
+      }
+    }, {
+      "element" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1843"
+      },
+      "num" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "66"
+      },
+      "symbol" : {
+        "type" : "literal",
+        "value" : "Dy"
+      },
+      "elementLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "dysprosium"
+      }
+    }, {
+      "element" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1846"
+      },
+      "num" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "67"
+      },
+      "symbol" : {
+        "type" : "literal",
+        "value" : "Ho"
+      },
+      "elementLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "holmium"
+      }
+    }, {
+      "element" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1849"
+      },
+      "num" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "68"
+      },
+      "symbol" : {
+        "type" : "literal",
+        "value" : "Er"
+      },
+      "elementLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "erbium"
+      }
+    }, {
+      "element" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1853"
+      },
+      "num" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "69"
+      },
+      "symbol" : {
+        "type" : "literal",
+        "value" : "Tm"
+      },
+      "elementLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "thulium"
+      }
+    }, {
+      "element" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1855"
+      },
+      "num" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "70"
+      },
+      "symbol" : {
+        "type" : "literal",
+        "value" : "Yb"
+      },
+      "elementLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ytterbium"
+      }
+    }, {
+      "element" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1857"
+      },
+      "num" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "71"
+      },
+      "symbol" : {
+        "type" : "literal",
+        "value" : "Lu"
+      },
+      "elementLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "lutetium"
+      }
+    }, {
+      "element" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1119"
+      },
+      "num" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "72"
+      },
+      "symbol" : {
+        "type" : "literal",
+        "value" : "Hf"
+      },
+      "elementLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "hafnium"
+      }
+    }, {
+      "element" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1123"
+      },
+      "num" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "73"
+      },
+      "symbol" : {
+        "type" : "literal",
+        "value" : "Ta"
+      },
+      "elementLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "tantalum"
+      }
+    }, {
+      "element" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q743"
+      },
+      "num" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "74"
+      },
+      "symbol" : {
+        "type" : "literal",
+        "value" : "W"
+      },
+      "elementLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "tungsten"
+      }
+    }, {
+      "element" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q737"
+      },
+      "num" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "75"
+      },
+      "symbol" : {
+        "type" : "literal",
+        "value" : "Re"
+      },
+      "elementLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "rhenium"
+      }
+    }, {
+      "element" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q751"
+      },
+      "num" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "76"
+      },
+      "symbol" : {
+        "type" : "literal",
+        "value" : "Os"
+      },
+      "elementLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "osmium"
+      }
+    }, {
+      "element" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q877"
+      },
+      "num" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "77"
+      },
+      "symbol" : {
+        "type" : "literal",
+        "value" : "Ir"
+      },
+      "elementLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "iridium"
+      }
+    }, {
+      "element" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q880"
+      },
+      "num" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "78"
+      },
+      "symbol" : {
+        "type" : "literal",
+        "value" : "Pt"
+      },
+      "elementLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "platinum"
+      }
+    }, {
+      "element" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q897"
+      },
+      "num" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "79"
+      },
+      "symbol" : {
+        "type" : "literal",
+        "value" : "Au"
+      },
+      "elementLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "gold"
+      }
+    }, {
+      "element" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q925"
+      },
+      "num" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "80"
+      },
+      "symbol" : {
+        "type" : "literal",
+        "value" : "Hg"
+      },
+      "elementLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "mercury"
+      }
+    }, {
+      "element" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q932"
+      },
+      "num" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "81"
+      },
+      "symbol" : {
+        "type" : "literal",
+        "value" : "Tl"
+      },
+      "elementLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "thallium"
+      }
+    }, {
+      "element" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q708"
+      },
+      "num" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "82"
+      },
+      "symbol" : {
+        "type" : "literal",
+        "value" : "Pb"
+      },
+      "elementLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "lead"
+      }
+    }, {
+      "element" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q942"
+      },
+      "num" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "83"
+      },
+      "symbol" : {
+        "type" : "literal",
+        "value" : "Bi"
+      },
+      "elementLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "bismuth"
+      }
+    }, {
+      "element" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q979"
+      },
+      "num" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "84"
+      },
+      "symbol" : {
+        "type" : "literal",
+        "value" : "Po"
+      },
+      "elementLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "polonium"
+      }
+    }, {
+      "element" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q999"
+      },
+      "num" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "85"
+      },
+      "symbol" : {
+        "type" : "literal",
+        "value" : "At"
+      },
+      "elementLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "astatine"
+      }
+    }, {
+      "element" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1133"
+      },
+      "num" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "86"
+      },
+      "symbol" : {
+        "type" : "literal",
+        "value" : "Rn"
+      },
+      "elementLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "radon"
+      }
+    }, {
+      "element" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q671"
+      },
+      "num" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "87"
+      },
+      "symbol" : {
+        "type" : "literal",
+        "value" : "Fr"
+      },
+      "elementLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "francium"
+      }
+    }, {
+      "element" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1128"
+      },
+      "num" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "88"
+      },
+      "symbol" : {
+        "type" : "literal",
+        "value" : "Ra"
+      },
+      "elementLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "radium"
+      }
+    }, {
+      "element" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1121"
+      },
+      "num" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "89"
+      },
+      "symbol" : {
+        "type" : "literal",
+        "value" : "Ac"
+      },
+      "elementLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "actinium"
+      }
+    }, {
+      "element" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1115"
+      },
+      "num" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "90"
+      },
+      "symbol" : {
+        "type" : "literal",
+        "value" : "Th"
+      },
+      "elementLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "thorium"
+      }
+    }, {
+      "element" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1109"
+      },
+      "num" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "91"
+      },
+      "symbol" : {
+        "type" : "literal",
+        "value" : "Pa"
+      },
+      "elementLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "protactinium"
+      }
+    }, {
+      "element" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1098"
+      },
+      "num" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "92"
+      },
+      "symbol" : {
+        "type" : "literal",
+        "value" : "U"
+      },
+      "elementLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "uranium"
+      }
+    }, {
+      "element" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1105"
+      },
+      "num" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "93"
+      },
+      "symbol" : {
+        "type" : "literal",
+        "value" : "Np"
+      },
+      "elementLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "neptunium"
+      }
+    }, {
+      "element" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1102"
+      },
+      "num" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "94"
+      },
+      "symbol" : {
+        "type" : "literal",
+        "value" : "Pu"
+      },
+      "elementLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "plutonium"
+      }
+    }, {
+      "element" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1872"
+      },
+      "num" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "95"
+      },
+      "symbol" : {
+        "type" : "literal",
+        "value" : "Am"
+      },
+      "elementLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "americium"
+      }
+    }, {
+      "element" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1876"
+      },
+      "num" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "96"
+      },
+      "symbol" : {
+        "type" : "literal",
+        "value" : "Cm"
+      },
+      "elementLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "curium"
+      }
+    }, {
+      "element" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1882"
+      },
+      "num" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "97"
+      },
+      "symbol" : {
+        "type" : "literal",
+        "value" : "Bk"
+      },
+      "elementLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "berkelium"
+      }
+    }, {
+      "element" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1888"
+      },
+      "num" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "98"
+      },
+      "symbol" : {
+        "type" : "literal",
+        "value" : "Cf"
+      },
+      "elementLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "californium"
+      }
+    }, {
+      "element" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1892"
+      },
+      "num" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "99"
+      },
+      "symbol" : {
+        "type" : "literal",
+        "value" : "Es"
+      },
+      "elementLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "einsteinium"
+      }
+    }, {
+      "element" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1896"
+      },
+      "num" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "100"
+      },
+      "symbol" : {
+        "type" : "literal",
+        "value" : "Fm"
+      },
+      "elementLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "fermium"
+      }
+    } ]
+  }
+}

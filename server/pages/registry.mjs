@@ -3601,6 +3601,483 @@ const REGISTRY = [
       return g.specProxy('tfl-tube-status', s.SPEC);
     }),
   },
+  {
+    name: 'bike-baywheels-sf-stations',
+    routes: ['/api/bike-baywheels-sf-stations'],
+    load: () => import('../providers/wave10/specs/bike-baywheels-sf-stations.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('bike-baywheels-sf-stations', s.SPEC);
+    }),
+  },
+  {
+    name: 'bike-baywheels-sf-status',
+    routes: ['/api/bike-baywheels-sf-status'],
+    load: () => import('../providers/wave10/specs/bike-baywheels-sf-status.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('bike-baywheels-sf-status', s.SPEC);
+    }),
+  },
+  {
+    name: 'bike-capital-bikeshare-dc-stations',
+    routes: ['/api/bike-capital-bikeshare-dc-stations'],
+    load: () => import('../providers/wave10/specs/bike-capital-bikeshare-dc-stations.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('bike-capital-bikeshare-dc-stations', s.SPEC);
+    }),
+  },
+  {
+    name: 'bike-capital-bikeshare-dc-status',
+    routes: ['/api/bike-capital-bikeshare-dc-status'],
+    load: () => import('../providers/wave10/specs/bike-capital-bikeshare-dc-status.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('bike-capital-bikeshare-dc-status', s.SPEC);
+    }),
+  },
+  {
+    name: 'bike-citibike-nyc-stations',
+    routes: ['/api/bike-citibike-nyc-stations'],
+    load: () => import('../providers/wave10/specs/bike-citibike-nyc-stations.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('bike-citibike-nyc-stations', s.SPEC);
+    }),
+  },
+  {
+    name: 'bike-citibike-nyc-status',
+    routes: ['/api/bike-citibike-nyc-status'],
+    load: () => import('../providers/wave10/specs/bike-citibike-nyc-status.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('bike-citibike-nyc-status', s.SPEC);
+    }),
+  },
+  {
+    name: 'bike-divvy-chicago-stations',
+    routes: ['/api/bike-divvy-chicago-stations'],
+    load: () => import('../providers/wave10/specs/bike-divvy-chicago-stations.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('bike-divvy-chicago-stations', s.SPEC);
+    }),
+  },
+  {
+    name: 'bike-divvy-chicago-status',
+    routes: ['/api/bike-divvy-chicago-status'],
+    load: () => import('../providers/wave10/specs/bike-divvy-chicago-status.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('bike-divvy-chicago-status', s.SPEC);
+    }),
+  },
+  {
+    name: 'chicago-311-requests',
+    routes: ['/api/chicago-311-requests'],
+    load: () => import('../providers/wave10/specs/chicago-311-requests.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('chicago-311-requests', s.SPEC);
+    }),
+  },
+  {
+    name: 'chicago-building-permits',
+    routes: ['/api/chicago-building-permits'],
+    load: () => import('../providers/wave10/specs/chicago-building-permits.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('chicago-building-permits', s.SPEC);
+    }),
+  },
+  {
+    name: 'chicago-crimes',
+    routes: ['/api/chicago-crimes'],
+    load: () => import('../providers/wave10/specs/chicago-crimes.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('chicago-crimes', s.SPEC);
+    }),
+  },
+  {
+    name: 'chicago-cta-l-entries',
+    routes: ['/api/chicago-cta-l-entries'],
+    load: () => import('../providers/wave10/specs/chicago-cta-l-entries.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('chicago-cta-l-entries', s.SPEC);
+    }),
+  },
+  {
+    name: 'chicago-food-inspections',
+    routes: ['/api/chicago-food-inspections'],
+    load: () => import('../providers/wave10/specs/chicago-food-inspections.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('chicago-food-inspections', s.SPEC);
+    }),
+  },
+  {
+    name: 'chicago-taxi-trips',
+    routes: ['/api/chicago-taxi-trips'],
+    load: () => import('../providers/wave10/specs/chicago-taxi-trips.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('chicago-taxi-trips', s.SPEC);
+    }),
+  },
+  {
+    name: 'inat-birds',
+    routes: ['/api/inat-birds'],
+    load: () => import('../providers/wave10/specs/inat-birds.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('inat-birds', s.SPEC);
+    }),
+  },
+  {
+    name: 'inat-grand-canyon',
+    routes: ['/api/inat-grand-canyon'],
+    load: () => import('../providers/wave10/specs/inat-grand-canyon.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('inat-grand-canyon', s.SPEC);
+    }),
+  },
+  {
+    name: 'inat-great-smoky-mountains',
+    routes: ['/api/inat-great-smoky-mountains'],
+    load: () => import('../providers/wave10/specs/inat-great-smoky-mountains.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('inat-great-smoky-mountains', s.SPEC);
+    }),
+  },
+  {
+    name: 'inat-insects',
+    routes: ['/api/inat-insects'],
+    load: () => import('../providers/wave10/specs/inat-insects.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('inat-insects', s.SPEC);
+    }),
+  },
+  {
+    name: 'inat-mammals',
+    routes: ['/api/inat-mammals'],
+    load: () => import('../providers/wave10/specs/inat-mammals.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('inat-mammals', s.SPEC);
+    }),
+  },
+  {
+    name: 'inat-plants',
+    routes: ['/api/inat-plants'],
+    load: () => import('../providers/wave10/specs/inat-plants.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('inat-plants', s.SPEC);
+    }),
+  },
+  {
+    name: 'inat-research-grade-birds',
+    routes: ['/api/inat-research-grade-birds'],
+    load: () => import('../providers/wave10/specs/inat-research-grade-birds.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('inat-research-grade-birds', s.SPEC);
+    }),
+  },
+  {
+    name: 'inat-research-grade-insects',
+    routes: ['/api/inat-research-grade-insects'],
+    load: () => import('../providers/wave10/specs/inat-research-grade-insects.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('inat-research-grade-insects', s.SPEC);
+    }),
+  },
+  {
+    name: 'inat-research-grade-yellowstone',
+    routes: ['/api/inat-research-grade-yellowstone'],
+    load: () => import('../providers/wave10/specs/inat-research-grade-yellowstone.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('inat-research-grade-yellowstone', s.SPEC);
+    }),
+  },
+  {
+    name: 'inat-research-grade-yosemite',
+    routes: ['/api/inat-research-grade-yosemite'],
+    load: () => import('../providers/wave10/specs/inat-research-grade-yosemite.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('inat-research-grade-yosemite', s.SPEC);
+    }),
+  },
+  {
+    name: 'inat-yellowstone',
+    routes: ['/api/inat-yellowstone'],
+    load: () => import('../providers/wave10/specs/inat-yellowstone.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('inat-yellowstone', s.SPEC);
+    }),
+  },
+  {
+    name: 'inat-yosemite',
+    routes: ['/api/inat-yosemite'],
+    load: () => import('../providers/wave10/specs/inat-yosemite.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('inat-yosemite', s.SPEC);
+    }),
+  },
+  {
+    name: 'policeuk-crimes-2026-08-belfast',
+    routes: ['/api/policeuk-crimes-2026-08-belfast'],
+    load: () => import('../providers/wave10/specs/policeuk-crimes-2026-08-belfast.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('policeuk-crimes-2026-08-belfast', s.SPEC);
+    }),
+  },
+  {
+    name: 'policeuk-crimes-2026-08-birmingham',
+    routes: ['/api/policeuk-crimes-2026-08-birmingham'],
+    load: () => import('../providers/wave10/specs/policeuk-crimes-2026-08-birmingham.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('policeuk-crimes-2026-08-birmingham', s.SPEC);
+    }),
+  },
+  {
+    name: 'policeuk-crimes-2026-08-bristol',
+    routes: ['/api/policeuk-crimes-2026-08-bristol'],
+    load: () => import('../providers/wave10/specs/policeuk-crimes-2026-08-bristol.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('policeuk-crimes-2026-08-bristol', s.SPEC);
+    }),
+  },
+  {
+    name: 'policeuk-crimes-2026-08-cardiff',
+    routes: ['/api/policeuk-crimes-2026-08-cardiff'],
+    load: () => import('../providers/wave10/specs/policeuk-crimes-2026-08-cardiff.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('policeuk-crimes-2026-08-cardiff', s.SPEC);
+    }),
+  },
+  {
+    name: 'policeuk-crimes-2026-08-leeds',
+    routes: ['/api/policeuk-crimes-2026-08-leeds'],
+    load: () => import('../providers/wave10/specs/policeuk-crimes-2026-08-leeds.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('policeuk-crimes-2026-08-leeds', s.SPEC);
+    }),
+  },
+  {
+    name: 'policeuk-crimes-2026-08-westminster',
+    routes: ['/api/policeuk-crimes-2026-08-westminster'],
+    load: () => import('../providers/wave10/specs/policeuk-crimes-2026-08-westminster.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('policeuk-crimes-2026-08-westminster', s.SPEC);
+    }),
+  },
+  {
+    name: 'policeuk-forces',
+    routes: ['/api/policeuk-forces'],
+    load: () => import('../providers/wave10/specs/policeuk-forces.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('policeuk-forces', s.SPEC);
+    }),
+  },
+  {
+    name: 'policeuk-stops-2026-07-merseyside',
+    routes: ['/api/policeuk-stops-2026-07-merseyside'],
+    load: () => import('../providers/wave10/specs/policeuk-stops-2026-07-merseyside.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('policeuk-stops-2026-07-merseyside', s.SPEC);
+    }),
+  },
+  {
+    name: 'policeuk-stops-2026-07-metropolitan',
+    routes: ['/api/policeuk-stops-2026-07-metropolitan'],
+    load: () => import('../providers/wave10/specs/policeuk-stops-2026-07-metropolitan.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('policeuk-stops-2026-07-metropolitan', s.SPEC);
+    }),
+  },
+  {
+    name: 'policeuk-stops-2026-07-west-midlands',
+    routes: ['/api/policeuk-stops-2026-07-west-midlands'],
+    load: () => import('../providers/wave10/specs/policeuk-stops-2026-07-west-midlands.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('policeuk-stops-2026-07-west-midlands', s.SPEC);
+    }),
+  },
+  {
+    name: 'scholar-crossref-ai',
+    routes: ['/api/scholar-crossref-ai'],
+    load: () => import('../providers/wave10/specs/scholar-crossref-ai.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('scholar-crossref-ai', s.SPEC);
+    }),
+  },
+  {
+    name: 'scholar-crossref-climate',
+    routes: ['/api/scholar-crossref-climate'],
+    load: () => import('../providers/wave10/specs/scholar-crossref-climate.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('scholar-crossref-climate', s.SPEC);
+    }),
+  },
+  {
+    name: 'scholar-crossref-fusion',
+    routes: ['/api/scholar-crossref-fusion'],
+    load: () => import('../providers/wave10/specs/scholar-crossref-fusion.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('scholar-crossref-fusion', s.SPEC);
+    }),
+  },
+  {
+    name: 'scholar-crossref-quantum',
+    routes: ['/api/scholar-crossref-quantum'],
+    load: () => import('../providers/wave10/specs/scholar-crossref-quantum.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('scholar-crossref-quantum', s.SPEC);
+    }),
+  },
+  {
+    name: 'scholar-crossref-recent-2026',
+    routes: ['/api/scholar-crossref-recent-2026'],
+    load: () => import('../providers/wave10/specs/scholar-crossref-recent-2026.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('scholar-crossref-recent-2026', s.SPEC);
+    }),
+  },
+  {
+    name: 'scholar-openalex-ai',
+    routes: ['/api/scholar-openalex-ai'],
+    load: () => import('../providers/wave10/specs/scholar-openalex-ai.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('scholar-openalex-ai', s.SPEC);
+    }),
+  },
+  {
+    name: 'scholar-openalex-crispr',
+    routes: ['/api/scholar-openalex-crispr'],
+    load: () => import('../providers/wave10/specs/scholar-openalex-crispr.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('scholar-openalex-crispr', s.SPEC);
+    }),
+  },
+  {
+    name: 'scholar-openalex-fusion',
+    routes: ['/api/scholar-openalex-fusion'],
+    load: () => import('../providers/wave10/specs/scholar-openalex-fusion.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('scholar-openalex-fusion', s.SPEC);
+    }),
+  },
+  {
+    name: 'scholar-openalex-quantum',
+    routes: ['/api/scholar-openalex-quantum'],
+    load: () => import('../providers/wave10/specs/scholar-openalex-quantum.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('scholar-openalex-quantum', s.SPEC);
+    }),
+  },
+  {
+    name: 'scholar-openalex-recent-2026',
+    routes: ['/api/scholar-openalex-recent-2026'],
+    load: () => import('../providers/wave10/specs/scholar-openalex-recent-2026.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('scholar-openalex-recent-2026', s.SPEC);
+    }),
+  },
+  {
+    name: 'scholar-openalex-top-cited',
+    routes: ['/api/scholar-openalex-top-cited'],
+    load: () => import('../providers/wave10/specs/scholar-openalex-top-cited.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('scholar-openalex-top-cited', s.SPEC);
+    }),
+  },
+  {
+    name: 'scholar-openalex-topic',
+    routes: ['/api/scholar-openalex-topic'],
+    load: () => import('../providers/wave10/specs/scholar-openalex-topic.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('scholar-openalex-topic', s.SPEC);
+    }),
+  },
+  {
+    name: 'wiki-chemical-elements-2',
+    routes: ['/api/wiki-chemical-elements-2'],
+    load: () => import('../providers/wave10/specs/wiki-chemical-elements-2.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('wiki-chemical-elements-2', s.SPEC);
+    }),
+  },
+  {
+    name: 'wiki-chemical-elements',
+    routes: ['/api/wiki-chemical-elements'],
+    load: () => import('../providers/wave10/specs/wiki-chemical-elements.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('wiki-chemical-elements', s.SPEC);
+    }),
+  },
+  {
+    name: 'wiki-countries-gdp',
+    routes: ['/api/wiki-countries-gdp'],
+    load: () => import('../providers/wave10/specs/wiki-countries-gdp.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('wiki-countries-gdp', s.SPEC);
+    }),
+  },
+  {
+    name: 'wiki-countries-population',
+    routes: ['/api/wiki-countries-population'],
+    load: () => import('../providers/wave10/specs/wiki-countries-population.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('wiki-countries-population', s.SPEC);
+    }),
+  },
+  {
+    name: 'wiki-largest-lakes',
+    routes: ['/api/wiki-largest-lakes'],
+    load: () => import('../providers/wave10/specs/wiki-largest-lakes.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('wiki-largest-lakes', s.SPEC);
+    }),
+  },
+  {
+    name: 'wiki-longest-rivers',
+    routes: ['/api/wiki-longest-rivers'],
+    load: () => import('../providers/wave10/specs/wiki-longest-rivers.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('wiki-longest-rivers', s.SPEC);
+    }),
+  },
+  {
+    name: 'wiki-megacities',
+    routes: ['/api/wiki-megacities'],
+    load: () => import('../providers/wave10/specs/wiki-megacities.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('wiki-megacities', s.SPEC);
+    }),
+  },
+  {
+    name: 'wiki-nobel-physics',
+    routes: ['/api/wiki-nobel-physics'],
+    load: () => import('../providers/wave10/specs/wiki-nobel-physics.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('wiki-nobel-physics', s.SPEC);
+    }),
+  },
+  {
+    name: 'wiki-tallest-mountains',
+    routes: ['/api/wiki-tallest-mountains'],
+    load: () => import('../providers/wave10/specs/wiki-tallest-mountains.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('wiki-tallest-mountains', s.SPEC);
+    }),
+  },
+  {
+    name: 'wiki-us-presidents',
+    routes: ['/api/wiki-us-presidents'],
+    load: () => import('../providers/wave10/specs/wiki-us-presidents.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('wiki-us-presidents', s.SPEC);
+    }),
+  },
+  {
+    name: 'wiki-world-capitals',
+    routes: ['/api/wiki-world-capitals'],
+    load: () => import('../providers/wave10/specs/wiki-world-capitals.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('wiki-world-capitals', s.SPEC);
+    }),
+  },
+  {
+    name: 'meteor-showers',
+    routes: ['/api/meteor-showers'],
+    load: () => import('../providers/wave6/meteorShowers.js').then((m) => m.meteorShowersProxy()),
+  },
 ];
 
 export { REGISTRY };
@@ -3611,8 +4088,3 @@ export const EXCLUDED = [
   { name: 'local-receivers', routes: ['/api/receivers'], why: 'LAN-local receivers unreachable from the edge' },
   { name: 'key-setup', routes: ['/api/setup/keys', '/api/setup/status'], why: 'writes local .env; no writable fs on Pages' },
 ];
-,{
-    name: 'meteor-showers',
-    routes: ['/api/meteor-showers'],
-    load: () => import('../providers/wave6/meteorShowers.js').then((m) => m.meteorShowersProxy()),
-  }

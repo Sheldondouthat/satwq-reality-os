@@ -1,0 +1,757 @@
+{
+  "head" : {
+    "vars" : [ "capital", "capitalLabel", "countryLabel" ]
+  },
+  "results" : {
+    "bindings" : [ {
+      "capital" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1491"
+      },
+      "capitalLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "La Paz"
+      },
+      "countryLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Bolivia"
+      }
+    }, {
+      "capital" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2907"
+      },
+      "capitalLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Sucre"
+      },
+      "countryLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Bolivia"
+      }
+    }, {
+      "capital" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q39178"
+      },
+      "capitalLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Port of Spain"
+      },
+      "countryLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Trinidad and Tobago"
+      }
+    }, {
+      "capital" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q41474"
+      },
+      "capitalLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Kingstown"
+      },
+      "countryLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Saint Vincent and the Grenadines"
+      }
+    }, {
+      "capital" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q41699"
+      },
+      "capitalLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Castries"
+      },
+      "countryLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Saint Lucia"
+      }
+    }, {
+      "capital" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q41295"
+      },
+      "capitalLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Basseterre"
+      },
+      "countryLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Saint Kitts and Nevis"
+      }
+    }, {
+      "capital" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q34692"
+      },
+      "capitalLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Kingston"
+      },
+      "countryLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Jamaica"
+      }
+    }, {
+      "capital" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q41547"
+      },
+      "capitalLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "St. George's"
+      },
+      "countryLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Grenada"
+      }
+    }, {
+      "capital" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1555"
+      },
+      "capitalLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Guatemala City"
+      },
+      "countryLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Guatemala"
+      }
+    }, {
+      "capital" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2467"
+      },
+      "capitalLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Nassau"
+      },
+      "countryLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "The Bahamas"
+      }
+    }, {
+      "capital" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q36262"
+      },
+      "capitalLabel" : {
+        "type" : "literal",
+        "value" : "Q36262"
+      },
+      "countryLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Antigua and Barbuda"
+      }
+    }, {
+      "capital" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3238"
+      },
+      "capitalLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Tegucigalpa"
+      },
+      "countryLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Honduras"
+      }
+    }, {
+      "capital" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q36281"
+      },
+      "capitalLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Roseau"
+      },
+      "countryLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Dominica"
+      }
+    }, {
+      "capital" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q34820"
+      },
+      "capitalLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Santo Domingo"
+      },
+      "countryLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Dominican Republic"
+      }
+    }, {
+      "capital" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q34261"
+      },
+      "capitalLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Port-au-Prince"
+      },
+      "countryLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Haiti"
+      }
+    }, {
+      "capital" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3110"
+      },
+      "capitalLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "San Salvador"
+      },
+      "countryLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "El Salvador"
+      }
+    }, {
+      "capital" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3616"
+      },
+      "capitalLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Tehran"
+      },
+      "countryLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Iran"
+      }
+    }, {
+      "capital" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1530"
+      },
+      "capitalLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Baghdad"
+      },
+      "countryLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Iraq"
+      }
+    }, {
+      "capital" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3070"
+      },
+      "capitalLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "San José"
+      },
+      "countryLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Costa Rica"
+      }
+    }, {
+      "capital" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1218"
+      },
+      "capitalLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Jerusalem"
+      },
+      "countryLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Israel"
+      }
+    }, {
+      "capital" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3306"
+      },
+      "capitalLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Panama City"
+      },
+      "countryLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Panama"
+      }
+    }, {
+      "capital" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2471"
+      },
+      "capitalLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Sanaa"
+      },
+      "countryLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Yemen"
+      }
+    }, {
+      "capital" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q131694"
+      },
+      "capitalLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Aden"
+      },
+      "countryLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Yemen"
+      }
+    }, {
+      "capital" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3805"
+      },
+      "capitalLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Amman"
+      },
+      "countryLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Jordan"
+      }
+    }, {
+      "capital" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3274"
+      },
+      "capitalLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Managua"
+      },
+      "countryLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Nicaragua"
+      }
+    }, {
+      "capital" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q9361"
+      },
+      "capitalLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Bishkek"
+      },
+      "countryLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Kyrgyzstan"
+      }
+    }, {
+      "capital" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q35178"
+      },
+      "capitalLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Kuwait City"
+      },
+      "countryLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Kuwait"
+      }
+    }, {
+      "capital" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q9326"
+      },
+      "capitalLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Vientiane"
+      },
+      "countryLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Laos"
+      }
+    }, {
+      "capital" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3820"
+      },
+      "capitalLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Beirut"
+      },
+      "countryLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Lebanon"
+      }
+    }, {
+      "capital" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q9347"
+      },
+      "capitalLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Malé"
+      },
+      "countryLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Maldives"
+      }
+    }, {
+      "capital" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1865"
+      },
+      "capitalLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Kuala Lumpur"
+      },
+      "countryLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Malaysia"
+      }
+    }, {
+      "capital" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q37400"
+      },
+      "capitalLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Naypyidaw"
+      },
+      "countryLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Myanmar"
+      }
+    }, {
+      "capital" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3037"
+      },
+      "capitalLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Kathmandu"
+      },
+      "countryLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Nepal"
+      }
+    }, {
+      "capital" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3826"
+      },
+      "capitalLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Muscat"
+      },
+      "countryLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Oman"
+      }
+    }, {
+      "capital" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1362"
+      },
+      "capitalLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Islamabad"
+      },
+      "countryLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Pakistan"
+      }
+    }, {
+      "capital" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q93230"
+      },
+      "capitalLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Rawalpindi"
+      },
+      "countryLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Pakistan"
+      }
+    }, {
+      "capital" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3861"
+      },
+      "capitalLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Doha"
+      },
+      "countryLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Qatar"
+      }
+    }, {
+      "capital" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3692"
+      },
+      "capitalLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Riyadh"
+      },
+      "countryLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Saudi Arabia"
+      }
+    }, {
+      "capital" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q35381"
+      },
+      "capitalLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Colombo"
+      },
+      "countryLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Sri Lanka"
+      }
+    }, {
+      "capital" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q41963"
+      },
+      "capitalLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Sri Jayawardenepura Kotte"
+      },
+      "countryLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Sri Lanka"
+      }
+    }, {
+      "capital" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3766"
+      },
+      "capitalLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Damascus"
+      },
+      "countryLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Syria"
+      }
+    }, {
+      "capital" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q9365"
+      },
+      "capitalLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Dushanbe"
+      },
+      "countryLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Tajikistan"
+      }
+    }, {
+      "capital" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1861"
+      },
+      "capitalLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Bangkok"
+      },
+      "countryLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Thailand"
+      }
+    }, {
+      "capital" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q23438"
+      },
+      "capitalLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Ashgabat"
+      },
+      "countryLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Turkmenistan"
+      }
+    }, {
+      "capital" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1519"
+      },
+      "capitalLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Abu Dhabi"
+      },
+      "countryLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "United Arab Emirates"
+      }
+    }, {
+      "capital" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1858"
+      },
+      "capitalLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Hanoi"
+      },
+      "countryLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Vietnam"
+      }
+    }, {
+      "capital" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q8684"
+      },
+      "capitalLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Seoul"
+      },
+      "countryLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "South Korea"
+      }
+    }, {
+      "capital" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5838"
+      },
+      "capitalLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Kabul"
+      },
+      "countryLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Afghanistan"
+      }
+    }, {
+      "capital" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1354"
+      },
+      "capitalLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Dhaka"
+      },
+      "countryLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Bangladesh"
+      }
+    }, {
+      "capital" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3703"
+      },
+      "capitalLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Bamako"
+      },
+      "countryLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Mali"
+      }
+    } ]
+  }
+}

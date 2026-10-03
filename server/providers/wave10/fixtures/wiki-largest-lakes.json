@@ -1,0 +1,757 @@
+{
+  "head" : {
+    "vars" : [ "lake", "lakeLabel", "area" ]
+  },
+  "results" : {
+    "bindings" : [ {
+      "lake" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5484"
+      },
+      "lakeLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Caspian Sea"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "386400"
+      }
+    }, {
+      "lake" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1377732"
+      },
+      "lakeLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Lake Michigan–Huron"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "117600"
+      }
+    }, {
+      "lake" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1066"
+      },
+      "lakeLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Lake Superior"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "82350"
+      }
+    }, {
+      "lake" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q27941676"
+      },
+      "lakeLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Lake Tauca"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "80000"
+      }
+    }, {
+      "lake" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5505"
+      },
+      "lakeLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Lake Victoria"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "68100"
+      }
+    }, {
+      "lake" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1383"
+      },
+      "lakeLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Lake Huron"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "59600"
+      }
+    }, {
+      "lake" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1169"
+      },
+      "lakeLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Lake Michigan"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "57750"
+      }
+    }, {
+      "lake" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5511"
+      },
+      "lakeLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Lake Tanganyika"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "32900"
+      }
+    }, {
+      "lake" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5513"
+      },
+      "lakeLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Lake Baikal"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "31722"
+      }
+    }, {
+      "lake" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5525"
+      },
+      "lakeLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Great Bear Lake"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "31153"
+      }
+    }, {
+      "lake" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1412494"
+      },
+      "lakeLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Lake Ptolemy"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "30750"
+      }
+    }, {
+      "lake" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5532"
+      },
+      "lakeLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Lake Malawi"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "29600"
+      }
+    }, {
+      "lake" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5492"
+      },
+      "lakeLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Lake Erie"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "25744"
+      }
+    }, {
+      "lake" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3272"
+      },
+      "lakeLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Lake Winnipeg"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "24400"
+      }
+    }, {
+      "lake" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q134485"
+      },
+      "lakeLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Lake Balkhash"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "18740"
+      }
+    }, {
+      "lake" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1062"
+      },
+      "lakeLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Lake Ontario"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "18529"
+      }
+    }, {
+      "lake" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q15288"
+      },
+      "lakeLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Lake Ladoga"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "17700"
+      }
+    }, {
+      "lake" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q182137"
+      },
+      "lakeLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Lake Maracaibo"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "13210"
+      }
+    }, {
+      "lake" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q661235"
+      },
+      "lakeLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Lagoa dos Patos"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "10000"
+      }
+    }, {
+      "lake" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2406225"
+      },
+      "lakeLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Juyan Lake"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "10000"
+      }
+    }, {
+      "lake" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q673169"
+      },
+      "lakeLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Lake Bangweulu"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "9840"
+      }
+    }, {
+      "lake" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q166162"
+      },
+      "lakeLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Lake Onega"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "9800"
+      }
+    }, {
+      "lake" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q179970"
+      },
+      "lakeLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Kati Thanda–Lake Eyre"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "9300"
+      }
+    }, {
+      "lake" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5267424"
+      },
+      "lakeLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Devils Lake"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "8598.7"
+      }
+    }, {
+      "lake" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q35342"
+      },
+      "lakeLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Titicaca"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "8562"
+      }
+    }, {
+      "lake" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q173862"
+      },
+      "lakeLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Lake Nicaragua"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "8264"
+      }
+    }, {
+      "lake" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q272463"
+      },
+      "lakeLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Lake Athabasca"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "7850"
+      }
+    }, {
+      "lake" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1134446"
+      },
+      "lakeLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Reindeer Lake"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "6500"
+      }
+    }, {
+      "lake" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q42191"
+      },
+      "lakeLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Issyk-Kul"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "6236"
+      }
+    }, {
+      "lake" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q173596"
+      },
+      "lakeLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Vänern"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "5650"
+      }
+    }, {
+      "lake" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q125888"
+      },
+      "lakeLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Lake Albert"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "5270"
+      }
+    }, {
+      "lake" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q934638"
+      },
+      "lakeLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Lake Winnipegosis"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "5164"
+      }
+    }, {
+      "lake" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q207690"
+      },
+      "lakeLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Poyang Lake"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "5100"
+      }
+    }, {
+      "lake" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1132211"
+      },
+      "lakeLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Nettilling Lake"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "5051"
+      }
+    }, {
+      "lake" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4056802"
+      },
+      "lakeLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Lake Ağgöl"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "5000"
+      }
+    }, {
+      "lake" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1074063"
+      },
+      "lakeLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Lake Mackay"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "4737"
+      }
+    }, {
+      "lake" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q504433"
+      },
+      "lakeLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Lake Mweru"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "4650"
+      }
+    }, {
+      "lake" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q645901"
+      },
+      "lakeLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Lake Manitoba"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "4624"
+      }
+    }, {
+      "lake" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q845868"
+      },
+      "lakeLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Taymyr"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "4560"
+      }
+    }, {
+      "lake" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q35708818"
+      },
+      "lakeLabel" : {
+        "type" : "literal",
+        "value" : "Q35708818"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "4550"
+      }
+    }, {
+      "lake" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q192770"
+      },
+      "lakeLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Saimaa"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "4400"
+      }
+    }, {
+      "lake" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q201294"
+      },
+      "lakeLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Qinghai Lake"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "4400"
+      }
+    }, {
+      "lake" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q216083"
+      },
+      "lakeLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Dongting Lake"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "4350"
+      }
+    }, {
+      "lake" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q965973"
+      },
+      "lakeLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Lake Gairdner"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "4350"
+      }
+    }, {
+      "lake" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q845876"
+      },
+      "lakeLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Lake of the Woods"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "4350"
+      }
+    }, {
+      "lake" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3234165"
+      },
+      "lakeLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Sobradinho Reservoir"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "4220"
+      }
+    }, {
+      "lake" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q201843"
+      },
+      "lakeLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Khanka"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "4190"
+      }
+    }, {
+      "lake" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12818519"
+      },
+      "lakeLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Arnasai Lakes"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "4000"
+      }
+    }, {
+      "lake" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q876280"
+      },
+      "lakeLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Lagoa Mirim"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "3994"
+      }
+    }, {
+      "lake" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q257416"
+      },
+      "lakeLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Sarygamysh Lake"
+      },
+      "area" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "3955"
+      }
+    } ]
+  }
+}

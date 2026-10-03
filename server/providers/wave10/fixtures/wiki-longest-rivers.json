@@ -1,0 +1,758 @@
+{
+  "head" : {
+    "vars" : [ "river", "riverLabel", "len" ]
+  },
+  "results" : {
+    "bindings" : [ {
+      "river" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3783"
+      },
+      "riverLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Amazon River"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "6992.15"
+      }
+    }, {
+      "river" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3392"
+      },
+      "riverLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Nile"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "6650"
+      }
+    }, {
+      "river" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5413"
+      },
+      "riverLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Yangtze River"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "6300"
+      }
+    }, {
+      "river" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q855309"
+      },
+      "riverLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Bian River"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "5806"
+      }
+    }, {
+      "river" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q7355"
+      },
+      "riverLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Yellow River"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "5464"
+      }
+    }, {
+      "river" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q127892"
+      },
+      "riverLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Paraná River"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "4880"
+      }
+    }, {
+      "river" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3503"
+      },
+      "riverLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "River Congo"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "4700"
+      }
+    }, {
+      "river" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q41179"
+      },
+      "riverLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Mekong River"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "4350"
+      }
+    }, {
+      "river" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q46841"
+      },
+      "riverLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Lena River"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "4294"
+      }
+    }, {
+      "river" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q128102"
+      },
+      "riverLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Irtysh"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "4248"
+      }
+    }, {
+      "river" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3542"
+      },
+      "riverLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Niger River"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "4180"
+      }
+    }, {
+      "river" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1497"
+      },
+      "riverLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Mississippi River"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "3766"
+      }
+    }, {
+      "river" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5419"
+      },
+      "riverLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Missouri River"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "3726"
+      }
+    }, {
+      "river" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q973"
+      },
+      "riverLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Ob"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "3650"
+      }
+    }, {
+      "river" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q626"
+      },
+      "riverLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Volga"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "3530"
+      }
+    }, {
+      "river" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q78707"
+      },
+      "riverLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Yenisei"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "3487"
+      }
+    }, {
+      "river" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q104437"
+      },
+      "riverLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Yukon River"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "3190"
+      }
+    }, {
+      "river" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q7348"
+      },
+      "riverLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Indus River"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "3180"
+      }
+    }, {
+      "river" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q117526"
+      },
+      "riverLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Juruá River"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "3100"
+      }
+    }, {
+      "river" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q134750"
+      },
+      "riverLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "St. Lawrence River"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "3058"
+      }
+    }, {
+      "river" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q160636"
+      },
+      "riverLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Rio Grande"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "3051"
+      }
+    }, {
+      "river" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q26428"
+      },
+      "riverLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Nizhnyaya Tunguska"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "2989"
+      }
+    }, {
+      "river" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q26271"
+      },
+      "riverLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Purus River"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "2960"
+      }
+    }, {
+      "river" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q45403"
+      },
+      "riverLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Brahmaputra River"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "2900"
+      }
+    }, {
+      "river" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1653"
+      },
+      "riverLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Danube"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "2850"
+      }
+    }, {
+      "river" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3244259"
+      },
+      "riverLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Yarlung Tsangpo River"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "2840"
+      }
+    }, {
+      "river" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6862"
+      },
+      "riverLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Amur River"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "2824"
+      }
+    }, {
+      "river" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q171840"
+      },
+      "riverLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Japurá River"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "2820"
+      }
+    }, {
+      "river" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q26422"
+      },
+      "riverLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Salween River"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "2815"
+      }
+    }, {
+      "river" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q142148"
+      },
+      "riverLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "São Francisco River"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "2814"
+      }
+    }, {
+      "river" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q34589"
+      },
+      "riverLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Euphrates"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "2800"
+      }
+    }, {
+      "river" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q269710"
+      },
+      "riverLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Fraser River"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "2657"
+      }
+    }, {
+      "river" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q26433"
+      },
+      "riverLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Vilyuy"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "2650"
+      }
+    }, {
+      "river" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q179396"
+      },
+      "riverLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Paraguay River"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "2621"
+      }
+    }, {
+      "river" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q8493"
+      },
+      "riverLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Amu Darya"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "2620"
+      }
+    }, {
+      "river" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4814791"
+      },
+      "riverLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "White Nile"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "2620"
+      }
+    }, {
+      "river" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q183078"
+      },
+      "riverLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Murray River"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "2530"
+      }
+    }, {
+      "river" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5089"
+      },
+      "riverLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Ganges"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "2525"
+      }
+    }, {
+      "river" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q156054"
+      },
+      "riverLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Tocantins River"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "2450"
+      }
+    }, {
+      "river" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q191524"
+      },
+      "riverLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Ishim"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "2450"
+      }
+    }, {
+      "river" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q80240"
+      },
+      "riverLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Ural River"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "2428"
+      }
+    }, {
+      "river" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q201463"
+      },
+      "riverLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Pearl River"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "2400"
+      }
+    }, {
+      "river" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q8319"
+      },
+      "riverLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Arkansas River"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "2364"
+      }
+    }, {
+      "river" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1265"
+      },
+      "riverLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Colorado River"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "2334"
+      }
+    }, {
+      "river" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q40855"
+      },
+      "riverLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Dnieper"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "2285"
+      }
+    }, {
+      "river" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q191832"
+      },
+      "riverLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Aldan"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "2273"
+      }
+    }, {
+      "river" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q186541"
+      },
+      "riverLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Kasai River"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "2272"
+      }
+    }, {
+      "river" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q26799"
+      },
+      "riverLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Olenyok"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "2270"
+      }
+    }, {
+      "river" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q118771"
+      },
+      "riverLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Rio Negro"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "2250"
+      }
+    }, {
+      "river" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q483159"
+      },
+      "riverLabel" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Syr Darya"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "2212"
+      }
+    } ]
+  }
+}
