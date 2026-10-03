@@ -4702,6 +4702,11 @@ const REGISTRY = [
       return g.specProxy('scholar-crossref-quantum-error-correction', s.SPEC);
     }),
   },
+  {
+    name: 'superfund',
+    routes: ['/api/superfund'],
+    load: () => import('../providers/wave9/superfund.js').then((m) => m.superfundProxy()),
+  },
 ];
 
 export { REGISTRY };
