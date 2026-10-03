@@ -3268,6 +3268,339 @@ const REGISTRY = [
       return g.specProxy('usgsx-wq-do-mississippi', s.SPEC);
     }),
   },
+  {
+    name: 'raspberryshake',
+    routes: ['/api/raspberryshake'],
+    load: () => import('../providers/wave9/raspberryshake.js').then((m) => m.raspberryShakeProxy()),
+  },
+  {
+    name: 'euro-barcelona-beaches',
+    routes: ['/api/euro-barcelona-beaches'],
+    load: () => import('../providers/wave10/specs/euro-barcelona-beaches.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('euro-barcelona-beaches', s.SPEC);
+    }),
+  },
+  {
+    name: 'euro-paris-bike-counters',
+    routes: ['/api/euro-paris-bike-counters'],
+    load: () => import('../providers/wave10/specs/euro-paris-bike-counters.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('euro-paris-bike-counters', s.SPEC);
+    }),
+  },
+  {
+    name: 'euro-paris-defibrillators',
+    routes: ['/api/euro-paris-defibrillators'],
+    load: () => import('../providers/wave10/specs/euro-paris-defibrillators.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('euro-paris-defibrillators', s.SPEC);
+    }),
+  },
+  {
+    name: 'euro-paris-drinking-fountains',
+    routes: ['/api/euro-paris-drinking-fountains'],
+    load: () => import('../providers/wave10/specs/euro-paris-drinking-fountains.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('euro-paris-drinking-fountains', s.SPEC);
+    }),
+  },
+  {
+    name: 'euro-paris-green-spaces',
+    routes: ['/api/euro-paris-green-spaces'],
+    load: () => import('../providers/wave10/specs/euro-paris-green-spaces.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('euro-paris-green-spaces', s.SPEC);
+    }),
+  },
+  {
+    name: 'euro-paris-markets',
+    routes: ['/api/euro-paris-markets'],
+    load: () => import('../providers/wave10/specs/euro-paris-markets.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('euro-paris-markets', s.SPEC);
+    }),
+  },
+  {
+    name: 'euro-paris-parking-garages',
+    routes: ['/api/euro-paris-parking-garages'],
+    load: () => import('../providers/wave10/specs/euro-paris-parking-garages.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('euro-paris-parking-garages', s.SPEC);
+    }),
+  },
+  {
+    name: 'euro-paris-taxi-stations',
+    routes: ['/api/euro-paris-taxi-stations'],
+    load: () => import('../providers/wave10/specs/euro-paris-taxi-stations.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('euro-paris-taxi-stations', s.SPEC);
+    }),
+  },
+  {
+    name: 'euro-paris-traffic-sensors',
+    routes: ['/api/euro-paris-traffic-sensors'],
+    load: () => import('../providers/wave10/specs/euro-paris-traffic-sensors.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('euro-paris-traffic-sensors', s.SPEC);
+    }),
+  },
+  {
+    name: 'euro-paris-velib-realtime',
+    routes: ['/api/euro-paris-velib-realtime'],
+    load: () => import('../providers/wave10/specs/euro-paris-velib-realtime.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('euro-paris-velib-realtime', s.SPEC);
+    }),
+  },
+  {
+    name: 'euro-paris-velib-stations',
+    routes: ['/api/euro-paris-velib-stations'],
+    load: () => import('../providers/wave10/specs/euro-paris-velib-stations.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('euro-paris-velib-stations', s.SPEC);
+    }),
+  },
+  {
+    name: 'gbif-australia-observations',
+    routes: ['/api/gbif-australia-observations'],
+    load: () => import('../providers/wave10/specs/gbif-australia-observations.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('gbif-australia-observations', s.SPEC);
+    }),
+  },
+  {
+    name: 'gbif-birds',
+    routes: ['/api/gbif-birds'],
+    load: () => import('../providers/wave10/specs/gbif-birds.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('gbif-birds', s.SPEC);
+    }),
+  },
+  {
+    name: 'gbif-brazil-observations',
+    routes: ['/api/gbif-brazil-observations'],
+    load: () => import('../providers/wave10/specs/gbif-brazil-observations.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('gbif-brazil-observations', s.SPEC);
+    }),
+  },
+  {
+    name: 'gbif-critically-endangered',
+    routes: ['/api/gbif-critically-endangered'],
+    load: () => import('../providers/wave10/specs/gbif-critically-endangered.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('gbif-critically-endangered', s.SPEC);
+    }),
+  },
+  {
+    name: 'gbif-endangered',
+    routes: ['/api/gbif-endangered'],
+    load: () => import('../providers/wave10/specs/gbif-endangered.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('gbif-endangered', s.SPEC);
+    }),
+  },
+  {
+    name: 'gbif-insects',
+    routes: ['/api/gbif-insects'],
+    load: () => import('../providers/wave10/specs/gbif-insects.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('gbif-insects', s.SPEC);
+    }),
+  },
+  {
+    name: 'gbif-japan-observations',
+    routes: ['/api/gbif-japan-observations'],
+    load: () => import('../providers/wave10/specs/gbif-japan-observations.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('gbif-japan-observations', s.SPEC);
+    }),
+  },
+  {
+    name: 'gbif-mammals',
+    routes: ['/api/gbif-mammals'],
+    load: () => import('../providers/wave10/specs/gbif-mammals.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('gbif-mammals', s.SPEC);
+    }),
+  },
+  {
+    name: 'gbif-recent-2026',
+    routes: ['/api/gbif-recent-2026'],
+    load: () => import('../providers/wave10/specs/gbif-recent-2026.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('gbif-recent-2026', s.SPEC);
+    }),
+  },
+  {
+    name: 'gbif-south-africa-observations',
+    routes: ['/api/gbif-south-africa-observations'],
+    load: () => import('../providers/wave10/specs/gbif-south-africa-observations.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('gbif-south-africa-observations', s.SPEC);
+    }),
+  },
+  {
+    name: 'gbif-usa-observations',
+    routes: ['/api/gbif-usa-observations'],
+    load: () => import('../providers/wave10/specs/gbif-usa-observations.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('gbif-usa-observations', s.SPEC);
+    }),
+  },
+  {
+    name: 'gbif-virginia-observations',
+    routes: ['/api/gbif-virginia-observations'],
+    load: () => import('../providers/wave10/specs/gbif-virginia-observations.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('gbif-virginia-observations', s.SPEC);
+    }),
+  },
+  {
+    name: 'nasa-apod-random-10',
+    routes: ['/api/nasa-apod-random-10'],
+    load: () => import('../providers/wave10/specs/nasa-apod-random-10.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('nasa-apod-random-10', s.SPEC);
+    }),
+  },
+  {
+    name: 'nasa-apod-week-20260925',
+    routes: ['/api/nasa-apod-week-20260925'],
+    load: () => import('../providers/wave10/specs/nasa-apod-week-20260925.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('nasa-apod-week-20260925', s.SPEC);
+    }),
+  },
+  {
+    name: 'nasa-donki-cmes',
+    routes: ['/api/nasa-donki-cmes'],
+    load: () => import('../providers/wave10/specs/nasa-donki-cmes.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('nasa-donki-cmes', s.SPEC);
+    }),
+  },
+  {
+    name: 'nasa-donki-solar-flares',
+    routes: ['/api/nasa-donki-solar-flares'],
+    load: () => import('../providers/wave10/specs/nasa-donki-solar-flares.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('nasa-donki-solar-flares', s.SPEC);
+    }),
+  },
+  {
+    name: 'nasa-epic-natural',
+    routes: ['/api/nasa-epic-natural'],
+    load: () => import('../providers/wave10/specs/nasa-epic-natural.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('nasa-epic-natural', s.SPEC);
+    }),
+  },
+  {
+    name: 'nasa-exoplanet-confirmed-top50',
+    routes: ['/api/nasa-exoplanet-confirmed-top50'],
+    load: () => import('../providers/wave10/specs/nasa-exoplanet-confirmed-top50.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('nasa-exoplanet-confirmed-top50', s.SPEC);
+    }),
+  },
+  {
+    name: 'nasa-neo-browse',
+    routes: ['/api/nasa-neo-browse'],
+    load: () => import('../providers/wave10/specs/nasa-neo-browse.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('nasa-neo-browse', s.SPEC);
+    }),
+  },
+  {
+    name: 'tfl-arrivals-oxford-circus',
+    routes: ['/api/tfl-arrivals-oxford-circus'],
+    load: () => import('../providers/wave10/specs/tfl-arrivals-oxford-circus.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('tfl-arrivals-oxford-circus', s.SPEC);
+    }),
+  },
+  {
+    name: 'tfl-bike-points',
+    routes: ['/api/tfl-bike-points'],
+    load: () => import('../providers/wave10/specs/tfl-bike-points.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('tfl-bike-points', s.SPEC);
+    }),
+  },
+  {
+    name: 'tfl-bus-status',
+    routes: ['/api/tfl-bus-status'],
+    load: () => import('../providers/wave10/specs/tfl-bus-status.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('tfl-bus-status', s.SPEC);
+    }),
+  },
+  {
+    name: 'tfl-central-line-stations',
+    routes: ['/api/tfl-central-line-stations'],
+    load: () => import('../providers/wave10/specs/tfl-central-line-stations.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('tfl-central-line-stations', s.SPEC);
+    }),
+  },
+  {
+    name: 'tfl-dlr-status',
+    routes: ['/api/tfl-dlr-status'],
+    load: () => import('../providers/wave10/specs/tfl-dlr-status.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('tfl-dlr-status', s.SPEC);
+    }),
+  },
+  {
+    name: 'tfl-elizabeth-line-status',
+    routes: ['/api/tfl-elizabeth-line-status'],
+    load: () => import('../providers/wave10/specs/tfl-elizabeth-line-status.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('tfl-elizabeth-line-status', s.SPEC);
+    }),
+  },
+  {
+    name: 'tfl-overground-status',
+    routes: ['/api/tfl-overground-status'],
+    load: () => import('../providers/wave10/specs/tfl-overground-status.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('tfl-overground-status', s.SPEC);
+    }),
+  },
+  {
+    name: 'tfl-road-corridor-a406',
+    routes: ['/api/tfl-road-corridor-a406'],
+    load: () => import('../providers/wave10/specs/tfl-road-corridor-a406.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('tfl-road-corridor-a406', s.SPEC);
+    }),
+  },
+  {
+    name: 'tfl-road-disruptions',
+    routes: ['/api/tfl-road-disruptions'],
+    load: () => import('../providers/wave10/specs/tfl-road-disruptions.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('tfl-road-disruptions', s.SPEC);
+    }),
+  },
+  {
+    name: 'tfl-tram-status',
+    routes: ['/api/tfl-tram-status'],
+    load: () => import('../providers/wave10/specs/tfl-tram-status.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('tfl-tram-status', s.SPEC);
+    }),
+  },
+  {
+    name: 'tfl-tube-status',
+    routes: ['/api/tfl-tube-status'],
+    load: () => import('../providers/wave10/specs/tfl-tube-status.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('tfl-tube-status', s.SPEC);
+    }),
+  },
 ];
 
 export { REGISTRY };
