@@ -4717,6 +4717,11 @@ const REGISTRY = [
     routes: ['/api/moon'],
     load: () => import('../providers/wave9/lunar.js').then((m) => m.lunarProxy()),
   },
+  {
+    name: 'mempool',
+    routes: ['/api/mempool'],
+    load: () => import('../providers/wave9/mempool.js').then((m) => m.mempoolProxy()),
+  },
 ];
 
 export { REGISTRY };

@@ -78,6 +78,7 @@ const ROUTES = [
   ['/api/raspberryshake', 'wave9/raspberryshake', 'raspberryshake'],
   ['/api/superfund', 'wave9/superfund', 'superfund'],
   ['/api/moon', 'wave9/lunar', 'lunar'],
+  ['/api/mempool', 'wave9/mempool', 'mempool'],
 ];
 
 const indexSrc = readFileSync(join(ROOT, 'src', 'frontier', 'index.js'), 'utf8');
@@ -87,7 +88,7 @@ const themeKeys = JSON.parse(
 const indexImports = readFileSync(join(ROOT, 'src', 'frontier', 'index.js'), 'utf8');
 
 test('all 49 audited routes have a model with the exact registry ROUTE', async () => {
-  assert.equal(ROUTES.length, 59);
+  assert.equal(ROUTES.length, 60);
   const seen = new Set();
   for (const [route, waveDir] of ROUTES) {
     const mod = await import(`./${waveDir}/model.js`);
