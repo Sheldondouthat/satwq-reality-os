@@ -2605,6 +2605,11 @@ const REGISTRY = [
     load: () => import('../providers/wave6/tides.js').then((m) => m.kingTidesProxy()),
   },
   {
+    name: 'storm-surge',
+    routes: ['/api/storm-surge'],
+    load: () => import('../providers/wave6/tides.js').then((m) => m.stormSurgeProxy()),
+  },
+  {
     name: 'socrata-cambridge-311',
     routes: ['/api/socrata-cambridge-311'],
     load: () => import('../providers/wave10/specs/socrata-cambridge-311.mjs').then(async (s) => {

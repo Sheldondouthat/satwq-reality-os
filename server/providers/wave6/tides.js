@@ -735,3 +735,391 @@ Object.assign(_tidesInternals, {
     kingRetryAt = 0;
   },
 });
+
+// ---------------------------------------------------------------------------
+// R2-20 storm-surge residuals (2026-10-03): pure synthesis over the same two
+// CO-OPS products — observed water level (6-min cadence, date=recent) minus
+// harmonic-model predictions (hourly, interval=h) at matching hours.
+// Residual = observed − predicted. Positive = water running above predicted
+// tide (storm surge / onshore wind / low pressure). Prediction hours with no
+// observation within ±30 minutes read null — never interpolated. Zero new API
+// cost. See STORM_SURGE_HONESTY on the payload.
+// ---------------------------------------------------------------------------
+
+const STORM_SURGE_TTL_MS = 60 * 60_000; // gauges publish every 6 min; 1h is honest
+const STORM_SURGE_STALE_MS = 24 * 3600_000;
+const STORM_SURGE_COOLDOWN_MS = 60_000;
+const STORM_SURGE_MAX_STATIONS = 10;
+const STORM_SURGE_DAYS_DEFAULT = 2;
+const STORM_SURGE_DAYS_MAX = 3;
+// ±30 min around the prediction hour (≈5 six-minute readings per bucket).
+const STORM_SURGE_MATCH_MS = 30 * 60_000;
+
+let surgeCache = null; // { at, key, payload }
+let surgeInflight = null;
+let surgeRetryAt = 0;
+
+export function stormSurgePredictionsUrl(station, days) {
+  const end = new Date();
+  const begin = new Date(end.getTime() - days * 86_400_000);
+  const ymd = (d) => d.toISOString().slice(0, 10).replaceAll('-', '');
+  return (
+    `${COOPS_BASE}?product=predictions&station=${station}&datum=MLLW` +
+    `&begin_date=${ymd(begin)}&end_date=${ymd(end)}&time_zone=gmt` +
+    `&units=english&interval=h&format=json`
+  );
+}
+
+/**
+ * Same row shape as parseWaterLevel but WITHOUT the 500-row slice: verified
+ * live 2026-10-03 that date=recent returns ~719 rows and slice(0, 500) drops
+ * the NEWEST ~22h of gauge data (oldest-first ordering). Residuals need the
+ * freshest observations, so the surge section parses unsliced.
+ */
+export function parseSurgeWaterLevel(upstream) {
+  const rows = Array.isArray(upstream?.data) ? upstream.data : [];
+  const readings = [];
+  for (const r of rows) {
+    if (!r || typeof r !== 'object') continue;
+    const t = coopsTimeToISO(r.t);
+    const v = numOrNull(r.v);
+    if (!t || !isFiniteNum(v)) continue;
+    readings.push({
+      time: t,
+      feet: roundNum(v),
+      quality: String(r.q ?? '') || null,
+    });
+  }
+  return readings;
+}
+
+async function fetchSurgeWaterLevel(station) {
+  const started = Date.now();
+  try {
+    const upstream = await fetchJsonCapped(waterLevelUrl(station));
+    return {
+      key: 'water_level',
+      ok: true,
+      latencyMs: Date.now() - started,
+      metadata: upstream?.metadata ?? null,
+      readings: parseSurgeWaterLevel(upstream),
+    };
+  } catch (error) {
+    return {
+      key: 'water_level',
+      ok: false,
+      latencyMs: Date.now() - started,
+      error: error?.message ?? 'unknown',
+      readings: [],
+    };
+  }
+}
+
+async function fetchHourlyPredictions(station, days) {
+  const started = Date.now();
+  try {
+    const upstream = await fetchJsonCapped(stormSurgePredictionsUrl(station, days));
+    return {
+      key: 'predictions',
+      ok: true,
+      latencyMs: Date.now() - started,
+      metadata: upstream?.metadata ?? null,
+      // interval=h rows carry no `type` field; parsePredictions leaves it null.
+      readings: parsePredictions(upstream),
+    };
+  } catch (error) {
+    return {
+      key: 'predictions',
+      ok: false,
+      latencyMs: Date.now() - started,
+      error: error?.message ?? 'unknown',
+      readings: [],
+    };
+  }
+}
+
+/**
+ * Match 6-minute observations to hourly predictions. residual = observed −
+ * predicted at the same hour; observedFeet is the mean of the ±30-min bucket
+ * (real readings, never synthesized). Unmatched prediction hours read
+ * residualFeet:null with obsCount:0 — never interpolated, never zero-filled.
+ */
+export function matchResiduals(obs, pred) {
+  const obsMs = obs
+    .map((r) => ({ ms: Date.parse(r.time), feet: r.feet }))
+    .filter((r) => Number.isFinite(r.ms) && isFiniteNum(r.feet));
+  return pred.map((p) => {
+    const pms = Date.parse(p.time);
+    const bucket = Number.isFinite(pms)
+      ? obsMs.filter((o) => Math.abs(o.ms - pms) <= STORM_SURGE_MATCH_MS)
+      : [];
+    const predictedFeet = roundNum(p.feet);
+    if (!bucket.length) {
+      return {
+        time: p.time,
+        predictedFeet,
+        observedFeet: null,
+        residualFeet: null,
+        obsCount: 0,
+      };
+    }
+    const observedFeet = roundNum(
+      bucket.reduce((a, o) => a + o.feet, 0) / bucket.length,
+    );
+    return {
+      time: p.time,
+      predictedFeet,
+      observedFeet,
+      residualFeet: roundNum(observedFeet - predictedFeet),
+      obsCount: bucket.length,
+    };
+  });
+}
+
+/** Summary over matched (non-null) residuals only. */
+export function summarizeResiduals(residuals) {
+  const matched = residuals.filter((r) => isFiniteNum(r.residualFeet));
+  if (!matched.length) {
+    return {
+      matchedHours: 0,
+      maxResidualFeet: null,
+      maxResidualTime: null,
+      minResidualFeet: null,
+      minResidualTime: null,
+      meanResidualFeet: null,
+      latestResidualFeet: null,
+      latestResidualTime: null,
+    };
+  }
+  const max = matched.reduce((a, b) => (b.residualFeet > a.residualFeet ? b : a));
+  const min = matched.reduce((a, b) => (b.residualFeet < a.residualFeet ? b : a));
+  const latest = matched[matched.length - 1];
+  return {
+    matchedHours: matched.length,
+    maxResidualFeet: max.residualFeet,
+    maxResidualTime: max.time,
+    minResidualFeet: min.residualFeet,
+    minResidualTime: min.time,
+    meanResidualFeet: roundNum(
+      matched.reduce((a, r) => a + r.residualFeet, 0) / matched.length,
+    ),
+    latestResidualFeet: latest.residualFeet,
+    latestResidualTime: latest.time,
+  };
+}
+
+const STORM_SURGE_HONESTY = {
+  definition:
+    'A storm-surge residual is observed water level minus the NOAA harmonic-model predicted tide at the same hour (feet MLLW). Positive = water running above predicted tide.',
+  notAForecast:
+    'Residuals describe what already happened or is happening at the gauge — they are not a surge forecast. Forecasts come from the NWS.',
+  drivers:
+    'Positive residuals are driven by storms, onshore winds, and low pressure; negative by offshore winds and high pressure. A residual mixes all drivers — it does not attribute them.',
+  unmatched:
+    'Prediction hours with no 6-minute observation within ±30 minutes read residualFeet:null — never interpolated, never zero-filled.',
+  quality:
+    'Observed values are the CO-OPS water_level feed as published (preliminary quality flags); per-reading flags live on GET /api/tides?kind=water_level.',
+  datum: 'Feet above Mean Lower Low Water (MLLW).',
+};
+
+function buildStormSurgeEntry(station, days, wl, pred) {
+  if (!wl.ok || !pred.ok) {
+    return {
+      station: { id: String(station), name: null, lat: null, lon: null },
+      ok: false,
+      error: [
+        wl.ok ? null : `water_level:${wl.error}`,
+        pred.ok ? null : `predictions:${pred.error}`,
+      ]
+        .filter(Boolean)
+        .join('; '),
+    };
+  }
+  const meta = wl.metadata ?? pred.metadata;
+  const known = STATIONS.find((s) => s.id === String(station));
+  const residuals = matchResiduals(wl.readings, pred.readings);
+  return {
+    station: {
+      id: String(station),
+      name: known?.name ?? (meta?.name ? String(meta.name) : null),
+      lat: known?.lat ?? numOrNull(meta?.lat),
+      lon: known?.lon ?? numOrNull(meta?.lon),
+    },
+    ok: true,
+    window: {
+      days,
+      from: pred.readings[0]?.time ?? null,
+      to: pred.readings[pred.readings.length - 1]?.time ?? null,
+    },
+    predictionHours: pred.readings.length,
+    residuals,
+    summary: summarizeResiduals(residuals),
+    sources: {
+      water_level: {
+        ok: wl.ok,
+        count: wl.readings.length,
+        latencyMs: wl.latencyMs,
+      },
+      predictions: {
+        ok: pred.ok,
+        count: pred.readings.length,
+        latencyMs: pred.latencyMs,
+      },
+    },
+  };
+}
+
+async function getStormSurgeSnapshot(stations, days) {
+  const key = `surge:${stations.join(',')}:${days}`;
+  const now = Date.now();
+  if (surgeCache && surgeCache.key === key && now - surgeCache.at < STORM_SURGE_TTL_MS)
+    return surgeCache.payload;
+  if (surgeInflight) return surgeInflight;
+  if (now < surgeRetryAt && surgeCache && now - surgeCache.at < STORM_SURGE_STALE_MS)
+    return { ...surgeCache.payload, stale: true };
+  surgeInflight = Promise.all(
+    stations.map(async (s) => {
+      const [wl, pred] = await Promise.all([
+        fetchSurgeWaterLevel(s),
+        fetchHourlyPredictions(s, days),
+      ]);
+      return buildStormSurgeEntry(s, days, wl, pred);
+    }),
+  )
+    .then((entries) => {
+      if (!entries.some((e) => e.ok)) {
+        surgeRetryAt = Date.now() + STORM_SURGE_COOLDOWN_MS;
+        const detail = entries.map((e) => `${e.station.id}:${e.error}`).join('; ');
+        throw Object.assign(new Error(`stormsurge_all_upstream_down: ${detail}`), {
+          status: 502,
+        });
+      }
+      const payload = {
+        generatedAt: new Date().toISOString(),
+        route: '/api/storm-surge',
+        days,
+        count: entries.length,
+        okCount: entries.filter((e) => e.ok).length,
+        units: 'feet MLLW',
+        stations: entries,
+        honesty: STORM_SURGE_HONESTY,
+        attribution: 'NOAA CO-OPS (public domain, keyless)',
+      };
+      surgeCache = { at: Date.now(), key, payload };
+      return payload;
+    })
+    .catch((error) => {
+      if (surgeCache && now - surgeCache.at < STORM_SURGE_STALE_MS)
+        return { ...surgeCache.payload, stale: true };
+      throw error;
+    })
+    .finally(() => {
+      surgeInflight = null;
+    });
+  return surgeInflight;
+}
+
+export function parseStormSurgeQuery(req) {
+  const url = new URL(req.url ?? '/api/storm-surge', 'http://localhost');
+  const station = url.searchParams.get('station') ?? '8638610';
+  if (!STATION_RE.test(station))
+    throw Object.assign(
+      new Error(`stormsurge_bad_station:${station.slice(0, 32)}`),
+      { status: 400 },
+    );
+  const daysRaw = url.searchParams.get('days') ?? String(STORM_SURGE_DAYS_DEFAULT);
+  const days = Number(daysRaw);
+  if (!Number.isInteger(days) || days < 1 || days > STORM_SURGE_DAYS_MAX)
+    throw Object.assign(
+      new Error(`stormsurge_bad_days:${daysRaw.slice(0, 8)}`),
+      { status: 400 },
+    );
+  const stationsRaw = url.searchParams.get('stations');
+  let stations = null;
+  if (stationsRaw != null && stationsRaw.trim() !== '') {
+    stations = [
+      ...new Set(stationsRaw.split(',').map((s) => s.trim()).filter(Boolean)),
+    ];
+    if (stations.length === 0 || stations.length > STORM_SURGE_MAX_STATIONS)
+      throw Object.assign(
+        new Error(`stormsurge_too_many_stations:${stations.length}`),
+        { status: 400 },
+      );
+    for (const st of stations) {
+      if (!STATION_RE.test(st))
+        throw Object.assign(
+          new Error(`stormsurge_bad_station:${st.slice(0, 32)}`),
+          { status: 400 },
+        );
+    }
+  }
+  return { station, stations, days };
+}
+
+/** Mount the storm-surge residuals proxy. Mirrors the king-tides shape. */
+export function stormSurgeProxy() {
+  async function handler(req, res) {
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
+    try {
+      const { station, stations, days } = parseStormSurgeQuery(req);
+      const list = stations ?? [station];
+      sendJson(
+        res,
+        200,
+        await getStormSurgeSnapshot(list, days),
+        'public, max-age=3600',
+      );
+    } catch (error) {
+      if (error?.status === 400)
+        return sendJson(
+          res,
+          400,
+          {
+            error: 'stormsurge_bad_request',
+            detail: error?.message ?? 'unknown',
+          },
+          'no-store',
+        );
+      const upstreamFail =
+        error?.status === 502 ||
+        error?.name === 'AbortError' ||
+        /aborted?/i.test(error?.message ?? '');
+      sendJson(
+        res,
+        upstreamFail ? 502 : 500,
+        {
+          error: 'stormsurge_unavailable',
+          detail: error?.message ?? 'unknown',
+        },
+        'no-store',
+      );
+    }
+  }
+
+  return {
+    name: 'storm-surge',
+    configureServer({ middlewares }) {
+      middlewares.use('/api/storm-surge', handler);
+    },
+    configurePreviewServer({ middlewares }) {
+      middlewares.use('/api/storm-surge', handler);
+    },
+  };
+}
+
+// R2-20 test internals — assigned after the storm-surge section above
+// (avoids TDZ: the _tidesInternals literal evaluates at module position).
+Object.assign(_tidesInternals, {
+  parseStormSurgeQuery,
+  parseSurgeWaterLevel,
+  matchResiduals,
+  summarizeResiduals,
+  stormSurgePredictionsUrl,
+  STORM_SURGE_HONESTY,
+  clearSurgeCaches: () => {
+    surgeCache = null;
+    surgeInflight = null;
+    surgeRetryAt = 0;
+  },
+});

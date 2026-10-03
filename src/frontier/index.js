@@ -159,6 +159,7 @@ import { init as initFaaDelays } from './wave9/faaDelays/index.js';
 import { init as initMirova } from './wave9/mirova/index.js';
 import { init as initSurf } from './wave9/surf/index.js';
 import { init as initKingTides } from './wave9/kingTides/index.js';
+import { init as initStormSurge } from './wave9/stormSurge/index.js';
 import { init as initRaspberryShake } from './wave9/raspberryshake/index.js';
 import { init as initSuperfund } from './wave9/superfund/index.js';
 
@@ -1116,6 +1117,7 @@ export function initFrontier({ viewer } = {}) {
     attempt('mirova', () => initMirova({ viewer, mount: s, chip, trackLayer, t }));
     attempt('surf', () => initSurf({ viewer, mount: s, chip, trackLayer, t }));
     attempt('kingTides', () => initKingTides({ viewer, mount: s, chip, trackLayer, t }));
+    attempt('stormSurge', () => initStormSurge({ viewer, mount: s, chip, trackLayer, t }));
     attempt('raspberryshake', () => initRaspberryShake({ viewer, mount: s, chip, trackLayer, t }));
     attempt('superfund', () => initSuperfund({ viewer, mount: s, chip, trackLayer, t }));
   }
