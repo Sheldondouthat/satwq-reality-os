@@ -44,10 +44,12 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
       const input = document.createElement('input');
       input.placeholder = 'W1AW';
       input.maxLength = 12;
-      input.style.cssText = 'width:90px;background:#0b1226;color:#e8efff;border:1px solid #2a3a63;border-radius:4px;padding:2px 4px;font-size:10px;';
+      input.style.cssText =
+        'width:90px;background:#0b1226;color:#e8efff;border:1px solid #2a3a63;border-radius:4px;padding:2px 4px;font-size:10px;';
       const btn = document.createElement('button');
       btn.textContent = 'lookup';
-      btn.style.cssText = 'margin-left:4px;font-size:10px;background:#1b2a52;color:#e8efff;border:1px solid #2a3a63;border-radius:4px;padding:2px 6px;cursor:pointer;';
+      btn.style.cssText =
+        'margin-left:4px;font-size:10px;background:#1b2a52;color:#e8efff;border:1px solid #2a3a63;border-radius:4px;padding:2px 6px;cursor:pointer;';
       const out = el('div', cssDim);
       btn.onclick = async () => {
         const call = input.value.trim().toUpperCase();
@@ -59,10 +61,15 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
             `<b>${escapeHtml(d.callsign)}</b> — ${escapeHtml(d.name || 'unnamed')}<br>` +
             `${escapeHtml(d.type || '')} ${escapeHtml(d.licenseClass || '')}<br>` +
             `${escapeHtml(d.address || '')}<br>` +
-            (d.lat != null ? `QTH ${d.lat}, ${d.lon} · ${escapeHtml(d.gridsquare)}<br>` : '') +
+            (d.lat != null
+              ? `QTH ${d.lat}, ${d.lon} · ${escapeHtml(d.gridsquare)}<br>`
+              : '') +
             `<span style="opacity:.7">${escapeHtml(honestyFor('callsign'))}</span>`;
         } catch (e) {
-          out.textContent = e.message === 'callsign_not_found' ? 'not found in FCC ULS' : `lookup failed: ${e.message}`;
+          out.textContent =
+            e.message === 'callsign_not_found'
+              ? 'not found in FCC ULS'
+              : `lookup failed: ${e.message}`;
         }
       };
       form.append(input, btn, out);
@@ -72,24 +79,28 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
     function renderTle(box) {
       const out = el('div', cssDim, 'loading AMSAT TLE catalog…');
       box.appendChild(out);
-      get('?tle=1').then((d) => {
-        if (destroyed) return;
-        out.innerHTML =
-          `${d.count} amateur-satellite element sets<br>` +
-          `<span style="opacity:.7">${escapeHtml(honestyFor('tle'))}</span>`;
-      }).catch(() => {
-        if (!destroyed) out.textContent = 'AMSAT TLE catalog unavailable';
-      });
+      get('?tle=1')
+        .then((d) => {
+          if (destroyed) return;
+          out.innerHTML =
+            `${d.count} amateur-satellite element sets<br>` +
+            `<span style="opacity:.7">${escapeHtml(honestyFor('tle'))}</span>`;
+        })
+        .catch(() => {
+          if (!destroyed) out.textContent = 'AMSAT TLE catalog unavailable';
+        });
     }
 
     function renderNumbers(box) {
       const form = el('div', cssSm);
       const input = document.createElement('input');
       input.placeholder = 'UVB-76';
-      input.style.cssText = 'width:90px;background:#0b1226;color:#e8efff;border:1px solid #2a3a63;border-radius:4px;padding:2px 4px;font-size:10px;';
+      input.style.cssText =
+        'width:90px;background:#0b1226;color:#e8efff;border:1px solid #2a3a63;border-radius:4px;padding:2px 4px;font-size:10px;';
       const btn = document.createElement('button');
       btn.textContent = 'search';
-      btn.style.cssText = 'margin-left:4px;font-size:10px;background:#1b2a52;color:#e8efff;border:1px solid #2a3a63;border-radius:4px;padding:2px 6px;cursor:pointer;';
+      btn.style.cssText =
+        'margin-left:4px;font-size:10px;background:#1b2a52;color:#e8efff;border:1px solid #2a3a63;border-radius:4px;padding:2px 6px;cursor:pointer;';
       const out = el('div', cssDim);
       btn.onclick = async () => {
         const q = input.value.trim();
@@ -99,9 +110,13 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
           const d = await get(`?search=${encodeURIComponent(q)}`);
           out.innerHTML =
             (d.results.length
-              ? d.results.map((r) =>
-                `<div><a href="${escapeHtml(r.url)}" target="_blank" rel="noopener" style="color:#9fc2ff">` +
-                `${escapeHtml(r.title)}</a></div>`).join('')
+              ? d.results
+                  .map(
+                    (r) =>
+                      `<div><a href="${escapeHtml(r.url)}" target="_blank" rel="noopener" style="color:#9fc2ff">` +
+                      `${escapeHtml(r.title)}</a></div>`,
+                  )
+                  .join('')
               : '<div style="opacity:.6">no articles</div>') +
             `<div style="opacity:.7;margin-top:2px">${escapeHtml(honestyFor('numbers'))}</div>`;
         } catch {
@@ -114,17 +129,35 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
 
     if (mount && typeof chip === 'function') {
       try {
-        mount.appendChild(el('div', 'font-size:10px;color:#8aa4d6;margin:4px 0 2px;font-weight:600;', '☎️ Callsign lookup'));
+        mount.appendChild(
+          el(
+            'div',
+            'font-size:10px;color:#8aa4d6;margin:4px 0 2px;font-weight:600;',
+            '☎️ Callsign lookup',
+          ),
+        );
         const callBox = el('div');
         mount.appendChild(callBox);
         renderCallsign(callBox);
 
-        mount.appendChild(el('div', 'font-size:10px;color:#8aa4d6;margin:6px 0 2px;font-weight:600;', '🛰️ AMSAT TLE catalog'));
+        mount.appendChild(
+          el(
+            'div',
+            'font-size:10px;color:#8aa4d6;margin:6px 0 2px;font-weight:600;',
+            '🛰️ AMSAT TLE catalog',
+          ),
+        );
         const tleBox = el('div');
         mount.appendChild(tleBox);
         renderTle(tleBox);
 
-        mount.appendChild(el('div', 'font-size:10px;color:#8aa4d6;margin:6px 0 2px;font-weight:600;', '📻 Numbers-station reference'));
+        mount.appendChild(
+          el(
+            'div',
+            'font-size:10px;color:#8aa4d6;margin:6px 0 2px;font-weight:600;',
+            '📻 Numbers-station reference',
+          ),
+        );
         const numBox = el('div');
         mount.appendChild(numBox);
         renderNumbers(numBox);

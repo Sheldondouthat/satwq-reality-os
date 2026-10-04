@@ -28,7 +28,8 @@ export function isValidGibsDate(value) {
 
 /** Format a millisecond epoch as a GIBS YYYY-MM-DD date (UTC). */
 export function formatGibsDateUTC(ms) {
-  if (!Number.isFinite(ms)) throw new TypeError('formatGibsDateUTC needs a finite epoch ms');
+  if (!Number.isFinite(ms))
+    throw new TypeError('formatGibsDateUTC needs a finite epoch ms');
   return new Date(ms).toISOString().slice(0, 10);
 }
 
@@ -44,7 +45,10 @@ export function gibsDateToMs(dateStr) {
  * `days` is the ordered list of every date in the window. `max` is yesterday
  * (GIBS lag); the window covers the `days` days ending there.
  */
-export function dvrDateRange({ nowMs = Date.now(), days = DVR_DEFAULT_DAYS } = {}) {
+export function dvrDateRange({
+  nowMs = Date.now(),
+  days = DVR_DEFAULT_DAYS,
+} = {}) {
   const n = Math.max(1, Math.floor(days));
   const max = formatGibsDateUTC(
     Date.UTC(

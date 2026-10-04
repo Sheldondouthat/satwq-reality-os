@@ -52,7 +52,7 @@ export function getBluramsStatus() {
       'Camera markers are user-mapped placeholders until a frame source is attached.',
     paths: [
       'Local bridge app on the home LAN re-serving frames (recommended).',
-      'Official web portal (client.blurams.com) via the user\'s authenticated session.',
+      "Official web portal (client.blurams.com) via the user's authenticated session.",
     ],
   };
 }

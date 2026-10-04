@@ -38,12 +38,19 @@ const KIND_COLORS = {
 };
 
 function ringPositions(line) {
-  const positions = line.map((p) => Cesium.Cartesian3.fromDegrees(p.lon, p.lat, 2000));
+  const positions = line.map((p) =>
+    Cesium.Cartesian3.fromDegrees(p.lon, p.lat, 2000),
+  );
   if (positions.length > 2) positions.push(positions[0].clone()); // close the loop
   return positions;
 }
 
-export function createTerminatorRushLayer({ viewer, fetchImpl, bandPollMs = BAND_POLL_MS, eventPollMs = EVENT_POLL_MS } = {}) {
+export function createTerminatorRushLayer({
+  viewer,
+  fetchImpl,
+  bandPollMs = BAND_POLL_MS,
+  eventPollMs = EVENT_POLL_MS,
+} = {}) {
   let _viewer = viewer || null;
   let _enabled = false;
   let _dataSource = null;
@@ -54,9 +61,15 @@ export function createTerminatorRushLayer({ viewer, fetchImpl, bandPollMs = BAND
   let _summary = { bandPoints: 0, pins: 0, degraded: [] };
 
   function renderBand(date) {
-    const inner = terminatorLine(date, TERMINATOR_CENTER_ELEV - TERMINATOR_HALF_WIDTH);
+    const inner = terminatorLine(
+      date,
+      TERMINATOR_CENTER_ELEV - TERMINATOR_HALF_WIDTH,
+    );
     const center = terminatorLine(date, TERMINATOR_CENTER_ELEV);
-    const outer = terminatorLine(date, TERMINATOR_CENTER_ELEV + TERMINATOR_HALF_WIDTH);
+    const outer = terminatorLine(
+      date,
+      TERMINATOR_CENTER_ELEV + TERMINATOR_HALF_WIDTH,
+    );
 
     // Keep the three entities stable across re-renders (lookup by id).
     const upsert = (id, positions, width, color, zIndex) => {
@@ -75,9 +88,27 @@ export function createTerminatorRushLayer({ viewer, fetchImpl, bandPollMs = BAND
       }
     };
 
-    upsert('term-outer', ringPositions(outer), 3, rgba(1.0, 0.45, 0.1, 0.35), 1);
-    upsert('term-center', ringPositions(center), 7, rgba(1.0, 0.72, 0.2, 0.95), 3);
-    upsert('term-inner', ringPositions(inner), 3, rgba(0.35, 0.85, 1.0, 0.4), 1);
+    upsert(
+      'term-outer',
+      ringPositions(outer),
+      3,
+      rgba(1.0, 0.45, 0.1, 0.35),
+      1,
+    );
+    upsert(
+      'term-center',
+      ringPositions(center),
+      7,
+      rgba(1.0, 0.72, 0.2, 0.95),
+      3,
+    );
+    upsert(
+      'term-inner',
+      ringPositions(inner),
+      3,
+      rgba(0.35, 0.85, 1.0, 0.4),
+      1,
+    );
 
     // Filled band: inner ring forward + outer ring reversed.
     const fill = [...inner, ...[...outer].reverse()].map((p) =>
@@ -103,7 +134,9 @@ export function createTerminatorRushLayer({ viewer, fetchImpl, bandPollMs = BAND
 
   async function refreshEvents(date) {
     try {
-      const { events, degradedSources } = await fetchBandEvents({ fetchImpl: fetchImpl || fetch });
+      const { events, degradedSources } = await fetchBandEvents({
+        fetchImpl: fetchImpl || fetch,
+      });
       const onBand = eventsOnBand(events, date);
       // Remove old pins, keep band entities.
       for (const entity of [...(_dataSource.entities.values ?? [])]) {
@@ -158,7 +191,8 @@ export function createTerminatorRushLayer({ viewer, fetchImpl, bandPollMs = BAND
     updateInterval: bandPollMs,
 
     init(v) {
-      if (_viewer && _viewer !== v) throw new Error('Terminator Rush layer is already initialized');
+      if (_viewer && _viewer !== v)
+        throw new Error('Terminator Rush layer is already initialized');
       _viewer = v || _viewer;
       if (!_viewer) throw new Error('Terminator Rush layer needs a viewer');
       _dataSource = new Cesium.CustomDataSource('terminator-rush');
@@ -182,8 +216,14 @@ export function createTerminatorRushLayer({ viewer, fetchImpl, bandPollMs = BAND
     disable() {
       _enabled = false;
       if (_dataSource) _dataSource.show = false;
-      if (_bandTimer) { clearInterval(_bandTimer); _bandTimer = null; }
-      if (_eventTimer) { clearInterval(_eventTimer); _eventTimer = null; }
+      if (_bandTimer) {
+        clearInterval(_bandTimer);
+        _bandTimer = null;
+      }
+      if (_eventTimer) {
+        clearInterval(_eventTimer);
+        _eventTimer = null;
+      }
     },
 
     async update() {
@@ -196,19 +236,34 @@ export function createTerminatorRushLayer({ viewer, fetchImpl, bandPollMs = BAND
       const sub = subsolarPoint(new Date());
       // Fly to the sunset point opposite the subsolar longitude on the band.
       _viewer.camera.flyTo({
-        destination: Cesium.Cartesian3.fromDegrees(sub.lon > 0 ? sub.lon - 90 : sub.lon + 90, sub.lat, 25_000_000),
+        destination: Cesium.Cartesian3.fromDegrees(
+          sub.lon > 0 ? sub.lon - 90 : sub.lon + 90,
+          sub.lat,
+          25_000_000,
+        ),
         duration: 2.5,
       });
       return true;
     },
 
     getStatus() {
-      return { status: _status, summary: _summary, lastError: _lastError, enabled: _enabled };
+      return {
+        status: _status,
+        summary: _summary,
+        lastError: _lastError,
+        enabled: _enabled,
+      };
     },
 
     destroy() {
-      if (_bandTimer) { clearInterval(_bandTimer); _bandTimer = null; }
-      if (_eventTimer) { clearInterval(_eventTimer); _eventTimer = null; }
+      if (_bandTimer) {
+        clearInterval(_bandTimer);
+        _bandTimer = null;
+      }
+      if (_eventTimer) {
+        clearInterval(_eventTimer);
+        _eventTimer = null;
+      }
       if (_viewer && _dataSource) _viewer.dataSources.remove(_dataSource, true);
       _dataSource = null;
     },
@@ -221,9 +276,13 @@ export function createTerminatorRushLayer({ viewer, fetchImpl, bandPollMs = BAND
 export function mountTerminatorRushDock({ section, chip, el, t, layer } = {}) {
   if (!section || !chip || !el || !layer) return null;
   const host = section(t ? t('feature.terminatorRush') : 'TERMINATOR RUSH');
-  const statusLine = el('div', {
-    style: 'font-size:10px;color:#8aa4d6;margin:4px 0;min-height:14px;',
-  }, '—');
+  const statusLine = el(
+    'div',
+    {
+      style: 'font-size:10px;color:#8aa4d6;margin:4px 0;min-height:14px;',
+    },
+    '—',
+  );
   const setStatus = () => {
     const s = layer.getStatus();
     const degraded = (s.summary.degraded ?? []).map((d) => d.source).join(',');
@@ -238,16 +297,23 @@ export function mountTerminatorRushDock({ section, chip, el, t, layer } = {}) {
             : 'off';
   };
   host.appendChild(
-    chip('🌇 Terminator Rush', (on) => {
-      if (on) layer.enable();
-      else layer.disable();
-      setStatus();
-    }, false),
+    chip(
+      '🌇 Terminator Rush',
+      (on) => {
+        if (on) layer.enable();
+        else layer.disable();
+        setStatus();
+      },
+      false,
+    ),
   );
-  host.appendChild(
-    chip('⌖ Fly to sunset', () => layer.flyToSunset(), false),
-  );
+  host.appendChild(chip('⌖ Fly to sunset', () => layer.flyToSunset(), false));
   host.appendChild(statusLine);
   const poller = setInterval(setStatus, 60_000);
-  return { element: host, destroy() { clearInterval(poller); } };
+  return {
+    element: host,
+    destroy() {
+      clearInterval(poller);
+    },
+  };
 }

@@ -42,7 +42,12 @@ const SEVERITY_RANK = { Extreme: 4, Severe: 3, Moderate: 2, Minor: 1 };
 // DWD warnapp level → label (level 1 yellow → 4 dark red).
 // Mapping is INFERRED from DWD's public warn-level documentation, not from
 // a labeled field in the feed itself.
-const DWD_LEVEL_LABEL = { 1: 'Minor', 2: 'Moderate', 3: 'Severe', 4: 'Extreme' };
+const DWD_LEVEL_LABEL = {
+  1: 'Minor',
+  2: 'Moderate',
+  3: 'Severe',
+  4: 'Extreme',
+};
 
 let cache = null; // {at, payload}
 let inflight = null;
@@ -59,10 +64,15 @@ async function fetchTextCapped(sourceKey, url, accept) {
       headers: { 'User-Agent': USER_AGENT, Accept: accept },
     });
     if (!response.ok)
-      throw Object.assign(new Error(`alerts_${sourceKey}_upstream_${response.status}`), { status: 502 });
+      throw Object.assign(
+        new Error(`alerts_${sourceKey}_upstream_${response.status}`),
+        { status: 502 },
+      );
     const buffer = await response.arrayBuffer();
     if (buffer.byteLength > BODY_CAP_BYTES)
-      throw Object.assign(new Error(`alerts_${sourceKey}_upstream_too_large`), { status: 502 });
+      throw Object.assign(new Error(`alerts_${sourceKey}_upstream_too_large`), {
+        status: 502,
+      });
     return new TextDecoder().decode(buffer);
   } finally {
     clearTimeout(timeout);
@@ -112,7 +122,8 @@ export function parseDwdJsonp(text) {
   const t = String(text ?? '').trim();
   const start = t.indexOf('(');
   const end = t.lastIndexOf(')');
-  if (start < 0 || end <= start) throw new Error('alerts_dwd_jsonp_unwrap_failed');
+  if (start < 0 || end <= start)
+    throw new Error('alerts_dwd_jsonp_unwrap_failed');
   return JSON.parse(t.slice(start + 1, end));
 }
 
@@ -123,9 +134,10 @@ function trimDwdWarning(w, areaID, preliminary) {
   const severity = DWD_LEVEL_LABEL[level] ?? 'Unknown';
   const regionName = String(w?.regionName ?? '');
   const state = String(w?.state ?? '');
-  const eventEn = w?.i18nTitle && typeof w.i18nTitle === 'object'
-    ? String(w.i18nTitle.en ?? '')
-    : '';
+  const eventEn =
+    w?.i18nTitle && typeof w.i18nTitle === 'object'
+      ? String(w.i18nTitle.en ?? '')
+      : '';
   return {
     id: `dwd:${areaID}:${start}`,
     source: 'dwd',
@@ -149,7 +161,10 @@ function trimDwdWarning(w, areaID, preliminary) {
 
 export function parseDwdAlerts(payload) {
   const out = [];
-  for (const [bucket, preliminary] of [['warnings', false], ['vorabInformation', true]]) {
+  for (const [bucket, preliminary] of [
+    ['warnings', false],
+    ['vorabInformation', true],
+  ]) {
     const groups = payload?.[bucket];
     if (!groups || typeof groups !== 'object') continue;
     for (const [areaID, list] of Object.entries(groups)) {
@@ -194,7 +209,11 @@ async function fetchNwsSource() {
 async function fetchDwdSource() {
   const started = Date.now();
   try {
-    const text = await fetchTextCapped('dwd', DWD_URL, 'application/javascript');
+    const text = await fetchTextCapped(
+      'dwd',
+      DWD_URL,
+      'application/javascript',
+    );
     const payload = parseDwdJsonp(text);
     const alerts = parseDwdAlerts(payload);
     const feedTime = msToIso(payload?.time);
@@ -238,7 +257,8 @@ function buildSnapshot(results) {
     alerts.push(...r.alerts);
   }
   alerts.sort((a, b) => {
-    const rank = (SEVERITY_RANK[b.severity] ?? 0) - (SEVERITY_RANK[a.severity] ?? 0);
+    const rank =
+      (SEVERITY_RANK[b.severity] ?? 0) - (SEVERITY_RANK[a.severity] ?? 0);
     if (rank !== 0) return rank;
     return String(b.effective ?? '').localeCompare(String(a.effective ?? ''));
   });
@@ -262,7 +282,10 @@ async function getSnapshot() {
       .then((results) => {
         if (!results.some((r) => r.ok)) {
           const detail = results.map((r) => `${r.key}:${r.error}`).join('; ');
-          throw Object.assign(new Error(`alerts_all_upstream_down: ${detail}`), { status: 502 });
+          throw Object.assign(
+            new Error(`alerts_all_upstream_down: ${detail}`),
+            { status: 502 },
+          );
         }
         const payload = buildSnapshot(results);
         cache = { at: Date.now(), payload };
@@ -286,15 +309,24 @@ function sendJson(res, status, body, cacheControl = 'public, max-age=300') {
 /** Mount the wave-6 consolidated weather-alerts proxy. Mirrors the wave5 quakes provider shape. */
 export function alertsProxy() {
   async function handler(req, res) {
-    if (req.method !== 'GET') return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
     try {
       sendJson(res, 200, await getSnapshot());
     } catch (error) {
-      const upstreamFail = error?.status === 502 || error?.name === 'AbortError' || /aborted?/i.test(error?.message ?? '');
-      sendJson(res, upstreamFail ? 502 : 500, {
-        error: 'alerts_unavailable',
-        detail: error?.message ?? 'unknown',
-      }, 'no-store');
+      const upstreamFail =
+        error?.status === 502 ||
+        error?.name === 'AbortError' ||
+        /aborted?/i.test(error?.message ?? '');
+      sendJson(
+        res,
+        upstreamFail ? 502 : 500,
+        {
+          error: 'alerts_unavailable',
+          detail: error?.message ?? 'unknown',
+        },
+        'no-store',
+      );
     }
   }
 
@@ -314,5 +346,8 @@ export const _alertsInternals = {
   parseDwdJsonp,
   parseDwdAlerts,
   buildSnapshot,
-  clearCaches: () => { cache = null; inflight = null; },
+  clearCaches: () => {
+    cache = null;
+    inflight = null;
+  },
 };

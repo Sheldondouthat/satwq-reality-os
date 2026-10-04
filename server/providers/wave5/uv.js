@@ -20,10 +20,16 @@
  * reads, redirect:'error' pinned host, no node: imports, no WASM).
  */
 
-import { fetchJsonCapped, makeCache, numOrNull, sendJson, buildProxy } from './_lib.js';
+import {
+  fetchJsonCapped,
+  makeCache,
+  numOrNull,
+  sendJson,
+  buildProxy,
+} from './_lib.js';
 
 // Neutral demo default — never a personal location (ghost-first, 2026-09-30).
-const DEFAULT_LAT = 40.7580; // Times Square
+const DEFAULT_LAT = 40.758; // Times Square
 const DEFAULT_LON = -73.9855;
 const UPSTREAM_TIMEOUT_MS = 15_000;
 const BODY_CAP_BYTES = 64 * 1024; // ~1 KB response; generous cap
@@ -79,8 +85,14 @@ export function trimUvPayload(upstream, { latitude, longitude }) {
     today: {
       date: idx >= 0 ? String(daily.time[idx]) : null,
       uvIndexMax: idx >= 0 ? numOrNull(daily.uv_index_max?.[idx]) : null,
-      sunrise: idx >= 0 && typeof daily.sunrise?.[idx] === 'string' ? daily.sunrise[idx] : null,
-      sunset: idx >= 0 && typeof daily.sunset?.[idx] === 'string' ? daily.sunset[idx] : null,
+      sunrise:
+        idx >= 0 && typeof daily.sunrise?.[idx] === 'string'
+          ? daily.sunrise[idx]
+          : null,
+      sunset:
+        idx >= 0 && typeof daily.sunset?.[idx] === 'string'
+          ? daily.sunset[idx]
+          : null,
     },
     source: SOURCE,
     attribution: ATTRIBUTION,
@@ -120,13 +132,17 @@ function parseQuery(req) {
   const qIndex = full.indexOf('?');
   if (qIndex < 0) return {};
   const params = new URLSearchParams(full.slice(qIndex + 1));
-  return { latitude: params.get('latitude'), longitude: params.get('longitude') };
+  return {
+    latitude: params.get('latitude'),
+    longitude: params.get('longitude'),
+  };
 }
 
 /** Mount the UV proxy. Mirrors the vaac/nwsAlerts provider shape. */
 export function uvProxy() {
   async function handler(req, res) {
-    if (req.method !== 'GET') return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
     try {
       const latLon = parseLatLon(parseQuery(req));
       sendJson(res, 200, await cacheFor(latLon).get(), 'public, max-age=1800');

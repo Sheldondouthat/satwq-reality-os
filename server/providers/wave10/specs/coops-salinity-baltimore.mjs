@@ -4,36 +4,33 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 4 (marine+state-open-data worker)).
  */
 export const SPEC = {
-  "headers": {
-    "User-Agent": "satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)"
+  headers: {
+    'User-Agent':
+      'satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)',
   },
-  "source": "NOAA Center for Operational Oceanography Products",
-  "attribution": "Data: NOAA CO-OPS — keyless.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 4 (marine+state-open-data worker)",
-  "id": "coops-salinity-baltimore",
-  "title": "NOAA Tides — Baltimore, MD salinity",
-  "url": "https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?product=salinity&station=8574680&date=recent&time_zone=gmt&units=english&format=json",
-  "ttlSeconds": 1800,
-  "extract": {
-    "items": "$.data",
-    "limit": 48,
-    "map": {
-      "time": "$.t",
-      "salinityPsu": "$.s",
-      "specCond": "$.g"
+  source: 'NOAA Center for Operational Oceanography Products',
+  attribution: 'Data: NOAA CO-OPS — keyless.',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 4 (marine+state-open-data worker)',
+  id: 'coops-salinity-baltimore',
+  title: 'NOAA Tides — Baltimore, MD salinity',
+  url: 'https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?product=salinity&station=8574680&date=recent&time_zone=gmt&units=english&format=json',
+  ttlSeconds: 1800,
+  extract: {
+    items: '$.data',
+    limit: 48,
+    map: {
+      time: '$.t',
+      salinityPsu: '$.s',
+      specCond: '$.g',
     },
-    "numbers": [
-      "salinityPsu",
-      "specCond"
-    ]
+    numbers: ['salinityPsu', 'specCond'],
   },
-  "required": [
-    "time"
-  ],
-  "units": {
-    "salinityPsu": "psu",
-    "specCond": "mS/cm"
+  required: ['time'],
+  units: {
+    salinityPsu: 'psu',
+    specCond: 'mS/cm',
   },
-  "honesty": "6-minute observations; most recent point typically <1h old. Salinity derived from conductivity."
+  honesty:
+    '6-minute observations; most recent point typically <1h old. Salinity derived from conductivity.',
 };

@@ -29,7 +29,8 @@
  */
 
 const SUPER_URL = 'https://gracedb.ligo.org/api/superevents/';
-const DETAIL_URL = (id) => `https://gracedb.ligo.org/api/v2/superevents/${encodeURIComponent(id)}/`;
+const DETAIL_URL = (id) =>
+  `https://gracedb.ligo.org/api/v2/superevents/${encodeURIComponent(id)}/`;
 const USER_AGENT = 'satwq-reality-os (public GraceDB context)';
 const UPSTREAM_TIMEOUT_MS = 20_000;
 const LIST_CAP_BYTES = 1024 * 1024;
@@ -37,7 +38,8 @@ const FILE_CAP_BYTES = 512 * 1024;
 const CACHE_TTL_MS = 30 * 60 * 1000;
 const EVENT_CAP = 12;
 const CONCURRENCY = 4;
-const GRACEDB_PAGE = (id) => `https://gracedb.ligo.org/superevents/${encodeURIComponent(id)}/view/`;
+const GRACEDB_PAGE = (id) =>
+  `https://gracedb.ligo.org/superevents/${encodeURIComponent(id)}/view/`;
 
 const CATEGORY_NOTES = {
   Production: 'real public alert from the LVK search pipelines',
@@ -91,10 +93,14 @@ async function fetchTextCapped(url, capBytes) {
       headers: { 'User-Agent': USER_AGENT },
     });
     if (!response.ok)
-      throw Object.assign(new Error(`gravwaves_upstream_${response.status}`), { status: 502 });
+      throw Object.assign(new Error(`gravwaves_upstream_${response.status}`), {
+        status: 502,
+      });
     const buffer = await response.arrayBuffer();
     if (buffer.byteLength > capBytes)
-      throw Object.assign(new Error('gravwaves_upstream_too_large'), { status: 502 });
+      throw Object.assign(new Error('gravwaves_upstream_too_large'), {
+        status: 502,
+      });
     return new TextDecoder().decode(buffer);
   } finally {
     clearTimeout(timeout);
@@ -104,16 +110,18 @@ async function fetchTextCapped(url, capBytes) {
 async function mapLimit(items, limit, fn) {
   const out = new Array(items.length);
   let next = 0;
-  const workers = new Array(Math.min(limit, items.length)).fill(0).map(async () => {
-    while (next < items.length) {
-      const i = next++;
-      try {
-        out[i] = await fn(items[i], i);
-      } catch (error) {
-        out[i] = { __error: String(error?.message ?? error) };
+  const workers = new Array(Math.min(limit, items.length))
+    .fill(0)
+    .map(async () => {
+      while (next < items.length) {
+        const i = next++;
+        try {
+          out[i] = await fn(items[i], i);
+        } catch (error) {
+          out[i] = { __error: String(error?.message ?? error) };
+        }
       }
-    }
-  });
+    });
   await Promise.all(workers);
   return out;
 }
@@ -135,7 +143,10 @@ async function enrichEvent(summary) {
     const detailText = await fetchTextCapped(DETAIL_URL(id), LIST_CAP_BYTES);
     const detail = JSON.parse(detailText);
     const pe = detail?.preferred_event_data ?? {};
-    const filesText = await fetchTextCapped(detail?.links?.files ?? '', LIST_CAP_BYTES);
+    const filesText = await fetchTextCapped(
+      detail?.links?.files ?? '',
+      LIST_CAP_BYTES,
+    );
     const noticeName = pickInitialNotice(JSON.parse(filesText));
     if (noticeName) {
       const noticeText = await fetchTextCapped(
@@ -167,7 +178,8 @@ async function enrichEvent(summary) {
     return {
       id,
       category: summary.category ?? null,
-      categoryNote: CATEGORY_NOTES[summary.category] ?? 'unclassified GraceDB category',
+      categoryNote:
+        CATEGORY_NOTES[summary.category] ?? 'unclassified GraceDB category',
       createdUtc: summary.created ?? null,
       t0Gps: Number.isFinite(summary.t_0) ? summary.t_0 : null,
       farHz: Number.isFinite(summary.far) ? summary.far : null,
@@ -177,7 +189,8 @@ async function enrichEvent(summary) {
       instruments: null,
       labels: Array.isArray(summary.labels) ? summary.labels : [],
       classification: null,
-      classificationNote: 'enrichment unavailable — showing alert metadata only',
+      classificationNote:
+        'enrichment unavailable — showing alert metadata only',
       gracedbUrl: GRACEDB_PAGE(id),
     };
   }
@@ -198,7 +211,9 @@ async function buildSnapshot() {
     return String(b.created ?? '').localeCompare(String(a.created ?? ''));
   });
   const chosen = ranked.slice(0, EVENT_CAP);
-  const enriched = (await mapLimit(chosen, CONCURRENCY, enrichEvent)).filter(Boolean);
+  const enriched = (await mapLimit(chosen, CONCURRENCY, enrichEvent)).filter(
+    Boolean,
+  );
   const production = enriched.filter((e) => e.category === 'Production').length;
   const payload = {
     schemaVersion: 1,
@@ -227,7 +242,8 @@ function sendJson(res, status, value) {
 /** Mount the gravitational-wave proxy. Mirrors the vaac/hmsSmoke provider shape. */
 export function gracedbProxy() {
   async function handler(req, res) {
-    if (req.method !== 'GET') return sendJson(res, 405, { error: 'method_not_allowed' });
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' });
     try {
       sendJson(res, 200, await buildSnapshot());
     } catch (error) {

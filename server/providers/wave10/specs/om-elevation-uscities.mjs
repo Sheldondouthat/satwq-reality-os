@@ -4,32 +4,30 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 4 (open-meteo worker)).
  */
 export const SPEC = {
-  "id": "om-elevation-uscities",
-  "title": "Open-Meteo elevation profile — 8 US cities",
-  "url": "https://api.open-meteo.com/v1/elevation?latitude=40.71,34.05,41.88,29.76,39.74,47.61,25.76,32.78&longitude=-74.01,-118.24,-87.63,-95.37,-104.99,-122.33,-80.19,-96.80",
-  "headers": {
-    "User-Agent": "satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)"
+  id: 'om-elevation-uscities',
+  title: 'Open-Meteo elevation profile — 8 US cities',
+  url: 'https://api.open-meteo.com/v1/elevation?latitude=40.71,34.05,41.88,29.76,39.74,47.61,25.76,32.78&longitude=-74.01,-118.24,-87.63,-95.37,-104.99,-122.33,-80.19,-96.80',
+  headers: {
+    'User-Agent':
+      'satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)',
   },
-  "ttlSeconds": 604800,
-  "extract": {
-    "items": "$.elevation",
-    "limit": 50,
-    "map": {
-      "elevationM": "$"
+  ttlSeconds: 604800,
+  extract: {
+    items: '$.elevation',
+    limit: 50,
+    map: {
+      elevationM: '$',
     },
-    "numbers": [
-      "elevationM"
-    ]
+    numbers: ['elevationM'],
   },
-  "required": [
-    "elevationM"
-  ],
-  "source": "Open-Meteo Elevation API (Copernicus DEM)",
-  "attribution": "Weather data by Open-Meteo.com (CC-BY 4.0) — keyless API.",
-  "units": {
-    "elevationM": "m"
+  required: ['elevationM'],
+  source: 'Open-Meteo Elevation API (Copernicus DEM)',
+  attribution: 'Weather data by Open-Meteo.com (CC-BY 4.0) — keyless API.',
+  units: {
+    elevationM: 'm',
   },
-  "honesty": "Copernicus DEM elevation, static reference data. Rows follow request coordinate order (row N = Nth coordinate). Rows in request order: New York, Los Angeles, Chicago, Houston, Denver, Seattle, Miami, Dallas.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 4 (open-meteo worker)"
+  honesty:
+    'Copernicus DEM elevation, static reference data. Rows follow request coordinate order (row N = Nth coordinate). Rows in request order: New York, Los Angeles, Chicago, Houston, Denver, Seattle, Miami, Dallas.',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 4 (open-meteo worker)',
 };

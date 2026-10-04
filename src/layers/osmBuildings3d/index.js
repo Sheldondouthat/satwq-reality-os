@@ -25,12 +25,10 @@ import {
   shouldFetchForAltitude,
 } from './model.js';
 
-const BUILDING_FILL = Cesium.Color.fromCssColorString('#8fa3b8').withAlpha(
-  0.72,
-);
-const BUILDING_OUTLINE = Cesium.Color.fromCssColorString('#3d4c5e').withAlpha(
-  0.9,
-);
+const BUILDING_FILL =
+  Cesium.Color.fromCssColorString('#8fa3b8').withAlpha(0.72);
+const BUILDING_OUTLINE =
+  Cesium.Color.fromCssColorString('#3d4c5e').withAlpha(0.9);
 const BUILDING_MATERIAL = new Cesium.ColorMaterialProperty(BUILDING_FILL);
 
 /**

@@ -12,7 +12,8 @@ export function subsolarPoint(date = new Date()) {
   const start = Date.UTC(d.getUTCFullYear(), 0, 0);
   const dayOfYear = Math.floor((d.getTime() - start) / 86400_000);
   const decl = -23.44 * Math.cos(((2 * Math.PI) / 365) * (dayOfYear + 10));
-  const utcHours = d.getUTCHours() + d.getUTCMinutes() / 60 + d.getUTCSeconds() / 3600;
+  const utcHours =
+    d.getUTCHours() + d.getUTCMinutes() / 60 + d.getUTCSeconds() / 3600;
   let lon = 180 - utcHours * 15;
   if (lon > 180) lon -= 360;
   return { lat: decl, lon };
@@ -41,7 +42,8 @@ export function etaCountdown(etaMs, now = Date.now()) {
 
 export function cmeLabel(cme, now = Date.now()) {
   const parts = [];
-  if (Number.isFinite(cme.speedKms)) parts.push(`${Math.round(cme.speedKms)} km/s`);
+  if (Number.isFinite(cme.speedKms))
+    parts.push(`${Math.round(cme.speedKms)} km/s`);
   parts.push(etaCountdown(cme.etaMs, now));
   if (cme.sourceLocation) parts.push(cme.sourceLocation);
   return parts.join(' · ');

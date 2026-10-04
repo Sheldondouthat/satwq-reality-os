@@ -19,7 +19,8 @@
  */
 
 const SPOTS_URL = 'https://api.pota.app/spot/';
-const PARK_URL = (ref) => `https://api.pota.app/park/${encodeURIComponent(ref)}`;
+const PARK_URL = (ref) =>
+  `https://api.pota.app/park/${encodeURIComponent(ref)}`;
 const PINNED_HOST = 'api.pota.app';
 const UPSTREAM_TIMEOUT_MS = 20_000;
 const BODY_CAP_BYTES = 4 * 1024 * 1024;
@@ -36,9 +37,15 @@ const parkInflight = new Map(); // ref -> Promise
 
 function pinHost(responseUrl) {
   let host = '';
-  try { host = new URL(responseUrl).hostname; } catch { /* opaque */ }
+  try {
+    host = new URL(responseUrl).hostname;
+  } catch {
+    /* opaque */
+  }
   if (host && host !== PINNED_HOST)
-    throw Object.assign(new Error(`pota_redirect_off_host:${host}`), { status: 502 });
+    throw Object.assign(new Error(`pota_redirect_off_host:${host}`), {
+      status: 502,
+    });
 }
 
 async function fetchJsonCapped(url, signal) {
@@ -53,11 +60,15 @@ async function fetchJsonCapped(url, signal) {
       headers: { 'User-Agent': USER_AGENT, Accept: 'application/json' },
     });
     if (!response.ok)
-      throw Object.assign(new Error(`pota_upstream_${response.status}`), { status: 502 });
+      throw Object.assign(new Error(`pota_upstream_${response.status}`), {
+        status: 502,
+      });
     pinHost(response.url);
     const buffer = await response.arrayBuffer();
     if (buffer.byteLength > BODY_CAP_BYTES)
-      throw Object.assign(new Error('pota_upstream_too_large'), { status: 502 });
+      throw Object.assign(new Error('pota_upstream_too_large'), {
+        status: 502,
+      });
     return JSON.parse(new TextDecoder().decode(buffer));
   } finally {
     clearTimeout(timeout);
@@ -110,33 +121,39 @@ async function getPark(ref) {
     if (now - cached.at < ttl) return cached.entry;
   }
   if (!parkInflight.has(ref)) {
-    parkInflight.set(ref, (async () => {
-      try {
-        const upstream = await fetchJsonCapped(PARK_URL(ref), null);
-        const entry = trimPark(upstream);
-        parkCache.set(ref, { at: Date.now(), entry });
-        return entry;
-      } catch {
-        // dead refs (e.g. retired prefixes) must not stampede the upstream
-        parkCache.set(ref, { at: Date.now(), entry: null });
-        return null;
-      } finally {
-        parkInflight.delete(ref);
-      }
-    })());
+    parkInflight.set(
+      ref,
+      (async () => {
+        try {
+          const upstream = await fetchJsonCapped(PARK_URL(ref), null);
+          const entry = trimPark(upstream);
+          parkCache.set(ref, { at: Date.now(), entry });
+          return entry;
+        } catch {
+          // dead refs (e.g. retired prefixes) must not stampede the upstream
+          parkCache.set(ref, { at: Date.now(), entry: null });
+          return null;
+        } finally {
+          parkInflight.delete(ref);
+        }
+      })(),
+    );
   }
   return parkInflight.get(ref);
 }
 
 export function trimPotaPayload(spots) {
-  const rows = (Array.isArray(spots) ? spots : []).map(trimSpot).filter((s) => s.reference);
+  const rows = (Array.isArray(spots) ? spots : [])
+    .map(trimSpot)
+    .filter((s) => s.reference);
   return {
     generatedAt: new Date().toISOString(),
     count: rows.length,
     spots: rows,
     withCoords: 0,
     source: 'api.pota.app — Parks on the Air live spots (keyless)',
-    honesty: 'Spots are live self/spotter reports; park coords are the registered ' +
+    honesty:
+      'Spots are live self/spotter reports; park coords are the registered ' +
       'park location (may lag new refs), cached up to 24 h.',
   };
 }
@@ -150,7 +167,10 @@ async function getSnapshot(limit, mode) {
     spotsInflight = fetchJsonCapped(SPOTS_URL, null)
       .then(async (upstream) => {
         const payload = trimPotaPayload(upstream);
-        const refs = [...new Set(payload.spots.map((s) => s.reference))].slice(0, MAX_PARK_LOOKUPS);
+        const refs = [...new Set(payload.spots.map((s) => s.reference))].slice(
+          0,
+          MAX_PARK_LOOKUPS,
+        );
         await Promise.all(refs.map(getPark));
         for (const spot of payload.spots) {
           const entry = parkCache.get(spot.reference)?.entry;
@@ -166,7 +186,9 @@ async function getSnapshot(limit, mode) {
         spotsCache = { at: Date.now(), payload };
         return payload;
       })
-      .finally(() => { spotsInflight = null; });
+      .finally(() => {
+        spotsInflight = null;
+      });
   }
   return applyQuery(await spotsInflight, limit, mode);
 }
@@ -204,18 +226,27 @@ function parseQuery(url) {
 /** Mount the POTA proxy. Mirrors the nwsAlerts provider shape. */
 export function potaProxy() {
   async function handler(req, res) {
-    if (req.method !== 'GET') return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
     try {
       const params = parseQuery(req.url);
       const limit = Number.parseInt(params.get('limit') ?? '', 10);
       const mode = params.get('mode');
       sendJson(res, 200, await getSnapshot(limit, mode));
     } catch (error) {
-      const upstreamFail = error?.status === 502 || error?.name === 'AbortError' || /aborted?/i.test(error?.message ?? '');
-      sendJson(res, upstreamFail ? 502 : 500, {
-        error: 'pota_unavailable',
-        detail: error?.message ?? 'unknown',
-      }, 'no-store');
+      const upstreamFail =
+        error?.status === 502 ||
+        error?.name === 'AbortError' ||
+        /aborted?/i.test(error?.message ?? '');
+      sendJson(
+        res,
+        upstreamFail ? 502 : 500,
+        {
+          error: 'pota_unavailable',
+          detail: error?.message ?? 'unknown',
+        },
+        'no-store',
+      );
     }
   }
 

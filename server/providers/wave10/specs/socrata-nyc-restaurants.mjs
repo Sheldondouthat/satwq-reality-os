@@ -4,41 +4,37 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 2 (socrata worker)).
  */
 export const SPEC = {
-  "attribution": "Data: NYC Dept. of Health & Mental Hygiene via NYC Open Data — keyless Socrata API.",
-  "extract": {
-    "items": "$",
-    "limit": 50,
-    "map": {
-      "boro": "$.boro",
-      "cuisine": "$.cuisine_description",
-      "date": "$.inspection_date",
-      "grade": "$.grade",
-      "key": "$.camis",
-      "lat": "$.latitude",
-      "lon": "$.longitude",
-      "name": "$.dba",
-      "score": "$.score",
-      "street": "$.street",
-      "violation": "$.violation_description"
+  attribution:
+    'Data: NYC Dept. of Health & Mental Hygiene via NYC Open Data — keyless Socrata API.',
+  extract: {
+    items: '$',
+    limit: 50,
+    map: {
+      boro: '$.boro',
+      cuisine: '$.cuisine_description',
+      date: '$.inspection_date',
+      grade: '$.grade',
+      key: '$.camis',
+      lat: '$.latitude',
+      lon: '$.longitude',
+      name: '$.dba',
+      score: '$.score',
+      street: '$.street',
+      violation: '$.violation_description',
     },
-    "numbers": [
-      "lat",
-      "lon",
-      "score"
-    ]
+    numbers: ['lat', 'lon', 'score'],
   },
-  "honesty": "DOHMH restaurant inspection feed ordered newest-first; latest inspections 2026-09-30; each row is one inspection-violation (a restaurant may appear multiple times); grades may be blank for recent re-inspections.",
-  "id": "socrata-nyc-restaurants",
-  "required": [
-    "key"
-  ],
-  "source": "NYC Open Data (Socrata)",
-  "title": "NYC Open Data — restaurant inspection results",
-  "ttlSeconds": 21600,
-  "units": {
-    "score": "points (lower is better)"
+  honesty:
+    'DOHMH restaurant inspection feed ordered newest-first; latest inspections 2026-09-30; each row is one inspection-violation (a restaurant may appear multiple times); grades may be blank for recent re-inspections.',
+  id: 'socrata-nyc-restaurants',
+  required: ['key'],
+  source: 'NYC Open Data (Socrata)',
+  title: 'NYC Open Data — restaurant inspection results',
+  ttlSeconds: 21600,
+  units: {
+    score: 'points (lower is better)',
   },
-  "url": "https://data.cityofnewyork.us/resource/43nn-pn8j.json?$limit=50&$order=inspection_date%20DESC",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 2 (socrata worker)"
+  url: 'https://data.cityofnewyork.us/resource/43nn-pn8j.json?$limit=50&$order=inspection_date%20DESC',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 2 (socrata worker)',
 };

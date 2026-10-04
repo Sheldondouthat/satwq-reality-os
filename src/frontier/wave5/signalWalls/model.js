@@ -31,7 +31,10 @@ export function formatUsd(v) {
   if (!Number.isFinite(v)) return '—';
   return (
     '$' +
-    v.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+    v.toLocaleString('en-US', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    })
   );
 }
 
@@ -65,7 +68,8 @@ export function quakeRows(payload, maxRows = 12) {
     rows.push({
       mag: Number.isFinite(p.mag) ? p.mag : null,
       magLabel: formatMag(p.mag),
-      place: typeof p.place === 'string' && p.place ? p.place : 'unknown location',
+      place:
+        typeof p.place === 'string' && p.place ? p.place : 'unknown location',
       timeMs: Number.isFinite(p.time) ? p.time : null,
       age: ageStr(p.time),
       tier: TIER.VERIFIED,
@@ -107,10 +111,12 @@ export function eonetRows(payload, maxRows = 20) {
   const rows = [];
   for (const e of payload.events.slice(0, maxRows)) {
     if (!e || typeof e !== 'object') continue;
-    const cat = Array.isArray(e.categories) && e.categories[0] ? e.categories[0] : {};
+    const cat =
+      Array.isArray(e.categories) && e.categories[0] ? e.categories[0] : {};
     rows.push({
       id: typeof e.id === 'string' ? e.id : null,
-      title: typeof e.title === 'string' && e.title ? e.title : 'untitled event',
+      title:
+        typeof e.title === 'string' && e.title ? e.title : 'untitled event',
       category: typeof cat.id === 'string' ? cat.id : 'unknown',
       categoryLabel: eonetCategoryLabel(cat.id),
       tier: TIER.VERIFIED,
@@ -157,7 +163,9 @@ export function cryptoRows(payload) {
   for (const a of CRYPTO_ASSETS) {
     const rec = payload[a.id];
     const price = Number.isFinite(rec?.usd) ? rec.usd : null;
-    const change = Number.isFinite(rec?.usd_24h_change) ? rec.usd_24h_change : null;
+    const change = Number.isFinite(rec?.usd_24h_change)
+      ? rec.usd_24h_change
+      : null;
     rows.push({
       symbol: a.symbol,
       name: a.name,
@@ -165,7 +173,14 @@ export function cryptoRows(payload) {
       priceLabel: formatUsd(price),
       changePct: change,
       changeLabel: formatChangePct(change),
-      direction: change === null ? 'flat' : change > 0 ? 'up' : change < 0 ? 'down' : 'flat',
+      direction:
+        change === null
+          ? 'flat'
+          : change > 0
+            ? 'up'
+            : change < 0
+              ? 'down'
+              : 'flat',
       tier: TIER.VERIFIED,
     });
   }

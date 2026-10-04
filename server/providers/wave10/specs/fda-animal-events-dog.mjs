@@ -4,31 +4,30 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 6 (fda worker)).
  */
 export const SPEC = {
-  "id": "fda-animal-events-dog",
-  "title": "openFDA — dog adverse event reports",
-  "url": "https://api.fda.gov/animalandveterinary/event.json?limit=20&search=animal.species:%22Dog%22",
-  "headers": {},
-  "ttlSeconds": 3600,
-  "extract": {
-    "items": "$.results",
-    "limit": 20,
-    "map": {
-      "key": "$.unique_aer_id_number",
-      "date": "$.original_receive_date",
-      "breed": "$.animal.breed.breed_component",
-      "reaction": "$.reaction[0].veddra_term_name",
-      "drug": "$.drug[0].brand_name",
-      "serious": "$.serious_ae"
+  id: 'fda-animal-events-dog',
+  title: 'openFDA — dog adverse event reports',
+  url: 'https://api.fda.gov/animalandveterinary/event.json?limit=20&search=animal.species:%22Dog%22',
+  headers: {},
+  ttlSeconds: 3600,
+  extract: {
+    items: '$.results',
+    limit: 20,
+    map: {
+      key: '$.unique_aer_id_number',
+      date: '$.original_receive_date',
+      breed: '$.animal.breed.breed_component',
+      reaction: '$.reaction[0].veddra_term_name',
+      drug: '$.drug[0].brand_name',
+      serious: '$.serious_ae',
     },
-    "numbers": []
+    numbers: [],
   },
-  "required": [
-    "key"
-  ],
-  "source": "openFDA",
-  "attribution": "Data: U.S. Food & Drug Administration, openFDA — keyless.",
-  "units": {},
-  "honesty": "Veterinary adverse-event reports for dogs across all years (985K total) — the largest animal/vet slice. Row order is openFDA's default sort, not chronological.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 6 (fda worker)"
+  required: ['key'],
+  source: 'openFDA',
+  attribution: 'Data: U.S. Food & Drug Administration, openFDA — keyless.',
+  units: {},
+  honesty:
+    "Veterinary adverse-event reports for dogs across all years (985K total) — the largest animal/vet slice. Row order is openFDA's default sort, not chronological.",
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 6 (fda worker)',
 };

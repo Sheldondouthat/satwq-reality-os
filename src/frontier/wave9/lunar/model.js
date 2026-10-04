@@ -11,26 +11,29 @@
  * detail line names rise/set (when an observer was requested) and the next
  * canonical event.
  */
-import {
-  isUnavailable,
-  withTags,
-  pickNum,
-} from '../../wave3/common/ticker.js';
+import { isUnavailable, withTags, pickNum } from '../../wave3/common/ticker.js';
 
 export const ROUTE = '/api/moon';
 export const EMOJI = '🌙';
 export const LABEL = 'Lunar ephemeris';
 
 function phaseOf(doc) {
-  return doc && doc.phase && typeof doc.phase.name === 'string' ? doc.phase : null;
+  return doc && doc.phase && typeof doc.phase.name === 'string'
+    ? doc.phase
+    : null;
 }
 
 export function valueLine(doc) {
   if (isUnavailable(doc)) return null;
   const p = phaseOf(doc);
   if (!p) return null;
-  const illum = Number.isFinite(p.illumination) ? ` ${(p.illumination * 100).toFixed(1)}%` : '';
-  const next = Array.isArray(doc.upcoming) && doc.upcoming.length > 0 ? doc.upcoming[0] : null;
+  const illum = Number.isFinite(p.illumination)
+    ? ` ${(p.illumination * 100).toFixed(1)}%`
+    : '';
+  const next =
+    Array.isArray(doc.upcoming) && doc.upcoming.length > 0
+      ? doc.upcoming[0]
+      : null;
   const nextBit = next ? ` · ${next.type} in ${next.daysAway}d` : '';
   return withTags(`${EMOJI} ${p.name}${illum}${nextBit}`, doc);
 }
@@ -60,11 +63,18 @@ export function detailLine(doc) {
     parts.push('No rise/set this UTC day (computed).');
   }
   const next = Array.isArray(doc?.upcoming) ? doc.upcoming[1] : null;
-  if (next) parts.push(`Then ${next.type} ${String(next.date).slice(0, 10)} (${next.daysAway}d).`);
-  parts.push('Computed geometry from the repo lunar ephemeris — not an observation.');
+  if (next)
+    parts.push(
+      `Then ${next.type} ${String(next.date).slice(0, 10)} (${next.daysAway}d).`,
+    );
+  parts.push(
+    'Computed geometry from the repo lunar ephemeris — not an observation.',
+  );
   return parts.join(' ');
 }
 
 export function eventCount(doc) {
-  return Array.isArray(doc?.upcoming) ? doc.upcoming.length : pickNum(doc?.upcoming);
+  return Array.isArray(doc?.upcoming)
+    ? doc.upcoming.length
+    : pickNum(doc?.upcoming);
 }

@@ -4,37 +4,32 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 2 (usgs worker)).
  */
 export const SPEC = {
-  "attribution": "Data: U.S. Geological Survey, NWIS — keyless.",
-  "extract": {
-    "items": "$.value.timeSeries",
-    "limit": 10,
-    "map": {
-      "lat": "$.sourceInfo.geoLocation.geogLocation.latitude",
-      "lon": "$.sourceInfo.geoLocation.geogLocation.longitude",
-      "name": "$.sourceInfo.siteName",
-      "site": "$.sourceInfo.siteCode[0].value",
-      "time": "$.values[0].value[0].dateTime",
-      "value": "$.values[0].value[0].value"
+  attribution: 'Data: U.S. Geological Survey, NWIS — keyless.',
+  extract: {
+    items: '$.value.timeSeries',
+    limit: 10,
+    map: {
+      lat: '$.sourceInfo.geoLocation.geogLocation.latitude',
+      lon: '$.sourceInfo.geoLocation.geogLocation.longitude',
+      name: '$.sourceInfo.siteName',
+      site: '$.sourceInfo.siteCode[0].value',
+      time: '$.values[0].value[0].dateTime',
+      value: '$.values[0].value[0].value',
     },
-    "numbers": [
-      "value",
-      "lat",
-      "lon"
-    ]
+    numbers: ['value', 'lat', 'lon'],
   },
-  "headers": {},
-  "honesty": "Instantaneous streamflow at Chattanooga, TN, typically updated every 15-60 min; provisional data (qualifier P) possible. Flow is regulated by upstream TVA dams. The historic Tennessee River at Knoxville gage (03497000) was discontinued in 1982 and is excluded.",
-  "id": "usgs-water-tennessee-flow",
-  "required": [
-    "name"
-  ],
-  "source": "USGS Water Services (NWIS)",
-  "title": "USGS Water — Tennessee River streamflow (Chattanooga, TN)",
-  "ttlSeconds": 3600,
-  "units": {
-    "value": "ft3/s"
+  headers: {},
+  honesty:
+    'Instantaneous streamflow at Chattanooga, TN, typically updated every 15-60 min; provisional data (qualifier P) possible. Flow is regulated by upstream TVA dams. The historic Tennessee River at Knoxville gage (03497000) was discontinued in 1982 and is excluded.',
+  id: 'usgs-water-tennessee-flow',
+  required: ['name'],
+  source: 'USGS Water Services (NWIS)',
+  title: 'USGS Water — Tennessee River streamflow (Chattanooga, TN)',
+  ttlSeconds: 3600,
+  units: {
+    value: 'ft3/s',
   },
-  "url": "https://waterservices.usgs.gov/nwis/iv/?format=json&sites=03568000&parameterCd=00060",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 2 (usgs worker)"
+  url: 'https://waterservices.usgs.gov/nwis/iv/?format=json&sites=03568000&parameterCd=00060',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 2 (usgs worker)',
 };

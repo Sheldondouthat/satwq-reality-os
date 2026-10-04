@@ -43,14 +43,19 @@ export function antisolarPoint(date) {
  * Ring of [lon, lat] points at a fixed angular distance from a center point.
  * Uses the great-circle destination-point formula.
  */
-export function ringAroundPoint(centerLat, centerLon, angularRadiusDeg, segments = 180) {
+export function ringAroundPoint(
+  centerLat,
+  centerLon,
+  angularRadiusDeg,
+  segments = 180,
+) {
   const lat1 = centerLat * RAD;
   const lon1 = centerLon * RAD;
   const ang = angularRadiusDeg * RAD;
   const steps = Math.max(8, Math.floor(segments));
   const ring = [];
   for (let i = 0; i < steps; i++) {
-    const brg = ((i / steps) * 360) * RAD;
+    const brg = (i / steps) * 360 * RAD;
     const lat2 = Math.asin(
       Math.sin(lat1) * Math.cos(ang) +
         Math.cos(lat1) * Math.sin(ang) * Math.cos(brg),
@@ -82,8 +87,6 @@ export function nightCapRing(date, segments = 180) {
 export function angularDistance([lon1, lat1], [lon2, lat2]) {
   const a = Math.sin(lat1 * RAD) * Math.sin(lat2 * RAD);
   const b =
-    Math.cos(lat1 * RAD) *
-    Math.cos(lat2 * RAD) *
-    Math.cos((lon2 - lon1) * RAD);
+    Math.cos(lat1 * RAD) * Math.cos(lat2 * RAD) * Math.cos((lon2 - lon1) * RAD);
   return Math.acos(Math.min(1, Math.max(-1, a + b))) * DEG;
 }

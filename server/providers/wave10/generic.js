@@ -44,7 +44,8 @@
  * '[N]' array indices. No wildcards, no filters, no eval.
  */
 
-const DEFAULT_UA = 'satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)';
+const DEFAULT_UA =
+  'satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)';
 const DEFAULT_TTL_MS = 3600_000;
 const DEFAULT_TIMEOUT_MS = 20_000;
 const DEFAULT_BODY_CAP = 2 * 1024 * 1024;
@@ -53,7 +54,14 @@ const RETRY_COOLDOWN_MS = 60_000;
 const STALE_MULTIPLIER = 14; // stale fallback window = 14 × TTL
 
 export const SPEC_ID_RE = /^[a-z0-9][a-z0-9-]{0,47}$/;
-const FAKE_MARKERS = ['todo', 'lorem', 'example.com', 'placeholder', 'xxx', 'changeme'];
+const FAKE_MARKERS = [
+  'todo',
+  'lorem',
+  'example.com',
+  'placeholder',
+  'xxx',
+  'changeme',
+];
 
 /** Number(null)===0 guard: null/NaN/empty upstream numerics become null, never 0. */
 export function numOrNull(v) {
@@ -91,29 +99,54 @@ export function resolvePath(root, path) {
 
 /** Validate a spec object. Throws on the first violation. Pure. */
 export function validateSpec(spec) {
-  const fail = (msg) => { throw new Error(`surge_spec_invalid: ${msg}`); };
+  const fail = (msg) => {
+    throw new Error(`surge_spec_invalid: ${msg}`);
+  };
   if (!spec || typeof spec !== 'object') fail('spec must be an object');
   if (!SPEC_ID_RE.test(spec.id || '')) fail(`bad id '${spec.id}'`);
-  if (typeof spec.title !== 'string' || spec.title.trim() === '') fail('title required');
-  if (typeof spec.url !== 'string' || !/^https:\/\//.test(spec.url)) fail('url must be https');
-  if (spec.headers != null && (typeof spec.headers !== 'object' || Array.isArray(spec.headers))) fail('headers must be an object');
+  if (typeof spec.title !== 'string' || spec.title.trim() === '')
+    fail('title required');
+  if (typeof spec.url !== 'string' || !/^https:\/\//.test(spec.url))
+    fail('url must be https');
+  if (
+    spec.headers != null &&
+    (typeof spec.headers !== 'object' || Array.isArray(spec.headers))
+  )
+    fail('headers must be an object');
   const ex = spec.extract;
   if (!ex || typeof ex !== 'object') fail('extract required');
-  if (typeof ex.items !== 'string' || !ex.items.startsWith('$')) fail('extract.items must be a $-path');
-  if (!ex.map || typeof ex.map !== 'object' || Array.isArray(ex.map)) fail('extract.map required');
+  if (typeof ex.items !== 'string' || !ex.items.startsWith('$'))
+    fail('extract.items must be a $-path');
+  if (!ex.map || typeof ex.map !== 'object' || Array.isArray(ex.map))
+    fail('extract.map required');
   const mapKeys = Object.keys(ex.map);
   if (mapKeys.length === 0) fail('extract.map must not be empty');
   for (const [k, p] of Object.entries(ex.map)) {
-    if (typeof p !== 'string' || !p.startsWith('$')) fail(`map field '${k}' must be a $-path`);
+    if (typeof p !== 'string' || !p.startsWith('$'))
+      fail(`map field '${k}' must be a $-path`);
   }
-  if (ex.numbers != null && !Array.isArray(ex.numbers)) fail('extract.numbers must be an array');
-  if (ex.limit != null && (!Number.isInteger(ex.limit) || ex.limit < 1 || ex.limit > 200)) fail('extract.limit 1..200');
-  if (typeof spec.source !== 'string' || spec.source.trim() === '') fail('source required');
-  if (typeof spec.attribution !== 'string' || spec.attribution.trim() === '') fail('attribution required');
-  if (typeof spec.honesty !== 'string' || spec.honesty.trim() === '') fail('honesty required');
-  if (typeof spec.verifiedAt !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(spec.verifiedAt)) fail('verifiedAt YYYY-MM-DD required');
-  if (typeof spec.verifiedBy !== 'string' || spec.verifiedBy.trim() === '') fail('verifiedBy required');
-  if (spec.honestEmpty != null && typeof spec.honestEmpty !== 'boolean') fail('honestEmpty must be a boolean');
+  if (ex.numbers != null && !Array.isArray(ex.numbers))
+    fail('extract.numbers must be an array');
+  if (
+    ex.limit != null &&
+    (!Number.isInteger(ex.limit) || ex.limit < 1 || ex.limit > 200)
+  )
+    fail('extract.limit 1..200');
+  if (typeof spec.source !== 'string' || spec.source.trim() === '')
+    fail('source required');
+  if (typeof spec.attribution !== 'string' || spec.attribution.trim() === '')
+    fail('attribution required');
+  if (typeof spec.honesty !== 'string' || spec.honesty.trim() === '')
+    fail('honesty required');
+  if (
+    typeof spec.verifiedAt !== 'string' ||
+    !/^\d{4}-\d{2}-\d{2}$/.test(spec.verifiedAt)
+  )
+    fail('verifiedAt YYYY-MM-DD required');
+  if (typeof spec.verifiedBy !== 'string' || spec.verifiedBy.trim() === '')
+    fail('verifiedBy required');
+  if (spec.honestEmpty != null && typeof spec.honestEmpty !== 'boolean')
+    fail('honestEmpty must be a boolean');
   const blob = JSON.stringify(spec).toLowerCase();
   for (const marker of FAKE_MARKERS) {
     if (blob.includes(marker)) fail(`fake-data marker '${marker}'`);
@@ -142,7 +175,8 @@ export function applyMap(spec, item) {
   for (const [field, path] of Object.entries(spec.extract.map)) {
     const v = resolvePath(item, path);
     row[field] = numbers.has(field) ? numOrNull(v) : (v ?? null);
-    if (typeof row[field] === 'string') row[field] = row[field].trim().slice(0, 500);
+    if (typeof row[field] === 'string')
+      row[field] = row[field].trim().slice(0, 500);
   }
   return row;
 }
@@ -188,19 +222,34 @@ async function fetchJsonCapped(spec) {
       signal: controller.signal,
       // workerd supports only 'follow'/'manual'; 'error' throws (main 2ec4053).
       redirect: 'follow',
-      headers: { 'User-Agent': DEFAULT_UA, Accept: 'application/json', ...(spec.headers ?? {}) },
+      headers: {
+        'User-Agent': DEFAULT_UA,
+        Accept: 'application/json',
+        ...(spec.headers ?? {}),
+      },
     });
     if (!response.ok) {
-      throw Object.assign(new Error(`surge_upstream_${response.status}`), { status: 502 });
+      throw Object.assign(new Error(`surge_upstream_${response.status}`), {
+        status: 502,
+      });
     }
     const buffer = await response.arrayBuffer();
     const cap = spec.bodyCapBytes ?? DEFAULT_BODY_CAP;
-    if (buffer.byteLength > cap) throw Object.assign(new Error('surge_upstream_too_large'), { status: 502 });
+    if (buffer.byteLength > cap)
+      throw Object.assign(new Error('surge_upstream_too_large'), {
+        status: 502,
+      });
     return JSON.parse(new TextDecoder().decode(buffer));
   } catch (error) {
     if (error?.status === 502) throw error;
-    if (error instanceof SyntaxError) throw Object.assign(new Error('surge_upstream_bad_json'), { status: 502 });
-    throw Object.assign(new Error(`surge_fetch_failed: ${error?.message ?? 'unknown'}`), { status: 502 });
+    if (error instanceof SyntaxError)
+      throw Object.assign(new Error('surge_upstream_bad_json'), {
+        status: 502,
+      });
+    throw Object.assign(
+      new Error(`surge_fetch_failed: ${error?.message ?? 'unknown'}`),
+      { status: 502 },
+    );
   } finally {
     clearTimeout(timeout);
   }
@@ -225,7 +274,11 @@ async function getPayload(spec) {
   let op = inflight.get(key);
   if (!op) {
     const lastFail = failedAt.get(key) ?? -Infinity;
-    if (now - lastFail < RETRY_COOLDOWN_MS && hit && now - hit.at < ttl * STALE_MULTIPLIER) {
+    if (
+      now - lastFail < RETRY_COOLDOWN_MS &&
+      hit &&
+      now - hit.at < ttl * STALE_MULTIPLIER
+    ) {
       return { payload: hit.payload, stale: true };
     }
     op = (async () => {
@@ -235,11 +288,18 @@ async function getPayload(spec) {
       const { rows, dropped } = filterRequired(spec, mapped);
       if (rows.length === 0) {
         failedAt.set(key, Date.now());
-        if (hit && now - hit.at < ttl * STALE_MULTIPLIER) return { payload: hit.payload, stale: true };
-        throw Object.assign(new Error(`surge_no_rows: extracted=${rawItems.length} dropped=${dropped}`), { status: 502 });
+        if (hit && now - hit.at < ttl * STALE_MULTIPLIER)
+          return { payload: hit.payload, stale: true };
+        throw Object.assign(
+          new Error(
+            `surge_no_rows: extracted=${rawItems.length} dropped=${dropped}`,
+          ),
+          { status: 502 },
+        );
       }
       const payload = buildPayload(spec, rows, false);
-      if (payloadCache.size >= PAYLOAD_CACHE_MAX) payloadCache.delete(payloadCache.keys().next().value);
+      if (payloadCache.size >= PAYLOAD_CACHE_MAX)
+        payloadCache.delete(payloadCache.keys().next().value);
       payloadCache.set(key, { at: Date.now(), payload });
       failedAt.delete(key);
       return { payload, stale: false };
@@ -264,9 +324,10 @@ function sendJson(res, status, body, cacheControl = 'public, max-age=3600') {
  */
 export function specProxy(id, specMap) {
   // Accept either a spec map ({id: spec}) or a single spec object.
-  const spec = specMap && typeof specMap === 'object' && typeof specMap.id === 'string'
-    ? specMap
-    : specMap?.[id];
+  const spec =
+    specMap && typeof specMap === 'object' && typeof specMap.id === 'string'
+      ? specMap
+      : specMap?.[id];
   if (!spec) throw new Error(`surge_unknown_spec: ${id}`);
   // Validate before the id check: a malformed spec object must report
   // surge_spec_invalid even when its id also mismatches (pinned by
@@ -275,17 +336,28 @@ export function specProxy(id, specMap) {
   if (spec.id !== id) throw new Error(`surge_unknown_spec: ${id}`);
 
   async function handler(req, res) {
-    if (req.method !== 'GET') return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
     try {
       const { payload, stale } = await getPayload(spec);
-      sendJson(res, 200, stale ? { ...payload, stale: true } : payload,
-        `public, max-age=${Math.min(spec.ttlSeconds ?? 3600, 86400)}`);
+      sendJson(
+        res,
+        200,
+        stale ? { ...payload, stale: true } : payload,
+        `public, max-age=${Math.min(spec.ttlSeconds ?? 3600, 86400)}`,
+      );
     } catch (error) {
-      const upstreamFail = error?.status === 502 || /abort/i.test(error?.message ?? '');
-      sendJson(res, upstreamFail ? 502 : 500, {
-        error: `${spec.id}_unavailable`,
-        detail: error?.message ?? 'unknown',
-      }, 'no-store');
+      const upstreamFail =
+        error?.status === 502 || /abort/i.test(error?.message ?? '');
+      sendJson(
+        res,
+        upstreamFail ? 502 : 500,
+        {
+          error: `${spec.id}_unavailable`,
+          detail: error?.message ?? 'unknown',
+        },
+        'no-store',
+      );
     }
   }
 
@@ -309,5 +381,9 @@ export const _surgeInternals = {
   buildPayload,
   numOrNull,
   SPEC_ID_RE,
-  clearCaches: () => { payloadCache.clear(); inflight.clear(); failedAt.clear(); },
+  clearCaches: () => {
+    payloadCache.clear();
+    inflight.clear();
+    failedAt.clear();
+  },
 };

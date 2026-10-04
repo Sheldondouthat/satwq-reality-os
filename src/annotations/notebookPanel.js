@@ -126,14 +126,20 @@ export function createNotebookPanel({
     const toolbar = el('div', 'notebook-toolbar');
     const addBtn = el('button', null, '＋ Add pin at map center');
     addBtn.addEventListener('click', addPinAtCenter);
-    const clickBtn = el('button', null, _clickToAdd ? '✖ Click-to-add: ON' : '＋ Click-to-add: OFF');
+    const clickBtn = el(
+      'button',
+      null,
+      _clickToAdd ? '✖ Click-to-add: ON' : '＋ Click-to-add: OFF',
+    );
     clickBtn.addEventListener('click', () => {
       _clickToAdd = !_clickToAdd;
       render();
     });
     const exportBtn = el('button', null, '⬇ Export JSON');
     exportBtn.addEventListener('click', () => {
-      const blob = new Blob([notebook.exportJSON()], { type: 'application/json' });
+      const blob = new Blob([notebook.exportJSON()], {
+        type: 'application/json',
+      });
       const a = document.createElement('a');
       a.href = URL.createObjectURL(blob);
       a.download = `planetary-notebook-${new Date().toISOString().slice(0, 10)}.json`;
@@ -162,11 +168,18 @@ export function createNotebookPanel({
 
     const list = el('ul', 'notebook-list');
     for (const pin of notebook.list()) {
-      const item = el('li', `notebook-item${pin.id === _selectedId ? ' selected' : ''}`);
+      const item = el(
+        'li',
+        `notebook-item${pin.id === _selectedId ? ' selected' : ''}`,
+      );
       const head = el('div', 'notebook-head');
       head.appendChild(el('strong', null, pin.title));
       head.appendChild(
-        el('span', 'notebook-coords', `${pin.lat.toFixed(3)}, ${pin.lon.toFixed(3)}`),
+        el(
+          'span',
+          'notebook-coords',
+          `${pin.lat.toFixed(3)}, ${pin.lon.toFixed(3)}`,
+        ),
       );
       item.appendChild(head);
       if (pin.body) item.appendChild(el('p', 'notebook-body', pin.body));
@@ -174,14 +187,19 @@ export function createNotebookPanel({
       const actions = el('div', 'notebook-actions');
       const focus = el('button', null, 'Focus');
       focus.addEventListener('click', () => flyTo(pin));
-      const edit = el('button', null, _selectedId === pin.id ? 'Close' : 'Edit');
+      const edit = el(
+        'button',
+        null,
+        _selectedId === pin.id ? 'Close' : 'Edit',
+      );
       edit.addEventListener('click', () => {
         _selectedId = _selectedId === pin.id ? null : pin.id;
         render();
       });
       const del = el('button', null, 'Delete');
       del.addEventListener('click', () => {
-        if (notebook.remove(pin.id) && _selectedId === pin.id) _selectedId = null;
+        if (notebook.remove(pin.id) && _selectedId === pin.id)
+          _selectedId = null;
         render();
       });
       actions.append(focus, edit, del);
@@ -199,7 +217,10 @@ export function createNotebookPanel({
         bodyInput.rows = 3;
         const save = el('button', null, 'Save');
         save.addEventListener('click', () => {
-          notebook.update(pin.id, { title: titleInput.value, body: bodyInput.value });
+          notebook.update(pin.id, {
+            title: titleInput.value,
+            body: bodyInput.value,
+          });
           _selectedId = null;
           render();
         });

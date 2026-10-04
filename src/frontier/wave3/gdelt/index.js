@@ -26,10 +26,17 @@ export function init({ viewer, apiPath = '/api/gdelt' } = {}) {
         dataSource.entities.removeAll();
         const bubbles = clusterMentions(data.mentions).slice(0, MAX_BUBBLES);
         for (const b of bubbles) {
-          const color = Cesium.Color.fromCssColorString(toneColorCss(b.avgTone));
-          const nameList = b.names.map((n) => `<li>${escapeHtml(n)}</li>`).join('');
+          const color = Cesium.Color.fromCssColorString(
+            toneColorCss(b.avgTone),
+          );
+          const nameList = b.names
+            .map((n) => `<li>${escapeHtml(n)}</li>`)
+            .join('');
           const urlList = b.urls
-            .map((u) => `<li><a href="${escapeHtml(u)}" target="_blank" rel="noopener">article</a></li>`)
+            .map(
+              (u) =>
+                `<li><a href="${escapeHtml(u)}" target="_blank" rel="noopener">article</a></li>`,
+            )
             .join('');
           dataSource.entities.add({
             id: `gdelt:${b.lon.toFixed(2)}:${b.lat.toFixed(2)}`,
@@ -49,7 +56,9 @@ export function init({ viewer, apiPath = '/api/gdelt' } = {}) {
             },
             description:
               `<h3>Planetary attention — ${b.count} mentions</h3>` +
-              (b.avgTone != null ? `<p>Average tone: <b>${b.avgTone}</b></p>` : '') +
+              (b.avgTone != null
+                ? `<p>Average tone: <b>${b.avgTone}</b></p>`
+                : '') +
               (nameList ? `<ul>${nameList}</ul>` : '') +
               (urlList ? `<ul>${urlList}</ul>` : '') +
               `<p style="opacity:.7">Geolocated news mentions © GDELT Project (v1, via /api/gdelt).</p>`,

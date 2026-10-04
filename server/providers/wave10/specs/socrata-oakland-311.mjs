@@ -4,35 +4,32 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 3 (socrata recovery)).
  */
 export const SPEC = {
-  "attribution": "Data: City of Oakland, California — Open Data (Socrata) — keyless Socrata API.",
-  "extract": {
-    "items": "$",
-    "limit": 50,
-    "map": {
-      "address": "$.probaddress",
-      "description": "$.description",
-      "key": "$.requestid",
-      "lat": "$.sry",
-      "lon": "$.srx",
-      "time": "$.datetimeinit",
-      "type": "$.reqcategory"
+  attribution:
+    'Data: City of Oakland, California — Open Data (Socrata) — keyless Socrata API.',
+  extract: {
+    items: '$',
+    limit: 50,
+    map: {
+      address: '$.probaddress',
+      description: '$.description',
+      key: '$.requestid',
+      lat: '$.sry',
+      lon: '$.srx',
+      time: '$.datetimeinit',
+      type: '$.reqcategory',
     },
-    "numbers": [
-      "lat",
-      "lon"
-    ]
+    numbers: ['lat', 'lon'],
   },
-  "headers": {},
-  "honesty": "311 requests span 2020-04 to 2026-09-27 (live check), newest-first; srx/sry hold the issue coordinates — Socrata metadata claims StatePlane feet but sample values are plain -122.x/37.x degrees; reqaddress coords are garbage (e.g. 30.0,-141.2), so srx/sry are used per the known quirk.",
-  "id": "socrata-oakland-311",
-  "required": [
-    "key"
-  ],
-  "source": "City of Oakland, California — Open Data (Socrata)",
-  "title": "Oakland (CA) Open Data — OAK 311 service requests (call center)",
-  "ttlSeconds": 1800,
-  "units": {},
-  "url": "https://data.oaklandca.gov/resource/quth-gb8e.json?$limit=50&$order=datetimeinit%20DESC",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 3 (socrata recovery)"
+  headers: {},
+  honesty:
+    '311 requests span 2020-04 to 2026-09-27 (live check), newest-first; srx/sry hold the issue coordinates — Socrata metadata claims StatePlane feet but sample values are plain -122.x/37.x degrees; reqaddress coords are garbage (e.g. 30.0,-141.2), so srx/sry are used per the known quirk.',
+  id: 'socrata-oakland-311',
+  required: ['key'],
+  source: 'City of Oakland, California — Open Data (Socrata)',
+  title: 'Oakland (CA) Open Data — OAK 311 service requests (call center)',
+  ttlSeconds: 1800,
+  units: {},
+  url: 'https://data.oaklandca.gov/resource/quth-gb8e.json?$limit=50&$order=datetimeinit%20DESC',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 3 (socrata recovery)',
 };

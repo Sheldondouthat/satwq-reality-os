@@ -4,31 +4,30 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 1 (federal worker)).
  */
 export const SPEC = {
-  "id": "nws-alerts-fl",
-  "title": "NWS — active alerts, Florida",
-  "url": "https://api.weather.gov/alerts/active?area=FL",
-  "headers": {
-    "User-Agent": "Gods Eye View (public NWS context)"
+  id: 'nws-alerts-fl',
+  title: 'NWS — active alerts, Florida',
+  url: 'https://api.weather.gov/alerts/active?area=FL',
+  headers: {
+    'User-Agent': 'Gods Eye View (public NWS context)',
   },
-  "ttlSeconds": 600,
-  "extract": {
-    "items": "$.features",
-    "limit": 20,
-    "map": {
-      "event": "$.properties.event",
-      "headline": "$.properties.headline",
-      "severity": "$.properties.severity",
-      "area": "$.properties.areaDesc"
+  ttlSeconds: 600,
+  extract: {
+    items: '$.features',
+    limit: 20,
+    map: {
+      event: '$.properties.event',
+      headline: '$.properties.headline',
+      severity: '$.properties.severity',
+      area: '$.properties.areaDesc',
     },
-    "numbers": []
+    numbers: [],
   },
-  "required": [
-    "event"
-  ],
-  "source": "National Weather Service (api.weather.gov)",
-  "attribution": "Data: NWS — keyless, UA-identified.",
-  "units": {},
-  "honesty": "Active alerts only; empty list means none in effect, not a data gap.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 1 (federal worker)"
+  required: ['event'],
+  source: 'National Weather Service (api.weather.gov)',
+  attribution: 'Data: NWS — keyless, UA-identified.',
+  units: {},
+  honesty:
+    'Active alerts only; empty list means none in effect, not a data gap.',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 1 (federal worker)',
 };

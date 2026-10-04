@@ -122,7 +122,9 @@ export function createReentryLayer({ source } = {}) {
 
   return {
     id: 'reentry',
-    init(v) { viewer = v; },
+    init(v) {
+      viewer = v;
+    },
     enable() {
       if (!viewer || enabled) return;
       enabled = true;
@@ -131,10 +133,16 @@ export function createReentryLayer({ source } = {}) {
     },
     disable() {
       enabled = false;
-      if (timer) { clearInterval(timer); timer = null; }
+      if (timer) {
+        clearInterval(timer);
+        timer = null;
+      }
       clear();
     },
-    destroy() { this.disable(); viewer = null; },
+    destroy() {
+      this.disable();
+      viewer = null;
+    },
     getCandidates: () => lastCandidates,
     getAlerts: () => lastAlerts,
     refresh,
@@ -150,26 +158,39 @@ export function createReentryPanel({ layer }) {
     const alerts = layer.getAlerts();
     root.innerHTML = '';
     const title = document.createElement('div');
-    title.style.cssText = 'font-weight:600;letter-spacing:.06em;margin-bottom:4px;';
-    title.textContent = candidates.length ? `🛰 ${layer.getCandidates().length} modeled reentries` : '🛰 reentries — waiting on /api/reentries';
+    title.style.cssText =
+      'font-weight:600;letter-spacing:.06em;margin-bottom:4px;';
+    title.textContent = candidates.length
+      ? `🛰 ${layer.getCandidates().length} modeled reentries`
+      : '🛰 reentries — waiting on /api/reentries';
     root.appendChild(title);
     for (const c of candidates) {
       const style = URGENCY_STYLE[c.urg] ?? URGENCY_STYLE.nominal;
       const alert = alerts.get(c.id);
       const row = document.createElement('div');
       row.style.cssText = `padding:1px 0;color:${style.color};`;
-      const landNote = alert?.crossesLand ? ' · ⚠ land overflight (heuristic)' : '';
+      const landNote = alert?.crossesLand
+        ? ' · ⚠ land overflight (heuristic)'
+        : '';
       row.textContent = `${style.label} ${c.name} · ${formatTiming(c)}${landNote}`;
       root.appendChild(row);
     }
     const note = document.createElement('div');
-    note.style.cssText = 'opacity:.55;margin-top:4px;font-size:10px;color:#dfe9ff;';
+    note.style.cssText =
+      'opacity:.55;margin-top:4px;font-size:10px;color:#dfe9ff;';
     note.textContent = REENTRY_HONESTY;
     root.appendChild(note);
   };
   const timer = setInterval(render, 60000);
   render();
-  return { element: root, sync: render, destroy() { clearInterval(timer); root.remove(); } };
+  return {
+    element: root,
+    sync: render,
+    destroy() {
+      clearInterval(timer);
+      root.remove();
+    },
+  };
 }
 
 /** Fail-soft mount for initFrontier. Never throws; returns a cleanup fn. */

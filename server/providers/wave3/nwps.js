@@ -17,9 +17,16 @@
 import { readResponseJsonCapped } from '../common/http.js';
 
 const UPSTREAM = 'https://api.water.noaa.gov/nwps/v1/reaches';
-const USER_AGENT = 'satwq-reality-os/1.0 (NOAA NWPS public streamflow; contact via repo)';
+const USER_AGENT =
+  'satwq-reality-os/1.0 (NOAA NWPS public streamflow; contact via repo)';
 
-const SERIES = ['short_range', 'medium_range', 'medium_range_blend', 'long_range', 'analysis_assimilation'];
+const SERIES = [
+  'short_range',
+  'medium_range',
+  'medium_range_blend',
+  'long_range',
+  'analysis_assimilation',
+];
 const SERIES_KEY = {
   short_range: 'shortRange',
   medium_range: 'mediumRange',
@@ -37,13 +44,18 @@ const MAX_COMIDS = 6;
 /** Validate a comma-separated COMID list. Throws {status}. */
 export function parseComids(raw) {
   const text = (raw ?? '').trim();
-  if (!text) throw Object.assign(new Error('nwps_missing_comid'), { status: 400 });
-  const ids = text.split(',').map((s) => s.trim()).filter(Boolean);
+  if (!text)
+    throw Object.assign(new Error('nwps_missing_comid'), { status: 400 });
+  const ids = text
+    .split(',')
+    .map((s) => s.trim())
+    .filter(Boolean);
   if (ids.length === 0 || ids.length > MAX_COMIDS) {
     throw Object.assign(new Error('nwps_bad_comid_count'), { status: 400 });
   }
   for (const id of ids) {
-    if (!/^\d{1,9}$/.test(id)) throw Object.assign(new Error('nwps_bad_comid'), { status: 400 });
+    if (!/^\d{1,9}$/.test(id))
+      throw Object.assign(new Error('nwps_bad_comid'), { status: 400 });
   }
   return [...new Set(ids)];
 }
@@ -51,23 +63,31 @@ export function parseComids(raw) {
 /** Validate the requested NWM series name. */
 export function parseSeries(raw) {
   const name = (raw ?? 'short_range').trim();
-  if (!SERIES.includes(name)) throw Object.assign(new Error('nwps_bad_series'), { status: 400 });
+  if (!SERIES.includes(name))
+    throw Object.assign(new Error('nwps_bad_series'), { status: 400 });
   return name;
 }
 
 /** Normalize one reach document + its series into a ribbon node. */
 export function parseReachNode(doc, series) {
   const reach = doc?.reach;
-  if (!reach || typeof reach !== 'object') throw new Error('nwps_unexpected_shape');
+  if (!reach || typeof reach !== 'object')
+    throw new Error('nwps_unexpected_shape');
   const lat = Number(reach.latitude);
   const lon = Number(reach.longitude);
-  if (!Number.isFinite(lat) || !Number.isFinite(lon)) throw new Error('nwps_bad_geometry');
+  if (!Number.isFinite(lat) || !Number.isFinite(lon))
+    throw new Error('nwps_bad_geometry');
   const key = SERIES_KEY[series];
   const seriesDoc = doc?.[key]?.series ?? null;
   const data = Array.isArray(seriesDoc?.data)
     ? seriesDoc.data
-        .map((d) => ({ validTime: d?.validTime ?? null, flow: Number(d?.flow) }))
-        .filter((d) => typeof d.validTime === 'string' && Number.isFinite(d.flow))
+        .map((d) => ({
+          validTime: d?.validTime ?? null,
+          flow: Number(d?.flow),
+        }))
+        .filter(
+          (d) => typeof d.validTime === 'string' && Number.isFinite(d.flow),
+        )
     : [];
   let trendPct = null;
   let peakFlow = null;
@@ -104,7 +124,8 @@ function describe(value, { stale = false, reason = null } = {}) {
   return {
     schemaVersion: 1,
     source: 'NOAA National Water Model via local proxy',
-    attribution: 'Streamflow forecasts: NOAA National Water Service (public domain).',
+    attribution:
+      'Streamflow forecasts: NOAA National Water Service (public domain).',
     fetchedAt: value?.fetchedAt ?? null,
     stale,
     unavailable: !value,
@@ -142,7 +163,10 @@ export function nwpsProxy({
   async function fetchRibbon(comid, series, signal) {
     const seen = new Set([comid]);
     const root = parseReachNode(
-      await upstreamJson(`${UPSTREAM}/${comid}/streamflow?series=${series}`, signal),
+      await upstreamJson(
+        `${UPSTREAM}/${comid}/streamflow?series=${series}`,
+        signal,
+      ),
       series,
     );
     const nodes = [root];
@@ -150,7 +174,10 @@ export function nwpsProxy({
       if (seen.has(nid)) return null;
       seen.add(nid);
       try {
-        const doc = await upstreamJson(`${UPSTREAM}/${nid}/streamflow?series=${series}`, signal);
+        const doc = await upstreamJson(
+          `${UPSTREAM}/${nid}/streamflow?series=${series}`,
+          signal,
+        );
         return parseReachNode(doc, series);
       } catch {
         return null; // one bad neighbor never kills the ribbon
@@ -165,7 +192,8 @@ export function nwpsProxy({
   async function acquire(comids, series, signal) {
     const key = `${comids.join(',')}|${series}`;
     const hit = cache.get(key);
-    if (hit && now() - hit.fetchedAt < CACHE_TTL_MS) return { value: hit.value, stale: false };
+    if (hit && now() - hit.fetchedAt < CACHE_TTL_MS)
+      return { value: hit.value, stale: false };
     signal.throwIfAborted();
     let op = inflight.get(key);
     if (!op) {
@@ -174,11 +202,16 @@ export function nwpsProxy({
       }
       attemptedAt.set(key, now());
       const controller = new AbortController();
-      const timer = setTimeout(() => controller.abort(), timeoutMs * (1 + comids.length) + 5000);
+      const timer = setTimeout(
+        () => controller.abort(),
+        timeoutMs * (1 + comids.length) + 5000,
+      );
       op = (async () => {
         const reaches = [];
         for (const comid of comids) {
-          reaches.push(...(await fetchRibbon(comid, series, controller.signal)));
+          reaches.push(
+            ...(await fetchRibbon(comid, series, controller.signal)),
+          );
         }
         const value = { series, reaches, fetchedAt: now() };
         if (cache.size >= 16) cache.delete(cache.keys().next().value);
@@ -205,11 +238,15 @@ export function nwpsProxy({
     res.once?.('close', close);
     const json = (status, value) => {
       if (controller.signal.aborted) return;
-      res.writeHead(status, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
+      res.writeHead(status, {
+        'Content-Type': 'application/json',
+        'Cache-Control': 'no-store',
+      });
       res.end(JSON.stringify(value));
     };
     try {
-      if (req.method !== 'GET') return json(405, { error: 'method_not_allowed' });
+      if (req.method !== 'GET')
+        return json(405, { error: 'method_not_allowed' });
       const query = new URL(req.url, 'http://localhost').searchParams;
       let comids;
       let series;
@@ -220,7 +257,11 @@ export function nwpsProxy({
         return json(error.status ?? 400, { error: error.message });
       }
       try {
-        const { value, stale } = await acquire(comids, series, controller.signal);
+        const { value, stale } = await acquire(
+          comids,
+          series,
+          controller.signal,
+        );
         json(200, describe(value, { stale }));
       } catch (error) {
         const key = `${comids.join(',')}|${series}`;
@@ -229,8 +270,13 @@ export function nwpsProxy({
         json(
           200,
           usable
-            ? describe(hit.value, { stale: true, reason: 'NOAA NWPS unreachable; showing last good forecast.' })
-            : describe(null, { reason: 'NOAA NWPS unreachable and no cached forecast exists.' }),
+            ? describe(hit.value, {
+                stale: true,
+                reason: 'NOAA NWPS unreachable; showing last good forecast.',
+              })
+            : describe(null, {
+                reason: 'NOAA NWPS unreachable and no cached forecast exists.',
+              }),
         );
       }
     } finally {

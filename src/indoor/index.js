@@ -166,12 +166,17 @@ export function mountIndoorView(container, options = {}) {
 
   // ── Persistence + render ─────────────────────────────────────────────
   function persist() {
-    saveIndoorState({ rooms: state.rooms, devices: state.devices, view }, storage);
+    saveIndoorState(
+      { rooms: state.rooms, devices: state.devices, view },
+      storage,
+    );
   }
 
   function ctx2d() {
     try {
-      return typeof canvas.getContext === 'function' ? canvas.getContext('2d') : null;
+      return typeof canvas.getContext === 'function'
+        ? canvas.getContext('2d')
+        : null;
     } catch {
       return null;
     }
@@ -197,7 +202,11 @@ export function mountIndoorView(container, options = {}) {
   function commit() {
     persist();
     render();
-    onStateChange({ rooms: state.rooms, devices: state.devices, view: { ...view } });
+    onStateChange({
+      rooms: state.rooms,
+      devices: state.devices,
+      view: { ...view },
+    });
   }
 
   function setTool(next) {
@@ -264,7 +273,13 @@ export function mountIndoorView(container, options = {}) {
   function onPointerDown(evt) {
     const p = toWorld(evt);
     if (tool === 'pan' || evt.button === 1) {
-      drag = { kind: 'pan', startX: evt.clientX ?? 0, startY: evt.clientY ?? 0, panX: view.panX, panY: view.panY };
+      drag = {
+        kind: 'pan',
+        startX: evt.clientX ?? 0,
+        startY: evt.clientY ?? 0,
+        panX: view.panX,
+        panY: view.panY,
+      };
       evt.preventDefault?.();
       return;
     }
@@ -407,8 +422,11 @@ export function mountIndoorView(container, options = {}) {
     // Zoom around the cursor: keep the world point under the cursor fixed.
     let rect = { left: 0, top: 0 };
     try {
-      if (typeof canvas.getBoundingClientRect === 'function') rect = canvas.getBoundingClientRect();
-    } catch { /* headless */ }
+      if (typeof canvas.getBoundingClientRect === 'function')
+        rect = canvas.getBoundingClientRect();
+    } catch {
+      /* headless */
+    }
     const sx = (evt.clientX ?? 0) - rect.left;
     const sy = (evt.clientY ?? 0) - rect.top;
     const wx = (sx - view.panX) / view.zoom;
@@ -534,7 +552,11 @@ export function unmountIndoorView(handle) {
  * @param {'globe'|'indoor'} [options.initial='globe']
  * @returns {{el: HTMLElement, setMode: (m) => void, getMode: () => string}}
  */
-export function createViewToggle({ onSwitch = () => {}, document: explicitDoc, initial = 'globe' } = {}) {
+export function createViewToggle({
+  onSwitch = () => {},
+  document: explicitDoc,
+  initial = 'globe',
+} = {}) {
   const doc = resolveDocument(explicitDoc);
   if (!doc) throw new Error('createViewToggle requires a document.');
   let mode = initial === 'indoor' ? 'indoor' : 'globe';

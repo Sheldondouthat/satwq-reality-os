@@ -4,33 +4,29 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 1 (socrata worker)).
  */
 export const SPEC = {
-  "attribution": "Data: City of New York Open Data — keyless Socrata API.",
-  "extract": {
-    "items": "$",
-    "limit": 50,
-    "map": {
-      "borough": "$.borough",
-      "created": "$.created_date",
-      "key": "$.unique_key",
-      "lat": "$.latitude",
-      "lon": "$.longitude",
-      "type": "$.complaint_type"
+  attribution: 'Data: City of New York Open Data — keyless Socrata API.',
+  extract: {
+    items: '$',
+    limit: 50,
+    map: {
+      borough: '$.borough',
+      created: '$.created_date',
+      key: '$.unique_key',
+      lat: '$.latitude',
+      lon: '$.longitude',
+      type: '$.complaint_type',
     },
-    "numbers": [
-      "lat",
-      "lon"
-    ]
+    numbers: ['lat', 'lon'],
   },
-  "honesty": "Rolling 311 feed; updates throughout the day; some records lack geocoding.",
-  "id": "socrata-nyc-311",
-  "required": [
-    "key"
-  ],
-  "source": "NYC Open Data (Socrata)",
-  "title": "NYC Open Data — 311 service requests",
-  "ttlSeconds": 3600,
-  "units": {},
-  "url": "https://data.cityofnewyork.us/resource/erm2-nwe9.json?$limit=50",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 1 (socrata worker)"
+  honesty:
+    'Rolling 311 feed; updates throughout the day; some records lack geocoding.',
+  id: 'socrata-nyc-311',
+  required: ['key'],
+  source: 'NYC Open Data (Socrata)',
+  title: 'NYC Open Data — 311 service requests',
+  ttlSeconds: 3600,
+  units: {},
+  url: 'https://data.cityofnewyork.us/resource/erm2-nwe9.json?$limit=50',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 1 (socrata worker)',
 };

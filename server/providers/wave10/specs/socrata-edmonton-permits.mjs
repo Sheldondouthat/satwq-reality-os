@@ -4,32 +4,32 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 3 (socrata recovery)).
  */
 export const SPEC = {
-  "id": "socrata-edmonton-permits",
-  "title": "City of Edmonton — General Building Permits",
-  "url": "https://data.edmonton.ca/resource/24uj-dj8v.json?$limit=50&$order=issue_date%20DESC",
-  "headers": {},
-  "ttlSeconds": 1800,
-  "source": "City of Edmonton — data.edmonton.ca (Socrata)",
-  "attribution": "Data: City of Edmonton — data.edmonton.ca (Socrata) — keyless Socrata API.",
-  "honesty": "Building permit records, newest first by issue date; permit_number is absent from the row payloads, so row_id (unique per row) is the key; many rows carry no latitude/longitude (absent for older permits); construction_value is in dollars.",
-  "units": {},
-  "extract": {
-    "items": "$",
-    "limit": 50,
-    "map": {
-      "key": "$.row_id",
-      "time": "$.issue_date",
-      "type": "$.job_category",
-      "description": "$.job_description",
-      "address": "$.address",
-      "lat": "$.latitude",
-      "lon": "$.longitude"
+  id: 'socrata-edmonton-permits',
+  title: 'City of Edmonton — General Building Permits',
+  url: 'https://data.edmonton.ca/resource/24uj-dj8v.json?$limit=50&$order=issue_date%20DESC',
+  headers: {},
+  ttlSeconds: 1800,
+  source: 'City of Edmonton — data.edmonton.ca (Socrata)',
+  attribution:
+    'Data: City of Edmonton — data.edmonton.ca (Socrata) — keyless Socrata API.',
+  honesty:
+    'Building permit records, newest first by issue date; permit_number is absent from the row payloads, so row_id (unique per row) is the key; many rows carry no latitude/longitude (absent for older permits); construction_value is in dollars.',
+  units: {},
+  extract: {
+    items: '$',
+    limit: 50,
+    map: {
+      key: '$.row_id',
+      time: '$.issue_date',
+      type: '$.job_category',
+      description: '$.job_description',
+      address: '$.address',
+      lat: '$.latitude',
+      lon: '$.longitude',
     },
-    "numbers": []
+    numbers: [],
   },
-  "required": [
-    "key"
-  ],
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 3 (socrata recovery)"
+  required: ['key'],
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 3 (socrata recovery)',
 };

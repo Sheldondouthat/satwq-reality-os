@@ -45,30 +45,43 @@
  * is parsed. sidc.be was unreachable from the build VM (curl 000) — parsed
  * defensively and treated as best-effort like the other side feeds.
  */
-import { readResponseJsonCapped, readResponseTextCapped } from '../common/http.js';
+import {
+  readResponseJsonCapped,
+  readResponseTextCapped,
+} from '../common/http.js';
 
 const KP_URL = 'https://services.swpc.noaa.gov/json/planetary_k_index_1m.json';
 const ALERTS_URL = 'https://services.swpc.noaa.gov/products/alerts.json';
-const SW_SPEED_URL = 'https://services.swpc.noaa.gov/products/summary/solar-wind-speed.json';
-const SW_MAG_URL = 'https://services.swpc.noaa.gov/products/summary/solar-wind-mag-field.json';
-const KP_3H_URL = 'https://services.swpc.noaa.gov/products/noaa-planetary-k-index.json';
+const SW_SPEED_URL =
+  'https://services.swpc.noaa.gov/products/summary/solar-wind-speed.json';
+const SW_MAG_URL =
+  'https://services.swpc.noaa.gov/products/summary/solar-wind-mag-field.json';
+const KP_3H_URL =
+  'https://services.swpc.noaa.gov/products/noaa-planetary-k-index.json';
 const KP_FORECAST_URL =
   'https://services.swpc.noaa.gov/products/noaa-planetary-k-index-forecast.json';
 const SCALES_URL = 'https://services.swpc.noaa.gov/products/noaa-scales.json';
-const XRAY_URL = 'https://services.swpc.noaa.gov/json/goes/primary/xrays-1-day.json';
+const XRAY_URL =
+  'https://services.swpc.noaa.gov/json/goes/primary/xrays-1-day.json';
 const HAMQSL_URL = 'https://www.hamqsl.com/solarxml.php';
 const WWV_URL = 'https://services.swpc.noaa.gov/text/wwv.txt';
-const GFZ_URL = 'https://kp.gfz-potsdam.de/app/files/Kp_ap_Ap_SN_F107_nowcast.txt';
+const GFZ_URL =
+  'https://kp.gfz-potsdam.de/app/files/Kp_ap_Ap_SN_F107_nowcast.txt';
 // Wave B item 44 — deferred GOES/Ovation/geoelectric/SILSO feeds (2026-09-27).
-const PROTONS_URL = 'https://services.swpc.noaa.gov/json/goes/primary/integral-protons-1-day.json';
-const ELECTRONS_URL = 'https://services.swpc.noaa.gov/json/goes/primary/integral-electrons-6-hour.json';
-const GOES_MAG_URL = 'https://services.swpc.noaa.gov/json/goes/primary/magnetometers-3-day.json';
-const OVATION_URL = 'https://services.swpc.noaa.gov/json/ovation_aurora_latest.json';
+const PROTONS_URL =
+  'https://services.swpc.noaa.gov/json/goes/primary/integral-protons-1-day.json';
+const ELECTRONS_URL =
+  'https://services.swpc.noaa.gov/json/goes/primary/integral-electrons-6-hour.json';
+const GOES_MAG_URL =
+  'https://services.swpc.noaa.gov/json/goes/primary/magnetometers-3-day.json';
+const OVATION_URL =
+  'https://services.swpc.noaa.gov/json/ovation_aurora_latest.json';
 const GEOELECTRIC_URL =
   'https://services.swpc.noaa.gov/products/animations/geoelectric/InterMagEarthScope.json';
 const SILSO_URL = 'https://www.sidc.be/silso/DATA/SN_d_tot_V2.0.txt';
 const GEOELECTRIC_IMG_BASE = 'https://services.swpc.noaa.gov';
-const USER_AGENT = 'satwq-reality-os/1.0 (NOAA SWPC public space weather; contact via repo)';
+const USER_AGENT =
+  'satwq-reality-os/1.0 (NOAA SWPC public space weather; contact via repo)';
 
 const CACHE_TTL_MS = 120_000; // Kp updates every minute
 const STALE_MS = 30 * 60_000;
@@ -95,7 +108,8 @@ export function kpToGScale(kp) {
 
 /** Take the latest entry of the 1-minute Kp feed. */
 export function parseKpPayload(doc) {
-  if (!Array.isArray(doc) || doc.length === 0) throw new Error('swpc_kp_unexpected_shape');
+  if (!Array.isArray(doc) || doc.length === 0)
+    throw new Error('swpc_kp_unexpected_shape');
   const last = doc[doc.length - 1];
   const kp = Number(last?.kp_index);
   const estimated = Number(last?.estimated_kp);
@@ -114,15 +128,22 @@ export function parseAlertsPayload(doc, now = Date.now()) {
   const cutoff = now - 48 * 3600_000;
   return doc
     .map((a) => {
-      const issueMs = Date.parse((a?.issue_datetime ?? '').replace(' ', 'T') + 'Z');
+      const issueMs = Date.parse(
+        (a?.issue_datetime ?? '').replace(' ', 'T') + 'Z',
+      );
       const message = String(a?.message ?? '');
       const headline =
         message
           .split(/\r?\n/)
           .map((l) => l.trim())
-          .find((l) => l.length > 0 && !/^(Space Weather Message Code|Serial Number):/i.test(l)) ??
-        '';
-      const codeMatch = message.match(/Space Weather Message Code:\s*([A-Z0-9]+)/);
+          .find(
+            (l) =>
+              l.length > 0 &&
+              !/^(Space Weather Message Code|Serial Number):/i.test(l),
+          ) ?? '';
+      const codeMatch = message.match(
+        /Space Weather Message Code:\s*([A-Z0-9]+)/,
+      );
       return {
         productId: a?.product_id ?? null,
         code: codeMatch ? codeMatch[1] : null,
@@ -152,17 +173,22 @@ export function parseSolarWindMagPayload(doc) {
   const last = doc[doc.length - 1];
   const bt = Number(last?.bt);
   const bz = Number(last?.bz_gsm);
-  if (!Number.isFinite(bt) || !Number.isFinite(bz)) throw new Error('swpc_swmag_missing');
+  if (!Number.isFinite(bt) || !Number.isFinite(bz))
+    throw new Error('swpc_swmag_missing');
   return { bt, bz, timeTagMs: Date.parse(last?.time_tag) };
 }
 
 /** 3-hourly Kp history: last KP_3H_POINTS entries, chronological. */
 export function parseKp3HourPayload(doc) {
-  if (!Array.isArray(doc) || doc.length === 0) throw new Error('swpc_kp3h_unexpected_shape');
-  return doc.slice(-KP_3H_POINTS).map((e) => ({
-    timeTagMs: Date.parse(e?.time_tag),
-    kp: Number(e?.Kp),
-  })).filter((e) => Number.isFinite(e.kp) && Number.isFinite(e.timeTagMs));
+  if (!Array.isArray(doc) || doc.length === 0)
+    throw new Error('swpc_kp3h_unexpected_shape');
+  return doc
+    .slice(-KP_3H_POINTS)
+    .map((e) => ({
+      timeTagMs: Date.parse(e?.time_tag),
+      kp: Number(e?.Kp),
+    }))
+    .filter((e) => Number.isFinite(e.kp) && Number.isFinite(e.timeTagMs));
 }
 
 /** Kp forecast: entries the file marks 'predicted', chronological, capped. */
@@ -181,7 +207,8 @@ export function parseKpForecastPayload(doc) {
 
 /** NOAA R/S/G scales: current scales from key "0", 24h outlook probs from key "1". */
 export function parseScalesPayload(doc) {
-  if (!doc || typeof doc !== 'object') throw new Error('swpc_scales_unexpected_shape');
+  if (!doc || typeof doc !== 'object')
+    throw new Error('swpc_scales_unexpected_shape');
   const cur = doc['0'] ?? {};
   const nxt = doc['1'] ?? {};
   const scaleOf = (entry, key) => {
@@ -228,13 +255,18 @@ export function xrayClass(flux) {
 
 /** GOES primary X-ray 1-day: latest 0.1–0.8 nm (long-wave) channel reading. */
 export function parseXrayPayload(doc) {
-  if (!Array.isArray(doc) || doc.length === 0) throw new Error('swpc_xray_unexpected_shape');
+  if (!Array.isArray(doc) || doc.length === 0)
+    throw new Error('swpc_xray_unexpected_shape');
   const long = doc.filter((e) => e?.energy === '0.1-0.8nm');
   if (long.length === 0) throw new Error('swpc_xray_missing_channel');
   const last = long[long.length - 1];
   const flux = Number(last?.flux);
   if (!Number.isFinite(flux)) throw new Error('swpc_xray_missing');
-  return { flux, class: xrayClass(flux), timeTagMs: Date.parse(last?.time_tag) };
+  return {
+    flux,
+    class: xrayClass(flux),
+    timeTagMs: Date.parse(last?.time_tag),
+  };
 }
 
 /** Flat-tag regex extraction — Node/workerd have no DOMParser; hamqsl tags are simple. */
@@ -317,7 +349,8 @@ function tryParse(fn, doc) {
  * timestamp: {timeTag, satellite, bands:{">=10 MeV": n}}.
  */
 export function parseGoesParticlesPayload(doc) {
-  if (!Array.isArray(doc) || doc.length === 0) throw new Error('swpc_particles_unexpected_shape');
+  if (!Array.isArray(doc) || doc.length === 0)
+    throw new Error('swpc_particles_unexpected_shape');
   let latestTag = null;
   let latestMs = -Infinity;
   for (const e of doc) {
@@ -338,7 +371,8 @@ export function parseGoesParticlesPayload(doc) {
     bands[energy] = flux;
     if (satellite == null && e?.satellite != null) satellite = e.satellite;
   }
-  if (Object.keys(bands).length === 0) throw new Error('swpc_particles_missing');
+  if (Object.keys(bands).length === 0)
+    throw new Error('swpc_particles_missing');
   return { timeTag: latestTag, timeTagMs: latestMs, satellite, bands };
 }
 
@@ -372,9 +406,11 @@ export function parseGoesMagnetometersPayload(doc) {
  * The 65k-cell grid is summarized (max + active-cell count), never shipped.
  */
 export function parseOvationPayload(doc) {
-  if (!doc || typeof doc !== 'object') throw new Error('swpc_ovation_unexpected_shape');
+  if (!doc || typeof doc !== 'object')
+    throw new Error('swpc_ovation_unexpected_shape');
   const cells = doc.coordinates;
-  if (!Array.isArray(cells) || cells.length === 0) throw new Error('swpc_ovation_no_cells');
+  if (!Array.isArray(cells) || cells.length === 0)
+    throw new Error('swpc_ovation_no_cells');
   let maxAurora = -Infinity;
   let activeCells = 0;
   for (const c of cells) {
@@ -481,11 +517,18 @@ export function swpcProxy({
   let operation = null;
   let attemptedAt = -Infinity;
 
-  const headers = { 'User-Agent': USER_AGENT, Accept: 'application/json, text/plain, */*' };
+  const headers = {
+    'User-Agent': USER_AGENT,
+    Accept: 'application/json, text/plain, */*',
+  };
 
   async function fetchUpstream(url, signal) {
     signal.throwIfAborted();
-    const response = await fetchImpl(url, { signal, redirect: 'follow', headers });
+    const response = await fetchImpl(url, {
+      signal,
+      redirect: 'follow',
+      headers,
+    });
     if (!response.ok) {
       await response.body?.cancel().catch(() => {});
       throw new Error(`swpc_upstream_http_${response.status}`);
@@ -597,7 +640,8 @@ export function swpcProxy({
     }
     signal.throwIfAborted();
     if (!operation) {
-      if (now() - attemptedAt < RETRY_COOLDOWN_MS) throw new Error('swpc_retry_later');
+      if (now() - attemptedAt < RETRY_COOLDOWN_MS)
+        throw new Error('swpc_retry_later');
       attemptedAt = now();
       const controller = new AbortController();
       const timer = setTimeout(() => controller.abort(), timeoutMs + 5000);
@@ -621,11 +665,15 @@ export function swpcProxy({
     res.once?.('close', close);
     const json = (status, value) => {
       if (controller.signal.aborted) return;
-      res.writeHead(status, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
+      res.writeHead(status, {
+        'Content-Type': 'application/json',
+        'Cache-Control': 'no-store',
+      });
       res.end(JSON.stringify(value));
     };
     try {
-      if (req.method !== 'GET') return json(405, { error: 'method_not_allowed' });
+      if (req.method !== 'GET')
+        return json(405, { error: 'method_not_allowed' });
       try {
         const { value, stale } = await acquire(controller.signal);
         json(200, describe(value, { stale }));
@@ -634,8 +682,13 @@ export function swpcProxy({
         json(
           200,
           usable
-            ? describe(cache.value, { stale: true, reason: 'SWPC unreachable; showing last reading.' })
-            : describe(null, { reason: 'NOAA SWPC unreachable and no cached reading exists.' }),
+            ? describe(cache.value, {
+                stale: true,
+                reason: 'SWPC unreachable; showing last reading.',
+              })
+            : describe(null, {
+                reason: 'NOAA SWPC unreachable and no cached reading exists.',
+              }),
         );
       }
     } finally {

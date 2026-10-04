@@ -39,15 +39,21 @@ async function fetchJsonCapped(url) {
       headers: { 'User-Agent': USER_AGENT, Accept: 'application/json' },
     });
     if (!response.ok)
-      throw Object.assign(new Error(`ripestat_upstream_${response.status}`), { status: 502 });
+      throw Object.assign(new Error(`ripestat_upstream_${response.status}`), {
+        status: 502,
+      });
     const buffer = await response.arrayBuffer();
     if (buffer.byteLength > BODY_CAP_BYTES)
-      throw Object.assign(new Error('ripestat_upstream_too_large'), { status: 502 });
+      throw Object.assign(new Error('ripestat_upstream_too_large'), {
+        status: 502,
+      });
     return JSON.parse(new TextDecoder().decode(buffer));
   } catch (error) {
     if (error?.status === 502) throw error;
     if (error instanceof SyntaxError)
-      throw Object.assign(new Error('ripestat_upstream_bad_json'), { status: 502 });
+      throw Object.assign(new Error('ripestat_upstream_bad_json'), {
+        status: 502,
+      });
     throw error;
   } finally {
     clearTimeout(timeout);
@@ -76,7 +82,9 @@ export function parseCountryResources(upstream) {
 
 /** Defensive parse of asn-neighbours `data.neighbours`. */
 export function parseAsnNeighbours(upstream) {
-  const neighbours = Array.isArray(upstream?.data?.neighbours) ? upstream.data.neighbours : [];
+  const neighbours = Array.isArray(upstream?.data?.neighbours)
+    ? upstream.data.neighbours
+    : [];
   const counts = { left: 0, right: 0, other: 0 };
   const top = [];
   for (const n of neighbours) {
@@ -100,11 +108,15 @@ export function parseAsnNeighbours(upstream) {
 
 /** Defensive parse of bgp-state `data.bgp_state`. */
 export function parseBgpState(upstream) {
-  const states = Array.isArray(upstream?.data?.bgp_state) ? upstream.data.bgp_state : [];
+  const states = Array.isArray(upstream?.data?.bgp_state)
+    ? upstream.data.bgp_state
+    : [];
   const paths = [];
   const pathLengths = [];
   for (const s of states) {
-    const path = Array.isArray(s?.path) ? s.path.map(Number).filter(Number.isFinite) : [];
+    const path = Array.isArray(s?.path)
+      ? s.path.map(Number).filter(Number.isFinite)
+      : [];
     if (path.length) pathLengths.push(path.length);
     if (paths.length < 25) {
       paths.push({
@@ -116,15 +128,23 @@ export function parseBgpState(upstream) {
       });
     }
   }
-  const origins = [...new Set(states.map((s) => {
-    const p = Array.isArray(s?.path) ? s.path : [];
-    return p.length ? Number(p[p.length - 1]) : null;
-  }).filter(Number.isFinite))];
+  const origins = [
+    ...new Set(
+      states
+        .map((s) => {
+          const p = Array.isArray(s?.path) ? s.path : [];
+          return p.length ? Number(p[p.length - 1]) : null;
+        })
+        .filter(Number.isFinite),
+    ),
+  ];
   return {
     routeCount: states.length,
     distinctOrigins: origins.slice(0, 10),
     avgPathLength: pathLengths.length
-      ? Math.round((pathLengths.reduce((a, b) => a + b, 0) / pathLengths.length) * 10) / 10
+      ? Math.round(
+          (pathLengths.reduce((a, b) => a + b, 0) / pathLengths.length) * 10,
+        ) / 10
       : null,
     routes: paths,
   };
@@ -142,41 +162,48 @@ async function getSnapshot(params) {
   const cached = cache.get(key);
   if (cached && now - cached.at < CACHE_TTL_MS) return cached.payload;
   if (!inflight.has(key)) {
-    inflight.set(key, (async () => {
-      let payload;
-      if (params.asn) {
-        const asn = String(params.asn).replace(/^AS/i, '');
-        const url = `${BASE}/asn-neighbours?resource=AS${encodeURIComponent(asn)}`;
-        payload = {
-          generatedAt: new Date().toISOString(),
-          mode: 'asn',
-          asn: Number(asn),
-          neighbours: parseAsnNeighbours(await fetchJsonCapped(url)),
-          attribution: 'RIPE NCC RIPEstat (free, keyless)',
-        };
-      } else if (params.prefix) {
-        const url = `${BASE}/bgp-state?resource=${encodeURIComponent(params.prefix)}`;
-        payload = {
-          generatedAt: new Date().toISOString(),
-          mode: 'prefix',
-          prefix: params.prefix,
-          bgp: parseBgpState(await fetchJsonCapped(url)),
-          attribution: 'RIPE NCC RIPEstat (free, keyless)',
-        };
-      } else {
-        const country = /^[A-Za-z]{2}$/.test(params.country ?? '') ? params.country.toUpperCase() : 'US';
-        const url = `${BASE}/country-resource-list?resource=${encodeURIComponent(country)}`;
-        payload = {
-          generatedAt: new Date().toISOString(),
-          mode: 'country',
-          country,
-          resources: parseCountryResources(await fetchJsonCapped(url)),
-          attribution: 'RIPE NCC RIPEstat (free, keyless)',
-        };
-      }
-      cache.set(key, { at: Date.now(), payload });
-      return payload;
-    })().finally(() => { inflight.delete(key); }));
+    inflight.set(
+      key,
+      (async () => {
+        let payload;
+        if (params.asn) {
+          const asn = String(params.asn).replace(/^AS/i, '');
+          const url = `${BASE}/asn-neighbours?resource=AS${encodeURIComponent(asn)}`;
+          payload = {
+            generatedAt: new Date().toISOString(),
+            mode: 'asn',
+            asn: Number(asn),
+            neighbours: parseAsnNeighbours(await fetchJsonCapped(url)),
+            attribution: 'RIPE NCC RIPEstat (free, keyless)',
+          };
+        } else if (params.prefix) {
+          const url = `${BASE}/bgp-state?resource=${encodeURIComponent(params.prefix)}`;
+          payload = {
+            generatedAt: new Date().toISOString(),
+            mode: 'prefix',
+            prefix: params.prefix,
+            bgp: parseBgpState(await fetchJsonCapped(url)),
+            attribution: 'RIPE NCC RIPEstat (free, keyless)',
+          };
+        } else {
+          const country = /^[A-Za-z]{2}$/.test(params.country ?? '')
+            ? params.country.toUpperCase()
+            : 'US';
+          const url = `${BASE}/country-resource-list?resource=${encodeURIComponent(country)}`;
+          payload = {
+            generatedAt: new Date().toISOString(),
+            mode: 'country',
+            country,
+            resources: parseCountryResources(await fetchJsonCapped(url)),
+            attribution: 'RIPE NCC RIPEstat (free, keyless)',
+          };
+        }
+        cache.set(key, { at: Date.now(), payload });
+        return payload;
+      })().finally(() => {
+        inflight.delete(key);
+      }),
+    );
   }
   return inflight.get(key);
 }
@@ -192,7 +219,8 @@ function sendJson(res, status, body, cacheControl = 'public, max-age=900') {
 /** Mount the RIPEstat proxy. Mirrors the wave-5 provider shape. */
 export function ripestatProxy() {
   async function handler(req, res) {
-    if (req.method !== 'GET') return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
     try {
       const url = new URL(req.url ?? '/api/ripestat', 'http://localhost');
       const params = {
@@ -202,11 +230,19 @@ export function ripestatProxy() {
       };
       sendJson(res, 200, await getSnapshot(params));
     } catch (error) {
-      const upstreamFail = error?.status === 502 || error?.name === 'AbortError' || /aborted?/i.test(error?.message ?? '');
-      sendJson(res, upstreamFail ? 502 : 500, {
-        error: 'ripestat_unavailable',
-        detail: error?.message ?? 'unknown',
-      }, 'no-store');
+      const upstreamFail =
+        error?.status === 502 ||
+        error?.name === 'AbortError' ||
+        /aborted?/i.test(error?.message ?? '');
+      sendJson(
+        res,
+        upstreamFail ? 502 : 500,
+        {
+          error: 'ripestat_unavailable',
+          detail: error?.message ?? 'unknown',
+        },
+        'no-store',
+      );
     }
   }
 
@@ -225,5 +261,8 @@ export const _ripestatInternals = {
   parseCountryResources,
   parseAsnNeighbours,
   parseBgpState,
-  clearCaches: () => { cache = new Map(); inflight = new Map(); },
+  clearCaches: () => {
+    cache = new Map();
+    inflight = new Map();
+  },
 };

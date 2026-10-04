@@ -94,7 +94,9 @@ export function stratifyStations(stationList, maxStations = MAX_STATIONS) {
     const lon = Number(s.Lon);
     if (!Number.isFinite(lat) || !Number.isFinite(lon)) continue;
     const key = `${Math.floor((lat + 90) / 30)}:${Math.floor((lon + 180) / 30)}`;
-    const statday = s.statday ? Date.parse(String(s.statday).replace(' ', 'T')) : 0;
+    const statday = s.statday
+      ? Date.parse(String(s.statday).replace(' ', 'T'))
+      : 0;
     const prev = cells.get(key);
     if (!prev || (Number.isFinite(statday) && statday > prev._ts)) {
       cells.set(key, { ...s, _ts: Number.isFinite(statday) ? statday : 0 });
@@ -143,7 +145,11 @@ export function normalizeStation(station, observations) {
     type: station.type || null,
   };
   const rows = (observations || [])
-    .map((o) => ({ t: o.stime, ms: parseIocTime(o.stime), v: Number(o.slevel) }))
+    .map((o) => ({
+      t: o.stime,
+      ms: parseIocTime(o.stime),
+      v: Number(o.slevel),
+    }))
     .filter((r) => r.ms !== null && Number.isFinite(r.v))
     .sort((a, b) => a.ms - b.ms);
   if (!rows.length)
@@ -175,7 +181,8 @@ export function iocSealevelProxy({
 
   async function stationList() {
     const now = Date.now();
-    if (listCache && now - listCache.at < LIST_TTL_MS) return listCache.stations;
+    if (listCache && now - listCache.at < LIST_TTL_MS)
+      return listCache.stations;
     const list = await fetchJsonCapped(
       fetchImpl,
       `${SERVICE_BASE}?query=stationlist&format=json`,
@@ -183,7 +190,9 @@ export function iocSealevelProxy({
       UPSTREAM_TIMEOUT_MS,
     );
     if (!Array.isArray(list))
-      throw Object.assign(new Error('sealevel_list_malformed'), { status: 502 });
+      throw Object.assign(new Error('sealevel_list_malformed'), {
+        status: 502,
+      });
     listCache = { at: now, stations: list };
     return list;
   }
@@ -198,7 +207,10 @@ export function iocSealevelProxy({
         DATA_CAP_BYTES,
         UPSTREAM_TIMEOUT_MS,
       );
-      return normalizeStation(station, Array.isArray(obs) ? obs.slice(-48) : []);
+      return normalizeStation(
+        station,
+        Array.isArray(obs) ? obs.slice(-48) : [],
+      );
     } catch {
       return { ...normalizeStation(station, []), status: 'error' };
     }
@@ -224,7 +236,9 @@ export function iocSealevelProxy({
       if (cache && cache.key === key) return { ...cache.payload, stale: true };
       throw Object.assign(new Error('sealevel_no_stations'), { status: 502 });
     }
-    const results = await Promise.allSettled(selected.map((s) => fetchStationData(s)));
+    const results = await Promise.allSettled(
+      selected.map((s) => fetchStationData(s)),
+    );
     const stations = results.map((r, i) =>
       r.status === 'fulfilled'
         ? r.value

@@ -4,31 +4,29 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 6 (fda worker)).
  */
 export const SPEC = {
-  "id": "fda-faers-2026",
-  "title": "openFDA FAERS — 2026 drug adverse events",
-  "url": "https://api.fda.gov/drug/event.json?limit=20&search=receivedate:[20260101+TO+20261002]",
-  "headers": {},
-  "ttlSeconds": 3600,
-  "extract": {
-    "items": "$.results",
-    "limit": 20,
-    "map": {
-      "key": "$.safetyreportid",
-      "date": "$.receivedate",
-      "reaction": "$.patient.reaction[0].reactionmeddrapt",
-      "drug": "$.patient.drug[0].medicinalproduct",
-      "serious": "$.serious"
+  id: 'fda-faers-2026',
+  title: 'openFDA FAERS — 2026 drug adverse events',
+  url: 'https://api.fda.gov/drug/event.json?limit=20&search=receivedate:[20260101+TO+20261002]',
+  headers: {},
+  ttlSeconds: 3600,
+  extract: {
+    items: '$.results',
+    limit: 20,
+    map: {
+      key: '$.safetyreportid',
+      date: '$.receivedate',
+      reaction: '$.patient.reaction[0].reactionmeddrapt',
+      drug: '$.patient.drug[0].medicinalproduct',
+      serious: '$.serious',
     },
-    "numbers": []
+    numbers: [],
   },
-  "required": [
-    "key",
-    "reaction"
-  ],
-  "source": "openFDA",
-  "attribution": "Data: U.S. Food & Drug Administration, openFDA — keyless.",
-  "units": {},
-  "honesty": "FAERS drug adverse-event reports received in 2026 (673K total). Rows carry no patient identifiers — only report id, reaction terms and drug names are mapped. Receivedate is YYYYMMDD. Row order is openFDA's default sort, not chronological.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 6 (fda worker)"
+  required: ['key', 'reaction'],
+  source: 'openFDA',
+  attribution: 'Data: U.S. Food & Drug Administration, openFDA — keyless.',
+  units: {},
+  honesty:
+    "FAERS drug adverse-event reports received in 2026 (673K total). Rows carry no patient identifiers — only report id, reaction terms and drug names are mapped. Receivedate is YYYYMMDD. Row order is openFDA's default sort, not chronological.",
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 6 (fda worker)',
 };

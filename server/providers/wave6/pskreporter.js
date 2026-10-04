@@ -40,13 +40,21 @@ async function fetchTextCapped(url) {
     const response = await fetch(url, {
       signal: controller.signal,
       redirect: 'follow',
-      headers: { 'User-Agent': USER_AGENT, Accept: 'application/xml, text/xml' },
+      headers: {
+        'User-Agent': USER_AGENT,
+        Accept: 'application/xml, text/xml',
+      },
     });
     if (!response.ok)
-      throw Object.assign(new Error(`pskreporter_upstream_${response.status}`), { status: 502 });
+      throw Object.assign(
+        new Error(`pskreporter_upstream_${response.status}`),
+        { status: 502 },
+      );
     const buffer = await response.arrayBuffer();
     if (buffer.byteLength > BODY_CAP_BYTES)
-      throw Object.assign(new Error('pskreporter_upstream_too_large'), { status: 502 });
+      throw Object.assign(new Error('pskreporter_upstream_too_large'), {
+        status: 502,
+      });
     return new TextDecoder().decode(buffer);
   } finally {
     clearTimeout(timeout);
@@ -111,7 +119,10 @@ export function parseReceptionReports(xml) {
     reports.push({
       sender: String(a.senderCallsign ?? '').slice(0, 16),
       receiver: String(a.receiverCallsign ?? '').slice(0, 16),
-      freqMHz: Number.isFinite(freqHz) && freqHz > 0 ? roundNum(freqHz / 1e6, 4) : null,
+      freqMHz:
+        Number.isFinite(freqHz) && freqHz > 0
+          ? roundNum(freqHz / 1e6, 4)
+          : null,
       mode: String(a.mode ?? '').slice(0, 16),
       snrDb: a.sNR != null && a.sNR !== '' ? roundNum(Number(a.sNR), 1) : null,
       time: Number.isFinite(timeMs) ? new Date(timeMs).toISOString() : null,
@@ -122,7 +133,9 @@ export function parseReceptionReports(xml) {
     });
     if (reports.length >= MAX_REPORTS) break;
   }
-  reports.sort((a, b) => String(b.time ?? '').localeCompare(String(a.time ?? '')));
+  reports.sort((a, b) =>
+    String(b.time ?? '').localeCompare(String(a.time ?? '')),
+  );
   return reports;
 }
 
@@ -166,15 +179,24 @@ function sendJson(res, status, body, cacheControl = 'public, max-age=300') {
 /** Mount the PSKReporter reception-report proxy. Mirrors the felt provider shape. */
 export function pskreporterProxy() {
   async function handler(req, res) {
-    if (req.method !== 'GET') return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
     try {
       sendJson(res, 200, await getSnapshot());
     } catch (error) {
-      const upstreamFail = error?.status === 502 || error?.name === 'AbortError' || /aborted?/i.test(error?.message ?? '');
-      sendJson(res, upstreamFail ? 502 : 500, {
-        error: 'pskreporter_unavailable',
-        detail: error?.message ?? 'unknown',
-      }, 'no-store');
+      const upstreamFail =
+        error?.status === 502 ||
+        error?.name === 'AbortError' ||
+        /aborted?/i.test(error?.message ?? '');
+      sendJson(
+        res,
+        upstreamFail ? 502 : 500,
+        {
+          error: 'pskreporter_unavailable',
+          detail: error?.message ?? 'unknown',
+        },
+        'no-store',
+      );
     }
   }
 
@@ -193,5 +215,8 @@ export const _pskreporterInternals = {
   gridToLatLon,
   parseReceptionReports,
   trimPskPayload,
-  clearCaches: () => { cache = null; inflight = null; },
+  clearCaches: () => {
+    cache = null;
+    inflight = null;
+  },
 };

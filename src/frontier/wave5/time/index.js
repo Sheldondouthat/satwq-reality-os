@@ -29,11 +29,16 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
         if (tickerEl) tickerEl.textContent = tickerLine(doc);
         if (detailEl) {
           const srcs = (doc.sources ?? [])
-            .map((s) => `${s.name}: ${s.status === 'ok' ? `TAI−UTC ${s.taiMinusUtc}` : 'error'}`)
+            .map(
+              (s) =>
+                `${s.name}: ${s.status === 'ok' ? `TAI−UTC ${s.taiMinusUtc}` : 'error'}`,
+            )
             .join(' · ');
           detailEl.textContent =
             (srcs ? `${srcs}` : 'no source detail') +
-            (doc.fileExpiry ? ` · IANA file valid to ${doc.fileExpiry.slice(0, 10)}` : '');
+            (doc.fileExpiry
+              ? ` · IANA file valid to ${doc.fileExpiry.slice(0, 10)}`
+              : '');
           detailEl.title = doc.attribution ?? '';
         }
       } catch {
@@ -61,9 +66,12 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
         tickerEl.textContent = '🕰 loading time standards…';
         mount.appendChild(tickerEl);
         detailEl = document.createElement('div');
-        detailEl.style.cssText = 'font-size:10px;color:#8aa4d6;margin:0 0 4px;line-height:1.5;';
+        detailEl.style.cssText =
+          'font-size:10px;color:#8aa4d6;margin:0 0 4px;line-height:1.5;';
         mount.appendChild(detailEl);
-        mount.appendChild(chip(T('feature.time') || 'Time standards', setVisible, false));
+        mount.appendChild(
+          chip(T('feature.time') || 'Time standards', setVisible, false),
+        );
       } catch {
         /* dock UI optional */
       }

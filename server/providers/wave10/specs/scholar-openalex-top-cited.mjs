@@ -4,37 +4,33 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 8 (scholarly worker)).
  */
 export const SPEC = {
-  "id": "scholar-openalex-top-cited",
-  "title": "OpenAlex — most-cited works of all time",
-  "url": "https://api.openalex.org/works?sort=cited_by_count:desc&per-page=20&mailto=sheldondouthat@gmail.com",
-  "headers": {},
-  "ttlSeconds": 86400,
-  "extract": {
-    "items": "$.results",
-    "limit": 20,
-    "map": {
-      "title": "$.title",
-      "year": "$.publication_year",
-      "cited_by_count": "$.cited_by_count",
-      "doi": "$.doi",
-      "first_author": "$.authorships[0].author.display_name",
-      "venue": "$.primary_location.source.display_name",
-      "type": "$.type"
+  id: 'scholar-openalex-top-cited',
+  title: 'OpenAlex — most-cited works of all time',
+  url: 'https://api.openalex.org/works?sort=cited_by_count:desc&per-page=20&mailto=sheldondouthat@gmail.com',
+  headers: {},
+  ttlSeconds: 86400,
+  extract: {
+    items: '$.results',
+    limit: 20,
+    map: {
+      title: '$.title',
+      year: '$.publication_year',
+      cited_by_count: '$.cited_by_count',
+      doi: '$.doi',
+      first_author: '$.authorships[0].author.display_name',
+      venue: '$.primary_location.source.display_name',
+      type: '$.type',
     },
-    "numbers": [
-      "year",
-      "cited_by_count"
-    ]
+    numbers: ['year', 'cited_by_count'],
   },
-  "required": [
-    "doi"
-  ],
-  "source": "OpenAlex",
-  "attribution": "Data: OpenAlex (CC0) — keyless.",
-  "units": {
-    "cited_by_count": "citations"
+  required: ['doi'],
+  source: 'OpenAlex',
+  attribution: 'Data: OpenAlex (CC0) — keyless.',
+  units: {
+    cited_by_count: 'citations',
   },
-  "honesty": "OpenAlex relevance-ranked works. API reports 327,439,234 total matching works; fixture: 20 rows. Coverage: doi 18/20, year 19/20, venue 17/20. Rank is citation-driven, not topical. DOI-filtered rows only. Verified 200 OK from this VM.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 8 (scholarly worker)"
+  honesty:
+    'OpenAlex relevance-ranked works. API reports 327,439,234 total matching works; fixture: 20 rows. Coverage: doi 18/20, year 19/20, venue 17/20. Rank is citation-driven, not topical. DOI-filtered rows only. Verified 200 OK from this VM.',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 8 (scholarly worker)',
 };

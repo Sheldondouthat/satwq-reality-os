@@ -151,27 +151,38 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
     if (mount && typeof chip === 'function') {
       try {
         statusEl = document.createElement('div');
-        statusEl.style.cssText = 'font-size:10px;color:#8aa4d6;margin:2px 0 4px;';
+        statusEl.style.cssText =
+          'font-size:10px;color:#8aa4d6;margin:2px 0 4px;';
         statusEl.textContent = 'loading gauges…';
         mount.appendChild(statusEl);
-        const ctl = { show: () => setEnabled(true), hide: () => setEnabled(false) };
+        const ctl = {
+          show: () => setEnabled(true),
+          hide: () => setEnabled(false),
+        };
         if (typeof trackLayer === 'function') {
           const tracked = trackLayer('nwisGauges', {
             enable: () => setEnabled(true),
             disable: () => setEnabled(false),
           });
           mount.appendChild(
-            chip(T('feature.nwisGauges') || 'River gauges', (on) =>
-              on ? tracked.show() : tracked.hide(),
-            false),
+            chip(
+              T('feature.nwisGauges') || 'River gauges',
+              (on) => (on ? tracked.show() : tracked.hide()),
+              false,
+            ),
           );
         } else {
           mount.appendChild(
-            chip(T('feature.nwisGauges') || 'River gauges', (on) => setEnabled(on), false),
+            chip(
+              T('feature.nwisGauges') || 'River gauges',
+              (on) => setEnabled(on),
+              false,
+            ),
           );
         }
         const legend = document.createElement('div');
-        legend.style.cssText = 'font-size:10px;color:#8aa4d6;margin-top:4px;line-height:1.5;';
+        legend.style.cssText =
+          'font-size:10px;color:#8aa4d6;margin-top:4px;line-height:1.5;';
         legend.innerHTML =
           '<span style="color:#2563eb">●</span> low vs own history · ' +
           '<span style="color:#cbd5e1">●</span> normal · ' +

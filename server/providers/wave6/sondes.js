@@ -38,15 +38,21 @@ async function fetchJsonCapped(url) {
       headers: { 'User-Agent': USER_AGENT, Accept: 'application/json' },
     });
     if (!response.ok)
-      throw Object.assign(new Error(`sondes_upstream_${response.status}`), { status: 502 });
+      throw Object.assign(new Error(`sondes_upstream_${response.status}`), {
+        status: 502,
+      });
     const buffer = await response.arrayBuffer();
     if (buffer.byteLength > BODY_CAP_BYTES)
-      throw Object.assign(new Error('sondes_upstream_too_large'), { status: 502 });
+      throw Object.assign(new Error('sondes_upstream_too_large'), {
+        status: 502,
+      });
     return JSON.parse(new TextDecoder().decode(buffer));
   } catch (error) {
     if (error?.status === 502) throw error;
     if (error instanceof SyntaxError)
-      throw Object.assign(new Error('sondes_upstream_bad_json'), { status: 502 });
+      throw Object.assign(new Error('sondes_upstream_bad_json'), {
+        status: 502,
+      });
     throw error;
   } finally {
     clearTimeout(timeout);
@@ -63,8 +69,14 @@ function numOrNull(value, decimals = 4) {
 }
 
 function validLatLon(lat, lon) {
-  return typeof lat === 'number' && typeof lon === 'number'
-    && lat >= -90 && lat <= 90 && lon >= -180 && lon <= 180;
+  return (
+    typeof lat === 'number' &&
+    typeof lon === 'number' &&
+    lat >= -90 &&
+    lat <= 90 &&
+    lon >= -180 &&
+    lon <= 180
+  );
 }
 
 export function trimSonde(serial, raw) {
@@ -79,7 +91,10 @@ export function trimSonde(serial, raw) {
     altM: numOrNull(raw?.alt, 1),
     type: String(raw?.type ?? '').slice(0, 32),
     subtype: String(raw?.subtype ?? '').slice(0, 32),
-    uploader: String(raw?.uploader ?? raw?.uploader_callsign ?? '').slice(0, 32),
+    uploader: String(raw?.uploader ?? raw?.uploader_callsign ?? '').slice(
+      0,
+      32,
+    ),
     lastSeen: Number.isFinite(timeMs) ? new Date(timeMs).toISOString() : null,
   };
 }
@@ -94,11 +109,14 @@ export function trimSondesPayload(upstream) {
     }
   }
   // Most recently seen first; unknown timestamps sink to the bottom.
-  sondes.sort((a, b) => String(b.lastSeen ?? '').localeCompare(String(a.lastSeen ?? '')));
+  sondes.sort((a, b) =>
+    String(b.lastSeen ?? '').localeCompare(String(a.lastSeen ?? '')),
+  );
   return {
     generatedAt: new Date().toISOString(),
     count: sondes.length,
-    airborne: sondes.filter((s) => s.altM != null && s.altM > AIRBORNE_ALT_M).length,
+    airborne: sondes.filter((s) => s.altM != null && s.altM > AIRBORNE_ALT_M)
+      .length,
     band: '400-406 MHz (meteorological aids)',
     sondes,
     source: 'SondeHub v2 (community open data)',
@@ -133,15 +151,24 @@ function sendJson(res, status, body, cacheControl = 'public, max-age=300') {
 /** Mount the SondeHub radiosonde proxy. Mirrors the felt provider shape. */
 export function sondesProxy() {
   async function handler(req, res) {
-    if (req.method !== 'GET') return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
     try {
       sendJson(res, 200, await getSnapshot());
     } catch (error) {
-      const upstreamFail = error?.status === 502 || error?.name === 'AbortError' || /aborted?/i.test(error?.message ?? '');
-      sendJson(res, upstreamFail ? 502 : 500, {
-        error: 'sondes_unavailable',
-        detail: error?.message ?? 'unknown',
-      }, 'no-store');
+      const upstreamFail =
+        error?.status === 502 ||
+        error?.name === 'AbortError' ||
+        /aborted?/i.test(error?.message ?? '');
+      sendJson(
+        res,
+        upstreamFail ? 502 : 500,
+        {
+          error: 'sondes_unavailable',
+          detail: error?.message ?? 'unknown',
+        },
+        'no-store',
+      );
     }
   }
 
@@ -159,5 +186,8 @@ export function sondesProxy() {
 export const _sondesInternals = {
   trimSonde,
   trimSondesPayload,
-  clearCaches: () => { cache = null; inflight = null; },
+  clearCaches: () => {
+    cache = null;
+    inflight = null;
+  },
 };

@@ -72,7 +72,11 @@ export async function fetchSigmets({ fetchImpl = fetch } = {}) {
   return response.json();
 }
 
-export async function fetchAirportReports({ kind = 'metar', ids = [], fetchImpl = fetch } = {}) {
+export async function fetchAirportReports({
+  kind = 'metar',
+  ids = [],
+  fetchImpl = fetch,
+} = {}) {
   if (!ids.length) return { reports: [] };
   const response = await fetchImpl(
     `/api/airports/${kind}?ids=${ids.join(',')}`,
@@ -94,12 +98,35 @@ export const FLTCAT_COLORS = {
 };
 
 export function colorForFlightCategory(fltcat) {
-  return FLTCAT_COLORS[String(fltcat ?? '').toUpperCase()] ?? { r: 0.6, g: 0.65, b: 0.7 };
+  return (
+    FLTCAT_COLORS[String(fltcat ?? '').toUpperCase()] ?? {
+      r: 0.6,
+      g: 0.65,
+      b: 0.7,
+    }
+  );
 }
 
 /** Curated major-airport dot set (one METAR call, ≤20 stations). */
 export const AIRPORT_DOT_STATIONS = [
-  'KJFK', 'KEWR', 'KBOS', 'KIAD', 'KATL', 'KMIA', 'KORD', 'KDFW', 'KDEN',
-  'KSEA', 'KSFO', 'KLAX', 'KPHX', 'KLAS', 'KMSP', 'KDTW', 'KCLT', 'KIAH',
-  'KSLC', 'KPHL',
+  'KJFK',
+  'KEWR',
+  'KBOS',
+  'KIAD',
+  'KATL',
+  'KMIA',
+  'KORD',
+  'KDFW',
+  'KDEN',
+  'KSEA',
+  'KSFO',
+  'KLAX',
+  'KPHX',
+  'KLAS',
+  'KMSP',
+  'KDTW',
+  'KCLT',
+  'KIAH',
+  'KSLC',
+  'KPHL',
 ];

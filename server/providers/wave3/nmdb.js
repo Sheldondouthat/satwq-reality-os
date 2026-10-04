@@ -83,10 +83,14 @@ async function fetchTextCapped(fetchImpl, url, maxBytes, timeoutMs) {
       });
     const declared = Number(response.headers?.get?.('content-length'));
     if (Number.isFinite(declared) && declared > maxBytes)
-      throw Object.assign(new Error('nmdb_upstream_too_large'), { status: 502 });
+      throw Object.assign(new Error('nmdb_upstream_too_large'), {
+        status: 502,
+      });
     const text = await response.text();
     if (text.length > maxBytes)
-      throw Object.assign(new Error('nmdb_upstream_too_large'), { status: 502 });
+      throw Object.assign(new Error('nmdb_upstream_too_large'), {
+        status: 502,
+      });
     return text;
   } finally {
     clearTimeout(timer);
@@ -132,14 +136,14 @@ export function parseNestAscii(text) {
     if (!current) continue;
     if (line.startsWith('#')) {
       const headerMatch = line.match(HEADER_RE);
-      if (headerMatch) current.meta[headerMatch[1].trim()] = headerMatch[2].trim();
+      if (headerMatch)
+        current.meta[headerMatch[1].trim()] = headerMatch[2].trim();
       continue;
     }
     const dataMatch = line.match(DATA_RE);
     if (dataMatch) {
       const value = Number(dataMatch[2]);
-      if (Number.isFinite(value))
-        current.rows.push({ t: dataMatch[1], value });
+      if (Number.isFinite(value)) current.rows.push({ t: dataMatch[1], value });
     }
   }
   return blocks;
@@ -149,9 +153,7 @@ function median(values) {
   if (!values.length) return null;
   const sorted = [...values].sort((a, b) => a - b);
   const mid = Math.floor(sorted.length / 2);
-  return sorted.length % 2
-    ? sorted[mid]
-    : (sorted[mid - 1] + sorted[mid]) / 2;
+  return sorted.length % 2 ? sorted[mid] : (sorted[mid - 1] + sorted[mid]) / 2;
 }
 
 /** Normalize one station block into the consumer-contract row.
@@ -205,7 +207,9 @@ export function normalizeStationBlock(block) {
   };
 }
 
-export function nmdbProxy({ fetchImpl = (...args) => globalThis.fetch(...args) } = {}) {
+export function nmdbProxy({
+  fetchImpl = (...args) => globalThis.fetch(...args),
+} = {}) {
   let cache = null; // { key, at, payload }
 
   async function getSnapshot(days, stationCodes) {
@@ -260,14 +264,14 @@ export function nmdbProxy({ fetchImpl = (...args) => globalThis.fetch(...args) }
       cache = { key, at: now, payload };
       return payload;
     } catch (error) {
-      if (cache && cache.key === key)
-        return { ...cache.payload, stale: true };
+      if (cache && cache.key === key) return { ...cache.payload, stale: true };
       throw error;
     }
   }
 
   async function handler(req, res) {
-    if (req.method !== 'GET') return sendJson(res, 405, { error: 'method_not_allowed' });
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' });
     let days = 1;
     let stationCodes = STATIONS.map((s) => s.code);
     try {
@@ -275,7 +279,8 @@ export function nmdbProxy({ fetchImpl = (...args) => globalThis.fetch(...args) }
       const rawDays = parsed.searchParams.get('days');
       if (rawDays !== null) {
         const d = Number(rawDays);
-        if (Number.isFinite(d)) days = Math.min(MAX_DAYS, Math.max(1, Math.floor(d)));
+        if (Number.isFinite(d))
+          days = Math.min(MAX_DAYS, Math.max(1, Math.floor(d)));
       }
       const s = parsed.searchParams.get('stations');
       if (s) {

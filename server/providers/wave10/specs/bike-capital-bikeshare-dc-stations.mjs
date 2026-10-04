@@ -4,45 +4,39 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 8 (bikeshare-chicago worker)).
  */
 export const SPEC = {
-  "id": "bike-capital-bikeshare-dc-stations",
-  "title": "Capital Bikeshare (DC) — stations",
-  "url": "https://gbfs.capitalbikeshare.com/gbfs/en/station_information.json",
-  "headers": {
-    "User-Agent": "satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)"
+  id: 'bike-capital-bikeshare-dc-stations',
+  title: 'Capital Bikeshare (DC) — stations',
+  url: 'https://gbfs.capitalbikeshare.com/gbfs/en/station_information.json',
+  headers: {
+    'User-Agent':
+      'satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)',
   },
-  "ttlSeconds": 3600,
-  "bodyCapBytes": 2097152,
-  "extract": {
-    "items": "$.data.stations",
-    "limit": 50,
-    "map": {
-      "stationId": "$.station_id",
-      "name": "$.name",
-      "lat": "$.lat",
-      "lon": "$.lon",
-      "capacity": "$.capacity"
+  ttlSeconds: 3600,
+  bodyCapBytes: 2097152,
+  extract: {
+    items: '$.data.stations',
+    limit: 50,
+    map: {
+      stationId: '$.station_id',
+      name: '$.name',
+      lat: '$.lat',
+      lon: '$.lon',
+      capacity: '$.capacity',
     },
-    "numbers": [
-      "lat",
-      "lon",
-      "capacity"
-    ]
+    numbers: ['lat', 'lon', 'capacity'],
   },
-  "required": [
-    "stationId",
-    "lat",
-    "lon"
-  ],
-  "source": "GBFS",
-  "attribution": "Data: Capital Bikeshare GBFS feed — keyless.",
-  "units": {
-    "stationId": "text",
-    "name": "text",
-    "lat": "deg",
-    "lon": "deg",
-    "capacity": "count"
+  required: ['stationId', 'lat', 'lon'],
+  source: 'GBFS',
+  attribution: 'Data: Capital Bikeshare GBFS feed — keyless.',
+  units: {
+    stationId: 'text',
+    name: 'text',
+    lat: 'deg',
+    lon: 'deg',
+    capacity: 'count',
   },
-  "honesty": "Static station inventory: 866 stations at probe (471623 bytes). Feed last_updated epoch 1790989143.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 8 (bikeshare-chicago worker)"
+  honesty:
+    'Static station inventory: 866 stations at probe (471623 bytes). Feed last_updated epoch 1790989143.',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 8 (bikeshare-chicago worker)',
 };

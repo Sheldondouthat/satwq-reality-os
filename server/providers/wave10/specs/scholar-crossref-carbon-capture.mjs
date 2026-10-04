@@ -4,33 +4,30 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 10 (topup worker)).
  */
 export const SPEC = {
-  "headers": {},
-  "ttlSeconds": 86400,
-  "extract": {
-    "items": "$.message.items",
-    "limit": 20,
-    "map": {
-      "title": "$.title[0]",
-      "doi": "$.DOI",
-      "publisher": "$.publisher",
-      "type": "$.type",
-      "first_author_family": "$.author[0].family",
-      "pub_year": "$.published.date-parts[0][0]"
+  headers: {},
+  ttlSeconds: 86400,
+  extract: {
+    items: '$.message.items',
+    limit: 20,
+    map: {
+      title: '$.title[0]',
+      doi: '$.DOI',
+      publisher: '$.publisher',
+      type: '$.type',
+      first_author_family: '$.author[0].family',
+      pub_year: '$.published.date-parts[0][0]',
     },
-    "numbers": [
-      "pub_year"
-    ]
+    numbers: ['pub_year'],
   },
-  "required": [
-    "title"
-  ],
-  "source": "Crossref",
-  "attribution": "Data: Crossref — keyless.",
-  "units": {},
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 10 (topup worker)",
-  "id": "scholar-crossref-carbon-capture",
-  "title": "Crossref — carbon capture query",
-  "url": "https://api.crossref.org/works?query=carbon+capture&rows=20&mailto=sheldondouthat@gmail.com",
-  "honesty": "Crossref relevance-ranked works. API reports 1,238,521 total matching works; fixture: 20 rows, 20/20 with title. Coverage: first_author_family 12/20, pub_year 16/20 (editorial items lack authors/dates). Crossref title is an array; spec takes title[0]. Verified 200 OK from this VM."
+  required: ['title'],
+  source: 'Crossref',
+  attribution: 'Data: Crossref — keyless.',
+  units: {},
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 10 (topup worker)',
+  id: 'scholar-crossref-carbon-capture',
+  title: 'Crossref — carbon capture query',
+  url: 'https://api.crossref.org/works?query=carbon+capture&rows=20&mailto=sheldondouthat@gmail.com',
+  honesty:
+    'Crossref relevance-ranked works. API reports 1,238,521 total matching works; fixture: 20 rows, 20/20 with title. Coverage: first_author_family 12/20, pub_year 16/20 (editorial items lack authors/dates). Crossref title is an array; spec takes title[0]. Verified 200 OK from this VM.',
 };

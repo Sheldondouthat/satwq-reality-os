@@ -21,7 +21,11 @@ export function withTourVoiceActions(
   return async function runActionWithTour(name, args = {}, options = {}) {
     if (name === 'start_tour') {
       const started = tourDirector ? tourDirector.start() : false;
-      return { ok: started, action: name, running: tourDirector?.running ?? false };
+      return {
+        ok: started,
+        action: name,
+        running: tourDirector?.running ?? false,
+      };
     }
     if (name === 'stop_tour') {
       const stopped = tourDirector ? tourDirector.stop() : false;

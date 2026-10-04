@@ -24,7 +24,9 @@ export function haversineKm(lat1, lon1, lat2, lon2) {
   const d2r = Math.PI / 180;
   const a =
     Math.sin(((lat2 - lat1) * d2r) / 2) ** 2 +
-    Math.cos(lat1 * d2r) * Math.cos(lat2 * d2r) * Math.sin(((lon2 - lon1) * d2r) / 2) ** 2;
+    Math.cos(lat1 * d2r) *
+      Math.cos(lat2 * d2r) *
+      Math.sin(((lon2 - lon1) * d2r) / 2) ** 2;
   return 2 * 6371 * Math.asin(Math.min(1, Math.sqrt(a)));
 }
 

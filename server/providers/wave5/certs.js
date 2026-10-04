@@ -34,7 +34,10 @@ export function parseQueryParam(query = {}) {
   let q = typeof query.q === 'string' ? query.q.trim().toLowerCase() : '';
   if (!q) q = DEFAULT_Q;
   // Allow domain chars, leading wildcard, and % wildcards crt.sh accepts.
-  if (!/^[%*a-z0-9]([a-z0-9\-.*%]{0,251})$/i.test(q) || q.length > MAX_Q_LENGTH) {
+  if (
+    !/^[%*a-z0-9]([a-z0-9\-.*%]{0,251})$/i.test(q) ||
+    q.length > MAX_Q_LENGTH
+  ) {
     throw Object.assign(new Error('certs_bad_query'), { status: 400 });
   }
   return q;
@@ -132,12 +135,18 @@ function parseQuery(req) {
 /** Mount the crt.sh proxy. Mirrors the vaac/nwsAlerts provider shape. */
 export function certsProxy() {
   async function handler(req, res) {
-    if (req.method !== 'GET') return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
     let q;
     try {
       q = parseQueryParam(parseQuery(req));
     } catch (error) {
-      return sendJson(res, 400, { error: 'certs_bad_query', detail: 'invalid q parameter' }, 'no-store');
+      return sendJson(
+        res,
+        400,
+        { error: 'certs_bad_query', detail: 'invalid q parameter' },
+        'no-store',
+      );
     }
     try {
       sendJson(res, 200, await cacheFor(q).get(), 'public, max-age=3600');

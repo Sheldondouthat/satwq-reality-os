@@ -37,53 +37,100 @@ export const HELP_HINT =
  */
 export const LAYER_SYNONYMS = Object.freeze({
   firms: [
-    'wildfires', 'wildfire', 'forest fires', 'forest fire', 'active fires',
-    'fire detections', 'hotspots', 'hotspot', 'fires', 'fire', 'burning',
+    'wildfires',
+    'wildfire',
+    'forest fires',
+    'forest fire',
+    'active fires',
+    'fire detections',
+    'hotspots',
+    'hotspot',
+    'fires',
+    'fire',
+    'burning',
   ],
   earthquakes: ['earthquakes', 'earthquake', 'quakes', 'quake', 'seismic'],
   cyclones: [
-    'tropical storms', 'tropical storm', 'hurricanes', 'hurricane',
-    'typhoons', 'typhoon', 'cyclones', 'cyclone', 'storms', 'storm',
+    'tropical storms',
+    'tropical storm',
+    'hurricanes',
+    'hurricane',
+    'typhoons',
+    'typhoon',
+    'cyclones',
+    'cyclone',
+    'storms',
+    'storm',
   ],
   volcanoes: ['volcanoes', 'volcano', 'eruptions', 'eruption', 'lava'],
   weather: ['weather', 'forecast'],
   wind: ['wind map', 'winds', 'wind'],
   spaceWeather: [
-    'space weather', 'solar weather', 'solar storm', 'geomagnetic',
+    'space weather',
+    'solar weather',
+    'solar storm',
+    'geomagnetic',
     'kp index',
   ],
   flights: [
-    'airplanes', 'airplane', 'planes', 'plane', 'commercial flights',
-    'flights', 'flight', 'air traffic',
+    'airplanes',
+    'airplane',
+    'planes',
+    'plane',
+    'commercial flights',
+    'flights',
+    'flight',
+    'air traffic',
   ],
   aircraft: ['aircraft'],
   localAdsb: ['local adsb', 'adsb'],
   vessels: [
-    'ships', 'ship', 'vessels', 'vessel', 'boats', 'boat', 'marine traffic',
-    'ais traffic', 'ais',
+    'ships',
+    'ship',
+    'vessels',
+    'vessel',
+    'boats',
+    'boat',
+    'marine traffic',
+    'ais traffic',
+    'ais',
   ],
   satellites: ['satellites', 'satellite', 'iss', 'starlink'],
   launches: ['rocket launches', 'launches', 'launch', 'rockets', 'rocket'],
   meteors: ['meteor shower', 'meteors', 'meteor'],
   aurora: [
-    'northern lights', 'southern lights', 'aurora borealis',
-    'aurora australis', 'aurora',
+    'northern lights',
+    'southern lights',
+    'aurora borealis',
+    'aurora australis',
+    'aurora',
   ],
   moon: ['moon', 'lunar'],
   terminator: [
-    'day night line', 'day/night line', 'day night terminator',
-    'terminator', 'day night', 'night side',
+    'day night line',
+    'day/night line',
+    'day night terminator',
+    'terminator',
+    'day night',
+    'night side',
   ],
   gibsTruecolor: [
-    'true color imagery', 'truecolor imagery', 'true color', 'truecolor',
+    'true color imagery',
+    'truecolor imagery',
+    'true color',
+    'truecolor',
     'satellite imagery',
   ],
   gibsNightlights: ['night lights', 'city lights'],
   gibsChlorophyll: ['chlorophyll', 'ocean color', 'plankton'],
   gibsSst: ['sea surface temperature', 'ocean temperature', 'sst'],
   rainviewerRadar: [
-    'rain radar', 'precipitation radar', 'precipitation', 'weather radar',
-    'radar', 'rain',
+    'rain radar',
+    'precipitation radar',
+    'precipitation',
+    'weather radar',
+    'radar',
+    'rain',
   ],
   rainviewerSatellite: ['cloud satellite', 'satellite clouds', 'clouds'],
   hmsSmoke: ['wildfire smoke', 'smoke plumes', 'hms smoke', 'smoke'],
@@ -94,7 +141,9 @@ export const LAYER_SYNONYMS = Object.freeze({
   tides: ['tides', 'tide'],
   buoys: ['ocean buoys', 'buoys', 'buoy'],
   submarineCables: [
-    'submarine cables', 'undersea cables', 'internet cables',
+    'submarine cables',
+    'undersea cables',
+    'internet cables',
     'submarine cable',
   ],
   radio: ['ham radio', 'radio stations', 'radio'],
@@ -152,8 +201,10 @@ export function resolveLayerId(text) {
 // Kept for callers that built against the earlier single-match helper name.
 export { resolveLayerId as resolveLayer };
 
-const SHOW_VERBS = /\b(show|display|enable|turn on|switch on|activate|add|bring up)\b/;
-const HIDE_VERBS = /\b(hide|disable|turn off|switch off|deactivate|remove|clear|dismiss)\b/;
+const SHOW_VERBS =
+  /\b(show|display|enable|turn on|switch on|activate|add|bring up)\b/;
+const HIDE_VERBS =
+  /\b(hide|disable|turn off|switch off|deactivate|remove|clear|dismiss)\b/;
 const TOGGLE_VERBS = /\b(toggle|flip|switch)\b/;
 
 const FLY_LEAD =
@@ -258,7 +309,10 @@ export function ruleBasedParse(rawText) {
       if (SHOW_VERBS.test(segment)) return 'show';
       return null;
     };
-    const segments = text.split(/\s+and\s+|,/).map((s) => s.trim()).filter(Boolean);
+    const segments = text
+      .split(/\s+and\s+|,/)
+      .map((s) => s.trim())
+      .filter(Boolean);
     const clauses = segments.length > 0 ? segments : [text];
     const planSteps = [];
     const seen = new Set();
@@ -275,9 +329,10 @@ export function ruleBasedParse(rawText) {
         planSteps.push({ type: 'layer', layer, op });
       }
     }
-    const finalPlan = planSteps.length > 0
-      ? planSteps
-      : layerIds.map((layer) => ({ type: 'layer', layer, op: inheritedOp }));
+    const finalPlan =
+      planSteps.length > 0
+        ? planSteps
+        : layerIds.map((layer) => ({ type: 'layer', layer, op: inheritedOp }));
     const ops = new Set(finalPlan.map((s) => s.op));
     return {
       intent: 'layer',
@@ -344,38 +399,42 @@ export function openAIProvider({ apiKey = null, model = 'gpt-4o-mini' } = {}) {
           degraded: true,
         };
       }
-      const response = await fetch('https://api.openai.com/v1/chat/completions', {
-        method: 'POST',
-        headers: {
-          'content-type': 'application/json',
-          authorization: `Bearer ${apiKey}`,
+      const response = await fetch(
+        'https://api.openai.com/v1/chat/completions',
+        {
+          method: 'POST',
+          headers: {
+            'content-type': 'application/json',
+            authorization: `Bearer ${apiKey}`,
+          },
+          body: JSON.stringify({
+            model,
+            temperature: 0,
+            response_format: { type: 'json_object' },
+            messages: [
+              {
+                role: 'system',
+                content:
+                  'Translate the user query into a JSON plan for a 3D globe. ' +
+                  'Return {"intent": string, "entities": object, "plan": array}. ' +
+                  'Plan steps are one of: ' +
+                  '{"type":"layer","layer":id,"op":"show"|"hide"|"toggle"}, ' +
+                  '{"type":"fly","place":string}, ' +
+                  '{"type":"zoom","direction":"in"|"out"}, ' +
+                  '{"type":"tour","op":"start"|"stop"}, ' +
+                  '{"type":"brief"}, {"type":"mute","muted":boolean}, ' +
+                  '{"type":"say","text":string}. ' +
+                  'Valid layer ids: ' +
+                  Object.keys(LAYER_SYNONYMS).join(', ') +
+                  '. If unsure, return intent "unknown" with a single say step.',
+              },
+              { role: 'user', content: String(text ?? '') },
+            ],
+          }),
         },
-        body: JSON.stringify({
-          model,
-          temperature: 0,
-          response_format: { type: 'json_object' },
-          messages: [
-            {
-              role: 'system',
-              content:
-                'Translate the user query into a JSON plan for a 3D globe. ' +
-                'Return {"intent": string, "entities": object, "plan": array}. ' +
-                'Plan steps are one of: ' +
-                '{"type":"layer","layer":id,"op":"show"|"hide"|"toggle"}, ' +
-                '{"type":"fly","place":string}, ' +
-                '{"type":"zoom","direction":"in"|"out"}, ' +
-                '{"type":"tour","op":"start"|"stop"}, ' +
-                '{"type":"brief"}, {"type":"mute","muted":boolean}, ' +
-                '{"type":"say","text":string}. ' +
-                'Valid layer ids: ' +
-                Object.keys(LAYER_SYNONYMS).join(', ') +
-                '. If unsure, return intent "unknown" with a single say step.',
-            },
-            { role: 'user', content: String(text ?? '') },
-          ],
-        }),
-      });
-      if (!response.ok) throw new Error(`openai parse failed: ${response.status}`);
+      );
+      if (!response.ok)
+        throw new Error(`openai parse failed: ${response.status}`);
       const data = await response.json();
       const raw = data?.choices?.[0]?.message?.content ?? '{}';
       const parsed = JSON.parse(raw);
@@ -487,7 +546,8 @@ async function executeStep(step, deps, say) {
   switch (step.type) {
     case 'layer': {
       const handle = layers?.[step.layer];
-      const op = step.op === 'hide' ? 'hide' : step.op === 'toggle' ? 'toggle' : 'show';
+      const op =
+        step.op === 'hide' ? 'hide' : step.op === 'toggle' ? 'toggle' : 'show';
       if (handle && typeof handle[op] === 'function') {
         await handle[op]();
         return { ok: true };
@@ -507,7 +567,10 @@ async function executeStep(step, deps, say) {
           rawResult = await geocode(String(step.place ?? ''));
           place = normalizePlace(rawResult);
         } catch (error) {
-          return { ok: false, error: `geocode failed: ${error?.message ?? error}` };
+          return {
+            ok: false,
+            error: `geocode failed: ${error?.message ?? error}`,
+          };
         }
       }
       if (!place) {
@@ -535,7 +598,11 @@ async function executeStep(step, deps, say) {
         await camera.zoom(dir);
         return { ok: true };
       }
-      if (camera && typeof camera.getPosition === 'function' && typeof camera.flyTo === 'function') {
+      if (
+        camera &&
+        typeof camera.getPosition === 'function' &&
+        typeof camera.flyTo === 'function'
+      ) {
         const pos = await camera.getPosition();
         const heightM = Number(pos?.heightM ?? pos?.height);
         if (Number.isFinite(heightM) && heightM > 0) {

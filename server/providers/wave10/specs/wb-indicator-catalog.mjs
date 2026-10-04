@@ -4,45 +4,44 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch-4 diversity worker).
  */
 export const SPEC = {
-  "attribution": "Data: World Bank (CC BY-4.0) — keyless.",
-  "extract": {
-    "items": "$[1]",
-    "limit": 50,
-    "map": {
-      "id": "$.id",
-      "name": "$.name",
-      "sourceName": "$.source.value",
-      "sourceNote": "$.sourceNote",
-      "unit": "$.unit"
+  attribution: 'Data: World Bank (CC BY-4.0) — keyless.',
+  extract: {
+    items: '$[1]',
+    limit: 50,
+    map: {
+      id: '$.id',
+      name: '$.name',
+      sourceName: '$.source.value',
+      sourceNote: '$.sourceNote',
+      unit: '$.unit',
     },
-    "numbers": []
+    numbers: [],
   },
-  "fieldMap": {
-    "id": "indicator code (use in /v2/country/{cc}/indicator/{id} calls)",
-    "name": "indicator display name",
-    "sourceName": "source dataset",
-    "sourceNote": "methodology note",
-    "unit": "unit label"
+  fieldMap: {
+    id: 'indicator code (use in /v2/country/{cc}/indicator/{id} calls)',
+    name: 'indicator display name',
+    sourceName: 'source dataset',
+    sourceNote: 'methodology note',
+    unit: 'unit label',
   },
-  "headers": {
-    "User-Agent": "satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)"
+  headers: {
+    'User-Agent':
+      'satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)',
   },
-  "honestLabels": {
-    "coverage": "World Bank indicator catalog page 1 (100 of 29,544 codes).",
-    "freshness": "Catalog; stable until World Bank revises codes.",
-    "model": "None — metadata only."
+  honestLabels: {
+    coverage: 'World Bank indicator catalog page 1 (100 of 29,544 codes).',
+    freshness: 'Catalog; stable until World Bank revises codes.',
+    model: 'None — metadata only.',
   },
-  "honesty": "Page 1 of the World Bank indicator catalog (29,544 codes total). Codes feed the country/indicator series specs.",
-  "id": "wb-indicator-catalog",
-  "required": [
-    "id",
-    "name"
-  ],
-  "source": "World Bank World Development Indicators",
-  "title": "World Bank — indicator catalog (page 1)",
-  "ttlSeconds": 604800,
-  "units": {},
-  "url": "https://api.worldbank.org/v2/indicator?format=json&per_page=100",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch-4 diversity worker"
+  honesty:
+    'Page 1 of the World Bank indicator catalog (29,544 codes total). Codes feed the country/indicator series specs.',
+  id: 'wb-indicator-catalog',
+  required: ['id', 'name'],
+  source: 'World Bank World Development Indicators',
+  title: 'World Bank — indicator catalog (page 1)',
+  ttlSeconds: 604800,
+  units: {},
+  url: 'https://api.worldbank.org/v2/indicator?format=json&per_page=100',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch-4 diversity worker',
 };

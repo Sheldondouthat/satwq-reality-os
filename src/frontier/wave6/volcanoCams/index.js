@@ -5,7 +5,14 @@
  * shared ticker factory in src/frontier/wave3/common/ticker.js.
  */
 import { createTickerInit } from '../../wave3/common/ticker.js';
-import { ROUTE, EMOJI, LABEL, valueLine, detailLine, thumbUrls } from './model.js';
+import {
+  ROUTE,
+  EMOJI,
+  LABEL,
+  valueLine,
+  detailLine,
+  thumbUrls,
+} from './model.js';
 
 export const init = createTickerInit({
   themeKey: 'feature.volcanoCams',

@@ -18,10 +18,17 @@
  * reads, redirect:'error' pinned hosts, no node: imports, no WASM).
  */
 
-import { fetchJsonCapped, makeCache, numOrNull, sendJson, buildProxy } from './_lib.js';
+import {
+  fetchJsonCapped,
+  makeCache,
+  numOrNull,
+  sendJson,
+  buildProxy,
+} from './_lib.js';
 
 const FX_URL = 'https://api.frankfurter.app/latest?from=USD&to=EUR,GBP,JPY';
-const COINGECKO_URL = 'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd';
+const COINGECKO_URL =
+  'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd';
 const BINANCE_URL = 'https://api.binance.us/api/v3/ticker/price?symbol=BTCUSD';
 const COINBASE_URL = 'https://api.coinbase.com/v2/prices/BTC-USD/spot';
 const UPSTREAM_TIMEOUT_MS = 15_000;
@@ -65,7 +72,11 @@ function extractFx(upstream) {
     if (v === null) return null;
     out[ccy] = v;
   }
-  return { base: upstream.base ?? 'USD', date: upstream.date ?? null, rates: out };
+  return {
+    base: upstream.base ?? 'USD',
+    date: upstream.date ?? null,
+    rates: out,
+  };
 }
 
 function extractCoingecko(upstream) {
@@ -84,7 +95,8 @@ function median(values) {
   if (!values.length) return null;
   const sorted = [...values].sort((a, b) => a - b);
   const mid = Math.floor(sorted.length / 2);
-  const m = sorted.length % 2 ? sorted[mid] : (sorted[mid - 1] + sorted[mid]) / 2;
+  const m =
+    sorted.length % 2 ? sorted[mid] : (sorted[mid - 1] + sorted[mid]) / 2;
   return Math.round(m * 100) / 100;
 }
 
@@ -116,7 +128,9 @@ export async function buildMarketsSnapshot(fetchLeg = leg) {
     coinbase: cbR.detail,
   };
   if (!fxR.ok && !cgR.ok && !binR.ok && !cbR.ok)
-    throw Object.assign(new Error('markets_all_sources_failed'), { status: 502 });
+    throw Object.assign(new Error('markets_all_sources_failed'), {
+      status: 502,
+    });
   return {
     generatedAt: new Date().toISOString(),
     value: btc.medianUsd,
@@ -130,7 +144,11 @@ export async function buildMarketsSnapshot(fetchLeg = leg) {
     },
     crypto: {
       btc,
-      degraded: { coingecko: degraded.coingecko, binanceUs: degraded.binanceUs, coinbase: degraded.coinbase },
+      degraded: {
+        coingecko: degraded.coingecko,
+        binanceUs: degraded.binanceUs,
+        coinbase: degraded.coinbase,
+      },
       sources: `${LEG_SOURCES.coingecko} · ${LEG_SOURCES.binanceUs} · ${LEG_SOURCES.coinbase}`,
     },
     degradedDetail: detail,
@@ -148,7 +166,8 @@ const cache = makeCache(() => buildMarketsSnapshot(), CACHE_TTL_MS);
 /** Mount the markets proxy. Mirrors the vaac/nwsAlerts provider shape. */
 export function marketsProxy() {
   async function handler(req, res) {
-    if (req.method !== 'GET') return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
     try {
       sendJson(res, 200, await cache.get(), 'public, max-age=300');
     } catch (error) {

@@ -19,7 +19,8 @@
  * Pages Functions registry path.
  */
 
-const USGS_FEED = 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_day.geojson';
+const USGS_FEED =
+  'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_day.geojson';
 const NDBC_DART = (id) => `https://www.ndbc.noaa.gov/data/realtime2/${id}.dart`;
 const NWS_ALERTS = (event) =>
   `https://api.weather.gov/alerts/active?event=${encodeURIComponent(event)}&status=actual`;
@@ -93,7 +94,8 @@ export function subductionZoneFor(lat, lon) {
   if (!Number.isFinite(lat) || !Number.isFinite(lon)) return null;
   for (const zone of SUBDUCTION_ZONES) {
     const [minLon, maxLon, minLat, maxLat] = zone.box;
-    if (lon >= minLon && lon <= maxLon && lat >= minLat && lat <= maxLat) return zone.name;
+    if (lon >= minLon && lon <= maxLon && lat >= minLat && lat <= maxLat)
+      return zone.name;
   }
   return null;
 }
@@ -106,8 +108,15 @@ export function qualifiesForCoupling({ mag, depthKm, lat, lon }) {
 }
 
 /** Nearest DART buoys within radius, distance-ranked. */
-export function nearestDartBuoys(lat, lon, { radiusKm = BUOY_RADIUS_KM, limit = MAX_BUOYS_PER_QUAKE } = {}) {
-  return DART_REGISTRY.map((b) => ({ ...b, distKm: haversineKm(lat, lon, b.lat, b.lon) }))
+export function nearestDartBuoys(
+  lat,
+  lon,
+  { radiusKm = BUOY_RADIUS_KM, limit = MAX_BUOYS_PER_QUAKE } = {},
+) {
+  return DART_REGISTRY.map((b) => ({
+    ...b,
+    distKm: haversineKm(lat, lon, b.lat, b.lon),
+  }))
     .filter((b) => b.distKm <= radiusKm)
     .sort((a, b) => a.distKm - b.distKm)
     .slice(0, limit);
@@ -139,7 +148,10 @@ export function parseDartText(text, nowMs = Date.now()) {
   // The reading nearest-but-before the 3h mark (walk back from the end).
   let anchor = rows[0];
   for (let i = rows.length - 1; i >= 0; i--) {
-    if (rows[i].timeMs <= latest.timeMs - 3 * 3600_000) { anchor = rows[i]; break; }
+    if (rows[i].timeMs <= latest.timeMs - 3 * 3600_000) {
+      anchor = rows[i];
+      break;
+    }
   }
   return {
     ...latest,
@@ -160,7 +172,8 @@ export function normalizeUsgsFeatures(payload) {
     const lon = Number(coords[0]);
     const lat = Number(coords[1]);
     const depthKm = Number(coords[2]);
-    if (!Number.isFinite(mag) || !Number.isFinite(lat) || !Number.isFinite(lon)) continue;
+    if (!Number.isFinite(mag) || !Number.isFinite(lat) || !Number.isFinite(lon))
+      continue;
     out.push({
       id: String(p.ids ?? p.code ?? f.id ?? ''),
       mag,
@@ -175,7 +188,10 @@ export function normalizeUsgsFeatures(payload) {
 }
 
 function sendJson(res, value, status = 200) {
-  res.writeHead(status, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
+  res.writeHead(status, {
+    'Content-Type': 'application/json',
+    'Cache-Control': 'no-store',
+  });
   res.end(JSON.stringify(value));
 }
 
@@ -209,19 +225,37 @@ export function dartCouplingProxy({
     try {
       const text = await upstreamText(NDBC_DART(buoy.id), signal, 'text/plain');
       const reading = parseDartText(text, now());
-      if (!reading) return { ...buoy, distKm: buoy.distKm, status: 'no_reading' };
+      if (!reading)
+        return { ...buoy, distKm: buoy.distKm, status: 'no_reading' };
       const { distKm: _d, ...rest } = buoy;
       return { ...rest, distKm: buoy.distKm, status: 'live', ...reading };
     } catch (error) {
-      return { id: buoy.id, name: buoy.name, lat: buoy.lat, lon: buoy.lon, distKm: buoy.distKm, status: 'unreachable', error: error?.message };
+      return {
+        id: buoy.id,
+        name: buoy.name,
+        lat: buoy.lat,
+        lon: buoy.lon,
+        distKm: buoy.distKm,
+        status: 'unreachable',
+        error: error?.message,
+      };
     }
   }
 
   async function fetchTsunamiAlerts(signal) {
-    const events = ['Tsunami Warning', 'Tsunami Advisory', 'Tsunami Watch', 'Tsunami Statement'];
+    const events = [
+      'Tsunami Warning',
+      'Tsunami Advisory',
+      'Tsunami Watch',
+      'Tsunami Statement',
+    ];
     const settled = await Promise.allSettled(
       events.map(async (event) => {
-        const text = await upstreamText(NWS_ALERTS(event), signal, 'application/geo+json');
+        const text = await upstreamText(
+          NWS_ALERTS(event),
+          signal,
+          'application/geo+json',
+        );
         const payload = JSON.parse(text);
         return (payload.features ?? []).map((f) => ({
           event,
@@ -234,12 +268,17 @@ export function dartCouplingProxy({
       }),
     );
     const alerts = [];
-    for (const s of settled) if (s.status === 'fulfilled') alerts.push(...s.value);
+    for (const s of settled)
+      if (s.status === 'fulfilled') alerts.push(...s.value);
     return alerts;
   }
 
   async function refresh(signal) {
-    const usgsText = await upstreamText(USGS_FEED, signal, 'application/geo+json');
+    const usgsText = await upstreamText(
+      USGS_FEED,
+      signal,
+      'application/geo+json',
+    );
     const quakes = normalizeUsgsFeatures(JSON.parse(usgsText));
     if (!quakes) throw new Error('usgs_invalid_json');
     const tsunamiAlerts = await fetchTsunamiAlerts(signal);
@@ -248,9 +287,16 @@ export function dartCouplingProxy({
       const zone = qualifiesForCoupling(q);
       if (!zone) continue;
       const buoys = nearestDartBuoys(q.lat, q.lon, { limit: maxBuoysPerQuake });
-      const buoyReadings = await Promise.all(buoys.map((b) => fetchBuoy(b, signal)));
+      const buoyReadings = await Promise.all(
+        buoys.map((b) => fetchBuoy(b, signal)),
+      );
       signal.throwIfAborted();
-      coupled.push({ ...q, subductionZone: zone, buoys: buoyReadings, tsunamiAlerts });
+      coupled.push({
+        ...q,
+        subductionZone: zone,
+        buoys: buoyReadings,
+        tsunamiAlerts,
+      });
     }
     cache = { quakes: coupled, fetchedAt: now() };
     return cache;
@@ -261,7 +307,8 @@ export function dartCouplingProxy({
     if (cache && now() - cache.fetchedAt < CACHE_TTL_MS) return cache;
     if (operation?.controller.signal.aborted) operation = null;
     if (!operation) {
-      if (now() - attemptedAt < RETRY_COOLDOWN_MS) throw new Error('dart_retry_later');
+      if (now() - attemptedAt < RETRY_COOLDOWN_MS)
+        throw new Error('dart_retry_later');
       attemptedAt = now();
       const controller = new AbortController();
       const owned = { controller, waiters: 0 };
@@ -277,14 +324,16 @@ export function dartCouplingProxy({
     try {
       return await owned.promise;
     } finally {
-      if (--owned.waiters === 0 && operation === owned) owned.controller.abort();
+      if (--owned.waiters === 0 && operation === owned)
+        owned.controller.abort();
     }
   }
 
   function describe(value, { stale = false, reason = null } = {}) {
     return {
       schemaVersion: 1,
-      source: 'USGS earthquake feed + NDBC DART realtime + NWS tsunami alerts, via local proxy',
+      source:
+        'USGS earthquake feed + NDBC DART realtime + NWS tsunami alerts, via local proxy',
       attribution:
         'Quakes: USGS. Buoy water-column data: NOAA NDBC (buoy positions ' +
         'approximate in coupling registry; NDBC authoritative). Tsunami alerts: NWS.',
@@ -309,7 +358,8 @@ export function dartCouplingProxy({
       sendJson(res, value, status);
     };
     try {
-      if (req.method !== 'GET') return json(405, { error: 'method_not_allowed' });
+      if (req.method !== 'GET')
+        return json(405, { error: 'method_not_allowed' });
       try {
         json(200, describe(await acquire(controller.signal)));
       } catch (error) {
@@ -317,8 +367,13 @@ export function dartCouplingProxy({
         json(
           200,
           usable
-            ? describe(cache, { stale: true, reason: 'Upstream unreachable; showing last good sweep.' })
-            : describe(null, { reason: 'USGS/NDBC/NWS unreachable and no cached sweep exists.' }),
+            ? describe(cache, {
+                stale: true,
+                reason: 'Upstream unreachable; showing last good sweep.',
+              })
+            : describe(null, {
+                reason: 'USGS/NDBC/NWS unreachable and no cached sweep exists.',
+              }),
         );
       }
     } finally {

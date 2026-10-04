@@ -4,43 +4,41 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 7 (tfl worker)).
  */
 export const SPEC = {
-  "id": "tfl-arrivals-oxford-circus",
-  "title": "TfL — live arrivals, Oxford Circus (940GZZLUOXC)",
-  "url": "https://api.tfl.gov.uk/StopPoint/940GZZLUOXC/Arrivals",
-  "headers": {
-    "User-Agent": "satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)"
+  id: 'tfl-arrivals-oxford-circus',
+  title: 'TfL — live arrivals, Oxford Circus (940GZZLUOXC)',
+  url: 'https://api.tfl.gov.uk/StopPoint/940GZZLUOXC/Arrivals',
+  headers: {
+    'User-Agent':
+      'satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)',
   },
-  "ttlSeconds": 300,
-  "extract": {
-    "items": "$",
-    "limit": 40,
-    "map": {
-      "stationName": "$.stationName",
-      "lineId": "$.lineId",
-      "lineName": "$.lineName",
-      "platform": "$.platformName",
-      "direction": "$.direction",
-      "destination": "$.destinationName",
-      "towards": "$.towards",
-      "timeToStation": "$.timeToStation",
-      "expectedArrival": "$.expectedArrival",
-      "currentLocation": "$.currentLocation",
-      "predictedAt": "$.timestamp"
+  ttlSeconds: 300,
+  extract: {
+    items: '$',
+    limit: 40,
+    map: {
+      stationName: '$.stationName',
+      lineId: '$.lineId',
+      lineName: '$.lineName',
+      platform: '$.platformName',
+      direction: '$.direction',
+      destination: '$.destinationName',
+      towards: '$.towards',
+      timeToStation: '$.timeToStation',
+      expectedArrival: '$.expectedArrival',
+      currentLocation: '$.currentLocation',
+      predictedAt: '$.timestamp',
     },
-    "numbers": [
-      "timeToStation"
-    ]
+    numbers: ['timeToStation'],
   },
-  "required": [
-    "stationName",
-    "destination"
-  ],
-  "source": "Transport for London",
-  "attribution": "Data: Transport for London (TfL) Unified API — keyless, Open Government Licence.",
-  "units": {
-    "timeToStation": "seconds"
+  required: ['stationName', 'destination'],
+  source: 'Transport for London',
+  attribution:
+    'Data: Transport for London (TfL) Unified API — keyless, Open Government Licence.',
+  units: {
+    timeToStation: 'seconds',
   },
-  "honesty": "Live prediction board for Oxford Circus Underground (Central/Bakerloo/Victoria interchange). timeToStation is seconds until arrival; null when unknown. 7 arrivals at verification, timestamped 2026-10-02T23:53Z.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 7 (tfl worker)"
+  honesty:
+    'Live prediction board for Oxford Circus Underground (Central/Bakerloo/Victoria interchange). timeToStation is seconds until arrival; null when unknown. 7 arrivals at verification, timestamped 2026-10-02T23:53Z.',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 7 (tfl worker)',
 };

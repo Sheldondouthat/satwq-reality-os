@@ -27,8 +27,16 @@ export const STUN_SERVERS = Object.freeze([
  *   hadSrflxCandidate, hadRelayCandidate, iceGatheringComplete }
  */
 export function classifyConnectionFailure(facts = {}) {
-  const { connectionState, iceConnectionState, hadSrflxCandidate, hadRelayCandidate } = facts;
-  const failed = connectionState === 'failed' || iceConnectionState === 'failed' || iceConnectionState === 'disconnected';
+  const {
+    connectionState,
+    iceConnectionState,
+    hadSrflxCandidate,
+    hadRelayCandidate,
+  } = facts;
+  const failed =
+    connectionState === 'failed' ||
+    iceConnectionState === 'failed' ||
+    iceConnectionState === 'disconnected';
   if (!failed) return { ok: true, kind: 'not-failed' };
   if (hadRelayCandidate) {
     return {
@@ -73,7 +81,12 @@ function rtcAvailable() {
  *   onStateChange(state), name }
  * @returns session handle with createOffer/createAnswer/acceptAnswer/send/close
  */
-export function createPeerSession({ onMessage, onPeerChange, onStateChange, name = 'anon' } = {}) {
+export function createPeerSession({
+  onMessage,
+  onPeerChange,
+  onStateChange,
+  name = 'anon',
+} = {}) {
   if (!rtcAvailable()) {
     throw new Error('WebRTC unavailable in this browser');
   }
@@ -81,7 +94,8 @@ export function createPeerSession({ onMessage, onPeerChange, onStateChange, name
   let peerSeq = 0;
   const emitPeers = () => {
     try {
-      if (onPeerChange) onPeerChange([...peers.values()].map((p) => peerView(p)));
+      if (onPeerChange)
+        onPeerChange([...peers.values()].map((p) => peerView(p)));
     } catch {
       /* ignore */
     }
@@ -133,11 +147,18 @@ export function createPeerSession({ onMessage, onPeerChange, onStateChange, name
     });
     pc.addEventListener('connectionstatechange', () => {
       try {
-        if (onStateChange) onStateChange({ peerId: peer.id, connectionState: pc.connectionState });
+        if (onStateChange)
+          onStateChange({
+            peerId: peer.id,
+            connectionState: pc.connectionState,
+          });
       } catch {
         /* ignore */
       }
-      if (pc.connectionState === 'failed' || pc.connectionState === 'disconnected') {
+      if (
+        pc.connectionState === 'failed' ||
+        pc.connectionState === 'disconnected'
+      ) {
         peer.diagnosis = classifyConnectionFailure({
           connectionState: pc.connectionState,
           iceConnectionState: pc.iceConnectionState,
@@ -145,7 +166,8 @@ export function createPeerSession({ onMessage, onPeerChange, onStateChange, name
           hadRelayCandidate: peer.ice.relay,
         });
         try {
-          if (onStateChange) onStateChange({ peerId: peer.id, diagnosis: peer.diagnosis });
+          if (onStateChange)
+            onStateChange({ peerId: peer.id, diagnosis: peer.diagnosis });
         } catch {
           /* ignore */
         }
@@ -219,7 +241,10 @@ export function createPeerSession({ onMessage, onPeerChange, onStateChange, name
       await pc.setLocalDescription(offer);
       await waitForIceGathering(pc);
       peer.pendingId = peer.id;
-      return { peerId: peer.id, code: encodeRoomCode({ sdp: pc.localDescription }) };
+      return {
+        peerId: peer.id,
+        code: encodeRoomCode({ sdp: pc.localDescription }),
+      };
     },
 
     /** Guest: paste the host's code; returns your answer code to send back. */
@@ -234,7 +259,10 @@ export function createPeerSession({ onMessage, onPeerChange, onStateChange, name
       const answer = await pc.createAnswer();
       await pc.setLocalDescription(answer);
       await waitForIceGathering(pc);
-      return { peerId: peer.id, code: encodeRoomCode({ sdp: pc.localDescription }) };
+      return {
+        peerId: peer.id,
+        code: encodeRoomCode({ sdp: pc.localDescription }),
+      };
     },
 
     /** Host: paste the guest's answer code to complete the handshake. */
@@ -244,7 +272,9 @@ export function createPeerSession({ onMessage, onPeerChange, onStateChange, name
       if (!payload?.sdp) throw new Error('invalid answer code');
       const peer = peers.get(peerId);
       if (!peer) throw new Error('unknown peer');
-      await peer.pc.setRemoteDescription(new RTCSessionDescription(payload.sdp));
+      await peer.pc.setRemoteDescription(
+        new RTCSessionDescription(payload.sdp),
+      );
       return peerView(peer);
     },
 

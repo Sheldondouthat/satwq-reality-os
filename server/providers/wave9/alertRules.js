@@ -70,22 +70,32 @@ export function checkQuakes(geojson, nowMs = Date.now()) {
     const mag = numOrNull(p.mag);
     const time = numOrNull(p.time);
     if (mag == null || mag < 6.0 || time == null) continue;
-    if (nowMs - time > QUAKE_WINDOW_MS || time > nowMs + 5 * 60 * 1000) continue;
+    if (nowMs - time > QUAKE_WINDOW_MS || time > nowMs + 5 * 60 * 1000)
+      continue;
     const id = String(f.id ?? p.code ?? p.url ?? time);
     firings.push({
       ruleId: 'quake-m6',
       severity: mag >= 7.0 ? 'critical' : 'high',
       title: `M${mag.toFixed(1)} earthquake — ${p.place ?? 'unknown location'}`,
       detail: `Magnitude ${mag.toFixed(1)} at ${new Date(time).toISOString()}. Source: USGS.`,
-      link: typeof p.url === 'string' && p.url ? p.url : 'https://earthquake.usgs.gov/',
+      link:
+        typeof p.url === 'string' && p.url
+          ? p.url
+          : 'https://earthquake.usgs.gov/',
       dedupeKey: `quake:${id}`,
       observedAt: new Date(time).toISOString(),
     });
   }
-  return firings.sort((a, b) => (b.observedAt > a.observedAt ? 1 : b.observedAt < a.observedAt ? -1 : 0));
+  return firings.sort((a, b) =>
+    b.observedAt > a.observedAt ? 1 : b.observedAt < a.observedAt ? -1 : 0,
+  );
 }
 
-const NWS_HIGH_SIGNAL = new Set(['Tornado Warning', 'Tsunami Warning', 'Extreme Wind Warning']);
+const NWS_HIGH_SIGNAL = new Set([
+  'Tornado Warning',
+  'Tsunami Warning',
+  'Extreme Wind Warning',
+]);
 const NWS_FFW_SEVERE = new Set(['Severe', 'Extreme']);
 
 export function checkNwsAlerts(alertsJson, nowMs = Date.now()) {
@@ -97,7 +107,11 @@ export function checkNwsAlerts(alertsJson, nowMs = Date.now()) {
     const isSevereFfw =
       event === 'Flash Flood Warning' && NWS_FFW_SEVERE.has(a.severity ?? '');
     if (!isHighSignal && !isSevereFfw) continue;
-    const area = String(a.area ?? '').split(';')[0].trim().slice(0, 120) || 'unspecified area';
+    const area =
+      String(a.area ?? '')
+        .split(';')[0]
+        .trim()
+        .slice(0, 120) || 'unspecified area';
     // trimNwsAlert prefixes the upstream id with 'nws:'; when the upstream id
     // is already a full https URL (the live NWS shape), strip the prefix back
     // off for a real deep link — never fabricate one from a URN.
@@ -105,7 +119,10 @@ export function checkNwsAlerts(alertsJson, nowMs = Date.now()) {
     const deepLink = rawId.startsWith('nws:https://') ? rawId.slice(4) : null;
     firings.push({
       ruleId: 'nws-severe',
-      severity: event === 'Tornado Warning' || event === 'Tsunami Warning' ? 'critical' : 'high',
+      severity:
+        event === 'Tornado Warning' || event === 'Tsunami Warning'
+          ? 'critical'
+          : 'high',
       title: `${event} — ${area}`,
       detail: a.headline ?? `${event} in effect. Source: NWS.`,
       link: deepLink ?? 'https://alerts.weather.gov',
@@ -126,13 +143,19 @@ export function checkFaa(xml) {
   const firings = [];
   const parsed = parseNasStatus(xml);
   for (const section of parsed.sections ?? []) {
-    const rule = FAA_ALERT_SECTIONS.find((r) => r.match.test(section.name ?? ''));
+    const rule = FAA_ALERT_SECTIONS.find((r) =>
+      r.match.test(section.name ?? ''),
+    );
     if (!rule) continue; // low-signal delay lists deliberately excluded
     for (const item of section.items ?? []) {
       const f = item.fields ?? {};
       const what =
         f.Reason || f.Avg || f.Max
-          ? [f.Reason, f.Avg ? `avg ${f.Avg}` : null, f.Max ? `max ${f.Max}` : null]
+          ? [
+              f.Reason,
+              f.Avg ? `avg ${f.Avg}` : null,
+              f.Max ? `max ${f.Max}` : null,
+            ]
               .filter(Boolean)
               .join(' · ')
           : section.name;
@@ -155,7 +178,8 @@ const MIROVA_ALERT_LEVELS = new Set(['very-high', 'extreme']);
 export function checkMirova(html) {
   const firings = [];
   for (const row of parseMirova(html).rows) {
-    if (!MIROVA_ALERT_LEVELS.has(String(row.level ?? '').toLowerCase())) continue;
+    if (!MIROVA_ALERT_LEVELS.has(String(row.level ?? '').toLowerCase()))
+      continue;
     const vrp = row.vrpMw != null ? `${row.vrpMw} MW` : 'VRP n/a';
     firings.push({
       ruleId: 'mirova-thermal',
@@ -189,7 +213,10 @@ export function checkSwpc(kJson, nowMs = Date.now()) {
   }
   if (maxKp == null || maxKp < 8) return [];
   const g = Math.min(5, Math.max(1, maxKp - 4)); // Kp5->G1 … Kp9->G5
-  const bucket = String(maxRow.time_tag ?? '').slice(0, 13).replace(/[^0-9]/g, '') || 'unknown';
+  const bucket =
+    String(maxRow.time_tag ?? '')
+      .slice(0, 13)
+      .replace(/[^0-9]/g, '') || 'unknown';
   return [
     {
       ruleId: 'swpc-g4',
@@ -212,7 +239,8 @@ const RULES = [
     id: 'quake-m6',
     title: 'M6+ earthquakes (24h, USGS)',
     severity: 'high',
-    upstream: 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson',
+    upstream:
+      'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson',
     ttlMs: 15 * 60 * 1000,
     capBytes: 4_000_000,
     accept: 'application/geo+json, application/json',
@@ -221,9 +249,11 @@ const RULES = [
   },
   {
     id: 'nws-severe',
-    title: 'Severe NWS weather alerts (tornado/tsunami/extreme-wind, severe flash-flood)',
+    title:
+      'Severe NWS weather alerts (tornado/tsunami/extreme-wind, severe flash-flood)',
     severity: 'high',
-    upstream: 'https://api.weather.gov/alerts/active?status=actual&message_type=alert',
+    upstream:
+      'https://api.weather.gov/alerts/active?status=actual&message_type=alert',
     ttlMs: 10 * 60 * 1000,
     capBytes: 4_000_000,
     accept: 'application/geo+json, application/json',
@@ -285,17 +315,24 @@ async function fetchTextCapped(rule) {
       headers: { 'User-Agent': USER_AGENT, Accept: rule.accept },
     });
     if (!response.ok) {
-      throw Object.assign(new Error(`${rule.id}_upstream_${response.status}`), { status: 502 });
+      throw Object.assign(new Error(`${rule.id}_upstream_${response.status}`), {
+        status: 502,
+      });
     }
     const buffer = await response.arrayBuffer();
     if (buffer.byteLength > rule.capBytes)
-      throw Object.assign(new Error(`${rule.id}_upstream_too_large`), { status: 502 });
+      throw Object.assign(new Error(`${rule.id}_upstream_too_large`), {
+        status: 502,
+      });
     return new TextDecoder().decode(buffer);
   } catch (error) {
     if (error?.status === 502) throw error;
-    throw Object.assign(new Error(`${rule.id}_fetch_failed: ${error?.message ?? 'unknown'}`), {
-      status: 502,
-    });
+    throw Object.assign(
+      new Error(`${rule.id}_fetch_failed: ${error?.message ?? 'unknown'}`),
+      {
+        status: 502,
+      },
+    );
   } finally {
     clearTimeout(timeout);
   }
@@ -307,11 +344,16 @@ const failedAt = new Map();
 
 async function evaluateRule(rule, nowMs) {
   const hit = payloadCache.get(rule.id);
-  if (hit && nowMs - hit.at < rule.ttlMs) return { ...hit.payload, stale: false };
+  if (hit && nowMs - hit.at < rule.ttlMs)
+    return { ...hit.payload, stale: false };
   let op = inflight.get(rule.id);
   if (!op) {
     const lastFail = failedAt.get(rule.id) ?? -Infinity;
-    if (nowMs - lastFail < RETRY_COOLDOWN_MS && hit && nowMs - hit.at < STALE_MS) {
+    if (
+      nowMs - lastFail < RETRY_COOLDOWN_MS &&
+      hit &&
+      nowMs - hit.at < STALE_MS
+    ) {
       return { ...hit.payload, stale: true };
     }
     op = (async () => {
@@ -344,15 +386,14 @@ async function evaluateRule(rule, nowMs) {
 
 const ALERT_RULES_HONESTY = {
   thresholdsAreOurs:
-    'Rule tripwires (M>=6, Kp>=8, alert-type lists) are ours — heuristic thresholds, not the agencies\' official alert products. MIROVA levels are the exception: they are MIROVA\'s own alert levels, carried verbatim.',
+    "Rule tripwires (M>=6, Kp>=8, alert-type lists) are ours — heuristic thresholds, not the agencies' official alert products. MIROVA levels are the exception: they are MIROVA's own alert levels, carried verbatim.",
   evaluationLag:
     'Each rule evaluates on its own TTL-cached upstream fetch (10–30 min); firings lag real time by up to the rule TTL. A firing means the tripwire condition was true at evaluation time.',
   firingSemantics:
     'A firing is "condition observed", not "emergency declared". Corroborate with the linked official source before acting.',
   quietIsReal:
     'Zero firings with all rules ok:true means no tripwire fired — not missing data. A rule with ok:false is reported, never silently dropped.',
-  ntfy:
-    'ntfy.sh delivery is best-effort pub/sub. This route is the source of truth; the companion scripts/alerts-publish.mjs diffs firings and publishes only NEW dedupeKeys.',
+  ntfy: 'ntfy.sh delivery is best-effort pub/sub. This route is the source of truth; the companion scripts/alerts-publish.mjs diffs firings and publishes only NEW dedupeKeys.',
   attribution:
     'Data: USGS, NWS, FAA, MIROVA (INGV), NOAA SWPC. Push channel: ntfy.sh (free, keyless public topics).',
 };
@@ -404,15 +445,23 @@ function parseRuleQuery(url) {
 /** Mount the wave-9 alert-rules engine. */
 export function alertRulesProxy() {
   async function handler(req, res) {
-    if (req.method !== 'GET') return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
     const onlyRule = parseRuleQuery(req.url);
     if (onlyRule && !RULE_IDS.includes(onlyRule)) {
-      return sendJson(res, 400, { error: 'alertrules_bad_rule', valid: RULE_IDS }, 'no-store');
+      return sendJson(
+        res,
+        400,
+        { error: 'alertrules_bad_rule', valid: RULE_IDS },
+        'no-store',
+      );
     }
     const selected = onlyRule ? RULES.filter((r) => r.id === onlyRule) : RULES;
     const nowMs = Date.now();
     try {
-      const settled = await Promise.allSettled(selected.map((r) => evaluateRule(r, nowMs)));
+      const settled = await Promise.allSettled(
+        selected.map((r) => evaluateRule(r, nowMs)),
+      );
       const results = [];
       const staleFlags = {};
       let anyFailed = false;
@@ -438,7 +487,12 @@ export function alertRulesProxy() {
       const payload = buildPayload(results, staleFlags);
       // All rules failed with no stale fallback: honest 502 (d99a470 precedent).
       if (anyFailed && results.every((r) => !r.ok)) {
-        return sendJson(res, 502, { ...payload, error: 'alertrules_all_upstream_failed' }, 'no-store');
+        return sendJson(
+          res,
+          502,
+          { ...payload, error: 'alertrules_all_upstream_failed' },
+          'no-store',
+        );
       }
       sendJson(res, 200, payload);
     } catch (error) {

@@ -36,7 +36,8 @@ export const SCHUMANN_CHARTS = [
     kind: 'plotted',
     file: 'last-plotted.jpg',
     title: 'Detected values (150 s sampling)',
-    cadenceNote: 'page states values detected every 150 s, picture every 30 min',
+    cadenceNote:
+      'page states values detected every 150 s, picture every 30 min',
   },
 ];
 
@@ -62,7 +63,9 @@ async function fetchTextCapped(url, fetchImpl, signal) {
 /** Verify the expected chart files are referenced on the page. Pure. */
 export function chartsReferenced(html) {
   if (typeof html !== 'string') return [];
-  return SCHUMANN_CHARTS.filter((c) => html.includes(c.file)).map((c) => c.kind);
+  return SCHUMANN_CHARTS.filter((c) => html.includes(c.file)).map(
+    (c) => c.kind,
+  );
 }
 
 export function describeSchumann({ kinds, fetchedAt, origin }) {
@@ -97,9 +100,14 @@ export function schumannProxy({
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), timeoutMs);
     try {
-      const html = await fetchTextCapped(PAGE_URL, fetchImpl, controller.signal);
+      const html = await fetchTextCapped(
+        PAGE_URL,
+        fetchImpl,
+        controller.signal,
+      );
       const kinds = chartsReferenced(html);
-      if (!kinds.length) throw new Error('no known charts referenced on Cumiana page');
+      if (!kinds.length)
+        throw new Error('no known charts referenced on Cumiana page');
       return { at: Date.now(), kinds };
     } finally {
       clearTimeout(timer);
@@ -139,9 +147,15 @@ export function schumannProxy({
           try {
             mem = await refreshSingleFlight();
           } catch (err) {
-            console.warn('[schumann-proxy] upstream failed:', err?.message || err);
+            console.warn(
+              '[schumann-proxy] upstream failed:',
+              err?.message || err,
+            );
             if (!mem) {
-              sendJson(503, { error: 'schumann_unavailable', honesty: HONESTY });
+              sendJson(503, {
+                error: 'schumann_unavailable',
+                honesty: HONESTY,
+              });
               return;
             }
             mem = { ...mem, stale: true };
@@ -154,7 +168,8 @@ export function schumannProxy({
         });
         if (mem.stale) {
           doc.stale = true;
-          doc.reason = 'Upstream unreachable; showing last good chart references.';
+          doc.reason =
+            'Upstream unreachable; showing last good chart references.';
         }
         sendJson(200, doc);
       } catch {

@@ -67,38 +67,62 @@ const USER_AGENT = 'satwq-reality-os/1.0 (gods-eye-view; usace layer; keyless)';
 /** Pinned Missouri mainstem reservoirs — series names verified live 2026-10-01. */
 export const RESERVOIRS = [
   {
-    id: 'ftpk', code: 'FTPK', name: 'Fort Peck Dam & Reservoir', state: 'MT',
-    lat: 48.001, lon: -106.418,
+    id: 'ftpk',
+    code: 'FTPK',
+    name: 'Fort Peck Dam & Reservoir',
+    state: 'MT',
+    lat: 48.001,
+    lon: -106.418,
     storageSeries: 'FTPK.Stor.Inst.~1Day.0.Best-MRBWM',
     elevSeries: 'FTPK.Elev.Inst.1Hour.0.Best-MRBWM',
   },
   {
-    id: 'garr', code: 'GARR', name: 'Garrison Dam & Reservoir', state: 'ND',
-    lat: 47.505, lon: -101.432,
+    id: 'garr',
+    code: 'GARR',
+    name: 'Garrison Dam & Reservoir',
+    state: 'ND',
+    lat: 47.505,
+    lon: -101.432,
     storageSeries: 'GARR.Stor.Inst.~1Day.0.Best-MRBWM',
     elevSeries: 'GARR.Elev.Inst.1Hour.0.Best-MRBWM',
   },
   {
-    id: 'oahe', code: 'OAHE', name: 'Oahe Dam & Reservoir', state: 'SD',
-    lat: 44.45, lon: -100.405,
+    id: 'oahe',
+    code: 'OAHE',
+    name: 'Oahe Dam & Reservoir',
+    state: 'SD',
+    lat: 44.45,
+    lon: -100.405,
     storageSeries: 'OAHE.Stor.Inst.~1Day.0.Best-MRBWM',
     elevSeries: 'OAHE.Elev.Inst.1Hour.0.Best-MRBWM',
   },
   {
-    id: 'bend', code: 'BEND', name: 'Big Bend Dam & Reservoir', state: 'SD',
-    lat: 44.041, lon: -99.445,
+    id: 'bend',
+    code: 'BEND',
+    name: 'Big Bend Dam & Reservoir',
+    state: 'SD',
+    lat: 44.041,
+    lon: -99.445,
     storageSeries: 'BEND.Stor.Inst.~1Day.0.Best-MRBWM',
     elevSeries: 'BEND.Elev.Inst.1Hour.0.Best-MRBWM',
   },
   {
-    id: 'ftra', code: 'FTRA', name: 'Fort Randall Dam & Reservoir', state: 'SD',
-    lat: 43.067, lon: -98.553,
+    id: 'ftra',
+    code: 'FTRA',
+    name: 'Fort Randall Dam & Reservoir',
+    state: 'SD',
+    lat: 43.067,
+    lon: -98.553,
     storageSeries: 'FTRA.Stor.Inst.~1Day.0.Best-MRBWM',
     elevSeries: 'FTRA.Elev.Inst.1Hour.0.Best-MRBWM',
   },
   {
-    id: 'gapt', code: 'GAPT', name: 'Gavins Point Dam & Reservoir', state: 'SD',
-    lat: 42.85, lon: -97.483,
+    id: 'gapt',
+    code: 'GAPT',
+    name: 'Gavins Point Dam & Reservoir',
+    state: 'SD',
+    lat: 42.85,
+    lon: -97.483,
     storageSeries: 'GAPT.Stor.Inst.~1Day.0.Best-MRBWM',
     elevSeries: 'GAPT.Elev.Inst.1Hour.0.Best-MRBWM',
   },
@@ -122,7 +146,8 @@ const RESERVOIR_ID_RE = /^[a-z][a-z0-9-]{0,39}$/;
 export function parseQuery(query) {
   const raw = query.get('reservoir');
   if (raw != null && raw !== '') {
-    if (!RESERVOIR_ID_RE.test(raw)) throw Object.assign(new Error('usace_bad_reservoir'), { status: 400 });
+    if (!RESERVOIR_ID_RE.test(raw))
+      throw Object.assign(new Error('usace_bad_reservoir'), { status: 400 });
     const found = RESERVOIRS.find((r) => r.id === raw);
     if (!found) return { mode: 'notfound', reservoir: raw };
     return { mode: 'reservoir', reservoir: found };
@@ -177,17 +202,26 @@ async function fetchJsonCapped(url) {
       headers: { 'User-Agent': USER_AGENT, Accept: 'application/json' },
     });
     if (!response.ok) {
-      throw Object.assign(new Error(`usace_upstream_${response.status}`), { status: 502 });
+      throw Object.assign(new Error(`usace_upstream_${response.status}`), {
+        status: 502,
+      });
     }
     const buffer = await response.arrayBuffer();
     if (buffer.byteLength > BODY_CAP_BYTES)
-      throw Object.assign(new Error('usace_upstream_too_large'), { status: 502 });
+      throw Object.assign(new Error('usace_upstream_too_large'), {
+        status: 502,
+      });
     return JSON.parse(new TextDecoder().decode(buffer));
   } catch (error) {
     if (error?.status === 502) throw error;
     if (error instanceof SyntaxError)
-      throw Object.assign(new Error('usace_upstream_bad_json'), { status: 502 });
-    throw Object.assign(new Error(`usace_fetch_failed: ${error?.message ?? 'unknown'}`), { status: 502 });
+      throw Object.assign(new Error('usace_upstream_bad_json'), {
+        status: 502,
+      });
+    throw Object.assign(
+      new Error(`usace_fetch_failed: ${error?.message ?? 'unknown'}`),
+      { status: 502 },
+    );
   } finally {
     clearTimeout(timeout);
   }
@@ -208,7 +242,12 @@ export function latestValue(envelope) {
     const timeMs = numOrNull(row[0]);
     const value = numOrNull(row[1]);
     if (timeMs == null || value == null) continue;
-    return { timeMs, value, quality: numOrNull(row[2]), units: envelope?.units ?? null };
+    return {
+      timeMs,
+      value,
+      quality: numOrNull(row[2]),
+      units: envelope?.units ?? null,
+    };
   }
   return null;
 }
@@ -218,8 +257,14 @@ export function latestValue(envelope) {
  * Throws {status:502} when neither series yields a value (never fabricates).
  * Pure, exported for tests.
  */
-export function parseReservoirPayload(reservoir, storageEnv, elevEnv, nowMs = Date.now()) {
-  const fail = (msg) => Object.assign(new Error(`usace_invalid_payload: ${msg}`), { status: 502 });
+export function parseReservoirPayload(
+  reservoir,
+  storageEnv,
+  elevEnv,
+  nowMs = Date.now(),
+) {
+  const fail = (msg) =>
+    Object.assign(new Error(`usace_invalid_payload: ${msg}`), { status: 502 });
   const stor = latestValue(storageEnv);
   const elev = latestValue(elevEnv);
   if (!stor && !elev) throw fail('no usable values in either series');
@@ -271,21 +316,29 @@ export function buildPayload(rows, stale) {
   return {
     generatedAt: new Date().toISOString(),
     stale: Boolean(stale),
-    source: 'USACE CWMS Data API (Missouri River Basin, Omaha District NWDM) — keyless reads',
-    attribution: 'Data: U.S. Army Corps of Engineers, CWMS Data API (cwms-data.usace.army.mil), public keyless reads.',
+    source:
+      'USACE CWMS Data API (Missouri River Basin, Omaha District NWDM) — keyless reads',
+    attribution:
+      'Data: U.S. Army Corps of Engineers, CWMS Data API (cwms-data.usace.army.mil), public keyless reads.',
     units: { storage: 'ac-ft', poolElevation: 'ft' },
     summary: {
       total: rows.length,
       ok: ok.length,
       dark: rows.length - ok.length,
-      fresh: ok.filter((r) => (r.storage?.fresh ?? false) && (r.poolElevation?.fresh ?? false)).length,
+      fresh: ok.filter(
+        (r) => (r.storage?.fresh ?? false) && (r.poolElevation?.fresh ?? false),
+      ).length,
     },
     reservoirs: rows,
     honesty: {
-      observed: 'Storage (daily) and pool elevation (hourly) are the latest OBSERVED series values from the district water-control system — no forecasts, no model, no interpolation.',
-      catalogLag: 'CDA catalog extents can lag the series itself (observed 2026-10-01: catalog said 2026-09-13 while /timeseries served 2026-10-01); every row carries its own timestamp and age, and ages are the authority.',
-      noCapacity: 'Upstream location records carry no capacity fields, so no %full is computed — a fabricated denominator is worse than an absent one.',
-      quality: 'Upstream quality codes are surfaced raw and never used to zero-fill or gate values.',
+      observed:
+        'Storage (daily) and pool elevation (hourly) are the latest OBSERVED series values from the district water-control system — no forecasts, no model, no interpolation.',
+      catalogLag:
+        'CDA catalog extents can lag the series itself (observed 2026-10-01: catalog said 2026-09-13 while /timeseries served 2026-10-01); every row carries its own timestamp and age, and ages are the authority.',
+      noCapacity:
+        'Upstream location records carry no capacity fields, so no %full is computed — a fabricated denominator is worse than an absent one.',
+      quality:
+        'Upstream quality codes are surfaced raw and never used to zero-fill or gate values.',
     },
   };
 }
@@ -310,9 +363,15 @@ async function fetchOne(reservoir) {
     return parseReservoirPayload(reservoir, storageEnv, elevEnv);
   } catch (error) {
     return {
-      id: reservoir.id, code: reservoir.code, name: reservoir.name, state: reservoir.state,
-      lat: reservoir.lat, lon: reservoir.lon,
-      ok: false, error: error?.message ?? 'unknown', status: error?.status ?? 502,
+      id: reservoir.id,
+      code: reservoir.code,
+      name: reservoir.name,
+      state: reservoir.state,
+      lat: reservoir.lat,
+      lon: reservoir.lon,
+      ok: false,
+      error: error?.message ?? 'unknown',
+      status: error?.status ?? 502,
     };
   }
 }
@@ -321,10 +380,15 @@ async function getPayload(sel) {
   const key = queryKey(sel);
   const now = Date.now();
   const hit = payloadCache.get(key);
-  if (hit && now - hit.at < CACHE_TTL_MS) return { payload: hit.payload, stale: false };
+  if (hit && now - hit.at < CACHE_TTL_MS)
+    return { payload: hit.payload, stale: false };
   let op = inflight.get(key);
   if (!op) {
-    if (now - docFailedAt < RETRY_COOLDOWN_MS && hit && now - hit.at < STALE_MS) {
+    if (
+      now - docFailedAt < RETRY_COOLDOWN_MS &&
+      hit &&
+      now - hit.at < STALE_MS
+    ) {
       return { payload: hit.payload, stale: true };
     }
     op = (async () => {
@@ -333,11 +397,15 @@ async function getPayload(sel) {
       const okRows = rows.filter((r) => r.ok);
       if (okRows.length === 0) {
         docFailedAt = Date.now();
-        if (hit && now - hit.at < STALE_MS) return { payload: hit.payload, stale: true };
-        throw Object.assign(new Error('usace_all_upstreams_failed'), { status: 502 });
+        if (hit && now - hit.at < STALE_MS)
+          return { payload: hit.payload, stale: true };
+        throw Object.assign(new Error('usace_all_upstreams_failed'), {
+          status: 502,
+        });
       }
       const payload = buildPayload(rows, false);
-      if (payloadCache.size >= PAYLOAD_CACHE_MAX) payloadCache.delete(payloadCache.keys().next().value);
+      if (payloadCache.size >= PAYLOAD_CACHE_MAX)
+        payloadCache.delete(payloadCache.keys().next().value);
       payloadCache.set(key, { at: Date.now(), payload });
       return { payload, stale: false };
     })().finally(() => inflight.delete(key));
@@ -357,25 +425,48 @@ function sendJson(res, status, body, cacheControl = 'public, max-age=21600') {
 /** Mount the wave-9 USACE reservoir proxy. */
 export function usaceProxy() {
   async function handler(req, res) {
-    if (req.method !== 'GET') return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
     let sel;
     try {
       sel = parseQuery(new URL(req.url, 'http://localhost').searchParams);
     } catch (error) {
-      return sendJson(res, error.status ?? 400, { error: error.message }, 'no-store');
+      return sendJson(
+        res,
+        error.status ?? 400,
+        { error: error.message },
+        'no-store',
+      );
     }
     if (sel.mode === 'notfound') {
-      return sendJson(res, 200, { generatedAt: new Date().toISOString(), requestedNotFound: true, reservoir: sel.reservoir }, 'no-store');
+      return sendJson(
+        res,
+        200,
+        {
+          generatedAt: new Date().toISOString(),
+          requestedNotFound: true,
+          reservoir: sel.reservoir,
+        },
+        'no-store',
+      );
     }
     try {
       const { payload, stale } = await getPayload(sel);
       sendJson(res, 200, stale ? { ...payload, stale: true } : payload);
     } catch (error) {
-      const upstreamFail = error?.status === 502 || error?.name === 'AbortError' || /aborted?/i.test(error?.message ?? '');
-      sendJson(res, upstreamFail ? 502 : 500, {
-        error: 'usace_unavailable',
-        detail: error?.message ?? 'unknown',
-      }, 'no-store');
+      const upstreamFail =
+        error?.status === 502 ||
+        error?.name === 'AbortError' ||
+        /aborted?/i.test(error?.message ?? '');
+      sendJson(
+        res,
+        upstreamFail ? 502 : 500,
+        {
+          error: 'usace_unavailable',
+          detail: error?.message ?? 'unknown',
+        },
+        'no-store',
+      );
     }
   }
 
@@ -398,5 +489,9 @@ export const _usaceInternals = {
   buildStorageUrl,
   buildElevUrl,
   selectionReservoirs,
-  clearCaches: () => { payloadCache.clear(); inflight.clear(); docFailedAt = -Infinity; },
+  clearCaches: () => {
+    payloadCache.clear();
+    inflight.clear();
+    docFailedAt = -Infinity;
+  },
 };

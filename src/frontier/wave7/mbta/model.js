@@ -20,14 +20,14 @@ export const EMOJI = '🚇';
 export const LABEL = 'MBTA vehicles';
 
 export function valueLine(doc) {
-      if (isUnavailable(doc)) return null;
-      const n = pickNum(doc.count, doc.vehicles?.length);
-      if (n == null) return null;
-      return withTags(`${EMOJI} ${n.toLocaleString('en-US')} MBTA vehicles`, doc);
-    }
+  if (isUnavailable(doc)) return null;
+  const n = pickNum(doc.count, doc.vehicles?.length);
+  if (n == null) return null;
+  return withTags(`${EMOJI} ${n.toLocaleString('en-US')} MBTA vehicles`, doc);
+}
 
 export function detailLine(doc) {
-      if (isUnavailable(doc)) return '';
-      const v = pickArr(doc.vehicles)[0];
-      return v ? `e.g. ${pickStr(v.route, v.label, v.id, 'vehicle')}` : '';
-    }
+  if (isUnavailable(doc)) return '';
+  const v = pickArr(doc.vehicles)[0];
+  return v ? `e.g. ${pickStr(v.route, v.label, v.id, 'vehicle')}` : '';
+}

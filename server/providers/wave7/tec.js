@@ -26,17 +26,17 @@
  * publishes it.
  */
 
-import { readResponseTextCapped } from "../common/http.js";
+import { readResponseTextCapped } from '../common/http.js';
 
 const SNAPSHOT_URL =
-  "https://github.com/Sheldondouthat/satwq-reality-os/releases/download/tec-latest/tec-latest.json";
+  'https://github.com/Sheldondouthat/satwq-reality-os/releases/download/tec-latest/tec-latest.json';
 const UPSTREAM_TIMEOUT_MS = 25_000;
 const BODY_CAP_BYTES = 512 * 1024; // snapshots are ~65 KB; 512 KB is generous headroom
 const CACHE_TTL_MS = 10 * 60_000; // GloTEC refreshes ~every 10 min
 const STALE_MS = 6 * 3600_000;
 const RETRY_COOLDOWN_MS = 60_000;
-const USER_AGENT = "Gods Eye View (GloTEC ionosphere layer)";
-const SNAPSHOT_FORMAT = "glotec-snapshot";
+const USER_AGENT = 'Gods Eye View (GloTEC ionosphere layer)';
+const SNAPSHOT_FORMAT = 'glotec-snapshot';
 const MIN_SNAPSHOT_POINTS = 100; // sanity floor — a real snapshot holds ~1296
 
 let cache = null; // {at, payload}
@@ -52,10 +52,15 @@ export function parseGloTecGeoJson(text) {
   try {
     doc = JSON.parse(text);
   } catch {
-    throw Object.assign(new Error("tec_geojson_invalid: not JSON"), { status: 502 });
+    throw Object.assign(new Error('tec_geojson_invalid: not JSON'), {
+      status: 502,
+    });
   }
-  if (doc?.type !== "FeatureCollection" || !Array.isArray(doc.features)) {
-    throw Object.assign(new Error("tec_geojson_invalid: not a FeatureCollection"), { status: 502 });
+  if (doc?.type !== 'FeatureCollection' || !Array.isArray(doc.features)) {
+    throw Object.assign(
+      new Error('tec_geojson_invalid: not a FeatureCollection'),
+      { status: 502 },
+    );
   }
   const points = [];
   for (const f of doc.features) {
@@ -84,12 +89,16 @@ export function parseGloTecGeoJson(text) {
       anomaly,
       hmF2,
       nmF2,
-      quality: Number.isFinite(Number(props?.quality_flag)) ? Number(props.quality_flag) : null,
+      quality: Number.isFinite(Number(props?.quality_flag))
+        ? Number(props.quality_flag)
+        : null,
     });
   }
   if (points.length < 1000) {
     throw Object.assign(
-      new Error(`tec_geojson_invalid: only ${points.length} valid points (expected ~5184)`),
+      new Error(
+        `tec_geojson_invalid: only ${points.length} valid points (expected ~5184)`,
+      ),
       { status: 502 },
     );
   }
@@ -106,7 +115,12 @@ function roundTo(value, decimals) {
  * columns. Row detection is data-driven (groups by latitude), so a grid
  * reshape upstream does not silently corrupt the snapshot.
  */
-export function downsampleTec(points, strideLat = 2, strideLon = 2, minPoints = MIN_SNAPSHOT_POINTS) {
+export function downsampleTec(
+  points,
+  strideLat = 2,
+  strideLon = 2,
+  minPoints = MIN_SNAPSHOT_POINTS,
+) {
   const rows = new Map(); // latKey -> points
   for (const p of points) {
     const key = p.lat.toFixed(9);
@@ -138,7 +152,9 @@ export function downsampleTec(points, strideLat = 2, strideLon = 2, minPoints = 
   });
   if (lon.length < minPoints) {
     throw Object.assign(
-      new Error(`tec_downsample_invalid: only ${lon.length} grid points after stride (min ${minPoints})`),
+      new Error(
+        `tec_downsample_invalid: only ${lon.length} grid points after stride (min ${minPoints})`,
+      ),
       { status: 502 },
     );
   }
@@ -163,7 +179,7 @@ export function computeTecStats(points) {
   const hmF2 = points.map((p) => p.hmF2);
   const qualityFlags = {};
   for (const p of points) {
-    const q = String(p.quality ?? "unknown");
+    const q = String(p.quality ?? 'unknown');
     qualityFlags[q] = (qualityFlags[q] ?? 0) + 1;
   }
   const summarize = (values) => ({
@@ -185,7 +201,10 @@ export function computeTecStats(points) {
  * Build the publishable snapshot document from a raw GloTEC GeoJSON string.
  * Pure + deterministic; shared by scripts/tec-snapshot.mjs and the tests.
  */
-export function buildTecSnapshot(geoJsonText, { upstreamFile, upstreamUrl, fetchedAt }) {
+export function buildTecSnapshot(
+  geoJsonText,
+  { upstreamFile, upstreamUrl, fetchedAt },
+) {
   const { pointCount, points } = parseGloTecGeoJson(geoJsonText);
   const down = downsampleTec(points);
   const stats = computeTecStats(points);
@@ -211,28 +230,43 @@ export function buildTecSnapshot(geoJsonText, { upstreamFile, upstreamUrl, fetch
  */
 export function validateTecSnapshot(snap) {
   const problems = [];
-  if (snap?.format !== SNAPSHOT_FORMAT) problems.push("bad format marker");
-  if (snap?.formatVersion !== 1) problems.push("unsupported formatVersion");
-  if (typeof snap?.upstreamFile !== "string" || !snap.upstreamFile) problems.push("missing upstreamFile");
-  if (typeof snap?.fetchedAt !== "string" || !Number.isFinite(Date.parse(snap.fetchedAt))) {
-    problems.push("bad fetchedAt");
+  if (snap?.format !== SNAPSHOT_FORMAT) problems.push('bad format marker');
+  if (snap?.formatVersion !== 1) problems.push('unsupported formatVersion');
+  if (typeof snap?.upstreamFile !== 'string' || !snap.upstreamFile)
+    problems.push('missing upstreamFile');
+  if (
+    typeof snap?.fetchedAt !== 'string' ||
+    !Number.isFinite(Date.parse(snap.fetchedAt))
+  ) {
+    problems.push('bad fetchedAt');
   }
   const grid = snap?.grid;
-  const arrays = ["lon", "lat", "tec", "anomaly", "hmF2", "nmF2"].map((k) => grid?.[k]);
+  const arrays = ['lon', 'lat', 'tec', 'anomaly', 'hmF2', 'nmF2'].map(
+    (k) => grid?.[k],
+  );
   if (!arrays.every(Array.isArray)) {
-    problems.push("grid arrays missing");
+    problems.push('grid arrays missing');
   } else {
     const n = arrays[0].length;
-    if (!arrays.every((a) => a.length === n)) problems.push("grid arrays differ in length");
+    if (!arrays.every((a) => a.length === n))
+      problems.push('grid arrays differ in length');
     if (n < MIN_SNAPSHOT_POINTS) problems.push(`only ${n} grid points`);
-    if (!arrays.every((a) => a.every(Number.isFinite))) problems.push("non-finite grid values");
+    if (!arrays.every((a) => a.every(Number.isFinite)))
+      problems.push('non-finite grid values');
   }
   const stats = snap?.stats;
-  if (!stats || !Number.isFinite(stats?.tec?.max) || !Number.isFinite(stats?.tec?.min)) {
-    problems.push("stats missing");
+  if (
+    !stats ||
+    !Number.isFinite(stats?.tec?.max) ||
+    !Number.isFinite(stats?.tec?.min)
+  ) {
+    problems.push('stats missing');
   }
   if (problems.length) {
-    throw Object.assign(new Error(`tec_snapshot_invalid: ${problems.join("; ")}`), { status: 502 });
+    throw Object.assign(
+      new Error(`tec_snapshot_invalid: ${problems.join('; ')}`),
+      { status: 502 },
+    );
   }
   return true;
 }
@@ -246,11 +280,13 @@ async function fetchSnapshot(fetchImpl) {
       // NOTE: redirect:'follow' — workerd supports only 'follow'/'manual';
       // 'error' throws at the edge (main 2ec4053). GitHub release assets
       // redirect to the CDN, so follow is required here.
-      redirect: "follow",
-      headers: { "User-Agent": USER_AGENT, Accept: "application/json" },
+      redirect: 'follow',
+      headers: { 'User-Agent': USER_AGENT, Accept: 'application/json' },
     });
     if (!res.ok)
-      throw Object.assign(new Error(`tec_snapshot_http_${res.status}`), { status: 502 });
+      throw Object.assign(new Error(`tec_snapshot_http_${res.status}`), {
+        status: 502,
+      });
     const text = await readResponseTextCapped(res, BODY_CAP_BYTES); // throws when too large
     const snap = JSON.parse(text);
     validateTecSnapshot(snap); // throws {status:502} on a corrupt asset — an upstream failure
@@ -278,18 +314,20 @@ function buildPayload(snap, nowMs, stale) {
     stats: snap.stats,
     grid: snap.grid,
     attribution:
-      "Ionosphere TEC: NOAA SWPC GloTEC (public domain). " +
-      "Snapshot: pre-downsampled by scripts/tec-snapshot.mjs from the live 2.4 MB GeoJSON.",
+      'Ionosphere TEC: NOAA SWPC GloTEC (public domain). ' +
+      'Snapshot: pre-downsampled by scripts/tec-snapshot.mjs from the live 2.4 MB GeoJSON.',
   };
 }
 
 async function getPayload(fetchImpl, nowMs, signal) {
   // nowMs is the injected clock (tests control it); real Date.now() is never
   // used for cache age so staleness is deterministic under test.
-  if (cache && nowMs - cache.at < CACHE_TTL_MS) return buildPayload(cache.payload, nowMs, false);
+  if (cache && nowMs - cache.at < CACHE_TTL_MS)
+    return buildPayload(cache.payload, nowMs, false);
   signal?.throwIfAborted?.();
   if (!inflight) {
-    if (nowMs - attemptedAt < RETRY_COOLDOWN_MS) throw new Error("tec_retry_later");
+    if (nowMs - attemptedAt < RETRY_COOLDOWN_MS)
+      throw new Error('tec_retry_later');
     attemptedAt = nowMs;
     inflight = fetchSnapshot(fetchImpl)
       .then((snap) => {
@@ -302,32 +340,36 @@ async function getPayload(fetchImpl, nowMs, signal) {
   }
   if (!signal) return inflight;
   const cancelled = new Promise((_, reject) => {
-    const abort = () => reject(signal.reason ?? new Error("cancelled"));
-    signal.addEventListener("abort", abort, { once: true });
-    const detach = () => signal.removeEventListener("abort", abort);
+    const abort = () => reject(signal.reason ?? new Error('cancelled'));
+    signal.addEventListener('abort', abort, { once: true });
+    const detach = () => signal.removeEventListener('abort', abort);
     inflight.then(detach, detach);
   });
   return Promise.race([inflight, cancelled]);
 }
 
-function sendJson(res, status, body, cacheControl = "public, max-age=600") {
+function sendJson(res, status, body, cacheControl = 'public, max-age=600') {
   res.writeHead(status, {
-    "Content-Type": "application/json; charset=utf-8",
-    "Cache-Control": cacheControl,
+    'Content-Type': 'application/json; charset=utf-8',
+    'Cache-Control': cacheControl,
   });
   res.end(JSON.stringify(body));
 }
 
 export function tecProxy({ fetchImpl = fetch, now = () => Date.now() } = {}) {
   async function handler(req, res) {
-    if (req.method !== "GET")
-      return sendJson(res, 405, { error: "method_not_allowed" }, "no-store");
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
     const controller = new AbortController();
     const close = () => controller.abort();
-    res.once?.("close", close);
+    res.once?.('close', close);
     try {
       try {
-        sendJson(res, 200, await getPayload(fetchImpl, now(), controller.signal));
+        sendJson(
+          res,
+          200,
+          await getPayload(fetchImpl, now(), controller.signal),
+        );
       } catch (error) {
         const usable = cache && now() - cache.at <= STALE_MS;
         if (usable) {
@@ -336,27 +378,27 @@ export function tecProxy({ fetchImpl = fetch, now = () => Date.now() } = {}) {
         }
         const upstreamFail =
           error?.status === 502 ||
-          error?.name === "AbortError" ||
-          /aborted?/i.test(error?.message ?? "");
+          error?.name === 'AbortError' ||
+          /aborted?/i.test(error?.message ?? '');
         sendJson(
           res,
           upstreamFail ? 502 : 500,
-          { error: "tec_unavailable", detail: error?.message ?? "unknown" },
-          "no-store",
+          { error: 'tec_unavailable', detail: error?.message ?? 'unknown' },
+          'no-store',
         );
       }
     } finally {
-      res.removeListener?.("close", close);
+      res.removeListener?.('close', close);
     }
   }
 
   return {
-    name: "tec",
+    name: 'tec',
     configureServer({ middlewares }) {
-      middlewares.use("/api/tec", handler);
+      middlewares.use('/api/tec', handler);
     },
     configurePreviewServer({ middlewares }) {
-      middlewares.use("/api/tec", handler);
+      middlewares.use('/api/tec', handler);
     },
   };
 }

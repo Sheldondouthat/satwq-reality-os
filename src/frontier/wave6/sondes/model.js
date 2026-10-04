@@ -20,17 +20,20 @@ export const EMOJI = '🎈';
 export const LABEL = 'Radiosondes';
 
 export function valueLine(doc) {
-      if (isUnavailable(doc)) return null;
-      const n = pickNum(doc.count, doc.sondes?.length);
-      if (n == null) return null;
-      const air = pickNum(doc.airborne);
-      return withTags(`${EMOJI} ${air != null ? `${air}/` : ''}${n} radiosondes${air != null ? ' airborne' : ' tracked'}`, doc);
-    }
+  if (isUnavailable(doc)) return null;
+  const n = pickNum(doc.count, doc.sondes?.length);
+  if (n == null) return null;
+  const air = pickNum(doc.airborne);
+  return withTags(
+    `${EMOJI} ${air != null ? `${air}/` : ''}${n} radiosondes${air != null ? ' airborne' : ' tracked'}`,
+    doc,
+  );
+}
 
 export function detailLine(doc) {
-      if (isUnavailable(doc)) return '';
-      const s = pickArr(doc.sondes)[0];
-      if (!s) return '';
-      const alt = pickNum(s.altM);
-      return `${pickStr(s.serial, s.id, 'sonde')}${alt != null ? ` · ${alt.toLocaleString('en-US')} m` : ''}${pickStr(s.uploader) ? ` · via ${s.uploader}` : ''}`;
-    }
+  if (isUnavailable(doc)) return '';
+  const s = pickArr(doc.sondes)[0];
+  if (!s) return '';
+  const alt = pickNum(s.altM);
+  return `${pickStr(s.serial, s.id, 'sonde')}${alt != null ? ` · ${alt.toLocaleString('en-US')} m` : ''}${pickStr(s.uploader) ? ` · via ${s.uploader}` : ''}`;
+}

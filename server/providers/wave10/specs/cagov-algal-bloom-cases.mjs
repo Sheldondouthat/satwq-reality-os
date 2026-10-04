@@ -4,32 +4,33 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 4 (marine+state-open-data worker)).
  */
 export const SPEC = {
-  "headers": {
-    "User-Agent": "satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)"
+  headers: {
+    'User-Agent':
+      'satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)',
   },
-  "source": "California State Water Resources Control Board via data.ca.gov (CKAN)",
-  "attribution": "Data: CA State Water Board / data.ca.gov — keyless.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 4 (marine+state-open-data worker)",
-  "id": "cagov-algal-bloom-cases",
-  "title": "CA Open Data — harmful algal bloom cases",
-  "url": "https://data.ca.gov/api/3/action/datastore_search?resource_id=67648948-034f-4882-bbc0-c07c7d38daf9&limit=50",
-  "ttlSeconds": 86400,
-  "extract": {
-    "items": "$.result.records",
-    "limit": 50,
-    "map": {
-      "caseId": "$.Case_ID",
-      "waterBody": "$.Case_Water_Body_Name",
-      "caseClass": "$.Case_Class",
-      "caseStatus": "$.Case_Status",
-      "startDate": "$.Case_Start_Date"
+  source:
+    'California State Water Resources Control Board via data.ca.gov (CKAN)',
+  attribution: 'Data: CA State Water Board / data.ca.gov — keyless.',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 4 (marine+state-open-data worker)',
+  id: 'cagov-algal-bloom-cases',
+  title: 'CA Open Data — harmful algal bloom cases',
+  url: 'https://data.ca.gov/api/3/action/datastore_search?resource_id=67648948-034f-4882-bbc0-c07c7d38daf9&limit=50',
+  ttlSeconds: 86400,
+  extract: {
+    items: '$.result.records',
+    limit: 50,
+    map: {
+      caseId: '$.Case_ID',
+      waterBody: '$.Case_Water_Body_Name',
+      caseClass: '$.Case_Class',
+      caseStatus: '$.Case_Status',
+      startDate: '$.Case_Start_Date',
     },
-    "numbers": []
+    numbers: [],
   },
-  "required": [
-    "caseId"
-  ],
-  "units": {},
-  "honesty": "Static program records (not live sensor data); refreshed as the state publishes."
+  required: ['caseId'],
+  units: {},
+  honesty:
+    'Static program records (not live sensor data); refreshed as the state publishes.',
 };

@@ -19,13 +19,17 @@ export const EMOJI = '🧠';
 export const LABEL = 'Knowledge cards';
 
 export function valueLine(doc) {
-      if (isUnavailable(doc)) return null;
-      const items = pickArr(doc.items);
-      if (!items.length) return null;
-      return withTags(`${EMOJI} ${items.length} knowledge cards`, doc);
-    }
+  if (isUnavailable(doc)) return null;
+  const items = pickArr(doc.items);
+  if (!items.length) return null;
+  return withTags(`${EMOJI} ${items.length} knowledge cards`, doc);
+}
 
 export function detailLine(doc) {
-      if (isUnavailable(doc)) return '';
-      return pickArr(doc.items).slice(0, 3).map((i) => pickStr(i.headline)).filter(Boolean).join(' · ');
-    }
+  if (isUnavailable(doc)) return '';
+  return pickArr(doc.items)
+    .slice(0, 3)
+    .map((i) => pickStr(i.headline))
+    .filter(Boolean)
+    .join(' · ');
+}

@@ -4,39 +4,34 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 6 (usgsx worker)).
  */
 export const SPEC = {
-  "id": "usgsx-water-minnesota-desmoines",
-  "title": "USGS Water — Minnesota & Des Moines Rivers streamflow",
-  "url": "https://waterservices.usgs.gov/nwis/iv/?format=json&sites=05325000,05482000&parameterCd=00060",
-  "headers": {
-    "User-Agent": "satwq-reality-os/1.0 (surge-500 probe)"
+  id: 'usgsx-water-minnesota-desmoines',
+  title: 'USGS Water — Minnesota & Des Moines Rivers streamflow',
+  url: 'https://waterservices.usgs.gov/nwis/iv/?format=json&sites=05325000,05482000&parameterCd=00060',
+  headers: {
+    'User-Agent': 'satwq-reality-os/1.0 (surge-500 probe)',
   },
-  "ttlSeconds": 3600,
-  "extract": {
-    "items": "$.value.timeSeries",
-    "limit": 10,
-    "map": {
-      "name": "$.sourceInfo.siteName",
-      "site": "$.sourceInfo.siteCode[0].value",
-      "value": "$.values[0].value[0].value",
-      "time": "$.values[0].value[0].dateTime",
-      "lat": "$.sourceInfo.geoLocation.geogLocation.latitude",
-      "lon": "$.sourceInfo.geoLocation.geogLocation.longitude"
+  ttlSeconds: 3600,
+  extract: {
+    items: '$.value.timeSeries',
+    limit: 10,
+    map: {
+      name: '$.sourceInfo.siteName',
+      site: '$.sourceInfo.siteCode[0].value',
+      value: '$.values[0].value[0].value',
+      time: '$.values[0].value[0].dateTime',
+      lat: '$.sourceInfo.geoLocation.geogLocation.latitude',
+      lon: '$.sourceInfo.geoLocation.geogLocation.longitude',
     },
-    "numbers": [
-      "value",
-      "lat",
-      "lon"
-    ]
+    numbers: ['value', 'lat', 'lon'],
   },
-  "required": [
-    "name"
-  ],
-  "source": "USGS Water Services (NWIS)",
-  "attribution": "Data: U.S. Geological Survey, NWIS — keyless.",
-  "units": {
-    "value": "cfs"
+  required: ['name'],
+  source: 'USGS Water Services (NWIS)',
+  attribution: 'Data: U.S. Geological Survey, NWIS — keyless.',
+  units: {
+    value: 'cfs',
   },
-  "honesty": "Live 15-min streamflow (cfs): Minnesota River at Mankato MN and Des Moines River at Des Moines IA; typically updated every 15-60 min.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 6 (usgsx worker)"
+  honesty:
+    'Live 15-min streamflow (cfs): Minnesota River at Mankato MN and Des Moines River at Des Moines IA; typically updated every 15-60 min.',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 6 (usgsx worker)',
 };

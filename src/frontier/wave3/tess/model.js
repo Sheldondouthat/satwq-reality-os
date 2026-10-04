@@ -13,12 +13,24 @@ export function countdown(hoursUntil) {
 
 /** Disposition badge text. */
 export function dispositionLabel(d) {
-  return d === 'CP' ? 'confirmed planet' : d === 'PC' ? 'planet candidate' : (d || 'unknown');
+  return d === 'CP'
+    ? 'confirmed planet'
+    : d === 'PC'
+      ? 'planet candidate'
+      : d || 'unknown';
 }
 
 /** Escape HTML for TOI strings rendered into the panel. */
 export function escapeHtml(s) {
-  return String(s ?? '').replace(/[&<>"']/g, (c) => ({
-    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
-  })[c]);
+  return String(s ?? '').replace(
+    /[&<>"']/g,
+    (c) =>
+      ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;',
+      })[c],
+  );
 }

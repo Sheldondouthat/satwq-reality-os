@@ -37,8 +37,18 @@ const MAX_TRAINS = 500;
 const USER_AGENT = 'Gods Eye View (public train tracking aggregation)';
 
 const SOURCES = [
-  { key: 'amtraker', url: 'https://api-v3.amtraker.com/v3/trains', parse: parseAmtraker, attribution: 'Amtraker community API (free, attribution)' },
-  { key: 'transitdocs', url: 'https://asm-backend.transitdocs.com/map', parse: parseTransitDocs, attribution: 'TransitDocs (free public, attribution)' },
+  {
+    key: 'amtraker',
+    url: 'https://api-v3.amtraker.com/v3/trains',
+    parse: parseAmtraker,
+    attribution: 'Amtraker community API (free, attribution)',
+  },
+  {
+    key: 'transitdocs',
+    url: 'https://asm-backend.transitdocs.com/map',
+    parse: parseTransitDocs,
+    attribution: 'TransitDocs (free public, attribution)',
+  },
 ];
 
 let cache = null; // {at, payload}
@@ -82,17 +92,31 @@ function pickString(...candidates) {
   return '';
 }
 
-function normalizeTrain({ number, name, route, lat, lon, heading, status, timely, updatedAt, source }) {
+function normalizeTrain({
+  number,
+  name,
+  route,
+  lat,
+  lon,
+  heading,
+  status,
+  timely,
+  updatedAt,
+  source,
+}) {
   const num = normalizeTrainNumber(number);
   const ll = clampLatLon(Number(lat), Number(lon));
   if (!num || !ll) return null;
-  const timeMs = updatedAt == null || updatedAt === ''
-    ? null
-    : updatedAt instanceof Date
-      ? updatedAt.getTime()
-      : typeof updatedAt === 'number'
-        ? updatedAt < 1e12 ? updatedAt * 1000 : updatedAt // epoch seconds vs millis
-        : Date.parse(updatedAt);
+  const timeMs =
+    updatedAt == null || updatedAt === ''
+      ? null
+      : updatedAt instanceof Date
+        ? updatedAt.getTime()
+        : typeof updatedAt === 'number'
+          ? updatedAt < 1e12
+            ? updatedAt * 1000
+            : updatedAt // epoch seconds vs millis
+          : Date.parse(updatedAt);
   return {
     number: num,
     name: pickString(name).slice(0, 160),
@@ -101,7 +125,12 @@ function normalizeTrain({ number, name, route, lat, lon, heading, status, timely
     lon: roundNum(ll.lon),
     heading: pickString(heading).slice(0, 24),
     status: pickString(status).slice(0, 120),
-    timely: timely === true || timely === 'Y' || timely === 'y' ? true : timely === false || timely === 'N' || timely === 'n' ? false : null,
+    timely:
+      timely === true || timely === 'Y' || timely === 'y'
+        ? true
+        : timely === false || timely === 'N' || timely === 'n'
+          ? false
+          : null,
     updatedAt: Number.isFinite(timeMs) ? new Date(timeMs).toISOString() : null,
     sources: [source],
   };
@@ -119,7 +148,9 @@ function parseAmtraker(upstream) {
   const out = [];
   const entries = Array.isArray(upstream)
     ? upstream.map((e, i) => [String(e?.trainNum ?? i), e])
-    : (upstream && typeof upstream === 'object' ? Object.entries(upstream) : []);
+    : upstream && typeof upstream === 'object'
+      ? Object.entries(upstream)
+      : [];
   for (const [key, value] of entries) {
     const reports = Array.isArray(value) ? value : [value];
     const r = reports.filter((x) => x && typeof x === 'object').pop();
@@ -127,7 +158,9 @@ function parseAmtraker(upstream) {
     const t = normalizeTrain({
       number: r.trainNum ?? key,
       name: r.routName,
-      route: r.route ?? ((r.origCode && r.destCode) ? `${r.origCode}-${r.destCode}` : r.route),
+      route:
+        r.route ??
+        (r.origCode && r.destCode ? `${r.origCode}-${r.destCode}` : r.route),
       lat: r.lat,
       lon: r.lon,
       heading: r.heading,
@@ -151,9 +184,12 @@ function parseAmtraker(upstream) {
 function parseTransitDocs(upstream) {
   const list = Array.isArray(upstream)
     ? upstream
-    : Array.isArray(upstream?.trains) ? upstream.trains
-      : Array.isArray(upstream?.data) ? upstream.data
-        : Array.isArray(upstream?.vehicles) ? upstream.vehicles
+    : Array.isArray(upstream?.trains)
+      ? upstream.trains
+      : Array.isArray(upstream?.data)
+        ? upstream.data
+        : Array.isArray(upstream?.vehicles)
+          ? upstream.vehicles
           : [];
   const out = [];
   for (const t of list) {
@@ -187,7 +223,8 @@ function dedupeTrains(trains) {
   for (const t of trains) {
     const hit = byNumber.get(t.number);
     if (hit) {
-      for (const s of t.sources) if (!hit.sources.includes(s)) hit.sources.push(s);
+      for (const s of t.sources)
+        if (!hit.sources.includes(s)) hit.sources.push(s);
       // Prefer records with a fresher update time for position fields.
       const hitT = hit.updatedAt ? Date.parse(hit.updatedAt) : -Infinity;
       const tT = t.updatedAt ? Date.parse(t.updatedAt) : -Infinity;
@@ -206,7 +243,9 @@ function dedupeTrains(trains) {
     }
   }
   return [...byNumber.values()]
-    .sort((a, b) => a.number.localeCompare(b.number, undefined, { numeric: true }))
+    .sort((a, b) =>
+      a.number.localeCompare(b.number, undefined, { numeric: true }),
+    )
     .slice(0, MAX_TRAINS);
 }
 
@@ -225,10 +264,15 @@ async function fetchJsonCapped(sourceKey, url) {
       headers: { 'User-Agent': USER_AGENT, Accept: 'application/json' },
     });
     if (!response.ok)
-      throw Object.assign(new Error(`trains_${sourceKey}_upstream_${response.status}`), { status: 502 });
+      throw Object.assign(
+        new Error(`trains_${sourceKey}_upstream_${response.status}`),
+        { status: 502 },
+      );
     const buffer = await response.arrayBuffer();
     if (buffer.byteLength > BODY_CAP_BYTES)
-      throw Object.assign(new Error(`trains_${sourceKey}_upstream_too_large`), { status: 502 });
+      throw Object.assign(new Error(`trains_${sourceKey}_upstream_too_large`), {
+        status: 502,
+      });
     return JSON.parse(new TextDecoder().decode(buffer));
   } finally {
     clearTimeout(timeout);
@@ -293,7 +337,10 @@ async function getSnapshot() {
         const ok = results.some((r) => r.ok);
         if (!ok) {
           const detail = results.map((r) => `${r.key}:${r.error}`).join('; ');
-          throw Object.assign(new Error(`trains_all_upstream_down: ${detail}`), { status: 502 });
+          throw Object.assign(
+            new Error(`trains_all_upstream_down: ${detail}`),
+            { status: 502 },
+          );
         }
         const payload = buildSnapshot(results);
         cache = { at: Date.now(), payload };
@@ -317,15 +364,24 @@ function sendJson(res, status, body, cacheControl = 'public, max-age=60') {
 /** Mount the wave-6 train tracking aggregation proxy. Mirrors the quakes provider shape. */
 export function trainsProxy() {
   async function handler(req, res) {
-    if (req.method !== 'GET') return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
     try {
       sendJson(res, 200, await getSnapshot());
     } catch (error) {
-      const upstreamFail = error?.status === 502 || error?.name === 'AbortError' || /aborted?/i.test(error?.message ?? '');
-      sendJson(res, upstreamFail ? 502 : 500, {
-        error: 'trains_unavailable',
-        detail: error?.message ?? 'unknown',
-      }, 'no-store');
+      const upstreamFail =
+        error?.status === 502 ||
+        error?.name === 'AbortError' ||
+        /aborted?/i.test(error?.message ?? '');
+      sendJson(
+        res,
+        upstreamFail ? 502 : 500,
+        {
+          error: 'trains_unavailable',
+          detail: error?.message ?? 'unknown',
+        },
+        'no-store',
+      );
     }
   }
 
@@ -347,5 +403,8 @@ export const _trainsInternals = {
   normalizeTrainNumber,
   dedupeTrains,
   buildSnapshot,
-  clearCaches: () => { cache = null; inflight = null; },
+  clearCaches: () => {
+    cache = null;
+    inflight = null;
+  },
 };

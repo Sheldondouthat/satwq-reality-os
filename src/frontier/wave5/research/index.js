@@ -32,9 +32,17 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
     }
 
     function escapeHtml(s) {
-      return String(s).replace(/[&<>"']/g, (c) => ({
-        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
-      }[c]));
+      return String(s).replace(
+        /[&<>"']/g,
+        (c) =>
+          ({
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#39;',
+          })[c],
+      );
     }
 
     let listEl = null;
@@ -43,7 +51,8 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
       if (!listEl) return;
       const items = Array.isArray(payload?.items) ? payload.items : [];
       if (!items.length) {
-        listEl.innerHTML = '<div style="opacity:.6">research feed unavailable</div>';
+        listEl.innerHTML =
+          '<div style="opacity:.6">research feed unavailable</div>';
         if (statusEl) statusEl.textContent = 'research ticker: no items';
         return;
       }
@@ -62,9 +71,11 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
         )
         .join('');
       if (statusEl) {
-        const degraded = Array.isArray(payload?.degradedSources) && payload.degradedSources.length
-          ? ` · degraded: ${payload.degradedSources.join(', ')}`
-          : '';
+        const degraded =
+          Array.isArray(payload?.degradedSources) &&
+          payload.degradedSources.length
+            ? ` · degraded: ${payload.degradedSources.join(', ')}`
+            : '';
         statusEl.textContent = `${items.length} recent works${degraded}`;
       }
     }
@@ -82,11 +93,13 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
     if (mount && typeof chip === 'function') {
       try {
         statusEl = document.createElement('div');
-        statusEl.style.cssText = 'font-size:10px;color:#8aa4d6;margin:2px 0 4px;';
+        statusEl.style.cssText =
+          'font-size:10px;color:#8aa4d6;margin:2px 0 4px;';
         statusEl.textContent = 'research ticker: loading…';
         mount.appendChild(statusEl);
         listEl = document.createElement('div');
-        listEl.style.cssText = 'font-size:10px;color:#c8d6f5;max-height:220px;overflow-y:auto;';
+        listEl.style.cssText =
+          'font-size:10px;color:#c8d6f5;max-height:220px;overflow-y:auto;';
         mount.appendChild(listEl);
         const apply = (on) => setEnabled(on);
         if (typeof trackLayer === 'function') {
@@ -95,14 +108,20 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
             disable: () => setEnabled(false),
           });
           mount.appendChild(
-            chip(T('feature.research') || 'Research ticker', (on) =>
-              on ? tracked.show() : tracked.hide(), false),
+            chip(
+              T('feature.research') || 'Research ticker',
+              (on) => (on ? tracked.show() : tracked.hide()),
+              false,
+            ),
           );
         } else {
-          mount.appendChild(chip(T('feature.research') || 'Research ticker', apply, false));
+          mount.appendChild(
+            chip(T('feature.research') || 'Research ticker', apply, false),
+          );
         }
         const legend = document.createElement('div');
-        legend.style.cssText = 'font-size:10px;color:#8aa4d6;margin-top:4px;line-height:1.5;';
+        legend.style.cssText =
+          'font-size:10px;color:#8aa4d6;margin-top:4px;line-height:1.5;';
         legend.innerHTML =
           '<span style="opacity:.75">OpenAlex · Crossref · PubMed · arXiv. ' +
           'Deduped by DOI/title. Refreshes hourly (arXiv paced ≥3 s).</span>';

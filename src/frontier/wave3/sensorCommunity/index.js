@@ -64,7 +64,9 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
       ds.entities.removeAll();
       for (const s of sensors.slice(0, 1500)) {
         if (!Number.isFinite(s.lat) || !Number.isFinite(s.lon)) continue;
-        const color = Cesium.Color.fromCssColorString(aqiColor(s.aqi)).withAlpha(0.22);
+        const color = Cesium.Color.fromCssColorString(
+          aqiColor(s.aqi),
+        ).withAlpha(0.22);
         ds.entities.add({
           position: Cesium.Cartesian3.fromDegrees(s.lon, s.lat, 0),
           ellipse: new Cesium.EllipseGraphics({
@@ -114,7 +116,8 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
     if (mount && typeof chip === 'function') {
       try {
         statusEl = document.createElement('div');
-        statusEl.style.cssText = 'font-size:10px;color:#8aa4d6;margin:2px 0 4px;';
+        statusEl.style.cssText =
+          'font-size:10px;color:#8aa4d6;margin:2px 0 4px;';
         statusEl.textContent = 'loading sensors…';
         mount.appendChild(statusEl);
         const apply = (on) => setEnabled(on);
@@ -124,14 +127,20 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
             disable: () => setEnabled(false),
           });
           mount.appendChild(
-            chip(T('feature.airQuality') || 'Air-quality haze', (on) =>
-              on ? tracked.show() : tracked.hide(), false),
+            chip(
+              T('feature.airQuality') || 'Air-quality haze',
+              (on) => (on ? tracked.show() : tracked.hide()),
+              false,
+            ),
           );
         } else {
-          mount.appendChild(chip(T('feature.airQuality') || 'Air-quality haze', apply, false));
+          mount.appendChild(
+            chip(T('feature.airQuality') || 'Air-quality haze', apply, false),
+          );
         }
         const legend = document.createElement('div');
-        legend.style.cssText = 'font-size:10px;color:#8aa4d6;margin-top:4px;line-height:1.5;';
+        legend.style.cssText =
+          'font-size:10px;color:#8aa4d6;margin-top:4px;line-height:1.5;';
         legend.innerHTML =
           '<span style="color:#3ddc84">●</span> Good · ' +
           '<span style="color:#ffe14d">●</span> Moderate · ' +

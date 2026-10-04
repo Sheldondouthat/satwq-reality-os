@@ -62,7 +62,10 @@ export function parseLocation(query) {
   if (!Number.isFinite(lon) || Math.abs(lon) > 180) {
     throw Object.assign(new Error('aq_bad_lon'), { status: 400 });
   }
-  return { lat: Math.round(lat * 1000) / 1000, lon: Math.round(lon * 1000) / 1000 };
+  return {
+    lat: Math.round(lat * 1000) / 1000,
+    lon: Math.round(lon * 1000) / 1000,
+  };
 }
 
 /**
@@ -81,21 +84,26 @@ export function parseModelPayload(upstream, requested) {
     generatedAt: new Date().toISOString(),
     model: true,
     modelName: 'CAMS (Copernicus Atmosphere Monitoring Service) via Open-Meteo',
-    warning: 'MODEL output — a chemistry-transport simulation, not physical sensor observations. Use /api/air-quality for citizen-sensor observations.',
-    attribution: 'Weather data by Open-Meteo.com (CC-BY 4.0); CAMS operated by ECMWF on behalf of the EU.',
+    warning:
+      'MODEL output — a chemistry-transport simulation, not physical sensor observations. Use /api/air-quality for citizen-sensor observations.',
+    attribution:
+      'Weather data by Open-Meteo.com (CC-BY 4.0); CAMS operated by ECMWF on behalf of the EU.',
     location: {
       requested,
       gridLat: finiteOrNull(upstream?.latitude),
       gridLon: finiteOrNull(upstream?.longitude),
       elevationM: finiteOrNull(upstream?.elevation),
-      timezone: typeof upstream?.timezone === 'string' ? upstream.timezone : null,
+      timezone:
+        typeof upstream?.timezone === 'string' ? upstream.timezone : null,
     },
     current: {
       time: typeof current.time === 'string' ? current.time : null,
       intervalS: finiteOrNull(current.interval),
       pm2_5: value('pm2_5'),
       ozone: value('ozone'),
-      usAqi: Number.isFinite(Number(current.us_aqi)) ? Math.round(Number(current.us_aqi)) : null,
+      usAqi: Number.isFinite(Number(current.us_aqi))
+        ? Math.round(Number(current.us_aqi))
+        : null,
       units: {
         pm2_5: typeof units.pm2_5 === 'string' ? units.pm2_5 : 'µg/m³',
         ozone: typeof units.ozone === 'string' ? units.ozone : 'µg/m³',
@@ -127,15 +135,21 @@ async function fetchJsonCapped(url) {
       headers: { 'User-Agent': USER_AGENT, Accept: 'application/json' },
     });
     if (!response.ok)
-      throw Object.assign(new Error(`aq_model_upstream_${response.status}`), { status: 502 });
+      throw Object.assign(new Error(`aq_model_upstream_${response.status}`), {
+        status: 502,
+      });
     const buffer = await response.arrayBuffer();
     if (buffer.byteLength > BODY_CAP_BYTES)
-      throw Object.assign(new Error('aq_model_upstream_too_large'), { status: 502 });
+      throw Object.assign(new Error('aq_model_upstream_too_large'), {
+        status: 502,
+      });
     return JSON.parse(new TextDecoder().decode(buffer));
   } catch (error) {
     if (error?.status === 502) throw error;
     if (error instanceof SyntaxError)
-      throw Object.assign(new Error('aq_model_upstream_bad_json'), { status: 502 });
+      throw Object.assign(new Error('aq_model_upstream_bad_json'), {
+        status: 502,
+      });
     throw Object.assign(
       new Error(`aq_model_fetch_failed: ${error?.message ?? 'unknown'}`),
       { status: 502 },
@@ -178,21 +192,37 @@ function sendJson(res, status, body, cacheControl = 'public, max-age=600') {
 /** Mount the wave-7 Open-Meteo AQ model proxy. Mirrors the trains provider shape. */
 export function aqModelProxy() {
   async function handler(req, res) {
-    if (req.method !== 'GET') return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
     let location;
     try {
-      location = parseLocation(new URL(req.url, 'http://localhost').searchParams);
+      location = parseLocation(
+        new URL(req.url, 'http://localhost').searchParams,
+      );
     } catch (error) {
-      return sendJson(res, error.status ?? 400, { error: error.message }, 'no-store');
+      return sendJson(
+        res,
+        error.status ?? 400,
+        { error: error.message },
+        'no-store',
+      );
     }
     try {
       sendJson(res, 200, await getSnapshot(location));
     } catch (error) {
-      const upstreamFail = error?.status === 502 || error?.name === 'AbortError' || /aborted?/i.test(error?.message ?? '');
-      sendJson(res, upstreamFail ? 502 : 500, {
-        error: 'aq_model_unavailable',
-        detail: error?.message ?? 'unknown',
-      }, 'no-store');
+      const upstreamFail =
+        error?.status === 502 ||
+        error?.name === 'AbortError' ||
+        /aborted?/i.test(error?.message ?? '');
+      sendJson(
+        res,
+        upstreamFail ? 502 : 500,
+        {
+          error: 'aq_model_unavailable',
+          detail: error?.message ?? 'unknown',
+        },
+        'no-store',
+      );
     }
   }
 
@@ -211,5 +241,8 @@ export const _aqModelInternals = {
   parseLocation,
   parseModelPayload,
   buildUpstreamUrl,
-  clearCaches: () => { cache = new Map(); inflight = new Map(); },
+  clearCaches: () => {
+    cache = new Map();
+    inflight = new Map();
+  },
 };

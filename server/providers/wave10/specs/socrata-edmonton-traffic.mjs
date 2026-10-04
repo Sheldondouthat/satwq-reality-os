@@ -4,30 +4,30 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 3 (socrata recovery)).
  */
 export const SPEC = {
-  "id": "socrata-edmonton-traffic",
-  "title": "City of Edmonton — Traffic Disruptions",
-  "url": "https://data.edmonton.ca/resource/k4tx-5k8p.json?$limit=50&$order=date_issued%20DESC",
-  "headers": {},
-  "ttlSeconds": 1800,
-  "source": "City of Edmonton — data.edmonton.ca (Socrata)",
-  "attribution": "Data: City of Edmonton — data.edmonton.ca (Socrata) — keyless Socrata API.",
-  "honesty": "Traffic disruption records (closures, construction) newest first by issue date; location is a point geometry only (no numeric lat/lon columns), so no coordinates are mapped.",
-  "units": {},
-  "extract": {
-    "items": "$",
-    "limit": 50,
-    "map": {
-      "key": "$.disruption_id",
-      "time": "$.date_issued",
-      "type": "$.description",
-      "description": "$.details",
-      "address": "$.on_street"
+  id: 'socrata-edmonton-traffic',
+  title: 'City of Edmonton — Traffic Disruptions',
+  url: 'https://data.edmonton.ca/resource/k4tx-5k8p.json?$limit=50&$order=date_issued%20DESC',
+  headers: {},
+  ttlSeconds: 1800,
+  source: 'City of Edmonton — data.edmonton.ca (Socrata)',
+  attribution:
+    'Data: City of Edmonton — data.edmonton.ca (Socrata) — keyless Socrata API.',
+  honesty:
+    'Traffic disruption records (closures, construction) newest first by issue date; location is a point geometry only (no numeric lat/lon columns), so no coordinates are mapped.',
+  units: {},
+  extract: {
+    items: '$',
+    limit: 50,
+    map: {
+      key: '$.disruption_id',
+      time: '$.date_issued',
+      type: '$.description',
+      description: '$.details',
+      address: '$.on_street',
     },
-    "numbers": []
+    numbers: [],
   },
-  "required": [
-    "key"
-  ],
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 3 (socrata recovery)"
+  required: ['key'],
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 3 (socrata recovery)',
 };

@@ -13,11 +13,16 @@ import './ui/voiceCommand.css';
 if (document.fonts) {
   (async () => {
     try {
-      await document.fonts.load('16px "Material Symbols Outlined"', 'layers_clear');
+      await document.fonts.load(
+        '16px "Material Symbols Outlined"',
+        'layers_clear',
+      );
     } catch {
       /* fall through to the check below */
     }
-    if (!document.fonts.check('16px "Material Symbols Outlined"', 'layers_clear')) {
+    if (
+      !document.fonts.check('16px "Material Symbols Outlined"', 'layers_clear')
+    ) {
       document.documentElement.classList.add('no-symbol-font');
     }
   })();
@@ -80,11 +85,13 @@ application
     splash.ready();
   })
   .catch((error) => {
-  splash.fail(error);
-  console.error("SATWQ // God's Eye initialization failed:", error);
-  const loaderStatus = document.querySelector('#loading-screen .loader-status');
-  loaderStatus.textContent = `Error: ${describeError(error)}`;
-  loaderStatus.style.color = '#ff4444';
-});
+    splash.fail(error);
+    console.error("SATWQ // God's Eye initialization failed:", error);
+    const loaderStatus = document.querySelector(
+      '#loading-screen .loader-status',
+    );
+    loaderStatus.textContent = `Error: ${describeError(error)}`;
+    loaderStatus.style.color = '#ff4444';
+  });
 
 export { application };

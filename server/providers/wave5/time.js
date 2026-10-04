@@ -46,10 +46,13 @@
 
 import { readResponseTextCapped } from '../common/http.js';
 
-const IERS_URL = 'https://datacenter.iers.org/products/eop/bulletinc/xml/bulletinc-072.xml';
+const IERS_URL =
+  'https://datacenter.iers.org/products/eop/bulletinc/xml/bulletinc-072.xml';
 const IANA_URL = 'https://data.iana.org/time-zones/data/leap-seconds.list';
-const IERS_BULLETIN_C_TEXT_URL = 'https://datacenter.iers.org/products/eop/bulletinc/bulletinc-072.txt';
-const IERS_EOP_C04_URL = 'https://hpiers.obspm.fr/iers/eop/eopc04/eopc04.1962-now';
+const IERS_BULLETIN_C_TEXT_URL =
+  'https://datacenter.iers.org/products/eop/bulletinc/bulletinc-072.txt';
+const IERS_EOP_C04_URL =
+  'https://hpiers.obspm.fr/iers/eop/eopc04/eopc04.1962-now';
 const NIST_SERVERS_URL = 'https://tf.nist.gov/tf-cgi/servers.cgi';
 const NTP_TO_UNIX = 2_208_988_800;
 
@@ -77,21 +80,31 @@ export function parseIersBulletinC(text) {
   const lines = [];
   for (const m of xml.matchAll(/<UT\b[^>]*>([\s\S]*?)<\/UT>/g)) {
     const body = m[1];
-    const startDate = (body.match(/<startDate>\s*([^<]+?)\s*<\/startDate>/) || [])[1]?.trim() ?? null;
-    const utcTai = Number((body.match(/<UTC_TAI[^>]*>\s*(-?\d+(?:\.\d+)?)\s*<\/UTC_TAI>/) || [])[1]);
+    const startDate =
+      (body.match(/<startDate>\s*([^<]+?)\s*<\/startDate>/) || [])[1]?.trim() ??
+      null;
+    const utcTai = Number(
+      (body.match(/<UTC_TAI[^>]*>\s*(-?\d+(?:\.\d+)?)\s*<\/UTC_TAI>/) || [])[1],
+    );
     lines.push({ startDate, utcTai: Number.isFinite(utcTai) ? utcTai : null });
   }
   const bulletinMs = Date.parse(bulletinDate ?? '');
   const refMs = Number.isFinite(bulletinMs) ? bulletinMs : Date.now();
   const effective = lines.filter(
-    (l) => l.startDate && Number.isFinite(Date.parse(l.startDate)) && Date.parse(l.startDate) <= refMs,
+    (l) =>
+      l.startDate &&
+      Number.isFinite(Date.parse(l.startDate)) &&
+      Date.parse(l.startDate) <= refMs,
   );
   // The present offset is the latest line already in effect — NOT the last
   // line in the file, which may announce a FUTURE leap.
   const current = effective[effective.length - 1] ?? lines[0] ?? null;
   const taiMinusUtc = current?.utcTai != null ? -current.utcTai : null; // UTC_TAI is negative: −37 → TAI−UTC = 37
   const future = lines.filter(
-    (l) => l.startDate && Number.isFinite(Date.parse(l.startDate)) && Date.parse(l.startDate) > refMs,
+    (l) =>
+      l.startDate &&
+      Number.isFinite(Date.parse(l.startDate)) &&
+      Date.parse(l.startDate) > refMs,
   );
   const nextLeap = future.length
     ? {
@@ -140,7 +153,11 @@ export function parseIanaLeapSeconds(text, nowMs = Date.now()) {
     taiMinusUtc: last ? last.taiMinusUtc : null,
     lastLeapDate: last ? last.date : null,
     nextLeap: future.length
-      ? { date: future[0].date, taiMinusUtc: future[0].taiMinusUtc, announcedBy: 'iana-leap-seconds' }
+      ? {
+          date: future[0].date,
+          taiMinusUtc: future[0].taiMinusUtc,
+          announcedBy: 'iana-leap-seconds',
+        }
       : null,
     expiryMs,
     dataLines: dataLines.length,
@@ -171,14 +188,24 @@ export function parseIersBulletinCText(text) {
   // missing offset line silently parses as TAI−UTC = 0.
   if (utcTaiRaw == null) throw new Error('time_bulletinc_text_unparseable');
   const utcTai = Number(utcTaiRaw);
-  if (!Number.isFinite(utcTai)) throw new Error('time_bulletinc_text_unparseable');
+  if (!Number.isFinite(utcTai))
+    throw new Error('time_bulletinc_text_unparseable');
   const taiMinusUtc = -utcTai; // UTC-TAI = −37 → TAI−UTC = 37
-  const leapDate = pick(/[Aa] positive leap second will be introduced at the end of ([A-Za-z]+ \d{4})/);
+  const leapDate = pick(
+    /[Aa] positive leap second will be introduced at the end of ([A-Za-z]+ \d{4})/,
+  );
   const nextLeap = leapDate
-    ? { date: leapDate, taiMinusUtc: taiMinusUtc + 1, announcedBy: 'iers-bulletin-c-text' }
+    ? {
+        date: leapDate,
+        taiMinusUtc: taiMinusUtc + 1,
+        announcedBy: 'iers-bulletin-c-text',
+      }
     : null;
   return {
-    bulletinNumber: bulletinNumber != null && Number.isFinite(bulletinNumber) ? bulletinNumber : null,
+    bulletinNumber:
+      bulletinNumber != null && Number.isFinite(bulletinNumber)
+        ? bulletinNumber
+        : null,
     bulletinDate,
     taiMinusUtc,
     nextLeap,
@@ -210,9 +237,14 @@ export function parseEopC04Tail(text) {
     const ut1MinusUtc = Number(p[7]);
     const lodMs = Number(p[8]);
     if (
-      !Number.isInteger(year) || !Number.isInteger(month) || !Number.isInteger(day) ||
-      !Number.isFinite(mjd) || !Number.isFinite(xArcsec) || !Number.isFinite(yArcsec) ||
-      !Number.isFinite(ut1MinusUtc) || !Number.isFinite(lodMs)
+      !Number.isInteger(year) ||
+      !Number.isInteger(month) ||
+      !Number.isInteger(day) ||
+      !Number.isFinite(mjd) ||
+      !Number.isFinite(xArcsec) ||
+      !Number.isFinite(yArcsec) ||
+      !Number.isFinite(ut1MinusUtc) ||
+      !Number.isFinite(lodMs)
     ) {
       continue;
     }
@@ -249,7 +281,9 @@ export function parseNistServers(text) {
       .replace(/&gt;/g, '>')
       .trim();
   for (const m of html.matchAll(/<tr\b[^>]*>([\s\S]*?)<\/tr>/gi)) {
-    const cells = [...m[1].matchAll(/<td\b[^>]*>([\s\S]*?)<\/td>/gi)].map((c) => cellText(c[1]));
+    const cells = [...m[1].matchAll(/<td\b[^>]*>([\s\S]*?)<\/td>/gi)].map((c) =>
+      cellText(c[1]),
+    );
     if (cells.length < 4) continue;
     const [name, ip, location, status] = cells;
     if (!name || !/\./.test(name)) continue; // skips the header row and junk
@@ -259,7 +293,13 @@ export function parseNistServers(text) {
   return servers;
 }
 
-async function fetchText(fetchImpl, url, signal, timeoutMs = FETCH_TIMEOUT_MS, extraHeaders = {}) {
+async function fetchText(
+  fetchImpl,
+  url,
+  signal,
+  timeoutMs = FETCH_TIMEOUT_MS,
+  extraHeaders = {},
+) {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), timeoutMs);
   const onAbort = () => controller.abort();
@@ -268,7 +308,11 @@ async function fetchText(fetchImpl, url, signal, timeoutMs = FETCH_TIMEOUT_MS, e
     const res = await fetchImpl(url, {
       signal: controller.signal,
       redirect: 'follow',
-      headers: { 'User-Agent': UA, Accept: 'application/xml, text/plain, */*', ...extraHeaders },
+      headers: {
+        'User-Agent': UA,
+        Accept: 'application/xml, text/plain, */*',
+        ...extraHeaders,
+      },
     });
     if (!res.ok) throw new Error(`time_upstream_http_${res.status}`);
     return readResponseTextCapped(res, BODY_CAP); // string; throws when too large
@@ -278,7 +322,10 @@ async function fetchText(fetchImpl, url, signal, timeoutMs = FETCH_TIMEOUT_MS, e
   }
 }
 
-export async function buildTimeSnapshot({ fetchImpl = fetch, now = () => Date.now() } = {}) {
+export async function buildTimeSnapshot({
+  fetchImpl = fetch,
+  now = () => Date.now(),
+} = {}) {
   // Settle ONE source: captures fetch failures AND parser throws alike —
   // a parse error must degrade that source, never the whole snapshot.
   const settleParsed = (promise, parse) =>
@@ -294,10 +341,14 @@ export async function buildTimeSnapshot({ fetchImpl = fetch, now = () => Date.no
     );
   const settled = await Promise.all([
     settleParsed(fetchText(fetchImpl, IERS_URL, null), parseIersBulletinC),
-    settleParsed(fetchText(fetchImpl, IANA_URL, null), (text) => parseIanaLeapSeconds(text, now())),
+    settleParsed(fetchText(fetchImpl, IANA_URL, null), (text) =>
+      parseIanaLeapSeconds(text, now()),
+    ),
     // Wave C item 62 — additive sources; each degrades independently.
     settleParsed(
-      fetchText(fetchImpl, IERS_BULLETIN_C_TEXT_URL, null, FETCH_TIMEOUT_MS, { Accept: 'text/plain, */*' }),
+      fetchText(fetchImpl, IERS_BULLETIN_C_TEXT_URL, null, FETCH_TIMEOUT_MS, {
+        Accept: 'text/plain, */*',
+      }),
       parseIersBulletinCText,
     ),
     settleParsed(
@@ -308,7 +359,9 @@ export async function buildTimeSnapshot({ fetchImpl = fetch, now = () => Date.no
       parseEopC04Tail,
     ),
     settleParsed(
-      fetchText(fetchImpl, NIST_SERVERS_URL, null, FETCH_TIMEOUT_MS, { Accept: 'text/html, */*' }),
+      fetchText(fetchImpl, NIST_SERVERS_URL, null, FETCH_TIMEOUT_MS, {
+        Accept: 'text/html, */*',
+      }),
       parseNistServers,
     ),
   ]);
@@ -317,11 +370,12 @@ export async function buildTimeSnapshot({ fetchImpl = fetch, now = () => Date.no
   const ianaVal = iana.ok ? iana.parsed.taiMinusUtc : null;
   const agree = iersVal != null && ianaVal != null && iersVal === ianaVal;
   const taiMinusUtc = iersVal ?? ianaVal; // IERS is authoritative when they disagree
-  const nextLeap = iers.ok && iers.parsed.nextLeap
-    ? iers.parsed.nextLeap
-    : iana.ok
-      ? iana.parsed.nextLeap
-      : null;
+  const nextLeap =
+    iers.ok && iers.parsed.nextLeap
+      ? iers.parsed.nextLeap
+      : iana.ok
+        ? iana.parsed.nextLeap
+        : null;
   const sources = [
     {
       id: 'iers-bulletin-c',
@@ -347,9 +401,15 @@ export async function buildTimeSnapshot({ fetchImpl = fetch, now = () => Date.no
   const bulletinCText = {
     status: bulletinCTextRes.ok ? 'ok' : 'error',
     source: 'iers-bulletin-c-text',
-    bulletinNumber: bulletinCTextRes.ok ? bulletinCTextRes.parsed.bulletinNumber : null,
-    bulletinDate: bulletinCTextRes.ok ? bulletinCTextRes.parsed.bulletinDate : null,
-    taiMinusUtc: bulletinCTextRes.ok ? bulletinCTextRes.parsed.taiMinusUtc : null,
+    bulletinNumber: bulletinCTextRes.ok
+      ? bulletinCTextRes.parsed.bulletinNumber
+      : null,
+    bulletinDate: bulletinCTextRes.ok
+      ? bulletinCTextRes.parsed.bulletinDate
+      : null,
+    taiMinusUtc: bulletinCTextRes.ok
+      ? bulletinCTextRes.parsed.taiMinusUtc
+      : null,
     nextLeap: bulletinCTextRes.ok ? bulletinCTextRes.parsed.nextLeap : null,
     error: bulletinCTextRes.ok ? null : bulletinCTextRes.error,
   };
@@ -369,7 +429,9 @@ export async function buildTimeSnapshot({ fetchImpl = fetch, now = () => Date.no
         }
       : null,
     lagDays:
-      eopLagMs != null && Number.isFinite(eopLagMs) ? Math.max(0, Math.round(eopLagMs / 86_400_000)) : null,
+      eopLagMs != null && Number.isFinite(eopLagMs)
+        ? Math.max(0, Math.round(eopLagMs / 86_400_000))
+        : null,
     error: eopRes.ok ? null : eopRes.error,
   };
   const nistServers = nistRes.ok ? nistRes.parsed : [];
@@ -379,7 +441,11 @@ export async function buildTimeSnapshot({ fetchImpl = fetch, now = () => Date.no
     serverCount: nistServers.length,
     servers: nistServers,
     note: 'NIST ITS itself is NTP/Daytime-protocol, not HTTP — this is the public server directory.',
-    error: nistRes.ok ? (nistServers.length > 0 ? null : 'time_nist_no_servers') : nistRes.error,
+    error: nistRes.ok
+      ? nistServers.length > 0
+        ? null
+        : 'time_nist_no_servers'
+      : nistRes.error,
   };
 
   return {
@@ -387,9 +453,13 @@ export async function buildTimeSnapshot({ fetchImpl = fetch, now = () => Date.no
     generatedAt: new Date(now()).toISOString(),
     taiMinusUtc,
     nextLeap,
-    agreement: iers.ok && iana.ok ? (agree ? 'agree' : 'disagree') : 'single-source',
+    agreement:
+      iers.ok && iana.ok ? (agree ? 'agree' : 'disagree') : 'single-source',
     sources,
-    fileExpiry: iana.ok && iana.parsed.expiryMs ? new Date(iana.parsed.expiryMs).toISOString() : null,
+    fileExpiry:
+      iana.ok && iana.parsed.expiryMs
+        ? new Date(iana.parsed.expiryMs).toISOString()
+        : null,
     stale: false,
     unavailable,
     reason: unavailable
@@ -417,14 +487,17 @@ export function timeProxy({ fetchImpl = fetch, now = () => Date.now() } = {}) {
     }
     signal?.throwIfAborted?.();
     if (!inflight) {
-      if (now() - attemptedAt < RETRY_COOLDOWN_MS) throw new Error('time_retry_later');
+      if (now() - attemptedAt < RETRY_COOLDOWN_MS)
+        throw new Error('time_retry_later');
       attemptedAt = now();
       inflight = buildTimeSnapshot({ fetchImpl, now })
         .then((value) => {
           cache = { value, fetchedAt: now() };
           return { value, stale: false };
         })
-        .finally(() => { inflight = null; });
+        .finally(() => {
+          inflight = null;
+        });
     }
     if (!signal) return inflight;
     const cancelled = new Promise((_, reject) => {
@@ -442,11 +515,15 @@ export function timeProxy({ fetchImpl = fetch, now = () => Date.now() } = {}) {
     res.once?.('close', close);
     const json = (status, value) => {
       if (controller.signal.aborted) return;
-      res.writeHead(status, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
+      res.writeHead(status, {
+        'Content-Type': 'application/json',
+        'Cache-Control': 'no-store',
+      });
       res.end(JSON.stringify(value));
     };
     try {
-      if (req.method !== 'GET') return json(405, { error: 'method_not_allowed' });
+      if (req.method !== 'GET')
+        return json(405, { error: 'method_not_allowed' });
       try {
         const { value, stale } = await acquire(controller.signal);
         json(200, { ...value, stale });
@@ -455,7 +532,11 @@ export function timeProxy({ fetchImpl = fetch, now = () => Date.now() } = {}) {
         json(
           200,
           usable
-            ? { ...cache.value, stale: true, reason: 'Sources unreachable; showing last good reading.' }
+            ? {
+                ...cache.value,
+                stale: true,
+                reason: 'Sources unreachable; showing last good reading.',
+              }
             : {
                 schemaVersion: 1,
                 generatedAt: new Date(now()).toISOString(),
@@ -463,16 +544,45 @@ export function timeProxy({ fetchImpl = fetch, now = () => Date.now() } = {}) {
                 nextLeap: null,
                 agreement: 'none',
                 sources: [
-                  { id: 'iers-bulletin-c', name: 'IERS Bulletin C', status: 'error', taiMinusUtc: null },
-                  { id: 'iana-leap-seconds', name: 'IANA leap-seconds.list', status: 'error', taiMinusUtc: null },
+                  {
+                    id: 'iers-bulletin-c',
+                    name: 'IERS Bulletin C',
+                    status: 'error',
+                    taiMinusUtc: null,
+                  },
+                  {
+                    id: 'iana-leap-seconds',
+                    name: 'IANA leap-seconds.list',
+                    status: 'error',
+                    taiMinusUtc: null,
+                  },
                 ],
                 fileExpiry: null,
                 stale: false,
                 unavailable: true,
-                reason: 'Time-standard sources unreachable and no cached reading exists.',
-                bulletinCText: { status: 'error', source: 'iers-bulletin-c-text', taiMinusUtc: null, nextLeap: null, error: 'unreachable' },
-                eop: { status: 'error', source: 'iers-eop-c04', latest: null, lagDays: null, error: 'unreachable' },
-                nist: { status: 'error', source: 'nist-its-servers', serverCount: 0, servers: [], error: 'unreachable' },
+                reason:
+                  'Time-standard sources unreachable and no cached reading exists.',
+                bulletinCText: {
+                  status: 'error',
+                  source: 'iers-bulletin-c-text',
+                  taiMinusUtc: null,
+                  nextLeap: null,
+                  error: 'unreachable',
+                },
+                eop: {
+                  status: 'error',
+                  source: 'iers-eop-c04',
+                  latest: null,
+                  lagDays: null,
+                  error: 'unreachable',
+                },
+                nist: {
+                  status: 'error',
+                  source: 'nist-its-servers',
+                  serverCount: 0,
+                  servers: [],
+                  error: 'unreachable',
+                },
                 attribution:
                   'Leap-second data: IERS Bulletin C and IANA time-zones database. ' +
                   'Earth orientation: IERS EOP C04. NTP server directory: NIST Internet Time Service server list.',

@@ -20,14 +20,14 @@
  */
 
 const SHOWERS = [
-  { name: 'Quadrantids',    peak: '01-03', active: '12-28/01-12', zhr: 110 },
-  { name: 'Lyrids',         peak: '04-22', active: '04-16/04-25', zhr: 18 },
-  { name: 'Eta Aquariids',  peak: '05-06', active: '04-19/05-28', zhr: 50 },
-  { name: 'Perseids',       peak: '08-13', active: '07-17/08-24', zhr: 100 },
-  { name: 'Orionids',       peak: '10-21', active: '10-02/11-07', zhr: 20 },
-  { name: 'Leonids',        peak: '11-18', active: '11-06/11-30', zhr: 15 },
-  { name: 'Geminids',       peak: '12-14', active: '12-04/12-17', zhr: 120 },
-  { name: 'Ursids',         peak: '12-22', active: '12-17/12-26', zhr: 10 },
+  { name: 'Quadrantids', peak: '01-03', active: '12-28/01-12', zhr: 110 },
+  { name: 'Lyrids', peak: '04-22', active: '04-16/04-25', zhr: 18 },
+  { name: 'Eta Aquariids', peak: '05-06', active: '04-19/05-28', zhr: 50 },
+  { name: 'Perseids', peak: '08-13', active: '07-17/08-24', zhr: 100 },
+  { name: 'Orionids', peak: '10-21', active: '10-02/11-07', zhr: 20 },
+  { name: 'Leonids', peak: '11-18', active: '11-06/11-30', zhr: 15 },
+  { name: 'Geminids', peak: '12-14', active: '12-04/12-17', zhr: 120 },
+  { name: 'Ursids', peak: '12-22', active: '12-17/12-26', zhr: 10 },
 ];
 
 const DAY_MS = 86_400_000;
@@ -58,26 +58,36 @@ export function buildPayload(now = new Date()) {
     honesty: {
       kind: 'static calendar, not live observations',
       zhr: 'zenithal hourly rate at peak under ideal dark skies — not a nightly promise',
-      moonAndClouds: 'not modeled; a bright moon washes out all but the brightest meteors',
-      source: 'International Meteor Organization shower calendar (long-term values)',
+      moonAndClouds:
+        'not modeled; a bright moon washes out all but the brightest meteors',
+      source:
+        'International Meteor Organization shower calendar (long-term values)',
     },
   };
 }
 
 function sendJson(res, status, body, cache = 'public, max-age=86400') {
-  res.writeHead(status, { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': cache });
+  res.writeHead(status, {
+    'Content-Type': 'application/json; charset=utf-8',
+    'Cache-Control': cache,
+  });
   res.end(JSON.stringify(body));
 }
 
 async function handler(req, res) {
-  if (req.method !== 'GET') return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
+  if (req.method !== 'GET')
+    return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
   sendJson(res, 200, buildPayload());
 }
 
 export function meteorShowersProxy() {
   return {
     name: 'meteor-showers',
-    configureServer({ middlewares }) { middlewares.use('/api/meteor-showers', handler); },
-    configurePreviewServer({ middlewares }) { middlewares.use('/api/meteor-showers', handler); },
+    configureServer({ middlewares }) {
+      middlewares.use('/api/meteor-showers', handler);
+    },
+    configurePreviewServer({ middlewares }) {
+      middlewares.use('/api/meteor-showers', handler);
+    },
   };
 }

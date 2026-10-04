@@ -49,7 +49,9 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
 
     function render(reaches) {
       ds.entities.removeAll();
-      const nodes = orderRibbon(reaches.filter((r) => Number.isFinite(r.lat) && Number.isFinite(r.lon)));
+      const nodes = orderRibbon(
+        reaches.filter((r) => Number.isFinite(r.lat) && Number.isFinite(r.lon)),
+      );
       if (nodes.length >= 2) {
         const positions = nodes.map((n) =>
           Cesium.Cartesian3.fromDegrees(n.lon, n.lat, 800),
@@ -85,7 +87,10 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
             style: Cesium.LabelStyle.FILL_AND_OUTLINE,
             verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
             pixelOffset: new Cesium.Cartesian2(0, -14),
-            distanceDisplayCondition: new Cesium.DistanceDisplayCondition(0, 4_000_000),
+            distanceDisplayCondition: new Cesium.DistanceDisplayCondition(
+              0,
+              4_000_000,
+            ),
           }),
           description:
             `<b>${escapeHtml(n.name)}</b><br>` +
@@ -100,9 +105,17 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
     }
 
     function escapeHtml(s) {
-      return String(s).replace(/[&<>"']/g, (c) => ({
-        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
-      })[c]);
+      return String(s).replace(
+        /[&<>"']/g,
+        (c) =>
+          ({
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#39;',
+          })[c],
+      );
     }
 
     let statusEl = null;
@@ -129,7 +142,8 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
     if (mount && typeof chip === 'function') {
       try {
         statusEl = document.createElement('div');
-        statusEl.style.cssText = 'font-size:10px;color:#8aa4d6;margin:2px 0 4px;';
+        statusEl.style.cssText =
+          'font-size:10px;color:#8aa4d6;margin:2px 0 4px;';
         statusEl.textContent = 'loading NWM forecast…';
         mount.appendChild(statusEl);
         const apply = (on) => setEnabled(on);
@@ -139,14 +153,20 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
             disable: () => setEnabled(false),
           });
           mount.appendChild(
-            chip(T('feature.nwps') || 'Flood-wave forecast', (on) =>
-              on ? tracked.show() : tracked.hide(), false),
+            chip(
+              T('feature.nwps') || 'Flood-wave forecast',
+              (on) => (on ? tracked.show() : tracked.hide()),
+              false,
+            ),
           );
         } else {
-          mount.appendChild(chip(T('feature.nwps') || 'Flood-wave forecast', apply, false));
+          mount.appendChild(
+            chip(T('feature.nwps') || 'Flood-wave forecast', apply, false),
+          );
         }
         const legend = document.createElement('div');
-        legend.style.cssText = 'font-size:10px;color:#8aa4d6;margin-top:4px;line-height:1.5;';
+        legend.style.cssText =
+          'font-size:10px;color:#8aa4d6;margin-top:4px;line-height:1.5;';
         legend.innerHTML =
           '<span style="color:#ef4444">●</span> rising forecast · ' +
           '<span style="color:#cbd5e1">●</span> flat · ' +

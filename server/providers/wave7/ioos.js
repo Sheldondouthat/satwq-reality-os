@@ -145,8 +145,14 @@ function parseBbox(row) {
   const maxLat = numOrNull(row.maxLatitude);
   const minLon = numOrNull(row.minLongitude);
   const maxLon = numOrNull(row.maxLongitude);
-  if (minLat == null || maxLat == null || minLon == null || maxLon == null) return null;
-  return { minLat: round4(minLat), maxLat: round4(maxLat), minLon: round4(minLon), maxLon: round4(maxLon) };
+  if (minLat == null || maxLat == null || minLon == null || maxLon == null)
+    return null;
+  return {
+    minLat: round4(minLat),
+    maxLat: round4(maxLat),
+    minLon: round4(minLon),
+    maxLon: round4(maxLon),
+  };
 }
 
 function centerOf(row) {
@@ -170,7 +176,11 @@ export function latestTrackPoint(rows) {
     if (lat == null || lon == null) continue;
     if (lat < -90 || lat > 90 || lon < -180 || lon > 180) continue;
     bestMs = ms;
-    best = { time: new Date(ms).toISOString(), lat: round4(lat), lon: round4(lon) };
+    best = {
+      time: new Date(ms).toISOString(),
+      lat: round4(lat),
+      lon: round4(lon),
+    };
   }
   return best;
 }
@@ -181,7 +191,12 @@ export function latestTrackPoint(rows) {
  * ships _Lon0360/_LonPM180 longitude-convention variants). Keeps the row
  * with the latest maxTime per station key.
  */
-export function dedupeSensors(rows, nowMs, base = SENSORS_BASE, idNormalizer = null) {
+export function dedupeSensors(
+  rows,
+  nowMs,
+  base = SENSORS_BASE,
+  idNormalizer = null,
+) {
   const byStation = new Map();
   for (const row of rows ?? []) {
     const id = row?.datasetID != null ? String(row.datasetID) : null;
@@ -196,7 +211,10 @@ export function dedupeSensors(rows, nowMs, base = SENSORS_BASE, idNormalizer = n
         : `${String(row.title ?? '').slice(0, 80)}|${lat ?? '?'}|${lon ?? '?'}`;
     const maxTime = row?.maxTime != null ? String(row.maxTime) : null;
     const prior = byStation.get(key);
-    if (!prior || (maxTime != null && (prior.maxTime == null || maxTime > prior.maxTime))) {
+    if (
+      !prior ||
+      (maxTime != null && (prior.maxTime == null || maxTime > prior.maxTime))
+    ) {
       const maxMs = maxTime != null ? Date.parse(maxTime) : NaN;
       byStation.set(key, {
         datasetID: id,
@@ -205,7 +223,9 @@ export function dedupeSensors(rows, nowMs, base = SENSORS_BASE, idNormalizer = n
         maxTime,
         lat,
         lon,
-        isForecast: Number.isFinite(maxMs) ? maxMs > nowMs + FORECAST_SKEW_MS : null,
+        isForecast: Number.isFinite(maxMs)
+          ? maxMs > nowMs + FORECAST_SKEW_MS
+          : null,
         infoUrl: infoUrl(base, id),
       });
     }
@@ -227,10 +247,15 @@ async function fetchJsonCapped(url, capBytes, label) {
       headers: { 'User-Agent': USER_AGENT, Accept: 'application/json' },
     });
     if (!response.ok)
-      throw Object.assign(new Error(`ioos_${label}_upstream_${response.status}`), { status: 502 });
+      throw Object.assign(
+        new Error(`ioos_${label}_upstream_${response.status}`),
+        { status: 502 },
+      );
     const buffer = await response.arrayBuffer();
     if (buffer.byteLength > capBytes)
-      throw Object.assign(new Error(`ioos_${label}_upstream_too_large`), { status: 502 });
+      throw Object.assign(new Error(`ioos_${label}_upstream_too_large`), {
+        status: 502,
+      });
     return JSON.parse(new TextDecoder().decode(buffer));
   } finally {
     clearTimeout(timeout);
@@ -262,7 +287,11 @@ async function fetchGliders(nowMs) {
         infoUrl: infoUrl(GLIDER_BASE, datasetID),
       };
       try {
-        const trackDoc = await fetchJsonCapped(mission.trackUrl, TRACK_CAP_BYTES, 'gliders');
+        const trackDoc = await fetchJsonCapped(
+          mission.trackUrl,
+          TRACK_CAP_BYTES,
+          'gliders',
+        );
         mission.latest = latestTrackPoint(parseTabledap(trackDoc));
       } catch {
         mission.latest = null; // degraded, not fatal (noted in probe comments)
@@ -294,7 +323,12 @@ async function fetchSensors(nowMs) {
   const started = Date.now();
   try {
     const indexDoc = await fetchJsonCapped(
-      indexQueryUrl(SENSORS_BASE, SENSOR_WINDOW_DAYS, SENSOR_INDEX_LIMIT, nowMs),
+      indexQueryUrl(
+        SENSORS_BASE,
+        SENSOR_WINDOW_DAYS,
+        SENSOR_INDEX_LIMIT,
+        nowMs,
+      ),
       INDEX_CAP_BYTES,
       'sensors',
     );
@@ -331,12 +365,22 @@ async function fetchCoastwatch(nowMs) {
   const started = Date.now();
   try {
     const indexDoc = await fetchJsonCapped(
-      indexQueryUrl(COASTWATCH_BASE, COASTWATCH_WINDOW_DAYS, COASTWATCH_INDEX_LIMIT, nowMs),
+      indexQueryUrl(
+        COASTWATCH_BASE,
+        COASTWATCH_WINDOW_DAYS,
+        COASTWATCH_INDEX_LIMIT,
+        nowMs,
+      ),
       INDEX_CAP_BYTES,
       'coastwatch',
     );
     const rows = parseTabledap(indexDoc);
-    const datasets = dedupeSensors(rows, nowMs, COASTWATCH_BASE, coastwatchProductId);
+    const datasets = dedupeSensors(
+      rows,
+      nowMs,
+      COASTWATCH_BASE,
+      coastwatchProductId,
+    );
     return {
       ok: true,
       count: datasets.length,
@@ -360,7 +404,11 @@ async function fetchCoastwatch(nowMs) {
 
 function buildPayload(gliders, sensors, coastwatch, nowMs) {
   const sources = {};
-  for (const [key, r] of [['gliders', gliders], ['sensors', sensors], ['coastwatch', coastwatch]]) {
+  for (const [key, r] of [
+    ['gliders', gliders],
+    ['sensors', sensors],
+    ['coastwatch', coastwatch],
+  ]) {
     sources[key] = {
       ok: r.ok,
       count: r.count,
@@ -371,21 +419,40 @@ function buildPayload(gliders, sensors, coastwatch, nowMs) {
   }
   return {
     generatedAt: new Date().toISOString(),
-    windowDays: { gliders: GLIDER_WINDOW_DAYS, sensors: SENSOR_WINDOW_DAYS, coastwatch: COASTWATCH_WINDOW_DAYS },
+    windowDays: {
+      gliders: GLIDER_WINDOW_DAYS,
+      sensors: SENSOR_WINDOW_DAYS,
+      coastwatch: COASTWATCH_WINDOW_DAYS,
+    },
     gliders: {
-      indexUrl: indexQueryUrl(GLIDER_BASE, GLIDER_WINDOW_DAYS, GLIDER_INDEX_LIMIT, nowMs),
+      indexUrl: indexQueryUrl(
+        GLIDER_BASE,
+        GLIDER_WINDOW_DAYS,
+        GLIDER_INDEX_LIMIT,
+        nowMs,
+      ),
       activeMissions: gliders.count,
       indexRows: gliders.indexRows,
       missions: gliders.missions,
     },
     sensors: {
-      indexUrl: indexQueryUrl(SENSORS_BASE, SENSOR_WINDOW_DAYS, SENSOR_INDEX_LIMIT, nowMs),
+      indexUrl: indexQueryUrl(
+        SENSORS_BASE,
+        SENSOR_WINDOW_DAYS,
+        SENSOR_INDEX_LIMIT,
+        nowMs,
+      ),
       activeDatasets: sensors.count,
       indexRows: sensors.indexRows,
       datasets: sensors.datasets,
     },
     coastwatch: {
-      indexUrl: indexQueryUrl(COASTWATCH_BASE, COASTWATCH_WINDOW_DAYS, COASTWATCH_INDEX_LIMIT, nowMs),
+      indexUrl: indexQueryUrl(
+        COASTWATCH_BASE,
+        COASTWATCH_WINDOW_DAYS,
+        COASTWATCH_INDEX_LIMIT,
+        nowMs,
+      ),
       activeProducts: coastwatch.count,
       indexRows: coastwatch.indexRows,
       products: coastwatch.datasets,
@@ -439,7 +506,8 @@ function sendJson(res, status, body, cacheControl = 'public, max-age=600') {
 /** Mount the IOOS glider + sensor ERDDAP proxy. */
 export function ioosProxy({ now = () => Date.now() } = {}) {
   async function handler(req, res) {
-    if (req.method !== 'GET') return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
     try {
       sendJson(res, 200, await getSnapshot(now()));
     } catch (error) {

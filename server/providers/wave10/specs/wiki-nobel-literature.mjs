@@ -4,31 +4,31 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 9 (wikidata2 worker)).
  */
 export const SPEC = {
-  "id": "wiki-nobel-literature",
-  "title": "Wikidata — Nobel Prize in Literature laureates",
-  "url": "https://query.wikidata.org/sparql?format=json&query=SELECT%20%3Fperson%20%3FpersonLabel%20%3Fyear%20WHERE%20%7B%20%3Fperson%20wdt%3AP166%20wd%3AQ37922.%20OPTIONAL%20%7B%20%3Fperson%20p%3AP166%20%3Fst.%20%3Fst%20ps%3AP166%20wd%3AQ37922%3B%20pq%3AP585%20%3Fyear.%20%7D%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22en%22.%20%7D%20%7D%20ORDER%20BY%20DESC%28%3Fyear%29%20LIMIT%2050",
-  "headers": {
-    "User-Agent": "satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)"
+  id: 'wiki-nobel-literature',
+  title: 'Wikidata — Nobel Prize in Literature laureates',
+  url: 'https://query.wikidata.org/sparql?format=json&query=SELECT%20%3Fperson%20%3FpersonLabel%20%3Fyear%20WHERE%20%7B%20%3Fperson%20wdt%3AP166%20wd%3AQ37922.%20OPTIONAL%20%7B%20%3Fperson%20p%3AP166%20%3Fst.%20%3Fst%20ps%3AP166%20wd%3AQ37922%3B%20pq%3AP585%20%3Fyear.%20%7D%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22en%22.%20%7D%20%7D%20ORDER%20BY%20DESC%28%3Fyear%29%20LIMIT%2050',
+  headers: {
+    'User-Agent':
+      'satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)',
   },
-  "ttlSeconds": 86400,
-  "timeoutMs": 60000,
-  "extract": {
-    "items": "$.results.bindings",
-    "limit": 50,
-    "map": {
-      "name": "$.personLabel.value",
-      "year": "$.year.value",
-      "wikidata": "$.person.value"
+  ttlSeconds: 86400,
+  timeoutMs: 60000,
+  extract: {
+    items: '$.results.bindings',
+    limit: 50,
+    map: {
+      name: '$.personLabel.value',
+      year: '$.year.value',
+      wikidata: '$.person.value',
     },
-    "numbers": []
+    numbers: [],
   },
-  "required": [
-    "name"
-  ],
-  "source": "Wikidata",
-  "attribution": "Data: Wikidata Query Service — keyless, CC0.",
-  "units": {},
-  "honesty": "Recipients of the Nobel Prize in Literature, most recent first. Prize item Q37922 verified live via wbsearchentities. Year from the award statement's point-in-time qualifier. 50 bindings verified 2026-10-02.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 9 (wikidata2 worker)"
+  required: ['name'],
+  source: 'Wikidata',
+  attribution: 'Data: Wikidata Query Service — keyless, CC0.',
+  units: {},
+  honesty:
+    "Recipients of the Nobel Prize in Literature, most recent first. Prize item Q37922 verified live via wbsearchentities. Year from the award statement's point-in-time qualifier. 50 bindings verified 2026-10-02.",
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 9 (wikidata2 worker)',
 };

@@ -19,7 +19,8 @@
 import { readResponseJsonCapped } from '../common/http.js';
 
 const UPSTREAM = 'https://kauai.ccmc.gsfc.nasa.gov/DONKI/WS/get';
-const USER_AGENT = 'satwq-reality-os/1.0 (NASA DONKI public via CCMC; contact via repo)';
+const USER_AGENT =
+  'satwq-reality-os/1.0 (NASA DONKI public via CCMC; contact via repo)';
 
 const TYPES = ['CME', 'FLR', 'GST', 'SEP'];
 const CACHE_TTL_MS = 30 * 60_000; // DONKI updates a few times per day
@@ -33,7 +34,8 @@ const AU_KM = 149_597_870.7;
 /** Validate the event type. */
 export function parseType(raw) {
   const t = (raw ?? 'CME').trim().toUpperCase();
-  if (!TYPES.includes(t)) throw Object.assign(new Error('donki_bad_type'), { status: 400 });
+  if (!TYPES.includes(t))
+    throw Object.assign(new Error('donki_bad_type'), { status: 400 });
   return t;
 }
 
@@ -164,7 +166,10 @@ const PARSERS = { CME: parseCme, FLR: parseFlr, GST: parseGst, SEP: parseSep };
 export function parseDonkiPayload(doc, type, { maxEvents = MAX_EVENTS } = {}) {
   if (!Array.isArray(doc)) throw new Error('donki_unexpected_shape');
   const parse = PARSERS[type];
-  return doc.slice(0, maxEvents).map(parse).filter((e) => e && e.id);
+  return doc
+    .slice(0, maxEvents)
+    .map(parse)
+    .filter((e) => e && e.id);
 }
 
 function describe(value, { stale = false, reason = null } = {}) {
@@ -218,7 +223,8 @@ export function donkiProxy({
   async function acquire(type, days, signal) {
     const key = `${type}|${days}`;
     const hit = cache.get(key);
-    if (hit && now() - hit.fetchedAt < CACHE_TTL_MS) return { value: hit.value, stale: false };
+    if (hit && now() - hit.fetchedAt < CACHE_TTL_MS)
+      return { value: hit.value, stale: false };
     signal.throwIfAborted();
     let op = inflight.get(key);
     if (!op) {
@@ -255,11 +261,15 @@ export function donkiProxy({
     res.once?.('close', close);
     const json = (status, value) => {
       if (controller.signal.aborted) return;
-      res.writeHead(status, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
+      res.writeHead(status, {
+        'Content-Type': 'application/json',
+        'Cache-Control': 'no-store',
+      });
       res.end(JSON.stringify(value));
     };
     try {
-      if (req.method !== 'GET') return json(405, { error: 'method_not_allowed' });
+      if (req.method !== 'GET')
+        return json(405, { error: 'method_not_allowed' });
       const query = new URL(req.url, 'http://localhost').searchParams;
       let type;
       let days;
@@ -279,8 +289,13 @@ export function donkiProxy({
         json(
           200,
           usable
-            ? describe(hit.value, { stale: true, reason: 'DONKI unreachable; showing last sweep.' })
-            : describe(null, { reason: 'NASA DONKI unreachable and no cached sweep exists.' }),
+            ? describe(hit.value, {
+                stale: true,
+                reason: 'DONKI unreachable; showing last sweep.',
+              })
+            : describe(null, {
+                reason: 'NASA DONKI unreachable and no cached sweep exists.',
+              }),
         );
       }
     } finally {

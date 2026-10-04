@@ -39,7 +39,8 @@
 const MAPOTIC_BASE = 'https://www.mapotic.com/api/v1';
 const MAP_ID = 3413;
 const ROSTER_URL = `${MAPOTIC_BASE}/maps/${MAP_ID}/pois.geojson/`;
-const motionUrl = (poiId) => `${MAPOTIC_BASE}/maps/${MAP_ID}/pois/${poiId}/motion/with-meta/`;
+const motionUrl = (poiId) =>
+  `${MAPOTIC_BASE}/maps/${MAP_ID}/pois/${poiId}/motion/with-meta/`;
 export { motionUrl };
 const UPSTREAM_TIMEOUT_MS = 20_000;
 const ROSTER_BODY_CAP_BYTES = 1024 * 1024; // observed 434 KB; headroom
@@ -52,7 +53,8 @@ const MAX_N = 24;
 const PING_CAP = 80; // newest pings kept per animal (track shape, not all 1,244)
 const FRESH_AGE_DAYS = 30; // pings can be months apart; ≤30d counts "fresh"
 const SHARK_RE = /shark|mako|hammerhead/i; // roster species filter (turtles excluded)
-const USER_AGENT = 'satwq-reality-os/1.0 (gods-eye-view; ocearch layer; keyless)';
+const USER_AGENT =
+  'satwq-reality-os/1.0 (gods-eye-view; ocearch layer; keyless)';
 
 /** Number(null)===0 guard: null/NaN/empty upstream numerics become null, never 0. */
 export function numOrNull(v) {
@@ -72,15 +74,18 @@ const ANIMAL_ID_RE = /^\d{1,12}$/;
 export function parseQuery(query) {
   const rawAnimal = query.get('animal');
   if (rawAnimal != null && rawAnimal !== '') {
-    if (!ANIMAL_ID_RE.test(rawAnimal)) throw Object.assign(new Error('ocearch_bad_animal'), { status: 400 });
+    if (!ANIMAL_ID_RE.test(rawAnimal))
+      throw Object.assign(new Error('ocearch_bad_animal'), { status: 400 });
     return { mode: 'animal', animalId: Number(rawAnimal) };
   }
   const rawN = query.get('n');
   let n = DEFAULT_N;
   if (rawN != null && rawN !== '') {
-    if (!/^\d{1,3}$/.test(rawN)) throw Object.assign(new Error('ocearch_bad_n'), { status: 400 });
+    if (!/^\d{1,3}$/.test(rawN))
+      throw Object.assign(new Error('ocearch_bad_n'), { status: 400 });
     n = Number(rawN);
-    if (n < 1 || n > MAX_N) throw Object.assign(new Error('ocearch_bad_n'), { status: 400 });
+    if (n < 1 || n > MAX_N)
+      throw Object.assign(new Error('ocearch_bad_n'), { status: 400 });
   }
   return { mode: 'top', n };
 }
@@ -105,7 +110,11 @@ export function selectTopSharks(rosterJson, n) {
     if (!p.last_move_datetime) continue;
     rows.push(f);
   }
-  rows.sort((a, b) => String(b.properties.last_move_datetime).localeCompare(String(a.properties.last_move_datetime)));
+  rows.sort((a, b) =>
+    String(b.properties.last_move_datetime).localeCompare(
+      String(a.properties.last_move_datetime),
+    ),
+  );
   return rows.slice(0, n);
 }
 
@@ -157,21 +166,36 @@ export function ageDays(isoTime, nowMs = Date.now()) {
  * the motion fetch failed or parsed empty (the roster geometry point is
  * OCEARCH's own latest fix — a real coordinate, not a synthesis).
  */
-export function buildAnimalRow(feature, pings, trackSource, nowMs = Date.now()) {
+export function buildAnimalRow(
+  feature,
+  pings,
+  trackSource,
+  nowMs = Date.now(),
+) {
   const p = feature.properties || {};
   const coords = feature?.geometry?.coordinates;
   const rosterLat = numOrNull(coords?.[1]);
   const rosterLon = numOrNull(coords?.[0]);
   let finalPings = pings;
   let finalSource = trackSource;
-  if (finalPings.length === 0 && rosterLat != null && rosterLon != null && p.last_move_datetime) {
-    finalPings = [{ time: p.last_move_datetime, lat: rosterLat, lon: rosterLon }];
+  if (
+    finalPings.length === 0 &&
+    rosterLat != null &&
+    rosterLon != null &&
+    p.last_move_datetime
+  ) {
+    finalPings = [
+      { time: p.last_move_datetime, lat: rosterLat, lon: rosterLon },
+    ];
     finalSource = 'roster-point';
   }
   const last = finalPings.length ? finalPings[finalPings.length - 1] : null;
   const first = finalPings.length ? finalPings[0] : null;
   const pingAge = last ? ageDays(last.time, nowMs) : null;
-  const spanDays = last && first ? ageDays(first.time, nowMs) - ageDays(last.time, nowMs) : null;
+  const spanDays =
+    last && first
+      ? ageDays(first.time, nowMs) - ageDays(last.time, nowMs)
+      : null;
   return {
     id: numOrNull(p.id),
     name: typeof p.name === 'string' ? p.name : null,
@@ -192,7 +216,8 @@ export function buildAnimalRow(feature, pings, trackSource, nowMs = Date.now()) 
     lastPingAgeDays: pingAge == null ? null : Math.round(pingAge * 10) / 10,
     fresh: pingAge != null && pingAge <= FRESH_AGE_DAYS,
     firstPing: first ? first.time : null,
-    spanDays: spanDays == null ? null : Math.round(Math.max(0, spanDays) * 10) / 10,
+    spanDays:
+      spanDays == null ? null : Math.round(Math.max(0, spanDays) * 10) / 10,
     pingCount: finalPings.length,
     pings: finalPings,
   };
@@ -203,14 +228,20 @@ export function buildPayload(animals, rosterSharkCount, stale) {
   const ok = animals.filter((a) => a.ok);
   let freshestPing = null;
   for (const a of ok) {
-    if (a.lastPing && (freshestPing == null || a.lastPing > freshestPing)) freshestPing = a.lastPing;
+    if (a.lastPing && (freshestPing == null || a.lastPing > freshestPing))
+      freshestPing = a.lastPing;
   }
   return {
     generatedAt: new Date().toISOString(),
     stale: Boolean(stale),
-    source: 'OCEARCH Global Shark Tracker — SPOT-tag surfacing pings, via the public Mapotic map 3413 JSON endpoints (keyless)',
-    attribution: 'Data: OCEARCH (nonprofit research organization); SPOT tags transmit a locating ping when the tagged fin breaks the surface. Map hosting: Mapotic.',
-    units: { position: 'lat/lon decimal degrees (WGS84)', time: 'ISO 8601 UTC' },
+    source:
+      'OCEARCH Global Shark Tracker — SPOT-tag surfacing pings, via the public Mapotic map 3413 JSON endpoints (keyless)',
+    attribution:
+      'Data: OCEARCH (nonprofit research organization); SPOT tags transmit a locating ping when the tagged fin breaks the surface. Map hosting: Mapotic.',
+    units: {
+      position: 'lat/lon decimal degrees (WGS84)',
+      time: 'ISO 8601 UTC',
+    },
     summary: {
       animals: animals.length,
       ok: ok.length,
@@ -221,12 +252,17 @@ export function buildPayload(animals, rosterSharkCount, stale) {
     },
     animals,
     honesty: {
-      spotPings: 'A ping exists only when the tagged fin stayed above the surface long enough for the SPOT tag to transmit; months between location pings are normal — it is not a continuous GPS trail.',
-      zping: 'A z-ping means the tag broke the surface but not long enough for a GPS fix — it carries NO location and is never counted as a position. The zping flag/datetime is surfaced from the roster as OCEARCH labels it.',
-      straightLines: 'Consecutive pings are joined by straight segments; that line is NOT the animal\u2019s true path — anything can happen between two pings.',
+      spotPings:
+        'A ping exists only when the tagged fin stayed above the surface long enough for the SPOT tag to transmit; months between location pings are normal — it is not a continuous GPS trail.',
+      zping:
+        'A z-ping means the tag broke the surface but not long enough for a GPS fix — it carries NO location and is never counted as a position. The zping flag/datetime is surfaced from the roster as OCEARCH labels it.',
+      straightLines:
+        'Consecutive pings are joined by straight segments; that line is NOT the animal\u2019s true path — anything can happen between two pings.',
       pingsCapped: `Per-animal tracks keep only the newest ${PING_CAP} pings (an active shark can carry 1,000+); pingCount is the capped count.`,
-      sharksOnly: 'The Mapotic roster also tracks sea turtles; this layer is sharks-only by scope (species matching shark/mako/hammerhead) — turtles are excluded here, not absent upstream.',
-      trackSource: '"motion" rows come from the per-animal track endpoint; "roster-point" rows are OCEARCH\u2019s own latest fix from the roster geometry (real coordinate, shown when the track fetch failed).',
+      sharksOnly:
+        'The Mapotic roster also tracks sea turtles; this layer is sharks-only by scope (species matching shark/mako/hammerhead) — turtles are excluded here, not absent upstream.',
+      trackSource:
+        '"motion" rows come from the per-animal track endpoint; "roster-point" rows are OCEARCH\u2019s own latest fix from the roster geometry (real coordinate, shown when the track fetch failed).',
     },
   };
 }
@@ -245,15 +281,22 @@ async function fetchTextCapped(url, capBytes) {
       headers: { 'User-Agent': USER_AGENT, Accept: 'application/json' },
     });
     if (!response.ok) {
-      throw Object.assign(new Error(`ocearch_upstream_${response.status}`), { status: 502 });
+      throw Object.assign(new Error(`ocearch_upstream_${response.status}`), {
+        status: 502,
+      });
     }
     const buffer = await response.arrayBuffer();
     if (buffer.byteLength > capBytes)
-      throw Object.assign(new Error('ocearch_upstream_too_large'), { status: 502 });
+      throw Object.assign(new Error('ocearch_upstream_too_large'), {
+        status: 502,
+      });
     return new TextDecoder().decode(buffer);
   } catch (error) {
     if (error?.status === 502) throw error;
-    throw Object.assign(new Error(`ocearch_fetch_failed: ${error?.message ?? 'unknown'}`), { status: 502 });
+    throw Object.assign(
+      new Error(`ocearch_fetch_failed: ${error?.message ?? 'unknown'}`),
+      { status: 502 },
+    );
   } finally {
     clearTimeout(timeout);
   }
@@ -264,7 +307,9 @@ async function fetchJson(url, capBytes) {
   try {
     return JSON.parse(text);
   } catch {
-    throw Object.assign(new Error('ocearch_upstream_bad_json'), { status: 502 });
+    throw Object.assign(new Error('ocearch_upstream_bad_json'), {
+      status: 502,
+    });
   }
 }
 
@@ -302,10 +347,15 @@ async function getPayload(sel) {
   const key = queryKey(sel);
   const now = Date.now();
   const hit = payloadCache.get(key);
-  if (hit && now - hit.at < CACHE_TTL_MS) return { payload: hit.payload, stale: false };
+  if (hit && now - hit.at < CACHE_TTL_MS)
+    return { payload: hit.payload, stale: false };
   let op = inflight.get(key);
   if (!op) {
-    if (now - docFailedAt < RETRY_COOLDOWN_MS && hit && now - hit.at < STALE_MS) {
+    if (
+      now - docFailedAt < RETRY_COOLDOWN_MS &&
+      hit &&
+      now - hit.at < STALE_MS
+    ) {
       return { payload: hit.payload, stale: true };
     }
     op = (async () => {
@@ -327,11 +377,15 @@ async function getPayload(sel) {
       const okCount = animals.filter((a) => a.ok).length;
       if (okCount === 0) {
         docFailedAt = Date.now();
-        if (hit && now - hit.at < STALE_MS) return { payload: hit.payload, stale: true };
-        throw Object.assign(new Error('ocearch_all_upstreams_failed'), { status: 502 });
+        if (hit && now - hit.at < STALE_MS)
+          return { payload: hit.payload, stale: true };
+        throw Object.assign(new Error('ocearch_all_upstreams_failed'), {
+          status: 502,
+        });
       }
       const payload = buildPayload(animals, sharksInMap, false);
-      if (payloadCache.size >= PAYLOAD_CACHE_MAX) payloadCache.delete(payloadCache.keys().next().value);
+      if (payloadCache.size >= PAYLOAD_CACHE_MAX)
+        payloadCache.delete(payloadCache.keys().next().value);
       payloadCache.set(key, { at: Date.now(), payload });
       return { payload, stale: false };
     })().finally(() => inflight.delete(key));
@@ -351,25 +405,48 @@ function sendJson(res, status, body, cacheControl = 'public, max-age=21600') {
 /** Mount the wave-9 OCEARCH shark-tracker proxy. */
 export function ocearchProxy() {
   async function handler(req, res) {
-    if (req.method !== 'GET') return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
     let sel;
     try {
       sel = parseQuery(new URL(req.url, 'http://localhost').searchParams);
     } catch (error) {
-      return sendJson(res, error.status ?? 400, { error: error.message }, 'no-store');
+      return sendJson(
+        res,
+        error.status ?? 400,
+        { error: error.message },
+        'no-store',
+      );
     }
     try {
       const { payload, stale, notFound, animalId } = await getPayload(sel);
       if (notFound) {
-        return sendJson(res, 200, { generatedAt: new Date().toISOString(), requestedNotFound: true, animal: animalId }, 'no-store');
+        return sendJson(
+          res,
+          200,
+          {
+            generatedAt: new Date().toISOString(),
+            requestedNotFound: true,
+            animal: animalId,
+          },
+          'no-store',
+        );
       }
       sendJson(res, 200, stale ? { ...payload, stale: true } : payload);
     } catch (error) {
-      const upstreamFail = error?.status === 502 || error?.name === 'AbortError' || /aborted?/i.test(error?.message ?? '');
-      sendJson(res, upstreamFail ? 502 : 500, {
-        error: 'ocearch_unavailable',
-        detail: error?.message ?? 'unknown',
-      }, 'no-store');
+      const upstreamFail =
+        error?.status === 502 ||
+        error?.name === 'AbortError' ||
+        /aborted?/i.test(error?.message ?? '');
+      sendJson(
+        res,
+        upstreamFail ? 502 : 500,
+        {
+          error: 'ocearch_unavailable',
+          detail: error?.message ?? 'unknown',
+        },
+        'no-store',
+      );
     }
   }
 
@@ -395,5 +472,9 @@ export const _ocearchInternals = {
   buildPayload,
   motionUrl,
   ROSTER_URL,
-  clearCaches: () => { payloadCache.clear(); inflight.clear(); docFailedAt = -Infinity; },
+  clearCaches: () => {
+    payloadCache.clear();
+    inflight.clear();
+    docFailedAt = -Infinity;
+  },
 };

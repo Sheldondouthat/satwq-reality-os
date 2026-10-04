@@ -4,35 +4,33 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 9 (wikidata2 worker)).
  */
 export const SPEC = {
-  "id": "wiki-largest-countries-area",
-  "title": "Wikidata — Countries by land area",
-  "url": "https://query.wikidata.org/sparql?format=json&query=SELECT%20%3Fitem%20%3FitemLabel%20%3Farea%20WHERE%20%7B%20%7B%20SELECT%20%3Fitem%20%28MAX%28%3Fa%29%20AS%20%3Farea%29%20WHERE%20%7B%20%3Fitem%20wdt%3AP31%20wd%3AQ6256%3B%20wdt%3AP2046%20%3Fa.%20FILTER%20NOT%20EXISTS%20%7B%20%3Fitem%20wdt%3AP576%20%5B%5D.%20%7D%20%7D%20GROUP%20BY%20%3Fitem%20%7D%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22en%22.%20%7D%20%7D%20ORDER%20BY%20DESC%28%3Farea%29%20LIMIT%2050",
-  "headers": {
-    "User-Agent": "satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)"
+  id: 'wiki-largest-countries-area',
+  title: 'Wikidata — Countries by land area',
+  url: 'https://query.wikidata.org/sparql?format=json&query=SELECT%20%3Fitem%20%3FitemLabel%20%3Farea%20WHERE%20%7B%20%7B%20SELECT%20%3Fitem%20%28MAX%28%3Fa%29%20AS%20%3Farea%29%20WHERE%20%7B%20%3Fitem%20wdt%3AP31%20wd%3AQ6256%3B%20wdt%3AP2046%20%3Fa.%20FILTER%20NOT%20EXISTS%20%7B%20%3Fitem%20wdt%3AP576%20%5B%5D.%20%7D%20%7D%20GROUP%20BY%20%3Fitem%20%7D%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22en%22.%20%7D%20%7D%20ORDER%20BY%20DESC%28%3Farea%29%20LIMIT%2050',
+  headers: {
+    'User-Agent':
+      'satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)',
   },
-  "ttlSeconds": 86400,
-  "timeoutMs": 60000,
-  "extract": {
-    "items": "$.results.bindings",
-    "limit": 50,
-    "map": {
-      "name": "$.itemLabel.value",
-      "area_km2": "$.area.value",
-      "wikidata": "$.item.value"
+  ttlSeconds: 86400,
+  timeoutMs: 60000,
+  extract: {
+    items: '$.results.bindings',
+    limit: 50,
+    map: {
+      name: '$.itemLabel.value',
+      area_km2: '$.area.value',
+      wikidata: '$.item.value',
     },
-    "numbers": [
-      "area_km2"
-    ]
+    numbers: ['area_km2'],
   },
-  "required": [
-    "name"
-  ],
-  "source": "Wikidata",
-  "attribution": "Data: Wikidata Query Service — keyless, CC0.",
-  "units": {
-    "area_km2": "km²"
+  required: ['name'],
+  source: 'Wikidata',
+  attribution: 'Data: Wikidata Query Service — keyless, CC0.',
+  units: {
+    area_km2: 'km²',
   },
-  "honesty": "Currently existing countries ranked by area, Russia #1 at 17,075,400 km². Dissolved/historical states excluded via no-dissolution-date filter (the naive query included the Abbasid Caliphate). One row per country via MAX. 50 bindings verified 2026-10-02.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 9 (wikidata2 worker)"
+  honesty:
+    'Currently existing countries ranked by area, Russia #1 at 17,075,400 km². Dissolved/historical states excluded via no-dissolution-date filter (the naive query included the Abbasid Caliphate). One row per country via MAX. 50 bindings verified 2026-10-02.',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 9 (wikidata2 worker)',
 };

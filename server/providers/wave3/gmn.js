@@ -15,7 +15,8 @@ import { createKeylessProxy, fetchUpstreamText } from './lib/proxy.js';
 
 const URL =
   'https://globalmeteornetwork.org/data/traj_summary_data/daily/traj_summary_latest_daily.txt';
-const USER_AGENT = 'SATWQ-RealityOS/1.0 (GMN public data; keyless; contact via repo)';
+const USER_AGENT =
+  'SATWQ-RealityOS/1.0 (GMN public data; keyless; contact via repo)';
 
 const CACHE_TTL_MS = 6 * 60 * 60_000;
 const STALE_MS = 24 * 60 * 60_000;
@@ -35,9 +36,10 @@ const F_MASS = 79;
 
 /** Parse "YYYY-MM-DD HH:MM:SS.ffffff" as UTC ms. Exported for tests. */
 export function parseGmnUtc(s) {
-  const m = /^(\d{4})-(\d{2})-(\d{2})[ T](\d{2}):(\d{2}):(\d{2})(?:\.(\d+))?/.exec(
-    String(s ?? '').trim(),
-  );
+  const m =
+    /^(\d{4})-(\d{2})-(\d{2})[ T](\d{2}):(\d{2}):(\d{2})(?:\.(\d+))?/.exec(
+      String(s ?? '').trim(),
+    );
   if (!m) return null;
   const ms = m[7] ? Math.round(Number(`0.${m[7]}`) * 1000) : 0;
   return Date.UTC(+m[1], +m[2] - 1, +m[3], +m[4], +m[5], +m[6], ms);
@@ -60,7 +62,10 @@ export function normalizeGmnRow(fields) {
   const vInit = Number.isFinite(+fields[F_VINIT]) ? +fields[F_VINIT] : null;
   const massKg = Number.isFinite(+fields[F_MASS]) ? +fields[F_MASS] : null;
   return {
-    id: String(fields[F_ID] ?? '').trim().slice(0, 64) || null,
+    id:
+      String(fields[F_ID] ?? '')
+        .trim()
+        .slice(0, 64) || null,
     timeMs,
     latBeg: Math.round(latBeg * 1e4) / 1e4,
     lonBeg: Math.round(lonBeg * 1e4) / 1e4,

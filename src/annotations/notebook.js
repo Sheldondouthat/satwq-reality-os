@@ -36,7 +36,10 @@ function sanitizePin(raw) {
   const createdAt = Number.isFinite(raw?.createdAt) ? raw.createdAt : now();
   const updatedAt = Number.isFinite(raw?.updatedAt) ? raw.updatedAt : createdAt;
   return {
-    id: typeof raw?.id === 'string' && raw.id ? String(raw.id).slice(0, 64) : uid(),
+    id:
+      typeof raw?.id === 'string' && raw.id
+        ? String(raw.id).slice(0, 64)
+        : uid(),
     lat,
     lon,
     title,
@@ -59,14 +62,21 @@ export function createMemoryBackend(seed = []) {
     add: (pin) => {
       const clean = sanitizePin(pin);
       if (!clean) throw new Error('notebook: invalid pin');
-      if (pins.size >= NOTEBOOK_MAX_PINS) throw new Error('notebook: pin limit reached');
+      if (pins.size >= NOTEBOOK_MAX_PINS)
+        throw new Error('notebook: pin limit reached');
       pins.set(clean.id, clean);
       return clean;
     },
     update: (id, patch) => {
       const prev = pins.get(id);
       if (!prev) return null;
-      const clean = sanitizePin({ ...prev, ...patch, id, createdAt: prev.createdAt, updatedAt: now() });
+      const clean = sanitizePin({
+        ...prev,
+        ...patch,
+        id,
+        createdAt: prev.createdAt,
+        updatedAt: now(),
+      });
       if (!clean) return null; // invalid patch: no change, not an exception
       pins.set(id, clean);
       return clean;
@@ -85,7 +95,9 @@ export function createLocalStorageBackend({
 } = {}) {
   const store =
     storage ??
-    (typeof globalThis.localStorage !== 'undefined' ? globalThis.localStorage : null);
+    (typeof globalThis.localStorage !== 'undefined'
+      ? globalThis.localStorage
+      : null);
   if (!store) return createMemoryBackend(); // honest fallback: no persistence
   const read = () => {
     let raw = null;
@@ -172,7 +184,9 @@ export function backendFromAsync(asyncBackend) {
       });
   };
   const flush = (op, ...args) =>
-    hydrate().then(() => asyncBackend[op](...args)).catch(() => null);
+    hydrate()
+      .then(() => asyncBackend[op](...args))
+      .catch(() => null);
   hydrate();
   return {
     list: cache.list,
@@ -208,7 +222,9 @@ export function createNotebook({ backend = createLocalStorageBackend() } = {}) {
     typeof backend?.update !== 'function' ||
     typeof backend?.remove !== 'function'
   ) {
-    throw new TypeError('notebook: backend must implement {list,add,update,remove}');
+    throw new TypeError(
+      'notebook: backend must implement {list,add,update,remove}',
+    );
   }
   const listeners = new Set();
   const notify = (event) => {
@@ -271,7 +287,8 @@ export function createNotebook({ backend = createLocalStorageBackend() } = {}) {
         throw new Error('notebook: import is not valid JSON');
       }
       const pins = Array.isArray(doc) ? doc : doc?.pins;
-      if (!Array.isArray(pins)) throw new Error('notebook: import has no pins array');
+      if (!Array.isArray(pins))
+        throw new Error('notebook: import has no pins array');
       let imported = 0;
       let skipped = 0;
       const existing = new Set(backend.list().map((p) => p.id));

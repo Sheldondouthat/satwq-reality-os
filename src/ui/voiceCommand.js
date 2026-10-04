@@ -55,7 +55,10 @@ export const VOICE_LAYER_ALIASES = new Map([
 ]);
 
 function resolveLayerId(spoken) {
-  let key = String(spoken || '').trim().toLowerCase().replace(/\s+/g, ' ');
+  let key = String(spoken || '')
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, ' ');
   if (!key) return null;
   // "the earthquake layer" -> "earthquake"; singularize common plurals.
   key = key
@@ -83,7 +86,10 @@ function resolveLayerId(spoken) {
  * Returns { action, args, label } or null when nothing matched.
  */
 export function parseVoiceCommand(transcript) {
-  const raw = String(transcript || '').trim().toLowerCase().replace(/\s+/g, ' ');
+  const raw = String(transcript || '')
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, ' ');
   if (!raw) return null;
 
   let m = raw.match(/^(?:fly|go|navigate|take me) to (.+)$/);
@@ -95,7 +101,9 @@ export function parseVoiceCommand(transcript) {
     };
   }
 
-  if (/^(globe|overview|whole earth|show globe|reset view|full earth)$/.test(raw)) {
+  if (
+    /^(globe|overview|whole earth|show globe|reset view|full earth)$/.test(raw)
+  ) {
     return { action: 'zoom_to_globe', args: {}, label: 'Zooming to globe' };
   }
 

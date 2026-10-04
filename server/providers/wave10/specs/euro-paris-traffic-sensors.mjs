@@ -4,42 +4,38 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 7 (euro worker)).
  */
 export const SPEC = {
-  "attribution": "Data: Ville de Paris — opendata.paris.fr (Opendatasoft API) — keyless.",
-  "extract": {
-    "items": "$.results",
-    "limit": 50,
-    "map": {
-      "barrier_state": "$.etat_barre",
-      "geo": "$.geo_point_2d",
-      "hour": "$.t_1h",
-      "name": "$.libelle",
-      "occupancy_pct": "$.k",
-      "sensor_id": "$.iu_ac",
-      "traffic_state": "$.etat_trafic",
-      "vehicles_per_hour": "$.q"
+  attribution:
+    'Data: Ville de Paris — opendata.paris.fr (Opendatasoft API) — keyless.',
+  extract: {
+    items: '$.results',
+    limit: 50,
+    map: {
+      barrier_state: '$.etat_barre',
+      geo: '$.geo_point_2d',
+      hour: '$.t_1h',
+      name: '$.libelle',
+      occupancy_pct: '$.k',
+      sensor_id: '$.iu_ac',
+      traffic_state: '$.etat_trafic',
+      vehicles_per_hour: '$.q',
     },
-    "numbers": [
-      "vehicles_per_hour",
-      "occupancy_pct"
-    ]
+    numbers: ['vehicles_per_hour', 'occupancy_pct'],
   },
-  "headers": {},
-  "honesty": "Hourly road-traffic sensor readings (flow q, occupancy k, state) ordered newest-first; freshest hour at verification 2026-10-01T22:00Z. Aggregate sensor data; no personal identifiers. Verified 50 rows in fixture (29660 bytes); 27.9M-row historical archive. ttl 300 (hourly cadence).",
-  "id": "euro-paris-traffic-sensors",
-  "required": [
-    "sensor_id",
-    "name"
-  ],
-  "source": "Ville de Paris — opendata.paris.fr (Opendatasoft)",
-  "title": "Paris — road traffic sensor readings (hourly)",
-  "ttlSeconds": 300,
-  "units": {
-    "geo": "lon,lat",
-    "hour": "ISO8601",
-    "occupancy_pct": "percent",
-    "vehicles_per_hour": "veh/h"
+  headers: {},
+  honesty:
+    'Hourly road-traffic sensor readings (flow q, occupancy k, state) ordered newest-first; freshest hour at verification 2026-10-01T22:00Z. Aggregate sensor data; no personal identifiers. Verified 50 rows in fixture (29660 bytes); 27.9M-row historical archive. ttl 300 (hourly cadence).',
+  id: 'euro-paris-traffic-sensors',
+  required: ['sensor_id', 'name'],
+  source: 'Ville de Paris — opendata.paris.fr (Opendatasoft)',
+  title: 'Paris — road traffic sensor readings (hourly)',
+  ttlSeconds: 300,
+  units: {
+    geo: 'lon,lat',
+    hour: 'ISO8601',
+    occupancy_pct: 'percent',
+    vehicles_per_hour: 'veh/h',
   },
-  "url": "https://opendata.paris.fr/api/explore/v2.1/catalog/datasets/comptages-routiers-permanents/records?limit=50&order_by=t_1h%20DESC",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 7 (euro worker)"
+  url: 'https://opendata.paris.fr/api/explore/v2.1/catalog/datasets/comptages-routiers-permanents/records?limit=50&order_by=t_1h%20DESC',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 7 (euro worker)',
 };

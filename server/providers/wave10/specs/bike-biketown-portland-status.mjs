@@ -4,48 +4,43 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 9 (bike2 worker)).
  */
 export const SPEC = {
-  "id": "bike-biketown-portland-status",
-  "title": "Biketown (Portland) — live availability",
-  "url": "https://gbfs.biketownpdx.com/gbfs/en/station_status.json",
-  "headers": {
-    "User-Agent": "satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)"
+  id: 'bike-biketown-portland-status',
+  title: 'Biketown (Portland) — live availability',
+  url: 'https://gbfs.biketownpdx.com/gbfs/en/station_status.json',
+  headers: {
+    'User-Agent':
+      'satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)',
   },
-  "ttlSeconds": 300,
-  "bodyCapBytes": 2097152,
-  "extract": {
-    "items": "$.data.stations",
-    "limit": 50,
-    "map": {
-      "stationId": "$.station_id",
-      "bikesAvailable": "$.num_bikes_available",
-      "docksAvailable": "$.num_docks_available",
-      "isInstalled": "$.is_installed",
-      "isRenting": "$.is_renting",
-      "isReturning": "$.is_returning",
-      "ebikesAvailable": "$.num_ebikes_available"
+  ttlSeconds: 300,
+  bodyCapBytes: 2097152,
+  extract: {
+    items: '$.data.stations',
+    limit: 50,
+    map: {
+      stationId: '$.station_id',
+      bikesAvailable: '$.num_bikes_available',
+      docksAvailable: '$.num_docks_available',
+      isInstalled: '$.is_installed',
+      isRenting: '$.is_renting',
+      isReturning: '$.is_returning',
+      ebikesAvailable: '$.num_ebikes_available',
     },
-    "numbers": [
-      "bikesAvailable",
-      "docksAvailable",
-      "ebikesAvailable"
-    ]
+    numbers: ['bikesAvailable', 'docksAvailable', 'ebikesAvailable'],
   },
-  "required": [
-    "stationId",
-    "bikesAvailable"
-  ],
-  "source": "GBFS",
-  "attribution": "Data: Biketown (Portland) GBFS feed — keyless.",
-  "units": {
-    "stationId": "text",
-    "bikesAvailable": "count",
-    "docksAvailable": "count",
-    "isInstalled": "0/1",
-    "isRenting": "0/1",
-    "isReturning": "0/1",
-    "ebikesAvailable": "count"
+  required: ['stationId', 'bikesAvailable'],
+  source: 'GBFS',
+  attribution: 'Data: Biketown (Portland) GBFS feed — keyless.',
+  units: {
+    stationId: 'text',
+    bikesAvailable: 'count',
+    docksAvailable: 'count',
+    isInstalled: '0/1',
+    isRenting: '0/1',
+    isReturning: '0/1',
+    ebikesAvailable: 'count',
   },
-  "honesty": "Live availability snapshot: 307 stations at probe (108569 bytes). Values refresh every few minutes — fixture is a point-in-time snapshot. num_bikes_available=0 with is_installed=0 flags out-of-service stations. Feed last_updated epoch 1790991128.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 9 (bike2 worker)"
+  honesty:
+    'Live availability snapshot: 307 stations at probe (108569 bytes). Values refresh every few minutes — fixture is a point-in-time snapshot. num_bikes_available=0 with is_installed=0 flags out-of-service stations. Feed last_updated epoch 1790991128.',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 9 (bike2 worker)',
 };

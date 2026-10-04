@@ -10,11 +10,16 @@
 /** Badge color from a GeoNet `acc` color or AVO color code. */
 export function levelColor(color) {
   switch (String(color ?? '').toUpperCase()) {
-    case 'GREEN': return '#3ddc84';
-    case 'YELLOW': return '#ffd23d';
-    case 'ORANGE': return '#ff8a3d';
-    case 'RED': return '#ff4d4d';
-    default: return '#8a93a6';
+    case 'GREEN':
+      return '#3ddc84';
+    case 'YELLOW':
+      return '#ffd23d';
+    case 'ORANGE':
+      return '#ff8a3d';
+    case 'RED':
+      return '#ff4d4d';
+    default:
+      return '#8a93a6';
   }
 }
 
@@ -22,10 +27,11 @@ const SEVERITY_RANK = { RED: 0, ORANGE: 1, YELLOW: 2, GREEN: 3 };
 
 /** Sort the ticker: RED > ORANGE > YELLOW, then by name. */
 export function rankActive(entries) {
-  return [...(entries ?? [])].sort((a, b) =>
-    (SEVERITY_RANK[String(a.color ?? '').toUpperCase()] ?? 4) -
-    (SEVERITY_RANK[String(b.color ?? '').toUpperCase()] ?? 4) ||
-    String(a.name).localeCompare(String(b.name)),
+  return [...(entries ?? [])].sort(
+    (a, b) =>
+      (SEVERITY_RANK[String(a.color ?? '').toUpperCase()] ?? 4) -
+        (SEVERITY_RANK[String(b.color ?? '').toUpperCase()] ?? 4) ||
+      String(a.name).localeCompare(String(b.name)),
   );
 }
 
@@ -42,8 +48,11 @@ export function noElevated(entries) {
 
 /** Compact "last N of M" for the ticker header. */
 export function tickerStatus(count, warnings = []) {
-  const base = count === 0
-    ? 'no elevated-alert volcanoes in NZ/Alaska feeds'
-    : `${count} elevated-alert ${count === 1 ? 'volcano' : 'volcanoes'}`;
-  return warnings.length ? `${base} (${warnings.length} source ${warnings.length === 1 ? 'issue' : 'issues'})` : base;
+  const base =
+    count === 0
+      ? 'no elevated-alert volcanoes in NZ/Alaska feeds'
+      : `${count} elevated-alert ${count === 1 ? 'volcano' : 'volcanoes'}`;
+  return warnings.length
+    ? `${base} (${warnings.length} source ${warnings.length === 1 ? 'issue' : 'issues'})`
+    : base;
 }

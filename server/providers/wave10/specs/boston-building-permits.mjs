@@ -4,51 +4,49 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 9 (cities2 worker)).
  */
 export const SPEC = {
-  "id": "boston-building-permits",
-  "title": "Boston — approved building permits",
-  "url": "https://data.boston.gov/api/3/action/datastore_search?resource_id=6ddcd912-32a0-43df-9908-63574f8c7e77&sort=issued_date%20desc&limit=50",
-  "headers": {
-    "User-Agent": "satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)"
+  id: 'boston-building-permits',
+  title: 'Boston — approved building permits',
+  url: 'https://data.boston.gov/api/3/action/datastore_search?resource_id=6ddcd912-32a0-43df-9908-63574f8c7e77&sort=issued_date%20desc&limit=50',
+  headers: {
+    'User-Agent':
+      'satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)',
   },
-  "ttlSeconds": 3600,
-  "bodyCapBytes": 2097152,
-  "extract": {
-    "items": "$.result.records",
-    "limit": 50,
-    "map": {
-      "permitNumber": "$.permitnumber",
-      "workType": "$.worktype",
-      "permitType": "$.permittypedescr",
-      "description": "$.description",
-      "valuation": "$.declared_valuation",
-      "fees": "$.total_fees",
-      "issuedDate": "$.issued_date",
-      "status": "$.status",
-      "zip": "$.zip",
-      "ward": "$.ward"
+  ttlSeconds: 3600,
+  bodyCapBytes: 2097152,
+  extract: {
+    items: '$.result.records',
+    limit: 50,
+    map: {
+      permitNumber: '$.permitnumber',
+      workType: '$.worktype',
+      permitType: '$.permittypedescr',
+      description: '$.description',
+      valuation: '$.declared_valuation',
+      fees: '$.total_fees',
+      issuedDate: '$.issued_date',
+      status: '$.status',
+      zip: '$.zip',
+      ward: '$.ward',
     },
-    "numbers": []
+    numbers: [],
   },
-  "required": [
-    "permitNumber",
-    "permitType",
-    "issuedDate"
-  ],
-  "source": "City of Boston",
-  "attribution": "Data: data.boston.gov (CKAN datastore) — keyless.",
-  "units": {
-    "permitNumber": "text",
-    "workType": "text",
-    "permitType": "text",
-    "description": "text",
-    "valuation": "text",
-    "fees": "text",
-    "issuedDate": "datetime",
-    "status": "text",
-    "zip": "text",
-    "ward": "text"
+  required: ['permitNumber', 'permitType', 'issuedDate'],
+  source: 'City of Boston',
+  attribution: 'Data: data.boston.gov (CKAN datastore) — keyless.',
+  units: {
+    permitNumber: 'text',
+    workType: 'text',
+    permitType: 'text',
+    description: 'text',
+    valuation: 'text',
+    fees: 'text',
+    issuedDate: 'datetime',
+    status: 'text',
+    zip: 'text',
+    ward: 'text',
   },
-  "honesty": "Newest-first 50 via sort=issued_date desc on Approved Building Permits (664,951 records). Newest permit issued 2026-10-02 — same-day freshness. Applicant names and exact addresses excluded by design (privacy rule); valuation/fees carry currency strings.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 9 (cities2 worker)"
+  honesty:
+    'Newest-first 50 via sort=issued_date desc on Approved Building Permits (664,951 records). Newest permit issued 2026-10-02 — same-day freshness. Applicant names and exact addresses excluded by design (privacy rule); valuation/fees carry currency strings.',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 9 (cities2 worker)',
 };

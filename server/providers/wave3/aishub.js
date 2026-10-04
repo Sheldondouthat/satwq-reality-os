@@ -13,7 +13,8 @@
 import { createKeylessProxy, fetchUpstreamText } from './lib/proxy.js';
 
 const URL = 'https://www.aishub.net/stations/export-json';
-const USER_AGENT = 'SATWQ-RealityOS/1.0 (AISHub public station export; keyless; contact via repo)';
+const USER_AGENT =
+  'SATWQ-RealityOS/1.0 (AISHub public station export; keyless; contact via repo)';
 
 const CACHE_TTL_MS = 30 * 60_000;
 const STALE_MS = 6 * 60 * 60_000;
@@ -31,8 +32,15 @@ export function normalizeAishubStation(row) {
   if (Math.abs(lat) > 90 || Math.abs(lon) > 180) return null;
   return {
     id: String(row.id ?? '').slice(0, 32),
-    country: String(row.country ?? '').trim().toLowerCase().slice(0, 8) || null,
-    location: String(row.location ?? '').trim().slice(0, 120) || null,
+    country:
+      String(row.country ?? '')
+        .trim()
+        .toLowerCase()
+        .slice(0, 8) || null,
+    location:
+      String(row.location ?? '')
+        .trim()
+        .slice(0, 120) || null,
     lat: Math.round(lat * 1e4) / 1e4,
     lon: Math.round(lon * 1e4) / 1e4,
     lastSeen: Number.isFinite(+row.unix_time) ? +row.unix_time : null,
@@ -45,7 +53,10 @@ export function parseAishubStations(text) {
   const stations = [];
   let zeroed = 0;
   for (const row of doc) {
-    if ((+row?.latitude === 0 && +row?.longitude === 0)) { zeroed++; continue; }
+    if (+row?.latitude === 0 && +row?.longitude === 0) {
+      zeroed++;
+      continue;
+    }
     const s = normalizeAishubStation(row);
     if (s) stations.push(s);
     else zeroed++;
@@ -54,7 +65,10 @@ export function parseAishubStations(text) {
   return { stations, zeroed, reported: doc.length };
 }
 
-export function aishubProxy({ fetchImpl = fetch, now = () => Date.now() } = {}) {
+export function aishubProxy({
+  fetchImpl = fetch,
+  now = () => Date.now(),
+} = {}) {
   async function fetchUpstream({ fetchImpl: f, signal, now: n }) {
     const text = await fetchUpstreamText(f, URL, {
       signal,
@@ -68,7 +82,14 @@ export function aishubProxy({ fetchImpl = fetch, now = () => Date.now() } = {}) 
     for (const s of stations) {
       if (s.country) byCountry[s.country] = (byCountry[s.country] ?? 0) + 1;
     }
-    return { fetchedAt: n(), reported, placed: stations.length, zeroed, byCountry, stations };
+    return {
+      fetchedAt: n(),
+      reported,
+      placed: stations.length,
+      zeroed,
+      byCountry,
+      stations,
+    };
   }
 
   function describe(payload, { stale = false, reason = null } = {}) {

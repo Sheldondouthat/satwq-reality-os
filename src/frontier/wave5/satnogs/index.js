@@ -9,7 +9,14 @@
  * the legend says so.
  */
 import * as Cesium from 'cesium';
-import { statusColor, antennaRangeLabel, antennaSummary, stationLine, plottableStations, escapeHtml } from './model.js';
+import {
+  statusColor,
+  antennaRangeLabel,
+  antennaSummary,
+  stationLine,
+  plottableStations,
+  escapeHtml,
+} from './model.js';
 
 const API = '/api/satnogs?dataset=stations&limit=1000';
 const REFRESH_MS = 30 * 60_000;
@@ -43,10 +50,16 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
     function render(stations) {
       ds.entities.removeAll();
       for (const station of stations.slice(0, 500)) {
-        const color = Cesium.Color.fromCssColorString(statusColor(station.status));
+        const color = Cesium.Color.fromCssColorString(
+          statusColor(station.status),
+        );
         const antennas = (station.antennas ?? []).map(antennaSummary);
         ds.entities.add({
-          position: Cesium.Cartesian3.fromDegrees(station.lng, station.lat, 40_000),
+          position: Cesium.Cartesian3.fromDegrees(
+            station.lng,
+            station.lat,
+            40_000,
+          ),
           point: new Cesium.PointGraphics({
             pixelSize: 6,
             color,
@@ -62,16 +75,27 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
             style: Cesium.LabelStyle.FILL_AND_OUTLINE,
             verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
             pixelOffset: new Cesium.Cartesian2(0, -9),
-            distanceDisplayCondition: new Cesium.DistanceDisplayCondition(0, 12_000_000),
+            distanceDisplayCondition: new Cesium.DistanceDisplayCondition(
+              0,
+              12_000_000,
+            ),
           }),
           description:
             `<b>${escapeHtml(station.name)}</b> (#${escapeHtml(String(station.id))})<br>` +
             `${escapeHtml(stationLine(station))}<br>` +
-            (station.qthLocator ? `QTH locator: ${escapeHtml(station.qthLocator)}<br>` : '') +
-            (antennas.length
-              ? 'Antennas:<br>' + antennas.map((a) => `&nbsp;&nbsp;📡 ${escapeHtml(a)}`).join('<br>') + '<br>'
+            (station.qthLocator
+              ? `QTH locator: ${escapeHtml(station.qthLocator)}<br>`
               : '') +
-            (station.lastSeen ? `Last seen: ${escapeHtml(station.lastSeen)}<br>` : '') +
+            (antennas.length
+              ? 'Antennas:<br>' +
+                antennas
+                  .map((a) => `&nbsp;&nbsp;📡 ${escapeHtml(a)}`)
+                  .join('<br>') +
+                '<br>'
+              : '') +
+            (station.lastSeen
+              ? `Last seen: ${escapeHtml(station.lastSeen)}<br>`
+              : '') +
             `<span style="opacity:.75">Antenna ranges are station-declared capability, ` +
             `not live measurements. Status derived from observation counts.</span>`,
         });
@@ -82,8 +106,7 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
     function updateStatus(payload, stations) {
       if (statusEl) {
         const observed = stations.filter((s) => s.status === 'observed').length;
-        statusEl.textContent =
-          `${payload?.count ?? 0} stations · ${observed} observed · ${payload?.withAntennas ?? 0} with antenna ranges`;
+        statusEl.textContent = `${payload?.count ?? 0} stations · ${observed} observed · ${payload?.withAntennas ?? 0} with antenna ranges`;
       }
     }
 
@@ -101,7 +124,8 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
     if (mount && typeof chip === 'function') {
       try {
         statusEl = document.createElement('div');
-        statusEl.style.cssText = 'font-size:10px;color:#8aa4d6;margin:2px 0 4px;';
+        statusEl.style.cssText =
+          'font-size:10px;color:#8aa4d6;margin:2px 0 4px;';
         statusEl.textContent = 'scanning ground stations…';
         mount.appendChild(statusEl);
         if (typeof trackLayer === 'function') {
@@ -110,14 +134,24 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
             disable: () => setEnabled(false),
           });
           mount.appendChild(
-            chip(T('feature.satnogs') || 'Ground stations (SatNOGS)', (on) =>
-              on ? tracked.show() : tracked.hide(), false),
+            chip(
+              T('feature.satnogs') || 'Ground stations (SatNOGS)',
+              (on) => (on ? tracked.show() : tracked.hide()),
+              false,
+            ),
           );
         } else {
-          mount.appendChild(chip(T('feature.satnogs') || 'Ground stations (SatNOGS)', (on) => setEnabled(on), false));
+          mount.appendChild(
+            chip(
+              T('feature.satnogs') || 'Ground stations (SatNOGS)',
+              (on) => setEnabled(on),
+              false,
+            ),
+          );
         }
         const legend = document.createElement('div');
-        legend.style.cssText = 'font-size:10px;color:#8aa4d6;margin-top:4px;line-height:1.5;';
+        legend.style.cssText =
+          'font-size:10px;color:#8aa4d6;margin-top:4px;line-height:1.5;';
         legend.innerHTML =
           '<span style="color:#4dd0a6">●</span> observed · ' +
           '<span style="color:#ffb454">●</span> scheduled · ' +

@@ -4,54 +4,54 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 7 (tfl worker)).
  */
 export const SPEC = {
-  "id": "tfl-bike-points",
-  "title": "TfL — Santander cycle hire docking stations",
-  "url": "https://api.tfl.gov.uk/BikePoint",
-  "headers": {
-    "User-Agent": "satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)"
+  id: 'tfl-bike-points',
+  title: 'TfL — Santander cycle hire docking stations',
+  url: 'https://api.tfl.gov.uk/BikePoint',
+  headers: {
+    'User-Agent':
+      'satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)',
   },
-  "ttlSeconds": 3600,
-  "bodyCapBytes": 4194304,
-  "extract": {
-    "items": "$",
-    "limit": 100,
-    "map": {
-      "stationId": "$.id",
-      "name": "$.commonName",
-      "lat": "$.lat",
-      "lon": "$.lon",
-      "bikes": "$.additionalProperties[6].value",
-      "emptyDocks": "$.additionalProperties[7].value",
-      "docks": "$.additionalProperties[8].value",
-      "standardBikes": "$.additionalProperties[9].value",
-      "eBikes": "$.additionalProperties[10].value"
+  ttlSeconds: 3600,
+  bodyCapBytes: 4194304,
+  extract: {
+    items: '$',
+    limit: 100,
+    map: {
+      stationId: '$.id',
+      name: '$.commonName',
+      lat: '$.lat',
+      lon: '$.lon',
+      bikes: '$.additionalProperties[6].value',
+      emptyDocks: '$.additionalProperties[7].value',
+      docks: '$.additionalProperties[8].value',
+      standardBikes: '$.additionalProperties[9].value',
+      eBikes: '$.additionalProperties[10].value',
     },
-    "numbers": [
-      "lat",
-      "lon",
-      "bikes",
-      "emptyDocks",
-      "docks",
-      "standardBikes",
-      "eBikes"
-    ]
+    numbers: [
+      'lat',
+      'lon',
+      'bikes',
+      'emptyDocks',
+      'docks',
+      'standardBikes',
+      'eBikes',
+    ],
   },
-  "required": [
-    "name",
-    "bikes"
-  ],
-  "source": "Transport for London",
-  "attribution": "Data: Transport for London (TfL) Unified API — keyless, Open Government Licence.",
-  "units": {
-    "lat": "deg",
-    "lon": "deg",
-    "bikes": "count",
-    "emptyDocks": "count",
-    "docks": "count",
-    "standardBikes": "count",
-    "eBikes": "count"
+  required: ['name', 'bikes'],
+  source: 'Transport for London',
+  attribution:
+    'Data: Transport for London (TfL) Unified API — keyless, Open Government Licence.',
+  units: {
+    lat: 'deg',
+    lon: 'deg',
+    bikes: 'count',
+    emptyDocks: 'count',
+    docks: 'count',
+    standardBikes: 'count',
+    eBikes: 'count',
   },
-  "honesty": "Bike/dock counts are read positionally from TfL's additionalProperties array (NbBikes=6, NbEmptyDocks=7, NbDocks=8, NbStandardBikes=9, NbEBikes=10). Order verified stable across 799/800 stations at probe; one station (BikePoints_739, Hortensia Road) lists NbEBikes first — its counts will be misaligned. Counts update on TfL's feed cadence, roughly every few minutes.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 7 (tfl worker)"
+  honesty:
+    "Bike/dock counts are read positionally from TfL's additionalProperties array (NbBikes=6, NbEmptyDocks=7, NbDocks=8, NbStandardBikes=9, NbEBikes=10). Order verified stable across 799/800 stations at probe; one station (BikePoints_739, Hortensia Road) lists NbEBikes first — its counts will be misaligned. Counts update on TfL's feed cadence, roughly every few minutes.",
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 7 (tfl worker)',
 };

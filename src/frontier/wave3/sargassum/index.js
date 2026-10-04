@@ -42,7 +42,8 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
         }
         render();
       } catch {
-        if (statusEl) statusEl.textContent = 'sargassum data unavailable — retrying';
+        if (statusEl)
+          statusEl.textContent = 'sargassum data unavailable — retrying';
       }
     }
 
@@ -54,7 +55,8 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
           (doc.stale ? ' · stale' : '') +
           ' · NOAA AOML SIR';
       }
-      const region = doc.regions.find((r) => r.code === activeCode) ?? doc.regions[0];
+      const region =
+        doc.regions.find((r) => r.code === activeCode) ?? doc.regions[0];
       const chips = doc.regions
         .map(
           (r) =>
@@ -99,7 +101,8 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
     if (mount && typeof chip === 'function') {
       try {
         statusEl = document.createElement('div');
-        statusEl.style.cssText = 'font-size:10px;color:#8aa4d6;margin:2px 0 4px;';
+        statusEl.style.cssText =
+          'font-size:10px;color:#8aa4d6;margin:2px 0 4px;';
         statusEl.textContent = 'reading the sargassum belt…';
         mount.appendChild(statusEl);
         panelEl = document.createElement('div');
@@ -112,14 +115,20 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
             disable: () => setEnabled(false),
           });
           mount.appendChild(
-            chip(T('feature.sargassum') || 'Sargassum watch', (on) =>
-              on ? tracked.show() : tracked.hide(), false),
+            chip(
+              T('feature.sargassum') || 'Sargassum watch',
+              (on) => (on ? tracked.show() : tracked.hide()),
+              false,
+            ),
           );
         } else {
-          mount.appendChild(chip(T('feature.sargassum') || 'Sargassum watch', apply, false));
+          mount.appendChild(
+            chip(T('feature.sargassum') || 'Sargassum watch', apply, false),
+          );
         }
         const legend = document.createElement('div');
-        legend.style.cssText = 'font-size:10px;color:#8aa4d6;margin-top:4px;line-height:1.5;';
+        legend.style.cssText =
+          'font-size:10px;color:#8aa4d6;margin-top:4px;line-height:1.5;';
         legend.innerHTML =
           'Maps are <b>NOAA AOML official image renderings</b>, not data feeds — ' +
           'this panel performs no pixel analysis and reports no numerical risk. ' +

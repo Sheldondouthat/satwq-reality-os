@@ -28,7 +28,10 @@ export function createBuoyOverlayEntry({ id, position, name, type, accent }) {
 }
 
 /** Take a deterministic spatial sample so labels stay readable. */
-export function selectBuoyOverlayCohort(entries, limit = BUOY_OVERLAY_COHORT_LIMIT) {
+export function selectBuoyOverlayCohort(
+  entries,
+  limit = BUOY_OVERLAY_COHORT_LIMIT,
+) {
   const cap = Math.max(1, Math.floor(limit));
   if (entries.length <= cap) return entries.slice();
   const step = entries.length / cap;

@@ -4,32 +4,31 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 4 (new socrata cities)).
  */
 export const SPEC = {
-  "attribution": "Data: City of Cincinnati — data.cincinnati-oh.gov (Socrata) — keyless Socrata API.",
-  "extract": {
-    "items": "$",
-    "limit": 50,
-    "map": {
-      "address": "$.address",
-      "description": "$.sr_type_desc",
-      "key": "$.sr_number",
-      "status": "$.sr_status",
-      "time": "$.date_created",
-      "type": "$.sr_type"
+  attribution:
+    'Data: City of Cincinnati — data.cincinnati-oh.gov (Socrata) — keyless Socrata API.',
+  extract: {
+    items: '$',
+    limit: 50,
+    map: {
+      address: '$.address',
+      description: '$.sr_type_desc',
+      key: '$.sr_number',
+      status: '$.sr_status',
+      time: '$.date_created',
+      type: '$.sr_type',
     },
-    "numbers": []
+    numbers: [],
   },
-  "headers": {},
-  "honesty": "Cincinnati 311 (non-emergency) service requests, fresh through 2026-09-30; date_created is ISO-8601; neighborhood, police district and lat/lon columns are present on most rows.",
-  "id": "socrata-cincinnati-311",
-  "required": [
-    "key",
-    "type"
-  ],
-  "source": "City of Cincinnati — data.cincinnati-oh.gov (Socrata)",
-  "title": "Cincinnati (data.cincinnati-oh.gov) — 311 service requests",
-  "ttlSeconds": 1800,
-  "units": {},
-  "url": "https://data.cincinnati-oh.gov/resource/gcej-gmiw.json?$limit=50&$order=date_created%20DESC",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 4 (new socrata cities)"
+  headers: {},
+  honesty:
+    'Cincinnati 311 (non-emergency) service requests, fresh through 2026-09-30; date_created is ISO-8601; neighborhood, police district and lat/lon columns are present on most rows.',
+  id: 'socrata-cincinnati-311',
+  required: ['key', 'type'],
+  source: 'City of Cincinnati — data.cincinnati-oh.gov (Socrata)',
+  title: 'Cincinnati (data.cincinnati-oh.gov) — 311 service requests',
+  ttlSeconds: 1800,
+  units: {},
+  url: 'https://data.cincinnati-oh.gov/resource/gcej-gmiw.json?$limit=50&$order=date_created%20DESC',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 4 (new socrata cities)',
 };

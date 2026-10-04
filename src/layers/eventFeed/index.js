@@ -24,14 +24,21 @@ export function defaultEventFlyTo(viewer, { lat, lon, title } = {}) {
       },
       duration: 1.6,
     });
-    console.log(`[Data:EventFeed] Flying to ${title || `${lat.toFixed(2)}, ${lon.toFixed(2)}`}`);
+    console.log(
+      `[Data:EventFeed] Flying to ${title || `${lat.toFixed(2)}, ${lon.toFixed(2)}`}`,
+    );
   } catch (error) {
     console.warn('[Data:EventFeed] flyTo failed:', error?.message || error);
   }
 }
 
 /** Create the event-feed layer following the repo's layer factory shape. */
-export function createEventFeedLayer({ viewer, container, onFlyTo, pollMs } = {}) {
+export function createEventFeedLayer({
+  viewer,
+  container,
+  onFlyTo,
+  pollMs,
+} = {}) {
   let _viewer = viewer || null;
   let _panel = null;
   let _enabled = false;
@@ -39,8 +46,7 @@ export function createEventFeedLayer({ viewer, container, onFlyTo, pollMs } = {}
   let _lastError = null;
 
   const host =
-    container ||
-    (typeof document !== 'undefined' ? document.body : null);
+    container || (typeof document !== 'undefined' ? document.body : null);
 
   const layer = {
     id: 'event-feed',
@@ -50,7 +56,8 @@ export function createEventFeedLayer({ viewer, container, onFlyTo, pollMs } = {}
     updateInterval: 60_000,
 
     init(v) {
-      if (_viewer && _viewer !== v) throw new Error('Event feed layer is already initialized');
+      if (_viewer && _viewer !== v)
+        throw new Error('Event feed layer is already initialized');
       _viewer = v || _viewer;
       _panel = createEventFeedPanel({
         container: host,
@@ -60,7 +67,8 @@ export function createEventFeedLayer({ viewer, container, onFlyTo, pollMs } = {}
             ? onFlyTo
             : (where) => defaultEventFlyTo(_viewer, where),
       });
-      if (!_panel) throw new Error('Event feed panel could not mount (no container)');
+      if (!_panel)
+        throw new Error('Event feed panel could not mount (no container)');
       _lastUpdate = null;
       _lastError = null;
       _enabled = false;

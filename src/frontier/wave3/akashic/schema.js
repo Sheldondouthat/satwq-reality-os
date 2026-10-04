@@ -86,20 +86,46 @@ export function validateRecord(rec) {
   if (typeof rec.day !== 'string' || !DAY_RE.test(rec.day)) return 'bad-day';
   const kinds = ['quake', 'alert', 'incident', 'fireball', 'launch', 'storm'];
   if (!kinds.includes(rec.kind)) return 'bad-kind';
-  if (!Number.isFinite(rec.atMs) || !Number.isFinite(rec.capturedMs)) return 'bad-time';
-  if (typeof rec.title !== 'string' || rec.title.length === 0 || rec.title.length > 200)
+  if (!Number.isFinite(rec.atMs) || !Number.isFinite(rec.capturedMs))
+    return 'bad-time';
+  if (
+    typeof rec.title !== 'string' ||
+    rec.title.length === 0 ||
+    rec.title.length > 200
+  )
     return 'bad-title';
-  if (typeof rec.detail !== 'string' || rec.detail.length > 280) return 'bad-detail';
+  if (typeof rec.detail !== 'string' || rec.detail.length > 280)
+    return 'bad-detail';
   if (!finiteOrNull(rec.lat) || !finiteOrNull(rec.lon)) return 'bad-coords';
-  if (!['critical', 'high', 'moderate'].includes(rec.severity)) return 'bad-severity';
-  if (!Array.isArray(rec.sources) || rec.sources.some((s) => typeof s !== 'string'))
+  if (!['critical', 'high', 'moderate'].includes(rec.severity))
+    return 'bad-severity';
+  if (
+    !Array.isArray(rec.sources) ||
+    rec.sources.some((s) => typeof s !== 'string')
+  )
     return 'bad-sources';
-  if (rec.snapshot !== undefined && (typeof rec.snapshot !== 'object' || rec.snapshot === null))
+  if (
+    rec.snapshot !== undefined &&
+    (typeof rec.snapshot !== 'object' || rec.snapshot === null)
+  )
     return 'bad-snapshot';
   return null;
 }
 
-const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const MONTHS = [
+  'Jan',
+  'Feb',
+  'Mar',
+  'Apr',
+  'May',
+  'Jun',
+  'Jul',
+  'Aug',
+  'Sep',
+  'Oct',
+  'Nov',
+  'Dec',
+];
 
 /** Human one-liner for a day's worth of records: "Sep 27 — 4 events". */
 export function daySummary(day, count) {

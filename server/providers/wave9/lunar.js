@@ -44,7 +44,7 @@ const LUNAR_HONESTY = {
   perigean:
     '"perigean" = computed distance < 370,000 km (bottom ~15% of the model range). It is NOT a supermoon claim.',
   upcoming:
-    'Upcoming events are the astronomical instants (elongation extrema for New/Full, 90° elongation crossings for quarters) of the same low-precision model — the same ±~0.5d honesty applies.'
+    'Upcoming events are the astronomical instants (elongation extrema for New/Full, 90° elongation crossings for quarters) of the same low-precision model — the same ±~0.5d honesty applies.',
 };
 
 /** numOrNull with the Number('')===0 trap guarded (provider standing rule). */
@@ -77,8 +77,15 @@ function parseLunarQuery(req) {
   if (latParam !== null || lonParam !== null) {
     lat = numOrNull(latParam);
     lon = numOrNull(lonParam);
-    if (lat === null || lon === null || Math.abs(lat) > 90 || Math.abs(lon) > 180)
-      badRequest('lat and lon must both be valid degrees (|lat|<=90, |lon|<=180)');
+    if (
+      lat === null ||
+      lon === null ||
+      Math.abs(lat) > 90 ||
+      Math.abs(lon) > 180
+    )
+      badRequest(
+        'lat and lon must both be valid degrees (|lat|<=90, |lon|<=180)',
+      );
   }
   let next = 8;
   const nextParam = url.searchParams.get('next');
@@ -150,7 +157,9 @@ export function findRiseSet(dateMs, latDeg, lonDeg) {
   const moonrise = events.find((e) => e.type === 'moonrise')?.time ?? null;
   const moonset = events.find((e) => e.type === 'moonset')?.time ?? null;
   const reason =
-    events.length === 0 ? 'no crossing this UTC day — circumpolar or below-horizon all day' : null;
+    events.length === 0
+      ? 'no crossing this UTC day — circumpolar or below-horizon all day'
+      : null;
   return { moonrise, moonset, events, reason };
 }
 
@@ -195,7 +204,10 @@ export function upcomingPhases(dateMs, count) {
     } else if (a.elong < b.elong && b.elong >= c.elong && b.elong > 150) {
       events.push({ type: 'Full Moon', ms: refine(b.t, 'max') });
     }
-    for (const [s0, s1] of [[a, b], [b, c]]) {
+    for (const [s0, s1] of [
+      [a, b],
+      [b, c],
+    ]) {
       if ((s0.elong - 90) * (s1.elong - 90) < 0) {
         const frac = (90 - s0.elong) / (s1.elong - s0.elong);
         events.push({

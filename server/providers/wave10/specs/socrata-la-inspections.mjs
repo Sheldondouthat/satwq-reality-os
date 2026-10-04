@@ -4,32 +4,31 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 6 (socrata2 worker)).
  */
 export const SPEC = {
-  "id": "socrata-la-inspections",
-  "title": "Los Angeles (data.lacity.org) — building & safety inspections",
-  "url": "https://data.lacity.org/resource/9w5z-rg2h.json?%24limit=50&%24where=inspection_date%20is%20not%20null&%24order=inspection_date%20DESC",
-  "headers": {},
-  "ttlSeconds": 3600,
-  "extract": {
-    "items": "$",
-    "limit": 50,
-    "map": {
-      "key": "$.permit",
-      "inspection": "$.inspection",
-      "result": "$.inspection_result",
-      "date": "$.inspection_date",
-      "address": "$.address",
-      "status": "$.permit_status"
+  id: 'socrata-la-inspections',
+  title: 'Los Angeles (data.lacity.org) — building & safety inspections',
+  url: 'https://data.lacity.org/resource/9w5z-rg2h.json?%24limit=50&%24where=inspection_date%20is%20not%20null&%24order=inspection_date%20DESC',
+  headers: {},
+  ttlSeconds: 3600,
+  extract: {
+    items: '$',
+    limit: 50,
+    map: {
+      key: '$.permit',
+      inspection: '$.inspection',
+      result: '$.inspection_result',
+      date: '$.inspection_date',
+      address: '$.address',
+      status: '$.permit_status',
     },
-    "numbers": []
+    numbers: [],
   },
-  "required": [
-    "key",
-    "inspection"
-  ],
-  "source": "LA Dept. of Building and Safety — data.lacity.org (Socrata)",
-  "attribution": "Data: LA Dept. of Building and Safety — data.lacity.org (Socrata) — keyless Socrata API.",
-  "units": {},
-  "honesty": "Inspection records for permitted work; inspection_date ISO. Verified 50 rows in fixture (17415 bytes).",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 6 (socrata2 worker)"
+  required: ['key', 'inspection'],
+  source: 'LA Dept. of Building and Safety — data.lacity.org (Socrata)',
+  attribution:
+    'Data: LA Dept. of Building and Safety — data.lacity.org (Socrata) — keyless Socrata API.',
+  units: {},
+  honesty:
+    'Inspection records for permitted work; inspection_date ISO. Verified 50 rows in fixture (17415 bytes).',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 6 (socrata2 worker)',
 };

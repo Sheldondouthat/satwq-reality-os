@@ -128,9 +128,7 @@ export function windSnapshotProxy({
 
   async function loadSnapshot() {
     const metaBytes = await fetchRelease('gfs-meta.json', META_BUDGET_BYTES);
-    const meta = validateMeta(
-      JSON.parse(new TextDecoder().decode(metaBytes)),
-    );
+    const meta = validateMeta(JSON.parse(new TextDecoder().decode(metaBytes)));
     const { nx, ny } = meta.grid;
     const expectedBytes = nx * ny * 8;
     const gridBytes = await fetchRelease('gfs.bin', expectedBytes + 1);

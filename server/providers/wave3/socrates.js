@@ -61,18 +61,25 @@ export function splitCsvLine(line) {
     const c = line[i];
     if (inQuotes) {
       if (c === '"') {
-        if (line[i + 1] === '"') { cur += '"'; i++; }
-        else inQuotes = false;
+        if (line[i + 1] === '"') {
+          cur += '"';
+          i++;
+        } else inQuotes = false;
       } else cur += c;
     } else if (c === '"') inQuotes = true;
-    else if (c === ',') { out.push(cur); cur = ''; }
-    else cur += c;
+    else if (c === ',') {
+      out.push(cur);
+      cur = '';
+    } else cur += c;
   }
   out.push(cur);
   return out;
 }
 
-const normHeader = (h) => String(h).toLowerCase().replace(/[^a-z0-9]/g, '');
+const normHeader = (h) =>
+  String(h)
+    .toLowerCase()
+    .replace(/[^a-z0-9]/g, '');
 
 /**
  * Header-driven column map. Accepts BOTH naming families:
@@ -88,7 +95,9 @@ export function mapSocratesColumns(header) {
   const cells = header.map(normHeader);
   const findAll = (re) => {
     const idx = [];
-    cells.forEach((c, i) => { if (re.test(c)) idx.push(i); });
+    cells.forEach((c, i) => {
+      if (re.test(c)) idx.push(i);
+    });
     return idx;
   };
   const pick = (re) => findAll(re)[0] ?? -1;
@@ -107,8 +116,14 @@ export function mapSocratesColumns(header) {
     dse1: dses[0] ?? -1,
     dse2: dses[1] ?? -1,
   };
-  const ok = col.tca >= 0 && col.minRangeKm >= 0 && col.maxProb >= 0 &&
-    col.norad1 >= 0 && col.norad2 >= 0 && col.name1 >= 0 && col.name2 >= 0;
+  const ok =
+    col.tca >= 0 &&
+    col.minRangeKm >= 0 &&
+    col.maxProb >= 0 &&
+    col.norad1 >= 0 &&
+    col.norad2 >= 0 &&
+    col.name1 >= 0 &&
+    col.name2 >= 0;
   return ok ? col : null;
 }
 
@@ -121,7 +136,9 @@ function numOrNull(v) {
 /** "2026-09-28 14:22:10" → ISO UTC; null on garbage. */
 export function parseTca(raw) {
   if (typeof raw !== 'string') return null;
-  const m = /^(\d{4})-(\d{2})-(\d{2})[ T](\d{2}):(\d{2}):(\d{2})/.exec(raw.trim());
+  const m = /^(\d{4})-(\d{2})-(\d{2})[ T](\d{2}):(\d{2}):(\d{2})/.exec(
+    raw.trim(),
+  );
   if (!m) return null;
   const ms = Date.UTC(+m[1], +m[2] - 1, +m[3], +m[4], +m[5], +m[6]);
   return Number.isFinite(ms) ? new Date(ms).toISOString() : null;
@@ -150,46 +167,70 @@ export function normalizeConjunctionRow(cells, col) {
     tcaUtc,
     noradId1: String(get(col.norad1)).trim(),
     noradId2: String(get(col.norad2)).trim(),
-    name1: n1.name, ops1: n1.ops,
-    name2: n2.name, ops2: n2.ops,
+    name1: n1.name,
+    ops1: n1.ops,
+    name2: n2.name,
+    ops2: n2.ops,
     minRangeKm,
     relSpeedKms: numOrNull(get(col.relSpeedKms)),
     maxProb,
     dse1: numOrNull(get(col.dse1)),
     dse2: numOrNull(get(col.dse2)),
-    tle1: null, tle2: null, // enriched below for the top events
+    tle1: null,
+    tle2: null, // enriched below for the top events
   };
 }
 
 /** Parse a 3-line TLE set into {name, line1, line2}; null if unusable. */
 export function parseTleSet(text) {
   if (typeof text !== 'string') return null;
-  const lines = text.split(/\r?\n/).map((l) => l.trimEnd()).filter((l) => l.length > 0);
+  const lines = text
+    .split(/\r?\n/)
+    .map((l) => l.trimEnd())
+    .filter((l) => l.length > 0);
   for (let i = 0; i < lines.length; i++) {
     if (/^1 \d{5}/.test(lines[i]) && /^2 \d{5}/.test(lines[i + 1] ?? '')) {
-      const name = i > 0 && !/^[12] /.test(lines[i - 1]) ? lines[i - 1].trim() : '';
+      const name =
+        i > 0 && !/^[12] /.test(lines[i - 1]) ? lines[i - 1].trim() : '';
       return { name, line1: lines[i], line2: lines[i + 1] };
     }
   }
   return null;
 }
 
-async function fetchText(url, timeoutMs = UPSTREAM_TIMEOUT_MS, headOnly = false) {
+async function fetchText(
+  url,
+  timeoutMs = UPSTREAM_TIMEOUT_MS,
+  headOnly = false,
+) {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), timeoutMs);
   try {
-    const headers = { 'User-Agent': USER_AGENT, Accept: 'text/csv,text/plain,*/*' };
+    const headers = {
+      'User-Agent': USER_AGENT,
+      Accept: 'text/csv,text/plain,*/*',
+    };
     // The SOCRATES CSV is ~21 MB and sorted by min range ascending, so the
     // head holds the closest approaches. workerd isolates choke on the full
     // body, so we Range-request just the head (CelesTrak honors Range: 206).
     if (headOnly) headers.Range = `bytes=0-${CSV_HEAD_BYTES - 1}`;
     const res = await fetch(url, { signal: controller.signal, headers });
-    if (!res.ok) throw Object.assign(new Error(`socrates_upstream_${res.status}`), { status: 502 });
-    const { tooLarge, text } = await readCappedResponseText(res, BODY_CAP_BYTES);
-    if (tooLarge) throw Object.assign(new Error('socrates_upstream_too_large'), { status: 502 });
+    if (!res.ok)
+      throw Object.assign(new Error(`socrates_upstream_${res.status}`), {
+        status: 502,
+      });
+    const { tooLarge, text } = await readCappedResponseText(
+      res,
+      BODY_CAP_BYTES,
+    );
+    if (tooLarge)
+      throw Object.assign(new Error('socrates_upstream_too_large'), {
+        status: 502,
+      });
     if (!headOnly) return text;
     // Trim a possibly-partial trailing line (Range cut, or a 200 that ignored Range).
-    const head = text.length > CSV_HEAD_BYTES ? text.slice(0, CSV_HEAD_BYTES) : text;
+    const head =
+      text.length > CSV_HEAD_BYTES ? text.slice(0, CSV_HEAD_BYTES) : text;
     return head.slice(0, head.lastIndexOf('\n') + 1);
   } finally {
     clearTimeout(timer);
@@ -263,26 +304,29 @@ export function socratesProxy() {
     await Promise.all(Array.from({ length: CONCURRENCY }, worker));
   }
 
-/** Fetch the pre-computed snapshot from the GitHub release. */
-async function fetchSnapshot() {
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), SNAPSHOT_TIMEOUT_MS);
-  try {
-    const res = await fetch(SNAPSHOT_URL, {
-      signal: controller.signal,
-      headers: { 'User-Agent': USER_AGENT, Accept: 'application/json' },
-    });
-    if (!res.ok) throw new Error(`snapshot HTTP ${res.status}`);
-    const { tooLarge, text } = await readCappedResponseText(res, SNAPSHOT_MAX_BYTES);
-    if (tooLarge) throw new Error('snapshot too large');
-    const snap = JSON.parse(text);
-    if (!Array.isArray(snap.events) || !snap.events.length)
-      throw new Error('snapshot has no events');
-    return snap.events.slice(0, MAX_EVENTS);
-  } finally {
-    clearTimeout(timer);
+  /** Fetch the pre-computed snapshot from the GitHub release. */
+  async function fetchSnapshot() {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), SNAPSHOT_TIMEOUT_MS);
+    try {
+      const res = await fetch(SNAPSHOT_URL, {
+        signal: controller.signal,
+        headers: { 'User-Agent': USER_AGENT, Accept: 'application/json' },
+      });
+      if (!res.ok) throw new Error(`snapshot HTTP ${res.status}`);
+      const { tooLarge, text } = await readCappedResponseText(
+        res,
+        SNAPSHOT_MAX_BYTES,
+      );
+      if (tooLarge) throw new Error('snapshot too large');
+      const snap = JSON.parse(text);
+      if (!Array.isArray(snap.events) || !snap.events.length)
+        throw new Error('snapshot has no events');
+      return snap.events.slice(0, MAX_EVENTS);
+    } finally {
+      clearTimeout(timer);
+    }
   }
-}
 
   async function getEvents({ enrich = false } = {}) {
     // Separate caches: the fast list (no TLE) and the enriched theater feed.
@@ -291,7 +335,8 @@ async function fetchSnapshot() {
     // (12 upstream fetches) only runs when the caller opts in.
     const key = enrich ? 'enriched' : 'list';
     const nowMs = Date.now();
-    if (caches[key] && nowMs - caches[key].at < CACHE_TTL_MS) return caches[key].events;
+    if (caches[key] && nowMs - caches[key].at < CACHE_TTL_MS)
+      return caches[key].events;
     if (inflight[key]) return inflight[key];
     inflight[key] = (async () => {
       try {
@@ -303,7 +348,11 @@ async function fetchSnapshot() {
           events = parseSocratesCsv(text, MAX_EVENTS);
         }
         if (enrich) {
-          try { await enrichTles(events); } catch { /* arcs degrade, list survives */ }
+          try {
+            await enrichTles(events);
+          } catch {
+            /* arcs degrade, list survives */
+          }
         }
         caches[key] = { at: Date.now(), events };
         return events;
@@ -326,13 +375,18 @@ async function fetchSnapshot() {
   }
 
   async function handler(req, res) {
-    if (req.method !== 'GET') return sendJson(res, 405, { error: 'method_not_allowed' });
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' });
     let max = MAX_EVENTS;
     let enrich = false;
     try {
       const parsed = new URL(req.url, 'http://localhost');
       const m = parsed.searchParams.get('max');
-      if (m !== null) max = Math.min(MAX_EVENTS, Math.max(1, Math.floor(Number(m) || MAX_EVENTS)));
+      if (m !== null)
+        max = Math.min(
+          MAX_EVENTS,
+          Math.max(1, Math.floor(Number(m) || MAX_EVENTS)),
+        );
       enrich = parsed.searchParams.get('enrich') === '1';
     } catch {
       return sendJson(res, 400, { error: 'conjunctions_bad_request' });
@@ -340,7 +394,10 @@ async function fetchSnapshot() {
     try {
       const key = enrich ? 'enriched' : 'list';
       const events = (await getEvents({ enrich })).slice(0, max);
-      const byProb = [...events].sort((a, b) => b.maxProb - a.maxProb).slice(0, 10).map((e) => e.id);
+      const byProb = [...events]
+        .sort((a, b) => b.maxProb - a.maxProb)
+        .slice(0, 10)
+        .map((e) => e.id);
       sendJson(res, 200, {
         events,
         topByProbability: byProb,
@@ -350,7 +407,9 @@ async function fetchSnapshot() {
         honesty: HONESTY,
       });
     } catch (error) {
-      const code = /header_drift/.test(error.message) ? 'conjunctions_format_drift' : 'conjunctions_upstream_unavailable';
+      const code = /header_drift/.test(error.message)
+        ? 'conjunctions_format_drift'
+        : 'conjunctions_upstream_unavailable';
       sendJson(res, 502, { error: code });
     }
   }

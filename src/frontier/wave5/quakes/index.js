@@ -68,7 +68,9 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
         const color = Cesium.Color.fromCssColorString(magColor(q.mag));
         const size = magSize(q.mag);
         // depth offset keeps deep quakes visible above the surface point
-        const height = Number.isFinite(q.depthKm) ? Math.min(300_000, 20_000 + q.depthKm * 1000 * 0.5) : 30_000;
+        const height = Number.isFinite(q.depthKm)
+          ? Math.min(300_000, 20_000 + q.depthKm * 1000 * 0.5)
+          : 30_000;
         const position = Cesium.Cartesian3.fromDegrees(q.lon, q.lat, height);
         ds.entities.add({
           id: `wave5-quake:${q.id}`,
@@ -81,18 +83,19 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
             heightReference: Cesium.HeightReference.NONE,
             disableDepthTestDistance: 1.0e12,
           }),
-          label: Number.isFinite(q.mag) && q.mag >= 6
-            ? new Cesium.LabelGraphics({
-              text: `M${q.mag.toFixed(1)}`,
-              font: '11px system-ui, sans-serif',
-              fillColor: Cesium.Color.WHITE,
-              outlineColor: Cesium.Color.BLACK.withAlpha(0.8),
-              outlineWidth: 2,
-              style: Cesium.LabelStyle.FILL_AND_OUTLINE,
-              verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
-              pixelOffset: new Cesium.Cartesian2(0, -(size / 2 + 4)),
-            })
-            : undefined,
+          label:
+            Number.isFinite(q.mag) && q.mag >= 6
+              ? new Cesium.LabelGraphics({
+                  text: `M${q.mag.toFixed(1)}`,
+                  font: '11px system-ui, sans-serif',
+                  fillColor: Cesium.Color.WHITE,
+                  outlineColor: Cesium.Color.BLACK.withAlpha(0.8),
+                  outlineWidth: 2,
+                  style: Cesium.LabelStyle.FILL_AND_OUTLINE,
+                  verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
+                  pixelOffset: new Cesium.Cartesian2(0, -(size / 2 + 4)),
+                })
+              : undefined,
           description:
             `<b>${escapeHtml(quakeLabel(q))}</b><br>` +
             `Time: ${escapeHtml(q.time ?? '—')} (${escapeHtml(quakeAge(q.time))})<br>` +
@@ -149,11 +152,13 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
     if (mount && typeof chip === 'function') {
       try {
         statusEl = document.createElement('div');
-        statusEl.style.cssText = 'font-size:10px;color:#8aa4d6;margin:2px 0 4px;';
+        statusEl.style.cssText =
+          'font-size:10px;color:#8aa4d6;margin:2px 0 4px;';
         statusEl.textContent = 'loading quake catalogs…';
         mount.appendChild(statusEl);
         topEl = document.createElement('div');
-        topEl.style.cssText = 'font-size:10px;color:#c8d6f5;margin:2px 0;line-height:1.5;';
+        topEl.style.cssText =
+          'font-size:10px;color:#c8d6f5;margin:2px 0;line-height:1.5;';
         mount.appendChild(topEl);
         const apply = (on) => setEnabled(on);
         if (typeof trackLayer === 'function') {
@@ -162,14 +167,20 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
             disable: () => setEnabled(false),
           });
           mount.appendChild(
-            chip(T('feature.quakes') || 'Global quakes', (on) =>
-              on ? tracked.show() : tracked.hide(), false),
+            chip(
+              T('feature.quakes') || 'Global quakes',
+              (on) => (on ? tracked.show() : tracked.hide()),
+              false,
+            ),
           );
         } else {
-          mount.appendChild(chip(T('feature.quakes') || 'Global quakes', apply, false));
+          mount.appendChild(
+            chip(T('feature.quakes') || 'Global quakes', apply, false),
+          );
         }
         const legend = document.createElement('div');
-        legend.style.cssText = 'font-size:10px;color:#8aa4d6;margin-top:4px;line-height:1.6;';
+        legend.style.cssText =
+          'font-size:10px;color:#8aa4d6;margin-top:4px;line-height:1.6;';
         legend.innerHTML =
           '<span style="color:#4dd07d">●</span> &lt;M4 · ' +
           '<span style="color:#ffd54d">●</span> M4–5 · ' +

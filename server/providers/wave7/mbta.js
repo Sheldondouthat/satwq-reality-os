@@ -82,9 +82,12 @@ function pickString(...candidates) {
 
 function parseIso(value) {
   if (value == null || value === '') return null;
-  const ms = typeof value === 'number'
-    ? (value < 1e12 ? value * 1000 : value)
-    : Date.parse(value);
+  const ms =
+    typeof value === 'number'
+      ? value < 1e12
+        ? value * 1000
+        : value
+      : Date.parse(value);
   return Number.isFinite(ms) ? new Date(ms).toISOString() : null;
 }
 
@@ -114,8 +117,14 @@ function normalizeVehicle(resource, routeNames) {
   const rels = resource.relationships ?? {};
   // NOTE: Number(null) === 0, so nulls must be screened before coercion —
   // otherwise a coordless vehicle lands on Null Island instead of being dropped.
-  const lat = attrs.latitude == null || attrs.latitude === '' ? null : Number(attrs.latitude);
-  const lon = attrs.longitude == null || attrs.longitude === '' ? null : Number(attrs.longitude);
+  const lat =
+    attrs.latitude == null || attrs.latitude === ''
+      ? null
+      : Number(attrs.latitude);
+  const lon =
+    attrs.longitude == null || attrs.longitude === ''
+      ? null
+      : Number(attrs.longitude);
   const ll = lat != null && lon != null ? clampLatLon(lat, lon) : null;
   if (!ll) return null;
   const routeId = pickString(rels.route?.data?.id);
@@ -130,9 +139,11 @@ function normalizeVehicle(resource, routeNames) {
     label: pickString(attrs.label).slice(0, 64),
     status: STATUS_LABELS[status] ?? pickString(status),
     stopSequence: Number.isFinite(Number(attrs.current_stop_sequence))
-      ? Math.round(Number(attrs.current_stop_sequence)) : null,
+      ? Math.round(Number(attrs.current_stop_sequence))
+      : null,
     directionId: Number.isFinite(Number(attrs.direction_id))
-      ? Math.round(Number(attrs.direction_id)) : null,
+      ? Math.round(Number(attrs.direction_id))
+      : null,
     occupancy: pickString(attrs.occupancy_status),
     speedMps: isFiniteNum(speed) ? roundNum(speed, 2) : null,
     routeId,
@@ -153,8 +164,11 @@ function parseVehicles(upstream) {
     if (v) out.push(v);
     if (out.length >= MAX_VEHICLES) break;
   }
-  out.sort((a, b) => (a.routeName || '').localeCompare(b.routeName || '')
-    || a.id.localeCompare(b.id, undefined, { numeric: true }));
+  out.sort(
+    (a, b) =>
+      (a.routeName || '').localeCompare(b.routeName || '') ||
+      a.id.localeCompare(b.id, undefined, { numeric: true }),
+  );
   return out;
 }
 
@@ -179,10 +193,14 @@ async function fetchJsonCapped(url) {
       headers: { 'User-Agent': USER_AGENT, Accept: 'application/vnd.api+json' },
     });
     if (!response.ok)
-      throw Object.assign(new Error(`mbta_upstream_${response.status}`), { status: 502 });
+      throw Object.assign(new Error(`mbta_upstream_${response.status}`), {
+        status: 502,
+      });
     const buffer = await response.arrayBuffer();
     if (buffer.byteLength > BODY_CAP_BYTES)
-      throw Object.assign(new Error('mbta_upstream_too_large'), { status: 502 });
+      throw Object.assign(new Error('mbta_upstream_too_large'), {
+        status: 502,
+      });
     return JSON.parse(new TextDecoder().decode(buffer));
   } catch (error) {
     if (error?.status === 502) throw error;
@@ -208,7 +226,8 @@ function validateRouteParam(query) {
 async function getSnapshot(routeId) {
   const now = Date.now();
   const key = routeId ?? '*';
-  if (cache && cache.key === key && now - cache.at < CACHE_TTL_MS) return cache.payload;
+  if (cache && cache.key === key && now - cache.at < CACHE_TTL_MS)
+    return cache.payload;
   if (!inflight) {
     inflight = fetchJsonCapped(buildUpstreamUrl(routeId))
       .then((upstream) => {
@@ -217,8 +236,10 @@ async function getSnapshot(routeId) {
           generatedAt: new Date().toISOString(),
           model: false,
           observation: true,
-          source: 'MBTA v3 JSON API (normalized from GTFS-RT vehicle positions)',
-          protobufNote: 'Raw GTFS-RT protobuf feed is proxied untouched at /api/transit (feed id "mbta"); protobuf decode is out of scope at the edge (no WASM, no node: imports).',
+          source:
+            'MBTA v3 JSON API (normalized from GTFS-RT vehicle positions)',
+          protobufNote:
+            'Raw GTFS-RT protobuf feed is proxied untouched at /api/transit (feed id "mbta"); protobuf decode is out of scope at the edge (no WASM, no node: imports).',
           attribution: 'MBTA open data — MassDOT Developers License.',
           route: routeId,
           count: vehicles.length,
@@ -245,21 +266,37 @@ function sendJson(res, status, body, cacheControl = 'public, max-age=30') {
 /** Mount the wave-7 MBTA normalized vehicle-positions proxy. Mirrors the trains provider shape. */
 export function mbtaProxy() {
   async function handler(req, res) {
-    if (req.method !== 'GET') return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
     let routeId;
     try {
-      routeId = validateRouteParam(new URL(req.url, 'http://localhost').searchParams);
+      routeId = validateRouteParam(
+        new URL(req.url, 'http://localhost').searchParams,
+      );
     } catch (error) {
-      return sendJson(res, error.status ?? 400, { error: error.message }, 'no-store');
+      return sendJson(
+        res,
+        error.status ?? 400,
+        { error: error.message },
+        'no-store',
+      );
     }
     try {
       sendJson(res, 200, await getSnapshot(routeId));
     } catch (error) {
-      const upstreamFail = error?.status === 502 || error?.name === 'AbortError' || /aborted?/i.test(error?.message ?? '');
-      sendJson(res, upstreamFail ? 502 : 500, {
-        error: 'mbta_unavailable',
-        detail: error?.message ?? 'unknown',
-      }, 'no-store');
+      const upstreamFail =
+        error?.status === 502 ||
+        error?.name === 'AbortError' ||
+        /aborted?/i.test(error?.message ?? '');
+      sendJson(
+        res,
+        upstreamFail ? 502 : 500,
+        {
+          error: 'mbta_unavailable',
+          detail: error?.message ?? 'unknown',
+        },
+        'no-store',
+      );
     }
   }
 
@@ -280,5 +317,8 @@ export const _mbtaInternals = {
   routeNameIndex,
   validateRouteParam,
   buildUpstreamUrl,
-  clearCaches: () => { cache = null; inflight = null; },
+  clearCaches: () => {
+    cache = null;
+    inflight = null;
+  },
 };

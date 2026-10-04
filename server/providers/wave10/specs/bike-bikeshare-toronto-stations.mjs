@@ -4,45 +4,39 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 9 (bike2 worker)).
  */
 export const SPEC = {
-  "id": "bike-bikeshare-toronto-stations",
-  "title": "Bike Share Toronto — stations",
-  "url": "https://tor.publicbikesystem.net/ube/gbfs/v1/en/station_information.json",
-  "headers": {
-    "User-Agent": "satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)"
+  id: 'bike-bikeshare-toronto-stations',
+  title: 'Bike Share Toronto — stations',
+  url: 'https://tor.publicbikesystem.net/ube/gbfs/v1/en/station_information.json',
+  headers: {
+    'User-Agent':
+      'satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)',
   },
-  "ttlSeconds": 3600,
-  "bodyCapBytes": 2097152,
-  "extract": {
-    "items": "$.data.stations",
-    "limit": 50,
-    "map": {
-      "stationId": "$.station_id",
-      "name": "$.name",
-      "lat": "$.lat",
-      "lon": "$.lon",
-      "capacity": "$.capacity"
+  ttlSeconds: 3600,
+  bodyCapBytes: 2097152,
+  extract: {
+    items: '$.data.stations',
+    limit: 50,
+    map: {
+      stationId: '$.station_id',
+      name: '$.name',
+      lat: '$.lat',
+      lon: '$.lon',
+      capacity: '$.capacity',
     },
-    "numbers": [
-      "lat",
-      "lon",
-      "capacity"
-    ]
+    numbers: ['lat', 'lon', 'capacity'],
   },
-  "required": [
-    "stationId",
-    "lat",
-    "lon"
-  ],
-  "source": "GBFS",
-  "attribution": "Data: Bike Share Toronto GBFS feed — keyless.",
-  "units": {
-    "stationId": "text",
-    "name": "text",
-    "lat": "deg",
-    "lon": "deg",
-    "capacity": "count"
+  required: ['stationId', 'lat', 'lon'],
+  source: 'GBFS',
+  attribution: 'Data: Bike Share Toronto GBFS feed — keyless.',
+  units: {
+    stationId: 'text',
+    name: 'text',
+    lat: 'deg',
+    lon: 'deg',
+    capacity: 'count',
   },
-  "honesty": "Static station inventory: 1073 stations at probe (573064 bytes, under the 1.8MB size rule). capacity may be 0 for dockless/virtual stations. Feed last_updated epoch 1790991148.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 9 (bike2 worker)"
+  honesty:
+    'Static station inventory: 1073 stations at probe (573064 bytes, under the 1.8MB size rule). capacity may be 0 for dockless/virtual stations. Feed last_updated epoch 1790991148.',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 9 (bike2 worker)',
 };

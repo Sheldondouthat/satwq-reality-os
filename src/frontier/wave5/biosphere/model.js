@@ -50,7 +50,9 @@ export function observationsWithCoords(items) {
   return (Array.isArray(items) ? items : [])
     .filter(hasCoords)
     .slice()
-    .sort((a, b) => String(b.observed ?? '').localeCompare(String(a.observed ?? '')));
+    .sort((a, b) =>
+      String(b.observed ?? '').localeCompare(String(a.observed ?? '')),
+    );
 }
 
 /** One-line dock subtitle for an observation. */

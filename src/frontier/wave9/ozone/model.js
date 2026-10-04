@@ -5,11 +5,7 @@
  * latest published; the 2026 ozone season had not produced a maximum at
  * file-capture time.
  */
-import {
-  isUnavailable,
-  withTags,
-  pickNum,
-} from '../../wave3/common/ticker.js';
+import { isUnavailable, withTags, pickNum } from '../../wave3/common/ticker.js';
 
 export const ROUTE = '/api/ozone';
 export const EMOJI = '🕳️';
@@ -36,18 +32,24 @@ export function detailLine(doc) {
   if (latest.year != null) {
     parts.push(
       `${latest.year}: max hole area ${latest.maxHoleArea?.valueMkm2?.toFixed(1) ?? '?'}M km² ` +
-      `(${latest.maxHoleArea?.date ?? '?'}), min ozone ${latest.minOzone?.valueDU ?? '?'} DU ` +
-      `(${latest.minOzone?.date ?? '?'}).`
+        `(${latest.maxHoleArea?.date ?? '?'}), min ozone ${latest.minOzone?.valueDU ?? '?'} DU ` +
+        `(${latest.minOzone?.date ?? '?'}).`,
     );
   }
   const rec = doc.records || {};
   if (rec.largestHole?.valueMkm2 != null) {
-    parts.push(`Record: largest hole ${rec.largestHole.valueMkm2.toFixed(1)}M km² in ${rec.largestHole.year}.`);
+    parts.push(
+      `Record: largest hole ${rec.largestHole.valueMkm2.toFixed(1)}M km² in ${rec.largestHole.year}.`,
+    );
   }
   if (rec.lowestOzone?.valueDU != null) {
-    parts.push(`Lowest ozone ${rec.lowestOzone.valueDU} DU in ${rec.lowestOzone.year}.`);
+    parts.push(
+      `Lowest ozone ${rec.lowestOzone.valueDU} DU in ${rec.lowestOzone.year}.`,
+    );
   }
   if (!parts.length) parts.push('No ozone data in this payload.');
-  parts.push('Annual maxima (TOMS/OMI/OMPS + MERRA fill), Southern Hemisphere, CC-BY — not daily values.');
+  parts.push(
+    'Annual maxima (TOMS/OMI/OMPS + MERRA fill), Southern Hemisphere, CC-BY — not daily values.',
+  );
   return parts.join(' ');
 }

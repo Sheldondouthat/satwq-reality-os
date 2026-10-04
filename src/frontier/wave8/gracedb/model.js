@@ -19,18 +19,21 @@ export const EMOJI = '💫';
 export const LABEL = 'GraceDB (MDC)';
 
 export function valueLine(doc) {
-      if (isUnavailable(doc)) return null;
-      const real = pickNum(doc.realCount);
-      const mock = pickNum(doc.mockCount);
-      if (real == null && mock == null) {
-        const n = pickNum(doc.total, doc.returned, doc.events?.length);
-        if (n == null) return null;
-        return withTags(`${EMOJI} ${n} GraceDB events (MDC: mocks possible)`, doc);
-      }
-      return withTags(`${EMOJI} GraceDB ${real ?? 0} real · ${mock ?? 0} mock (MDC)`, doc);
-    }
+  if (isUnavailable(doc)) return null;
+  const real = pickNum(doc.realCount);
+  const mock = pickNum(doc.mockCount);
+  if (real == null && mock == null) {
+    const n = pickNum(doc.total, doc.returned, doc.events?.length);
+    if (n == null) return null;
+    return withTags(`${EMOJI} ${n} GraceDB events (MDC: mocks possible)`, doc);
+  }
+  return withTags(
+    `${EMOJI} GraceDB ${real ?? 0} real · ${mock ?? 0} mock (MDC)`,
+    doc,
+  );
+}
 
 export function detailLine(doc) {
-      if (isUnavailable(doc)) return '';
-      return pickStr(doc.disclaimer).slice(0, 160);
-    }
+  if (isUnavailable(doc)) return '';
+  return pickStr(doc.disclaimer).slice(0, 160);
+}

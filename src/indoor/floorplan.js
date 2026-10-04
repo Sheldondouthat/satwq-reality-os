@@ -84,7 +84,10 @@ export function resizeRoom(room, handle, dx, dy) {
 /** True when point (px, py) is inside the room rect (edges inclusive). */
 export function pointInRoom(room, px, py) {
   return (
-    px >= room.x && px <= room.x + room.w && py >= room.y && py <= room.y + room.h
+    px >= room.x &&
+    px <= room.x + room.w &&
+    py >= room.y &&
+    py <= room.y + room.h
   );
 }
 
@@ -142,10 +145,30 @@ export function deleteRoom(rooms, id) {
  */
 export function nearestWall(room, px, py, tolerance = DOOR_WALL_TOLERANCE) {
   const candidates = [
-    { wall: 'n', dist: Math.abs(py - room.y), offset: px - room.x, len: room.w },
-    { wall: 's', dist: Math.abs(py - (room.y + room.h)), offset: px - room.x, len: room.w },
-    { wall: 'w', dist: Math.abs(px - room.x), offset: py - room.y, len: room.h },
-    { wall: 'e', dist: Math.abs(px - (room.x + room.w)), offset: py - room.y, len: room.h },
+    {
+      wall: 'n',
+      dist: Math.abs(py - room.y),
+      offset: px - room.x,
+      len: room.w,
+    },
+    {
+      wall: 's',
+      dist: Math.abs(py - (room.y + room.h)),
+      offset: px - room.x,
+      len: room.w,
+    },
+    {
+      wall: 'w',
+      dist: Math.abs(px - room.x),
+      offset: py - room.y,
+      len: room.h,
+    },
+    {
+      wall: 'e',
+      dist: Math.abs(px - (room.x + room.w)),
+      offset: py - room.y,
+      len: room.h,
+    },
   ];
   let best = null;
   for (const c of candidates) {
@@ -188,7 +211,12 @@ export function doorSegment(room, door) {
   const half = door.width / 2;
   switch (door.wall) {
     case 'n':
-      return { x1: x + door.offset - half, y1: y, x2: x + door.offset + half, y2: y };
+      return {
+        x1: x + door.offset - half,
+        y1: y,
+        x2: x + door.offset + half,
+        y2: y,
+      };
     case 's':
       return {
         x1: x + door.offset - half,
@@ -197,7 +225,12 @@ export function doorSegment(room, door) {
         y2: y + h,
       };
     case 'w':
-      return { x1: x, y1: y + door.offset - half, x2: x, y2: y + door.offset + half };
+      return {
+        x1: x,
+        y1: y + door.offset - half,
+        x2: x,
+        y2: y + door.offset + half,
+      };
     case 'e':
       return {
         x1: x + w,
@@ -263,7 +296,9 @@ function strokeRoomWalls(ctx, room, view, selected, showDoors) {
   const p2 = worldToScreen(view, room.x + room.w, room.y + room.h);
   ctx.save();
   ctx.lineWidth = selected ? 2.5 : 1.5;
-  ctx.strokeStyle = selected ? 'rgba(0, 255, 255, 0.95)' : 'rgba(0, 255, 255, 0.55)';
+  ctx.strokeStyle = selected
+    ? 'rgba(0, 255, 255, 0.95)'
+    : 'rgba(0, 255, 255, 0.55)';
   // Draw each wall as segments split around door gaps.
   const walls = [
     { wall: 'n', from: p1, to: { x: p2.x, y: p1.y } },
@@ -328,7 +363,14 @@ function drawDoors(ctx, room, view) {
     const dir = door.wall === 'n' ? 1 : door.wall === 's' ? -1 : 0;
     const dirX = door.wall === 'w' ? 1 : door.wall === 'e' ? -1 : 0;
     const startAngle = Math.atan2(dir, dirX || 1e-9);
-    ctx.arc(a.x, a.y, Math.max(r, 4), startAngle, startAngle + Math.PI / 2, dirX < 0);
+    ctx.arc(
+      a.x,
+      a.y,
+      Math.max(r, 4),
+      startAngle,
+      startAngle + Math.PI / 2,
+      dirX < 0,
+    );
     ctx.stroke();
   }
   ctx.restore();

@@ -7,7 +7,13 @@
  *    affectedZones,geometry}]}
  */
 
-export const SEVERITY_ORDER = ['Unknown', 'Minor', 'Moderate', 'Severe', 'Extreme'];
+export const SEVERITY_ORDER = [
+  'Unknown',
+  'Minor',
+  'Moderate',
+  'Severe',
+  'Extreme',
+];
 
 export const SEVERITY_COLORS = {
   Extreme: { r: 1.0, g: 0.15, b: 0.2, a: 0.45 },
@@ -40,20 +46,28 @@ export async function fetchNwsAlerts({ fetchImpl = fetch } = {}) {
 export function alertCentroid(alert) {
   const geometry = alert?.geometry;
   if (!geometry) return null;
-  const ring = geometry.type === 'Polygon'
-    ? geometry.coordinates?.[0]
-    : geometry.coordinates?.[0]?.[0];
+  const ring =
+    geometry.type === 'Polygon'
+      ? geometry.coordinates?.[0]
+      : geometry.coordinates?.[0]?.[0];
   if (!Array.isArray(ring) || !ring.length) return null;
-  let lon = 0, lat = 0, n = 0;
+  let lon = 0,
+    lat = 0,
+    n = 0;
   for (const pos of ring) {
     if (!Array.isArray(pos)) continue;
-    lon += pos[0]; lat += pos[1]; n += 1;
+    lon += pos[0];
+    lat += pos[1];
+    n += 1;
   }
   return n ? { lon: lon / n, lat: lat / n } : null;
 }
 
 function ringBbox(ring) {
-  let minLon = 180, minLat = 90, maxLon = -180, maxLat = -90;
+  let minLon = 180,
+    minLat = 90,
+    maxLon = -180,
+    maxLat = -90;
   for (const pos of ring) {
     if (!Array.isArray(pos)) continue;
     const [lon, lat] = pos;
@@ -69,9 +83,10 @@ function ringBbox(ring) {
 export function alertBbox(alert) {
   const geometry = alert?.geometry;
   if (!geometry) return null;
-  const rings = geometry.type === 'Polygon'
-    ? geometry.coordinates
-    : (geometry.coordinates ?? []).flat();
+  const rings =
+    geometry.type === 'Polygon'
+      ? geometry.coordinates
+      : (geometry.coordinates ?? []).flat();
   let out = null;
   for (const ring of rings) {
     const b = ringBbox(ring ?? []);
@@ -89,8 +104,12 @@ export function alertBbox(alert) {
 }
 
 function bboxesOverlap(a, b) {
-  return a.minLon <= b.maxLon && a.maxLon >= b.minLon &&
-         a.minLat <= b.maxLat && a.maxLat >= b.minLat;
+  return (
+    a.minLon <= b.maxLon &&
+    a.maxLon >= b.minLon &&
+    a.minLat <= b.maxLat &&
+    a.maxLat >= b.minLat
+  );
 }
 
 /**
@@ -106,9 +125,10 @@ export function crossAlertsWithPerimeters(alerts, perimeters) {
         return { minLon, minLat, maxLon, maxLat };
       }
       if (p?.geometry) {
-        const rings = p.geometry.type === 'Polygon'
-          ? p.geometry.coordinates
-          : (p.geometry.coordinates ?? []).flat();
+        const rings =
+          p.geometry.type === 'Polygon'
+            ? p.geometry.coordinates
+            : (p.geometry.coordinates ?? []).flat();
         let out = null;
         for (const ring of rings) {
           const b = ringBbox(ring ?? []);
@@ -136,12 +156,21 @@ export function crossAlertsWithPerimeters(alerts, perimeters) {
   });
 }
 
-export function filterAlerts(alerts, { minSeverity = 'Unknown', eventIncludes = '' } = {}) {
+export function filterAlerts(
+  alerts,
+  { minSeverity = 'Unknown', eventIncludes = '' } = {},
+) {
   const min = severityRank(minSeverity);
   const needle = eventIncludes.trim().toLowerCase();
   return (alerts ?? []).filter((a) => {
     if (severityRank(a?.severity) < min) return false;
-    if (needle && !String(a?.event ?? '').toLowerCase().includes(needle)) return false;
+    if (
+      needle &&
+      !String(a?.event ?? '')
+        .toLowerCase()
+        .includes(needle)
+    )
+      return false;
     return true;
   });
 }

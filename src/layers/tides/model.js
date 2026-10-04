@@ -10,8 +10,7 @@ export function trendColor(trend) {
   return Cesium.Color.GRAY;
 }
 
-const fmtTime = (ms) =>
-  new Date(ms).toISOString().slice(11, 16) + 'Z';
+const fmtTime = (ms) => new Date(ms).toISOString().slice(11, 16) + 'Z';
 
 /**
  * Build the source-owned presentation for one tide station.
@@ -23,11 +22,20 @@ const fmtTime = (ms) =>
  * @param {number} input.nowMs Reference time.
  * @param {string} input.accent Trend color.
  */
-export function createTideOverlayEntry({ id, position, name, events, nowMs, accent }) {
+export function createTideOverlayEntry({
+  id,
+  position,
+  name,
+  events,
+  nowMs,
+  accent,
+}) {
   const { nextHigh, nextLow } = nextTideEvents(events, nowMs);
   const parts = [];
-  if (nextHigh) parts.push(`High ${nextHigh.v.toFixed(1)} ft ${fmtTime(nextHigh.t)}`);
-  if (nextLow) parts.push(`Low ${nextLow.v.toFixed(1)} ft ${fmtTime(nextLow.t)}`);
+  if (nextHigh)
+    parts.push(`High ${nextHigh.v.toFixed(1)} ft ${fmtTime(nextHigh.t)}`);
+  if (nextLow)
+    parts.push(`Low ${nextLow.v.toFixed(1)} ft ${fmtTime(nextLow.t)}`);
   return {
     id: String(id),
     position,

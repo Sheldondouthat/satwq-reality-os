@@ -4,35 +4,35 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 7 (tfl worker)).
  */
 export const SPEC = {
-  "id": "tfl-road-corridor-a406",
-  "title": "TfL — North Circular (A406) corridor status",
-  "url": "https://api.tfl.gov.uk/Road/A406/Status",
-  "headers": {
-    "User-Agent": "satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)"
+  id: 'tfl-road-corridor-a406',
+  title: 'TfL — North Circular (A406) corridor status',
+  url: 'https://api.tfl.gov.uk/Road/A406/Status',
+  headers: {
+    'User-Agent':
+      'satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)',
   },
-  "ttlSeconds": 300,
-  "extract": {
-    "items": "$",
-    "limit": 1,
-    "map": {
-      "roadId": "$.id",
-      "name": "$.displayName",
-      "status": "$.statusSeverityDescription",
-      "severity": "$.statusSeverity",
-      "windowStart": "$.statusAggregationStartDate",
-      "windowEnd": "$.statusAggregationEndDate",
-      "bounds": "$.bounds"
+  ttlSeconds: 300,
+  extract: {
+    items: '$',
+    limit: 1,
+    map: {
+      roadId: '$.id',
+      name: '$.displayName',
+      status: '$.statusSeverityDescription',
+      severity: '$.statusSeverity',
+      windowStart: '$.statusAggregationStartDate',
+      windowEnd: '$.statusAggregationEndDate',
+      bounds: '$.bounds',
     },
-    "numbers": []
+    numbers: [],
   },
-  "required": [
-    "name",
-    "status"
-  ],
-  "source": "Transport for London",
-  "attribution": "Data: Transport for London (TfL) Unified API — keyless, Open Government Licence.",
-  "units": {},
-  "honesty": "Aggregated live severity for the A406 North Circular corridor (single-item array). TfL labels severity as text here (was Serious at verification, window 2026-10-02T23:51Z); kept as string. bounds is TfL's [[lon,lat],[lon,lat]] envelope string.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 7 (tfl worker)"
+  required: ['name', 'status'],
+  source: 'Transport for London',
+  attribution:
+    'Data: Transport for London (TfL) Unified API — keyless, Open Government Licence.',
+  units: {},
+  honesty:
+    "Aggregated live severity for the A406 North Circular corridor (single-item array). TfL labels severity as text here (was Serious at verification, window 2026-10-02T23:51Z); kept as string. bounds is TfL's [[lon,lat],[lon,lat]] envelope string.",
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 7 (tfl worker)',
 };

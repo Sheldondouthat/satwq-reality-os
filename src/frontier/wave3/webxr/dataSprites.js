@@ -16,12 +16,22 @@ export const SEVERITY_COLORS = Object.freeze({
 
 /** Map a /api/events incident → sprite. Null when unmappable. */
 export function incidentToSprite(incident) {
-  if (!incident || !Number.isFinite(incident.lat) || !Number.isFinite(incident.lon)) return null;
+  if (
+    !incident ||
+    !Number.isFinite(incident.lat) ||
+    !Number.isFinite(incident.lon)
+  )
+    return null;
   return {
     lon: incident.lon,
     lat: incident.lat,
     color: SEVERITY_COLORS[incident.severity] || SEVERITY_COLORS.moderate,
-    size: incident.severity === 'critical' ? 14 : incident.severity === 'high' ? 10 : 7,
+    size:
+      incident.severity === 'critical'
+        ? 14
+        : incident.severity === 'high'
+          ? 10
+          : 7,
     label: String(incident.title || incident.type || 'incident').slice(0, 80),
   };
 }
@@ -32,12 +42,22 @@ export function quakeToSprite(feature) {
   const mag = feature?.properties?.mag;
   const lon = coords?.[0];
   const lat = coords?.[1];
-  if (!Number.isFinite(lat) || !Number.isFinite(lon) || !Number.isFinite(mag) || mag < 4.5)
+  if (
+    !Number.isFinite(lat) ||
+    !Number.isFinite(lon) ||
+    !Number.isFinite(mag) ||
+    mag < 4.5
+  )
     return null;
   return {
     lon,
     lat,
-    color: mag >= 6 ? SEVERITY_COLORS.critical : mag >= 5.5 ? SEVERITY_COLORS.high : SEVERITY_COLORS.moderate,
+    color:
+      mag >= 6
+        ? SEVERITY_COLORS.critical
+        : mag >= 5.5
+          ? SEVERITY_COLORS.high
+          : SEVERITY_COLORS.moderate,
     size: Math.min(16, 5 + mag),
     label: `M${mag.toFixed(1)} ${String(feature?.properties?.place || '').slice(0, 60)}`,
   };
@@ -47,7 +67,10 @@ async function fetchJson(url, { timeoutMs = 12000 } = {}) {
   const ctrl = new AbortController();
   const timer = setTimeout(() => ctrl.abort(), timeoutMs);
   try {
-    const res = await fetch(url, { signal: ctrl.signal, headers: { Accept: 'application/json' } });
+    const res = await fetch(url, {
+      signal: ctrl.signal,
+      headers: { Accept: 'application/json' },
+    });
     if (!res.ok) return null;
     return await res.json();
   } catch {
@@ -61,7 +84,10 @@ async function fetchJson(url, { timeoutMs = 12000 } = {}) {
  * Fetch live sprites. Returns [] on any failure — never throws.
  * `fetchImpl` is injectable for tests.
  */
-export async function fetchSprites({ fetchImpl = fetchJson, maxSprites = 400 } = {}) {
+export async function fetchSprites({
+  fetchImpl = fetchJson,
+  maxSprites = 400,
+} = {}) {
   const sprites = [];
   const push = (s) => {
     if (s && sprites.length < maxSprites) sprites.push(s);

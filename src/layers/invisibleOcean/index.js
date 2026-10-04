@@ -84,7 +84,8 @@ export function createInvisibleOceanLayer({ source, overlayHost } = {}) {
     throw new TypeError('Invisible Ocean requires a propagation source');
   if (typeof source?.getEmWeatherSnapshot !== 'function')
     throw new TypeError('Invisible Ocean requires an EM-weather source');
-  if (!overlayHost) throw new TypeError('Invisible Ocean requires an overlay host');
+  if (!overlayHost)
+    throw new TypeError('Invisible Ocean requires an overlay host');
 
   let _viewer = null;
   let _request = null;
@@ -106,7 +107,8 @@ export function createInvisibleOceanLayer({ source, overlayHost } = {}) {
     updateInterval: 180000, // ~3-minute sweep
 
     init(viewer) {
-      if (_viewer) throw new Error('Invisible Ocean layer is already initialized');
+      if (_viewer)
+        throw new Error('Invisible Ocean layer is already initialized');
       _viewer = viewer;
       _dataSource = new Cesium.CustomDataSource('invisible-ocean');
       _dataSource.show = false;
@@ -146,12 +148,18 @@ export function createInvisibleOceanLayer({ source, overlayHost } = {}) {
       try {
         const [prop, em] = await Promise.all([
           source.getPropagationSnapshot({ signal: request.signal }),
-          source.getEmWeatherSnapshot({ signal: request.signal }).catch(() => null),
+          source
+            .getEmWeatherSnapshot({ signal: request.signal })
+            .catch(() => null),
         ]);
-        if (request.signal.aborted || _request !== request || !_enabled) return false;
+        if (request.signal.aborted || _request !== request || !_enabled)
+          return false;
 
         const now = Date.now();
-        const spots = (prop.spots ?? []).map(coerceSpot).filter(Boolean).filter((s) => isSpotAlive(s, now));
+        const spots = (prop.spots ?? [])
+          .map(coerceSpot)
+          .filter(Boolean)
+          .filter((s) => isSpotAlive(s, now));
         const { spots: capped, dropped } = capSpots(spots);
 
         _dataSource.entities.removeAll();
@@ -160,7 +168,9 @@ export function createInvisibleOceanLayer({ source, overlayHost } = {}) {
           if (alpha <= 0.01) continue;
           let color;
           try {
-            color = Cesium.Color.fromCssColorString(spot.color).withAlpha(alpha * 0.9);
+            color = Cesium.Color.fromCssColorString(spot.color).withAlpha(
+              alpha * 0.9,
+            );
           } catch {
             color = Cesium.Color.GRAY.withAlpha(alpha * 0.9);
           }
@@ -168,7 +178,9 @@ export function createInvisibleOceanLayer({ source, overlayHost } = {}) {
             new Cesium.Entity({
               id: `invisible-ocean:${spot.id}`,
               polyline: {
-                positions: Cesium.Cartesian3.fromDegreesArrayHeights(arcPositions(spot)),
+                positions: Cesium.Cartesian3.fromDegreesArrayHeights(
+                  arcPositions(spot),
+                ),
                 width: 1.5,
                 material: new Cesium.ColorMaterialProperty(color),
               },
@@ -192,11 +204,14 @@ export function createInvisibleOceanLayer({ source, overlayHost } = {}) {
             : null;
         console.log(
           `[Data:InvisibleOcean] Updated: ${_count} arcs` +
-            (_lastProviders ? ` (psk:${_lastProviders.pskreporter ?? '?'}, wspr:${_lastProviders.wsprnet ?? '?'})` : ''),
+            (_lastProviders
+              ? ` (psk:${_lastProviders.pskreporter ?? '?'}, wspr:${_lastProviders.wsprnet ?? '?'})`
+              : ''),
         );
         return true;
       } catch (e) {
-        if (request.signal.aborted || _request !== request || !_enabled) return false;
+        if (request.signal.aborted || _request !== request || !_enabled)
+          return false;
         console.warn('[Data:InvisibleOcean] Fetch error:', e);
         _lastError = e?.message || 'Invisible Ocean source unavailable';
         return false;
@@ -241,7 +256,12 @@ export function createInvisibleOceanLayer({ source, overlayHost } = {}) {
       if (!_dataSource || !_dataSource.show) return [];
       return [
         mapAnalystRecord(
-          { spotCount: _count, providers: _lastProviders, em: _lastEm, timeMs: _lastTimeMs },
+          {
+            spotCount: _count,
+            providers: _lastProviders,
+            em: _lastEm,
+            timeMs: _lastTimeMs,
+          },
           0,
         ),
       ].slice(0, maxCount);

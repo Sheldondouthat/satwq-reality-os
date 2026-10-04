@@ -39,10 +39,11 @@
  * refresh — far under the Workers subrequest headroom rule.
  */
 
-import { readResponseTextCapped } from "../common/http.js";
+import { readResponseTextCapped } from '../common/http.js';
 
-const STATIONS_URL = "https://api.weather.gov/radar/stations";
-const USER_AGENT = "satwq-reality-os/1.0 (gods-eye-view; NEXRAD radar layer; keyless)";
+const STATIONS_URL = 'https://api.weather.gov/radar/stations';
+const USER_AGENT =
+  'satwq-reality-os/1.0 (gods-eye-view; NEXRAD radar layer; keyless)';
 const UPSTREAM_TIMEOUT_MS = 25_000;
 const BODY_CAP_BYTES = 1024 * 1024; // observed 510 KB; generous headroom
 const CACHE_TTL_MS = 120_000; // volume scans land every ~5–10 min
@@ -50,7 +51,7 @@ const RETRY_COOLDOWN_MS = 60_000;
 const STALE_MS = 10 * 60_000;
 const FRESH_SEC = 900; // ≤15 min since last Level-II receipt
 const DARK_SEC = 3600; // >60 min (or missing) reads dark
-const VALID_TYPES = ["WSR-88D", "TDWR", "Profiler"];
+const VALID_TYPES = ['WSR-88D', 'TDWR', 'Profiler'];
 
 let docCache = null; // {at, parsed} — one upstream fetch serves ALL query keys
 let docInflight = null; // in-flight doc fetch promise
@@ -61,7 +62,7 @@ const PAYLOAD_CACHE_MAX = 32;
 /** Number(null)===0 guard: null/NaN upstream numerics become null, never 0. */
 function numOrNull(v) {
   if (v == null) return null;
-  if (typeof v === "string" && v.trim() === "") return null; // Number('')===0 trap
+  if (typeof v === 'string' && v.trim() === '') return null; // Number('')===0 trap
   const n = Number(v);
   return Number.isFinite(n) ? n : null;
 }
@@ -76,42 +77,60 @@ export function parseStationFeature(feature, nowMs) {
   const rdaProps = props?.rda?.properties ?? {};
   const lastScanRaw = props?.latency?.levelTwoLastReceivedTime ?? null;
   const lastScanMs = lastScanRaw == null ? null : Date.parse(lastScanRaw);
-  const lastScan = lastScanMs != null && Number.isFinite(lastScanMs) ? new Date(lastScanMs).toISOString() : null;
-  const ageSec = lastScanMs != null && Number.isFinite(lastScanMs) ? Math.max(0, (nowMs - lastScanMs) / 1000) : null;
+  const lastScan =
+    lastScanMs != null && Number.isFinite(lastScanMs)
+      ? new Date(lastScanMs).toISOString()
+      : null;
+  const ageSec =
+    lastScanMs != null && Number.isFinite(lastScanMs)
+      ? Math.max(0, (nowMs - lastScanMs) / 1000)
+      : null;
   const elevation = props?.elevation ?? {};
   return {
-    id: String(props?.id ?? "").toUpperCase() || null,
-    name: typeof props?.name === "string" ? props.name : null,
+    id: String(props?.id ?? '').toUpperCase() || null,
+    name: typeof props?.name === 'string' ? props.name : null,
     lat,
     lon,
-    type: typeof props?.stationType === "string" ? props.stationType : null,
+    type: typeof props?.stationType === 'string' ? props.stationType : null,
     elevationM: numOrNull(elevation.value),
     lastScan,
     ageSec: ageSec == null ? null : Math.round(ageSec),
     fresh: ageSec != null && ageSec <= FRESH_SEC,
     dark: ageSec == null || ageSec > DARK_SEC,
-    rdaTimestamp: typeof props?.rda?.timestamp === "string" ? props.rda.timestamp : null,
-    mode: typeof rdaProps.mode === "string" ? rdaProps.mode : null,
-    operabilityStatus: typeof rdaProps.operabilityStatus === "string" ? rdaProps.operabilityStatus : null,
-    status: typeof rdaProps.status === "string" ? rdaProps.status : null,
-    vcp: typeof rdaProps.volumeCoveragePattern === "string" ? rdaProps.volumeCoveragePattern : null,
-    alarmSummary: typeof rdaProps.alarmSummary === "string" ? rdaProps.alarmSummary : null,
+    rdaTimestamp:
+      typeof props?.rda?.timestamp === 'string' ? props.rda.timestamp : null,
+    mode: typeof rdaProps.mode === 'string' ? rdaProps.mode : null,
+    operabilityStatus:
+      typeof rdaProps.operabilityStatus === 'string'
+        ? rdaProps.operabilityStatus
+        : null,
+    status: typeof rdaProps.status === 'string' ? rdaProps.status : null,
+    vcp:
+      typeof rdaProps.volumeCoveragePattern === 'string'
+        ? rdaProps.volumeCoveragePattern
+        : null,
+    alarmSummary:
+      typeof rdaProps.alarmSummary === 'string' ? rdaProps.alarmSummary : null,
     buildNumber: numOrNull(rdaProps.buildNumber),
     txPowerW: numOrNull(rdaProps?.averageTransmitterPower?.value),
-    controlStatus: typeof rdaProps.controlStatus === "string" ? rdaProps.controlStatus : null,
+    controlStatus:
+      typeof rdaProps.controlStatus === 'string'
+        ? rdaProps.controlStatus
+        : null,
   };
 }
 
 /** Parse the full /radar/stations GeoJSON document. Pure. Throws {status:502} on bad shape. */
 export function parseRadarStationsDoc(text, nowMs) {
-  const fail = (msg) => Object.assign(new Error(`nexrad_invalid_doc: ${msg}`), { status: 502 });
+  const fail = (msg) =>
+    Object.assign(new Error(`nexrad_invalid_doc: ${msg}`), { status: 502 });
   let doc;
   try {
     doc = JSON.parse(text);
   } catch {
-    throw fail("not JSON");
+    throw fail('not JSON');
   }
-  if (!Array.isArray(doc?.features)) throw fail("missing features[]");
+  if (!Array.isArray(doc?.features)) throw fail('missing features[]');
   const stations = [];
   let skipped = 0;
   for (const feature of doc.features) {
@@ -119,19 +138,23 @@ export function parseRadarStationsDoc(text, nowMs) {
     if (s) stations.push(s);
     else skipped++;
   }
-  if (stations.length === 0) throw fail("zero parseable stations");
+  if (stations.length === 0) throw fail('zero parseable stations');
   const byType = {};
   let fresh = 0;
   let dark = 0;
   let withScan = 0;
   for (const s of stations) {
-    const t = s.type ?? "Unknown";
+    const t = s.type ?? 'Unknown';
     byType[t] = (byType[t] ?? 0) + 1;
     if (s.fresh) fresh++;
     if (s.dark) dark++;
     if (s.lastScan) withScan++;
   }
-  return { stations, skipped, summary: { total: stations.length, byType, fresh, dark, withScan } };
+  return {
+    stations,
+    skipped,
+    summary: { total: stations.length, byType, fresh, dark, withScan },
+  };
 }
 
 /** Build the publishable payload from a parsed doc. Pure. */
@@ -152,33 +175,37 @@ export function buildNexradPayload(parsed, { nowMs, query }) {
     summary: parsed.summary,
     stations,
     attribution:
-      "Radar-site liveness: NWS api.weather.gov /radar/stations (keyless, " +
-      "User-Agent identified). lastScan = latency.levelTwoLastReceivedTime — " +
-      "the last time NWS received a Level-II volume scan from the radar. " +
-      "This is site liveness, not a rendered radar product; no imagery is " +
-      "fetched, fabricated, or interpolated. fresh ≤15 min; dark = no " +
-      "receipt or >60 min (maintenance/standby/outage).",
+      'Radar-site liveness: NWS api.weather.gov /radar/stations (keyless, ' +
+      'User-Agent identified). lastScan = latency.levelTwoLastReceivedTime — ' +
+      'the last time NWS received a Level-II volume scan from the radar. ' +
+      'This is site liveness, not a rendered radar product; no imagery is ' +
+      'fetched, fabricated, or interpolated. fresh ≤15 min; dark = no ' +
+      'receipt or >60 min (maintenance/standby/outage).',
   };
 }
 
 function parseQuery(url) {
-  const params = new URL(url, "http://localhost").searchParams;
-  const typeRaw = params.get("type");
+  const params = new URL(url, 'http://localhost').searchParams;
+  const typeRaw = params.get('type');
   let type = null;
   if (typeRaw != null) {
     type = typeRaw.trim().toUpperCase();
-    if (type === "WSR88D") type = "WSR-88D"; // forgiving alias
+    if (type === 'WSR88D') type = 'WSR-88D'; // forgiving alias
     if (!VALID_TYPES.includes(type))
-      throw Object.assign(new Error(`nexrad_bad_type: ${typeRaw}`), { status: 400 });
+      throw Object.assign(new Error(`nexrad_bad_type: ${typeRaw}`), {
+        status: 400,
+      });
   }
-  const stationRaw = params.get("station");
+  const stationRaw = params.get('station');
   let station = null;
   if (stationRaw != null) {
     station = stationRaw.trim().toUpperCase();
     if (!/^[A-Z0-9]{3,4}$/.test(station))
-      throw Object.assign(new Error(`nexrad_bad_station: ${stationRaw}`), { status: 400 });
+      throw Object.assign(new Error(`nexrad_bad_station: ${stationRaw}`), {
+        status: 400,
+      });
   }
-  return { type, station, key: `${type ?? ""}:${station ?? ""}` };
+  return { type, station, key: `${type ?? ''}:${station ?? ''}` };
 }
 
 async function fetchUpstream(fetchImpl, endMs) {
@@ -190,10 +217,16 @@ async function fetchUpstream(fetchImpl, endMs) {
       // NOTE: redirect:'follow' — workerd supports only 'follow'/'manual';
       // 'error' throws at the edge (main 2ec4053). api.weather.gov serves
       // this path directly (200, no redirect observed).
-      redirect: "follow",
-      headers: { "User-Agent": USER_AGENT, Accept: "application/geo+json, application/json" },
+      redirect: 'follow',
+      headers: {
+        'User-Agent': USER_AGENT,
+        Accept: 'application/geo+json, application/json',
+      },
     });
-    if (!res.ok) throw Object.assign(new Error(`nexrad_upstream_${res.status}`), { status: 502 });
+    if (!res.ok)
+      throw Object.assign(new Error(`nexrad_upstream_${res.status}`), {
+        status: 502,
+      });
     const text = await readResponseTextCapped(res, BODY_CAP_BYTES); // throws when too large
     return parseRadarStationsDoc(text, endMs); // throws {status:502} on bad shape
   } finally {
@@ -201,10 +234,10 @@ async function fetchUpstream(fetchImpl, endMs) {
   }
 }
 
-function sendJson(res, status, body, cacheControl = "public, max-age=120") {
+function sendJson(res, status, body, cacheControl = 'public, max-age=120') {
   res.writeHead(status, {
-    "Content-Type": "application/json; charset=utf-8",
-    "Cache-Control": cacheControl,
+    'Content-Type': 'application/json; charset=utf-8',
+    'Cache-Control': cacheControl,
   });
   res.end(JSON.stringify(body));
 }
@@ -215,7 +248,8 @@ async function getDoc(fetchImpl, nowMs, signal) {
   if (!docInflight) {
     // Retry gate fires only after a FAILED doc fetch — a success on one
     // query key must never block a different key (one upstream serves all).
-    if (nowMs - docFailedAt < RETRY_COOLDOWN_MS) throw new Error("nexrad_retry_later");
+    if (nowMs - docFailedAt < RETRY_COOLDOWN_MS)
+      throw new Error('nexrad_retry_later');
     docInflight = fetchUpstream(fetchImpl, nowMs)
       .then((parsed) => {
         docCache = { at: nowMs, parsed };
@@ -233,9 +267,9 @@ async function getDoc(fetchImpl, nowMs, signal) {
   const wait = docInflight;
   if (!signal) return wait;
   const cancelled = new Promise((_, reject) => {
-    const abort = () => reject(signal.reason ?? new Error("cancelled"));
-    signal.addEventListener("abort", abort, { once: true });
-    const detach = () => signal.removeEventListener("abort", abort);
+    const abort = () => reject(signal.reason ?? new Error('cancelled'));
+    signal.addEventListener('abort', abort, { once: true });
+    const detach = () => signal.removeEventListener('abort', abort);
     wait.then(detach, detach);
   });
   return Promise.race([wait, cancelled]);
@@ -259,52 +293,69 @@ async function getPayload(fetchImpl, query, nowMs, signal) {
     // Stale fallback is key-scoped: only serve a payload captured for THIS query.
     const hit = payloadCache.get(query.key);
     if (hit && nowMs - hit.at <= STALE_MS)
-      return { ...hit.payload, generatedAt: new Date(nowMs).toISOString(), stale: true };
+      return {
+        ...hit.payload,
+        generatedAt: new Date(nowMs).toISOString(),
+        stale: true,
+      };
     throw error;
   }
 }
 
-export function nexradProxy({ fetchImpl = fetch, now = () => Date.now() } = {}) {
+export function nexradProxy({
+  fetchImpl = fetch,
+  now = () => Date.now(),
+} = {}) {
   async function handler(req, res) {
-    if (req.method !== "GET")
-      return sendJson(res, 405, { error: "method_not_allowed" }, "no-store");
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
     const controller = new AbortController();
     const close = () => controller.abort();
-    res.once?.("close", close);
+    res.once?.('close', close);
     try {
       let query;
       try {
         query = parseQuery(req.url);
       } catch (error) {
-        return sendJson(res, 400, { error: "nexrad_bad_request", detail: error.message }, "no-store");
+        return sendJson(
+          res,
+          400,
+          { error: 'nexrad_bad_request', detail: error.message },
+          'no-store',
+        );
       }
       try {
-        const payload = await getPayload(fetchImpl, query, now(), controller.signal);
+        const payload = await getPayload(
+          fetchImpl,
+          query,
+          now(),
+          controller.signal,
+        );
         sendJson(res, 200, payload);
       } catch (error) {
         const upstreamFail =
           error?.status === 502 ||
-          error?.name === "AbortError" ||
-          /aborted?|fetch failed/i.test(error?.message ?? "");
+          error?.name === 'AbortError' ||
+          /aborted?|fetch failed/i.test(error?.message ?? '');
         sendJson(
           res,
           upstreamFail ? 502 : 500,
-          { error: "nexrad_unavailable", detail: error?.message ?? "unknown" },
-          "no-store",
+          { error: 'nexrad_unavailable', detail: error?.message ?? 'unknown' },
+          'no-store',
         );
       }
     } finally {
-      res.removeListener?.("close", close);
+      res.removeListener?.('close', close);
     }
   }
 
   return {
-    name: "nexrad",
+    name: 'nexrad',
     configureServer({ middlewares }) {
-      middlewares.use("/api/nexrad", handler);
+      middlewares.use('/api/nexrad', handler);
     },
     configurePreviewServer({ middlewares }) {
-      middlewares.use("/api/nexrad", handler);
+      middlewares.use('/api/nexrad', handler);
     },
   };
 }

@@ -19,13 +19,13 @@ export const EMOJI = '🐦';
 export const LABEL = 'BirdCast migration';
 
 export function valueLine(doc) {
-      if (isUnavailable(doc)) return null;
-      const date = pickStr(doc.date);
-      if (!date && countOf(doc) == null) return null;
-      return withTags(`${EMOJI} BirdCast${date ? ` ${date}` : ''}`, doc);
-    }
+  if (isUnavailable(doc)) return null;
+  const date = pickStr(doc.date);
+  if (!date && countOf(doc) == null) return null;
+  return withTags(`${EMOJI} BirdCast${date ? ` ${date}` : ''}`, doc);
+}
 
 export function detailLine(doc) {
-      if (isUnavailable(doc)) return '';
-      return `latest map ${pickStr(doc.latest?.lastModified, 'n/a')}`;
-    }
+  if (isUnavailable(doc)) return '';
+  return `latest map ${pickStr(doc.latest?.lastModified, 'n/a')}`;
+}

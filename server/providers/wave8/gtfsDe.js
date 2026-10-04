@@ -243,7 +243,11 @@ export function validateGtfsDeSnapshot(snap) {
     problems.push('topDelayed missing');
   } else {
     topDelayed.forEach((t, idx) => {
-      if (!Number.isInteger(t?.delaySec) || !isValidDelay(t.delaySec) || t.delaySec <= 0) {
+      if (
+        !Number.isInteger(t?.delaySec) ||
+        !isValidDelay(t.delaySec) ||
+        t.delaySec <= 0
+      ) {
         problems.push(`topDelayed[${idx}]: bad delaySec`);
       }
       if (idx > 0 && topDelayed[idx - 1].delaySec < t.delaySec) {

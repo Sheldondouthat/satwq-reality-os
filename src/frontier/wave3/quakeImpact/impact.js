@@ -17,7 +17,8 @@
 
 const DETAIL_URL = (eventId) =>
   `https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=${encodeURIComponent(eventId)}&format=geojson`;
-const FEED_URL = 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_day.geojson';
+const FEED_URL =
+  'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_day.geojson';
 const USGS_ORIGIN = 'https://earthquake.usgs.gov';
 
 function safeUsgsUrl(url) {
@@ -53,7 +54,12 @@ export function mmiColor(mmi) {
   return '#a00000';
 }
 
-export const PAGER_COLORS = Object.freeze({ green: '#4dd07a', yellow: '#ffd21a', orange: '#ff9d1a', red: '#ff3b3b' });
+export const PAGER_COLORS = Object.freeze({
+  green: '#4dd07a',
+  yellow: '#ffd21a',
+  orange: '#ff9d1a',
+  red: '#ff3b3b',
+});
 
 export function pagerColor(level) {
   return PAGER_COLORS[level] ?? '#8a93a6';
@@ -70,12 +76,20 @@ async function fetchJson(fetchImpl, url, signal) {
  * @returns {object} { eventId, mag, place, timeMs, lat, lon, pager, dyfi, shakemap }
  *   each product: { available, ... } — never throws for a missing product.
  */
-export async function getQuakeImpact(eventId, { fetchImpl = fetch, timeoutMs = 20000 } = {}) {
-  if (!eventId || typeof eventId !== 'string') throw new Error('eventId required');
+export async function getQuakeImpact(
+  eventId,
+  { fetchImpl = fetch, timeoutMs = 20000 } = {},
+) {
+  if (!eventId || typeof eventId !== 'string')
+    throw new Error('eventId required');
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), timeoutMs);
   try {
-    const detail = await fetchJson(fetchImpl, DETAIL_URL(eventId), controller.signal);
+    const detail = await fetchJson(
+      fetchImpl,
+      DETAIL_URL(eventId),
+      controller.signal,
+    );
     const props = detail?.properties ?? {};
     const products = props.products ?? {};
     const coords = detail?.geometry?.coordinates ?? [];
@@ -90,7 +104,11 @@ export async function getQuakeImpact(eventId, { fetchImpl = fetch, timeoutMs = 2
     };
 
     // — PAGER —
-    const alertsUrl = productContentUrl(products, 'losspager', 'json/alerts.json');
+    const alertsUrl = productContentUrl(
+      products,
+      'losspager',
+      'json/alerts.json',
+    );
     let pagerAlerts = null;
     if (alertsUrl) {
       try {
@@ -100,13 +118,21 @@ export async function getQuakeImpact(eventId, { fetchImpl = fetch, timeoutMs = 2
     impact.pager = {
       available: !!(props.alert || pagerAlerts),
       level: props.alert ?? pagerAlerts?.fatality?.level ?? null,
-      fatality: pagerAlerts?.fatality ? summarizePagerBin(pagerAlerts.fatality) : null,
-      economic: pagerAlerts?.economic ? summarizePagerBin(pagerAlerts.economic) : null,
+      fatality: pagerAlerts?.fatality
+        ? summarizePagerBin(pagerAlerts.fatality)
+        : null,
+      economic: pagerAlerts?.economic
+        ? summarizePagerBin(pagerAlerts.economic)
+        : null,
       kind: 'model', // PAGER is a modeled loss estimate
     };
 
     // — DYFI felt reports —
-    const dyfiUrl = productContentUrl(products, 'dyfi', 'dyfi_geo_10km.geojson');
+    const dyfiUrl = productContentUrl(
+      products,
+      'dyfi',
+      'dyfi_geo_10km.geojson',
+    );
     let dyfiPoints = [];
     if (dyfiUrl) {
       try {
@@ -122,7 +148,11 @@ export async function getQuakeImpact(eventId, { fetchImpl = fetch, timeoutMs = 2
     };
 
     // — ShakeMap MMI contours —
-    const mmiUrl = productContentUrl(products, 'shakemap', 'download/cont_mmi.json');
+    const mmiUrl = productContentUrl(
+      products,
+      'shakemap',
+      'download/cont_mmi.json',
+    );
     let contours = [];
     if (mmiUrl) {
       try {
@@ -147,7 +177,9 @@ function summarizePagerBin(bin) {
     level: bin.level ?? null,
     gvalue: Number.isFinite(Number(bin.gvalue)) ? Number(bin.gvalue) : null,
     units: bin.units ?? null,
-    topBin: Array.isArray(bin.bins) ? bin.bins[bin.bins.length - 1]?.color ?? null : null,
+    topBin: Array.isArray(bin.bins)
+      ? (bin.bins[bin.bins.length - 1]?.color ?? null)
+      : null,
   };
 }
 
@@ -160,8 +192,12 @@ export function normalizeDyfi(geojson) {
     if (!Number.isFinite(cdi)) continue;
     const ring = f?.geometry?.coordinates?.[0];
     if (!Array.isArray(ring) || !ring.length) continue;
-    let lon = 0, lat = 0;
-    for (const [lo, la] of ring) { lon += lo; lat += la; }
+    let lon = 0,
+      lat = 0;
+    for (const [lo, la] of ring) {
+      lon += lo;
+      lat += la;
+    }
     out.push({
       lon: lon / ring.length,
       lat: lat / ring.length,
@@ -182,10 +218,17 @@ export function normalizeMmiContours(geojson) {
     if (!Number.isFinite(mmi)) continue;
     const geom = f?.geometry;
     // Polygon: coordinates = [ring, ...]; MultiPolygon: [[ring, ...], ...].
-    const polys = geom?.type === 'MultiPolygon' ? (geom.coordinates ?? []).flat() : geom?.coordinates;
+    const polys =
+      geom?.type === 'MultiPolygon'
+        ? (geom.coordinates ?? []).flat()
+        : geom?.coordinates;
     if (!Array.isArray(polys)) continue;
     const rings = polys.filter(
-      (r) => Array.isArray(r) && r.length >= 4 && Array.isArray(r[0]) && Number.isFinite(Number(r[0][0])),
+      (r) =>
+        Array.isArray(r) &&
+        r.length >= 4 &&
+        Array.isArray(r[0]) &&
+        Number.isFinite(Number(r[0][0])),
     );
     out.push({
       mmi,
@@ -197,7 +240,11 @@ export function normalizeMmiContours(geojson) {
 }
 
 /** Pick the largest quake in the recent feed (for the "latest big quake" button). */
-export async function findLargestRecentQuake({ fetchImpl = fetch, minMag = 5.5, timeoutMs = 15000 } = {}) {
+export async function findLargestRecentQuake({
+  fetchImpl = fetch,
+  minMag = 5.5,
+  timeoutMs = 15000,
+} = {}) {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), timeoutMs);
   try {
@@ -208,7 +255,11 @@ export async function findLargestRecentQuake({ fetchImpl = fetch, minMag = 5.5, 
       if (!Number.isFinite(mag) || mag < minMag) continue;
       if (!best || mag > best.mag) {
         best = {
-          eventId: String(f?.properties?.ids ?? '').split(',').filter(Boolean).find((s) => s.startsWith('us')) ?? String(f.id ?? ''),
+          eventId:
+            String(f?.properties?.ids ?? '')
+              .split(',')
+              .filter(Boolean)
+              .find((s) => s.startsWith('us')) ?? String(f.id ?? ''),
           mag,
           place: f?.properties?.place,
         };

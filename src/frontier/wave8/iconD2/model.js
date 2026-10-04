@@ -19,13 +19,15 @@ export const EMOJI = '🌦️';
 export const LABEL = 'ICON-D2 forecast';
 
 export function valueLine(doc) {
-      if (isUnavailable(doc)) return null;
-      if (!doc.snapshot) return `${EMOJI} ICON-D2 snapshot pending`;
-      const h = pickArr(doc.horizons).length;
-      return withTags(`${EMOJI} ICON-D2${h ? ` · ${h} horizons` : ''}`, doc);
-    }
+  if (isUnavailable(doc)) return null;
+  if (!doc.snapshot) return `${EMOJI} ICON-D2 snapshot pending`;
+  const h = pickArr(doc.horizons).length;
+  return withTags(`${EMOJI} ICON-D2${h ? ` · ${h} horizons` : ''}`, doc);
+}
 
 export function detailLine(doc) {
-      if (isUnavailable(doc)) return '';
-      return doc.snapshot ? `snapshot ${pickStr(doc.snapshot.fetchedAt, 'n/a')}` : 'no snapshot yet — pipeline pending';
-    }
+  if (isUnavailable(doc)) return '';
+  return doc.snapshot
+    ? `snapshot ${pickStr(doc.snapshot.fetchedAt, 'n/a')}`
+    : 'no snapshot yet — pipeline pending';
+}

@@ -4,32 +4,32 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 6 (apac-weather worker)).
  */
 export const SPEC = {
-  "id": "apac-hko-warnings",
-  "title": "HKO Hong Kong — active weather warnings",
-  "url": "https://data.weather.gov.hk/weatherAPI/opendata/weather.php?dataType=warningInfo&lang=en",
-  "headers": {
-    "User-Agent": "satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)"
+  id: 'apac-hko-warnings',
+  title: 'HKO Hong Kong — active weather warnings',
+  url: 'https://data.weather.gov.hk/weatherAPI/opendata/weather.php?dataType=warningInfo&lang=en',
+  headers: {
+    'User-Agent':
+      'satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)',
   },
-  "ttlSeconds": 900,
-  "extract": {
-    "items": "$.details",
-    "limit": 5,
-    "map": {
-      "code": "$.warningStatementCode",
-      "updated": "$.updateTime",
-      "text": "$.contents[0]"
+  ttlSeconds: 900,
+  extract: {
+    items: '$.details',
+    limit: 5,
+    map: {
+      code: '$.warningStatementCode',
+      updated: '$.updateTime',
+      text: '$.contents[0]',
     },
-    "numbers": []
+    numbers: [],
   },
-  "required": [
-    "code",
-    "text"
-  ],
-  "source": "Hong Kong Observatory (HKO)",
-  "attribution": "Data: Hong Kong Observatory — data.weather.gov.hk (Open Data) — keyless.",
-  "units": {},
-  "honesty": "Active HKO warning statements (rainstorm, thunderstorm, tropical cyclone, etc.); text is the first paragraph of the statement. An empty list means no warnings in force.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 6 (apac-weather worker)",
-  "honestEmpty": true
+  required: ['code', 'text'],
+  source: 'Hong Kong Observatory (HKO)',
+  attribution:
+    'Data: Hong Kong Observatory — data.weather.gov.hk (Open Data) — keyless.',
+  units: {},
+  honesty:
+    'Active HKO warning statements (rainstorm, thunderstorm, tropical cyclone, etc.); text is the first paragraph of the statement. An empty list means no warnings in force.',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 6 (apac-weather worker)',
+  honestEmpty: true,
 };

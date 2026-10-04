@@ -4,38 +4,36 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 6 (fda worker)).
  */
 export const SPEC = {
-  "id": "fda-tobacco-problems-2026",
-  "title": "openFDA — 2026 tobacco problems",
-  "url": "https://api.fda.gov/tobacco/problem.json?limit=20&search=date_submitted:[20260101+TO+20261002]",
-  "headers": {},
-  "ttlSeconds": 86400,
-  "extract": {
-    "items": "$.results",
-    "limit": 20,
-    "map": {
-      "key": "$.report_id",
-      "date": "$.date_submitted",
-      "product": "$.tobacco_products[0]",
-      "health_problem": "$.reported_health_problems[0]",
-      "product_problem": "$.reported_product_problems[0]",
-      "number_health_problems": "$.number_health_problems",
-      "number_product_problems": "$.number_product_problems",
-      "number_tobacco_products": "$.number_tobacco_products"
+  id: 'fda-tobacco-problems-2026',
+  title: 'openFDA — 2026 tobacco problems',
+  url: 'https://api.fda.gov/tobacco/problem.json?limit=20&search=date_submitted:[20260101+TO+20261002]',
+  headers: {},
+  ttlSeconds: 86400,
+  extract: {
+    items: '$.results',
+    limit: 20,
+    map: {
+      key: '$.report_id',
+      date: '$.date_submitted',
+      product: '$.tobacco_products[0]',
+      health_problem: '$.reported_health_problems[0]',
+      product_problem: '$.reported_product_problems[0]',
+      number_health_problems: '$.number_health_problems',
+      number_product_problems: '$.number_product_problems',
+      number_tobacco_products: '$.number_tobacco_products',
     },
-    "numbers": [
-      "number_health_problems",
-      "number_product_problems",
-      "number_tobacco_products"
-    ]
+    numbers: [
+      'number_health_problems',
+      'number_product_problems',
+      'number_tobacco_products',
+    ],
   },
-  "required": [
-    "key",
-    "date"
-  ],
-  "source": "openFDA",
-  "attribution": "Data: U.S. Food & Drug Administration, openFDA — keyless.",
-  "units": {},
-  "honesty": "Tobacco problem reports submitted in 2026 (44 total); disjoint row set from the all-years spec. date_submitted is YYYYMMDD.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 6 (fda worker)"
+  required: ['key', 'date'],
+  source: 'openFDA',
+  attribution: 'Data: U.S. Food & Drug Administration, openFDA — keyless.',
+  units: {},
+  honesty:
+    'Tobacco problem reports submitted in 2026 (44 total); disjoint row set from the all-years spec. date_submitted is YYYYMMDD.',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 6 (fda worker)',
 };

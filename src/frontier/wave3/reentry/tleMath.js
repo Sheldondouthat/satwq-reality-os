@@ -52,7 +52,10 @@ function numOrNull(v) {
  */
 export function parseTleText(text) {
   if (typeof text !== 'string') return [];
-  const lines = text.split(/\r?\n/).map((l) => l.trimEnd()).filter((l) => l.length > 0);
+  const lines = text
+    .split(/\r?\n/)
+    .map((l) => l.trimEnd())
+    .filter((l) => l.length > 0);
   const sets = [];
   for (let i = 0; i < lines.length; i++) {
     if (/^1 \d{5,6}/.test(lines[i]) && /^2 \d{5,6}/.test(lines[i + 1] ?? '')) {
@@ -79,20 +82,36 @@ export function tleElements(line1, line2) {
   const inclDeg = numOrNull(line2.substring(8, 16));
   const ecc = numOrNull(`0.${line2.substring(26, 33).trim()}`);
   const meanMotion = numOrNull(line2.substring(52, 63));
-  if ([epochYear, epochDay, ndot, inclDeg, ecc, meanMotion].some((v) => v === null)) return null;
+  if (
+    [epochYear, epochDay, ndot, inclDeg, ecc, meanMotion].some(
+      (v) => v === null,
+    )
+  )
+    return null;
   if (meanMotion <= 0 || ecc < 0 || ecc >= 1) return null;
   const fullYear = epochYear < 57 ? 2000 + epochYear : 1900 + epochYear;
   const epochMs = Date.UTC(fullYear, 0, 1) + (epochDay - 1) * 86400_000;
-  return { noradId, epochUtc: new Date(epochMs).toISOString(), ndot, bstar, inclDeg, ecc, meanMotion };
+  return {
+    noradId,
+    epochUtc: new Date(epochMs).toISOString(),
+    ndot,
+    bstar,
+    inclDeg,
+    ecc,
+    meanMotion,
+  };
 }
 
 /**
  * Decay prediction from elements. Returns null when the object is not a
  * decay candidate (no positive drag, perigee too high, or prediction absurd).
  */
-export function predictDecay(el, { maxDays = 120, perigeeCeilingKm = 400 } = {}) {
+export function predictDecay(
+  el,
+  { maxDays = 120, perigeeCeilingKm = 400 } = {},
+) {
   if (!el || !(el.ndot > 0)) return null;
-  const nRadS = ((el.meanMotion * 2 * Math.PI) / 86400);
+  const nRadS = (el.meanMotion * 2 * Math.PI) / 86400;
   const a = (MU_KM3_S2 / nRadS ** 2) ** (1 / 3);
   const perigeeKm = a * (1 - el.ecc) - EARTH_RADIUS_KM;
   const apogeeKm = a * (1 + el.ecc) - EARTH_RADIUS_KM;

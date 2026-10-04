@@ -41,7 +41,12 @@ const HOST = process.env.HOST || '0.0.0.0';
 /* ------------------------------------------------------------------ */
 async function loadDotEnvFiles() {
   // Vite loadEnv order for mode=production (later files win).
-  const names = ['.env', '.env.local', '.env.production', '.env.production.local'];
+  const names = [
+    '.env',
+    '.env.local',
+    '.env.production',
+    '.env.production.local',
+  ];
   for (const name of names) {
     let text;
     try {
@@ -117,7 +122,10 @@ function createMiddlewareStack() {
 
         // Nothing handled it.
         if (err) {
-          console.error('[prod-server] unhandled middleware error:', err?.message || err);
+          console.error(
+            '[prod-server] unhandled middleware error:',
+            err?.message || err,
+          );
           res.writeHead(500, { 'Content-Type': 'application/json' });
           res.end(JSON.stringify({ error: 'internal server error' }));
         } else {
@@ -178,7 +186,9 @@ const MIME = new Map([
 ]);
 
 function contentTypeFor(filePath) {
-  return MIME.get(path.extname(filePath).toLowerCase()) || 'application/octet-stream';
+  return (
+    MIME.get(path.extname(filePath).toLowerCase()) || 'application/octet-stream'
+  );
 }
 
 async function serveFile(req, res, filePath, { immutable = false } = {}) {
@@ -253,7 +263,9 @@ async function main() {
   // provider reads keys, so the sentinel behaves exactly like an absent key.
   const scrubbed = scrubKeySentinels();
   if (scrubbed.length)
-    console.log(`[prod-server] keyless sentinel scrubbed: ${scrubbed.join(', ')}`);
+    console.log(
+      `[prod-server] keyless sentinel scrubbed: ${scrubbed.join(', ')}`,
+    );
 
   const stack = createMiddlewareStack();
 
@@ -285,7 +297,9 @@ async function main() {
     server.once('error', reject);
     server.listen(PORT, HOST, resolve);
   });
-  console.log(`[prod-server] SATWQ // God's Eye listening on http://${HOST}:${PORT}`);
+  console.log(
+    `[prod-server] SATWQ // God's Eye listening on http://${HOST}:${PORT}`,
+  );
   console.log(`[prod-server] serving dist/ from ${DIST}`);
 
   const shutdown = (signal) => {

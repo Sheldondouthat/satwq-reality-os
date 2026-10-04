@@ -29,12 +29,21 @@ export async function buildPagesStack(log = () => {}) {
         throw new Error('provider did not return a Vite plugin');
       }
       plugin.configureServer({ middlewares: stack });
-      status.push({ provider: entry.name, state: 'live', routes: entry.routes });
+      status.push({
+        provider: entry.name,
+        state: 'live',
+        routes: entry.routes,
+      });
     } catch (err) {
       const reason = summarizeError(err);
       log(`[pages-api] provider degraded: ${entry.name}: ${reason}`);
       useDegraded(stack, entry.routes, entry.name, reason);
-      status.push({ provider: entry.name, state: 'degraded', routes: entry.routes, reason });
+      status.push({
+        provider: entry.name,
+        state: 'degraded',
+        routes: entry.routes,
+        reason,
+      });
     }
   }
 

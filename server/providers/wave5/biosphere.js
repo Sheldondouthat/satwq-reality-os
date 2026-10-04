@@ -33,7 +33,9 @@ let inflight = null;
 
 function assertPinnedHost(url, host) {
   if (new URL(url).host !== host)
-    throw Object.assign(new Error(`biosphere_unexpected_host_${host}`), { status: 502 });
+    throw Object.assign(new Error(`biosphere_unexpected_host_${host}`), {
+      status: 502,
+    });
 }
 
 async function fetchJsonCapped(url, host, signal) {
@@ -49,10 +51,14 @@ async function fetchJsonCapped(url, host, signal) {
       headers: { 'User-Agent': USER_AGENT, Accept: 'application/json' },
     });
     if (!response.ok)
-      throw Object.assign(new Error(`biosphere_upstream_${response.status}`), { status: 502 });
+      throw Object.assign(new Error(`biosphere_upstream_${response.status}`), {
+        status: 502,
+      });
     const buffer = await response.arrayBuffer();
     if (buffer.byteLength > BODY_CAP_BYTES)
-      throw Object.assign(new Error('biosphere_upstream_too_large'), { status: 502 });
+      throw Object.assign(new Error('biosphere_upstream_too_large'), {
+        status: 502,
+      });
     return JSON.parse(new TextDecoder().decode(buffer));
   } finally {
     clearTimeout(timeout);
@@ -61,7 +67,9 @@ async function fetchJsonCapped(url, host, signal) {
 }
 
 function capText(value) {
-  const s = String(value ?? '').replace(/\s+/g, ' ').trim();
+  const s = String(value ?? '')
+    .replace(/\s+/g, ' ')
+    .trim();
   return s.length > TEXT_CAP ? s.slice(0, TEXT_CAP) + '…' : s;
 }
 
@@ -83,7 +91,10 @@ function trimINatObservation(obs) {
     }
   }
   const name =
-    taxon?.preferred_common_name || obs?.species_guess || taxon?.name || 'Unknown organism';
+    taxon?.preferred_common_name ||
+    obs?.species_guess ||
+    taxon?.name ||
+    'Unknown organism';
   return {
     feed: 'inaturalist',
     id: String(obs?.id ?? ''),
@@ -102,7 +113,9 @@ function trimINatObservation(obs) {
 
 function trimGbifOccurrence(occ) {
   const name =
-    occ?.scientificName || occ?.vernacularName || `${occ?.kingdom ?? 'Unknown'} sp.`;
+    occ?.scientificName ||
+    occ?.vernacularName ||
+    `${occ?.kingdom ?? 'Unknown'} sp.`;
   return {
     feed: 'gbif',
     id: String(occ?.key ?? ''),
@@ -149,12 +162,13 @@ export function trimBiospherePayload(sourceResults) {
   return {
     generatedAt: new Date().toISOString(),
     count: items.length,
-    withCoords: items.filter((o) => Number.isFinite(o.lat) && Number.isFinite(o.lon)).length,
+    withCoords: items.filter(
+      (o) => Number.isFinite(o.lat) && Number.isFinite(o.lon),
+    ).length,
     items,
     degradedSources,
     source: 'iNaturalist + GBIF occurrences',
-    attribution:
-      'iNaturalist (per-observation license) · GBIF (CC0/CC-BY)',
+    attribution: 'iNaturalist (per-observation license) · GBIF (CC0/CC-BY)',
   };
 }
 
@@ -167,14 +181,19 @@ async function getSnapshot() {
         try {
           return { name, result: await fetch() };
         } catch (error) {
-          return { name, result: error instanceof Error ? error : new Error('unknown') };
+          return {
+            name,
+            result: error instanceof Error ? error : new Error('unknown'),
+          };
         }
       }),
     )
       .then((sourceResults) => {
         const payload = trimBiospherePayload(sourceResults);
         if (payload.degradedSources.length >= SOURCES.length)
-          throw Object.assign(new Error('biosphere_all_sources_unavailable'), { status: 502 });
+          throw Object.assign(new Error('biosphere_all_sources_unavailable'), {
+            status: 502,
+          });
         cache = { at: Date.now(), payload };
         return payload;
       })
@@ -196,15 +215,21 @@ function sendJson(res, status, body, cacheControl = 'public, max-age=900') {
 /** Mount the biosphere ticker proxy. Mirrors the nwsAlerts provider shape. */
 export function biosphereProxy() {
   async function handler(req, res) {
-    if (req.method !== 'GET') return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
     req.on?.('close', () => {});
     try {
       sendJson(res, 200, await getSnapshot());
     } catch (error) {
-      sendJson(res, error?.status === 502 ? 502 : 500, {
-        error: 'biosphere_unavailable',
-        detail: error?.message ?? 'unknown',
-      }, 'no-store');
+      sendJson(
+        res,
+        error?.status === 502 ? 502 : 500,
+        {
+          error: 'biosphere_unavailable',
+          detail: error?.message ?? 'unknown',
+        },
+        'no-store',
+      );
     } finally {
       req.removeListener?.('close', () => {});
     }
@@ -225,5 +250,8 @@ export const _biosphereInternals = {
   trimINatObservation,
   trimGbifOccurrence,
   trimBiospherePayload,
-  clearCaches: () => { cache = null; inflight = null; },
+  clearCaches: () => {
+    cache = null;
+    inflight = null;
+  },
 };

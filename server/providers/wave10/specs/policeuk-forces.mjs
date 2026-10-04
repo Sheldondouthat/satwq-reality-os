@@ -4,25 +4,24 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 8 (police-uk worker)).
  */
 export const SPEC = {
-  "id": "policeuk-forces",
-  "title": "UK — police forces",
-  "url": "https://data.police.uk/api/forces",
-  "headers": {},
-  "ttlSeconds": 86400,
-  "extract": {
-    "items": "$",
-    "limit": 50,
-    "map": {
-      "id": "$.id",
-      "name": "$.name"
-    }
+  id: 'policeuk-forces',
+  title: 'UK — police forces',
+  url: 'https://data.police.uk/api/forces',
+  headers: {},
+  ttlSeconds: 86400,
+  extract: {
+    items: '$',
+    limit: 50,
+    map: {
+      id: '$.id',
+      name: '$.name',
+    },
   },
-  "required": [
-    "id"
-  ],
-  "source": "UK Police",
-  "attribution": "Data: data.police.uk — keyless, Open Government Licence.",
-  "honesty": "Directory of UK police forces (id, name). Verified 44 rows in fixture (2026-10-02). Covers England, Wales and Northern Ireland; Scotland not included. Aggregate public directory data; no personal identifiers.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 8 (police-uk worker)"
+  required: ['id'],
+  source: 'UK Police',
+  attribution: 'Data: data.police.uk — keyless, Open Government Licence.',
+  honesty:
+    'Directory of UK police forces (id, name). Verified 44 rows in fixture (2026-10-02). Covers England, Wales and Northern Ireland; Scotland not included. Aggregate public directory data; no personal identifiers.',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 8 (police-uk worker)',
 };

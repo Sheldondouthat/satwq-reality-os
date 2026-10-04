@@ -16,10 +16,11 @@ export function subsolarPoint(dateMs) {
   const d = new Date(dateMs);
   const start = Date.UTC(d.getUTCFullYear(), 0, 0);
   const dayOfYear = Math.floor((dateMs - start) / 86400000);
-  const utcHours = d.getUTCHours() + d.getUTCMinutes() / 60 + d.getUTCSeconds() / 3600;
+  const utcHours =
+    d.getUTCHours() + d.getUTCMinutes() / 60 + d.getUTCSeconds() / 3600;
 
   // Fractional year (radians) — NOAA solar-position approximation.
-  const gamma = (2 * Math.PI / 365) * (dayOfYear - 1 + (utcHours - 12) / 24);
+  const gamma = ((2 * Math.PI) / 365) * (dayOfYear - 1 + (utcHours - 12) / 24);
   const eqtime =
     229.18 *
     (0.000075 +
@@ -50,7 +51,9 @@ export function solarZenithDeg(lon, lat, dateMs) {
   const sun = subsolarPoint(dateMs);
   const cosZ =
     Math.sin(lat * RAD) * Math.sin(sun.lat * RAD) +
-    Math.cos(lat * RAD) * Math.cos(sun.lat * RAD) * Math.cos((lon - sun.lon) * RAD);
+    Math.cos(lat * RAD) *
+      Math.cos(sun.lat * RAD) *
+      Math.cos((lon - sun.lon) * RAD);
   return Math.acos(Math.max(-1, Math.min(1, cosZ))) * DEG;
 }
 
@@ -72,7 +75,8 @@ export function filterNightSide(meteors, cap = 300) {
 
 /** Streak length in degrees (display sizing). */
 export function streakDeg(m) {
-  const dLon = (m.lonEnd - m.lonBeg) * Math.cos(((m.latBeg + m.latEnd) / 2) * RAD);
+  const dLon =
+    (m.lonEnd - m.lonBeg) * Math.cos(((m.latBeg + m.latEnd) / 2) * RAD);
   const dLat = m.latEnd - m.latBeg;
   return Math.sqrt(dLon * dLon + dLat * dLat);
 }

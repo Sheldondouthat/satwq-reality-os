@@ -85,7 +85,9 @@ export function createTfrLayer({ viewer, fetchImpl, pollMs = POLL_MS } = {}) {
             name: `TFR ${tfr.id}`,
             polygon: {
               hierarchy: new Cesium.PolygonHierarchy(
-                ring.map(([lon, lat]) => Cesium.Cartesian3.fromDegrees(lon, lat)),
+                ring.map(([lon, lat]) =>
+                  Cesium.Cartesian3.fromDegrees(lon, lat),
+                ),
               ),
               material: color.withAlpha(flagged ? 0.45 : 0.22),
               outline: true,
@@ -95,9 +97,13 @@ export function createTfrLayer({ viewer, fetchImpl, pollMs = POLL_MS } = {}) {
             description:
               `<b>TFR ${tfr.id}</b> (${tfr.type})<br>${tfr.description ?? ''}<br>` +
               `Effective ${tfr.effective ?? '?'} → ${tfr.expires ?? '?'}<br>` +
-              (flagged ? '<b style="color:#ff4d6d">⚠ aircraft inside</b><br>' : '') +
-              (fireTfrIds.has(tfr.id) ? '🔥 overlaps a fire perimeter<br>' : '') +
-              `Alt: ${(tfr.areas?.[0]?.lowerFt ?? '?')}–${(tfr.areas?.[0]?.upperFt ?? '?')} ft`,
+              (flagged
+                ? '<b style="color:#ff4d6d">⚠ aircraft inside</b><br>'
+                : '') +
+              (fireTfrIds.has(tfr.id)
+                ? '🔥 overlaps a fire perimeter<br>'
+                : '') +
+              `Alt: ${tfr.areas?.[0]?.lowerFt ?? '?'}–${tfr.areas?.[0]?.upperFt ?? '?'} ft`,
           });
         }
         const centroid = tfrCentroid(tfr);
@@ -106,9 +112,11 @@ export function createTfrLayer({ viewer, fetchImpl, pollMs = POLL_MS } = {}) {
             name: `TFR ${tfr.id} marker`,
             position: Cesium.Cartesian3.fromDegrees(centroid.lon, centroid.lat),
             billboard: {
-              image: 'data:image/svg+xml,' + encodeURIComponent(
-                `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><circle cx="10" cy="10" r="8" fill="none" stroke="${flagged ? '#ff4d6d' : '#ff9f1c'}" stroke-width="3"/></svg>`,
-              ),
+              image:
+                'data:image/svg+xml,' +
+                encodeURIComponent(
+                  `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><circle cx="10" cy="10" r="8" fill="none" stroke="${flagged ? '#ff4d6d' : '#ff9f1c'}" stroke-width="3"/></svg>`,
+                ),
               width: 18,
               height: 18,
             },
@@ -173,7 +181,11 @@ export function createTfrLayer({ viewer, fetchImpl, pollMs = POLL_MS } = {}) {
       _panel?.remove();
       _panel = null;
     },
-    getStatus: () => ({ status: _status, summary: _snapshot, lastError: _lastError }),
+    getStatus: () => ({
+      status: _status,
+      summary: _snapshot,
+      lastError: _lastError,
+    }),
     isEnabled: () => _enabled,
     attachPanel(host) {
       _panel = host;
@@ -186,24 +198,40 @@ export function createTfrLayer({ viewer, fetchImpl, pollMs = POLL_MS } = {}) {
 export function mountTfrDock({ section, chip, el: elFn, t, layer } = {}) {
   if (!section || !chip || !layer) return null;
   const host = section(t ? t('feature.tfrLockdown') : 'TFR LOCKDOWN');
-  const statusLine = elFn('div', { style: 'font-size:10px;color:#8aa4d6;margin:4px 0;min-height:14px;' }, '—');
+  const statusLine = elFn(
+    'div',
+    { style: 'font-size:10px;color:#8aa4d6;margin:4px 0;min-height:14px;' },
+    '—',
+  );
   layer.attachPanel(statusLine);
   const setStatus = () => {
     const s = layer.getStatus();
     statusLine.textContent =
       s.status === 'live'
         ? `${s.summary.count} active · ${s.summary.withGeometry} polygons · ${s.summary.hits} aircraft inside`
-        : s.status === 'loading' ? 'loading…' : s.status === 'unavailable'
-          ? `TFR feed unavailable (${s.lastError ?? 'unknown'})` : 'off';
+        : s.status === 'loading'
+          ? 'loading…'
+          : s.status === 'unavailable'
+            ? `TFR feed unavailable (${s.lastError ?? 'unknown'})`
+            : 'off';
   };
   host.appendChild(
-    chip('🚫 TFRs', (on) => {
-      if (on) layer.enable();
-      else layer.disable();
-      setStatus();
-    }, false),
+    chip(
+      '🚫 TFRs',
+      (on) => {
+        if (on) layer.enable();
+        else layer.disable();
+        setStatus();
+      },
+      false,
+    ),
   );
   host.appendChild(statusLine);
   const poller = setInterval(setStatus, 30_000);
-  return { element: host, destroy() { clearInterval(poller); } };
+  return {
+    element: host,
+    destroy() {
+      clearInterval(poller);
+    },
+  };
 }

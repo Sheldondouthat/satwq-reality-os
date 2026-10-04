@@ -44,7 +44,10 @@ function clampLatLon(lat, lon) {
   const lo = Number(lon);
   if (!Number.isFinite(la) || !Number.isFinite(lo)) return null;
   if (la < -90 || la > 90 || lo < -180 || lo > 180) return null;
-  return { lat: Math.round(la * 10000) / 10000, lon: Math.round(lo * 10000) / 10000 };
+  return {
+    lat: Math.round(la * 10000) / 10000,
+    lon: Math.round(lo * 10000) / 10000,
+  };
 }
 
 function numOrNull(v) {
@@ -76,10 +79,15 @@ async function fetchTextCapped(url, tag) {
       headers: { 'User-Agent': USER_AGENT, Accept: '*/*' },
     });
     if (!response.ok)
-      throw Object.assign(new Error(`stations_${tag}_upstream_${response.status}`), { status: 502 });
+      throw Object.assign(
+        new Error(`stations_${tag}_upstream_${response.status}`),
+        { status: 502 },
+      );
     const buffer = await response.arrayBuffer();
     if (buffer.byteLength > BODY_CAP_BYTES)
-      throw Object.assign(new Error(`stations_${tag}_upstream_too_large`), { status: 502 });
+      throw Object.assign(new Error(`stations_${tag}_upstream_too_large`), {
+        status: 502,
+      });
     return new TextDecoder().decode(buffer);
   } finally {
     clearTimeout(timeout);
@@ -94,7 +102,8 @@ async function fetchJsonCapped(url, tag) {
 
 /** GeoSphere TAWES 10-min current: features[].properties.parameters.TL.data=[{t,v}]. */
 async function fetchGeosphere() {
-  const url = 'https://dataset.api.hub.geosphere.at/v1/station/current/tawes-v1-10min?parameters=TL&station_ids=11035';
+  const url =
+    'https://dataset.api.hub.geosphere.at/v1/station/current/tawes-v1-10min?parameters=TL&station_ids=11035';
   const upstream = await fetchJsonCapped(url, 'geosphere');
   const out = [];
   const features = Array.isArray(upstream?.features) ? upstream.features : [];
@@ -104,9 +113,14 @@ async function fetchGeosphere() {
     const params = props.parameters ?? {};
     const tlData = Array.isArray(params.TL?.data) ? params.TL.data : [];
     const latest = tlData[tlData.length - 1];
-    const obs = latest && latest.t != null
-      ? { airTempC: numOrNull(latest.v), observedAt: String(latest.t), parameter: 'TL (air temperature)' }
-      : null;
+    const obs =
+      latest && latest.t != null
+        ? {
+            airTempC: numOrNull(latest.v),
+            observedAt: String(latest.t),
+            parameter: 'TL (air temperature)',
+          }
+        : null;
     const s = normalizeStation({
       id: `geosphere:${props.station_id ?? 'unknown'}`,
       name: props.station_name ?? 'GeoSphere TAWES station',
@@ -122,9 +136,14 @@ async function fetchGeosphere() {
 
 /** AWDB station inventory (JSON array). */
 async function fetchAwdb() {
-  const url = 'https://wcc.sc.egov.usda.gov/awdbRestApi/services/v1/stations?stateCode=VA&networkCodes=SNTL';
+  const url =
+    'https://wcc.sc.egov.usda.gov/awdbRestApi/services/v1/stations?stateCode=VA&networkCodes=SNTL';
   const upstream = await fetchJsonCapped(url, 'awdb');
-  const list = Array.isArray(upstream) ? upstream : Array.isArray(upstream?.stations) ? upstream.stations : [];
+  const list = Array.isArray(upstream)
+    ? upstream
+    : Array.isArray(upstream?.stations)
+      ? upstream.stations
+      : [];
   const out = [];
   for (const s of list) {
     const st = normalizeStation({
@@ -142,7 +161,8 @@ async function fetchAwdb() {
 
 /** IEM network inventory (GeoJSON metadata). */
 async function fetchIem() {
-  const url = 'https://mesonet.agron.iastate.edu/geojson/network/IA_ASOS.geojson';
+  const url =
+    'https://mesonet.agron.iastate.edu/geojson/network/IA_ASOS.geojson';
   const upstream = await fetchJsonCapped(url, 'iem');
   const features = Array.isArray(upstream?.features) ? upstream.features : [];
   const out = [];
@@ -187,16 +207,25 @@ export function parseHydrometricCsv(text) {
 }
 
 async function fetchEcHydrometric() {
-  const url = 'https://dd.weather.gc.ca/today/hydrometric/doc/hydrometric_StationList.csv';
-  return { stations: parseHydrometricCsv(await fetchTextCapped(url, 'ec_hydro')) };
+  const url =
+    'https://dd.weather.gc.ca/today/hydrometric/doc/hydrometric_StationList.csv';
+  return {
+    stations: parseHydrometricCsv(await fetchTextCapped(url, 'ec_hydro')),
+  };
 }
 
 /** EC citypage: dir listing → latest XML for s0000422 (Toronto) → current conditions. */
 export function parseCitypageXml(xml, filename) {
-  const current = /<currentConditions>([\s\S]*?)<\/currentConditions>/.exec(String(xml ?? ''))?.[1] ?? '';
-  const locBlock = /<location>([\s\S]*?)<\/location>/.exec(String(xml ?? ''))?.[1] ?? '';
+  const current =
+    /<currentConditions>([\s\S]*?)<\/currentConditions>/.exec(
+      String(xml ?? ''),
+    )?.[1] ?? '';
+  const locBlock =
+    /<location>([\s\S]*?)<\/location>/.exec(String(xml ?? ''))?.[1] ?? '';
   const grab = (block, tag) => {
-    const m = new RegExp(`<${tag}[^>]*>([\\s\\S]*?)</${tag}>`).exec(block)?.[1]?.trim();
+    const m = new RegExp(`<${tag}[^>]*>([\\s\\S]*?)</${tag}>`)
+      .exec(block)?.[1]
+      ?.trim();
     return m === '' ? null : (m ?? null);
   };
   const temp = grab(current, 'temperature');
@@ -206,10 +235,16 @@ export function parseCitypageXml(xml, filename) {
     humidityPct: numOrNull(grab(current, 'relativeHumidity')),
     pressureKpa: numOrNull(grab(current, 'pressure')),
     windKph: numOrNull(grab(current, 'wind')?.match(/[\d.]+/)?.[0] ?? null),
-    observedAt: /<dateTime[^>]*name="observation"[^>]*>[\s\S]*?<timeStamp>(\d+)<\/timeStamp>/.exec(current)?.[1] ?? null,
+    observedAt:
+      /<dateTime[^>]*name="observation"[^>]*>[\s\S]*?<timeStamp>(\d+)<\/timeStamp>/.exec(
+        current,
+      )?.[1] ?? null,
   };
   if (obs.observedAt && /^\d{14}$/.test(obs.observedAt)) {
-    obs.observedAt = obs.observedAt.replace(/^(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})$/, '$1-$2-$3T$4:$5:$6Z');
+    obs.observedAt = obs.observedAt.replace(
+      /^(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})$/,
+      '$1-$2-$3T$4:$5:$6Z',
+    );
   }
   const s = normalizeStation({
     id: `ec-citypage:${/s\d+/.exec(filename ?? '')?.[0] ?? 's0000422'}`,
@@ -223,24 +258,47 @@ export function parseCitypageXml(xml, filename) {
 }
 
 async function fetchEcCitypage() {
-  const dir = await fetchTextCapped('https://dd.weather.gc.ca/today/citypage_weather/ON/05/', 'ec_citypage_dir');
-  const files = [...dir.matchAll(/href="(\d{8}T\d{6}(?:\.\d+)?Z_MSC_CitypageWeather_s0000422_en\.xml)"/g)].map((m) => m[1]);
-  if (!files.length) throw Object.assign(new Error('stations_ec_citypage_no_files'), { status: 502 });
+  const dir = await fetchTextCapped(
+    'https://dd.weather.gc.ca/today/citypage_weather/ON/05/',
+    'ec_citypage_dir',
+  );
+  const files = [
+    ...dir.matchAll(
+      /href="(\d{8}T\d{6}(?:\.\d+)?Z_MSC_CitypageWeather_s0000422_en\.xml)"/g,
+    ),
+  ].map((m) => m[1]);
+  if (!files.length)
+    throw Object.assign(new Error('stations_ec_citypage_no_files'), {
+      status: 502,
+    });
   files.sort();
   const latest = files[files.length - 1];
-  const xml = await fetchTextCapped(`https://dd.weather.gc.ca/today/citypage_weather/ON/05/${latest}`, 'ec_citypage_xml');
+  const xml = await fetchTextCapped(
+    `https://dd.weather.gc.ca/today/citypage_weather/ON/05/${latest}`,
+    'ec_citypage_xml',
+  );
   return { stations: parseCitypageXml(xml, latest) };
 }
 
 /** FMI open WFS: Helsinki observations via stored query (XML, defensive regex parse). */
 export function parseFmiWfs(xml) {
-  const blocks = [...String(xml ?? '').matchAll(/<BsWfs:BsWfsElement[\s\S]*?<\/BsWfs:BsWfsElement>/g)];
+  const blocks = [
+    ...String(xml ?? '').matchAll(
+      /<BsWfs:BsWfsElement[\s\S]*?<\/BsWfs:BsWfsElement>/g,
+    ),
+  ];
   const byStation = new Map();
   for (const [block] of blocks) {
     const pos = /<gml:pos>([^<]+)<\/gml:pos>/.exec(block)?.[1];
-    const time = /<gml:timePosition>([^<]+)<\/gml:timePosition>/.exec(block)?.[1];
-    const pname = /<BsWfs:ParameterName>([^<]+)<\/BsWfs:ParameterName>/.exec(block)?.[1];
-    const pvalue = /<BsWfs:ParameterValue>([^<]+)<\/BsWfs:ParameterValue>/.exec(block)?.[1];
+    const time = /<gml:timePosition>([^<]+)<\/gml:timePosition>/.exec(
+      block,
+    )?.[1];
+    const pname = /<BsWfs:ParameterName>([^<]+)<\/BsWfs:ParameterName>/.exec(
+      block,
+    )?.[1];
+    const pvalue = /<BsWfs:ParameterValue>([^<]+)<\/BsWfs:ParameterValue>/.exec(
+      block,
+    )?.[1];
     if (!pos || !pname) continue;
     const [lat, lon] = pos.trim().split(/\s+/).map(Number);
     if (!Number.isFinite(lat) || !Number.isFinite(lon)) continue;
@@ -278,10 +336,15 @@ async function fetchFmi() {
 
 /** DWD CDC recent dir listing → station IDs that reported in the last daily batch. */
 export function parseDwdRecentDir(html) {
-  const links = [...String(html ?? '').matchAll(/href="(tageswerte_KL_(\d{5})_akt\.zip)"/g)];
+  const links = [
+    ...String(html ?? '').matchAll(/href="(tageswerte_KL_(\d{5})_akt\.zip)"/g),
+  ];
   const seen = new Map();
   for (const [, file, stationId] of links) {
-    const date = /(\d{2}-[A-Za-z]{3}-\d{4})/.exec(html.slice(html.indexOf(`"${file}"`), html.indexOf(`"${file}"`) + 220))?.[1] ?? null;
+    const date =
+      /(\d{2}-[A-Za-z]{3}-\d{4})/.exec(
+        html.slice(html.indexOf(`"${file}"`), html.indexOf(`"${file}"`) + 220),
+      )?.[1] ?? null;
     if (!seen.has(stationId)) seen.set(stationId, { file, date });
   }
   const out = [];
@@ -300,27 +363,67 @@ export function parseDwdRecentDir(html) {
 }
 
 async function fetchDwdClimate() {
-  const url = 'https://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/daily/kl/recent/';
+  const url =
+    'https://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/daily/kl/recent/';
   return { stations: parseDwdRecentDir(await fetchTextCapped(url, 'dwd')) };
 }
 
 const SOURCES = [
-  { key: 'geosphere', fetch: fetchGeosphere, attribution: 'GeoSphere Austria (CC-BY 4.0)' },
+  {
+    key: 'geosphere',
+    fetch: fetchGeosphere,
+    attribution: 'GeoSphere Austria (CC-BY 4.0)',
+  },
   { key: 'awdb', fetch: fetchAwdb, attribution: 'USDA AWDB (public domain)' },
-  { key: 'iem', fetch: fetchIem, attribution: 'Iowa Environmental Mesonet (open)' },
-  { key: 'ec_hydrometric', fetch: fetchEcHydrometric, attribution: 'Environment Canada (OGL-Canada)' },
-  { key: 'ec_citypage', fetch: fetchEcCitypage, attribution: 'Environment Canada (OGL-Canada)' },
-  { key: 'fmi', fetch: fetchFmi, attribution: 'Finnish Meteorological Institute (open data)' },
-  { key: 'dwd', fetch: fetchDwdClimate, attribution: 'Deutscher Wetterdienst (open data)' },
+  {
+    key: 'iem',
+    fetch: fetchIem,
+    attribution: 'Iowa Environmental Mesonet (open)',
+  },
+  {
+    key: 'ec_hydrometric',
+    fetch: fetchEcHydrometric,
+    attribution: 'Environment Canada (OGL-Canada)',
+  },
+  {
+    key: 'ec_citypage',
+    fetch: fetchEcCitypage,
+    attribution: 'Environment Canada (OGL-Canada)',
+  },
+  {
+    key: 'fmi',
+    fetch: fetchFmi,
+    attribution: 'Finnish Meteorological Institute (open data)',
+  },
+  {
+    key: 'dwd',
+    fetch: fetchDwdClimate,
+    attribution: 'Deutscher Wetterdienst (open data)',
+  },
 ];
 
 async function fetchOneSource(source) {
   const started = Date.now();
   try {
     const { stations } = await source.fetch();
-    return { key: source.key, ok: true, count: stations.length, attribution: source.attribution, latencyMs: Date.now() - started, stations };
+    return {
+      key: source.key,
+      ok: true,
+      count: stations.length,
+      attribution: source.attribution,
+      latencyMs: Date.now() - started,
+      stations,
+    };
   } catch (error) {
-    return { key: source.key, ok: false, count: 0, attribution: source.attribution, latencyMs: Date.now() - started, error: error?.message ?? 'unknown', stations: [] };
+    return {
+      key: source.key,
+      ok: false,
+      count: 0,
+      attribution: source.attribution,
+      latencyMs: Date.now() - started,
+      error: error?.message ?? 'unknown',
+      stations: [],
+    };
   }
 }
 
@@ -355,13 +458,18 @@ async function getSnapshot() {
       .then((results) => {
         if (!results.some((r) => r.ok)) {
           const detail = results.map((r) => `${r.key}:${r.error}`).join('; ');
-          throw Object.assign(new Error(`stations_all_upstream_down: ${detail}`), { status: 502 });
+          throw Object.assign(
+            new Error(`stations_all_upstream_down: ${detail}`),
+            { status: 502 },
+          );
         }
         const payload = buildSnapshot(results);
         cache = { at: Date.now(), payload };
         return payload;
       })
-      .finally(() => { inflight = null; });
+      .finally(() => {
+        inflight = null;
+      });
   }
   return inflight;
 }
@@ -377,15 +485,24 @@ function sendJson(res, status, body, cacheControl = 'public, max-age=900') {
 /** Mount the station-data layer proxy. Mirrors the wave-5 quakes multi-source shape. */
 export function stationsExtProxy() {
   async function handler(req, res) {
-    if (req.method !== 'GET') return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
     try {
       sendJson(res, 200, await getSnapshot());
     } catch (error) {
-      const upstreamFail = error?.status === 502 || error?.name === 'AbortError' || /aborted?/i.test(error?.message ?? '');
-      sendJson(res, upstreamFail ? 502 : 500, {
-        error: 'stations_ext_unavailable',
-        detail: error?.message ?? 'unknown',
-      }, 'no-store');
+      const upstreamFail =
+        error?.status === 502 ||
+        error?.name === 'AbortError' ||
+        /aborted?/i.test(error?.message ?? '');
+      sendJson(
+        res,
+        upstreamFail ? 502 : 500,
+        {
+          error: 'stations_ext_unavailable',
+          detail: error?.message ?? 'unknown',
+        },
+        'no-store',
+      );
     }
   }
 
@@ -407,5 +524,8 @@ export const _stationsExtInternals = {
   parseDwdRecentDir,
   normalizeStation,
   buildSnapshot,
-  clearCaches: () => { cache = null; inflight = null; },
+  clearCaches: () => {
+    cache = null;
+    inflight = null;
+  },
 };

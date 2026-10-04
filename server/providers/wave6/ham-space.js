@@ -30,7 +30,8 @@
  */
 
 const ARISS_URL = 'https://ariss.org/current-status-of-iss-stations.html';
-const ECALLISTO_BASE = 'https://soleil.i4ds.ch/solarradio/data/2002-20yy_Callisto';
+const ECALLISTO_BASE =
+  'https://soleil.i4ds.ch/solarradio/data/2002-20yy_Callisto';
 const UPSTREAM_TIMEOUT_MS = 20_000;
 const BODY_CAP_BYTES = 2 * 1024 * 1024;
 const ARISS_TTL_MS = 12 * 60 * 60_000;
@@ -77,17 +78,22 @@ async function fetchTextCapped(url, label) {
       headers: { 'User-Agent': USER_AGENT, Accept: 'text/html, */*' },
     });
     if (!response.ok)
-      throw Object.assign(new Error(`${label}_upstream_${response.status}`), { status: 502 });
+      throw Object.assign(new Error(`${label}_upstream_${response.status}`), {
+        status: 502,
+      });
     const buffer = await response.arrayBuffer();
     if (buffer.byteLength > BODY_CAP_BYTES)
-      throw Object.assign(new Error(`${label}_upstream_too_large`), { status: 502 });
+      throw Object.assign(new Error(`${label}_upstream_too_large`), {
+        status: 502,
+      });
     return new TextDecoder().decode(buffer);
   } finally {
     clearTimeout(timeout);
   }
 }
 
-const ARISS_KEYWORDS = /NA1SS|RS0ISS|MHz|kHz|APRS|packet|voice|cross-?band|SSTV|repeater|digipeat/i;
+const ARISS_KEYWORDS =
+  /NA1SS|RS0ISS|MHz|kHz|APRS|packet|voice|cross-?band|SSTV|repeater|digipeat/i;
 
 /** Strip HTML to text, then keep text chunks carrying ham-radio keywords. */
 export function trimArissPage(html, url) {
@@ -104,10 +110,15 @@ export function trimArissPage(html, url) {
     if (c.length > 12 && ARISS_KEYWORDS.test(c)) notes.push(c.slice(0, 300));
     if (notes.length >= MAX_ARISS_NOTES) break;
   }
-  const frequencies = [...new Set(
-    [...text.matchAll(/(\d{2,4}\.\d{1,4})\s*MHz/gi)].map((m) => m[1]),
-  )].slice(0, 20);
-  const title = (String(html ?? '').match(/<title>([^<]*)<\/title>/i)?.[1] ?? 'ARISS ISS station status').trim();
+  const frequencies = [
+    ...new Set(
+      [...text.matchAll(/(\d{2,4}\.\d{1,4})\s*MHz/gi)].map((m) => m[1]),
+    ),
+  ].slice(0, 20);
+  const title = (
+    String(html ?? '').match(/<title>([^<]*)<\/title>/i)?.[1] ??
+    'ARISS ISS station status'
+  ).trim();
   return {
     title,
     frequencies,
@@ -135,7 +146,9 @@ export function ecallistoDayUrl(date) {
  * counts plus the latest timestamp, no FITS download.
  */
 export function trimEcallistoListing(html, url, day) {
-  const hrefs = [...String(html ?? '').matchAll(/href="([^"]+)"/gi)].map((m) => m[1]);
+  const hrefs = [...String(html ?? '').matchAll(/href="([^"]+)"/gi)].map(
+    (m) => m[1],
+  );
   const stations = new Map();
   let totalFiles = 0;
   for (const href of hrefs) {
@@ -168,13 +181,17 @@ async function fetchAriss() {
   try {
     const html = await fetchTextCapped(ARISS_URL, 'ariss');
     return {
-      key: 'ariss', ok: true, latencyMs: Date.now() - started,
+      key: 'ariss',
+      ok: true,
+      latencyMs: Date.now() - started,
       attribution: 'ARISS (amateur radio on the ISS)',
       data: trimArissPage(html, ARISS_URL),
     };
   } catch (error) {
     return {
-      key: 'ariss', ok: false, latencyMs: Date.now() - started,
+      key: 'ariss',
+      ok: false,
+      latencyMs: Date.now() - started,
       attribution: 'ARISS (amateur radio on the ISS)',
       error: error?.message ?? 'unknown',
     };
@@ -185,13 +202,18 @@ async function fetchEcallisto() {
   const started = Date.now();
   try {
     // Try today's UTC listing, then yesterday's (tomorrow's data cannot exist).
-    const attempts = [ecallistoDayUrl(new Date()), ecallistoDayUrl(new Date(Date.now() - 86_400_000))];
+    const attempts = [
+      ecallistoDayUrl(new Date()),
+      ecallistoDayUrl(new Date(Date.now() - 86_400_000)),
+    ];
     let lastError = null;
     for (const { day, url } of attempts) {
       try {
         const html = await fetchTextCapped(url, 'ecallisto');
         return {
-          key: 'ecallisto', ok: true, latencyMs: Date.now() - started,
+          key: 'ecallisto',
+          ok: true,
+          latencyMs: Date.now() - started,
           attribution: 'e-Callisto / FHNW (solar radio spectrograms)',
           data: trimEcallistoListing(html, url, day),
         };
@@ -202,7 +224,9 @@ async function fetchEcallisto() {
     throw lastError ?? new Error('ecallisto_no_listing');
   } catch (error) {
     return {
-      key: 'ecallisto', ok: false, latencyMs: Date.now() - started,
+      key: 'ecallisto',
+      ok: false,
+      latencyMs: Date.now() - started,
       attribution: 'e-Callisto / FHNW (solar radio spectrograms)',
       error: error?.message ?? 'unknown',
     };
@@ -225,10 +249,15 @@ function buildSnapshot(results) {
 }
 
 async function getSnapshot() {
-  const [ariss, ecallisto] = await Promise.all([arissCached.get(), ecallistoCached.get()]);
+  const [ariss, ecallisto] = await Promise.all([
+    arissCached.get(),
+    ecallistoCached.get(),
+  ]);
   if (!ariss.ok && !ecallisto.ok) {
     throw Object.assign(
-      new Error(`hamspace_all_upstream_down: ariss:${ariss.error}; ecallisto:${ecallisto.error}`),
+      new Error(
+        `hamspace_all_upstream_down: ariss:${ariss.error}; ecallisto:${ecallisto.error}`,
+      ),
       { status: 502 },
     );
   }
@@ -246,15 +275,24 @@ function sendJson(res, status, body, cacheControl = 'public, max-age=900') {
 /** Mount the ham-space aggregation proxy. Mirrors the quakes provider shape. */
 export function hamSpaceProxy() {
   async function handler(req, res) {
-    if (req.method !== 'GET') return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
     try {
       sendJson(res, 200, await getSnapshot());
     } catch (error) {
-      const upstreamFail = error?.status === 502 || error?.name === 'AbortError' || /aborted?/i.test(error?.message ?? '');
-      sendJson(res, upstreamFail ? 502 : 500, {
-        error: 'hamspace_unavailable',
-        detail: error?.message ?? 'unknown',
-      }, 'no-store');
+      const upstreamFail =
+        error?.status === 502 ||
+        error?.name === 'AbortError' ||
+        /aborted?/i.test(error?.message ?? '');
+      sendJson(
+        res,
+        upstreamFail ? 502 : 500,
+        {
+          error: 'hamspace_unavailable',
+          detail: error?.message ?? 'unknown',
+        },
+        'no-store',
+      );
     }
   }
 
@@ -276,5 +314,8 @@ export const _hamSpaceInternals = {
   buildSnapshot,
   fetchAriss,
   fetchEcallisto,
-  clearCaches: () => { arissCached.clear(); ecallistoCached.clear(); },
+  clearCaches: () => {
+    arissCached.clear();
+    ecallistoCached.clear();
+  },
 };

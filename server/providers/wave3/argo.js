@@ -172,7 +172,12 @@ export function argoProxy({
         `&time%3E=${encodeURIComponent(tempCutoff)}&pres%3C5&orderByLimit(%22time,${TEMP_ROW_LIMIT}%22)`;
       const [posDoc, tempDoc] = await Promise.all([
         fetchJsonCapped(fetchImpl, posUrl, BODY_CAP_BYTES, UPSTREAM_TIMEOUT_MS),
-        fetchJsonCapped(fetchImpl, tempUrl, BODY_CAP_BYTES, TEMP_TIMEOUT_MS).catch(
+        fetchJsonCapped(
+          fetchImpl,
+          tempUrl,
+          BODY_CAP_BYTES,
+          TEMP_TIMEOUT_MS,
+        ).catch(
           () => null, // temp is best-effort; positions are the product
         ),
       ]);

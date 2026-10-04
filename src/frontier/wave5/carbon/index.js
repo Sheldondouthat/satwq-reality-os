@@ -12,7 +12,8 @@ const REFRESH_MS = 30 * 60_000; // half-hourly windows
 
 export function init({ viewer, mount, chip, trackLayer, t } = {}) {
   try {
-    if (typeof document === 'undefined' || !mount || typeof chip !== 'function') return null;
+    if (typeof document === 'undefined' || !mount || typeof chip !== 'function')
+      return null;
     const T = typeof t === 'function' ? t : (k) => k;
 
     let enabled = false;
@@ -24,10 +25,12 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
     statusEl.textContent = 'carbon ticker off — enable to load.';
 
     const valueEl = document.createElement('div');
-    valueEl.style.cssText = 'font-size:22px;color:#cfe3ff;font-weight:600;letter-spacing:.5px;';
+    valueEl.style.cssText =
+      'font-size:22px;color:#cfe3ff;font-weight:600;letter-spacing:.5px;';
 
     const subEl = document.createElement('div');
-    subEl.style.cssText = 'font-size:10px;color:#8aa4d6;margin:2px 0 4px;line-height:1.5;';
+    subEl.style.cssText =
+      'font-size:10px;color:#8aa4d6;margin:2px 0 4px;line-height:1.5;';
 
     async function load() {
       if (destroyed || !enabled) return;
@@ -72,7 +75,8 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
       chip(T('feature.carbon') || 'Grid carbon intensity', setEnabled, false),
     );
     const legend = document.createElement('div');
-    legend.style.cssText = 'font-size:10px;color:#8aa4d6;margin-top:4px;line-height:1.5;';
+    legend.style.cssText =
+      'font-size:10px;color:#8aa4d6;margin-top:4px;line-height:1.5;';
     legend.textContent =
       'Great Britain grid carbon intensity (half-hourly). Shows the measured value where published, else the ESO forecast — flagged.';
     mount.appendChild(legend);

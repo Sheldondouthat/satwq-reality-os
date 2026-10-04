@@ -13,7 +13,8 @@ const REFRESH_MS = 15 * 60_000;
 
 export function init({ viewer, mount, chip, trackLayer, t } = {}) {
   try {
-    if (typeof document === 'undefined' || !mount || typeof chip !== 'function') return null;
+    if (typeof document === 'undefined' || !mount || typeof chip !== 'function')
+      return null;
     const T = typeof t === 'function' ? t : (k) => k;
 
     let enabled = false;
@@ -25,10 +26,12 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
     statusEl.textContent = 'UV ticker off — enable to load.';
 
     const valueEl = document.createElement('div');
-    valueEl.style.cssText = 'font-size:22px;color:#cfe3ff;font-weight:600;letter-spacing:.5px;';
+    valueEl.style.cssText =
+      'font-size:22px;color:#cfe3ff;font-weight:600;letter-spacing:.5px;';
 
     const subEl = document.createElement('div');
-    subEl.style.cssText = 'font-size:10px;color:#8aa4d6;margin:2px 0 4px;line-height:1.5;';
+    subEl.style.cssText =
+      'font-size:10px;color:#8aa4d6;margin:2px 0 4px;line-height:1.5;';
 
     async function load() {
       if (destroyed || !enabled) return;
@@ -74,7 +77,8 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
     mount.appendChild(subEl);
     mount.appendChild(chip(T('feature.uv') || 'UV index', setEnabled, false));
     const legend = document.createElement('div');
-    legend.style.cssText = 'font-size:10px;color:#8aa4d6;margin-top:4px;line-height:1.5;';
+    legend.style.cssText =
+      'font-size:10px;color:#8aa4d6;margin-top:4px;line-height:1.5;';
     legend.textContent =
       'Current UV index with WHO bands; today’s max, sunrise and sunset for the pinned point.';
     mount.appendChild(legend);

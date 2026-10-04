@@ -27,12 +27,14 @@ const RETRY_COOLDOWN_MS = 60_000;
 export async function mapLimit(items, limit, fn) {
   const results = new Array(items.length);
   let next = 0;
-  const workers = new Array(Math.min(limit, items.length)).fill(0).map(async () => {
-    while (next < items.length) {
-      const i = next++;
-      results[i] = await fn(items[i], i);
-    }
-  });
+  const workers = new Array(Math.min(limit, items.length))
+    .fill(0)
+    .map(async () => {
+      while (next < items.length) {
+        const i = next++;
+        results[i] = await fn(items[i], i);
+      }
+    });
   await Promise.all(workers);
   return results;
 }
@@ -44,7 +46,13 @@ export async function mapLimit(items, limit, fn) {
 export async function fetchUpstreamText(
   fetchImpl,
   url,
-  { signal, timeoutMs = 15_000, textCap = TEXT_CAP_DEFAULT, userAgent, accept } = {},
+  {
+    signal,
+    timeoutMs = 15_000,
+    textCap = TEXT_CAP_DEFAULT,
+    userAgent,
+    accept,
+  } = {},
 ) {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), timeoutMs);
@@ -59,10 +67,16 @@ export async function fetchUpstreamText(
       },
     });
     if (!response.ok) {
-      try { await response.body?.cancel(); } catch {}
+      try {
+        await response.body?.cancel();
+      } catch {}
       throw new Error(`upstream_http_${response.status}`);
     }
-    const text = await readResponseTextCapped(response, textCap, controller.signal);
+    const text = await readResponseTextCapped(
+      response,
+      textCap,
+      controller.signal,
+    );
     signal?.throwIfAborted();
     return text;
   } finally {
@@ -92,7 +106,9 @@ export function createKeylessProxy({
   now = () => Date.now(),
 }) {
   if (!name || !route || !fetchUpstream || !describe) {
-    throw new TypeError('createKeylessProxy requires name, route, fetchUpstream, describe');
+    throw new TypeError(
+      'createKeylessProxy requires name, route, fetchUpstream, describe',
+    );
   }
   const caches = new Map(); // key -> { payload, fetchedAt }
   const operations = new Map(); // key -> { promise, controller, waiters, attemptedAt }
@@ -132,7 +148,9 @@ export function createKeylessProxy({
       if (!op) {
         const lastFailure = failedAt.get(key);
         if (lastFailure != null && now() - lastFailure < RETRY_COOLDOWN_MS) {
-          throw Object.assign(new Error(`${name}_retry_later`), { status: 503 });
+          throw Object.assign(new Error(`${name}_retry_later`), {
+            status: 503,
+          });
         }
       }
       const controller = new AbortController();
@@ -175,9 +193,11 @@ export function createKeylessProxy({
       res.end(JSON.stringify(value));
     };
     try {
-      if (req.method !== 'GET') return json(405, { error: 'method_not_allowed' });
+      if (req.method !== 'GET')
+        return json(405, { error: 'method_not_allowed' });
       const [path, qs] = String(req.url || '').split('?');
-      if (path !== '/' && path !== '') return json(400, { error: `invalid_${name}_query` });
+      if (path !== '/' && path !== '')
+        return json(400, { error: `invalid_${name}_query` });
       const query = new URLSearchParams(qs || '');
       const key = cacheKey(query);
       try {
@@ -185,14 +205,23 @@ export function createKeylessProxy({
         json(200, describe(entry.payload, { stale: false, reason: null }));
       } catch (error) {
         if (error?.status === 429) return json(429, { error: `${name}_busy` });
-        if (error?.status === 503) return json(503, describe(null, { stale: false, reason: 'retry_later' }));
+        if (error?.status === 503)
+          return json(
+            503,
+            describe(null, { stale: false, reason: 'retry_later' }),
+          );
         const entry = caches.get(key);
         const usable = entry && now() - entry.fetchedAt <= staleMs;
         json(
           200,
           usable
-            ? describe(entry.payload, { stale: true, reason: 'Upstream unreachable; showing last good sweep.' })
-            : describe(null, { reason: 'Upstream unreachable and no cached sweep exists.' }),
+            ? describe(entry.payload, {
+                stale: true,
+                reason: 'Upstream unreachable; showing last good sweep.',
+              })
+            : describe(null, {
+                reason: 'Upstream unreachable and no cached sweep exists.',
+              }),
         );
       }
     } finally {

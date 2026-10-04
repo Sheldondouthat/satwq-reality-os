@@ -4,49 +4,45 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 9 (cities2 worker)).
  */
 export const SPEC = {
-  "id": "baltimore-crime-incidents",
-  "title": "Baltimore — crime incidents (NIBRS Group A)",
-  "url": "https://services1.arcgis.com/UWYHeuuJISiGmgXx/arcgis/rest/services/NIBRS_GroupA_Crime_Data/FeatureServer/0/query?where=1%3D1&outFields=CCNumber%2CCrimeDateTime%2CDescription%2CWeapon%2CShooting%2CPremiseType%2CNeighborhood%2CNew_District&orderByFields=CrimeDateTime%20DESC&resultRecordCount=50&f=json",
-  "headers": {
-    "User-Agent": "satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)"
+  id: 'baltimore-crime-incidents',
+  title: 'Baltimore — crime incidents (NIBRS Group A)',
+  url: 'https://services1.arcgis.com/UWYHeuuJISiGmgXx/arcgis/rest/services/NIBRS_GroupA_Crime_Data/FeatureServer/0/query?where=1%3D1&outFields=CCNumber%2CCrimeDateTime%2CDescription%2CWeapon%2CShooting%2CPremiseType%2CNeighborhood%2CNew_District&orderByFields=CrimeDateTime%20DESC&resultRecordCount=50&f=json',
+  headers: {
+    'User-Agent':
+      'satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)',
   },
-  "ttlSeconds": 3600,
-  "bodyCapBytes": 2097152,
-  "extract": {
-    "items": "$.features",
-    "limit": 50,
-    "map": {
-      "ccNumber": "$.attributes.CCNumber",
-      "crimeDateTimeMs": "$.attributes.CrimeDateTime",
-      "description": "$.attributes.Description",
-      "weapon": "$.attributes.Weapon",
-      "shooting": "$.attributes.Shooting",
-      "premiseType": "$.attributes.PremiseType",
-      "neighborhood": "$.attributes.Neighborhood",
-      "district": "$.attributes.New_District"
+  ttlSeconds: 3600,
+  bodyCapBytes: 2097152,
+  extract: {
+    items: '$.features',
+    limit: 50,
+    map: {
+      ccNumber: '$.attributes.CCNumber',
+      crimeDateTimeMs: '$.attributes.CrimeDateTime',
+      description: '$.attributes.Description',
+      weapon: '$.attributes.Weapon',
+      shooting: '$.attributes.Shooting',
+      premiseType: '$.attributes.PremiseType',
+      neighborhood: '$.attributes.Neighborhood',
+      district: '$.attributes.New_District',
     },
-    "numbers": [
-      "crimeDateTimeMs"
-    ]
+    numbers: ['crimeDateTimeMs'],
   },
-  "required": [
-    "ccNumber",
-    "description",
-    "crimeDateTimeMs"
-  ],
-  "source": "City of Baltimore",
-  "attribution": "Data: Baltimore City open data portal (ArcGIS Hub) — keyless.",
-  "units": {
-    "ccNumber": "text",
-    "crimeDateTimeMs": "ms_epoch",
-    "description": "text",
-    "weapon": "text",
-    "shooting": "text",
-    "premiseType": "text",
-    "neighborhood": "text",
-    "district": "text"
+  required: ['ccNumber', 'description', 'crimeDateTimeMs'],
+  source: 'City of Baltimore',
+  attribution: 'Data: Baltimore City open data portal (ArcGIS Hub) — keyless.',
+  units: {
+    ccNumber: 'text',
+    crimeDateTimeMs: 'ms_epoch',
+    description: 'text',
+    weapon: 'text',
+    shooting: 'text',
+    premiseType: 'text',
+    neighborhood: 'text',
+    district: 'text',
   },
-  "honesty": "Newest-first 50 via orderByFields=CrimeDateTime DESC on NIBRS Group A Crime Data FeatureServer. Newest incident at probe 2026-09-28 23:05 — fresh (a few days lag typical of police publishing). Aggregated public incident data; no names or exact street locations mapped.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 9 (cities2 worker)"
+  honesty:
+    'Newest-first 50 via orderByFields=CrimeDateTime DESC on NIBRS Group A Crime Data FeatureServer. Newest incident at probe 2026-09-28 23:05 — fresh (a few days lag typical of police publishing). Aggregated public incident data; no names or exact street locations mapped.',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 9 (cities2 worker)',
 };

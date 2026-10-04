@@ -11,11 +11,7 @@
  * detail line names the top-4 hottest volcanoes with their MIROVA alert
  * levels (carried verbatim from the provider).
  */
-import {
-  isUnavailable,
-  withTags,
-  pickNum,
-} from '../../wave3/common/ticker.js';
+import { isUnavailable, withTags, pickNum } from '../../wave3/common/ticker.js';
 
 export const ROUTE = '/api/mirova';
 export const EMOJI = '🌋';
@@ -35,7 +31,10 @@ export function valueLine(doc) {
   if (n == null) return null;
   const top = topDetections(doc, 1)[0];
   const hot = top ? ` hottest ${top.name} ${top.vrpMw} MW` : '';
-  return withTags(`${EMOJI} MIROVA: ${n} hotspot detection${n === 1 ? '' : 's'}${hot}`, doc);
+  return withTags(
+    `${EMOJI} MIROVA: ${n} hotspot detection${n === 1 ? '' : 's'}${hot}`,
+    doc,
+  );
 }
 
 export function detailLine(doc) {
@@ -45,12 +44,19 @@ export function detailLine(doc) {
   if (tops.length) {
     parts.push(
       tops
-        .map((d) => `${d.name} ${d.vrpMw} MW (${d.level || 'unlevelled'}, ${d.sensor || '?'})`)
-        .join(' · ')
+        .map(
+          (d) =>
+            `${d.name} ${d.vrpMw} MW (${d.level || 'unlevelled'}, ${d.sensor || '?'})`,
+        )
+        .join(' · '),
     );
   } else {
-    parts.push('No current MIROVA thermal detections — a quiet planet is real data, not a gap.');
+    parts.push(
+      'No current MIROVA thermal detections — a quiet planet is real data, not a gap.',
+    );
   }
-  parts.push('VRP is a satellite heat-flux proxy, not lava volume; levels are MIROVA\u2019s own.');
+  parts.push(
+    'VRP is a satellite heat-flux proxy, not lava volume; levels are MIROVA\u2019s own.',
+  );
   return parts.join(' ');
 }

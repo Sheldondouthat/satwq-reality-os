@@ -116,7 +116,11 @@ export function viewWindow(yawDeg, pitchDeg, fovHdeg, fovVdeg) {
  */
 export async function xrImmersiveSupported(navigatorLike) {
   try {
-    if (!navigatorLike || !navigatorLike.xr || typeof navigatorLike.xr.isSessionSupported !== 'function')
+    if (
+      !navigatorLike ||
+      !navigatorLike.xr ||
+      typeof navigatorLike.xr.isSessionSupported !== 'function'
+    )
       return false;
     return await navigatorLike.xr.isSessionSupported('immersive-vr');
   } catch {

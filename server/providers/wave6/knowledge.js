@@ -34,7 +34,9 @@ function isFiniteNum(v) {
 
 function formatInt(v) {
   const n = Number(v);
-  return Number.isFinite(n) ? Math.round(n).toLocaleString('en-US') : String(v ?? 'unknown');
+  return Number.isFinite(n)
+    ? Math.round(n).toLocaleString('en-US')
+    : String(v ?? 'unknown');
 }
 
 function utcDatePlusDays(days) {
@@ -54,15 +56,22 @@ async function fetchJsonCapped(url, tag, accept = 'application/json') {
       headers: { 'User-Agent': USER_AGENT, Accept: accept },
     });
     if (!response.ok)
-      throw Object.assign(new Error(`knowledge_${tag}_upstream_${response.status}`), { status: 502 });
+      throw Object.assign(
+        new Error(`knowledge_${tag}_upstream_${response.status}`),
+        { status: 502 },
+      );
     const buffer = await response.arrayBuffer();
     if (buffer.byteLength > BODY_CAP_BYTES)
-      throw Object.assign(new Error(`knowledge_${tag}_upstream_too_large`), { status: 502 });
+      throw Object.assign(new Error(`knowledge_${tag}_upstream_too_large`), {
+        status: 502,
+      });
     return JSON.parse(new TextDecoder().decode(buffer));
   } catch (error) {
     if (error?.status === 502) throw error;
     if (error instanceof SyntaxError)
-      throw Object.assign(new Error(`knowledge_${tag}_upstream_bad_json`), { status: 502 });
+      throw Object.assign(new Error(`knowledge_${tag}_upstream_bad_json`), {
+        status: 502,
+      });
     throw error;
   } finally {
     clearTimeout(timeout);
@@ -73,28 +82,39 @@ async function fetchJsonCapped(url, tag, accept = 'application/json') {
 
 export function parseWikimediaPageviews(upstream, article = 'Earth') {
   const items = Array.isArray(upstream?.items) ? upstream.items : [];
-  const views = items.reduce((sum, i) => sum + (Number.isFinite(i?.views) ? i.views : 0), 0);
+  const views = items.reduce(
+    (sum, i) => sum + (Number.isFinite(i?.views) ? i.views : 0),
+    0,
+  );
   if (!views) return [];
-  return [{
-    id: `wiki:pageviews:${article}`,
-    kind: 'pageviews',
-    headline: `"${article}" viewed ${formatInt(views)}× on Wikipedia (7 days)`,
-    detail: `English Wikipedia daily pageviews, all access types, summed over the trailing 7 days.`,
-    link: `https://en.wikipedia.org/wiki/${encodeURIComponent(article)}`,
-  }];
+  return [
+    {
+      id: `wiki:pageviews:${article}`,
+      kind: 'pageviews',
+      headline: `"${article}" viewed ${formatInt(views)}× on Wikipedia (7 days)`,
+      detail: `English Wikipedia daily pageviews, all access types, summed over the trailing 7 days.`,
+      link: `https://en.wikipedia.org/wiki/${encodeURIComponent(article)}`,
+    },
+  ];
 }
 
-export function parseWorldBank(upstream, country = 'US', indicator = 'SP.POP.TOTL') {
+export function parseWorldBank(
+  upstream,
+  country = 'US',
+  indicator = 'SP.POP.TOTL',
+) {
   const rows = Array.isArray(upstream?.[1]) ? upstream[1] : [];
   const latest = rows.find((r) => r?.value != null);
   if (!latest) return [];
-  return [{
-    id: `worldbank:${country}:${indicator}`,
-    kind: 'indicator',
-    headline: `${country} population: ${formatInt(latest.value)} (${latest.date})`,
-    detail: `World Bank indicator ${indicator}; annual series, latest available value.`,
-    link: `https://data.worldbank.org/indicator/${indicator}`,
-  }];
+  return [
+    {
+      id: `worldbank:${country}:${indicator}`,
+      kind: 'indicator',
+      headline: `${country} population: ${formatInt(latest.value)} (${latest.date})`,
+      detail: `World Bank indicator ${indicator}; annual series, latest available value.`,
+      link: `https://data.worldbank.org/indicator/${indicator}`,
+    },
+  ];
 }
 
 export function parseOpenLibrary(upstream) {
@@ -104,11 +124,19 @@ export function parseOpenLibrary(upstream) {
     kind: 'books',
     headline: String(d?.title ?? 'Untitled'),
     detail: [
-      Array.isArray(d?.author_name) ? `by ${d.author_name.slice(0, 3).join(', ')}` : null,
+      Array.isArray(d?.author_name)
+        ? `by ${d.author_name.slice(0, 3).join(', ')}`
+        : null,
       d?.first_publish_year ? `first published ${d.first_publish_year}` : null,
-      isFiniteNum(upstream?.numFound) ? `${formatInt(upstream.numFound)} matches for "solar wind"` : null,
-    ].filter(Boolean).join(' · '),
-    link: d?.key ? `https://openlibrary.org${d.key}` : 'https://openlibrary.org',
+      isFiniteNum(upstream?.numFound)
+        ? `${formatInt(upstream.numFound)} matches for "solar wind"`
+        : null,
+    ]
+      .filter(Boolean)
+      .join(' · '),
+    link: d?.key
+      ? `https://openlibrary.org${d.key}`
+      : 'https://openlibrary.org',
   }));
 }
 
@@ -122,8 +150,12 @@ export function parseMusicBrainz(upstream) {
       a?.disambiguation ?? null,
       a?.['life-span']?.begin ? `active since ${a['life-span'].begin}` : null,
       a?.country ? `(${a.country})` : null,
-    ].filter(Boolean).join(' '),
-    link: a?.id ? `https://musicbrainz.org/artist/${a.id}` : 'https://musicbrainz.org',
+    ]
+      .filter(Boolean)
+      .join(' '),
+    link: a?.id
+      ? `https://musicbrainz.org/artist/${a.id}`
+      : 'https://musicbrainz.org',
   }));
 }
 
@@ -136,11 +168,12 @@ export function parseClinicalTrials(upstream) {
       id: `trials:${idm.nctId ?? i}`,
       kind: 'trials',
       headline: String(idm.briefTitle ?? 'Untitled study'),
-      detail: [
-        idm.nctId ?? null,
-        stm.overallStatus ?? null,
-      ].filter(Boolean).join(' · '),
-      link: idm.nctId ? `https://clinicaltrials.gov/study/${idm.nctId}` : 'https://clinicaltrials.gov',
+      detail: [idm.nctId ?? null, stm.overallStatus ?? null]
+        .filter(Boolean)
+        .join(' · '),
+      link: idm.nctId
+        ? `https://clinicaltrials.gov/study/${idm.nctId}`
+        : 'https://clinicaltrials.gov',
     };
   });
 }
@@ -153,14 +186,17 @@ const SOURCES = [
       const end = utcDatePlusDays(-1);
       const start = utcDatePlusDays(-7);
       const url = `https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/all-agents/Earth/daily/${start}/${end}`;
-      return { items: parseWikimediaPageviews(await fetchJsonCapped(url, 'wikimedia')) };
+      return {
+        items: parseWikimediaPageviews(await fetchJsonCapped(url, 'wikimedia')),
+      };
     },
   },
   {
     key: 'worldbank',
     attribution: 'World Bank (CC-BY)',
     async fetch() {
-      const url = 'https://api.worldbank.org/v2/country/US/indicator/SP.POP.TOTL?format=json&per_page=2';
+      const url =
+        'https://api.worldbank.org/v2/country/US/indicator/SP.POP.TOTL?format=json&per_page=2';
       return { items: parseWorldBank(await fetchJsonCapped(url, 'worldbank')) };
     },
   },
@@ -169,15 +205,20 @@ const SOURCES = [
     attribution: 'Open Library (open)',
     async fetch() {
       const url = 'https://openlibrary.org/search.json?q=solar+wind&limit=3';
-      return { items: parseOpenLibrary(await fetchJsonCapped(url, 'openlibrary')) };
+      return {
+        items: parseOpenLibrary(await fetchJsonCapped(url, 'openlibrary')),
+      };
     },
   },
   {
     key: 'musicbrainz',
     attribution: 'MusicBrainz (CC0 data)',
     async fetch() {
-      const url = 'https://musicbrainz.org/ws/2/artist/?query=artist:radiohead&fmt=json&limit=2';
-      return { items: parseMusicBrainz(await fetchJsonCapped(url, 'musicbrainz')) };
+      const url =
+        'https://musicbrainz.org/ws/2/artist/?query=artist:radiohead&fmt=json&limit=2';
+      return {
+        items: parseMusicBrainz(await fetchJsonCapped(url, 'musicbrainz')),
+      };
     },
   },
   {
@@ -185,7 +226,11 @@ const SOURCES = [
     attribution: 'ClinicalTrials.gov (US public domain)',
     async fetch() {
       const url = 'https://clinicaltrials.gov/api/v2/studies?pageSize=3';
-      return { items: parseClinicalTrials(await fetchJsonCapped(url, 'clinicaltrials')) };
+      return {
+        items: parseClinicalTrials(
+          await fetchJsonCapped(url, 'clinicaltrials'),
+        ),
+      };
     },
   },
 ];
@@ -194,9 +239,24 @@ async function fetchOneSource(source) {
   const started = Date.now();
   try {
     const { items } = await source.fetch();
-    return { key: source.key, ok: true, count: items.length, attribution: source.attribution, latencyMs: Date.now() - started, items };
+    return {
+      key: source.key,
+      ok: true,
+      count: items.length,
+      attribution: source.attribution,
+      latencyMs: Date.now() - started,
+      items,
+    };
   } catch (error) {
-    return { key: source.key, ok: false, count: 0, attribution: source.attribution, latencyMs: Date.now() - started, error: error?.message ?? 'unknown', items: [] };
+    return {
+      key: source.key,
+      ok: false,
+      count: 0,
+      attribution: source.attribution,
+      latencyMs: Date.now() - started,
+      error: error?.message ?? 'unknown',
+      items: [],
+    };
   }
 }
 
@@ -229,13 +289,18 @@ async function getSnapshot() {
       .then((results) => {
         if (!results.some((r) => r.ok)) {
           const detail = results.map((r) => `${r.key}:${r.error}`).join('; ');
-          throw Object.assign(new Error(`knowledge_all_upstream_down: ${detail}`), { status: 502 });
+          throw Object.assign(
+            new Error(`knowledge_all_upstream_down: ${detail}`),
+            { status: 502 },
+          );
         }
         const payload = buildSnapshot(results);
         cache = { at: Date.now(), payload };
         return payload;
       })
-      .finally(() => { inflight = null; });
+      .finally(() => {
+        inflight = null;
+      });
   }
   return inflight;
 }
@@ -251,15 +316,24 @@ function sendJson(res, status, body, cacheControl = 'public, max-age=1800') {
 /** Mount the knowledge ticker proxy. Mirrors the wave-5 quakes multi-source shape. */
 export function knowledgeProxy() {
   async function handler(req, res) {
-    if (req.method !== 'GET') return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
     try {
       sendJson(res, 200, await getSnapshot());
     } catch (error) {
-      const upstreamFail = error?.status === 502 || error?.name === 'AbortError' || /aborted?/i.test(error?.message ?? '');
-      sendJson(res, upstreamFail ? 502 : 500, {
-        error: 'knowledge_unavailable',
-        detail: error?.message ?? 'unknown',
-      }, 'no-store');
+      const upstreamFail =
+        error?.status === 502 ||
+        error?.name === 'AbortError' ||
+        /aborted?/i.test(error?.message ?? '');
+      sendJson(
+        res,
+        upstreamFail ? 502 : 500,
+        {
+          error: 'knowledge_unavailable',
+          detail: error?.message ?? 'unknown',
+        },
+        'no-store',
+      );
     }
   }
 
@@ -281,5 +355,8 @@ export const _knowledgeInternals = {
   parseMusicBrainz,
   parseClinicalTrials,
   buildSnapshot,
-  clearCaches: () => { cache = null; inflight = null; },
+  clearCaches: () => {
+    cache = null;
+    inflight = null;
+  },
 };

@@ -20,20 +20,27 @@ export const EMOJI = '🌌';
 export const LABEL = 'Aurora cameras';
 
 export function valueLine(doc) {
-      if (isUnavailable(doc)) return null;
-      const n = pickNum(doc.count, doc.cams?.length);
-      if (n == null) return null;
-      return withTags(`${EMOJI} ${n} aurora cams`, doc);
-    }
+  if (isUnavailable(doc)) return null;
+  const n = pickNum(doc.count, doc.cams?.length);
+  if (n == null) return null;
+  return withTags(`${EMOJI} ${n} aurora cams`, doc);
+}
 
 export function detailLine(doc) {
-      if (isUnavailable(doc)) return '';
-      const names = pickArr(doc.cams).slice(0, 3).map((c) => pickStr(c.name)).filter(Boolean);
-      return names.length ? names.join(' · ') : '';
-    }
+  if (isUnavailable(doc)) return '';
+  const names = pickArr(doc.cams)
+    .slice(0, 3)
+    .map((c) => pickStr(c.name))
+    .filter(Boolean);
+  return names.length ? names.join(' · ') : '';
+}
 export function thumbUrls(doc) {
-      return pickArr(doc.cams).slice(0, 4).map((c) => ({
-        url: pickStr(c.url),
-        caption: `${pickStr(c.name)}${c.probe === 'vm-000' ? ' · needs edge probe' : ''}`.trim(),
-      })).filter((t) => t.url);
-    }
+  return pickArr(doc.cams)
+    .slice(0, 4)
+    .map((c) => ({
+      url: pickStr(c.url),
+      caption:
+        `${pickStr(c.name)}${c.probe === 'vm-000' ? ' · needs edge probe' : ''}`.trim(),
+    }))
+    .filter((t) => t.url);
+}

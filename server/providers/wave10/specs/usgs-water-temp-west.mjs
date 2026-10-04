@@ -4,37 +4,32 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 2 (usgs worker)).
  */
 export const SPEC = {
-  "attribution": "Data: U.S. Geological Survey, NWIS — keyless.",
-  "extract": {
-    "items": "$.value.timeSeries",
-    "limit": 10,
-    "map": {
-      "lat": "$.sourceInfo.geoLocation.geogLocation.latitude",
-      "lon": "$.sourceInfo.geoLocation.geogLocation.longitude",
-      "name": "$.sourceInfo.siteName",
-      "site": "$.sourceInfo.siteCode[0].value",
-      "time": "$.values[0].value[0].dateTime",
-      "value": "$.values[0].value[0].value"
+  attribution: 'Data: U.S. Geological Survey, NWIS — keyless.',
+  extract: {
+    items: '$.value.timeSeries',
+    limit: 10,
+    map: {
+      lat: '$.sourceInfo.geoLocation.geogLocation.latitude',
+      lon: '$.sourceInfo.geoLocation.geogLocation.longitude',
+      name: '$.sourceInfo.siteName',
+      site: '$.sourceInfo.siteCode[0].value',
+      time: '$.values[0].value[0].dateTime',
+      value: '$.values[0].value[0].value',
     },
-    "numbers": [
-      "value",
-      "lat",
-      "lon"
-    ]
+    numbers: ['value', 'lat', 'lon'],
   },
-  "headers": {},
-  "honesty": "Instantaneous water temperature at Sacramento (Freeport, CA), Snake (Weiser, ID) and Willamette (Portland, OR), typically updated every 15-60 min; provisional data (qualifier P) possible. Any of the three gages can go dark seasonally.",
-  "id": "usgs-water-temp-west",
-  "required": [
-    "name"
-  ],
-  "source": "USGS Water Services (NWIS)",
-  "title": "USGS Water — Water temperature, three western rivers",
-  "ttlSeconds": 3600,
-  "units": {
-    "value": "°C"
+  headers: {},
+  honesty:
+    'Instantaneous water temperature at Sacramento (Freeport, CA), Snake (Weiser, ID) and Willamette (Portland, OR), typically updated every 15-60 min; provisional data (qualifier P) possible. Any of the three gages can go dark seasonally.',
+  id: 'usgs-water-temp-west',
+  required: ['name'],
+  source: 'USGS Water Services (NWIS)',
+  title: 'USGS Water — Water temperature, three western rivers',
+  ttlSeconds: 3600,
+  units: {
+    value: '°C',
   },
-  "url": "https://waterservices.usgs.gov/nwis/iv/?format=json&sites=11447650,13269000,14211720&parameterCd=00010",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 2 (usgs worker)"
+  url: 'https://waterservices.usgs.gov/nwis/iv/?format=json&sites=11447650,13269000,14211720&parameterCd=00010',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 2 (usgs worker)',
 };

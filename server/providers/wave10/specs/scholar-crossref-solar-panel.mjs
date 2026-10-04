@@ -4,33 +4,30 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 9 (crossref2 worker)).
  */
 export const SPEC = {
-  "id": "scholar-crossref-solar-panel",
-  "title": "Crossref — solar panel query",
-  "url": "https://api.crossref.org/works?query=solar+panel&rows=20&mailto=sheldondouthat@gmail.com",
-  "headers": {},
-  "ttlSeconds": 86400,
-  "extract": {
-    "items": "$.message.items",
-    "limit": 20,
-    "map": {
-      "title": "$.title[0]",
-      "doi": "$.DOI",
-      "publisher": "$.publisher",
-      "type": "$.type",
-      "first_author_family": "$.author[0].family",
-      "pub_year": "$.published.date-parts[0][0]"
+  id: 'scholar-crossref-solar-panel',
+  title: 'Crossref — solar panel query',
+  url: 'https://api.crossref.org/works?query=solar+panel&rows=20&mailto=sheldondouthat@gmail.com',
+  headers: {},
+  ttlSeconds: 86400,
+  extract: {
+    items: '$.message.items',
+    limit: 20,
+    map: {
+      title: '$.title[0]',
+      doi: '$.DOI',
+      publisher: '$.publisher',
+      type: '$.type',
+      first_author_family: '$.author[0].family',
+      pub_year: '$.published.date-parts[0][0]',
     },
-    "numbers": [
-      "pub_year"
-    ]
+    numbers: ['pub_year'],
   },
-  "required": [
-    "title"
-  ],
-  "source": "Crossref",
-  "attribution": "Data: Crossref — keyless.",
-  "units": {},
-  "honesty": "Crossref relevance-ranked works. API reports 710,166 total matching works; fixture: 20 rows, 20 with title. Coverage: first_author_family 13/20 (editorial items lack authors). Crossref title is an array; spec takes title[0]. Verified 200 OK from this VM.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 9 (crossref2 worker)"
+  required: ['title'],
+  source: 'Crossref',
+  attribution: 'Data: Crossref — keyless.',
+  units: {},
+  honesty:
+    'Crossref relevance-ranked works. API reports 710,166 total matching works; fixture: 20 rows, 20 with title. Coverage: first_author_family 13/20 (editorial items lack authors). Crossref title is an array; spec takes title[0]. Verified 200 OK from this VM.',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 9 (crossref2 worker)',
 };

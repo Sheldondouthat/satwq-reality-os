@@ -18,7 +18,8 @@ const REFRESH_MS = 10 * 60_000;
 /** DOM-free severity mapping (tested). */
 export function severityForQuake(quake) {
   if (!quake || typeof quake !== 'object') return 'quiet';
-  if (Array.isArray(quake.tsunamiAlerts) && quake.tsunamiAlerts.length > 0) return 'tsunami-alert';
+  if (Array.isArray(quake.tsunamiAlerts) && quake.tsunamiAlerts.length > 0)
+    return 'tsunami-alert';
   const live = (quake.buoys ?? []).filter((b) => b.status === 'live').length;
   if (quake.mag >= 7 || live > 0) return 'coupled';
   return 'quiet';
@@ -27,8 +28,12 @@ export function severityForQuake(quake) {
 export function buoyStatusLabel(buoy) {
   if (!buoy || typeof buoy !== 'object') return '—';
   if (buoy.status === 'live') {
-    const h = Number.isFinite(buoy.waterColumnM) ? buoy.waterColumnM.toFixed(2) : '—';
-    const d = Number.isFinite(buoy.change3hM) ? `${buoy.change3hM >= 0 ? '+' : ''}${buoy.change3hM.toFixed(2)} m/3h` : '';
+    const h = Number.isFinite(buoy.waterColumnM)
+      ? buoy.waterColumnM.toFixed(2)
+      : '—';
+    const d = Number.isFinite(buoy.change3hM)
+      ? `${buoy.change3hM >= 0 ? '+' : ''}${buoy.change3hM.toFixed(2)} m/3h`
+      : '';
     return `${h} m ${d}`.trim();
   }
   return buoy.status === 'no_reading' ? 'no reading' : 'unreachable';
@@ -56,7 +61,9 @@ const SEVERITY_STYLE = {
 
 function quakeCard(quake) {
   const severity = severityForQuake(quake);
-  const card = el('div', { style: CARD_STYLE + (SEVERITY_STYLE[severity] ?? '') });
+  const card = el('div', {
+    style: CARD_STYLE + (SEVERITY_STYLE[severity] ?? ''),
+  });
   const when = new Date(quake.timeMs).toLocaleString();
   const title = el(
     'div',
@@ -65,29 +72,49 @@ function quakeCard(quake) {
   );
   card.appendChild(title);
   card.appendChild(
-    el('div', { style: 'font-size:11px;color:#9fc2ff;' },
-      `${when} · depth ${quake.depthKm ?? '?'} km · ${quake.subductionZone ?? 'subduction-adjacent'}`),
+    el(
+      'div',
+      { style: 'font-size:11px;color:#9fc2ff;' },
+      `${when} · depth ${quake.depthKm ?? '?'} km · ${quake.subductionZone ?? 'subduction-adjacent'}`,
+    ),
   );
   for (const alert of quake.tsunamiAlerts ?? []) {
     card.appendChild(
-      el('div', { style: 'font-size:11px;color:#ff9d9d;margin-top:4px;font-weight:600;' },
-        `⚠ ${alert.event}: ${alert.area ?? alert.headline}`),
+      el(
+        'div',
+        {
+          style: 'font-size:11px;color:#ff9d9d;margin-top:4px;font-weight:600;',
+        },
+        `⚠ ${alert.event}: ${alert.area ?? alert.headline}`,
+      ),
     );
   }
   if ((quake.buoys ?? []).length) {
     const list = el('div', { style: 'margin-top:6px;font-size:11px;' });
-    list.appendChild(el('div', { style: 'color:#8aa4d6;letter-spacing:.08em;font-size:10px;' }, 'DART BUOYS (live water column)'));
+    list.appendChild(
+      el(
+        'div',
+        { style: 'color:#8aa4d6;letter-spacing:.08em;font-size:10px;' },
+        'DART BUOYS (live water column)',
+      ),
+    );
     for (const buoy of quake.buoys) {
       list.appendChild(
-        el('div', {},
-          `${buoy.id} ${buoy.name ?? ''} · ${Math.round(buoy.distKm ?? 0)} km · ${buoyStatusLabel(buoy)}`),
+        el(
+          'div',
+          {},
+          `${buoy.id} ${buoy.name ?? ''} · ${Math.round(buoy.distKm ?? 0)} km · ${buoyStatusLabel(buoy)}`,
+        ),
       );
     }
     card.appendChild(list);
   }
   card.appendChild(
-    el('div', { style: 'font-size:10px;color:#7d8fb3;margin-top:4px;' },
-      'Coupling is geometry only — not a tsunami forecast. Buoy positions approximate.'),
+    el(
+      'div',
+      { style: 'font-size:10px;color:#7d8fb3;margin-top:4px;' },
+      'Coupling is geometry only — not a tsunami forecast. Buoy positions approximate.',
+    ),
   );
   return card;
 }
@@ -96,7 +123,11 @@ function quakeCard(quake) {
 export function createDartSection() {
   const element = el('div', {});
   const list = el('div', {});
-  const status = el('div', { style: 'font-size:10px;color:#7d8fb3;' }, 'checking…');
+  const status = el(
+    'div',
+    { style: 'font-size:10px;color:#7d8fb3;' },
+    'checking…',
+  );
   element.append(list, status);
 
   return {
@@ -128,7 +159,12 @@ async function addGlobeMarkers(viewer, quakes) {
     entities.push(
       viewer.entities.add({
         position: Cartesian3.fromDegrees(q.lon, q.lat, 200000),
-        point: { pixelSize: 12, color: Color.ORANGERED, outlineColor: Color.WHITE, outlineWidth: 2 },
+        point: {
+          pixelSize: 12,
+          color: Color.ORANGERED,
+          outlineColor: Color.WHITE,
+          outlineWidth: 2,
+        },
         description: `M${q.mag} ${q.place}`,
       }),
     );
@@ -143,10 +179,16 @@ async function addGlobeMarkers(viewer, quakes) {
       );
     }
   }
-  return () => { for (const e of entities) viewer.entities.remove(e); };
+  return () => {
+    for (const e of entities) viewer.entities.remove(e);
+  };
 }
 
-export function initDartLayer({ viewer = null, fetchImpl = fetch, mount = null } = {}) {
+export function initDartLayer({
+  viewer = null,
+  fetchImpl = fetch,
+  mount = null,
+} = {}) {
   const section = createDartSection();
   if (mount) mount(section.element);
   let timer = null;
@@ -161,7 +203,9 @@ export function initDartLayer({ viewer = null, fetchImpl = fetch, mount = null }
       if (stopped) return;
       section.update(payload);
       if (viewer) {
-        try { removeMarkers?.(); } catch {}
+        try {
+          removeMarkers?.();
+        } catch {}
         removeMarkers = await addGlobeMarkers(viewer, payload.quakes ?? []);
       }
     } catch (error) {
@@ -175,7 +219,9 @@ export function initDartLayer({ viewer = null, fetchImpl = fetch, mount = null }
     destroy() {
       stopped = true;
       if (timer) clearInterval(timer);
-      try { removeMarkers?.(); } catch {}
+      try {
+        removeMarkers?.();
+      } catch {}
       section.element.remove();
     },
   };

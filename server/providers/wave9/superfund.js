@@ -29,7 +29,8 @@ const MAX_ROWS = 100000;
 
 const NPL_STATUS = { F: 'final', P: 'proposed' };
 
-export function numOrNull(v) {  if (v == null) return null;
+export function numOrNull(v) {
+  if (v == null) return null;
   const s = String(v).replace(/,/g, '').trim();
   if (s === '') return null; // empty cell = missing, never 0 (Number('')===0)
   const n = Number(s);
@@ -88,7 +89,8 @@ export function parseNplSites(text) {
       zip: (r.zip_code ?? '').trim() || null,
       status: NPL_STATUS[code] ?? null,
       statusName: (r.npl_status_name ?? '').trim() || null,
-      federalFacility: String(r.federal_facility_ind ?? '').toUpperCase() === 'Y',
+      federalFacility:
+        String(r.federal_facility_ind ?? '').toUpperCase() === 'Y',
     });
   }
   return { rows };
@@ -118,8 +120,10 @@ export function buildPayload(sites, stale, scope) {
     sites,
     honesty: {
       npl: "EPA's National Priorities List: the country's most serious uncontrolled hazardous-waste sites.",
-      status: '"final" = formally listed on the NPL; "proposed" = proposed for listing. Listing is not a cleanup-status readout.',
-      coords: 'primary_latitude/longitude_decimal_val is EPA\'s facility centroid — not a site boundary.',
+      status:
+        '"final" = formally listed on the NPL; "proposed" = proposed for listing. Listing is not a cleanup-status readout.',
+      coords:
+        "primary_latitude/longitude_decimal_val is EPA's facility centroid — not a site boundary.",
       noDates: 'This table exposes no listing dates; none are carried here.',
       exclusions: 'SEMS non-NPL, archived, and deleted sites are not included.',
       nulls: 'Missing coordinates are null, never zero-filled.',
@@ -142,15 +146,22 @@ async function fetchTextCapped(url, capBytes) {
       headers: { 'User-Agent': USER_AGENT, Accept: 'application/json, */*' },
     });
     if (!response.ok) {
-      throw Object.assign(new Error(`superfund_upstream_${response.status}`), { status: 502 });
+      throw Object.assign(new Error(`superfund_upstream_${response.status}`), {
+        status: 502,
+      });
     }
     const buffer = await response.arrayBuffer();
     if (buffer.byteLength > capBytes)
-      throw Object.assign(new Error('superfund_upstream_too_large'), { status: 502 });
+      throw Object.assign(new Error('superfund_upstream_too_large'), {
+        status: 502,
+      });
     return new TextDecoder().decode(buffer);
   } catch (error) {
     if (error?.status === 502) throw error;
-    throw Object.assign(new Error(`superfund_fetch_failed: ${error?.message ?? 'unknown'}`), { status: 502 });
+    throw Object.assign(
+      new Error(`superfund_fetch_failed: ${error?.message ?? 'unknown'}`),
+      { status: 502 },
+    );
   } finally {
     clearTimeout(timeout);
   }
@@ -167,7 +178,8 @@ let docFailedAt = -Infinity;
  */
 export function parseQuery(searchParams) {
   const rawStatus = (searchParams.get('status') ?? 'A').toUpperCase();
-  if (!['F', 'P', 'A'].includes(rawStatus)) return { badParam: 'superfund_bad_status' };
+  if (!['F', 'P', 'A'].includes(rawStatus))
+    return { badParam: 'superfund_bad_status' };
   const rawState = searchParams.get('state');
   let state = null;
   if (rawState != null && rawState !== '') {
@@ -181,10 +193,15 @@ async function getPayload(statusCode, state) {
   const key = `${statusCode}|${state ?? 'US'}`;
   const now = Date.now();
   const hit = payloadCache.get(key);
-  if (hit && now - hit.at < CACHE_TTL_MS) return { payload: hit.payload, stale: false };
+  if (hit && now - hit.at < CACHE_TTL_MS)
+    return { payload: hit.payload, stale: false };
   let op = inflight.get(key);
   if (!op) {
-    if (now - docFailedAt < RETRY_COOLDOWN_MS && hit && now - hit.at < STALE_MS) {
+    if (
+      now - docFailedAt < RETRY_COOLDOWN_MS &&
+      hit &&
+      now - hit.at < STALE_MS
+    ) {
       return { payload: hit.payload, stale: true };
     }
     op = (async () => {
@@ -192,7 +209,10 @@ async function getPayload(statusCode, state) {
         const codes = statusCode === 'A' ? ['F', 'P'] : [statusCode];
         const sites = [];
         for (const code of codes) {
-          const text = await fetchTextCapped(buildDmapUrl(code, state), BODY_CAP_BYTES);
+          const text = await fetchTextCapped(
+            buildDmapUrl(code, state),
+            BODY_CAP_BYTES,
+          );
           const { rows } = parseNplSites(text);
           sites.push(...rows);
         }
@@ -200,13 +220,16 @@ async function getPayload(statusCode, state) {
         const payload = buildPayload(sites, false, scope);
         if (sites.length === 0 && state == null) {
           // National NPL should never be empty — treat as upstream degradation.
-          throw Object.assign(new Error('superfund_empty_national'), { status: 502 });
+          throw Object.assign(new Error('superfund_empty_national'), {
+            status: 502,
+          });
         }
         payloadCache.set(key, { at: Date.now(), payload });
         return { payload, stale: false };
       } catch (error) {
         docFailedAt = Date.now();
-        if (hit && Date.now() - hit.at < STALE_MS) return { payload: hit.payload, stale: true };
+        if (hit && Date.now() - hit.at < STALE_MS)
+          return { payload: hit.payload, stale: true };
         throw error;
       }
     })().finally(() => inflight.delete(key));
@@ -226,11 +249,13 @@ function sendJson(res, status, body, cacheControl = CACHE_CONTROL) {
 /** Mount the wave-9 Superfund NPL proxy. */
 export function superfundProxy() {
   async function handler(req, res) {
-    if (req.method !== 'GET') return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
     try {
       const url = new URL(req.url, 'http://localhost');
       const q = parseQuery(url.searchParams);
-      if (q.badParam) return sendJson(res, 400, { error: q.badParam }, 'no-store');
+      if (q.badParam)
+        return sendJson(res, 400, { error: q.badParam }, 'no-store');
       const { payload, stale } = await getPayload(q.status, q.state);
       const body = stale ? { ...payload, stale: true } : payload;
       if (q.state != null && body.summary.total === 0) {
@@ -239,12 +264,23 @@ export function superfundProxy() {
       }
       sendJson(res, 200, body);
     } catch (error) {
-      const upstreamFail = error?.status === 502 || error?.name === 'AbortError' || /aborted?/i.test(error?.message ?? '');
-      sendJson(res, upstreamFail ? 502 : 500, {
-        error: 'superfund_unavailable',
-        detail: error?.message ?? 'unknown',
-        honesty: { attribution: 'Data: U.S. EPA Envirofacts (SEMS) via the DMAP REST API.' },
-      }, 'no-store');
+      const upstreamFail =
+        error?.status === 502 ||
+        error?.name === 'AbortError' ||
+        /aborted?/i.test(error?.message ?? '');
+      sendJson(
+        res,
+        upstreamFail ? 502 : 500,
+        {
+          error: 'superfund_unavailable',
+          detail: error?.message ?? 'unknown',
+          honesty: {
+            attribution:
+              'Data: U.S. EPA Envirofacts (SEMS) via the DMAP REST API.',
+          },
+        },
+        'no-store',
+      );
     }
   }
 
@@ -270,5 +306,9 @@ export const _superfundInternals = {
   numOrNull,
   latOrNull,
   lonOrNull,
-  resetCache: () => { payloadCache.clear(); inflight.clear(); docFailedAt = -Infinity; },
+  resetCache: () => {
+    payloadCache.clear();
+    inflight.clear();
+    docFailedAt = -Infinity;
+  },
 };

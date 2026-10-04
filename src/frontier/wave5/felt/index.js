@@ -65,9 +65,17 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
     }
 
     function escapeHtml(s) {
-      return String(s).replace(/[&<>"']/g, (c) => ({
-        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
-      })[c]);
+      return String(s).replace(
+        /[&<>"']/g,
+        (c) =>
+          ({
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#39;',
+          })[c],
+      );
     }
 
     let statusEl = null;
@@ -106,7 +114,8 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
     if (mount && typeof chip === 'function') {
       try {
         statusEl = document.createElement('div');
-        statusEl.style.cssText = 'font-size:10px;color:#8aa4d6;margin:2px 0 4px;';
+        statusEl.style.cssText =
+          'font-size:10px;color:#8aa4d6;margin:2px 0 4px;';
         statusEl.textContent = 'loading felt quakes…';
         mount.appendChild(statusEl);
         listEl = document.createElement('div');
@@ -120,14 +129,20 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
             disable: () => setEnabled(false),
           });
           mount.appendChild(
-            chip(T('feature.felt') || 'Felt earthquakes', (on) =>
-              on ? tracked.show() : tracked.hide(), false),
+            chip(
+              T('feature.felt') || 'Felt earthquakes',
+              (on) => (on ? tracked.show() : tracked.hide()),
+              false,
+            ),
           );
         } else {
-          mount.appendChild(chip(T('feature.felt') || 'Felt earthquakes', apply, false));
+          mount.appendChild(
+            chip(T('feature.felt') || 'Felt earthquakes', apply, false),
+          );
         }
         const legend = document.createElement('div');
-        legend.style.cssText = 'font-size:10px;color:#8aa4d6;margin-top:4px;line-height:1.5;';
+        legend.style.cssText =
+          'font-size:10px;color:#8aa4d6;margin-top:4px;line-height:1.5;';
         legend.innerHTML =
           'point size = testimony volume (crowd-sourced)<br>' +
           'color = magnitude<br>' +

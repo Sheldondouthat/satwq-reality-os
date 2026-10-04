@@ -82,7 +82,8 @@ export function mountAkashicUI({
   globe = null,
   now = () => Date.now(),
 } = {}) {
-  if (!store || !recorder || !replay) throw new TypeError('Akashic UI requires store, recorder, replay');
+  if (!store || !recorder || !replay)
+    throw new TypeError('Akashic UI requires store, recorder, replay');
   if (document.getElementById(BAR_ID)) return null; // already mounted
 
   const style = el('style', { text: CSS });
@@ -110,10 +111,25 @@ export function mountAkashicUI({
   const count = el('span', { class: 'ak-count', text: '0 events' });
   const timeReadout = el('span', { class: 'ak-time', text: '' });
   const canvas = el('canvas', { width: '840', height: '44' });
-  const scrub = el('input', { type: 'range', min: '0', max: '1000', value: '1000', 'aria-label': 'Timeline scrubber' });
-  const playBtn = el('button', { text: '▶ Play', title: 'Replay the last 24 hours' });
-  const liveBtn = el('button', { text: '● Live', title: 'Return to live (Esc)' });
-  const exportBtn = el('button', { text: '⤓ Export JSON', title: 'Download the full event log' });
+  const scrub = el('input', {
+    type: 'range',
+    min: '0',
+    max: '1000',
+    value: '1000',
+    'aria-label': 'Timeline scrubber',
+  });
+  const playBtn = el('button', {
+    text: '▶ Play',
+    title: 'Replay the last 24 hours',
+  });
+  const liveBtn = el('button', {
+    text: '● Live',
+    title: 'Return to live (Esc)',
+  });
+  const exportBtn = el('button', {
+    text: '⤓ Export JSON',
+    title: 'Download the full event log',
+  });
   const collapseBtn = el('button', { text: '–', title: 'Collapse' });
 
   const bar = el('div', { id: BAR_ID }, [
@@ -161,15 +177,23 @@ export function mountAkashicUI({
     }
     // Playhead line.
     const { start, end } = windowBounds();
-    const frac = Math.min(1, Math.max(0, (replay.cutoff - start) / Math.max(1, end - start)));
+    const frac = Math.min(
+      1,
+      Math.max(0, (replay.cutoff - start) / Math.max(1, end - start)),
+    );
     ctx.fillStyle = '#ffcf6e';
     ctx.fillRect(frac * w - 1, 0, 2, h);
   }
 
   function renderGlobe() {
     if (!globe) return;
-    const visible = replay.mode === 'replay' ? filterEventsUpTo(events, replay.cutoff) : events;
-    globe.render(visible, { cutoff: replay.mode === 'replay' ? replay.cutoff : Infinity });
+    const visible =
+      replay.mode === 'replay'
+        ? filterEventsUpTo(events, replay.cutoff)
+        : events;
+    globe.render(visible, {
+      cutoff: replay.mode === 'replay' ? replay.cutoff : Infinity,
+    });
   }
 
   function syncChrome() {
@@ -178,9 +202,14 @@ export function mountAkashicUI({
     badge.textContent = isLive ? '● LIVE' : '◉ REPLAY';
     playBtn.textContent = replay.playing ? '⏸ Pause' : '▶ Play';
     count.textContent = `${events.length.toLocaleString()} events${store.degraded ? ' (memory only)' : ''}`;
-    timeReadout.textContent = isLive ? LIVE_NOW_TEXT : formatCutoff(replay.cutoff);
+    timeReadout.textContent = isLive
+      ? LIVE_NOW_TEXT
+      : formatCutoff(replay.cutoff);
     const { start, end } = windowBounds();
-    const frac = Math.min(1, Math.max(0, (replay.cutoff - start) / Math.max(1, end - start)));
+    const frac = Math.min(
+      1,
+      Math.max(0, (replay.cutoff - start) / Math.max(1, end - start)),
+    );
     scrub.value = String(Math.round(frac * 1000));
   }
 
@@ -203,7 +232,12 @@ export function mountAkashicUI({
   });
   playBtn.addEventListener('click', () => {
     if (replay.playing) replay.pause();
-    else replay.play({ fromMs: now() - 86400000, toMs: now(), msPerSecond: 3600000 });
+    else
+      replay.play({
+        fromMs: now() - 86400000,
+        toMs: now(),
+        msPerSecond: 3600000,
+      });
   });
   liveBtn.addEventListener('click', () => replay.exitToLive());
   collapseBtn.addEventListener('click', () => {

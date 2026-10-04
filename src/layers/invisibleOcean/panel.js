@@ -46,7 +46,18 @@ const CSS = `
 .io-src{font-size:10px;color:#64748b}
 `;
 
-const HF_BANDS = ['160m', '80m', '60m', '40m', '30m', '20m', '17m', '15m', '12m', '10m'];
+const HF_BANDS = [
+  '160m',
+  '80m',
+  '60m',
+  '40m',
+  '30m',
+  '20m',
+  '17m',
+  '15m',
+  '12m',
+  '10m',
+];
 
 function el(tag, cls, text) {
   const n = document.createElement(tag);
@@ -61,13 +72,18 @@ function el(tag, cls, text) {
  * @param {number} opts.tickMs - re-render cadence for fade/age display.
  */
 export function createEmWeatherPanel({ getState, tickMs = 60000 } = {}) {
-  if (typeof getState !== 'function') throw new TypeError('EM weather panel requires getState');
+  if (typeof getState !== 'function')
+    throw new TypeError('EM weather panel requires getState');
   const root = el('section', 'io-panel');
   const style = document.createElement('style');
   style.textContent = CSS;
   root.appendChild(style);
   const title = el('h3', null, '🌊 INVISIBLE OCEAN — EM WEATHER');
-  const sub = el('div', 'io-sub', 'Live ionosphere conditions from volunteer RF + NOAA SWPC');
+  const sub = el(
+    'div',
+    'io-sub',
+    'Live ionosphere conditions from volunteer RF + NOAA SWPC',
+  );
   const body = el('div', 'io-body');
   root.append(title, sub, body);
 
@@ -85,7 +101,11 @@ export function createEmWeatherPanel({ getState, tickMs = 60000 } = {}) {
     body.replaceChildren();
 
     if (error && !em) {
-      const err = el('div', 'io-err', `Feed down: ${error}. Showing nothing rather than guessing.`);
+      const err = el(
+        'div',
+        'io-err',
+        `Feed down: ${error}. Showing nothing rather than guessing.`,
+      );
       body.appendChild(err);
       body.appendChild(el('div', 'io-foot', HONESTY_COPY.short));
       return;
@@ -95,29 +115,55 @@ export function createEmWeatherPanel({ getState, tickMs = 60000 } = {}) {
     if (em) {
       if (Number.isFinite(em.solarWindKms)) {
         const v = em.solarWindKms;
-        ul.appendChild(metricRow('Solar wind', `${Math.round(v)} km/s (${v < 400 ? 'calm' : v < 550 ? 'brisk' : 'gale'})`));
+        ul.appendChild(
+          metricRow(
+            'Solar wind',
+            `${Math.round(v)} km/s (${v < 400 ? 'calm' : v < 550 ? 'brisk' : 'gale'})`,
+          ),
+        );
       }
       if (Number.isFinite(em.kp)) {
-        ul.appendChild(metricRow('Kp index', `${em.kp} (${em.kp <= 3 ? 'quiet' : em.kp <= 5 ? 'unsettled' : 'storm'})`));
+        ul.appendChild(
+          metricRow(
+            'Kp index',
+            `${em.kp} (${em.kp <= 3 ? 'quiet' : em.kp <= 5 ? 'unsettled' : 'storm'})`,
+          ),
+        );
       }
       if (em.xraySubclass) {
         const hot = em.xrayClass === 'M' || em.xrayClass === 'X';
-        ul.appendChild(metricRow('X-ray flux', `${em.xraySubclass} (${hot ? 'FLARE — day-side HF fading' : 'quiet sun'})`));
+        ul.appendChild(
+          metricRow(
+            'X-ray flux',
+            `${em.xraySubclass} (${hot ? 'FLARE — day-side HF fading' : 'quiet sun'})`,
+          ),
+        );
       }
       if (Number.isFinite(em.bzGsm)) {
-        ul.appendChild(metricRow('IMF Bz', `${em.bzGsm >= 0 ? '+' : ''}${em.bzGsm.toFixed(1)} nT`));
+        ul.appendChild(
+          metricRow(
+            'IMF Bz',
+            `${em.bzGsm >= 0 ? '+' : ''}${em.bzGsm.toFixed(1)} nT`,
+          ),
+        );
       }
-      if (Number.isFinite(em.sfi)) ul.appendChild(metricRow('10.7 cm flux', `${Math.round(em.sfi)} sfu`));
+      if (Number.isFinite(em.sfi))
+        ul.appendChild(metricRow('10.7 cm flux', `${Math.round(em.sfi)} sfu`));
     }
     const arcs = Number.isFinite(arcCount) ? arcCount : 0;
     ul.appendChild(
-      metricRow('Live arcs', `${arcs}${dropped ? ` (+${dropped} capped)` : ''}`),
+      metricRow(
+        'Live arcs',
+        `${arcs}${dropped ? ` (+${dropped} capped)` : ''}`,
+      ),
     );
     if (providers) {
       const parts = [];
-      if (providers.pskreporter != null) parts.push(`PSK ${providers.pskreporter}`);
+      if (providers.pskreporter != null)
+        parts.push(`PSK ${providers.pskreporter}`);
       if (providers.wsprnet != null) parts.push(`WSPR ${providers.wsprnet}`);
-      if (parts.length) ul.appendChild(metricRow('Spots this sweep', parts.join(' · ')));
+      if (parts.length)
+        ul.appendChild(metricRow('Spots this sweep', parts.join(' · ')));
       for (const [name, info] of Object.entries(providers)) {
         if (info && typeof info === 'object' && info.error) {
           ul.appendChild(metricRow(`${name} feed`, `down: ${info.error}`));
@@ -125,7 +171,9 @@ export function createEmWeatherPanel({ getState, tickMs = 60000 } = {}) {
       }
     }
     if (lastUpdate) {
-      ul.appendChild(metricRow('Updated', new Date(lastUpdate).toLocaleTimeString()));
+      ul.appendChild(
+        metricRow('Updated', new Date(lastUpdate).toLocaleTimeString()),
+      );
     }
     body.appendChild(ul);
 
@@ -137,7 +185,9 @@ export function createEmWeatherPanel({ getState, tickMs = 60000 } = {}) {
       const nightBands = new Set(bandsUnderMuf(night.mufMHz));
 
       const wrap = el('div', 'io-bands');
-      wrap.appendChild(el('div', 'io-sub', 'Band openings — intuition, not measurement'));
+      wrap.appendChild(
+        el('div', 'io-sub', 'Band openings — intuition, not measurement'),
+      );
       for (const band of HF_BANDS) {
         const row = el('div', 'io-bandrow');
         row.appendChild(el('span', 'io-bn', band));
@@ -151,7 +201,10 @@ export function createEmWeatherPanel({ getState, tickMs = 60000 } = {}) {
         wrap.appendChild(row);
       }
       const legend = el('div', 'io-legend');
-      legend.append(el('span', null, '☀️ day side'), el('span', null, '🌙 night side'));
+      legend.append(
+        el('span', null, '☀️ day side'),
+        el('span', null, '🌙 night side'),
+      );
       wrap.appendChild(legend);
 
       const hintDay = bestBandsHint(em, { dayFactor: 0.85 });
@@ -172,7 +225,11 @@ export function createEmWeatherPanel({ getState, tickMs = 60000 } = {}) {
     }
 
     const foot = el('div', 'io-foot', HONESTY_COPY.short);
-    const src = el('div', 'io-src', 'Sources: WSPRnet + PSK Reporter volunteers (public spots), NOAA SWPC (keyless).');
+    const src = el(
+      'div',
+      'io-src',
+      'Sources: WSPRnet + PSK Reporter volunteers (public spots), NOAA SWPC (keyless).',
+    );
     body.append(foot, src);
   }
 

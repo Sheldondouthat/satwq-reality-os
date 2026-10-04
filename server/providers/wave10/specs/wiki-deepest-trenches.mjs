@@ -4,35 +4,33 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 9 (wikidata2 worker)).
  */
 export const SPEC = {
-  "id": "wiki-deepest-trenches",
-  "title": "Wikidata — Deepest ocean trenches",
-  "url": "https://query.wikidata.org/sparql?format=json&query=SELECT%20%3Fitem%20%3FitemLabel%20%3Fdepth%20WHERE%20%7B%20%3Fitem%20wdt%3AP31%20wd%3AQ119253%3B%20wdt%3AP2044%20%3Fdepth.%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22en%22.%20%7D%20%7D%20ORDER%20BY%20ASC%28%3Fdepth%29%20LIMIT%2050",
-  "headers": {
-    "User-Agent": "satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)"
+  id: 'wiki-deepest-trenches',
+  title: 'Wikidata — Deepest ocean trenches',
+  url: 'https://query.wikidata.org/sparql?format=json&query=SELECT%20%3Fitem%20%3FitemLabel%20%3Fdepth%20WHERE%20%7B%20%3Fitem%20wdt%3AP31%20wd%3AQ119253%3B%20wdt%3AP2044%20%3Fdepth.%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22en%22.%20%7D%20%7D%20ORDER%20BY%20ASC%28%3Fdepth%29%20LIMIT%2050',
+  headers: {
+    'User-Agent':
+      'satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)',
   },
-  "ttlSeconds": 86400,
-  "timeoutMs": 60000,
-  "extract": {
-    "items": "$.results.bindings",
-    "limit": 50,
-    "map": {
-      "name": "$.itemLabel.value",
-      "depth_m": "$.depth.value",
-      "wikidata": "$.item.value"
+  ttlSeconds: 86400,
+  timeoutMs: 60000,
+  extract: {
+    items: '$.results.bindings',
+    limit: 50,
+    map: {
+      name: '$.itemLabel.value',
+      depth_m: '$.depth.value',
+      wikidata: '$.item.value',
     },
-    "numbers": [
-      "depth_m"
-    ]
+    numbers: ['depth_m'],
   },
-  "required": [
-    "name"
-  ],
-  "source": "Wikidata",
-  "attribution": "Data: Wikidata Query Service — keyless, CC0.",
-  "units": {
-    "depth_m": "m (elevation above sea level; negative = below)"
+  required: ['name'],
+  source: 'Wikidata',
+  attribution: 'Data: Wikidata Query Service — keyless, CC0.',
+  units: {
+    depth_m: 'm (elevation above sea level; negative = below)',
   },
-  "honesty": "Oceanic trenches (class Q119253, verified live on Mariana/Tonga Trench entity data) ranked by elevation above sea level, most negative first; Mariana Trench #1 at -10994 m. Depth is stored as P2044 elevation, not P4511. Only 7 trenches carry elevation claims on Wikidata. 7 bindings verified 2026-10-02.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 9 (wikidata2 worker)"
+  honesty:
+    'Oceanic trenches (class Q119253, verified live on Mariana/Tonga Trench entity data) ranked by elevation above sea level, most negative first; Mariana Trench #1 at -10994 m. Depth is stored as P2044 elevation, not P4511. Only 7 trenches carry elevation claims on Wikidata. 7 bindings verified 2026-10-02.',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 9 (wikidata2 worker)',
 };

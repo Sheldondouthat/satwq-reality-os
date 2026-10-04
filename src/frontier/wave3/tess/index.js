@@ -35,7 +35,8 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
         if (destroyed || !enabled) return;
         render(json);
       } catch {
-        if (statusEl) statusEl.textContent = 'transit data unavailable — retrying';
+        if (statusEl)
+          statusEl.textContent = 'transit data unavailable — retrying';
       }
     }
 
@@ -43,8 +44,10 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
       try {
         // Camera gesture toward the target's equatorial coordinates.
         const dir = new Cesium.Cartesian3(
-          Math.cos(Cesium.Math.toRadians(decDeg)) * Math.cos(Cesium.Math.toRadians(raDeg)),
-          Math.cos(Cesium.Math.toRadians(decDeg)) * Math.sin(Cesium.Math.toRadians(raDeg)),
+          Math.cos(Cesium.Math.toRadians(decDeg)) *
+            Math.cos(Cesium.Math.toRadians(raDeg)),
+          Math.cos(Cesium.Math.toRadians(decDeg)) *
+            Math.sin(Cesium.Math.toRadians(raDeg)),
           Math.sin(Cesium.Math.toRadians(decDeg)),
         );
         viewer.camera.lookAtTransform(
@@ -60,7 +63,8 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
       const list = doc.transits ?? [];
       if (statusEl) {
         statusEl.textContent =
-          list.length === 0 ? 'no transits in window'
+          list.length === 0
+            ? 'no transits in window'
             : `${list.length} upcoming · next ${countdown(list[0].hoursUntil)}`;
       }
       if (!panelEl) return;
@@ -101,7 +105,8 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
     if (mount && typeof chip === 'function') {
       try {
         statusEl = document.createElement('div');
-        statusEl.style.cssText = 'font-size:10px;color:#8aa4d6;margin:2px 0 4px;';
+        statusEl.style.cssText =
+          'font-size:10px;color:#8aa4d6;margin:2px 0 4px;';
         statusEl.textContent = 'computing transits…';
         mount.appendChild(statusEl);
         panelEl = document.createElement('div');
@@ -114,14 +119,20 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
             disable: () => setEnabled(false),
           });
           mount.appendChild(
-            chip(T('feature.tess') || 'Exoplanet transits', (on) =>
-              on ? tracked.show() : tracked.hide(), false),
+            chip(
+              T('feature.tess') || 'Exoplanet transits',
+              (on) => (on ? tracked.show() : tracked.hide()),
+              false,
+            ),
           );
         } else {
-          mount.appendChild(chip(T('feature.tess') || 'Exoplanet transits', apply, false));
+          mount.appendChild(
+            chip(T('feature.tess') || 'Exoplanet transits', apply, false),
+          );
         }
         const legend = document.createElement('div');
-        legend.style.cssText = 'font-size:10px;color:#8aa4d6;margin-top:4px;line-height:1.5;';
+        legend.style.cssText =
+          'font-size:10px;color:#8aa4d6;margin-top:4px;line-height:1.5;';
         legend.innerHTML =
           'Times are <b>Kepler predictions</b> (epoch + n·period) from NASA ' +
           'Exoplanet Archive TOIs, approximate to a few minutes. PC/CP are ' +

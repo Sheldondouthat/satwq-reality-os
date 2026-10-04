@@ -4,33 +4,30 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 2 (socrata worker)).
  */
 export const SPEC = {
-  "attribution": "Data: Seattle Fire Department via Seattle Open Data — keyless Socrata API.",
-  "extract": {
-    "items": "$",
-    "limit": 50,
-    "map": {
-      "address": "$.address",
-      "key": "$.incident_number",
-      "lat": "$.latitude",
-      "lon": "$.longitude",
-      "time": "$.datetime",
-      "type": "$.type"
+  attribution:
+    'Data: Seattle Fire Department via Seattle Open Data — keyless Socrata API.',
+  extract: {
+    items: '$',
+    limit: 50,
+    map: {
+      address: '$.address',
+      key: '$.incident_number',
+      lat: '$.latitude',
+      lon: '$.longitude',
+      time: '$.datetime',
+      type: '$.type',
     },
-    "numbers": [
-      "lat",
-      "lon"
-    ]
+    numbers: ['lat', 'lon'],
   },
-  "honesty": "Near-real-time Seattle Fire 911 dispatch feed; rows are active/recent calls; addresses are incident locations. Updated continuously.",
-  "id": "socrata-seattle-911",
-  "required": [
-    "key"
-  ],
-  "source": "Seattle Open Data (Socrata)",
-  "title": "Seattle Open Data — fire 911 calls (real-time)",
-  "ttlSeconds": 600,
-  "units": {},
-  "url": "https://data.seattle.gov/resource/kzjm-xkqj.json?$limit=50",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 2 (socrata worker)"
+  honesty:
+    'Near-real-time Seattle Fire 911 dispatch feed; rows are active/recent calls; addresses are incident locations. Updated continuously.',
+  id: 'socrata-seattle-911',
+  required: ['key'],
+  source: 'Seattle Open Data (Socrata)',
+  title: 'Seattle Open Data — fire 911 calls (real-time)',
+  ttlSeconds: 600,
+  units: {},
+  url: 'https://data.seattle.gov/resource/kzjm-xkqj.json?$limit=50',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 2 (socrata worker)',
 };

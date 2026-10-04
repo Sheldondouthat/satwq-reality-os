@@ -4,60 +4,53 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 8 (bikeshare-chicago worker)).
  */
 export const SPEC = {
-  "id": "chicago-building-permits",
-  "title": "Chicago — building permits (2026)",
-  "url": "https://data.cityofchicago.org/resource/ydr8-5enu.json?$limit=50&$where=issue_date%20%3E%3D%20%272026-01-01T00%3A00%3A00%27&$order=%3Aid%20desc",
-  "headers": {
-    "User-Agent": "satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)"
+  id: 'chicago-building-permits',
+  title: 'Chicago — building permits (2026)',
+  url: 'https://data.cityofchicago.org/resource/ydr8-5enu.json?$limit=50&$where=issue_date%20%3E%3D%20%272026-01-01T00%3A00%3A00%27&$order=%3Aid%20desc',
+  headers: {
+    'User-Agent':
+      'satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)',
   },
-  "ttlSeconds": 3600,
-  "bodyCapBytes": 2097152,
-  "extract": {
-    "items": "$",
-    "limit": 50,
-    "map": {
-      "permitNumber": "$.permit_",
-      "permitType": "$.permit_type",
-      "permitStatus": "$.permit_status",
-      "workDescription": "$.work_description",
-      "issueDate": "$.issue_date",
-      "applicationStartDate": "$.application_start_date",
-      "streetName": "$.street_name",
-      "reportedCost": "$.reported_cost",
-      "ward": "$.ward",
-      "communityArea": "$.community_area",
-      "lat": "$.latitude",
-      "lon": "$.longitude"
+  ttlSeconds: 3600,
+  bodyCapBytes: 2097152,
+  extract: {
+    items: '$',
+    limit: 50,
+    map: {
+      permitNumber: '$.permit_',
+      permitType: '$.permit_type',
+      permitStatus: '$.permit_status',
+      workDescription: '$.work_description',
+      issueDate: '$.issue_date',
+      applicationStartDate: '$.application_start_date',
+      streetName: '$.street_name',
+      reportedCost: '$.reported_cost',
+      ward: '$.ward',
+      communityArea: '$.community_area',
+      lat: '$.latitude',
+      lon: '$.longitude',
     },
-    "numbers": [
-      "reportedCost",
-      "ward",
-      "communityArea",
-      "lat",
-      "lon"
-    ]
+    numbers: ['reportedCost', 'ward', 'communityArea', 'lat', 'lon'],
   },
-  "required": [
-    "permitNumber",
-    "issueDate"
-  ],
-  "source": "City of Chicago",
-  "attribution": "Data: City of Chicago open data portal — keyless.",
-  "units": {
-    "permitNumber": "text",
-    "permitType": "text",
-    "permitStatus": "text",
-    "workDescription": "text",
-    "issueDate": "datetime",
-    "applicationStartDate": "datetime",
-    "streetName": "text",
-    "reportedCost": "USD",
-    "ward": "count",
-    "communityArea": "count",
-    "lat": "deg",
-    "lon": "deg"
+  required: ['permitNumber', 'issueDate'],
+  source: 'City of Chicago',
+  attribution: 'Data: City of Chicago open data portal — keyless.',
+  units: {
+    permitNumber: 'text',
+    permitType: 'text',
+    permitStatus: 'text',
+    workDescription: 'text',
+    issueDate: 'datetime',
+    applicationStartDate: 'datetime',
+    streetName: 'text',
+    reportedCost: 'USD',
+    ward: 'count',
+    communityArea: 'count',
+    lat: 'deg',
+    lon: 'deg',
   },
-  "honesty": "Newest-first 50 of 24293 permits issued since 2026-01-01 via $order=:id desc (dataset id ydr8-5enu verified live). issue_date is a real timestamp type — range filter used instead of LIKE. Newest issue_date at probe: 2026-10-01T00:00:00.000.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 8 (bikeshare-chicago worker)"
+  honesty:
+    'Newest-first 50 of 24293 permits issued since 2026-01-01 via $order=:id desc (dataset id ydr8-5enu verified live). issue_date is a real timestamp type — range filter used instead of LIKE. Newest issue_date at probe: 2026-10-01T00:00:00.000.',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 8 (bikeshare-chicago worker)',
 };

@@ -65,7 +65,8 @@ export function initAkashic({ viewer = null, overrides = {} } = {}) {
     },
   ];
 
-  const recorder = overrides.recorder ?? createAkashicRecorder({ store, pollers });
+  const recorder =
+    overrides.recorder ?? createAkashicRecorder({ store, pollers });
   const replay = overrides.replay ?? createReplayController();
 
   let globe = null;
@@ -90,7 +91,9 @@ export function initAkashic({ viewer = null, overrides = {} } = {}) {
   }
 
   recorder.start();
-  console.log('[Akashic] records online — timeline scrubber at the bottom of the screen');
+  console.log(
+    '[Akashic] records online — timeline scrubber at the bottom of the screen',
+  );
   return {
     store,
     recorder,

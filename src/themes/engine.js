@@ -382,7 +382,7 @@ export const BASE_STRINGS = {
   'feature.felt': 'Felt earthquakes (EMSC)',
   'feature.hazards': 'Multi-hazard events (GDACS)',
   'feature.markets': 'Markets (FX · BTC)',
-  'feature.pota': 'Who\'s on the air (POTA)',
+  'feature.pota': "Who's on the air (POTA)",
   'feature.quakes': 'Global quakes (5-catalog)',
   'feature.radioRef': 'Radio reference',
   'feature.research': 'Research ticker',

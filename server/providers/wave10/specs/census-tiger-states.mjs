@@ -4,44 +4,38 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 3 (census worker)).
  */
 export const SPEC = {
-  "id": "census-tiger-states",
-  "title": "U.S. Census — states and territories (TIGERweb)",
-  "url": "https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/State_County/MapServer/0/query?where=1%3D1&outFields=NAME%2CSTUSAB%2CGEOID%2CREGION%2CDIVISION%2CCENTLAT%2CCENTLON%2CAREALAND%2CAREAWATER&returnGeometry=false&f=json",
-  "headers": {},
-  "ttlSeconds": 86400,
-  "source": "U.S. Census Bureau",
-  "attribution": "Data: U.S. Census Bureau, TIGERweb REST — keyless.",
-  "honesty": "Vintage: current TIGERweb boundaries (queried 2026-10-02). Current TIGERweb state boundaries; AREALAND/AREAWATER in square meters; coordinates are polygon centroids, not capitals.",
-  "units": {
-    "lat": "deg",
-    "lon": "deg",
-    "land_m2": "m2",
-    "water_m2": "m2"
+  id: 'census-tiger-states',
+  title: 'U.S. Census — states and territories (TIGERweb)',
+  url: 'https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/State_County/MapServer/0/query?where=1%3D1&outFields=NAME%2CSTUSAB%2CGEOID%2CREGION%2CDIVISION%2CCENTLAT%2CCENTLON%2CAREALAND%2CAREAWATER&returnGeometry=false&f=json',
+  headers: {},
+  ttlSeconds: 86400,
+  source: 'U.S. Census Bureau',
+  attribution: 'Data: U.S. Census Bureau, TIGERweb REST — keyless.',
+  honesty:
+    'Vintage: current TIGERweb boundaries (queried 2026-10-02). Current TIGERweb state boundaries; AREALAND/AREAWATER in square meters; coordinates are polygon centroids, not capitals.',
+  units: {
+    lat: 'deg',
+    lon: 'deg',
+    land_m2: 'm2',
+    water_m2: 'm2',
   },
-  "extract": {
-    "items": "$.features",
-    "limit": 60,
-    "map": {
-      "name": "$.attributes.NAME",
-      "abbr": "$.attributes.STUSAB",
-      "geoid": "$.attributes.GEOID",
-      "region": "$.attributes.REGION",
-      "division": "$.attributes.DIVISION",
-      "lat": "$.attributes.CENTLAT",
-      "lon": "$.attributes.CENTLON",
-      "land_m2": "$.attributes.AREALAND",
-      "water_m2": "$.attributes.AREAWATER"
+  extract: {
+    items: '$.features',
+    limit: 60,
+    map: {
+      name: '$.attributes.NAME',
+      abbr: '$.attributes.STUSAB',
+      geoid: '$.attributes.GEOID',
+      region: '$.attributes.REGION',
+      division: '$.attributes.DIVISION',
+      lat: '$.attributes.CENTLAT',
+      lon: '$.attributes.CENTLON',
+      land_m2: '$.attributes.AREALAND',
+      water_m2: '$.attributes.AREAWATER',
     },
-    "numbers": [
-      "lat",
-      "lon",
-      "land_m2",
-      "water_m2"
-    ]
+    numbers: ['lat', 'lon', 'land_m2', 'water_m2'],
   },
-  "required": [
-    "name"
-  ],
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 3 (census worker)"
+  required: ['name'],
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 3 (census worker)',
 };

@@ -22,8 +22,10 @@ import {
   cryptoAssetIds,
 } from './model.js';
 
-const USGS_URL = 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_day.geojson';
-const EONET_URL = 'https://eonet.gsfc.nasa.gov/api/v3/events?status=open&limit=20';
+const USGS_URL =
+  'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_day.geojson';
+const EONET_URL =
+  'https://eonet.gsfc.nasa.gov/api/v3/events?status=open&limit=20';
 const COINGECKO_URL = `https://api.coingecko.com/api/v3/simple/price?ids=${cryptoAssetIds()}&vs_currencies=usd&include_24hr_change=true`;
 
 const QUAKES_REFRESH_MS = 5 * 60_000;
@@ -32,25 +34,34 @@ const CRYPTO_REFRESH_MS = 5 * 60_000;
 const FETCH_TIMEOUT_MS = 20_000;
 
 const TIER_STYLE = {
-  [TIER.VERIFIED]: 'background:rgba(53,208,127,.16);color:#35d07f;border:1px solid rgba(53,208,127,.45)',
-  [TIER.INFERRED]: 'background:rgba(245,165,66,.14);color:#f5a542;border:1px solid rgba(245,165,66,.45)',
-  [TIER.CONTEXT]: 'background:rgba(138,164,214,.12);color:#8aa4d6;border:1px solid rgba(138,164,214,.4)',
+  [TIER.VERIFIED]:
+    'background:rgba(53,208,127,.16);color:#35d07f;border:1px solid rgba(53,208,127,.45)',
+  [TIER.INFERRED]:
+    'background:rgba(245,165,66,.14);color:#f5a542;border:1px solid rgba(245,165,66,.45)',
+  [TIER.CONTEXT]:
+    'background:rgba(138,164,214,.12);color:#8aa4d6;border:1px solid rgba(138,164,214,.4)',
 };
 
 const TIER_BLURB = {
   [TIER.VERIFIED]: 'source-direct live data — straight from the public feed',
-  [TIER.INFERRED]: 'derived from live data — computed here, not published by the source',
-  [TIER.CONTEXT]: 'static reference — labels, sources, cadence, never live data',
+  [TIER.INFERRED]:
+    'derived from live data — computed here, not published by the source',
+  [TIER.CONTEXT]:
+    'static reference — labels, sources, cadence, never live data',
 };
 
 function escapeHtml(s) {
-  return String(s).replace(/[&<>"']/g, (c) => ({
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#39;',
-  })[c]);
+  return String(s).replace(
+    /[&<>"']/g,
+    (c) =>
+      ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;',
+      })[c],
+  );
 }
 
 function badge(tier) {
@@ -95,7 +106,8 @@ const CSS = `
 
 export function init({ mount, chip, t } = {}) {
   try {
-    if (typeof document === 'undefined' || !mount || typeof chip !== 'function') return null;
+    if (typeof document === 'undefined' || !mount || typeof chip !== 'function')
+      return null;
     const T = typeof t === 'function' ? t : (k) => k;
 
     let enabled = false;
@@ -112,7 +124,8 @@ export function init({ mount, chip, t } = {}) {
 
     const root = document.createElement('div');
     root.setAttribute('data-gev', 'signal-walls');
-    root.innerHTML = '<!-- gev-signal-walls: USGS + EONET + CoinGecko live walls -->';
+    root.innerHTML =
+      '<!-- gev-signal-walls: USGS + EONET + CoinGecko live walls -->';
 
     /** One wall: header + rows + note. Returns {setStatus, setRows, setNote}. */
     function makeWall(title, sourceNote) {
@@ -161,7 +174,8 @@ export function init({ mount, chip, t } = {}) {
           rows.length
             ? rows
                 .map(
-                  (r) => `<div class="gev-wall-row">${badge(r.tier)}` +
+                  (r) =>
+                    `<div class="gev-wall-row">${badge(r.tier)}` +
                     `<span class="gev-wall-main"><b>${escapeHtml(r.magLabel)}</b> — ${escapeHtml(r.place)}</span>` +
                     `<span class="gev-wall-sub">${escapeHtml(r.age)} ${badge(TIER.INFERRED)}</span></div>`,
                 )
@@ -171,7 +185,9 @@ export function init({ mount, chip, t } = {}) {
       } catch {
         if (!destroyed && enabled) {
           quakeWall.setStatus('down', 'FEED DOWN');
-          quakeWall.setRows('<div class="gev-wall-empty">USGS feed unreachable — retrying on the next cycle.</div>');
+          quakeWall.setRows(
+            '<div class="gev-wall-empty">USGS feed unreachable — retrying on the next cycle.</div>',
+          );
         }
       }
     }
@@ -191,17 +207,21 @@ export function init({ mount, chip, t } = {}) {
           (rows.length
             ? rows
                 .map(
-                  (r) => `<div class="gev-wall-row">${badge(r.tier)}` +
+                  (r) =>
+                    `<div class="gev-wall-row">${badge(r.tier)}` +
                     `<span class="gev-wall-cat">${escapeHtml(r.categoryLabel)}</span>` +
                     `<span class="gev-wall-main">${escapeHtml(r.title)}</span></div>`,
                 )
                 .join('')
-            : '<div class="gev-wall-empty">no open natural events right now.</div>') + countLine,
+            : '<div class="gev-wall-empty">no open natural events right now.</div>') +
+            countLine,
         );
       } catch {
         if (!destroyed && enabled) {
           eonetWall.setStatus('down', 'FEED DOWN');
-          eonetWall.setRows('<div class="gev-wall-empty">EONET feed unreachable — retrying on the next cycle.</div>');
+          eonetWall.setRows(
+            '<div class="gev-wall-empty">EONET feed unreachable — retrying on the next cycle.</div>',
+          );
         }
       }
     }
@@ -217,7 +237,8 @@ export function init({ mount, chip, t } = {}) {
         cryptoWall.setRows(
           rows
             .map(
-              (r) => `<div class="gev-wall-row">${badge(r.tier)}` +
+              (r) =>
+                `<div class="gev-wall-row">${badge(r.tier)}` +
                 `<span class="gev-wall-main"><b>${escapeHtml(r.symbol)}</b> ${escapeHtml(r.name)} — ${escapeHtml(r.priceLabel)}</span>` +
                 `<span class="gev-wall-sub"><span class="${r.direction}">` +
                 `${r.direction === 'up' ? '▲' : r.direction === 'down' ? '▼' : '●'} ${escapeHtml(r.changeLabel)}</span>` +
@@ -228,7 +249,9 @@ export function init({ mount, chip, t } = {}) {
       } catch {
         if (!destroyed && enabled) {
           cryptoWall.setStatus('down', 'FEED DOWN');
-          cryptoWall.setRows('<div class="gev-wall-empty">CoinGecko unreachable (rate-limited?) — retrying on the next cycle.</div>');
+          cryptoWall.setRows(
+            '<div class="gev-wall-empty">CoinGecko unreachable (rate-limited?) — retrying on the next cycle.</div>',
+          );
         }
       }
     }
@@ -247,7 +270,9 @@ export function init({ mount, chip, t } = {}) {
       } else {
         for (const w of [quakeWall, eonetWall, cryptoWall]) {
           w.setStatus('off', 'OFF');
-          w.setRows('<div class="gev-wall-empty">wall off — enable to load live data.</div>');
+          w.setRows(
+            '<div class="gev-wall-empty">wall off — enable to load live data.</div>',
+          );
         }
       }
     }
@@ -264,7 +289,13 @@ export function init({ mount, chip, t } = {}) {
     root.appendChild(legend);
 
     mount.appendChild(root);
-    mount.appendChild(chip(T('feature.signalWalls') || 'Live Signals (quakes · events · crypto)', setEnabled, false));
+    mount.appendChild(
+      chip(
+        T('feature.signalWalls') || 'Live Signals (quakes · events · crypto)',
+        setEnabled,
+        false,
+      ),
+    );
 
     return function destroy() {
       destroyed = true;

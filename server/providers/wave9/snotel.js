@@ -33,10 +33,11 @@
  * (WTEQ + SNWD) — far under the Workers subrequest headroom rule.
  */
 
-import { readResponseTextCapped } from "../common/http.js";
+import { readResponseTextCapped } from '../common/http.js';
 
-const USER_AGENT = "satwq-reality-os/1.0 (gods-eye-view; SNOTEL snowpack layer; keyless)";
-const AWDB_SOAP = "https://wcc.sc.egov.usda.gov/awdbWebService/services"; // from the live WSDL, 2026-09-30
+const USER_AGENT =
+  'satwq-reality-os/1.0 (gods-eye-view; SNOTEL snowpack layer; keyless)';
+const AWDB_SOAP = 'https://wcc.sc.egov.usda.gov/awdbWebService/services'; // from the live WSDL, 2026-09-30
 const UPSTREAM_TIMEOUT_MS = 25_000;
 const BODY_CAP_BYTES = 256 * 1024; // observed ~7 KB/element; generous headroom
 const CACHE_TTL_MS = 3_600_000; // snowpack is slow; hourly refresh
@@ -44,30 +45,159 @@ const RETRY_COOLDOWN_MS = 60_000;
 const STALE_MS = 12 * 3_600_000; // serve key-scoped stale ≤12 h on total outage
 const WINDOW_DAYS = 11;
 
-const ELEMENTS = ["WTEQ", "SNWD"];
-const ELEMENT_UNITS = { WTEQ: "in (snow water equivalent)", SNWD: "in (snow depth)" };
+const ELEMENTS = ['WTEQ', 'SNWD'];
+const ELEMENT_UNITS = {
+  WTEQ: 'in (snow water equivalent)',
+  SNWD: 'in (snow depth)',
+};
 
 // 18-station pinned spread. All metadata live-verified 2026-09-30 via
 // getStationMetadataMultiple (see probes-2026-09-30-0813/meta-multi-resp.xml).
 const STATIONS = [
-  { triplet: "908:WA:SNTL", name: "Alpine Meadows", state: "WA", lat: 47.77957, lon: -121.69847, elevationFt: 3500 },
-  { triplet: "990:WA:SNTL", name: "Beaver Pass", state: "WA", lat: 48.8793, lon: -121.2555, elevationFt: 3630 },
-  { triplet: "302:OR:SNTL", name: "Aneroid Lake #2", state: "OR", lat: 45.21332, lon: -117.19255, elevationFt: 7430 },
-  { triplet: "1000:OR:SNTL", name: "Annie Springs", state: "OR", lat: 42.87007, lon: -122.16518, elevationFt: 6020 },
-  { triplet: "301:CA:SNTL", name: "Adin Mtn", state: "CA", lat: 41.23583, lon: -120.79192, elevationFt: 6170 },
-  { triplet: "356:CA:SNTL", name: "Blue Lakes", state: "CA", lat: 38.60801, lon: -119.92455, elevationFt: 8060 },
-  { triplet: "306:ID:SNTL", name: "Atlanta Summit", state: "ID", lat: 43.7569, lon: -115.23907, elevationFt: 7570 },
-  { triplet: "312:ID:SNTL", name: "Banner Summit", state: "ID", lat: 44.30342, lon: -115.23447, elevationFt: 7040 },
-  { triplet: "916:MT:SNTL", name: "Albro Lake", state: "MT", lat: 45.59723, lon: -111.95902, elevationFt: 8500 },
-  { triplet: "307:MT:SNTL", name: "Badger Pass", state: "MT", lat: 48.13091, lon: -113.02311, elevationFt: 6870 },
-  { triplet: "309:WY:SNTL", name: "Bald Mtn.", state: "WY", lat: 44.80061, lon: -107.84428, elevationFt: 9360 },
-  { triplet: "314:WY:SNTL", name: "Base Camp", state: "WY", lat: 43.94019, lon: -110.44544, elevationFt: 7040 },
-  { triplet: "1344:CO:SNTL", name: "Alta Lakes", state: "CO", lat: 37.88929, lon: -107.84484, elevationFt: 11290 },
-  { triplet: "303:CO:SNTL", name: "Apishapa", state: "CO", lat: 37.33067, lon: -105.06766, elevationFt: 10000 },
-  { triplet: "907:UT:SNTL", name: "Agua Canyon", state: "UT", lat: 37.52217, lon: -112.27118, elevationFt: 8890 },
-  { triplet: "1308:UT:SNTL", name: "Atwater", state: "UT", lat: 40.59124, lon: -111.63775, elevationFt: 8750 },
-  { triplet: "321:NV:SNTL", name: "Bear Creek", state: "NV", lat: 41.83391, lon: -115.45278, elevationFt: 8090 },
-  { triplet: "334:NV:SNTL", name: "Berry Creek", state: "NV", lat: 39.31917, lon: -114.62278, elevationFt: 9350 },
+  {
+    triplet: '908:WA:SNTL',
+    name: 'Alpine Meadows',
+    state: 'WA',
+    lat: 47.77957,
+    lon: -121.69847,
+    elevationFt: 3500,
+  },
+  {
+    triplet: '990:WA:SNTL',
+    name: 'Beaver Pass',
+    state: 'WA',
+    lat: 48.8793,
+    lon: -121.2555,
+    elevationFt: 3630,
+  },
+  {
+    triplet: '302:OR:SNTL',
+    name: 'Aneroid Lake #2',
+    state: 'OR',
+    lat: 45.21332,
+    lon: -117.19255,
+    elevationFt: 7430,
+  },
+  {
+    triplet: '1000:OR:SNTL',
+    name: 'Annie Springs',
+    state: 'OR',
+    lat: 42.87007,
+    lon: -122.16518,
+    elevationFt: 6020,
+  },
+  {
+    triplet: '301:CA:SNTL',
+    name: 'Adin Mtn',
+    state: 'CA',
+    lat: 41.23583,
+    lon: -120.79192,
+    elevationFt: 6170,
+  },
+  {
+    triplet: '356:CA:SNTL',
+    name: 'Blue Lakes',
+    state: 'CA',
+    lat: 38.60801,
+    lon: -119.92455,
+    elevationFt: 8060,
+  },
+  {
+    triplet: '306:ID:SNTL',
+    name: 'Atlanta Summit',
+    state: 'ID',
+    lat: 43.7569,
+    lon: -115.23907,
+    elevationFt: 7570,
+  },
+  {
+    triplet: '312:ID:SNTL',
+    name: 'Banner Summit',
+    state: 'ID',
+    lat: 44.30342,
+    lon: -115.23447,
+    elevationFt: 7040,
+  },
+  {
+    triplet: '916:MT:SNTL',
+    name: 'Albro Lake',
+    state: 'MT',
+    lat: 45.59723,
+    lon: -111.95902,
+    elevationFt: 8500,
+  },
+  {
+    triplet: '307:MT:SNTL',
+    name: 'Badger Pass',
+    state: 'MT',
+    lat: 48.13091,
+    lon: -113.02311,
+    elevationFt: 6870,
+  },
+  {
+    triplet: '309:WY:SNTL',
+    name: 'Bald Mtn.',
+    state: 'WY',
+    lat: 44.80061,
+    lon: -107.84428,
+    elevationFt: 9360,
+  },
+  {
+    triplet: '314:WY:SNTL',
+    name: 'Base Camp',
+    state: 'WY',
+    lat: 43.94019,
+    lon: -110.44544,
+    elevationFt: 7040,
+  },
+  {
+    triplet: '1344:CO:SNTL',
+    name: 'Alta Lakes',
+    state: 'CO',
+    lat: 37.88929,
+    lon: -107.84484,
+    elevationFt: 11290,
+  },
+  {
+    triplet: '303:CO:SNTL',
+    name: 'Apishapa',
+    state: 'CO',
+    lat: 37.33067,
+    lon: -105.06766,
+    elevationFt: 10000,
+  },
+  {
+    triplet: '907:UT:SNTL',
+    name: 'Agua Canyon',
+    state: 'UT',
+    lat: 37.52217,
+    lon: -112.27118,
+    elevationFt: 8890,
+  },
+  {
+    triplet: '1308:UT:SNTL',
+    name: 'Atwater',
+    state: 'UT',
+    lat: 40.59124,
+    lon: -111.63775,
+    elevationFt: 8750,
+  },
+  {
+    triplet: '321:NV:SNTL',
+    name: 'Bear Creek',
+    state: 'NV',
+    lat: 41.83391,
+    lon: -115.45278,
+    elevationFt: 8090,
+  },
+  {
+    triplet: '334:NV:SNTL',
+    name: 'Berry Creek',
+    state: 'NV',
+    lat: 39.31917,
+    lon: -114.62278,
+    elevationFt: 9350,
+  },
 ];
 
 const TRIPLET_RE = /^\d{1,4}:[A-Z]{2}:SNTL$/;
@@ -81,7 +211,7 @@ const PAYLOAD_CACHE_MAX = 32;
 /** Number(null)===0 guard: null/NaN upstream numerics become null, never 0. */
 function numOrNull(v) {
   if (v == null) return null;
-  if (typeof v === "string" && v.trim() === "") return null; // Number('')===0 trap
+  if (typeof v === 'string' && v.trim() === '') return null; // Number('')===0 trap
   const n = Number(v);
   return Number.isFinite(n) ? n : null;
 }
@@ -104,7 +234,9 @@ export function windowDates(nowMs) {
  * hazard; dates are generated, never user-supplied.
  */
 export function buildGetDataEnvelope(triplets, elementCd, beginDate, endDate) {
-  const trips = triplets.map((t) => `      <stationTriplets>${t}</stationTriplets>`).join("\n");
+  const trips = triplets
+    .map((t) => `      <stationTriplets>${t}</stationTriplets>`)
+    .join('\n');
   return (
     `<?xml version="1.0" encoding="UTF-8"?>\n` +
     `<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" ` +
@@ -132,11 +264,16 @@ export function buildGetDataEnvelope(triplets, elementCd, beginDate, endDate) {
  * a getDataResponse at all (incl. SOAP Faults).
  */
 export function parseGetDataResponse(text) {
-  const fail = (msg) => Object.assign(new Error(`snotel_invalid_getdata: ${msg}`), { status: 502 });
-  if (typeof text !== "string" || !text.includes("<ns2:getDataResponse") && !text.includes("getDataResponse")) {
-    throw fail("not a getDataResponse");
+  const fail = (msg) =>
+    Object.assign(new Error(`snotel_invalid_getdata: ${msg}`), { status: 502 });
+  if (
+    typeof text !== 'string' ||
+    (!text.includes('<ns2:getDataResponse') &&
+      !text.includes('getDataResponse'))
+  ) {
+    throw fail('not a getDataResponse');
   }
-  if (/<soap:Fault>/.test(text)) throw fail("soap fault");
+  if (/<soap:Fault>/.test(text)) throw fail('soap fault');
   const rows = [];
   const blockRe = /<return>([\s\S]*?)<\/return>/g;
   let block;
@@ -146,33 +283,36 @@ export function parseGetDataResponse(text) {
       const m = new RegExp(`<([^>:]*:)?${name}>([^<]*)<\\/`).exec(body);
       return m ? m[2].trim() : null;
     };
-    const stationTriplet = tag("stationTriplet");
+    const stationTriplet = tag('stationTriplet');
     if (stationTriplet == null) continue;
     const values = [];
     const valueRe = /<values>([\s\S]*?)<\/values>/g;
     let vm;
-    while ((vm = valueRe.exec(body)) !== null) values.push(numOrNull(vm[1].trim()));
+    while ((vm = valueRe.exec(body)) !== null)
+      values.push(numOrNull(vm[1].trim()));
     rows.push({
       stationTriplet,
-      beginDate: tag("beginDate"),
-      endDate: tag("endDate"),
+      beginDate: tag('beginDate'),
+      endDate: tag('endDate'),
       values,
     });
   }
-  if (rows.length === 0) throw fail("no <return> blocks");
+  if (rows.length === 0) throw fail('no <return> blocks');
   return rows;
 }
 
 function parseQuery(url) {
-  const params = new URL(url, "http://localhost").searchParams;
-  const stationRaw = params.get("station");
+  const params = new URL(url, 'http://localhost').searchParams;
+  const stationRaw = params.get('station');
   let station = null;
   if (stationRaw != null) {
     station = stationRaw.trim().toUpperCase();
     if (!TRIPLET_RE.test(station))
-      throw Object.assign(new Error(`snotel_bad_station: ${stationRaw}`), { status: 400 });
+      throw Object.assign(new Error(`snotel_bad_station: ${stationRaw}`), {
+        status: 400,
+      });
   }
-  return { station, key: station ?? "" };
+  return { station, key: station ?? '' };
 }
 
 async function fetchWithTimeout(fetchImpl, url, { body } = {}) {
@@ -180,15 +320,15 @@ async function fetchWithTimeout(fetchImpl, url, { body } = {}) {
   const timer = setTimeout(() => controller.abort(), UPSTREAM_TIMEOUT_MS);
   try {
     const res = await fetchImpl(url, {
-      method: "POST",
+      method: 'POST',
       signal: controller.signal,
       // NOTE: redirect:'follow' — workerd supports only 'follow'/'manual';
       // 'error' throws at the edge (main 2ec4053).
-      redirect: "follow",
+      redirect: 'follow',
       headers: {
-        "User-Agent": USER_AGENT,
-        "Content-Type": "text/xml; charset=utf-8",
-        Accept: "text/xml",
+        'User-Agent': USER_AGENT,
+        'Content-Type': 'text/xml; charset=utf-8',
+        Accept: 'text/xml',
       },
       body,
     });
@@ -201,19 +341,33 @@ async function fetchWithTimeout(fetchImpl, url, { body } = {}) {
 /** One element: POST the envelope, parse, index by triplet. Throws {status:502} on failure. */
 async function fetchElement(fetchImpl, elementCd, nowMs) {
   const { beginDate, endDate } = windowDates(nowMs);
-  const envelope = buildGetDataEnvelope(STATIONS.map((s) => s.triplet), elementCd, beginDate, endDate);
+  const envelope = buildGetDataEnvelope(
+    STATIONS.map((s) => s.triplet),
+    elementCd,
+    beginDate,
+    endDate,
+  );
   let res;
   try {
     res = await fetchWithTimeout(fetchImpl, AWDB_SOAP, { body: envelope });
   } catch (error) {
-    throw Object.assign(new Error(`snotel_fetch_failed:${elementCd}`), { status: 502, cause: error });
+    throw Object.assign(new Error(`snotel_fetch_failed:${elementCd}`), {
+      status: 502,
+      cause: error,
+    });
   }
-  if (!res.ok) throw Object.assign(new Error(`snotel_http_${res.status}:${elementCd}`), { status: 502 });
+  if (!res.ok)
+    throw Object.assign(new Error(`snotel_http_${res.status}:${elementCd}`), {
+      status: 502,
+    });
   let text;
   try {
     text = await readResponseTextCapped(res, BODY_CAP_BYTES);
   } catch (error) {
-    throw Object.assign(new Error(`snotel_read_failed:${elementCd}`), { status: 502, cause: error });
+    throw Object.assign(new Error(`snotel_read_failed:${elementCd}`), {
+      status: 502,
+      cause: error,
+    });
   }
   const rows = parseGetDataResponse(text); // throws {status:502} on bad wire shape
   const byTriplet = new Map();
@@ -222,7 +376,12 @@ async function fetchElement(fetchImpl, elementCd, nowMs) {
 }
 
 /** Merge WTEQ + SNWD rows into per-station records. Pure. */
-export function mergeStations(stations, wteqBy, snwdBy, { beginDate, endDate }) {
+export function mergeStations(
+  stations,
+  wteqBy,
+  snwdBy,
+  { beginDate, endDate },
+) {
   return stations.map((spec) => {
     const wteq = wteqBy.get(spec.triplet);
     const snwd = snwdBy.get(spec.triplet);
@@ -240,7 +399,8 @@ export function mergeStations(stations, wteqBy, snwdBy, { beginDate, endDate }) 
     // Latest = last non-null value in the window (trailing nulls are
     // unreported days, not zeros — never walk past the data into a 0).
     const latest = (vals) => {
-      for (let i = vals.length - 1; i >= 0; i--) if (vals[i] != null) return { value: vals[i], date: dates[i] };
+      for (let i = vals.length - 1; i >= 0; i--)
+        if (vals[i] != null) return { value: vals[i], date: dates[i] };
       return { value: null, date: null };
     };
     const latestWteq = latest(wteqVals);
@@ -282,7 +442,11 @@ export function buildSnotelPayload(merged, { nowMs, query, window }) {
   let maxSnwd = null;
   for (const r of merged) {
     if (r.snwdIn != null && (maxSnwd == null || r.snwdIn > maxSnwd.value)) {
-      maxSnwd = { value: r.snwdIn, station: `${r.name}, ${r.state}`, triplet: r.triplet };
+      maxSnwd = {
+        value: r.snwdIn,
+        station: `${r.name}, ${r.state}`,
+        triplet: r.triplet,
+      };
     }
   }
   return {
@@ -301,16 +465,16 @@ export function buildSnotelPayload(merged, { nowMs, query, window }) {
     },
     stations,
     attribution:
-      "SNOTEL mountain snowpack telemetry: USDA NRCS Air & Water Database " +
-      "(AWDB) SOAP service, keyless. 18 pinned western-US stations " +
-      "(metadata live-verified 2026-09-30). WTEQ = snow water equivalent " +
-      "(in), SNWD = snow depth (in), daily. 11-day window ending today (UTC).",
+      'SNOTEL mountain snowpack telemetry: USDA NRCS Air & Water Database ' +
+      '(AWDB) SOAP service, keyless. 18 pinned western-US stations ' +
+      '(metadata live-verified 2026-09-30). WTEQ = snow water equivalent ' +
+      '(in), SNWD = snow depth (in), daily. 11-day window ending today (UTC).',
     honesty:
-      "Values are daily sensor telemetry re-served, never measurements we " +
-      "took. 0 = the sensor reported no snow (a real reading — early-season " +
-      "zeros are expected, not an error). null = no value returned for that " +
-      "day. A station dark on both elements still lists with *_unavailable " +
-      "flags — never synthesized.",
+      'Values are daily sensor telemetry re-served, never measurements we ' +
+      'took. 0 = the sensor reported no snow (a real reading — early-season ' +
+      'zeros are expected, not an error). null = no value returned for that ' +
+      'day. A station dark on both elements still lists with *_unavailable ' +
+      'flags — never synthesized.',
   };
 }
 
@@ -319,25 +483,33 @@ async function fetchAll(fetchImpl, nowMs) {
   const results = await Promise.allSettled(
     ELEMENTS.map((elementCd) => fetchElement(fetchImpl, elementCd, nowMs)),
   );
-  const wteq = results[0].status === "fulfilled" ? results[0].value : null;
-  const snwd = results[1].status === "fulfilled" ? results[1].value : null;
+  const wteq = results[0].status === 'fulfilled' ? results[0].value : null;
+  const snwd = results[1].status === 'fulfilled' ? results[1].value : null;
   // Total upstream outage (both elements unreachable) is a provider-level
   // failure → honest 502, matching the d99a470 precedent. Partial
   // degradation stays a 200 with *_unavailable flags.
   if (!wteq && !snwd) {
-    throw Object.assign(new Error("snotel_upstream_down: WTEQ and SNWD unreachable"), { status: 502 });
+    throw Object.assign(
+      new Error('snotel_upstream_down: WTEQ and SNWD unreachable'),
+      { status: 502 },
+    );
   }
-  const merged = mergeStations(STATIONS, wteq?.byTriplet ?? new Map(), snwd?.byTriplet ?? new Map(), {
-    beginDate,
-    endDate,
-  });
+  const merged = mergeStations(
+    STATIONS,
+    wteq?.byTriplet ?? new Map(),
+    snwd?.byTriplet ?? new Map(),
+    {
+      beginDate,
+      endDate,
+    },
+  );
   return { merged, window: { beginDate, endDate } };
 }
 
-function sendJson(res, status, body, cacheControl = "public, max-age=3600") {
+function sendJson(res, status, body, cacheControl = 'public, max-age=3600') {
   res.writeHead(status, {
-    "Content-Type": "application/json; charset=utf-8",
-    "Cache-Control": cacheControl,
+    'Content-Type': 'application/json; charset=utf-8',
+    'Cache-Control': cacheControl,
   });
   res.end(JSON.stringify(body));
 }
@@ -348,7 +520,8 @@ async function getDoc(fetchImpl, nowMs, signal) {
   if (!docInflight) {
     // Retry gate fires only after a FAILED refresh — a success on one
     // query key must never block a different key (one refresh serves all).
-    if (nowMs - docFailedAt < RETRY_COOLDOWN_MS) throw new Error("snotel_retry_later");
+    if (nowMs - docFailedAt < RETRY_COOLDOWN_MS)
+      throw new Error('snotel_retry_later');
     docInflight = fetchAll(fetchImpl, nowMs)
       .then((doc) => {
         docCache = { ...doc, at: nowMs };
@@ -366,9 +539,9 @@ async function getDoc(fetchImpl, nowMs, signal) {
   const wait = docInflight;
   if (!signal) return wait;
   const cancelled = new Promise((_, reject) => {
-    const abort = () => reject(signal.reason ?? new Error("cancelled"));
-    signal.addEventListener("abort", abort, { once: true });
-    const detach = () => signal.removeEventListener("abort", abort);
+    const abort = () => reject(signal.reason ?? new Error('cancelled'));
+    signal.addEventListener('abort', abort, { once: true });
+    const detach = () => signal.removeEventListener('abort', abort);
     wait.then(detach, detach);
   });
   return Promise.race([wait, cancelled]);
@@ -385,59 +558,80 @@ function rememberPayload(key, payload, nowMs) {
 async function getPayload(fetchImpl, query, nowMs, signal) {
   try {
     const doc = await getDoc(fetchImpl, nowMs, signal);
-    const payload = buildSnotelPayload(doc.merged, { nowMs, query, window: doc.window });
+    const payload = buildSnotelPayload(doc.merged, {
+      nowMs,
+      query,
+      window: doc.window,
+    });
     rememberPayload(query.key, payload, nowMs);
     return payload;
   } catch (error) {
     // Stale fallback is key-scoped: only serve a payload captured for THIS query.
     const hit = payloadCache.get(query.key);
     if (hit && nowMs - hit.at <= STALE_MS)
-      return { ...hit.payload, generatedAt: new Date(nowMs).toISOString(), stale: true };
+      return {
+        ...hit.payload,
+        generatedAt: new Date(nowMs).toISOString(),
+        stale: true,
+      };
     throw error;
   }
 }
 
-export function snotelProxy({ fetchImpl = fetch, now = () => Date.now() } = {}) {
+export function snotelProxy({
+  fetchImpl = fetch,
+  now = () => Date.now(),
+} = {}) {
   async function handler(req, res) {
-    if (req.method !== "GET")
-      return sendJson(res, 405, { error: "method_not_allowed" }, "no-store");
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
     const controller = new AbortController();
     const close = () => controller.abort();
-    res.once?.("close", close);
+    res.once?.('close', close);
     try {
       let query;
       try {
         query = parseQuery(req.url);
       } catch (error) {
-        return sendJson(res, 400, { error: "snotel_bad_request", detail: error.message }, "no-store");
+        return sendJson(
+          res,
+          400,
+          { error: 'snotel_bad_request', detail: error.message },
+          'no-store',
+        );
       }
       try {
-        const payload = await getPayload(fetchImpl, query, now(), controller.signal);
+        const payload = await getPayload(
+          fetchImpl,
+          query,
+          now(),
+          controller.signal,
+        );
         sendJson(res, 200, payload);
       } catch (error) {
         const upstreamFail =
           error?.status === 502 ||
-          error?.name === "AbortError" ||
-          /aborted?|fetch failed/i.test(error?.message ?? "");
+          error?.name === 'AbortError' ||
+          /aborted?|fetch failed/i.test(error?.message ?? '');
         sendJson(
           res,
           upstreamFail ? 502 : 500,
-          { error: "snotel_unavailable", detail: error?.message ?? "unknown" },
-          "no-store",
+          { error: 'snotel_unavailable', detail: error?.message ?? 'unknown' },
+          'no-store',
         );
       }
     } finally {
-      res.removeListener?.("close", close);
+      res.removeListener?.('close', close);
     }
   }
 
   return {
-    name: "snotel",
+    name: 'snotel',
     configureServer({ middlewares }) {
-      middlewares.use("/api/snotel", handler);
+      middlewares.use('/api/snotel', handler);
     },
     configurePreviewServer({ middlewares }) {
-      middlewares.use("/api/snotel", handler);
+      middlewares.use('/api/snotel', handler);
     },
   };
 }

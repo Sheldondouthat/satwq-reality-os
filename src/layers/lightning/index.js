@@ -142,7 +142,11 @@ export function createLightningLayer({
     _spawnedTotal += 1;
     if (typeof onFlash === 'function') {
       try {
-        onFlash({ lat: strike.lat, lon: strike.lon, intensity: strike.intensity ?? 0.5 });
+        onFlash({
+          lat: strike.lat,
+          lon: strike.lon,
+          intensity: strike.intensity ?? 0.5,
+        });
       } catch {
         /* sonification hook must never break rendering */
       }

@@ -29,9 +29,11 @@ export function coerceConjunction(raw) {
   const tcaMs = Date.parse(raw.tcaUtc);
   const minRangeKm = numOrNull(raw.minRangeKm);
   const maxProb = numOrNull(raw.maxProb);
-  if (!Number.isFinite(tcaMs) || minRangeKm === null || maxProb === null) return null;
+  if (!Number.isFinite(tcaMs) || minRangeKm === null || maxProb === null)
+    return null;
   if (minRangeKm < 0 || minRangeKm > 5) return null;
-  const tle = (t) => (t && typeof t.line1 === 'string' && typeof t.line2 === 'string' ? t : null);
+  const tle = (t) =>
+    t && typeof t.line1 === 'string' && typeof t.line2 === 'string' ? t : null;
   return {
     id: typeof raw.id === 'string' ? raw.id : `soc-${tcaMs}`,
     tcaUtc: new Date(tcaMs).toISOString(),
@@ -85,8 +87,13 @@ export function tcaPosition(tle, epochMs) {
     const pv = propagate(satrec, date);
     if (!pv || !pv.position) return null;
     const geo = eciToGeodetic(pv.position, gstime(date));
-    if (!Number.isFinite(geo.latitude) || !Number.isFinite(geo.longitude)) return null;
-    return { lat: geo.latitude * RAD2DEG, lon: geo.longitude * RAD2DEG, altKm: geo.height };
+    if (!Number.isFinite(geo.latitude) || !Number.isFinite(geo.longitude))
+      return null;
+    return {
+      lat: geo.latitude * RAD2DEG,
+      lon: geo.longitude * RAD2DEG,
+      altKm: geo.height,
+    };
   } catch {
     return null;
   }
@@ -96,7 +103,11 @@ export function tcaPosition(tle, epochMs) {
  * Convergence arc between the two TCA positions: lifted polyline so a ≤5 km
  * encounter reads on the globe. Returns [lon,lat,heightM] triples.
  */
-export function convergenceArc(posA, posB, { segments = 16, liftKm = 60 } = {}) {
+export function convergenceArc(
+  posA,
+  posB,
+  { segments = 16, liftKm = 60 } = {},
+) {
   const out = [];
   const baseAlt = Math.max(posA.altKm, posB.altKm);
   for (let i = 0; i <= segments; i++) {
@@ -106,7 +117,10 @@ export function convergenceArc(posA, posB, { segments = 16, liftKm = 60 } = {}) 
     if (dLon > 180) dLon -= 360;
     if (dLon < -180) dLon += 360;
     const lon = posA.lon + dLon * f;
-    const alt = posA.altKm + (posB.altKm - posA.altKm) * f + Math.sin(Math.PI * f) * liftKm;
+    const alt =
+      posA.altKm +
+      (posB.altKm - posA.altKm) * f +
+      Math.sin(Math.PI * f) * liftKm;
     out.push([lon, lat, Math.max(1000, alt * 1000)]);
   }
   return out;
@@ -114,5 +128,7 @@ export function convergenceArc(posA, posB, { segments = 16, liftKm = 60 } = {}) 
 
 /** Sort by risk: highest maxProb first, then smallest miss distance. */
 export function rankConjunctions(events) {
-  return [...events].sort((a, b) => b.maxProb - a.maxProb || a.minRangeKm - b.minRangeKm);
+  return [...events].sort(
+    (a, b) => b.maxProb - a.maxProb || a.minRangeKm - b.minRangeKm,
+  );
 }

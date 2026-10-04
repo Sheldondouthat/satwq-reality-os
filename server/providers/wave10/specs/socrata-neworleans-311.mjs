@@ -4,31 +4,30 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 4 (new socrata cities)).
  */
 export const SPEC = {
-  "attribution": "Data: City of New Orleans — data.nola.gov (Socrata) — keyless Socrata API.",
-  "extract": {
-    "items": "$",
-    "limit": 50,
-    "map": {
-      "description": "$.request_reason",
-      "key": "$.service_request",
-      "status": "$.request_status",
-      "time": "$.date_created",
-      "type": "$.request_type"
+  attribution:
+    'Data: City of New Orleans — data.nola.gov (Socrata) — keyless Socrata API.',
+  extract: {
+    items: '$',
+    limit: 50,
+    map: {
+      description: '$.request_reason',
+      key: '$.service_request',
+      status: '$.request_status',
+      time: '$.date_created',
+      type: '$.request_type',
     },
-    "numbers": []
+    numbers: [],
   },
-  "headers": {},
-  "honesty": "New Orleans 311 service requests, fresh through 2026-10-01; date_created is ISO-8601; some rows carry 0.0/0.0 lat/lon (unset coordinates in the source) and the resource has no street-address column, so locations show only via the geocoded point.",
-  "id": "socrata-neworleans-311",
-  "required": [
-    "key",
-    "type"
-  ],
-  "source": "City of New Orleans — data.nola.gov (Socrata)",
-  "title": "New Orleans (data.nola.gov) — 311 OPCD service requests",
-  "ttlSeconds": 1800,
-  "units": {},
-  "url": "https://data.nola.gov/resource/2jgv-pqrq.json?$limit=50&$order=date_created%20DESC",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 4 (new socrata cities)"
+  headers: {},
+  honesty:
+    'New Orleans 311 service requests, fresh through 2026-10-01; date_created is ISO-8601; some rows carry 0.0/0.0 lat/lon (unset coordinates in the source) and the resource has no street-address column, so locations show only via the geocoded point.',
+  id: 'socrata-neworleans-311',
+  required: ['key', 'type'],
+  source: 'City of New Orleans — data.nola.gov (Socrata)',
+  title: 'New Orleans (data.nola.gov) — 311 OPCD service requests',
+  ttlSeconds: 1800,
+  units: {},
+  url: 'https://data.nola.gov/resource/2jgv-pqrq.json?$limit=50&$order=date_created%20DESC',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 4 (new socrata cities)',
 };

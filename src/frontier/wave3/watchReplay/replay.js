@@ -28,7 +28,12 @@ function eventSoundKind(event) {
  * @param {object} [deps.dvr] DVR layer with goTo(timeMs)
  * @param {number} [deps.cameraHeightM] flyTo height
  */
-export function createReplay({ viewer = null, sonify = null, dvr = null, cameraHeightM = 4000000 } = {}) {
+export function createReplay({
+  viewer = null,
+  sonify = null,
+  dvr = null,
+  cameraHeightM = 4000000,
+} = {}) {
   let timer = null;
   let stopped = false;
   let current = null; // { day, resolveDone, played } — settleable by stop()
@@ -46,7 +51,11 @@ export function createReplay({ viewer = null, sonify = null, dvr = null, cameraH
       const { Cartesian3, Math: CMath } = await import('cesium');
       await new Promise((resolve) => {
         viewer.camera.flyTo({
-          destination: Cartesian3.fromDegrees(event.lon, event.lat, cameraHeightM),
+          destination: Cartesian3.fromDegrees(
+            event.lon,
+            event.lat,
+            cameraHeightM,
+          ),
           orientation: { heading: 0, pitch: CMath.toRadians(-55), roll: 0 },
           duration: 2.2,
           complete: resolve,
@@ -70,7 +79,9 @@ export function createReplay({ viewer = null, sonify = null, dvr = null, cameraH
 
   function scrubTo(event) {
     if (!dvr || typeof dvr.goTo !== 'function') return;
-    try { dvr.goTo(event.t); } catch {}
+    try {
+      dvr.goTo(event.t);
+    } catch {}
   }
 
   /**
@@ -82,10 +93,18 @@ export function createReplay({ viewer = null, sonify = null, dvr = null, cameraH
     stopped = false;
     const ordered = [...events].sort((a, b) => a.t - b.t);
     let resolveDone;
-    const done = new Promise((resolve) => { resolveDone = resolve; });
+    const done = new Promise((resolve) => {
+      resolveDone = resolve;
+    });
     let index = 0;
     // stop() must be able to settle a play that never started stepping.
-    current = { day, resolveDone, get played() { return index; } };
+    current = {
+      day,
+      resolveDone,
+      get played() {
+        return index;
+      },
+    };
 
     async function step() {
       if (stopped || index >= ordered.length) {
@@ -93,13 +112,18 @@ export function createReplay({ viewer = null, sonify = null, dvr = null, cameraH
         return;
       }
       const event = ordered[index];
-      try { onStep?.(event, index, ordered.length); } catch {}
+      try {
+        onStep?.(event, index, ordered.length);
+      } catch {}
       scrubTo(event);
       await flyTo(event);
       soundFor(event);
       index++;
       if (!stopped && index < ordered.length) {
-        timer = setTimeout(step, Math.max(120, STEP_GAP_MS / Math.max(0.25, speed)));
+        timer = setTimeout(
+          step,
+          Math.max(120, STEP_GAP_MS / Math.max(0.25, speed)),
+        );
       } else {
         finish(day, index, stopped);
       }
@@ -112,7 +136,10 @@ export function createReplay({ viewer = null, sonify = null, dvr = null, cameraH
 
   function stop() {
     stopped = true;
-    if (timer) { clearTimeout(timer); timer = null; }
+    if (timer) {
+      clearTimeout(timer);
+      timer = null;
+    }
     if (current) finish(current.day, current.played, true);
   }
 

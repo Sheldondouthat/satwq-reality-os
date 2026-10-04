@@ -13,7 +13,8 @@
 export const DEEP_TIME_MODEL = 'ZAHIROVIC2022';
 export const DEEP_TIME_MODEL_FULL =
   'Zahirovic et al. (2022) plate model, served by the GPlates Web Service';
-export const DEEP_TIME_SOURCE_URL = 'https://gws.gplates.org/reconstruct/coastlines/';
+export const DEEP_TIME_SOURCE_URL =
+  'https://gws.gplates.org/reconstruct/coastlines/';
 export const DEEP_TIME_RETRIEVED = '2026-09-27';
 
 /** Age slices bundled with the app (million years before present). */
@@ -31,7 +32,8 @@ export const DEEP_TIME_HONESTY =
 /** Human label for an age in millions of years. */
 export function ageLabel(ageMa) {
   const a = Number(ageMa);
-  if (!Number.isFinite(a) || a < 0) throw new TypeError('ageMa must be a non-negative number');
+  if (!Number.isFinite(a) || a < 0)
+    throw new TypeError('ageMa must be a non-negative number');
   if (a === 0) return 'Present day';
   return `${a} million years ago`;
 }
@@ -57,7 +59,8 @@ export function sliceAssetName(ageMa) {
  * source, features: [{t:'P'|'M', c: rings}] } where a ring is [lon,lat][].
  */
 export function validateSlice(doc) {
-  if (!doc || typeof doc !== 'object') return { ok: false, reason: 'not an object' };
+  if (!doc || typeof doc !== 'object')
+    return { ok: false, reason: 'not an object' };
   if (!AGE_SLICES_MA.includes(doc.ageMa)) {
     return { ok: false, reason: `unexpected ageMa ${doc.ageMa}` };
   }
@@ -69,7 +72,8 @@ export function validateSlice(doc) {
   }
   for (let i = 0; i < doc.features.length; i += 1) {
     const f = doc.features[i];
-    if (f?.t !== 'P' && f?.t !== 'M') return { ok: false, reason: `feature ${i} bad type` };
+    if (f?.t !== 'P' && f?.t !== 'M')
+      return { ok: false, reason: `feature ${i} bad type` };
     const rings = f.t === 'P' ? f.c : f.c.flat();
     if (!Array.isArray(rings) || rings.length === 0) {
       return { ok: false, reason: `feature ${i} has no rings` };
@@ -80,7 +84,10 @@ export function validateSlice(doc) {
       }
       for (const [lon, lat] of ring) {
         if (!Number.isFinite(lon) || !Number.isFinite(lat)) {
-          return { ok: false, reason: `feature ${i} has non-finite coordinate` };
+          return {
+            ok: false,
+            reason: `feature ${i} has non-finite coordinate`,
+          };
         }
         if (Math.abs(lon) > 180 || Math.abs(lat) > 90) {
           return { ok: false, reason: `feature ${i} coordinate out of range` };

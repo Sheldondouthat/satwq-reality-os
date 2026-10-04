@@ -87,15 +87,60 @@ export const OTHER_VARS = [
 
 /** Pinned stations — dataset IDs are the ERDDAP HABs-* suffixes. */
 export const STATIONS = [
-  { id: 'scripps', dataset: 'HABs-ScrippsPier', name: 'Scripps Pier', region: 'San Diego' },
-  { id: 'santamonica', dataset: 'HABs-SantaMonicaPier', name: 'Santa Monica Pier', region: 'Los Angeles' },
-  { id: 'calpoly', dataset: 'HABs-CalPolyPier', name: 'Cal Poly Pier', region: 'San Luis Obispo' },
-  { id: 'monterey', dataset: 'HABs-MontereyWharf', name: 'Monterey Wharf', region: 'Monterey Bay' },
-  { id: 'santacruz', dataset: 'HABs-SantaCruzWharf', name: 'Santa Cruz Wharf', region: 'Monterey Bay' },
-  { id: 'morrobay-back', dataset: 'HABs-MorroBayBackBay', name: 'Morro Bay Back Bay', region: 'Central Coast' },
-  { id: 'morrobay-front', dataset: 'HABs-MorroBayFrontBay', name: 'Morro Bay Front Bay', region: 'Central Coast' },
-  { id: 'newport', dataset: 'HABs-NewportBeachPier', name: 'Newport Beach Pier', region: 'Orange County' },
-  { id: 'stearns', dataset: 'HABs-StearnsWharf', name: 'Stearns Wharf', region: 'Santa Barbara' },
+  {
+    id: 'scripps',
+    dataset: 'HABs-ScrippsPier',
+    name: 'Scripps Pier',
+    region: 'San Diego',
+  },
+  {
+    id: 'santamonica',
+    dataset: 'HABs-SantaMonicaPier',
+    name: 'Santa Monica Pier',
+    region: 'Los Angeles',
+  },
+  {
+    id: 'calpoly',
+    dataset: 'HABs-CalPolyPier',
+    name: 'Cal Poly Pier',
+    region: 'San Luis Obispo',
+  },
+  {
+    id: 'monterey',
+    dataset: 'HABs-MontereyWharf',
+    name: 'Monterey Wharf',
+    region: 'Monterey Bay',
+  },
+  {
+    id: 'santacruz',
+    dataset: 'HABs-SantaCruzWharf',
+    name: 'Santa Cruz Wharf',
+    region: 'Monterey Bay',
+  },
+  {
+    id: 'morrobay-back',
+    dataset: 'HABs-MorroBayBackBay',
+    name: 'Morro Bay Back Bay',
+    region: 'Central Coast',
+  },
+  {
+    id: 'morrobay-front',
+    dataset: 'HABs-MorroBayFrontBay',
+    name: 'Morro Bay Front Bay',
+    region: 'Central Coast',
+  },
+  {
+    id: 'newport',
+    dataset: 'HABs-NewportBeachPier',
+    name: 'Newport Beach Pier',
+    region: 'Orange County',
+  },
+  {
+    id: 'stearns',
+    dataset: 'HABs-StearnsWharf',
+    name: 'Stearns Wharf',
+    region: 'Santa Barbara',
+  },
 ];
 
 /** Number(null)===0 guard: null/NaN/empty upstream numerics become null, never 0. */
@@ -116,7 +161,8 @@ const STATION_ID_RE = /^[a-z][a-z0-9-]{0,39}$/;
 export function parseQuery(query) {
   const raw = query.get('station');
   if (raw != null && raw !== '') {
-    if (!STATION_ID_RE.test(raw)) throw Object.assign(new Error('hab_bad_station'), { status: 400 });
+    if (!STATION_ID_RE.test(raw))
+      throw Object.assign(new Error('hab_bad_station'), { status: 400 });
     const found = STATIONS.find((s) => s.id === raw);
     if (!found) return { mode: 'notfound', station: raw };
     return { mode: 'station', station: found };
@@ -130,7 +176,13 @@ export function selectionStations(sel) {
 }
 
 export function buildUpstreamUrl(station, cutoffIso) {
-  const vars = ['time', 'latitude', 'longitude', ...TAXA_VARS, ...OTHER_VARS].join(',');
+  const vars = [
+    'time',
+    'latitude',
+    'longitude',
+    ...TAXA_VARS,
+    ...OTHER_VARS,
+  ].join(',');
   // The constraint operator must be literal in the query string: ERDDAP
   // reads `time>=...` as variable "time" with operator ">=". A
   // URLSearchParams `time=` param serializes to `time=%3E%3D...`, which
@@ -154,9 +206,15 @@ async function fetchJsonCapped(url) {
       const text = await response.text().catch(() => '');
       // ERDDAP 404 "outside of the variable's actual_range" = station has
       // no samples in the window → dark station, not a broken query.
-      const noRecent = response.status === 404 && /outside of the variable's actual_range/.test(text);
+      const noRecent =
+        response.status === 404 &&
+        /outside of the variable's actual_range/.test(text);
       throw Object.assign(
-        new Error(noRecent ? 'hab_no_recent_samples' : `hab_upstream_${response.status}`),
+        new Error(
+          noRecent
+            ? 'hab_no_recent_samples'
+            : `hab_upstream_${response.status}`,
+        ),
         { status: 502, noRecent },
       );
     }
@@ -168,7 +226,10 @@ async function fetchJsonCapped(url) {
     if (error?.status === 502) throw error;
     if (error instanceof SyntaxError)
       throw Object.assign(new Error('hab_upstream_bad_json'), { status: 502 });
-    throw Object.assign(new Error(`hab_fetch_failed: ${error?.message ?? 'unknown'}`), { status: 502 });
+    throw Object.assign(
+      new Error(`hab_fetch_failed: ${error?.message ?? 'unknown'}`),
+      { status: 502 },
+    );
   } finally {
     clearTimeout(timeout);
   }
@@ -193,14 +254,22 @@ export function taxonAlert(cellsPerL) {
  * Throws {status:502} on bad shape (never returns fabricated counts).
  */
 export function parseStationPayload(upstream, station, nowMs = Date.now()) {
-  const fail = (msg) => Object.assign(new Error(`hab_invalid_payload: ${msg}`), { status: 502 });
+  const fail = (msg) =>
+    Object.assign(new Error(`hab_invalid_payload: ${msg}`), { status: 502 });
   const table = upstream?.table;
   const names = table?.columnNames;
   const rows = table?.rows;
-  if (!Array.isArray(names) || !Array.isArray(rows)) throw fail('missing table');
+  if (!Array.isArray(names) || !Array.isArray(rows))
+    throw fail('missing table');
   if (rows.length === 0) throw fail('empty rows');
   const idx = {};
-  for (const v of ['time', 'latitude', 'longitude', ...TAXA_VARS, ...OTHER_VARS]) {
+  for (const v of [
+    'time',
+    'latitude',
+    'longitude',
+    ...TAXA_VARS,
+    ...OTHER_VARS,
+  ]) {
     const i = colIndex(names, v);
     if (i < 0) throw fail(`missing column ${v}`);
     idx[v] = i;
@@ -209,7 +278,9 @@ export function parseStationPayload(upstream, station, nowMs = Date.now()) {
   const timeIso = typeof last[idx.time] === 'string' ? last[idx.time] : null;
   if (!timeIso) throw fail('missing time on latest row');
   const sampleMs = Date.parse(timeIso);
-  const ageDays = Number.isFinite(sampleMs) ? (nowMs - sampleMs) / 86_400_000 : null;
+  const ageDays = Number.isFinite(sampleMs)
+    ? (nowMs - sampleMs) / 86_400_000
+    : null;
 
   const taxa = {};
   const alerts = {};
@@ -219,9 +290,14 @@ export function parseStationPayload(upstream, station, nowMs = Date.now()) {
     alerts[v] = taxonAlert(val);
   }
   // Pseudo-nitzschia (domoic-acid producers) combined; nulls never zero-filled.
-  const pnVals = [taxa.Pseudo_nitzschia_delicatissima_group, taxa.Pseudo_nitzschia_seriata_group];
+  const pnVals = [
+    taxa.Pseudo_nitzschia_delicatissima_group,
+    taxa.Pseudo_nitzschia_seriata_group,
+  ];
   const pnKnown = pnVals.filter((v) => v != null);
-  taxa.pseudo_nitzschia_combined = pnKnown.length ? pnKnown.reduce((a, b) => a + b, 0) : null;
+  taxa.pseudo_nitzschia_combined = pnKnown.length
+    ? pnKnown.reduce((a, b) => a + b, 0)
+    : null;
   alerts.pseudo_nitzschia_combined = taxonAlert(taxa.pseudo_nitzschia_combined);
 
   const pDA = numOrNull(last[idx.pDA]);
@@ -231,9 +307,17 @@ export function parseStationPayload(upstream, station, nowMs = Date.now()) {
 
   const anyBloom = Object.values(alerts).includes('bloom');
   const anyPresent = Object.values(alerts).includes('present');
-  const alertLevel = anyBloom ? 'bloom' : toxinAlert ? 'toxin-alert' : anyPresent ? 'present' : 'background';
+  const alertLevel = anyBloom
+    ? 'bloom'
+    : toxinAlert
+      ? 'toxin-alert'
+      : anyPresent
+        ? 'present'
+        : 'background';
   const alertTaxa = Object.entries(alerts)
-    .filter(([, a]) => a === 'bloom' || (a === 'present' && alertLevel !== 'bloom'))
+    .filter(
+      ([, a]) => a === 'bloom' || (a === 'present' && alertLevel !== 'bloom'),
+    )
     .map(([v]) => v);
 
   return {
@@ -264,9 +348,16 @@ export function buildPayload(rows, stale) {
   return {
     generatedAt: new Date().toISOString(),
     stale: Boolean(stale),
-    source: 'CalHABMAP (California Harmful Algal Bloom Monitoring and Alert Program) via SCCOOS ERDDAP',
-    attribution: 'Data: SCCOOS / CalHABMAP (erddap.sccoos.org), keyless tabledap. Thresholds: C-HARM published.',
-    units: { cells: 'cells/L', domoicAcid: 'ng/mL', temp: 'degree_C', salinity: 'PSS' },
+    source:
+      'CalHABMAP (California Harmful Algal Bloom Monitoring and Alert Program) via SCCOOS ERDDAP',
+    attribution:
+      'Data: SCCOOS / CalHABMAP (erddap.sccoos.org), keyless tabledap. Thresholds: C-HARM published.',
+    units: {
+      cells: 'cells/L',
+      domoicAcid: 'ng/mL',
+      temp: 'degree_C',
+      salinity: 'PSS',
+    },
     thresholds: {
       bloomCellsPerL: BLOOM_CELLS_PER_L,
       pdaAlertNgPerMl: PDA_ALERT_NG_PER_ML,
@@ -274,8 +365,10 @@ export function buildPayload(rows, stale) {
     },
     stations: rows,
     honesty: {
-      values: 'Weekly pier plankton counts (cells/L) and domoic-acid measurements (ng/mL); null = not yet analyzed, never zero-filled (Number(\'\')===0 trap guarded). Real zeros are reported as 0.',
-      background: '"background" means not observed in the latest weekly sample — never "the ocean is clear".',
+      values:
+        "Weekly pier plankton counts (cells/L) and domoic-acid measurements (ng/mL); null = not yet analyzed, never zero-filled (Number('')===0 trap guarded). Real zeros are reported as 0.",
+      background:
+        '"background" means not observed in the latest weekly sample — never "the ocean is clear".',
       fresh: 'fresh = latest sample ≤ 21 days old (weekly cadence + lab lag).',
       dark: 'ok:false stations had no samples inside the 90-day window (ERDDAP 404 "outside actual_range").',
     },
@@ -299,19 +392,34 @@ function cutoffIso() {
 
 async function fetchOne(station) {
   try {
-    const upstream = await fetchJsonCapped(buildUpstreamUrl(station, cutoffIso()));
+    const upstream = await fetchJsonCapped(
+      buildUpstreamUrl(station, cutoffIso()),
+    );
     return parseStationPayload(upstream, station);
   } catch (error) {
     if (error?.noRecent) {
       return {
-        id: station.id, dataset: station.dataset, name: station.name, region: station.region,
-        lat: null, lon: null, ok: false, error: 'no_recent_samples',
+        id: station.id,
+        dataset: station.dataset,
+        name: station.name,
+        region: station.region,
+        lat: null,
+        lon: null,
+        ok: false,
+        error: 'no_recent_samples',
         note: 'No samples inside the 90-day window (station dark or discontinued).',
       };
     }
     return {
-      id: station.id, dataset: station.dataset, name: station.name, region: station.region,
-      lat: null, lon: null, ok: false, error: error?.message ?? 'unknown', status: error?.status ?? 502,
+      id: station.id,
+      dataset: station.dataset,
+      name: station.name,
+      region: station.region,
+      lat: null,
+      lon: null,
+      ok: false,
+      error: error?.message ?? 'unknown',
+      status: error?.status ?? 502,
     };
   }
 }
@@ -320,10 +428,15 @@ async function getPayload(sel) {
   const key = queryKey(sel);
   const now = Date.now();
   const hit = payloadCache.get(key);
-  if (hit && now - hit.at < CACHE_TTL_MS) return { payload: hit.payload, stale: false };
+  if (hit && now - hit.at < CACHE_TTL_MS)
+    return { payload: hit.payload, stale: false };
   let op = inflight.get(key);
   if (!op) {
-    if (now - docFailedAt < RETRY_COOLDOWN_MS && hit && now - hit.at < STALE_MS) {
+    if (
+      now - docFailedAt < RETRY_COOLDOWN_MS &&
+      hit &&
+      now - hit.at < STALE_MS
+    ) {
       return { payload: hit.payload, stale: true };
     }
     op = (async () => {
@@ -332,11 +445,15 @@ async function getPayload(sel) {
       const okRows = rows.filter((r) => r.ok);
       if (okRows.length === 0) {
         docFailedAt = Date.now();
-        if (hit && now - hit.at < STALE_MS) return { payload: hit.payload, stale: true };
-        throw Object.assign(new Error('hab_all_upstreams_failed'), { status: 502 });
+        if (hit && now - hit.at < STALE_MS)
+          return { payload: hit.payload, stale: true };
+        throw Object.assign(new Error('hab_all_upstreams_failed'), {
+          status: 502,
+        });
       }
       const payload = buildPayload(rows, false);
-      if (payloadCache.size >= PAYLOAD_CACHE_MAX) payloadCache.delete(payloadCache.keys().next().value);
+      if (payloadCache.size >= PAYLOAD_CACHE_MAX)
+        payloadCache.delete(payloadCache.keys().next().value);
       payloadCache.set(key, { at: Date.now(), payload });
       return { payload, stale: false };
     })().finally(() => inflight.delete(key));
@@ -356,25 +473,48 @@ function sendJson(res, status, body, cacheControl = 'public, max-age=43200') {
 /** Mount the wave-9 HAB proxy. */
 export function habProxy() {
   async function handler(req, res) {
-    if (req.method !== 'GET') return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
     let sel;
     try {
       sel = parseQuery(new URL(req.url, 'http://localhost').searchParams);
     } catch (error) {
-      return sendJson(res, error.status ?? 400, { error: error.message }, 'no-store');
+      return sendJson(
+        res,
+        error.status ?? 400,
+        { error: error.message },
+        'no-store',
+      );
     }
     if (sel.mode === 'notfound') {
-      return sendJson(res, 200, { generatedAt: new Date().toISOString(), requestedNotFound: true, station: sel.station }, 'no-store');
+      return sendJson(
+        res,
+        200,
+        {
+          generatedAt: new Date().toISOString(),
+          requestedNotFound: true,
+          station: sel.station,
+        },
+        'no-store',
+      );
     }
     try {
       const { payload, stale } = await getPayload(sel);
       sendJson(res, 200, stale ? { ...payload, stale: true } : payload);
     } catch (error) {
-      const upstreamFail = error?.status === 502 || error?.name === 'AbortError' || /aborted?/i.test(error?.message ?? '');
-      sendJson(res, upstreamFail ? 502 : 500, {
-        error: 'hab_unavailable',
-        detail: error?.message ?? 'unknown',
-      }, 'no-store');
+      const upstreamFail =
+        error?.status === 502 ||
+        error?.name === 'AbortError' ||
+        /aborted?/i.test(error?.message ?? '');
+      sendJson(
+        res,
+        upstreamFail ? 502 : 500,
+        {
+          error: 'hab_unavailable',
+          detail: error?.message ?? 'unknown',
+        },
+        'no-store',
+      );
     }
   }
 
@@ -396,5 +536,9 @@ export const _habInternals = {
   buildUpstreamUrl,
   selectionStations,
   taxonAlert,
-  clearCaches: () => { payloadCache.clear(); inflight.clear(); docFailedAt = -Infinity; },
+  clearCaches: () => {
+    payloadCache.clear();
+    inflight.clear();
+    docFailedAt = -Infinity;
+  },
 };

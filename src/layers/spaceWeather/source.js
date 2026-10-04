@@ -2,8 +2,7 @@ import { normalizeSpaceWeatherSnapshot } from './records.js';
 
 const SWEPAM_URL =
   'https://services.swpc.noaa.gov/json/ace/swepam/ace_swepam_1h.json';
-const MAG_URL =
-  'https://services.swpc.noaa.gov/json/ace/mag/ace_mag_1h.json';
+const MAG_URL = 'https://services.swpc.noaa.gov/json/ace/mag/ace_mag_1h.json';
 
 /** Request and validate the latest NOAA SWPC ACE solar-wind reading. */
 export function createSpaceWeatherSource({

@@ -50,24 +50,58 @@ const USER_AGENT = 'Gods Eye View (public meteor forward-scatter context)';
 // 200 + parseable 2026-09-28). The other 25 verified stations are parked below
 // in PARKED_STATIONS — re-verify and promote if the cap ever rises.
 const STATIONS = [
-  'LUNIGIANESI', 'Habraken', 'JHSPILKA-R1', 'Kano_1', 'Kano_2',
-  'Szeged', 'ZEBRAK-R5', 'Barenschee', 'De_Queiroz', 'Essen_2',
-  'F5CMQ_RMS', 'FLZ-R0', 'Heinz', 'Mckeel', 'Molne_RMS',
-  'Norton', 'NortonVert', 'RamsObservatory', 'Tepliczky', 'Thibaut',
-  'Wallbaum', 'Chris', 'Dubois', 'Klekociuk', 'Mario',
-  'NACHODSKO-R5', 'OAUJ', 'Terrier_RMS', 'Essegi', 'Salvador',
-  'Lauwerys', 'Sugimoto', 'Grimes', 'Verbelen', 'Associazione_Tuscolana_Astronomia',
-  'Norman', 'Steyaert_SL5', 'GABB', 'DDMTREBIC-R4', 'Figueras',
+  'LUNIGIANESI',
+  'Habraken',
+  'JHSPILKA-R1',
+  'Kano_1',
+  'Kano_2',
+  'Szeged',
+  'ZEBRAK-R5',
+  'Barenschee',
+  'De_Queiroz',
+  'Essen_2',
+  'F5CMQ_RMS',
+  'FLZ-R0',
+  'Heinz',
+  'Mckeel',
+  'Molne_RMS',
+  'Norton',
+  'NortonVert',
+  'RamsObservatory',
+  'Tepliczky',
+  'Thibaut',
+  'Wallbaum',
+  'Chris',
+  'Dubois',
+  'Klekociuk',
+  'Mario',
+  'NACHODSKO-R5',
+  'OAUJ',
+  'Terrier_RMS',
+  'Essegi',
+  'Salvador',
+  'Lauwerys',
+  'Sugimoto',
+  'Grimes',
+  'Verbelen',
+  'Associazione_Tuscolana_Astronomia',
+  'Norman',
+  'Steyaert_SL5',
+  'GABB',
+  'DDMTREBIC-R4',
+  'Figueras',
 ]; // 40 stations; every 092026 file returned HTTP 200 and parsed to ≥1 hourly
-   // record, 2026-09-28; OBSUPICE-R7/SVAKOV-R12/Thornett excluded (all-??? files)
+// record, 2026-09-28; OBSUPICE-R7/SVAKOV-R12/Thornett excluded (all-??? files)
 
 // Verified-good 2026-09-28 but parked under the 50-subrequest Workers cap
 // (2026-09 row counts in parentheses). Promote if the cap rises.
 const PARKED_STATIONS = [
-  'Henning', 'Institute', // 595
+  'Henning',
+  'Institute', // 595
   'Druzynski', // 588
   'BI7NTP', // 560
-  'RAINARD_SL', 'RAINARD', // 548, 546
+  'RAINARD_SL',
+  'RAINARD', // 548, 546
   'Rourke', // 545
   'Fabio', // 537
   'Steyaert', // 523
@@ -198,10 +232,16 @@ async function fetchTextCapped(stationKey, url) {
       headers: { 'User-Agent': USER_AGENT, Accept: 'text/plain, */*' },
     });
     if (!response.ok)
-      throw Object.assign(new Error(`meteors_${stationKey}_upstream_${response.status}`), { status: 502 });
+      throw Object.assign(
+        new Error(`meteors_${stationKey}_upstream_${response.status}`),
+        { status: 502 },
+      );
     const buffer = await response.arrayBuffer();
     if (buffer.byteLength > BODY_CAP_BYTES)
-      throw Object.assign(new Error(`meteors_${stationKey}_upstream_too_large`), { status: 502 });
+      throw Object.assign(
+        new Error(`meteors_${stationKey}_upstream_too_large`),
+        { status: 502 },
+      );
     return new TextDecoder().decode(buffer);
   } finally {
     clearTimeout(timeout);
@@ -216,7 +256,9 @@ async function fetchOneSource(source) {
     const text = await fetchTextCapped(source.key, url);
     const station = parseRmob(source.station, text, when);
     if (station.count === 0)
-      throw Object.assign(new Error(`meteors_${source.key}_no_data`), { status: 502 });
+      throw Object.assign(new Error(`meteors_${source.key}_no_data`), {
+        status: 502,
+      });
     return {
       key: source.key,
       ok: true,
@@ -256,7 +298,8 @@ function buildSnapshot(results) {
     sources,
     count: stations.length,
     stations,
-    source: 'RMOB — Radio Meteor Observation Bulletin (radio forward-scatter, keyless)',
+    source:
+      'RMOB — Radio Meteor Observation Bulletin (radio forward-scatter, keyless)',
   };
 }
 
@@ -269,7 +312,10 @@ async function getSnapshot() {
         const ok = results.some((r) => r.ok);
         if (!ok) {
           const detail = results.map((r) => `${r.key}:${r.error}`).join('; ');
-          throw Object.assign(new Error(`meteors_all_upstream_down: ${detail}`), { status: 502 });
+          throw Object.assign(
+            new Error(`meteors_all_upstream_down: ${detail}`),
+            { status: 502 },
+          );
         }
         const payload = buildSnapshot(results);
         cache = { at: Date.now(), payload };
@@ -293,15 +339,24 @@ function sendJson(res, status, body, cacheControl = 'public, max-age=3600') {
 /** Mount the RMOB meteor forward-scatter proxy. Mirrors the felt provider shape. */
 export function meteorsProxy() {
   async function handler(req, res) {
-    if (req.method !== 'GET') return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
     try {
       sendJson(res, 200, await getSnapshot());
     } catch (error) {
-      const upstreamFail = error?.status === 502 || error?.name === 'AbortError' || /aborted?/i.test(error?.message ?? '');
-      sendJson(res, upstreamFail ? 502 : 500, {
-        error: 'meteors_unavailable',
-        detail: error?.message ?? 'unknown',
-      }, 'no-store');
+      const upstreamFail =
+        error?.status === 502 ||
+        error?.name === 'AbortError' ||
+        /aborted?/i.test(error?.message ?? '');
+      sendJson(
+        res,
+        upstreamFail ? 502 : 500,
+        {
+          error: 'meteors_unavailable',
+          detail: error?.message ?? 'unknown',
+        },
+        'no-store',
+      );
     }
   }
 
@@ -322,5 +377,8 @@ export const _meteorsInternals = {
   buildSnapshot,
   stations: STATIONS,
   sources: SOURCES,
-  clearCaches: () => { cache = null; inflight = null; },
+  clearCaches: () => {
+    cache = null;
+    inflight = null;
+  },
 };

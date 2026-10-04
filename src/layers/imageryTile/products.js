@@ -35,8 +35,15 @@ export function yesterdayDateUTC(nowMs = Date.now()) {
  *   {BASE}/{LAYER}/default/{DATE}/{MATRIXSET}/{z}/{y}/{x}.{ext}
  */
 export function gibsTileTemplate({ layerName, matrixSet, ext, date }) {
-  if (!layerName || !matrixSet || !ext || !/^\d{4}-\d{2}-\d{2}$/.test(date || ''))
-    throw new TypeError('gibsTileTemplate requires layerName, matrixSet, ext, date');
+  if (
+    !layerName ||
+    !matrixSet ||
+    !ext ||
+    !/^\d{4}-\d{2}-\d{2}$/.test(date || '')
+  )
+    throw new TypeError(
+      'gibsTileTemplate requires layerName, matrixSet, ext, date',
+    );
   return `${GIBS_WMTS_BASE}/${layerName}/default/${date}/${matrixSet}/{z}/{y}/{x}.${ext}`;
 }
 
@@ -44,10 +51,7 @@ export function gibsTileTemplate({ layerName, matrixSet, ext, date }) {
  * Snapshot source for a NASA GIBS daily (or fixed-date) layer. The template is
  * recomputed on every snapshot so the date rolls over at UTC midnight.
  */
-export function createGibsSource(
-  product,
-  { now = () => Date.now() } = {},
-) {
+export function createGibsSource(product, { now = () => Date.now() } = {}) {
   if (!product?.wmtsLayer)
     throw new TypeError('createGibsSource requires a GIBS product config');
   return {
@@ -195,7 +199,10 @@ export function normalizeRainViewerSnapshot(payload, kind) {
     .filter(validRainViewerFrame)
     .sort((a, b) => Number(b.time) - Number(a.time));
   if (valid.length === 0)
-    return { ok: false, error: 'Malformed RainViewer response: no valid frames' };
+    return {
+      ok: false,
+      error: 'Malformed RainViewer response: no valid frames',
+    };
   const frame = valid[0];
   return {
     ok: true,
@@ -224,7 +231,9 @@ export function createRainViewerSource({
   apiUrl = RAINVIEWER_API_URL,
 } = {}) {
   if (kind !== 'radar' && kind !== 'satellite')
-    throw new TypeError("RainViewer source kind must be 'radar' or 'satellite'");
+    throw new TypeError(
+      "RainViewer source kind must be 'radar' or 'satellite'",
+    );
   return {
     async getSnapshot({ signal } = {}) {
       signal?.throwIfAborted();

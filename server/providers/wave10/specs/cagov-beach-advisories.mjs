@@ -4,31 +4,32 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 4 (marine+state-open-data worker)).
  */
 export const SPEC = {
-  "headers": {
-    "User-Agent": "satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)"
+  headers: {
+    'User-Agent':
+      'satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)',
   },
-  "source": "California State Water Resources Control Board via data.ca.gov (CKAN)",
-  "attribution": "Data: CA State Water Board / data.ca.gov — keyless.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 4 (marine+state-open-data worker)",
-  "id": "cagov-beach-advisories",
-  "title": "CA Open Data — beach advisories (postings/closures)",
-  "url": "https://data.ca.gov/api/3/action/datastore_search?resource_id=d5cd6a23-829c-426d-a63e-689a55a3db9c&limit=50",
-  "ttlSeconds": 86400,
-  "extract": {
-    "items": "$.result.records",
-    "limit": 50,
-    "map": {
-      "advisoryDate": "$.DateofAdvisory",
-      "station": "$.HistoricalStationName",
-      "advisoryType": "$.AdvisoryType",
-      "dateOpened": "$.DateOpened"
+  source:
+    'California State Water Resources Control Board via data.ca.gov (CKAN)',
+  attribution: 'Data: CA State Water Board / data.ca.gov — keyless.',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 4 (marine+state-open-data worker)',
+  id: 'cagov-beach-advisories',
+  title: 'CA Open Data — beach advisories (postings/closures)',
+  url: 'https://data.ca.gov/api/3/action/datastore_search?resource_id=d5cd6a23-829c-426d-a63e-689a55a3db9c&limit=50',
+  ttlSeconds: 86400,
+  extract: {
+    items: '$.result.records',
+    limit: 50,
+    map: {
+      advisoryDate: '$.DateofAdvisory',
+      station: '$.HistoricalStationName',
+      advisoryType: '$.AdvisoryType',
+      dateOpened: '$.DateOpened',
     },
-    "numbers": []
+    numbers: [],
   },
-  "required": [
-    "advisoryDate"
-  ],
-  "units": {},
-  "honesty": "Static program records (not live sensor data); refreshed as the state publishes."
+  required: ['advisoryDate'],
+  units: {},
+  honesty:
+    'Static program records (not live sensor data); refreshed as the state publishes.',
 };

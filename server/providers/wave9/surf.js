@@ -29,14 +29,86 @@ const CACHE_CONTROL = 'public, max-age=21600';
 
 // Pinned surf spots — grids resolved + wave-fields verified live 2026-10-02.
 const SPOTS = [
-  { id: 'pipeline',   name: 'Pipeline, Oahu HI',        lat: 21.664, lon: -158.053, wfo: 'HFO', x: 146, y: 161, coast: 'Hawaii' },
-  { id: 'trestles',   name: 'Trestles, San Clemente CA', lat: 33.384, lon: -117.593, wfo: 'SGX', x: 46,  y: 46,  coast: 'SoCal' },
-  { id: 'oceanbeach', name: 'Ocean Beach, San Francisco CA', lat: 37.755, lon: -122.51, wfo: 'MTR', x: 81, y: 105, coast: 'NorCal' },
-  { id: 'santacruz',  name: 'Santa Cruz CA',            lat: 36.951, lon: -122.026, wfo: 'MTR', x: 91,  y: 66,  coast: 'NorCal' },
-  { id: 'cocoabeach', name: 'Cocoa Beach FL',           lat: 28.320, lon: -80.607,  wfo: 'MLB', x: 57,  y: 62,  coast: 'Florida Atlantic' },
-  { id: 'nagshead',   name: 'Nags Head, Outer Banks NC', lat: 35.957, lon: -75.624, wfo: 'MHX', x: 91,  y: 119, coast: 'Outer Banks' },
-  { id: 'montauk',    name: 'Montauk NY',               lat: 41.048, lon: -71.949,  wfo: 'OKX', x: 101, y: 69,  coast: 'Long Island' },
-  { id: 'rincon',     name: 'Rincón PR',                lat: 18.340, lon: -67.270,  wfo: 'SJU', x: 64,  y: 121, coast: 'Puerto Rico' },
+  {
+    id: 'pipeline',
+    name: 'Pipeline, Oahu HI',
+    lat: 21.664,
+    lon: -158.053,
+    wfo: 'HFO',
+    x: 146,
+    y: 161,
+    coast: 'Hawaii',
+  },
+  {
+    id: 'trestles',
+    name: 'Trestles, San Clemente CA',
+    lat: 33.384,
+    lon: -117.593,
+    wfo: 'SGX',
+    x: 46,
+    y: 46,
+    coast: 'SoCal',
+  },
+  {
+    id: 'oceanbeach',
+    name: 'Ocean Beach, San Francisco CA',
+    lat: 37.755,
+    lon: -122.51,
+    wfo: 'MTR',
+    x: 81,
+    y: 105,
+    coast: 'NorCal',
+  },
+  {
+    id: 'santacruz',
+    name: 'Santa Cruz CA',
+    lat: 36.951,
+    lon: -122.026,
+    wfo: 'MTR',
+    x: 91,
+    y: 66,
+    coast: 'NorCal',
+  },
+  {
+    id: 'cocoabeach',
+    name: 'Cocoa Beach FL',
+    lat: 28.32,
+    lon: -80.607,
+    wfo: 'MLB',
+    x: 57,
+    y: 62,
+    coast: 'Florida Atlantic',
+  },
+  {
+    id: 'nagshead',
+    name: 'Nags Head, Outer Banks NC',
+    lat: 35.957,
+    lon: -75.624,
+    wfo: 'MHX',
+    x: 91,
+    y: 119,
+    coast: 'Outer Banks',
+  },
+  {
+    id: 'montauk',
+    name: 'Montauk NY',
+    lat: 41.048,
+    lon: -71.949,
+    wfo: 'OKX',
+    x: 101,
+    y: 69,
+    coast: 'Long Island',
+  },
+  {
+    id: 'rincon',
+    name: 'Rincón PR',
+    lat: 18.34,
+    lon: -67.27,
+    wfo: 'SJU',
+    x: 64,
+    y: 121,
+    coast: 'Puerto Rico',
+  },
 ];
 
 const SPOT_BY_ID = new Map(SPOTS.map((s) => [s.id, s]));
@@ -80,7 +152,11 @@ function fieldRows(props, key) {
   for (const v of values) {
     const vt = parseValidTime(v?.validTime);
     if (!vt) continue; // malformed row: skip, never guess
-    rows.push({ t: new Date(vt.startMs).toISOString(), startMs: vt.startMs, value: numOrNull(v?.value) });
+    rows.push({
+      t: new Date(vt.startMs).toISOString(),
+      startMs: vt.startMs,
+      value: numOrNull(v?.value),
+    });
   }
   return { uom: field?.uom ?? null, rows };
 }
@@ -90,7 +166,8 @@ function fieldRows(props, key) {
  * Fields entirely absent (or with zero parseable rows) read null.
  */
 export function parseSpot(spot, props, nowMs) {
-  const updateTime = typeof props?.updateTime === 'string' ? props.updateTime : null;
+  const updateTime =
+    typeof props?.updateTime === 'string' ? props.updateTime : null;
   const waveHeight = fieldRows(props, 'waveHeight');
   const wavePeriod = fieldRows(props, 'wavePeriod');
   const waveDirection = fieldRows(props, 'waveDirection');
@@ -110,7 +187,10 @@ export function parseSpot(spot, props, nowMs) {
   for (const r of wh) {
     if (r.startMs > horizonMs) break; // upstream rows are time-ascending
     next24hRows += 1;
-    if (r.value != null && (next24hMaxWaveHeightM == null || r.value > next24hMaxWaveHeightM)) {
+    if (
+      r.value != null &&
+      (next24hMaxWaveHeightM == null || r.value > next24hMaxWaveHeightM)
+    ) {
       next24hMaxWaveHeightM = r.value;
     }
   }
@@ -178,12 +258,17 @@ export function buildPayload(spots, stale) {
     },
     spots,
     honesty: {
-      forecastNotObserved: 'NWS gridded wave forecast (WaveWatch-III-derived model output) — NOT buoy or radar observations. Quiet seas are real forecast values, not gaps.',
-      units: 'waveHeight/windWaveHeight in meters (SI, native NWS units); ticker shows feet (m × 3.28084). wavePeriod/wavePeriod2 in seconds; waveDirection in degrees.',
-      zerosAreReal: 'A waveHeight of 0.0 is the model forecast value — carried verbatim, never replaced with null.',
-      nulls: 'Missing fields or empty value arrays read null, never synthesized.',
+      forecastNotObserved:
+        'NWS gridded wave forecast (WaveWatch-III-derived model output) — NOT buoy or radar observations. Quiet seas are real forecast values, not gaps.',
+      units:
+        'waveHeight/windWaveHeight in meters (SI, native NWS units); ticker shows feet (m × 3.28084). wavePeriod/wavePeriod2 in seconds; waveDirection in degrees.',
+      zerosAreReal:
+        'A waveHeight of 0.0 is the model forecast value — carried verbatim, never replaced with null.',
+      nulls:
+        'Missing fields or empty value arrays read null, never synthesized.',
       lag: 'Grids refresh on the NWS model cycle (~hourly); updateTime is the upstream stamp.',
-      nomadsNote: 'NOAA NOMADS OpenDAP/DODS was retired (SCN 25-81); the gridded NWS wave fields above are the keyless JSON path for surf/sea-state.',
+      nomadsNote:
+        'NOAA NOMADS OpenDAP/DODS was retired (SCN 25-81); the gridded NWS wave fields above are the keyless JSON path for surf/sea-state.',
       attribution: 'Data: National Weather Service (api.weather.gov).',
     },
   };
@@ -200,18 +285,28 @@ async function fetchJsonCapped(url, capBytes) {
       // NOTE: redirect:'follow' — workerd supports only 'follow'/'manual';
       // 'error' throws at the edge.
       redirect: 'follow',
-      headers: { 'User-Agent': USER_AGENT, Accept: 'application/geo+json, application/json' },
+      headers: {
+        'User-Agent': USER_AGENT,
+        Accept: 'application/geo+json, application/json',
+      },
     });
     if (!response.ok) {
-      throw Object.assign(new Error(`surf_upstream_${response.status}`), { status: 502 });
+      throw Object.assign(new Error(`surf_upstream_${response.status}`), {
+        status: 502,
+      });
     }
     const buffer = await response.arrayBuffer();
     if (buffer.byteLength > capBytes)
-      throw Object.assign(new Error('surf_upstream_too_large'), { status: 502 });
+      throw Object.assign(new Error('surf_upstream_too_large'), {
+        status: 502,
+      });
     return JSON.parse(new TextDecoder().decode(buffer));
   } catch (error) {
     if (error?.status === 502) throw error;
-    throw Object.assign(new Error(`surf_fetch_failed: ${error?.message ?? 'unknown'}`), { status: 502 });
+    throw Object.assign(
+      new Error(`surf_fetch_failed: ${error?.message ?? 'unknown'}`),
+      { status: 502 },
+    );
   } finally {
     clearTimeout(timeout);
   }
@@ -226,7 +321,8 @@ async function getPayload(spotFilter) {
   const key = spotFilter ? `spot:${spotFilter}` : 'all';
   const now = Date.now();
   const hit = payloadCache.get(key);
-  if (hit && now - hit.at < CACHE_TTL_MS) return { payload: hit.payload, stale: false };
+  if (hit && now - hit.at < CACHE_TTL_MS)
+    return { payload: hit.payload, stale: false };
   let op = inflight.get(key);
   if (!op) {
     const lastFail = failedAt.get(key) ?? -Infinity;
@@ -240,27 +336,38 @@ async function getPayload(spotFilter) {
         const spots = [];
         for (const spot of targets) {
           try {
-            const doc = await fetchJsonCapped(`${UPSTREAM_BASE}/${spot.wfo}/${spot.x},${spot.y}`, BODY_CAP_BYTES);
+            const doc = await fetchJsonCapped(
+              `${UPSTREAM_BASE}/${spot.wfo}/${spot.x},${spot.y}`,
+              BODY_CAP_BYTES,
+            );
             spots.push(parseSpot(spot, doc?.properties, nowMs));
           } catch (error) {
             // Per-spot fail-soft: one dark grid never 502s the route.
             spots.push({
-              id: spot.id, name: spot.name, lat: spot.lat, lon: spot.lon,
-              grid: `${spot.wfo}/${spot.x},${spot.y}`, coast: spot.coast,
-              ok: false, reason: error?.message ?? 'fetch failed',
+              id: spot.id,
+              name: spot.name,
+              lat: spot.lat,
+              lon: spot.lon,
+              grid: `${spot.wfo}/${spot.x},${spot.y}`,
+              coast: spot.coast,
+              ok: false,
+              reason: error?.message ?? 'fetch failed',
             });
           }
         }
         const live = spots.filter((s) => s.ok);
         if (live.length === 0) {
-          throw Object.assign(new Error('surf_all_spots_dark'), { status: 502 });
+          throw Object.assign(new Error('surf_all_spots_dark'), {
+            status: 502,
+          });
         }
         const payload = buildPayload(spots, false);
         payloadCache.set(key, { at: Date.now(), payload });
         return { payload, stale: false };
       } catch (error) {
         failedAt.set(key, Date.now());
-        if (hit && Date.now() - hit.at < STALE_MS) return { payload: hit.payload, stale: true };
+        if (hit && Date.now() - hit.at < STALE_MS)
+          return { payload: hit.payload, stale: true };
         throw error;
       }
     })().finally(() => inflight.delete(key));
@@ -280,12 +387,14 @@ function sendJson(res, status, body, cacheControl = CACHE_CONTROL) {
 /** Mount the wave-9 surf & sea-state proxy. */
 export function surfProxy() {
   async function handler(req, res) {
-    if (req.method !== 'GET') return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
     try {
       const url = new URL(req.url, 'http://localhost');
       const spot = url.searchParams.get('spot');
       if (spot != null) {
-        if (!ID_RE.test(spot)) return sendJson(res, 400, { error: 'surf_bad_spot' }, 'no-store');
+        if (!ID_RE.test(spot))
+          return sendJson(res, 400, { error: 'surf_bad_spot' }, 'no-store');
         if (!SPOT_BY_ID.has(spot)) {
           return sendJson(res, 200, {
             requestedNotFound: true,
@@ -297,12 +406,22 @@ export function surfProxy() {
       const { payload, stale } = await getPayload(spot ?? null);
       sendJson(res, 200, stale ? { ...payload, stale: true } : payload);
     } catch (error) {
-      const upstreamFail = error?.status === 502 || error?.name === 'AbortError' || /aborted?/i.test(error?.message ?? '');
-      sendJson(res, upstreamFail ? 502 : 500, {
-        error: 'surf_unavailable',
-        detail: error?.message ?? 'unknown',
-        honesty: { attribution: 'Data: National Weather Service (api.weather.gov).' },
-      }, 'no-store');
+      const upstreamFail =
+        error?.status === 502 ||
+        error?.name === 'AbortError' ||
+        /aborted?/i.test(error?.message ?? '');
+      sendJson(
+        res,
+        upstreamFail ? 502 : 500,
+        {
+          error: 'surf_unavailable',
+          detail: error?.message ?? 'unknown',
+          honesty: {
+            attribution: 'Data: National Weather Service (api.weather.gov).',
+          },
+        },
+        'no-store',
+      );
     }
   }
 
@@ -326,5 +445,9 @@ export const _surfInternals = {
   buildPayload,
   numOrNull,
   M_TO_FT,
-  resetCache: () => { payloadCache.clear(); inflight.clear(); failedAt.clear(); },
+  resetCache: () => {
+    payloadCache.clear();
+    inflight.clear();
+    failedAt.clear();
+  },
 };

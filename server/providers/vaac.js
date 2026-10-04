@@ -30,10 +30,15 @@ async function fetchTextCapped(url, signal) {
       signal: controller.signal,
       headers: { 'User-Agent': USER_AGENT },
     });
-    if (!response.ok) throw Object.assign(new Error(`vaac_upstream_${response.status}`), { status: 502 });
+    if (!response.ok)
+      throw Object.assign(new Error(`vaac_upstream_${response.status}`), {
+        status: 502,
+      });
     const buffer = await response.arrayBuffer();
     if (buffer.byteLength > BODY_CAP_BYTES)
-      throw Object.assign(new Error('vaac_upstream_too_large'), { status: 502 });
+      throw Object.assign(new Error('vaac_upstream_too_large'), {
+        status: 502,
+      });
     return new TextDecoder().decode(buffer);
   } finally {
     clearTimeout(timeout);
@@ -54,7 +59,10 @@ function sendText(res, text) {
 }
 
 function sendError(res, status, code) {
-  res.writeHead(status, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
+  res.writeHead(status, {
+    'Content-Type': 'application/json',
+    'Cache-Control': 'no-store',
+  });
   res.end(JSON.stringify({ error: code }));
 }
 
@@ -71,7 +79,10 @@ export function vaacProxy() {
         const u = parsed.searchParams.get('u');
         if (u) {
           const advisory = new URL(u);
-          if (advisory.hostname !== ALLOWED_HOST || !ADVISORY_PATH_RE.test(advisory.pathname))
+          if (
+            advisory.hostname !== ALLOWED_HOST ||
+            !ADVISORY_PATH_RE.test(advisory.pathname)
+          )
             return sendError(res, 403, 'vaac_forbidden');
           target = advisory.toString();
         }
@@ -81,7 +92,11 @@ export function vaacProxy() {
       try {
         sendText(res, await fetchTextCapped(target, null));
       } catch (error) {
-        sendError(res, error.status === 502 ? 502 : 500, 'vaac_upstream_unavailable');
+        sendError(
+          res,
+          error.status === 502 ? 502 : 500,
+          'vaac_upstream_unavailable',
+        );
       }
     } finally {
       req.removeListener?.('close', onClose);

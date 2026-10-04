@@ -16,7 +16,12 @@
  * Plain fetch + CSV/JSON parsing only — no WASM, no node:fs. Safe for the
  * Pages Functions registry path.
  */
-import { RESERVOIRS, RIVERS, CDEC_STATION_IDS, NWIS_SITE_IDS } from '../../../shared/waterTwinRegistry.js';
+import {
+  RESERVOIRS,
+  RIVERS,
+  CDEC_STATION_IDS,
+  NWIS_SITE_IDS,
+} from '../../../shared/waterTwinRegistry.js';
 
 const CDEC_URL = (stations) =>
   `https://cdec.water.ca.gov/dynamicapp/req/CSVDataServlet?Stations=${stations}&SensorNums=15&dur_code=D&Start=__START__&End=__END__`;
@@ -28,7 +33,8 @@ const STALE_MS = 6 * 60 * 60_000;
 const RETRY_COOLDOWN_MS = 60_000;
 const UPSTREAM_TIMEOUT_MS = 15_000;
 const TEXT_CAP = 2 * 1024 * 1024;
-const USER_AGENT = 'SATWQ-RealityOS-WaterTwin/1.0 (public water data coupling; contact via repo)';
+const USER_AGENT =
+  'SATWQ-RealityOS-WaterTwin/1.0 (public water data coupling; contact via repo)';
 
 function ymd(d) {
   return `${d.getUTCFullYear()}${String(d.getUTCMonth() + 1).padStart(2, '0')}${String(d.getUTCDate()).padStart(2, '0')}`;
@@ -49,7 +55,8 @@ export function parseCdecCsv(text) {
     const v = Number(value);
     if (!Number.isFinite(v)) continue;
     const prev = byStation[station];
-    if (!prev || dateTime > prev.dateTime) byStation[station] = { dateTime, storageAf: v };
+    if (!prev || dateTime > prev.dateTime)
+      byStation[station] = { dateTime, storageAf: v };
   }
   return byStation;
 }
@@ -69,8 +76,13 @@ export function parseNwisIv(payload) {
     const v = Number(latest.value);
     if (!Number.isFinite(v)) continue;
     out[site] = out[site] ?? {};
-    if (code === '00060') { out[site].flowCfs = v; out[site].time = latest.dateTime; }
-    else { out[site].gageFt = v; out[site].time = latest.dateTime; }
+    if (code === '00060') {
+      out[site].flowCfs = v;
+      out[site].time = latest.dateTime;
+    } else {
+      out[site].gageFt = v;
+      out[site].time = latest.dateTime;
+    }
   }
   return out;
 }
@@ -81,21 +93,31 @@ export function parseNwisIv(payload) {
  * say so. Unknown when no gage reading exists.
  */
 export function classifyFloodBand(gageFt, floodStageFt, actionStageFt) {
-  if (!Number.isFinite(gageFt) || !Number.isFinite(floodStageFt)) return 'unknown';
+  if (!Number.isFinite(gageFt) || !Number.isFinite(floodStageFt))
+    return 'unknown';
   if (gageFt >= floodStageFt + 6) return 'major-flood';
   if (gageFt >= floodStageFt + 3) return 'moderate-flood';
   if (gageFt >= floodStageFt) return 'minor-flood';
-  if (Number.isFinite(actionStageFt) && gageFt >= actionStageFt) return 'action';
+  if (Number.isFinite(actionStageFt) && gageFt >= actionStageFt)
+    return 'action';
   return 'normal';
 }
 
 export function reservoirState(storageAf, capacityAf) {
-  if (!Number.isFinite(storageAf) || !Number.isFinite(capacityAf) || capacityAf <= 0) return null;
+  if (
+    !Number.isFinite(storageAf) ||
+    !Number.isFinite(capacityAf) ||
+    capacityAf <= 0
+  )
+    return null;
   return Math.round((storageAf / capacityAf) * 1000) / 10;
 }
 
 function sendJson(res, value, status = 200) {
-  res.writeHead(status, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
+  res.writeHead(status, {
+    'Content-Type': 'application/json',
+    'Cache-Control': 'no-store',
+  });
   res.end(JSON.stringify(value));
 }
 
@@ -110,7 +132,10 @@ export function waterTwinProxy({
 
   async function upstreamText(url, signal) {
     signal.throwIfAborted();
-    const response = await fetchImpl(url, { signal, headers: { 'User-Agent': USER_AGENT } });
+    const response = await fetchImpl(url, {
+      signal,
+      headers: { 'User-Agent': USER_AGENT },
+    });
     if (!response.ok) {
       await response.body?.cancel();
       throw new Error(`upstream_http_${response.status}`);
@@ -129,19 +154,28 @@ export function waterTwinProxy({
       .replace('__END__', ymd(end));
     const [cdecText, nwisText] = await Promise.all([
       upstreamText(cdecUrl, signal).catch((e) => ({ error: e?.message })),
-      upstreamText(NWIS_IV_URL(NWIS_SITE_IDS), signal).catch((e) => ({ error: e?.message })),
+      upstreamText(NWIS_IV_URL(NWIS_SITE_IDS), signal).catch((e) => ({
+        error: e?.message,
+      })),
     ]);
     signal.throwIfAborted();
 
-    const storageByStation = typeof cdecText === 'string' ? parseCdecCsv(cdecText) : {};
+    const storageByStation =
+      typeof cdecText === 'string' ? parseCdecCsv(cdecText) : {};
     let nwis = {};
     if (typeof nwisText === 'string') {
-      try { nwis = parseNwisIv(JSON.parse(nwisText)); } catch { nwis = {}; }
+      try {
+        nwis = parseNwisIv(JSON.parse(nwisText));
+      } catch {
+        nwis = {};
+      }
     }
 
     const reservoirs = RESERVOIRS.map((r) => {
       const reading = storageByStation[r.id];
-      const pct = reading ? reservoirState(reading.storageAf, r.capacityAf) : null;
+      const pct = reading
+        ? reservoirState(reading.storageAf, r.capacityAf)
+        : null;
       return {
         id: r.id,
         name: r.name,
@@ -150,13 +184,18 @@ export function waterTwinProxy({
         pctFull: pct,
         obsDate: reading?.dateTime ?? null,
         status: reading ? 'live' : 'unavailable',
-        capacityNote: 'curated approximate capacity — reference denominator, not a measurement',
+        capacityNote:
+          'curated approximate capacity — reference denominator, not a measurement',
       };
     });
 
     const rivers = RIVERS.map((r) => {
       const reading = nwis[r.site];
-      const band = classifyFloodBand(reading?.gageFt, r.floodStageFt, r.actionStageFt);
+      const band = classifyFloodBand(
+        reading?.gageFt,
+        r.floodStageFt,
+        r.actionStageFt,
+      );
       return {
         site: r.site,
         name: r.name,
@@ -165,13 +204,16 @@ export function waterTwinProxy({
         floodStageFt: r.floodStageFt,
         actionStageFt: r.actionStageFt,
         band,
-        bandNote: 'height band vs curated reference stage — not an official NWS category',
+        bandNote:
+          'height band vs curated reference stage — not an official NWS category',
         obsTime: reading?.time ?? null,
         status: reading ? 'live' : 'unavailable',
       };
     });
 
-    const reservoirFailures = reservoirs.filter((r) => r.status !== 'live').length;
+    const reservoirFailures = reservoirs.filter(
+      (r) => r.status !== 'live',
+    ).length;
     const riverFailures = rivers.filter((r) => r.status !== 'live').length;
     cache = {
       reservoirs,
@@ -181,7 +223,9 @@ export function waterTwinProxy({
         cdec: typeof cdecText === 'string' ? null : cdecText.error,
         nwis: typeof nwisText === 'string' ? null : nwisText.error,
       },
-      allUnavailable: reservoirFailures === reservoirs.length && riverFailures === rivers.length,
+      allUnavailable:
+        reservoirFailures === reservoirs.length &&
+        riverFailures === rivers.length,
     };
     return cache;
   }
@@ -191,7 +235,8 @@ export function waterTwinProxy({
     if (cache && now() - cache.fetchedAt < CACHE_TTL_MS) return cache;
     if (operation?.controller.signal.aborted) operation = null;
     if (!operation) {
-      if (now() - attemptedAt < RETRY_COOLDOWN_MS) throw new Error('watertwin_retry_later');
+      if (now() - attemptedAt < RETRY_COOLDOWN_MS)
+        throw new Error('watertwin_retry_later');
       attemptedAt = now();
       const controller = new AbortController();
       const owned = { controller, waiters: 0 };
@@ -207,14 +252,16 @@ export function waterTwinProxy({
     try {
       return await owned.promise;
     } finally {
-      if (--owned.waiters === 0 && operation === owned) owned.controller.abort();
+      if (--owned.waiters === 0 && operation === owned)
+        owned.controller.abort();
     }
   }
 
   function describe(value, { stale = false, reason = null } = {}) {
     return {
       schemaVersion: 1,
-      source: 'CDEC daily reservoir storage + USGS NWIS instantaneous values, via local proxy',
+      source:
+        'CDEC daily reservoir storage + USGS NWIS instantaneous values, via local proxy',
       attribution:
         'Reservoir storage: California Data Exchange Center (CDEC), public. ' +
         'River flow/gage height: USGS NWIS. Flood-stage references: curated ' +
@@ -238,7 +285,8 @@ export function waterTwinProxy({
       sendJson(res, value, status);
     };
     try {
-      if (req.method !== 'GET') return json(405, { error: 'method_not_allowed' });
+      if (req.method !== 'GET')
+        return json(405, { error: 'method_not_allowed' });
       try {
         json(200, describe(await acquire(controller.signal)));
       } catch (error) {
@@ -246,8 +294,13 @@ export function waterTwinProxy({
         json(
           200,
           usable
-            ? describe(cache, { stale: true, reason: 'Upstream unreachable; showing last good sweep.' })
-            : describe(null, { reason: 'CDEC/USGS unreachable and no cached sweep exists.' }),
+            ? describe(cache, {
+                stale: true,
+                reason: 'Upstream unreachable; showing last good sweep.',
+              })
+            : describe(null, {
+                reason: 'CDEC/USGS unreachable and no cached sweep exists.',
+              }),
         );
       }
     } finally {

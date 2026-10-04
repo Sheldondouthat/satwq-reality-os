@@ -4,33 +4,31 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 6 (fda worker)).
  */
 export const SPEC = {
-  "id": "fda-device-events-2026",
-  "title": "openFDA — 2026 medical device adverse events",
-  "url": "https://api.fda.gov/device/event.json?limit=20&search=date_received:[20260101+TO+20261002]",
-  "headers": {},
-  "ttlSeconds": 3600,
-  "extract": {
-    "items": "$.results",
-    "limit": 20,
-    "map": {
-      "key": "$.mdr_report_key",
-      "date": "$.date_received",
-      "event_type": "$.event_type",
-      "device": "$.device[0].brand_name",
-      "generic_name": "$.device[0].generic_name",
-      "manufacturer": "$.device[0].manufacturer_d_name",
-      "date_of_event": "$.date_of_event"
+  id: 'fda-device-events-2026',
+  title: 'openFDA — 2026 medical device adverse events',
+  url: 'https://api.fda.gov/device/event.json?limit=20&search=date_received:[20260101+TO+20261002]',
+  headers: {},
+  ttlSeconds: 3600,
+  extract: {
+    items: '$.results',
+    limit: 20,
+    map: {
+      key: '$.mdr_report_key',
+      date: '$.date_received',
+      event_type: '$.event_type',
+      device: '$.device[0].brand_name',
+      generic_name: '$.device[0].generic_name',
+      manufacturer: '$.device[0].manufacturer_d_name',
+      date_of_event: '$.date_of_event',
     },
-    "numbers": []
+    numbers: [],
   },
-  "required": [
-    "key",
-    "event_type"
-  ],
-  "source": "openFDA",
-  "attribution": "Data: U.S. Food & Drug Administration, openFDA — keyless.",
-  "units": {},
-  "honesty": "MAUDE device adverse-event reports received in 2026 (2.5M total); fast-moving stream. device[] is a list — map takes element 0. Dates are YYYYMMDD. Row order is openFDA's default sort, not chronological.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 6 (fda worker)"
+  required: ['key', 'event_type'],
+  source: 'openFDA',
+  attribution: 'Data: U.S. Food & Drug Administration, openFDA — keyless.',
+  units: {},
+  honesty:
+    "MAUDE device adverse-event reports received in 2026 (2.5M total); fast-moving stream. device[] is a list — map takes element 0. Dates are YYYYMMDD. Row order is openFDA's default sort, not chronological.",
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 6 (fda worker)',
 };

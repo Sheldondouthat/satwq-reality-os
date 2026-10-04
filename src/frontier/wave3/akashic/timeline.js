@@ -44,7 +44,10 @@ export function nearestDayIndex(days, day) {
     if (!Number.isFinite(ms)) continue;
     const dist = Math.abs(ms - target);
     // Ties break toward the later day (timeline defaults to "today-forward").
-    if (dist < bestDist || (dist === bestDist && ms > Date.parse(`${days[best]}T00:00:00Z`))) {
+    if (
+      dist < bestDist ||
+      (dist === bestDist && ms > Date.parse(`${days[best]}T00:00:00Z`))
+    ) {
       bestDist = dist;
       best = i;
     }
@@ -60,7 +63,11 @@ export function nearestDayIndex(days, day) {
  * @param {object} [opts.viewer] — Cesium viewer (for replay fly-to)
  * @param {object} [opts.dvr] — GIBS DVR layer with setTime(day)
  */
-export function createAkashicTimeline({ store, viewer = null, dvr = null } = {}) {
+export function createAkashicTimeline({
+  store,
+  viewer = null,
+  dvr = null,
+} = {}) {
   if (typeof document === 'undefined') return null;
 
   const panel = el(
@@ -79,7 +86,10 @@ export function createAkashicTimeline({ store, viewer = null, dvr = null } = {})
   );
   panel.appendChild(title);
 
-  const dayRow = el('div', 'display:flex;gap:6px;align-items:center;margin-bottom:8px;');
+  const dayRow = el(
+    'div',
+    'display:flex;gap:6px;align-items:center;margin-bottom:8px;',
+  );
   const prevBtn = el('button', chipStyle(), '◀');
   const dayLabel = el('div', 'flex:1;text-align:center;font-weight:600;', '—');
   const nextBtn = el('button', chipStyle(), '▶');
@@ -101,10 +111,14 @@ export function createAkashicTimeline({ store, viewer = null, dvr = null } = {})
 
   function refresh() {
     const days = store.days();
-    dayIndex = nearestDayIndex(days, dayIndex >= 0 && days[dayIndex] ? days[dayIndex] : dayKey(Date.now()));
+    dayIndex = nearestDayIndex(
+      days,
+      dayIndex >= 0 && days[dayIndex] ? days[dayIndex] : dayKey(Date.now()),
+    );
     if (dayIndex < 0) {
       dayLabel.textContent = 'no archived days yet';
-      list.textContent = 'The archiver saves significant events (M5.5+ quakes, warnings, fireballs, launches, major storms) as they happen.';
+      list.textContent =
+        'The archiver saves significant events (M5.5+ quakes, warnings, fireballs, launches, major storms) as they happen.';
       replayBtn.disabled = true;
       dvrBtn.disabled = true;
       return;
@@ -138,12 +152,16 @@ export function createAkashicTimeline({ store, viewer = null, dvr = null } = {})
   function step(delta) {
     const days = store.days();
     if (!days.length) return;
-    dayIndex = Math.min(days.length - 1, Math.max(0, (dayIndex < 0 ? days.length - 1 : dayIndex) + delta));
+    dayIndex = Math.min(
+      days.length - 1,
+      Math.max(0, (dayIndex < 0 ? days.length - 1 : dayIndex) + delta),
+    );
     refresh();
   }
 
   async function flyToRecord(rec) {
-    if (!viewer || !Number.isFinite(rec.lat) || !Number.isFinite(rec.lon)) return;
+    if (!viewer || !Number.isFinite(rec.lat) || !Number.isFinite(rec.lon))
+      return;
     try {
       const { Cartesian3, Math: CMath } = await import('cesium');
       viewer.camera.flyTo({
@@ -161,7 +179,9 @@ export function createAkashicTimeline({ store, viewer = null, dvr = null } = {})
     const days = store.days();
     const day = days[dayIndex];
     if (!day) return;
-    const events = store.eventsForDay(day).filter((r) => Number.isFinite(r.lat) && Number.isFinite(r.lon));
+    const events = store
+      .eventsForDay(day)
+      .filter((r) => Number.isFinite(r.lat) && Number.isFinite(r.lon));
     if (!events.length) return;
     replaying = true;
     replayBtn.textContent = '⏸ replaying…';

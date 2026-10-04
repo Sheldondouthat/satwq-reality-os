@@ -20,17 +20,20 @@ export const EMOJI = '📏';
 export const LABEL = 'Tide gauges';
 
 export function valueLine(doc) {
-      if (isUnavailable(doc)) return null;
-      const wl = pickArr(doc.waterLevel);
-      const last = wl[wl.length - 1];
-      const feet = pickNum(last?.feet);
-      if (feet == null) return null;
-      return withTags(`${EMOJI} ${feet} ft @ ${pickStr(doc.station, 'tide gauge')}`, doc);
-    }
+  if (isUnavailable(doc)) return null;
+  const wl = pickArr(doc.waterLevel);
+  const last = wl[wl.length - 1];
+  const feet = pickNum(last?.feet);
+  if (feet == null) return null;
+  return withTags(
+    `${EMOJI} ${feet} ft @ ${pickStr(doc.station, 'tide gauge')}`,
+    doc,
+  );
+}
 
 export function detailLine(doc) {
-      if (isUnavailable(doc)) return '';
-      const wl = pickArr(doc.waterLevel);
-      const last = wl[wl.length - 1];
-      return `${wl.length} readings${last?.time ? ` · latest ${last.time}` : ''}`;
-    }
+  if (isUnavailable(doc)) return '';
+  const wl = pickArr(doc.waterLevel);
+  const last = wl[wl.length - 1];
+  return `${wl.length} readings${last?.time ? ` · latest ${last.time}` : ''}`;
+}

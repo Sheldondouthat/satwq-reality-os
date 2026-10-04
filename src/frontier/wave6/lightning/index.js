@@ -15,5 +15,4 @@ export const init = createTickerInit({
   pollMs: 120000,
   valueLine,
   detailLine,
-
 });

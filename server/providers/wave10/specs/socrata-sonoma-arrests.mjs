@@ -4,36 +4,33 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 3 (socrata recovery)).
  */
 export const SPEC = {
-  "id": "socrata-sonoma-arrests",
-  "title": "Sonoma County, CA Open Data — Sheriff's Office arrests and citations",
-  "url": "https://data.sonomacounty.ca.gov/resource/f6uf-eqmk.json?$limit=50&$order=datetimearrested%20DESC",
-  "headers": {},
-  "ttlSeconds": 1800,
-  "source": "Sonoma County, California — Sonoma County Open Data (Socrata)",
-  "attribution": "Data: Sonoma County, California — Sonoma County Open Data (Socrata) — keyless Socrata API.",
-  "honesty": "Only 6 rows exist in the live dataset at probe time (Oct 2026), ordered newest first — every row is an arrest/citation with charges, arrestee info, and coordinates; the tiny live set likely means the source republishes on a rolling window.",
-  "units": {},
-  "extract": {
-    "items": "$",
-    "limit": 50,
-    "map": {
-      "key": "$.arrestid",
-      "time": "$.datetimearrested",
-      "type": "$.arrestdegree",
-      "description": "$.chargedescription",
-      "address": "$.arrestlocation",
-      "city": "$.arrestcity",
-      "lat": "$.arrestcoordinates.latitude",
-      "lon": "$.arrestcoordinates.longitude"
+  id: 'socrata-sonoma-arrests',
+  title: "Sonoma County, CA Open Data — Sheriff's Office arrests and citations",
+  url: 'https://data.sonomacounty.ca.gov/resource/f6uf-eqmk.json?$limit=50&$order=datetimearrested%20DESC',
+  headers: {},
+  ttlSeconds: 1800,
+  source: 'Sonoma County, California — Sonoma County Open Data (Socrata)',
+  attribution:
+    'Data: Sonoma County, California — Sonoma County Open Data (Socrata) — keyless Socrata API.',
+  honesty:
+    'Only 6 rows exist in the live dataset at probe time (Oct 2026), ordered newest first — every row is an arrest/citation with charges, arrestee info, and coordinates; the tiny live set likely means the source republishes on a rolling window.',
+  units: {},
+  extract: {
+    items: '$',
+    limit: 50,
+    map: {
+      key: '$.arrestid',
+      time: '$.datetimearrested',
+      type: '$.arrestdegree',
+      description: '$.chargedescription',
+      address: '$.arrestlocation',
+      city: '$.arrestcity',
+      lat: '$.arrestcoordinates.latitude',
+      lon: '$.arrestcoordinates.longitude',
     },
-    "numbers": [
-      "lat",
-      "lon"
-    ]
+    numbers: ['lat', 'lon'],
   },
-  "required": [
-    "key"
-  ],
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 3 (socrata recovery)"
+  required: ['key'],
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 3 (socrata recovery)',
 };

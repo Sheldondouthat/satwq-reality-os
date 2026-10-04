@@ -4,45 +4,41 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 9 (bike2 worker)).
  */
 export const SPEC = {
-  "id": "bike-bikeshare-toronto-status",
-  "title": "Bike Share Toronto — live availability",
-  "url": "https://tor.publicbikesystem.net/ube/gbfs/v1/en/station_status.json",
-  "headers": {
-    "User-Agent": "satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)"
+  id: 'bike-bikeshare-toronto-status',
+  title: 'Bike Share Toronto — live availability',
+  url: 'https://tor.publicbikesystem.net/ube/gbfs/v1/en/station_status.json',
+  headers: {
+    'User-Agent':
+      'satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)',
   },
-  "ttlSeconds": 300,
-  "bodyCapBytes": 2097152,
-  "extract": {
-    "items": "$.data.stations",
-    "limit": 50,
-    "map": {
-      "stationId": "$.station_id",
-      "bikesAvailable": "$.num_bikes_available",
-      "docksAvailable": "$.num_docks_available",
-      "isInstalled": "$.is_installed",
-      "isRenting": "$.is_renting",
-      "isReturning": "$.is_returning"
+  ttlSeconds: 300,
+  bodyCapBytes: 2097152,
+  extract: {
+    items: '$.data.stations',
+    limit: 50,
+    map: {
+      stationId: '$.station_id',
+      bikesAvailable: '$.num_bikes_available',
+      docksAvailable: '$.num_docks_available',
+      isInstalled: '$.is_installed',
+      isRenting: '$.is_renting',
+      isReturning: '$.is_returning',
     },
-    "numbers": [
-      "bikesAvailable",
-      "docksAvailable"
-    ]
+    numbers: ['bikesAvailable', 'docksAvailable'],
   },
-  "required": [
-    "stationId",
-    "bikesAvailable"
-  ],
-  "source": "GBFS",
-  "attribution": "Data: Bike Share Toronto GBFS feed — keyless.",
-  "units": {
-    "stationId": "text",
-    "bikesAvailable": "count",
-    "docksAvailable": "count",
-    "isInstalled": "0/1",
-    "isRenting": "0/1",
-    "isReturning": "0/1"
+  required: ['stationId', 'bikesAvailable'],
+  source: 'GBFS',
+  attribution: 'Data: Bike Share Toronto GBFS feed — keyless.',
+  units: {
+    stationId: 'text',
+    bikesAvailable: 'count',
+    docksAvailable: 'count',
+    isInstalled: '0/1',
+    isRenting: '0/1',
+    isReturning: '0/1',
   },
-  "honesty": "Live availability snapshot: 1073 stations at probe (335953 bytes). Values refresh every few minutes — fixture is a point-in-time snapshot. num_bikes_available=0 with is_installed=0 flags out-of-service stations. Feed last_updated epoch 1790991148.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 9 (bike2 worker)"
+  honesty:
+    'Live availability snapshot: 1073 stations at probe (335953 bytes). Values refresh every few minutes — fixture is a point-in-time snapshot. num_bikes_available=0 with is_installed=0 flags out-of-service stations. Feed last_updated epoch 1790991148.',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 9 (bike2 worker)',
 };

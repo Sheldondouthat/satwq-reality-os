@@ -14,7 +14,8 @@
  * per the 2026-09-27 edge incident — no node: imports, no WASM).
  */
 
-const UPSTREAM_URL = 'https://gdacs.org/gdacsapi/api/events/geteventlist/SEARCH';
+const UPSTREAM_URL =
+  'https://gdacs.org/gdacsapi/api/events/geteventlist/SEARCH';
 const UPSTREAM_TIMEOUT_MS = 20_000;
 const BODY_CAP_BYTES = 4 * 1024 * 1024;
 const CACHE_TTL_MS = 15 * 60_000;
@@ -41,10 +42,14 @@ async function fetchJsonCapped(url, signal) {
       headers: { 'User-Agent': USER_AGENT, Accept: 'application/geo+json' },
     });
     if (!response.ok)
-      throw Object.assign(new Error(`gdacs_upstream_${response.status}`), { status: 502 });
+      throw Object.assign(new Error(`gdacs_upstream_${response.status}`), {
+        status: 502,
+      });
     const buffer = await response.arrayBuffer();
     if (buffer.byteLength > BODY_CAP_BYTES)
-      throw Object.assign(new Error('gdacs_upstream_too_large'), { status: 502 });
+      throw Object.assign(new Error('gdacs_upstream_too_large'), {
+        status: 502,
+      });
     return JSON.parse(new TextDecoder().decode(buffer));
   } finally {
     clearTimeout(timeout);
@@ -64,13 +69,14 @@ function str(value) {
 
 export function trimHazardEvent(feature) {
   const props = feature?.properties ?? {};
-  const coords = feature?.geometry?.type === 'Point'
-    ? feature.geometry.coordinates
-    : [];
+  const coords =
+    feature?.geometry?.type === 'Point' ? feature.geometry.coordinates : [];
   const severity = props.severitydata ?? {};
   const urls = props.url ?? {};
   return {
-    eventtype: HAZARD_TYPES.includes(props.eventtype) ? props.eventtype : 'OTHER',
+    eventtype: HAZARD_TYPES.includes(props.eventtype)
+      ? props.eventtype
+      : 'OTHER',
     eventid: Number.isFinite(props.eventid) ? props.eventid : null,
     episodeid: Number.isFinite(props.episodeid) ? props.episodeid : null,
     name: str(props.name || props.description),
@@ -97,10 +103,14 @@ export function trimHazardsPayload(upstream) {
   const features = Array.isArray(upstream?.features) ? upstream.features : [];
   const events = features
     .map(trimHazardEvent)
-    .filter((e) => e.eventid !== null && Number.isFinite(e.lon) && Number.isFinite(e.lat))
-    .sort((a, b) =>
-      (ALERT_RANK[a.alertlevel] ?? 1) - (ALERT_RANK[b.alertlevel] ?? 1) ||
-      (b.alertscore ?? 0) - (a.alertscore ?? 0),
+    .filter(
+      (e) =>
+        e.eventid !== null && Number.isFinite(e.lon) && Number.isFinite(e.lat),
+    )
+    .sort(
+      (a, b) =>
+        (ALERT_RANK[a.alertlevel] ?? 1) - (ALERT_RANK[b.alertlevel] ?? 1) ||
+        (b.alertscore ?? 0) - (a.alertscore ?? 0),
     );
   const byType = {};
   for (const e of events) byType[e.eventtype] = (byType[e.eventtype] ?? 0) + 1;
@@ -142,16 +152,25 @@ function sendJson(res, status, body, cacheControl = 'public, max-age=900') {
 /** Mount the GDACS multi-hazard proxy. Mirrors the nwsAlerts provider shape. */
 export function hazardsProxy() {
   async function handler(req, res) {
-    if (req.method !== 'GET') return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
     req.on?.('close', () => {});
     try {
       sendJson(res, 200, await getSnapshot());
     } catch (error) {
-      const upstreamFail = error?.status === 502 || error?.name === 'AbortError' || /aborted?/i.test(error?.message ?? '');
-      sendJson(res, upstreamFail ? 502 : 500, {
-        error: 'hazards_unavailable',
-        detail: error?.message ?? 'unknown',
-      }, 'no-store');
+      const upstreamFail =
+        error?.status === 502 ||
+        error?.name === 'AbortError' ||
+        /aborted?/i.test(error?.message ?? '');
+      sendJson(
+        res,
+        upstreamFail ? 502 : 500,
+        {
+          error: 'hazards_unavailable',
+          detail: error?.message ?? 'unknown',
+        },
+        'no-store',
+      );
     } finally {
       req.removeListener?.('close', () => {});
     }
@@ -172,5 +191,8 @@ export const _hazardsInternals = {
   trimHazardEvent,
   trimHazardsPayload,
   HAZARD_TYPES,
-  clearCaches: () => { cache = null; inflight = null; },
+  clearCaches: () => {
+    cache = null;
+    inflight = null;
+  },
 };

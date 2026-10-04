@@ -4,50 +4,43 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 6 (apac-weather worker)).
  */
 export const SPEC = {
-  "id": "apac-hko-9day",
-  "title": "HKO Hong Kong — 9-day forecast",
-  "url": "https://data.weather.gov.hk/weatherAPI/opendata/weather.php?dataType=fnd&lang=en",
-  "headers": {
-    "User-Agent": "satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)"
+  id: 'apac-hko-9day',
+  title: 'HKO Hong Kong — 9-day forecast',
+  url: 'https://data.weather.gov.hk/weatherAPI/opendata/weather.php?dataType=fnd&lang=en',
+  headers: {
+    'User-Agent':
+      'satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)',
   },
-  "ttlSeconds": 21600,
-  "extract": {
-    "items": "$.weatherForecast",
-    "limit": 9,
-    "map": {
-      "date": "$.forecastDate",
-      "weekday": "$.week",
-      "wind": "$.forecastWind",
-      "weather": "$.forecastWeather",
-      "maxTempC": "$.forecastMaxtemp.value",
-      "minTempC": "$.forecastMintemp.value",
-      "maxRh": "$.forecastMaxrh.value",
-      "minRh": "$.forecastMinrh.value",
-      "icon": "$.ForecastIcon",
-      "psr": "$.PSR"
+  ttlSeconds: 21600,
+  extract: {
+    items: '$.weatherForecast',
+    limit: 9,
+    map: {
+      date: '$.forecastDate',
+      weekday: '$.week',
+      wind: '$.forecastWind',
+      weather: '$.forecastWeather',
+      maxTempC: '$.forecastMaxtemp.value',
+      minTempC: '$.forecastMintemp.value',
+      maxRh: '$.forecastMaxrh.value',
+      minRh: '$.forecastMinrh.value',
+      icon: '$.ForecastIcon',
+      psr: '$.PSR',
     },
-    "numbers": [
-      "maxTempC",
-      "minTempC",
-      "maxRh",
-      "minRh",
-      "icon",
-      "psr"
-    ]
+    numbers: ['maxTempC', 'minTempC', 'maxRh', 'minRh', 'icon', 'psr'],
   },
-  "required": [
-    "date",
-    "weather"
-  ],
-  "source": "Hong Kong Observatory (HKO)",
-  "attribution": "Data: Hong Kong Observatory — data.weather.gov.hk (Open Data) — keyless.",
-  "units": {
-    "maxTempC": "C",
-    "minTempC": "C",
-    "maxRh": "percent",
-    "minRh": "percent"
+  required: ['date', 'weather'],
+  source: 'Hong Kong Observatory (HKO)',
+  attribution:
+    'Data: Hong Kong Observatory — data.weather.gov.hk (Open Data) — keyless.',
+  units: {
+    maxTempC: 'C',
+    minTempC: 'C',
+    maxRh: 'percent',
+    minRh: 'percent',
   },
-  "honesty": "HKO 9-day Hong Kong forecast, refreshed ~4x daily; dates are HKT (YYYYMMDD); icon is HKO's numeric icon code; psr = probability of significant rain (percent).",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 6 (apac-weather worker)"
+  honesty:
+    "HKO 9-day Hong Kong forecast, refreshed ~4x daily; dates are HKT (YYYYMMDD); icon is HKO's numeric icon code; psr = probability of significant rain (percent).",
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 6 (apac-weather worker)',
 };

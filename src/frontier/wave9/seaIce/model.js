@@ -5,11 +5,7 @@
  * thickness. The day-of-year anomaly is vs this file's full-record
  * day-of-year mean, NOT the official 1981-2010 baseline.
  */
-import {
-  isUnavailable,
-  withTags,
-  pickNum,
-} from '../../wave3/common/ticker.js';
+import { isUnavailable, withTags, pickNum } from '../../wave3/common/ticker.js';
 
 export const ROUTE = '/api/sea-ice';
 export const EMOJI = '🧊';
@@ -36,7 +32,8 @@ export function valueLine(doc) {
     const ext = fmtExtent(h.latest?.extentMkm2);
     const anom = fmtAnomaly(h.dayOfYear?.anomalyMkm2);
     if (ext == null) continue;
-    const name = h.hemi === 'north' ? 'Arctic' : h.hemi === 'south' ? 'Antarctic' : h.hemi;
+    const name =
+      h.hemi === 'north' ? 'Arctic' : h.hemi === 'south' ? 'Antarctic' : h.hemi;
     parts.push(anom ? `${name} ${ext} (${anom})` : `${name} ${ext}`);
   }
   if (!parts.length) return null;
@@ -53,11 +50,13 @@ export function detailLine(doc) {
     const d = h.dayOfYear || {};
     parts.push(
       `${name}: ${l.extentMkm2?.toFixed(2) ?? '?'}M km² on ${l.date ?? '?'}. ` +
-      `Day-of-year record mean ${d.recordMeanMkm2?.toFixed(2) ?? '?'}M km² (n=${d.recordN ?? '?'}), ` +
-      `range ${d.recordMin?.value?.toFixed(2) ?? '?'}-${d.recordMax?.value?.toFixed(2) ?? '?'}M km².`
+        `Day-of-year record mean ${d.recordMeanMkm2?.toFixed(2) ?? '?'}M km² (n=${d.recordN ?? '?'}), ` +
+        `range ${d.recordMin?.value?.toFixed(2) ?? '?'}-${d.recordMax?.value?.toFixed(2) ?? '?'}M km².`,
     );
   }
   if (!parts.length) parts.push('No sea-ice data in this payload.');
-  parts.push('NASA Team algorithm, 15% cutoff — extent, not thickness; anomaly vs file record mean, not the 1981-2010 baseline.');
+  parts.push(
+    'NASA Team algorithm, 15% cutoff — extent, not thickness; anomaly vs file record mean, not the 1981-2010 baseline.',
+  );
   return parts.join(' ');
 }

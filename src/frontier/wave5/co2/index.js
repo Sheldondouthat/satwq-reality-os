@@ -11,14 +11,23 @@ const API = '/api/co2';
 const REFRESH_MS = 60 * 60_000; // provider caches 6h; hourly refresh is plenty
 
 function escapeHtml(s) {
-  return String(s).replace(/[&<>"']/g, (c) => ({
-    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
-  })[c]);
+  return String(s).replace(
+    /[&<>"']/g,
+    (c) =>
+      ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;',
+      })[c],
+  );
 }
 
 export function init({ viewer, mount, chip, trackLayer, t } = {}) {
   try {
-    if (typeof document === 'undefined' || !mount || typeof chip !== 'function') return null;
+    if (typeof document === 'undefined' || !mount || typeof chip !== 'function')
+      return null;
     const T = typeof t === 'function' ? t : (k) => k;
 
     let enabled = false;
@@ -30,10 +39,12 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
     statusEl.textContent = 'CO₂ ticker off — enable to load.';
 
     const valueEl = document.createElement('div');
-    valueEl.style.cssText = 'font-size:22px;color:#cfe3ff;font-weight:600;letter-spacing:.5px;';
+    valueEl.style.cssText =
+      'font-size:22px;color:#cfe3ff;font-weight:600;letter-spacing:.5px;';
 
     const deltaEl = document.createElement('div');
-    deltaEl.style.cssText = 'font-size:10px;color:#8aa4d6;margin:2px 0 4px;line-height:1.5;';
+    deltaEl.style.cssText =
+      'font-size:10px;color:#8aa4d6;margin:2px 0 4px;line-height:1.5;';
 
     async function load() {
       if (destroyed || !enabled) return;
@@ -77,7 +88,8 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
       chip(T('feature.co2') || 'CO₂ (Mauna Loa)', setEnabled, false),
     );
     const legend = document.createElement('div');
-    legend.style.cssText = 'font-size:10px;color:#8aa4d6;margin-top:4px;line-height:1.5;';
+    legend.style.cssText =
+      'font-size:10px;color:#8aa4d6;margin-top:4px;line-height:1.5;';
     legend.textContent =
       'Daily mean CO₂ at Mauna Loa, NOAA Global Monitoring Laboratory (public domain).';
     mount.appendChild(legend);
@@ -100,4 +112,10 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
   }
 }
 
-export const _co2TickerInternals = { formatPpm, trendGlyph, deltaLine, tickerSummary, escapeHtml };
+export const _co2TickerInternals = {
+  formatPpm,
+  trendGlyph,
+  deltaLine,
+  tickerSummary,
+  escapeHtml,
+};

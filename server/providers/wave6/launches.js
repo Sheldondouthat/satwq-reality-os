@@ -67,8 +67,18 @@ function numOrNull(value) {
 }
 
 const MONTH_INDEX = {
-  jan: 0, feb: 1, mar: 2, apr: 3, may: 4, jun: 5,
-  jul: 6, aug: 7, sep: 8, oct: 9, nov: 10, dec: 11,
+  jan: 0,
+  feb: 1,
+  mar: 2,
+  apr: 3,
+  may: 4,
+  jun: 5,
+  jul: 6,
+  aug: 7,
+  sep: 8,
+  oct: 9,
+  nov: 10,
+  dec: 11,
 };
 
 /**
@@ -77,7 +87,9 @@ const MONTH_INDEX = {
  * Returns null when the string is not month-granularity.
  */
 export function parseMonthYearNet(value) {
-  const m = /^(?:net\s+)?([a-z]{3,9})\s+(\d{4})$/i.exec(String(value ?? '').trim());
+  const m = /^(?:net\s+)?([a-z]{3,9})\s+(\d{4})$/i.exec(
+    String(value ?? '').trim(),
+  );
   if (!m) return null;
   const mi = MONTH_INDEX[m[1].slice(0, 3).toLowerCase()];
   if (mi == null) return null;
@@ -87,10 +99,13 @@ export function parseMonthYearNet(value) {
 /** Parse a NET value: month-granularity first (deterministic), then Date.parse. */
 function parseNet(value) {
   if (value == null || value === '') return null;
-  return parseMonthYearNet(value) ?? (() => {
-    const t = Date.parse(String(value));
-    return Number.isFinite(t) ? new Date(t).toISOString() : null;
-  })();
+  return (
+    parseMonthYearNet(value) ??
+    (() => {
+      const t = Date.parse(String(value));
+      return Number.isFinite(t) ? new Date(t).toISOString() : null;
+    })()
+  );
 }
 
 function isoOrNull(value) {
@@ -108,7 +123,22 @@ function normalizeName(name) {
     .trim();
 }
 
-function normalizeLaunch({ id, name, net, windowEnd, status, vehicle, provider, pad, location, mission, url, lat, lon, source }) {
+function normalizeLaunch({
+  id,
+  name,
+  net,
+  windowEnd,
+  status,
+  vehicle,
+  provider,
+  pad,
+  location,
+  mission,
+  url,
+  lat,
+  lon,
+  source,
+}) {
   if (!id || !name) return null;
   return {
     id: str(id, 120),
@@ -149,9 +179,13 @@ function dedupeLaunches(launches) {
       return Math.abs(Date.parse(m.net) - lTime) <= DEDUPE_TIME_MS;
     });
     if (hit) {
-      for (const s of l.sources) if (!hit.sources.includes(s)) hit.sources.push(s);
+      for (const s of l.sources)
+        if (!hit.sources.includes(s)) hit.sources.push(s);
       // Carry coordinates across the merge when the survivor lacks them.
-      if (hit.lat == null && l.lat != null) { hit.lat = l.lat; hit.lon = l.lon; }
+      if (hit.lat == null && l.lat != null) {
+        hit.lat = l.lat;
+        hit.lon = l.lon;
+      }
       // Prefer the report with a longer name/mission blurb (richer fields).
       if ((l.mission ?? '').length > (hit.mission ?? '').length) {
         hit.mission = l.mission;
@@ -177,7 +211,8 @@ function parseLl2(upstream) {
       net: r?.net ?? r?.window_start,
       windowEnd: r?.window_end,
       status: r?.status?.name,
-      vehicle: r?.rocket?.configuration?.full_name ?? r?.rocket?.configuration?.name,
+      vehicle:
+        r?.rocket?.configuration?.full_name ?? r?.rocket?.configuration?.name,
       provider: r?.launch_service_provider?.name,
       pad: r?.pad?.name,
       location: r?.pad?.location?.name,
@@ -208,7 +243,11 @@ function parseRll(upstream) {
       provider: r?.provider?.name,
       pad: r?.location?.name,
       location: r?.location?.name,
-      mission: missions.map((m) => m?.description ?? m?.name).filter(Boolean).join(' — ') || null,
+      mission:
+        missions
+          .map((m) => m?.description ?? m?.name)
+          .filter(Boolean)
+          .join(' — ') || null,
       url: r?.quicktext ?? null,
       lat: r?.pad?.latitude ?? r?.pad?.lat ?? null,
       lon: r?.pad?.longitude ?? r?.pad?.lng ?? r?.pad?.lon ?? null,
@@ -235,10 +274,16 @@ async function fetchJsonCapped(sourceKey, url) {
       headers: { 'User-Agent': USER_AGENT, Accept: 'application/json' },
     });
     if (!response.ok)
-      throw Object.assign(new Error(`launches_${sourceKey}_upstream_${response.status}`), { status: 502 });
+      throw Object.assign(
+        new Error(`launches_${sourceKey}_upstream_${response.status}`),
+        { status: 502 },
+      );
     const buffer = await response.arrayBuffer();
     if (buffer.byteLength > BODY_CAP_BYTES)
-      throw Object.assign(new Error(`launches_${sourceKey}_upstream_too_large`), { status: 502 });
+      throw Object.assign(
+        new Error(`launches_${sourceKey}_upstream_too_large`),
+        { status: 502 },
+      );
     return JSON.parse(new TextDecoder().decode(buffer));
   } finally {
     clearTimeout(timeout);
@@ -303,7 +348,10 @@ async function getSnapshot() {
         const ok = results.some((r) => r.ok);
         if (!ok) {
           const detail = results.map((r) => `${r.key}:${r.error}`).join('; ');
-          throw Object.assign(new Error(`launches_all_upstream_down: ${detail}`), { status: 502 });
+          throw Object.assign(
+            new Error(`launches_all_upstream_down: ${detail}`),
+            { status: 502 },
+          );
         }
         const payload = buildSnapshot(results);
         cache = { at: Date.now(), payload };
@@ -327,15 +375,24 @@ function sendJson(res, status, body, cacheControl = 'public, max-age=1800') {
 /** Mount the upcoming-launch aggregation proxy. Mirrors the quakes provider shape. */
 export function launchesProxy() {
   async function handler(req, res) {
-    if (req.method !== 'GET') return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
     try {
       sendJson(res, 200, await getSnapshot());
     } catch (error) {
-      const upstreamFail = error?.status === 502 || error?.name === 'AbortError' || /aborted?/i.test(error?.message ?? '');
-      sendJson(res, upstreamFail ? 502 : 500, {
-        error: 'launches_unavailable',
-        detail: error?.message ?? 'unknown',
-      }, 'no-store');
+      const upstreamFail =
+        error?.status === 502 ||
+        error?.name === 'AbortError' ||
+        /aborted?/i.test(error?.message ?? '');
+      sendJson(
+        res,
+        upstreamFail ? 502 : 500,
+        {
+          error: 'launches_unavailable',
+          detail: error?.message ?? 'unknown',
+        },
+        'no-store',
+      );
     }
   }
 
@@ -358,5 +415,8 @@ export const _launchesInternals = {
   dedupeLaunches,
   buildSnapshot,
   parseMonthYearNet,
-  clearCaches: () => { cache = null; inflight = null; },
+  clearCaches: () => {
+    cache = null;
+    inflight = null;
+  },
 };

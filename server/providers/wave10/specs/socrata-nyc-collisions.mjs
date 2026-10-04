@@ -4,36 +4,32 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 6 (socrata2 worker)).
  */
 export const SPEC = {
-  "id": "socrata-nyc-collisions",
-  "title": "NYC (data.cityofnewyork.us) — motor vehicle collisions",
-  "url": "https://data.cityofnewyork.us/resource/h9gi-nx95.json?%24limit=50&%24order=crash_date%20DESC",
-  "headers": {},
-  "ttlSeconds": 3600,
-  "extract": {
-    "items": "$",
-    "limit": 50,
-    "map": {
-      "key": "$.collision_id",
-      "date": "$.crash_date",
-      "time": "$.crash_time",
-      "borough": "$.borough",
-      "lat": "$.latitude",
-      "lon": "$.longitude",
-      "injured": "$.number_of_persons_injured"
+  id: 'socrata-nyc-collisions',
+  title: 'NYC (data.cityofnewyork.us) — motor vehicle collisions',
+  url: 'https://data.cityofnewyork.us/resource/h9gi-nx95.json?%24limit=50&%24order=crash_date%20DESC',
+  headers: {},
+  ttlSeconds: 3600,
+  extract: {
+    items: '$',
+    limit: 50,
+    map: {
+      key: '$.collision_id',
+      date: '$.crash_date',
+      time: '$.crash_time',
+      borough: '$.borough',
+      lat: '$.latitude',
+      lon: '$.longitude',
+      injured: '$.number_of_persons_injured',
     },
-    "numbers": [
-      "lat",
-      "lon"
-    ]
+    numbers: ['lat', 'lon'],
   },
-  "required": [
-    "key",
-    "date"
-  ],
-  "source": "City of New York — data.cityofnewyork.us (Socrata)",
-  "attribution": "Data: City of New York — data.cityofnewyork.us (Socrata) — keyless Socrata API.",
-  "units": {},
-  "honesty": "NYPD-reported crashes; aggregate incident data, no personal identifiers; some rows lack lat/lon. Verified 50 rows in fixture (37751 bytes); 50/50 rows dated 2026.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 6 (socrata2 worker)"
+  required: ['key', 'date'],
+  source: 'City of New York — data.cityofnewyork.us (Socrata)',
+  attribution:
+    'Data: City of New York — data.cityofnewyork.us (Socrata) — keyless Socrata API.',
+  units: {},
+  honesty:
+    'NYPD-reported crashes; aggregate incident data, no personal identifiers; some rows lack lat/lon. Verified 50 rows in fixture (37751 bytes); 50/50 rows dated 2026.',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 6 (socrata2 worker)',
 };

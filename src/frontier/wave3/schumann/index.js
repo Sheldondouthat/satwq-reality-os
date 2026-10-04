@@ -41,15 +41,22 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
         if (destroyed || !enabled) return;
         render(json);
       } catch {
-        if (statusEl) statusEl.textContent = 'schumann data unavailable — retrying';
+        if (statusEl)
+          statusEl.textContent = 'schumann data unavailable — retrying';
       }
     }
 
     function stopTone() {
       try {
-        audioNodes?.forEach((n) => { try { n.stop(); } catch {} });
+        audioNodes?.forEach((n) => {
+          try {
+            n.stop();
+          } catch {}
+        });
         audioCtx?.close?.();
-      } catch { /* noop */ }
+      } catch {
+        /* noop */
+      }
       audioNodes = null;
       audioCtx = null;
       if (toneBtn) toneBtn.textContent = '▶ symbolic 7.83 Hz tone';
@@ -91,7 +98,8 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
       if (statusEl) {
         statusEl.textContent =
           `${doc.charts.length} live chart${doc.charts.length === 1 ? '' : 's'}` +
-          (doc.stale ? ' · stale' : '') + ' · vlf.it Cumiana';
+          (doc.stale ? ' · stale' : '') +
+          ' · vlf.it Cumiana';
       }
       panelEl.innerHTML = doc.charts
         .map(
@@ -119,7 +127,8 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
     if (mount && typeof chip === 'function') {
       try {
         statusEl = document.createElement('div');
-        statusEl.style.cssText = 'font-size:10px;color:#8aa4d6;margin:2px 0 4px;';
+        statusEl.style.cssText =
+          'font-size:10px;color:#8aa4d6;margin:2px 0 4px;';
         statusEl.textContent = 'tuning the cavity…';
         mount.appendChild(statusEl);
         panelEl = document.createElement('div');
@@ -139,14 +148,20 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
             disable: () => setEnabled(false),
           });
           mount.appendChild(
-            chip(T('feature.schumann') || 'Schumann resonance', (on) =>
-              on ? tracked.show() : tracked.hide(), false),
+            chip(
+              T('feature.schumann') || 'Schumann resonance',
+              (on) => (on ? tracked.show() : tracked.hide()),
+              false,
+            ),
           );
         } else {
-          mount.appendChild(chip(T('feature.schumann') || 'Schumann resonance', apply, false));
+          mount.appendChild(
+            chip(T('feature.schumann') || 'Schumann resonance', apply, false),
+          );
         }
         const legend = document.createElement('div');
-        legend.style.cssText = 'font-size:10px;color:#8aa4d6;margin-top:4px;line-height:1.5;';
+        legend.style.cssText =
+          'font-size:10px;color:#8aa4d6;margin-top:4px;line-height:1.5;';
         legend.innerHTML =
           'Charts are <b>image-derived</b>, not numerical 7.83 Hz telemetry — ' +
           'no amplitudes are measured here. The tone is a <b>symbolic</b> sound ' +

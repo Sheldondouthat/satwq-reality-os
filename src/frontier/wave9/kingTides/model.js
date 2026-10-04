@@ -10,11 +10,7 @@
  * valueLine returns null when the payload carries no usable summary; the
  * detail line names the top-3 king tides with their lunar context.
  */
-import {
-  isUnavailable,
-  withTags,
-  pickNum,
-} from '../../wave3/common/ticker.js';
+import { isUnavailable, withTags, pickNum } from '../../wave3/common/ticker.js';
 
 export const ROUTE = '/api/king-tides';
 export const EMOJI = '🌊';
@@ -58,9 +54,13 @@ export function detailLine(doc) {
         .join(' · '),
     );
   } else {
-    parts.push('No king-tide predictions in this payload — quiet seas are real data, not a gap.');
+    parts.push(
+      'No king-tide predictions in this payload — quiet seas are real data, not a gap.',
+    );
   }
-  parts.push('Predicted highs (NOAA model), not observed levels; lunar geometry is computed.');
+  parts.push(
+    'Predicted highs (NOAA model), not observed levels; lunar geometry is computed.',
+  );
   return parts.join(' ');
 }
 

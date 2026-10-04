@@ -38,10 +38,14 @@ async function fetchJsonCapped(url) {
       headers: { 'User-Agent': USER_AGENT, Accept: 'application/json' },
     });
     if (!response.ok)
-      throw Object.assign(new Error(`fema_upstream_${response.status}`), { status: 502 });
+      throw Object.assign(new Error(`fema_upstream_${response.status}`), {
+        status: 502,
+      });
     const buffer = await response.arrayBuffer();
     if (buffer.byteLength > BODY_CAP_BYTES)
-      throw Object.assign(new Error('fema_upstream_too_large'), { status: 502 });
+      throw Object.assign(new Error('fema_upstream_too_large'), {
+        status: 502,
+      });
     return JSON.parse(new TextDecoder().decode(buffer));
   } finally {
     clearTimeout(timeout);
@@ -60,7 +64,9 @@ function trimDeclaration(d) {
   };
   return {
     id,
-    declarationNumber: Number.isFinite(Number(d.disasterNumber)) ? Number(d.disasterNumber) : null,
+    declarationNumber: Number.isFinite(Number(d.disasterNumber))
+      ? Number(d.disasterNumber)
+      : null,
     state: String(d.state ?? ''),
     declarationType: String(d.declarationType ?? ''),
     declarationDate: d.declarationDate ?? null,
@@ -80,14 +86,19 @@ export function trimDisastersPayload(upstream) {
   const rows = Array.isArray(upstream?.DisasterDeclarationsSummaries)
     ? upstream.DisasterDeclarationsSummaries
     : [];
-  const declarations = rows.map(trimDeclaration).filter(Boolean).slice(0, MAX_DECLARATIONS);
+  const declarations = rows
+    .map(trimDeclaration)
+    .filter(Boolean)
+    .slice(0, MAX_DECLARATIONS);
   return {
     generatedAt: new Date().toISOString(),
     count: declarations.length,
     // The summaries endpoint carries no coordinates — state/area only.
-    geoCoverage: 'state + designated area (no coordinates in FEMA summaries endpoint)',
+    geoCoverage:
+      'state + designated area (no coordinates in FEMA summaries endpoint)',
     declarations,
-    source: 'FEMA OpenFEMA API — Disaster Declarations Summaries (public domain)',
+    source:
+      'FEMA OpenFEMA API — Disaster Declarations Summaries (public domain)',
   };
 }
 
@@ -119,15 +130,24 @@ function sendJson(res, status, body, cacheControl = 'public, max-age=3600') {
 /** Mount the FEMA disaster-declarations proxy. Mirrors the wave5 felt provider shape. */
 export function disastersProxy() {
   async function handler(req, res) {
-    if (req.method !== 'GET') return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
     try {
       sendJson(res, 200, await getSnapshot());
     } catch (error) {
-      const upstreamFail = error?.status === 502 || error?.name === 'AbortError' || /aborted?/i.test(error?.message ?? '');
-      sendJson(res, upstreamFail ? 502 : 500, {
-        error: 'disasters_unavailable',
-        detail: error?.message ?? 'unknown',
-      }, 'no-store');
+      const upstreamFail =
+        error?.status === 502 ||
+        error?.name === 'AbortError' ||
+        /aborted?/i.test(error?.message ?? '');
+      sendJson(
+        res,
+        upstreamFail ? 502 : 500,
+        {
+          error: 'disasters_unavailable',
+          detail: error?.message ?? 'unknown',
+        },
+        'no-store',
+      );
     }
   }
 
@@ -145,5 +165,8 @@ export function disastersProxy() {
 export const _disastersInternals = {
   trimDeclaration,
   trimDisastersPayload,
-  clearCaches: () => { cache = null; inflight = null; },
+  clearCaches: () => {
+    cache = null;
+    inflight = null;
+  },
 };

@@ -28,7 +28,10 @@ async function fetchJson(url, { timeoutMs = 12000 } = {}) {
   const ctrl = new AbortController();
   const timer = setTimeout(() => ctrl.abort(), timeoutMs);
   try {
-    const res = await fetch(url, { signal: ctrl.signal, headers: { Accept: 'application/json' } });
+    const res = await fetch(url, {
+      signal: ctrl.signal,
+      headers: { Accept: 'application/json' },
+    });
     if (!res.ok) return null;
     return await res.json();
   } catch {
@@ -40,7 +43,10 @@ async function fetchJson(url, { timeoutMs = 12000 } = {}) {
 
 function readMuted() {
   try {
-    return typeof localStorage !== 'undefined' && localStorage.getItem(MUTE_KEY) === '1';
+    return (
+      typeof localStorage !== 'undefined' &&
+      localStorage.getItem(MUTE_KEY) === '1'
+    );
   } catch {
     return false;
   }
@@ -48,14 +54,19 @@ function readMuted() {
 
 function writeMuted(muted) {
   try {
-    if (typeof localStorage !== 'undefined') localStorage.setItem(MUTE_KEY, muted ? '1' : '0');
+    if (typeof localStorage !== 'undefined')
+      localStorage.setItem(MUTE_KEY, muted ? '1' : '0');
   } catch {
     /* ignore */
   }
 }
 
 /** Normalize raw feed items into the classifier's record shape. */
-export function normalizeWatchItems({ quakes = [], alerts = [], incidents = [] } = {}) {
+export function normalizeWatchItems({
+  quakes = [],
+  alerts = [],
+  incidents = [],
+} = {}) {
   const out = [];
   for (const f of quakes) {
     const props = f?.properties ?? {};
@@ -78,7 +89,11 @@ export function normalizeWatchItems({ quakes = [], alerts = [], incidents = [] }
     if (!props?.event) continue;
     const sentish = props?.sent ?? props?.effective ?? props?.onset ?? '';
     out.push({
-      id: `gaia:alert:${String(props?.id || '').split('/').pop() || sentish}`,
+      id: `gaia:alert:${
+        String(props?.id || '')
+          .split('/')
+          .pop() || sentish
+      }`,
       kind: 'alert',
       event: props.event,
       area: props?.areaDesc,
@@ -142,7 +157,10 @@ export function startGaiaWatcher({
     return { spoken };
   }
 
-  const timer = typeof setInterval !== 'undefined' ? setInterval(() => tick(), pollMs) : null;
+  const timer =
+    typeof setInterval !== 'undefined'
+      ? setInterval(() => tick(), pollMs)
+      : null;
 
   return {
     setMuted(m) {

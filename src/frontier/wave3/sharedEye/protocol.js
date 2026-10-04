@@ -21,7 +21,8 @@ export const PROTOCOL_VERSION = 1;
 function utf8ToB64Url(text) {
   const bytes = new TextEncoder().encode(text);
   let bin = '';
-  for (let i = 0; i < bytes.length; i += 1) bin += String.fromCharCode(bytes[i]);
+  for (let i = 0; i < bytes.length; i += 1)
+    bin += String.fromCharCode(bytes[i]);
   return btoa(bin).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
 }
 
@@ -41,7 +42,8 @@ export function encodeRoomCode(payload) {
 
 /** Decode a room code back to its payload. Returns null on any failure. */
 export function decodeRoomCode(code) {
-  if (typeof code !== 'string' || !code.length || code.length > 20000) return null;
+  if (typeof code !== 'string' || !code.length || code.length > 20000)
+    return null;
   try {
     const obj = JSON.parse(b64UrlToUtf8(code));
     if (!obj || obj.v !== PROTOCOL_VERSION) return null;
@@ -55,8 +57,19 @@ export function decodeRoomCode(code) {
  * Serialize a camera state. Fields are degrees/meters.
  * Returns null when required fields are missing/non-finite.
  */
-export function serializeCamera({ lon, lat, height, heading = 0, pitch = -60 } = {}) {
-  if (!Number.isFinite(lon) || !Number.isFinite(lat) || !Number.isFinite(height)) return null;
+export function serializeCamera({
+  lon,
+  lat,
+  height,
+  heading = 0,
+  pitch = -60,
+} = {}) {
+  if (
+    !Number.isFinite(lon) ||
+    !Number.isFinite(lat) ||
+    !Number.isFinite(height)
+  )
+    return null;
   return {
     t: 'camera',
     lon: round6(lon),
@@ -89,7 +102,14 @@ export function makeNote({ id, lon, lat, text, by } = {}) {
   if (!Number.isFinite(lon) || !Number.isFinite(lat)) return null;
   const clean = String(text ?? '').slice(0, 280);
   if (!clean.length) return null;
-  return { t: 'note', id, lon: round6(lon), lat: round6(lat), text: clean, by: String(by ?? 'anon').slice(0, 40) };
+  return {
+    t: 'note',
+    id,
+    lon: round6(lon),
+    lat: round6(lat),
+    text: clean,
+    by: String(by ?? 'anon').slice(0, 40),
+  };
 }
 
 /** Validate any inbound data-channel message. Returns the message or null. */
@@ -97,7 +117,9 @@ export function validateMessage(msg) {
   if (!msg || typeof msg !== 'object' || typeof msg.t !== 'string') return null;
   switch (msg.t) {
     case 'hello':
-      return typeof msg.name === 'string' ? { t: 'hello', name: msg.name.slice(0, 40) } : null;
+      return typeof msg.name === 'string'
+        ? { t: 'hello', name: msg.name.slice(0, 40) }
+        : null;
     case 'camera':
       return parseCamera(msg);
     case 'cursor':

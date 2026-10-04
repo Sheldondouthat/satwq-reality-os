@@ -4,51 +4,44 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 6 (apac-weather worker)).
  */
 export const SPEC = {
-  "id": "apac-eccc-citypage-conditions",
-  "title": "ECCC Canada — city current conditions",
-  "url": "https://api.weather.gc.ca/collections/citypageweather-realtime/items?limit=25&f=json",
-  "headers": {
-    "User-Agent": "satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)"
+  id: 'apac-eccc-citypage-conditions',
+  title: 'ECCC Canada — city current conditions',
+  url: 'https://api.weather.gc.ca/collections/citypageweather-realtime/items?limit=25&f=json',
+  headers: {
+    'User-Agent':
+      'satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)',
   },
-  "ttlSeconds": 1800,
-  "extract": {
-    "items": "$.features",
-    "limit": 25,
-    "map": {
-      "key": "$.id",
-      "city": "$.properties.name.en",
-      "region": "$.properties.region.en",
-      "updated": "$.properties.lastUpdated",
-      "lat": "$.geometry.coordinates[1]",
-      "lon": "$.geometry.coordinates[0]",
-      "tempC": "$.properties.currentConditions.temperature.value.en",
-      "humidityPct": "$.properties.currentConditions.relativeHumidity.value.en",
-      "windKph": "$.properties.currentConditions.wind.speed.value.en",
-      "windDir": "$.properties.currentConditions.wind.direction.value.en",
-      "pressureKpa": "$.properties.currentConditions.pressure.value.en"
+  ttlSeconds: 1800,
+  extract: {
+    items: '$.features',
+    limit: 25,
+    map: {
+      key: '$.id',
+      city: '$.properties.name.en',
+      region: '$.properties.region.en',
+      updated: '$.properties.lastUpdated',
+      lat: '$.geometry.coordinates[1]',
+      lon: '$.geometry.coordinates[0]',
+      tempC: '$.properties.currentConditions.temperature.value.en',
+      humidityPct: '$.properties.currentConditions.relativeHumidity.value.en',
+      windKph: '$.properties.currentConditions.wind.speed.value.en',
+      windDir: '$.properties.currentConditions.wind.direction.value.en',
+      pressureKpa: '$.properties.currentConditions.pressure.value.en',
     },
-    "numbers": [
-      "lat",
-      "lon",
-      "tempC",
-      "humidityPct",
-      "windKph",
-      "pressureKpa"
-    ]
+    numbers: ['lat', 'lon', 'tempC', 'humidityPct', 'windKph', 'pressureKpa'],
   },
-  "required": [
-    "city",
-    "tempC"
-  ],
-  "source": "Environment and Climate Change Canada (ECCC)",
-  "attribution": "Data: ECCC — api.weather.gc.ca (OGC API Features, citypageweather-realtime) — keyless.",
-  "units": {
-    "tempC": "C",
-    "windKph": "km/h",
-    "pressureKpa": "kPa",
-    "humidityPct": "percent"
+  required: ['city', 'tempC'],
+  source: 'Environment and Climate Change Canada (ECCC)',
+  attribution:
+    'Data: ECCC — api.weather.gc.ca (OGC API Features, citypageweather-realtime) — keyless.',
+  units: {
+    tempC: 'C',
+    windKph: 'km/h',
+    pressureKpa: 'kPa',
+    humidityPct: 'percent',
   },
-  "honesty": "Current conditions for Canadian cities; ECCC labels this collection experimental; bilingual en/fr fields — English mapped; deeper forecast objects are not mapped here.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 6 (apac-weather worker)"
+  honesty:
+    'Current conditions for Canadian cities; ECCC labels this collection experimental; bilingual en/fr fields — English mapped; deeper forecast objects are not mapped here.',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 6 (apac-weather worker)',
 };

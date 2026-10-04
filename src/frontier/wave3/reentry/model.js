@@ -65,7 +65,12 @@ export function coerceCandidate(raw) {
   const tcaMs = Date.parse(raw.tcaUtc);
   const tcaDays = numOrNull(raw.tcaDays);
   if (!Number.isFinite(tcaMs) || tcaDays === null || tcaDays < 0) return null;
-  const tle = raw.tle && typeof raw.tle.line1 === 'string' && typeof raw.tle.line2 === 'string' ? raw.tle : null;
+  const tle =
+    raw.tle &&
+    typeof raw.tle.line1 === 'string' &&
+    typeof raw.tle.line2 === 'string'
+      ? raw.tle
+      : null;
   return {
     id: typeof raw.id === 'string' ? raw.id : `re-${tcaMs}`,
     name: String(raw.name ?? 'UNKNOWN'),
@@ -76,7 +81,9 @@ export function coerceCandidate(raw) {
     windowHours: numOrNull(raw.windowHours),
     daysLow: numOrNull(raw.daysLow),
     daysHigh: numOrNull(raw.daysHigh),
-    urg: ['critical', 'elevated', 'watch'].includes(raw.urg) ? raw.urg : 'nominal',
+    urg: ['critical', 'elevated', 'watch'].includes(raw.urg)
+      ? raw.urg
+      : 'nominal',
     meanMotion: numOrNull(raw.meanMotion),
     tle,
   };
@@ -97,8 +104,13 @@ export function propagateGeodetic(tle, epochMs) {
     const pv = propagate(satrec, date);
     if (!pv || !pv.position) return null;
     const geo = eciToGeodetic(pv.position, gstime(date));
-    if (!Number.isFinite(geo.latitude) || !Number.isFinite(geo.longitude)) return null;
-    return { lat: geo.latitude * RAD2DEG, lon: geo.longitude * RAD2DEG, altKm: geo.height };
+    if (!Number.isFinite(geo.latitude) || !Number.isFinite(geo.longitude))
+      return null;
+    return {
+      lat: geo.latitude * RAD2DEG,
+      lon: geo.longitude * RAD2DEG,
+      altKm: geo.height,
+    };
   } catch {
     return null;
   }
@@ -108,7 +120,11 @@ export function propagateGeodetic(tle, epochMs) {
  * Final-orbit ground track: from (orbitsBack × period) before centerMs up to
  * centerMs, sampled every stepSec. Returns [lon, lat, heightM] triples.
  */
-export function groundTrack(tle, centerMs, { orbitsBack = 3, stepSec = 60 } = {}) {
+export function groundTrack(
+  tle,
+  centerMs,
+  { orbitsBack = 3, stepSec = 60 } = {},
+) {
   if (!tle || !Number.isFinite(centerMs)) return [];
   let periodMin = 100;
   try {
@@ -118,7 +134,9 @@ export function groundTrack(tle, centerMs, { orbitsBack = 3, stepSec = 60 } = {}
     if (satrec.no && Number.isFinite(satrec.no) && satrec.no > 0) {
       periodMin = (2 * Math.PI) / satrec.no;
     }
-  } catch { /* fall through with default */ }
+  } catch {
+    /* fall through with default */
+  }
   const spanMs = orbitsBack * periodMin * 60_000;
   const out = [];
   for (let ms = centerMs - spanMs; ms <= centerMs; ms += stepSec * 1000) {
@@ -133,13 +151,29 @@ export function groundTrack(tle, centerMs, { orbitsBack = 3, stepSec = 60 } = {}
  * ±window (daysLow/daysHigh from the provider model). The outer tracks render
  * dim — the honest visual for "we don't know exactly when".
  */
-export function uncertaintyBand(candidate, { orbitsBack = 3, stepSec = 120 } = {}) {
+export function uncertaintyBand(
+  candidate,
+  { orbitsBack = 3, stepSec = 120 } = {},
+) {
   if (!candidate.tle) return null;
-  const nominal = groundTrack(candidate.tle, candidate.tcaMs, { orbitsBack, stepSec });
-  const halfLow = candidate.daysLow !== null ? (candidate.tcaDays - candidate.daysLow) : 0;
-  const halfHigh = candidate.daysHigh !== null ? (candidate.daysHigh - candidate.tcaDays) : 0;
-  const early = groundTrack(candidate.tle, candidate.tcaMs - halfLow * 86400_000, { orbitsBack, stepSec });
-  const late = groundTrack(candidate.tle, candidate.tcaMs + halfHigh * 86400_000, { orbitsBack, stepSec });
+  const nominal = groundTrack(candidate.tle, candidate.tcaMs, {
+    orbitsBack,
+    stepSec,
+  });
+  const halfLow =
+    candidate.daysLow !== null ? candidate.tcaDays - candidate.daysLow : 0;
+  const halfHigh =
+    candidate.daysHigh !== null ? candidate.daysHigh - candidate.tcaDays : 0;
+  const early = groundTrack(
+    candidate.tle,
+    candidate.tcaMs - halfLow * 86400_000,
+    { orbitsBack, stepSec },
+  );
+  const late = groundTrack(
+    candidate.tle,
+    candidate.tcaMs + halfHigh * 86400_000,
+    { orbitsBack, stepSec },
+  );
   return { nominal, early, late };
 }
 
@@ -165,8 +199,13 @@ export function overflightAlert(track) {
 /** Human timing line: "T-3.2d ± 1.1d window". */
 export function formatTiming(c) {
   const half = c.windowHours !== null ? c.windowHours / 2 : null;
-  const t = c.tcaDays < 1 ? `${Math.round(c.tcaDays * 24)}h` : `${c.tcaDays.toFixed(1)}d`;
-  return half !== null ? `T-${t} ± ${half.toFixed(1)}h window (modeled)` : `T-${t} (modeled)`;
+  const t =
+    c.tcaDays < 1
+      ? `${Math.round(c.tcaDays * 24)}h`
+      : `${c.tcaDays.toFixed(1)}d`;
+  return half !== null
+    ? `T-${t} ± ${half.toFixed(1)}h window (modeled)`
+    : `T-${t} (modeled)`;
 }
 
 /** Sort: most urgent TCA first. */

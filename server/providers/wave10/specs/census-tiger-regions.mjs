@@ -4,36 +4,32 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 3 (census worker)).
  */
 export const SPEC = {
-  "id": "census-tiger-regions",
-  "title": "U.S. Census — the 4 census regions",
-  "url": "https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/Region_Division/MapServer/1/query?where=1%3D1&outFields=NAME%2CGEOID%2CREGION%2CCENTLAT%2CCENTLON&returnGeometry=false&f=json",
-  "headers": {},
-  "ttlSeconds": 86400,
-  "source": "U.S. Census Bureau",
-  "attribution": "Data: U.S. Census Bureau, TIGERweb REST — keyless.",
-  "honesty": "Vintage: current TIGERweb boundaries (queried 2026-10-02). The Census Bureau's 4 statistical regions; coordinates are polygon centroids.",
-  "units": {
-    "lat": "deg",
-    "lon": "deg"
+  id: 'census-tiger-regions',
+  title: 'U.S. Census — the 4 census regions',
+  url: 'https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/Region_Division/MapServer/1/query?where=1%3D1&outFields=NAME%2CGEOID%2CREGION%2CCENTLAT%2CCENTLON&returnGeometry=false&f=json',
+  headers: {},
+  ttlSeconds: 86400,
+  source: 'U.S. Census Bureau',
+  attribution: 'Data: U.S. Census Bureau, TIGERweb REST — keyless.',
+  honesty:
+    "Vintage: current TIGERweb boundaries (queried 2026-10-02). The Census Bureau's 4 statistical regions; coordinates are polygon centroids.",
+  units: {
+    lat: 'deg',
+    lon: 'deg',
   },
-  "extract": {
-    "items": "$.features",
-    "limit": 8,
-    "map": {
-      "name": "$.attributes.NAME",
-      "geoid": "$.attributes.GEOID",
-      "region": "$.attributes.REGION",
-      "lat": "$.attributes.CENTLAT",
-      "lon": "$.attributes.CENTLON"
+  extract: {
+    items: '$.features',
+    limit: 8,
+    map: {
+      name: '$.attributes.NAME',
+      geoid: '$.attributes.GEOID',
+      region: '$.attributes.REGION',
+      lat: '$.attributes.CENTLAT',
+      lon: '$.attributes.CENTLON',
     },
-    "numbers": [
-      "lat",
-      "lon"
-    ]
+    numbers: ['lat', 'lon'],
   },
-  "required": [
-    "name"
-  ],
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 3 (census worker)"
+  required: ['name'],
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 3 (census worker)',
 };

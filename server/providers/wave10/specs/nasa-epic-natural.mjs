@@ -4,37 +4,34 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 7 (nasa worker)).
  */
 export const SPEC = {
-  "attribution": "Data: NASA open APIs — keyless (DEMO_KEY).",
-  "extract": {
-    "items": "$",
-    "limit": 13,
-    "map": {
-      "caption": "$.caption",
-      "date": "$.date",
-      "identifier": "$.identifier",
-      "image": "$.image",
-      "lat": "$.centroid_coordinates.lat",
-      "lon": "$.centroid_coordinates.lon"
+  attribution: 'Data: NASA open APIs — keyless (DEMO_KEY).',
+  extract: {
+    items: '$',
+    limit: 13,
+    map: {
+      caption: '$.caption',
+      date: '$.date',
+      identifier: '$.identifier',
+      image: '$.image',
+      lat: '$.centroid_coordinates.lat',
+      lon: '$.centroid_coordinates.lon',
     },
-    "numbers": [
-      "lat",
-      "lon"
-    ]
+    numbers: ['lat', 'lon'],
   },
-  "headers": {},
-  "honesty": "Latest natural-color full-disc Earth images from DSCOVR/EPIC at L1. NOTE: the api.nasa.gov/EPIC alias 302-redirects to a dead GitHub Pages page, so the spec points at the canonical keyless endpoint epic.gsfc.nasa.gov/api/natural. lat/lon is the sub-spacecraft point. Verified 13 rows in fixture (12573 bytes).",
-  "id": "nasa-epic-natural",
-  "required": [
-    "identifier"
-  ],
-  "source": "NASA EPIC — epic.gsfc.nasa.gov/api/natural (keyless; api.nasa.gov/EPIC alias is dead)",
-  "title": "NASA EPIC — latest natural Earth imagery",
-  "ttlSeconds": 86400,
-  "units": {
-    "lat": "deg",
-    "lon": "deg"
+  headers: {},
+  honesty:
+    'Latest natural-color full-disc Earth images from DSCOVR/EPIC at L1. NOTE: the api.nasa.gov/EPIC alias 302-redirects to a dead GitHub Pages page, so the spec points at the canonical keyless endpoint epic.gsfc.nasa.gov/api/natural. lat/lon is the sub-spacecraft point. Verified 13 rows in fixture (12573 bytes).',
+  id: 'nasa-epic-natural',
+  required: ['identifier'],
+  source:
+    'NASA EPIC — epic.gsfc.nasa.gov/api/natural (keyless; api.nasa.gov/EPIC alias is dead)',
+  title: 'NASA EPIC — latest natural Earth imagery',
+  ttlSeconds: 86400,
+  units: {
+    lat: 'deg',
+    lon: 'deg',
   },
-  "url": "https://epic.gsfc.nasa.gov/api/natural",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 7 (nasa worker)"
+  url: 'https://epic.gsfc.nasa.gov/api/natural',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 7 (nasa worker)',
 };

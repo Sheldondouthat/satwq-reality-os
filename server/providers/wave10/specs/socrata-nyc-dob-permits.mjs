@@ -4,34 +4,30 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 1 (socrata worker)).
  */
 export const SPEC = {
-  "attribution": "Data: City of New York Open Data — keyless Socrata API.",
-  "extract": {
-    "items": "$",
-    "limit": 50,
-    "map": {
-      "borough": "$.borough",
-      "created": "$.filing_date",
-      "key": "$.job__",
-      "lat": "$.gis_latitude",
-      "lon": "$.gis_longitude",
-      "status": "$.permit_status",
-      "type": "$.job_type"
+  attribution: 'Data: City of New York Open Data — keyless Socrata API.',
+  extract: {
+    items: '$',
+    limit: 50,
+    map: {
+      borough: '$.borough',
+      created: '$.filing_date',
+      key: '$.job__',
+      lat: '$.gis_latitude',
+      lon: '$.gis_longitude',
+      status: '$.permit_status',
+      type: '$.job_type',
     },
-    "numbers": [
-      "lat",
-      "lon"
-    ]
+    numbers: ['lat', 'lon'],
   },
-  "honesty": "NYC DOB permit issuance feed; many rows dated 2020-era; some lack GIS coordinates.",
-  "id": "socrata-nyc-dob-permits",
-  "required": [
-    "key"
-  ],
-  "source": "NYC Open Data (Socrata)",
-  "title": "NYC Open Data — DOB permit issuance",
-  "ttlSeconds": 3600,
-  "units": {},
-  "url": "https://data.cityofnewyork.us/resource/ipu4-2q9a.json?$limit=50",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 1 (socrata worker)"
+  honesty:
+    'NYC DOB permit issuance feed; many rows dated 2020-era; some lack GIS coordinates.',
+  id: 'socrata-nyc-dob-permits',
+  required: ['key'],
+  source: 'NYC Open Data (Socrata)',
+  title: 'NYC Open Data — DOB permit issuance',
+  ttlSeconds: 3600,
+  units: {},
+  url: 'https://data.cityofnewyork.us/resource/ipu4-2q9a.json?$limit=50',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 1 (socrata worker)',
 };

@@ -61,7 +61,11 @@ function buildPayload(params, approaches) {
   return {
     generatedAt: new Date().toISOString(),
     count: approaches.length,
-    window: { from: params.dateMin, to: params.dateMax, distMaxAu: params.distMaxAu },
+    window: {
+      from: params.dateMin,
+      to: params.dateMax,
+      distMaxAu: params.distMaxAu,
+    },
     source: 'NASA/JPL CNEOS Close-Approach Data API (keyless)',
     approaches: approaches.map(trimApproach),
   };
@@ -109,7 +113,8 @@ export function asteroidsProxy() {
       return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
     try {
       // connect semantics: the /api/asteroids prefix is already stripped.
-      const query = new URL(String(req.url || '/'), 'http://localhost').searchParams;
+      const query = new URL(String(req.url || '/'), 'http://localhost')
+        .searchParams;
       sendJson(res, 200, await getSnapshot(parseCadParams(query)));
     } catch (error) {
       const status =

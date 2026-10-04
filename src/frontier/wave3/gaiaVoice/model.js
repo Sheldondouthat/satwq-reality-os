@@ -55,7 +55,9 @@ function base(record, severity, kind, utterance) {
 function classifyQuake(r) {
   const mag = Number(r.snapshot?.mag ?? r.mag);
   if (!Number.isFinite(mag) || mag < QUAKE_SPEAK_MAG_MIN) return null;
-  const place = String(r.snapshot?.place || r.place || 'an unknown location').slice(0, 90);
+  const place = String(
+    r.snapshot?.place || r.place || 'an unknown location',
+  ).slice(0, 90);
   const severity = mag >= 7.5 ? 'critical' : 'high';
   return base(
     r,
@@ -68,7 +70,9 @@ function classifyQuake(r) {
 function classifyAlert(r) {
   const event = String(r.snapshot?.event || r.event || '');
   if (!event) return null;
-  const area = String(r.snapshot?.areaDesc || r.area || '').split(';')[0].slice(0, 90);
+  const area = String(r.snapshot?.areaDesc || r.area || '')
+    .split(';')[0]
+    .slice(0, 90);
   const severity = /tornado|tsunami/i.test(event) ? 'critical' : 'high';
   return base(
     r,
@@ -95,7 +99,12 @@ function classifyFireball(r) {
 function classifyIncident(r) {
   if (r.severity !== 'high' && r.severity !== 'critical') return null;
   const title = String(r.title || 'synthesized incident').slice(0, 100);
-  return base(r, r.severity === 'critical' ? 'critical' : 'high', 'incident', `Heads up. ${title}.`);
+  return base(
+    r,
+    r.severity === 'critical' ? 'critical' : 'high',
+    'incident',
+    `Heads up. ${title}.`,
+  );
 }
 
 /**

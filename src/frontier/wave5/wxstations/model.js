@@ -61,7 +61,8 @@ export async function fetchWxStations(fetchImpl = fetch) {
   const res = await fetchImpl(API);
   if (!res.ok) throw new Error(`wxstations_http_${res.status}`);
   const doc = await res.json();
-  if (!doc || !Array.isArray(doc.stations)) throw new Error('wxstations_unexpected_shape');
+  if (!doc || !Array.isArray(doc.stations))
+    throw new Error('wxstations_unexpected_shape');
   return {
     stations: normalizeStations(doc.stations),
     sources: summarizeSources(doc.sources),

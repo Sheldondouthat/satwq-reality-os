@@ -4,37 +4,34 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 7 (euro worker)).
  */
 export const SPEC = {
-  "attribution": "Data: Ville de Paris — opendata.paris.fr (Opendatasoft API) — keyless.",
-  "extract": {
-    "items": "$.results",
-    "limit": 50,
-    "map": {
-      "address": "$.adresse",
-      "geo": "$.geo_point_2d",
-      "name": "$.nom",
-      "spaces": "$.emplacements",
-      "station_id": "$.id",
-      "status": "$.statut"
+  attribution:
+    'Data: Ville de Paris — opendata.paris.fr (Opendatasoft API) — keyless.',
+  extract: {
+    items: '$.results',
+    limit: 50,
+    map: {
+      address: '$.adresse',
+      geo: '$.geo_point_2d',
+      name: '$.nom',
+      spaces: '$.emplacements',
+      station_id: '$.id',
+      status: '$.statut',
     },
-    "numbers": [
-      "spaces"
-    ]
+    numbers: ['spaces'],
   },
-  "headers": {},
-  "honesty": "Taxi rank directory (name, address, number of spaces, status). Civic data; no personal identifiers. Verified 50 rows in fixture (22906 bytes); 420 ranks total.",
-  "id": "euro-paris-taxi-stations",
-  "required": [
-    "name",
-    "address"
-  ],
-  "source": "Ville de Paris — opendata.paris.fr (Opendatasoft)",
-  "title": "Paris — taxi ranks",
-  "ttlSeconds": 3600,
-  "units": {
-    "geo": "lon,lat",
-    "spaces": "taxi spaces"
+  headers: {},
+  honesty:
+    'Taxi rank directory (name, address, number of spaces, status). Civic data; no personal identifiers. Verified 50 rows in fixture (22906 bytes); 420 ranks total.',
+  id: 'euro-paris-taxi-stations',
+  required: ['name', 'address'],
+  source: 'Ville de Paris — opendata.paris.fr (Opendatasoft)',
+  title: 'Paris — taxi ranks',
+  ttlSeconds: 3600,
+  units: {
+    geo: 'lon,lat',
+    spaces: 'taxi spaces',
   },
-  "url": "https://opendata.paris.fr/api/explore/v2.1/catalog/datasets/bornes-dappel-taxi/records?limit=50",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 7 (euro worker)"
+  url: 'https://opendata.paris.fr/api/explore/v2.1/catalog/datasets/bornes-dappel-taxi/records?limit=50',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 7 (euro worker)',
 };

@@ -14,7 +14,8 @@
  * interactive path; watches are the scheduled path.
  */
 
-const QUAKE_RE = /M\s?(\d+(?:\.\d+)?)\s*\+\s*(?:within|in)\s*(\d+(?:\.\d+)?)\s*km\s*(?:of|from)\s*(.+)/i;
+const QUAKE_RE =
+  /M\s?(\d+(?:\.\d+)?)\s*\+\s*(?:within|in)\s*(\d+(?:\.\d+)?)\s*km\s*(?:of|from)\s*(.+)/i;
 const WRAPPER_RE = /^(?:alert me|notify me|watch|tell me|warn me)\s+when\s+/i;
 const RIVER_RE = /(.+?)\s+(?:floods?|at flood|reaches flood|hits flood)/i;
 
@@ -24,7 +25,9 @@ function haversineKm(lat1, lon1, lat2, lon2) {
   const dLon = ((lon2 - lon1) * Math.PI) / 180;
   const a =
     Math.sin(dLat / 2) ** 2 +
-    Math.cos((lat1 * Math.PI) / 180) * Math.cos((lat2 * Math.PI) / 180) * Math.sin(dLon / 2) ** 2;
+    Math.cos((lat1 * Math.PI) / 180) *
+      Math.cos((lat2 * Math.PI) / 180) *
+      Math.sin(dLon / 2) ** 2;
   return 2 * EARTH_R_KM * Math.asin(Math.sqrt(a));
 }
 
@@ -79,11 +82,26 @@ export async function resolveWatchCenter(watch, { geocode }) {
   if (watch.kind !== 'quake') return watch;
   if (watch.center) return watch;
   const place = await geocode(watch.placeQuery);
-  if (!place || !Number.isFinite(place.lat) || !Number.isFinite(place.lon)) return null;
-  return { ...watch, center: { lat: place.lat, lon: place.lon, label: place.label ?? watch.placeQuery } };
+  if (!place || !Number.isFinite(place.lat) || !Number.isFinite(place.lon))
+    return null;
+  return {
+    ...watch,
+    center: {
+      lat: place.lat,
+      lon: place.lon,
+      label: place.label ?? watch.placeQuery,
+    },
+  };
 }
 
-const RIVER_BAND_RANK = { unknown: 0, normal: 1, action: 2, 'minor-flood': 3, 'moderate-flood': 4, 'major-flood': 5 };
+const RIVER_BAND_RANK = {
+  unknown: 0,
+  normal: 1,
+  action: 2,
+  'minor-flood': 3,
+  'moderate-flood': 4,
+  'major-flood': 5,
+};
 
 /**
  * Evaluate one watch against live data.
@@ -92,7 +110,8 @@ const RIVER_BAND_RANK = { unknown: 0, normal: 1, action: 2, 'minor-flood': 3, 'm
  * @returns {{fired:boolean, detail:string|null, matched?:object}}
  */
 export function evaluateWatch(watch, data = {}) {
-  if (!watch || typeof watch !== 'object') return { fired: false, detail: null };
+  if (!watch || typeof watch !== 'object')
+    return { fired: false, detail: null };
 
   if (watch.kind === 'quake') {
     const { minMag, radiusKm, center } = watch;
@@ -101,7 +120,10 @@ export function evaluateWatch(watch, data = {}) {
     }
     const hits = (data.quakes ?? [])
       .filter((q) => Number(q.mag) >= minMag)
-      .map((q) => ({ ...q, distKm: haversineKm(center.lat, center.lon, q.lat, q.lon) }))
+      .map((q) => ({
+        ...q,
+        distKm: haversineKm(center.lat, center.lon, q.lat, q.lon),
+      }))
       .filter((q) => q.distKm <= radiusKm)
       .sort((a, b) => b.mag - a.mag);
     if (!hits.length) return { fired: false, detail: null };
@@ -118,12 +140,20 @@ export function evaluateWatch(watch, data = {}) {
     if (!river) return { fired: false, detail: null };
     const rank = RIVER_BAND_RANK[river.band] ?? 0;
     if (rank >= RIVER_BAND_RANK['minor-flood']) {
-      return { fired: true, detail: `${river.name} at ${river.band} (gage ${river.gageFt ?? '?'} ft)`, matched: river };
+      return {
+        fired: true,
+        detail: `${river.name} at ${river.band} (gage ${river.gageFt ?? '?'} ft)`,
+        matched: river,
+      };
     }
     return { fired: false, detail: null };
   }
 
-  return { fired: false, detail: 'custom watch — review manually', needsReview: true };
+  return {
+    fired: false,
+    detail: 'custom watch — review manually',
+    needsReview: true,
+  };
 }
 
 export { haversineKm };

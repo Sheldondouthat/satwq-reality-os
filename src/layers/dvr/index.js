@@ -26,9 +26,16 @@ import {
 const SIX_HOURS_MS = 6 * 3600 * 1000;
 const PLAY_TICK_MS = 900;
 
-export function createDvrLayer({ source, updateInterval = SIX_HOURS_MS, ...rest } = {}) {
+export function createDvrLayer({
+  source,
+  updateInterval = SIX_HOURS_MS,
+  ...rest
+} = {}) {
   const dvrSource = source || createDvrSource();
-  if (typeof dvrSource.getSnapshot !== 'function' || typeof dvrSource.setDate !== 'function')
+  if (
+    typeof dvrSource.getSnapshot !== 'function' ||
+    typeof dvrSource.setDate !== 'function'
+  )
     throw new TypeError('DVR requires a date-controllable snapshot source');
 
   const inner = createImageryTileLayer({
@@ -60,7 +67,9 @@ export function createDvrLayer({ source, updateInterval = SIX_HOURS_MS, ...rest 
 
   async function setTime(dateStr, { probe = true } = {}) {
     if (!isValidGibsDate(dateStr))
-      throw new TypeError(`DVR setTime: invalid date ${JSON.stringify(dateStr)}`);
+      throw new TypeError(
+        `DVR setTime: invalid date ${JSON.stringify(dateStr)}`,
+      );
     const seq = ++_setTimeSeq;
     const clamped = clampGibsDate(dateStr, _range);
     if (probe) {
@@ -69,7 +78,9 @@ export function createDvrLayer({ source, updateInterval = SIX_HOURS_MS, ...rest 
       } catch (e) {
         if (seq !== _setTimeSeq) return { ok: false, stale: true };
         _unavailable.add(clamped);
-        const err = new Error(`No GIBS frame for ${clamped}; kept ${_lastGoodDate || 'latest'}`);
+        const err = new Error(
+          `No GIBS frame for ${clamped}; kept ${_lastGoodDate || 'latest'}`,
+        );
         err.code = e.code || 'DVR_DATE_UNAVAILABLE';
         err.date = clamped;
         throw err;
@@ -89,7 +100,9 @@ export function createDvrLayer({ source, updateInterval = SIX_HOURS_MS, ...rest 
       dvrSource.setDate(_lastGoodDate);
       await inner.update(_viewer);
     }
-    const err = new Error(`DVR could not display ${clamped}; kept ${_lastGoodDate || 'latest'}`);
+    const err = new Error(
+      `DVR could not display ${clamped}; kept ${_lastGoodDate || 'latest'}`,
+    );
     err.code = 'DVR_DISPLAY_FAILED';
     err.date = clamped;
     throw err;
@@ -226,11 +239,13 @@ export function createDvrControls(layer, { mount = document.body } = {}) {
   slider.max = String(range.days.length - 1);
   slider.step = '1';
   slider.value = String(range.days.length - 1);
-  slider.style.cssText = 'width:min(46vw,420px);accent-color:#6ea8ff;cursor:pointer;';
+  slider.style.cssText =
+    'width:min(46vw,420px);accent-color:#6ea8ff;cursor:pointer;';
   slider.setAttribute('aria-label', 'DVR date');
 
   const dateLabel = document.createElement('span');
-  dateLabel.style.cssText = 'min-width:86px;text-align:center;font-variant-numeric:tabular-nums;';
+  dateLabel.style.cssText =
+    'min-width:86px;text-align:center;font-variant-numeric:tabular-nums;';
 
   const status = document.createElement('span');
   status.style.cssText = 'color:#ffb86b;min-width:0;max-width:220px;';
@@ -270,7 +285,11 @@ export function createDvrControls(layer, { mount = document.body } = {}) {
       .setTime(date)
       .then(() => sync())
       .catch((e) => {
-        fail(e.code === 'DVR_DATE_UNAVAILABLE' ? `no frame ${e.date}` : 'frame failed');
+        fail(
+          e.code === 'DVR_DATE_UNAVAILABLE'
+            ? `no frame ${e.date}`
+            : 'frame failed',
+        );
         sync();
       });
   });

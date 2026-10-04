@@ -4,36 +4,33 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 4 (marine+state-open-data worker)).
  */
 export const SPEC = {
-  "headers": {
-    "User-Agent": "satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)"
+  headers: {
+    'User-Agent':
+      'satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)',
   },
-  "source": "California Data Exchange Center (CA Dept. of Water Resources)",
-  "attribution": "Data: CA CDEC — keyless.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 4 (marine+state-open-data worker)",
-  "id": "cdec-snow-swe",
-  "title": "CA CDEC — Sierra snow water content (Tenaya Lake)",
-  "url": "https://cdec.water.ca.gov/dynamicapp/req/JSONDataServlet?Stations=TNY&SensorNums=3&dur_code=D&Start=2026-09-25&End=2026-10-02",
-  "ttlSeconds": 21600,
-  "extract": {
-    "items": "$",
-    "limit": 50,
-    "map": {
-      "station": "$.stationId",
-      "date": "$.date",
-      "sweIn": "$.value",
-      "unitsRaw": "$.units"
+  source: 'California Data Exchange Center (CA Dept. of Water Resources)',
+  attribution: 'Data: CA CDEC — keyless.',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 4 (marine+state-open-data worker)',
+  id: 'cdec-snow-swe',
+  title: 'CA CDEC — Sierra snow water content (Tenaya Lake)',
+  url: 'https://cdec.water.ca.gov/dynamicapp/req/JSONDataServlet?Stations=TNY&SensorNums=3&dur_code=D&Start=2026-09-25&End=2026-10-02',
+  ttlSeconds: 21600,
+  extract: {
+    items: '$',
+    limit: 50,
+    map: {
+      station: '$.stationId',
+      date: '$.date',
+      sweIn: '$.value',
+      unitsRaw: '$.units',
     },
-    "numbers": [
-      "sweIn"
-    ]
+    numbers: ['sweIn'],
   },
-  "required": [
-    "station",
-    "date"
-  ],
-  "units": {
-    "sweIn": "in"
+  required: ['station', 'date'],
+  units: {
+    sweIn: 'in',
   },
-  "honesty": "Daily snow-pillow water content; seasonal — zero/out-of-season rows are normal in summer."
+  honesty:
+    'Daily snow-pillow water content; seasonal — zero/out-of-season rows are normal in summer.',
 };

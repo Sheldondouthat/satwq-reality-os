@@ -43,7 +43,11 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
 
     function clearEntities() {
       for (const e of entities) {
-        try { viewer.entities.remove(e); } catch { /* noop */ }
+        try {
+          viewer.entities.remove(e);
+        } catch {
+          /* noop */
+        }
       }
       entities = [];
     }
@@ -51,7 +55,9 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
     function addEntity(def) {
       try {
         entities.push(viewer.entities.add(def));
-      } catch { /* entity optional */ }
+      } catch {
+        /* entity optional */
+      }
     }
 
     function ellipseAt(s) {
@@ -72,17 +78,31 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
     function lightBandsAt(tHours) {
       const sub = subsolarPointAt(ECLIPSE_2045, tHours);
       for (const band of LIGHT_BANDS) {
-        const outer = ringAroundPoint(sub.latDeg, sub.lonDeg,
-          ringRadiusForElevation(band.elevLo), 96);
-        const inner = ringAroundPoint(sub.latDeg, sub.lonDeg,
-          ringRadiusForElevation(band.elevHi), 96);
+        const outer = ringAroundPoint(
+          sub.latDeg,
+          sub.lonDeg,
+          ringRadiusForElevation(band.elevLo),
+          96,
+        );
+        const inner = ringAroundPoint(
+          sub.latDeg,
+          sub.lonDeg,
+          ringRadiusForElevation(band.elevHi),
+          96,
+        );
         addEntity({
           polygon: {
             hierarchy: new Cesium.PolygonHierarchy(
               Cesium.Cartesian3.fromDegreesArray(outer.flat()),
-              [new Cesium.PolygonHierarchy(Cesium.Cartesian3.fromDegreesArray(inner.flat()))],
+              [
+                new Cesium.PolygonHierarchy(
+                  Cesium.Cartesian3.fromDegreesArray(inner.flat()),
+                ),
+              ],
             ),
-            material: Cesium.Color.fromCssColorString(band.color).withAlpha(0.10),
+            material: Cesium.Color.fromCssColorString(band.color).withAlpha(
+              0.1,
+            ),
             outline: false,
           },
         });
@@ -92,8 +112,11 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
     function sampleAt(utcMs) {
       let best = samples[0];
       for (const s of samples) {
-        if (Math.abs(new Date(s.utc).getTime() - utcMs) <
-            Math.abs(new Date(best.utc).getTime() - utcMs)) best = s;
+        if (
+          Math.abs(new Date(s.utc).getTime() - utcMs) <
+          Math.abs(new Date(best.utc).getTime() - utcMs)
+        )
+          best = s;
       }
       return best;
     }
@@ -137,7 +160,9 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
         if (statusEl) {
           statusEl.textContent =
             `${doc.name} · ${samples.length} samples` +
-            (usPassage ? ` · US ${usPassage.firstUtc.slice(11, 16)}–${usPassage.lastUtc.slice(11, 16)}Z` : '');
+            (usPassage
+              ? ` · US ${usPassage.firstUtc.slice(11, 16)}–${usPassage.lastUtc.slice(11, 16)}Z`
+              : '');
         }
         if (scrub && usPassage) {
           scrub.min = String(new Date(usPassage.firstUtc).getTime());
@@ -146,7 +171,8 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
           renderAt(Number(scrub.value));
         }
       } catch {
-        if (statusEl) statusEl.textContent = 'eclipse data unavailable — retrying';
+        if (statusEl)
+          statusEl.textContent = 'eclipse data unavailable — retrying';
       }
     }
 
@@ -194,7 +220,8 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
     if (mount && typeof chip === 'function') {
       try {
         statusEl = document.createElement('div');
-        statusEl.style.cssText = 'font-size:10px;color:#8aa4d6;margin:2px 0 4px;';
+        statusEl.style.cssText =
+          'font-size:10px;color:#8aa4d6;margin:2px 0 4px;';
         statusEl.textContent = 'computing shadow…';
         mount.appendChild(statusEl);
         panelEl = document.createElement('div');
@@ -232,14 +259,20 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
             disable: () => setEnabled(false),
           });
           mount.appendChild(
-            chip(T('feature.eclipse') || 'Eclipse 2045', (on) =>
-              on ? tracked.show() : tracked.hide(), false),
+            chip(
+              T('feature.eclipse') || 'Eclipse 2045',
+              (on) => (on ? tracked.show() : tracked.hide()),
+              false,
+            ),
           );
         } else {
-          mount.appendChild(chip(T('feature.eclipse') || 'Eclipse 2045', apply, false));
+          mount.appendChild(
+            chip(T('feature.eclipse') || 'Eclipse 2045', apply, false),
+          );
         }
         const legend = document.createElement('div');
-        legend.style.cssText = 'font-size:10px;color:#8aa4d6;margin-top:4px;line-height:1.5;';
+        legend.style.cssText =
+          'font-size:10px;color:#8aa4d6;margin-top:4px;line-height:1.5;';
         legend.innerHTML =
           'Shadow geometry from <b>NASA Besselian elements</b> (Espenak/GSFC) — ' +
           'a <b>rehearsal model</b>, not an official prediction. ' +

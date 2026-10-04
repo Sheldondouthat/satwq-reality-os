@@ -73,24 +73,40 @@ export class ShimReq {
     fetchReq.headers.forEach((value, key) => {
       const k = key.toLowerCase();
       // Node joins duplicate headers with ', ' (except set-cookie).
-      this.headers[k] = this.headers[k] === undefined ? value : `${this.headers[k]}, ${value}`;
+      this.headers[k] =
+        this.headers[k] === undefined ? value : `${this.headers[k]}, ${value}`;
     });
     // connect/Express style: rate limiters read req.socket.remoteAddress.
     this.socket = { remoteAddress: clientIp || 'local' };
     this._emitter = makeEmitter();
     this._bodyPromise = null;
     if (this.method !== 'GET' && this.method !== 'HEAD' && fetchReq.body) {
-      this._bodyPromise = fetchReq.arrayBuffer().catch(() => new ArrayBuffer(0));
+      this._bodyPromise = fetchReq
+        .arrayBuffer()
+        .catch(() => new ArrayBuffer(0));
     } else {
       this._bodyPromise = Promise.resolve(new ArrayBuffer(0));
     }
     this._pumped = false;
   }
 
-  on(type, fn) { this._emitter.on(type, fn); this._ensurePumped(); return this; }
-  once(type, fn) { this._emitter.once(type, fn); this._ensurePumped(); return this; }
-  removeListener(type, fn) { this._emitter.removeListener(type, fn); return this; }
-  emit(type, ...args) { return this._emitter.emit(type, ...args); }
+  on(type, fn) {
+    this._emitter.on(type, fn);
+    this._ensurePumped();
+    return this;
+  }
+  once(type, fn) {
+    this._emitter.once(type, fn);
+    this._ensurePumped();
+    return this;
+  }
+  removeListener(type, fn) {
+    this._emitter.removeListener(type, fn);
+    return this;
+  }
+  emit(type, ...args) {
+    return this._emitter.emit(type, ...args);
+  }
 
   _ensurePumped() {
     if (this._pumped) return;
@@ -131,10 +147,21 @@ export class ShimRes {
     this._emitter = makeEmitter();
   }
 
-  on(type, fn) { this._emitter.on(type, fn); return this; }
-  once(type, fn) { this._emitter.once(type, fn); return this; }
-  removeListener(type, fn) { this._emitter.removeListener(type, fn); return this; }
-  emit(type, ...args) { return this._emitter.emit(type, ...args); }
+  on(type, fn) {
+    this._emitter.on(type, fn);
+    return this;
+  }
+  once(type, fn) {
+    this._emitter.once(type, fn);
+    return this;
+  }
+  removeListener(type, fn) {
+    this._emitter.removeListener(type, fn);
+    return this;
+  }
+  emit(type, ...args) {
+    return this._emitter.emit(type, ...args);
+  }
 
   setHeader(name, value) {
     if (this.headersSent) return this;
@@ -163,13 +190,15 @@ export class ShimRes {
   }
 
   write(chunk) {
-    if (chunk !== undefined && chunk !== null) this._chunks.push(toUint8(chunk));
+    if (chunk !== undefined && chunk !== null)
+      this._chunks.push(toUint8(chunk));
     return true; // no backpressure in the materialized model
   }
 
   end(chunk) {
     if (this.writableEnded) return this;
-    if (chunk !== undefined && chunk !== null) this._chunks.push(toUint8(chunk));
+    if (chunk !== undefined && chunk !== null)
+      this._chunks.push(toUint8(chunk));
     this.writableEnded = true;
     this.headersSent = true;
     this._emitter.emit('finish');

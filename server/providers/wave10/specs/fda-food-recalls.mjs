@@ -4,34 +4,33 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 2 (federal worker)).
  */
 export const SPEC = {
-  "attribution": "Data: openFDA — keyless.",
-  "extract": {
-    "items": "$.results",
-    "limit": 10,
-    "map": {
-      "cls": "$.classification",
-      "firm": "$.recalling_firm",
-      "initiated": "$.recall_initiation_date",
-      "product": "$.product_description",
-      "reason": "$.reason_for_recall",
-      "recall": "$.recall_number",
-      "status": "$.status"
+  attribution: 'Data: openFDA — keyless.',
+  extract: {
+    items: '$.results',
+    limit: 10,
+    map: {
+      cls: '$.classification',
+      firm: '$.recalling_firm',
+      initiated: '$.recall_initiation_date',
+      product: '$.product_description',
+      reason: '$.reason_for_recall',
+      recall: '$.recall_number',
+      status: '$.status',
     },
-    "numbers": []
+    numbers: [],
   },
-  "headers": {
-    "User-Agent": "satwq-reality-os/1.0 (surge-500 probe)"
+  headers: {
+    'User-Agent': 'satwq-reality-os/1.0 (surge-500 probe)',
   },
-  "honesty": "Enforcement/recall listings as reported to FDA; not medical advice.",
-  "id": "fda-food-recalls",
-  "required": [
-    "recall"
-  ],
-  "source": "FDA / openFDA",
-  "title": "openFDA — food enforcement recalls",
-  "ttlSeconds": 86400,
-  "units": {},
-  "url": "https://api.fda.gov/food/enforcement.json?limit=10",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 2 (federal worker)"
+  honesty:
+    'Enforcement/recall listings as reported to FDA; not medical advice.',
+  id: 'fda-food-recalls',
+  required: ['recall'],
+  source: 'FDA / openFDA',
+  title: 'openFDA — food enforcement recalls',
+  ttlSeconds: 86400,
+  units: {},
+  url: 'https://api.fda.gov/food/enforcement.json?limit=10',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 2 (federal worker)',
 };

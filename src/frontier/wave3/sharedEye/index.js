@@ -13,9 +13,18 @@
  * NAT honesty: STUN only, no TURN. classifyConnectionFailure() explains
  * symmetric-NAT failures in plain language instead of a spinner.
  */
-import { createPeerSession, classifyConnectionFailure, STUN_SERVERS } from './net.js';
+import {
+  createPeerSession,
+  classifyConnectionFailure,
+  STUN_SERVERS,
+} from './net.js';
 import { makeCursor, makeNote, serializeCamera } from './protocol.js';
-import { exportCameraState, importCameraState, readViewerCamera, flyViewerTo } from './follow.js';
+import {
+  exportCameraState,
+  importCameraState,
+  readViewerCamera,
+  flyViewerTo,
+} from './follow.js';
 
 export const NOTES_ENTITY_PREFIX = 'satwq-sharedeye-note-';
 
@@ -33,7 +42,8 @@ const inputStyle =
   'width:100%;box-sizing:border-box;background:rgba(10,16,28,.9);color:#dfe9ff;' +
   'border:1px solid rgba(120,180,255,.3);border-radius:6px;padding:6px;font-size:11px;' +
   'font-family:ui-monospace,monospace;word-break:break-all;';
-const labelStyle = 'color:#9fc2ff;font-size:11px;margin:8px 0 4px;font-weight:600;';
+const labelStyle =
+  'color:#9fc2ff;font-size:11px;margin:8px 0 4px;font-weight:600;';
 
 export function initSharedEye({ viewer = null } = {}) {
   if (typeof document === 'undefined') return null;
@@ -53,10 +63,18 @@ export function initSharedEye({ viewer = null } = {}) {
     );
     panel.setAttribute('aria-label', 'Shared God\u2019s eye session panel');
 
-    const title = el('div', 'font-weight:700;letter-spacing:.08em;font-size:11px;color:#9fc2ff;', '◈ SHARED GOD\u2019S EYE');
+    const title = el(
+      'div',
+      'font-weight:700;letter-spacing:.08em;font-size:11px;color:#9fc2ff;',
+      '◈ SHARED GOD\u2019S EYE',
+    );
     panel.appendChild(title);
     panel.appendChild(
-      el('div', 'color:#9db4d8;font-size:11px;margin:4px 0 0;', 'P2P via WebRTC — no server, no account. Signaling is copy-paste. STUN only, no TURN: symmetric NAT pairs cannot connect (we say so instead of spinning).'),
+      el(
+        'div',
+        'color:#9db4d8;font-size:11px;margin:4px 0 0;',
+        'P2P via WebRTC — no server, no account. Signaling is copy-paste. STUN only, no TURN: symmetric NAT pairs cannot connect (we say so instead of spinning).',
+      ),
     );
 
     const nameRow = el('div', 'display:flex;gap:6px;margin-top:8px;');
@@ -82,7 +100,10 @@ export function initSharedEye({ viewer = null } = {}) {
     panel.appendChild(codeLabel);
     panel.appendChild(codeBox);
 
-    const actionRow = el('div', 'display:flex;gap:6px;margin-top:6px;flex-wrap:wrap;');
+    const actionRow = el(
+      'div',
+      'display:flex;gap:6px;margin-top:6px;flex-wrap:wrap;',
+    );
     const copyBtn = el('button', chipStyle, 'copy code');
     const acceptBtn = el('button', chipStyle, 'accept pasted answer');
     const joinCodeBtn = el('button', chipStyle, 'join with pasted code');
@@ -101,7 +122,10 @@ export function initSharedEye({ viewer = null } = {}) {
     followRow.append(exportBtn, importBtn);
     panel.appendChild(followLabel);
     panel.appendChild(followRow);
-    const followBox = el('textarea', inputStyle + 'min-height:44px;margin-top:6px;');
+    const followBox = el(
+      'textarea',
+      inputStyle + 'min-height:44px;margin-top:6px;',
+    );
     followBox.placeholder = 'SATWQ-EYE:… camera code';
     panel.appendChild(followBox);
 
@@ -164,9 +188,20 @@ export function initSharedEye({ viewer = null } = {}) {
     function renderPeers(peers) {
       peersList.innerHTML = '';
       for (const p of peers) {
-        const row = el('div', 'display:flex;gap:6px;align-items:center;margin:4px 0;padding:4px 6px;background:rgba(30,45,70,.4);border-radius:6px;');
-        const dot = el('span', `color:${p.connected ? '#7ddba3' : '#ffb347'};`, p.connected ? '●' : '◌');
-        const nm = el('span', 'flex:1;', `${p.name}${p.connected ? '' : ' (connecting…)'}`);
+        const row = el(
+          'div',
+          'display:flex;gap:6px;align-items:center;margin:4px 0;padding:4px 6px;background:rgba(30,45,70,.4);border-radius:6px;',
+        );
+        const dot = el(
+          'span',
+          `color:${p.connected ? '#7ddba3' : '#ffb347'};`,
+          p.connected ? '●' : '◌',
+        );
+        const nm = el(
+          'span',
+          'flex:1;',
+          `${p.name}${p.connected ? '' : ' (connecting…)'}`,
+        );
         row.append(dot, nm);
         if (p.camera) {
           const follow = el('button', chipStyle, 'follow');
@@ -177,7 +212,8 @@ export function initSharedEye({ viewer = null } = {}) {
         }
         peersList.appendChild(row);
       }
-      if (!peers.length) peersList.appendChild(el('div', 'color:#9db4d8;', 'no peers yet'));
+      if (!peers.length)
+        peersList.appendChild(el('div', 'color:#9db4d8;', 'no peers yet'));
       updateCursorOverlays(peers);
     }
 
@@ -300,7 +336,9 @@ export function initSharedEye({ viewer = null } = {}) {
         const { peerId, code } = await s.createOffer();
         pendingOfferPeerId = peerId;
         codeBox.value = code;
-        setStatus('offer created — send the code to your guest, then paste their answer and hit "accept pasted answer".');
+        setStatus(
+          'offer created — send the code to your guest, then paste their answer and hit "accept pasted answer".',
+        );
       } catch (error) {
         setStatus(`could not create session: ${error?.message || error}`, true);
       }
@@ -311,7 +349,9 @@ export function initSharedEye({ viewer = null } = {}) {
         const s = ensureSession();
         const { code } = await s.createAnswer(codeBox.value.trim());
         codeBox.value = code;
-        setStatus('answer created — send this code back to the host. You should connect shortly.');
+        setStatus(
+          'answer created — send this code back to the host. You should connect shortly.',
+        );
       } catch (error) {
         setStatus(`join failed: ${error?.message || error}`, true);
       }
@@ -337,7 +377,10 @@ export function initSharedEye({ viewer = null } = {}) {
         setStatus('code copied to clipboard.');
       } catch {
         codeBox.select();
-        setStatus('clipboard blocked — select the code manually (Ctrl+C).', true);
+        setStatus(
+          'clipboard blocked — select the code manually (Ctrl+C).',
+          true,
+        );
       }
     });
 
@@ -377,7 +420,10 @@ export function initSharedEye({ viewer = null } = {}) {
         return;
       }
       const ok = await flyViewerTo(viewer, cam);
-      setStatus(ok ? 'flying to their view…' : 'could not move the camera.', !ok);
+      setStatus(
+        ok ? 'flying to their view…' : 'could not move the camera.',
+        !ok,
+      );
     });
 
     closeBtn.addEventListener('click', () => {
@@ -386,7 +432,10 @@ export function initSharedEye({ viewer = null } = {}) {
 
     // — Floating toggle button —
     const toggle = el('button', '', '◈ shared eye');
-    toggle.setAttribute('aria-label', 'Open shared God\u2019s eye session panel');
+    toggle.setAttribute(
+      'aria-label',
+      'Open shared God\u2019s eye session panel',
+    );
     toggle.style.cssText =
       'position:fixed;left:12px;bottom:92px;z-index:9990;padding:7px 12px;border-radius:20px;' +
       'border:1px solid rgba(120,180,255,.35);background:rgba(8,12,20,.88);color:#9fc2ff;' +

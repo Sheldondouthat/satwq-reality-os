@@ -64,7 +64,8 @@ export function transformCadRow(fields, row) {
   };
   const num = (name) => {
     const raw = get(name);
-    if (raw == null || (typeof raw === 'string' && raw.trim() === '')) return null;
+    if (raw == null || (typeof raw === 'string' && raw.trim() === ''))
+      return null;
     const v = Number(raw);
     return Number.isFinite(v) ? v : null;
   };
@@ -73,7 +74,8 @@ export function transformCadRow(fields, row) {
   const cd = get('cd');
   return {
     des: String(get('des') ?? '').trim(),
-    name: String(get('fullname') ?? '').trim() || String(get('des') ?? '').trim(),
+    name:
+      String(get('fullname') ?? '').trim() || String(get('des') ?? '').trim(),
     closeApproachUtc: typeof cd === 'string' ? cd.trim() : null,
     distAu,
     distLd: auToLunarDistances(distAu),
@@ -82,9 +84,10 @@ export function transformCadRow(fields, row) {
     vRelKms: num('v_rel'),
     absMagH: h,
     diameterEstM: diameterRangeM(h),
-    diameterNote: h == null
-      ? 'no absolute magnitude published — diameter not estimable'
-      : 'ESTIMATED from absolute magnitude H assuming albedo 0.05–0.25 (albedo unknown)',
+    diameterNote:
+      h == null
+        ? 'no absolute magnitude published — diameter not estimable'
+        : 'ESTIMATED from absolute magnitude H assuming albedo 0.05–0.25 (albedo unknown)',
   };
 }
 
@@ -97,7 +100,9 @@ async function fetchJsonCapped(url) {
       headers: { 'User-Agent': USER_AGENT },
     });
     if (!response.ok)
-      throw Object.assign(new Error(`neo_upstream_${response.status}`), { status: 502 });
+      throw Object.assign(new Error(`neo_upstream_${response.status}`), {
+        status: 502,
+      });
     const buffer = await response.arrayBuffer();
     if (buffer.byteLength > BODY_CAP_BYTES)
       throw Object.assign(new Error('neo_upstream_too_large'), { status: 502 });
@@ -192,7 +197,11 @@ async function buildSnapshot(params) {
     schemaVersion: 1,
     fetchedAt: new Date(now).toISOString(),
     source: 'NASA/JPL CNEOS Close-Approach Data API (keyless)',
-    window: { from: params.dateMin, to: params.dateMax, distMaxAu: params.distMaxAu },
+    window: {
+      from: params.dateMin,
+      to: params.dateMax,
+      distMaxAu: params.distMaxAu,
+    },
     count: approaches.length,
     physicsNotes: [
       'Miss distances are geocentric close-approach distances in lunar distances (1 LD = 384,400 km).',
@@ -221,15 +230,21 @@ function sendJson(res, status, value) {
 /** Mount the planetary-defense proxy. Mirrors the vaac/hmsSmoke provider shape. */
 export function neoProxy() {
   async function handler(req, res) {
-    if (req.method !== 'GET') return sendJson(res, 405, { error: 'method_not_allowed' });
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' });
     try {
       // connect semantics: the /api/neo prefix is already stripped from req.url.
-      const query = new URL(String(req.url || '/'), 'http://localhost').searchParams;
+      const query = new URL(String(req.url || '/'), 'http://localhost')
+        .searchParams;
       sendJson(res, 200, await buildSnapshot(parseCadParams(query)));
     } catch (error) {
-      const status = error?.status === 502 ? 502 : error?.status === 400 ? 400 : 500;
+      const status =
+        error?.status === 502 ? 502 : error?.status === 400 ? 400 : 500;
       sendJson(res, status, {
-        error: error?.status === 400 ? 'neo_bad_request' : 'neo_upstream_unavailable',
+        error:
+          error?.status === 400
+            ? 'neo_bad_request'
+            : 'neo_upstream_unavailable',
         detail: error?.message ?? 'unknown',
       });
     }

@@ -84,7 +84,11 @@ export function createCosmicRayLayer({ nmdbSource } = {}) {
           pixelSize: alerted
             ? new Cesium.CallbackProperty(
                 // t is a JulianDate object, NOT a number — convert first.
-                (t) => pulse.size + Math.round(4 * pulsePhase(Cesium.JulianDate.toDate(t).getTime())),
+                (t) =>
+                  pulse.size +
+                  Math.round(
+                    4 * pulsePhase(Cesium.JulianDate.toDate(t).getTime()),
+                  ),
                 false,
               )
             : pulse.size,
@@ -114,7 +118,9 @@ export function createCosmicRayLayer({ nmdbSource } = {}) {
 
   return {
     id: 'cosmicRay',
-    init(v) { viewer = v; },
+    init(v) {
+      viewer = v;
+    },
     enable() {
       if (!viewer || enabled) return;
       enabled = true;
@@ -123,10 +129,16 @@ export function createCosmicRayLayer({ nmdbSource } = {}) {
     },
     disable() {
       enabled = false;
-      if (stopSource) { stopSource(); stopSource = null; }
+      if (stopSource) {
+        stopSource();
+        stopSource = null;
+      }
       clear();
     },
-    destroy() { this.disable(); viewer = null; },
+    destroy() {
+      this.disable();
+      viewer = null;
+    },
     getStations: () => lastStations,
     getForbush: () => lastForbush,
     /** Test seam: feed a snapshot without the network. */
@@ -144,7 +156,8 @@ export function createCosmicRayPanel({ layer }) {
     const mood = globalMood(layer.getStations());
     root.innerHTML = '';
     const title = document.createElement('div');
-    title.style.cssText = 'font-weight:600;letter-spacing:.06em;margin-bottom:4px;';
+    title.style.cssText =
+      'font-weight:600;letter-spacing:.06em;margin-bottom:4px;';
     title.textContent = stations.length
       ? `◉ Cosmic rays — ${mood.label}${mood.median !== null ? ` (${formatMAD(mood.median)} median)` : ''}`
       : '◉ Cosmic rays — waiting on /api/nmdb';
@@ -152,9 +165,10 @@ export function createCosmicRayPanel({ layer }) {
     if (forbush.level !== 'quiet') {
       const banner = document.createElement('div');
       banner.style.cssText = `font-weight:700;margin:2px 0;color:${forbush.level === 'alert' ? '#ff3b3b' : '#ff9f5a'};`;
-      banner.textContent = forbush.level === 'alert'
-        ? `⚠ FORBUSH WATCH: ${forbush.drops.length} stations ≤ −3σ (max ${formatMAD(forbush.maxDropMAD)})`
-        : `⚠ Forbush watch: ${forbush.drops.length} stations ≤ −3σ`;
+      banner.textContent =
+        forbush.level === 'alert'
+          ? `⚠ FORBUSH WATCH: ${forbush.drops.length} stations ≤ −3σ (max ${formatMAD(forbush.maxDropMAD)})`
+          : `⚠ Forbush watch: ${forbush.drops.length} stations ≤ −3σ`;
       root.appendChild(banner);
     }
     for (const s of stations.slice(0, 8)) {
@@ -165,13 +179,21 @@ export function createCosmicRayPanel({ layer }) {
       root.appendChild(row);
     }
     const note = document.createElement('div');
-    note.style.cssText = 'opacity:.55;margin-top:4px;font-size:10px;color:#dfe9ff;';
+    note.style.cssText =
+      'opacity:.55;margin-top:4px;font-size:10px;color:#dfe9ff;';
     note.textContent = COSMIC_HONESTY;
     root.appendChild(note);
   };
   const timer = setInterval(render, REFRESH_NOTE_MS);
   render();
-  return { element: root, sync: render, destroy() { clearInterval(timer); root.remove(); } };
+  return {
+    element: root,
+    sync: render,
+    destroy() {
+      clearInterval(timer);
+      root.remove();
+    },
+  };
 }
 
 /**

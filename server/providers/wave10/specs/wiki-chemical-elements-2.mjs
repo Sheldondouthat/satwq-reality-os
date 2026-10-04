@@ -4,34 +4,32 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 8 (wikidata worker)).
  */
 export const SPEC = {
-  "id": "wiki-chemical-elements-2",
-  "title": "Wikidata — Chemical elements 51–100 by atomic number",
-  "url": "https://query.wikidata.org/sparql?format=json&query=SELECT%20%3Felement%20%3FelementLabel%20%3Fnum%20%3Fsymbol%20WHERE%20%7B%20%3Felement%20wdt%3AP31%20wd%3AQ11344%3B%20wdt%3AP1086%20%3Fnum.%20OPTIONAL%20%7B%20%3Felement%20wdt%3AP246%20%3Fsymbol.%20%7D%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22en%22.%20%7D%20%7D%20ORDER%20BY%20%3Fnum%20LIMIT%2050%20OFFSET%2050",
-  "headers": {
-    "User-Agent": "satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)"
+  id: 'wiki-chemical-elements-2',
+  title: 'Wikidata — Chemical elements 51–100 by atomic number',
+  url: 'https://query.wikidata.org/sparql?format=json&query=SELECT%20%3Felement%20%3FelementLabel%20%3Fnum%20%3Fsymbol%20WHERE%20%7B%20%3Felement%20wdt%3AP31%20wd%3AQ11344%3B%20wdt%3AP1086%20%3Fnum.%20OPTIONAL%20%7B%20%3Felement%20wdt%3AP246%20%3Fsymbol.%20%7D%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22en%22.%20%7D%20%7D%20ORDER%20BY%20%3Fnum%20LIMIT%2050%20OFFSET%2050',
+  headers: {
+    'User-Agent':
+      'satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)',
   },
-  "ttlSeconds": 86400,
-  "timeoutMs": 60000,
-  "extract": {
-    "items": "$.results.bindings",
-    "limit": 50,
-    "map": {
-      "name": "$.elementLabel.value",
-      "atomic_number": "$.num.value",
-      "symbol": "$.symbol.value",
-      "wikidata": "$.element.value"
+  ttlSeconds: 86400,
+  timeoutMs: 60000,
+  extract: {
+    items: '$.results.bindings',
+    limit: 50,
+    map: {
+      name: '$.elementLabel.value',
+      atomic_number: '$.num.value',
+      symbol: '$.symbol.value',
+      wikidata: '$.element.value',
     },
-    "numbers": [
-      "atomic_number"
-    ]
+    numbers: ['atomic_number'],
   },
-  "required": [
-    "name"
-  ],
-  "source": "Wikidata",
-  "attribution": "Data: Wikidata Query Service — keyless, CC0.",
-  "units": {},
-  "honesty": "Elements 51–100 (antimony to fermium) by atomic number — the second page of the 118-element table; see wiki-chemical-elements for 1–50. 50 bindings verified 2026-10-02.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 8 (wikidata worker)"
+  required: ['name'],
+  source: 'Wikidata',
+  attribution: 'Data: Wikidata Query Service — keyless, CC0.',
+  units: {},
+  honesty:
+    'Elements 51–100 (antimony to fermium) by atomic number — the second page of the 118-element table; see wiki-chemical-elements for 1–50. 50 bindings verified 2026-10-02.',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 8 (wikidata worker)',
 };

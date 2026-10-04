@@ -4,40 +4,37 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 3 (usgs quake/volcano worker)).
  */
 export const SPEC = {
-  "id": "usgs-quakes-all-week",
-  "title": "USGS — all earthquakes, past week",
-  "url": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson",
-  "headers": {
-    "User-Agent": "satwq-reality-os/1.0 (surge-500 probe)"
+  id: 'usgs-quakes-all-week',
+  title: 'USGS — all earthquakes, past week',
+  url: 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson',
+  headers: {
+    'User-Agent': 'satwq-reality-os/1.0 (surge-500 probe)',
   },
-  "ttlSeconds": 900,
-  "source": "U.S. Geological Survey",
-  "attribution": "Data: U.S. Geological Survey — keyless API.",
-  "honesty": "All detected earthquakes of any magnitude over the past week (mostly microquakes under regional networks); newest-first, extract limit 40 keeps only the most recent.",
-  "units": {
-    "mag": "magnitude",
-    "timeMs": "ms epoch",
-    "coords": "lon,lat,depth(km)"
+  ttlSeconds: 900,
+  source: 'U.S. Geological Survey',
+  attribution: 'Data: U.S. Geological Survey — keyless API.',
+  honesty:
+    'All detected earthquakes of any magnitude over the past week (mostly microquakes under regional networks); newest-first, extract limit 40 keeps only the most recent.',
+  units: {
+    mag: 'magnitude',
+    timeMs: 'ms epoch',
+    coords: 'lon,lat,depth(km)',
   },
-  "extract": {
-    "items": "$.features",
-    "limit": 40,
-    "map": {
-      "mag": "$.properties.mag",
-      "place": "$.properties.place",
-      "title": "$.properties.title",
-      "timeMs": "$.properties.time",
-      "type": "$.properties.type",
-      "url": "$.properties.url",
-      "coords": "$.geometry.coordinates"
+  extract: {
+    items: '$.features',
+    limit: 40,
+    map: {
+      mag: '$.properties.mag',
+      place: '$.properties.place',
+      title: '$.properties.title',
+      timeMs: '$.properties.time',
+      type: '$.properties.type',
+      url: '$.properties.url',
+      coords: '$.geometry.coordinates',
     },
-    "numbers": [
-      "mag"
-    ]
+    numbers: ['mag'],
   },
-  "required": [
-    "place"
-  ],
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 3 (usgs quake/volcano worker)"
+  required: ['place'],
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 3 (usgs quake/volcano worker)',
 };

@@ -4,54 +4,53 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 1 (met worker)).
  */
 export const SPEC = {
-  "id": "metno-minneapolis",
-  "title": "MET Norway — Minneapolis forecast",
-  "url": "https://api.met.no/weatherapi/locationforecast/2.0/complete?lat=44.98&lon=-93.27",
-  "headers": {
-    "User-Agent": "satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)"
+  id: 'metno-minneapolis',
+  title: 'MET Norway — Minneapolis forecast',
+  url: 'https://api.met.no/weatherapi/locationforecast/2.0/complete?lat=44.98&lon=-93.27',
+  headers: {
+    'User-Agent':
+      'satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)',
   },
-  "ttlSeconds": 3600,
-  "extract": {
-    "items": "$.properties.timeseries",
-    "limit": 48,
-    "map": {
-      "time": "$.time",
-      "tempC": "$.data.instant.details.air_temperature",
-      "feelsLikeC": "$.data.instant.details.apparent_air_temperature",
-      "dewPointC": "$.data.instant.details.dew_point_temperature",
-      "windMs": "$.data.instant.details.wind_speed",
-      "windDirDeg": "$.data.instant.details.wind_from_direction",
-      "humidity": "$.data.instant.details.relative_humidity",
-      "pressureHpa": "$.data.instant.details.air_pressure_at_sea_level",
-      "cloudPct": "$.data.instant.details.cloud_area_fraction"
+  ttlSeconds: 3600,
+  extract: {
+    items: '$.properties.timeseries',
+    limit: 48,
+    map: {
+      time: '$.time',
+      tempC: '$.data.instant.details.air_temperature',
+      feelsLikeC: '$.data.instant.details.apparent_air_temperature',
+      dewPointC: '$.data.instant.details.dew_point_temperature',
+      windMs: '$.data.instant.details.wind_speed',
+      windDirDeg: '$.data.instant.details.wind_from_direction',
+      humidity: '$.data.instant.details.relative_humidity',
+      pressureHpa: '$.data.instant.details.air_pressure_at_sea_level',
+      cloudPct: '$.data.instant.details.cloud_area_fraction',
     },
-    "numbers": [
-      "tempC",
-      "feelsLikeC",
-      "dewPointC",
-      "windMs",
-      "windDirDeg",
-      "humidity",
-      "pressureHpa",
-      "cloudPct"
-    ]
+    numbers: [
+      'tempC',
+      'feelsLikeC',
+      'dewPointC',
+      'windMs',
+      'windDirDeg',
+      'humidity',
+      'pressureHpa',
+      'cloudPct',
+    ],
   },
-  "required": [
-    "time"
-  ],
-  "source": "Norwegian Meteorological Institute (MET Norway)",
-  "attribution": "Data: MET Norway Locationforecast — keyless, UA-identified.",
-  "units": {
-    "tempC": "C",
-    "feelsLikeC": "C",
-    "dewPointC": "C",
-    "windMs": "m/s",
-    "windDirDeg": "deg",
-    "humidity": "%",
-    "pressureHpa": "hPa",
-    "cloudPct": "%"
+  required: ['time'],
+  source: 'Norwegian Meteorological Institute (MET Norway)',
+  attribution: 'Data: MET Norway Locationforecast — keyless, UA-identified.',
+  units: {
+    tempC: 'C',
+    feelsLikeC: 'C',
+    dewPointC: 'C',
+    windMs: 'm/s',
+    windDirDeg: 'deg',
+    humidity: '%',
+    pressureHpa: 'hPa',
+    cloudPct: '%',
   },
-  "honesty": "Hourly model forecast, updated ~4x daily; not observations.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 1 (met worker)"
+  honesty: 'Hourly model forecast, updated ~4x daily; not observations.',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 1 (met worker)',
 };

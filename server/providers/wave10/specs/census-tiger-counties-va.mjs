@@ -4,41 +4,36 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 3 (census worker)).
  */
 export const SPEC = {
-  "id": "census-tiger-counties-va",
-  "title": "U.S. Census — Virginia counties and independent cities",
-  "url": "https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/State_County/MapServer/1/query?where=STATE%3D%2751%27&outFields=NAME%2CGEOID%2CCOUNTY%2CSTATE%2CCENTLAT%2CCENTLON%2CAREALAND&returnGeometry=false&f=json",
-  "headers": {},
-  "ttlSeconds": 86400,
-  "source": "U.S. Census Bureau",
-  "attribution": "Data: U.S. Census Bureau, TIGERweb REST — keyless.",
-  "honesty": "Vintage: current TIGERweb boundaries (queried 2026-10-02). Current TIGERweb county boundaries; Virginia's 38 independent cities are county-equivalents and included.",
-  "units": {
-    "lat": "deg",
-    "lon": "deg",
-    "land_m2": "m2",
-    "water_m2": "m2"
+  id: 'census-tiger-counties-va',
+  title: 'U.S. Census — Virginia counties and independent cities',
+  url: 'https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/State_County/MapServer/1/query?where=STATE%3D%2751%27&outFields=NAME%2CGEOID%2CCOUNTY%2CSTATE%2CCENTLAT%2CCENTLON%2CAREALAND&returnGeometry=false&f=json',
+  headers: {},
+  ttlSeconds: 86400,
+  source: 'U.S. Census Bureau',
+  attribution: 'Data: U.S. Census Bureau, TIGERweb REST — keyless.',
+  honesty:
+    "Vintage: current TIGERweb boundaries (queried 2026-10-02). Current TIGERweb county boundaries; Virginia's 38 independent cities are county-equivalents and included.",
+  units: {
+    lat: 'deg',
+    lon: 'deg',
+    land_m2: 'm2',
+    water_m2: 'm2',
   },
-  "extract": {
-    "items": "$.features",
-    "limit": 140,
-    "map": {
-      "name": "$.attributes.NAME",
-      "geoid": "$.attributes.GEOID",
-      "county_fips": "$.attributes.COUNTY",
-      "state_fips": "$.attributes.STATE",
-      "lat": "$.attributes.CENTLAT",
-      "lon": "$.attributes.CENTLON",
-      "land_m2": "$.attributes.AREALAND"
+  extract: {
+    items: '$.features',
+    limit: 140,
+    map: {
+      name: '$.attributes.NAME',
+      geoid: '$.attributes.GEOID',
+      county_fips: '$.attributes.COUNTY',
+      state_fips: '$.attributes.STATE',
+      lat: '$.attributes.CENTLAT',
+      lon: '$.attributes.CENTLON',
+      land_m2: '$.attributes.AREALAND',
     },
-    "numbers": [
-      "lat",
-      "lon",
-      "land_m2"
-    ]
+    numbers: ['lat', 'lon', 'land_m2'],
   },
-  "required": [
-    "name"
-  ],
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 3 (census worker)"
+  required: ['name'],
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 3 (census worker)',
 };

@@ -55,13 +55,21 @@ async function addImpactMarkers(viewer, impact) {
   for (const c of impact.shakemap?.contours ?? []) {
     if (c.mmi < 4) continue; // draw only the contours that matter visually
     let base;
-    try { base = Color.fromCssColorString(c.color); } catch { base = Color.fromCssColorString(mmiColor(c.mmi)); }
+    try {
+      base = Color.fromCssColorString(c.color);
+    } catch {
+      base = Color.fromCssColorString(mmiColor(c.mmi));
+    }
     for (const ring of c.rings.slice(0, 4)) {
       try {
         entities.push(
           viewer.entities.add({
             polygon: {
-              hierarchy: new PolygonHierarchy(ring.map(([lon, lat]) => Cartesian3.fromDegrees(lon, lat, 60000))),
+              hierarchy: new PolygonHierarchy(
+                ring.map(([lon, lat]) =>
+                  Cartesian3.fromDegrees(lon, lat, 60000),
+                ),
+              ),
               material: base.withAlpha(0.28),
               outline: true,
               outlineColor: base.withAlpha(0.8),
@@ -73,7 +81,9 @@ async function addImpactMarkers(viewer, impact) {
     }
   }
 
-  return () => { for (const e of entities) viewer.entities.remove(e); };
+  return () => {
+    for (const e of entities) viewer.entities.remove(e);
+  };
 }
 
 function pagerBadge(level) {
@@ -81,29 +91,49 @@ function pagerBadge(level) {
   return el(
     'span',
     {
-      style: `display:inline-block;padding:2px 10px;border-radius:12px;font-weight:700;font-size:11px;` +
+      style:
+        `display:inline-block;padding:2px 10px;border-radius:12px;font-weight:700;font-size:11px;` +
         `background:${color}33;border:1px solid ${color};color:${color};`,
     },
     `PAGER ${String(level ?? 'unknown').toUpperCase()}`,
   );
 }
 
-export function initQuakeImpact({ viewer = null, mount = null, fetchImpl = fetch } = {}) {
+export function initQuakeImpact({
+  viewer = null,
+  mount = null,
+  fetchImpl = fetch,
+} = {}) {
   const root = el('div', {});
   if (mount) mount(root);
-  const status = el('div', { style: 'font-size:10px;color:#7d8fb3;' }, 'Pick a quake to see its human impact.');
+  const status = el(
+    'div',
+    { style: 'font-size:10px;color:#7d8fb3;' },
+    'Pick a quake to see its human impact.',
+  );
   const input = el('input', {
     type: 'text',
     placeholder: 'USGS event id (e.g. us7000ti1p)',
     'aria-label': 'USGS quake event id',
-    style: 'width:100%;box-sizing:border-box;padding:6px 9px;border-radius:7px;border:1px solid rgba(120,180,255,.35);background:rgba(10,18,32,.9);color:#dfe9ff;font-size:11px;margin-bottom:6px;',
+    style:
+      'width:100%;box-sizing:border-box;padding:6px 9px;border-radius:7px;border:1px solid rgba(120,180,255,.35);background:rgba(10,18,32,.9);color:#dfe9ff;font-size:11px;margin-bottom:6px;',
   });
-  const goBtn = el('button', {
-    style: 'cursor:pointer;background:rgba(30,45,70,.6);border:1px solid rgba(120,180,255,.35);color:#dfe9ff;border-radius:7px;font-size:11px;padding:5px 10px;',
-  }, 'Show impact');
-  const latestBtn = el('button', {
-    style: 'margin-left:6px;cursor:pointer;background:rgba(30,45,70,.6);border:1px solid rgba(120,180,255,.35);color:#dfe9ff;border-radius:7px;font-size:11px;padding:5px 10px;',
-  }, 'Latest big quake');
+  const goBtn = el(
+    'button',
+    {
+      style:
+        'cursor:pointer;background:rgba(30,45,70,.6);border:1px solid rgba(120,180,255,.35);color:#dfe9ff;border-radius:7px;font-size:11px;padding:5px 10px;',
+    },
+    'Show impact',
+  );
+  const latestBtn = el(
+    'button',
+    {
+      style:
+        'margin-left:6px;cursor:pointer;background:rgba(30,45,70,.6);border:1px solid rgba(120,180,255,.35);color:#dfe9ff;border-radius:7px;font-size:11px;padding:5px 10px;',
+    },
+    'Latest big quake',
+  );
   const result = el('div', {});
   root.append(input, goBtn, latestBtn, status, result);
 
@@ -116,39 +146,70 @@ export function initQuakeImpact({ viewer = null, mount = null, fetchImpl = fetch
     try {
       const impact = await getQuakeImpact(eventId, { fetchImpl });
       if (stopped) return;
-      const head = el('div', { style: 'font-size:12px;font-weight:600;margin:6px 0;' }, `M${impact.mag} — ${impact.place}`);
+      const head = el(
+        'div',
+        { style: 'font-size:12px;font-weight:600;margin:6px 0;' },
+        `M${impact.mag} — ${impact.place}`,
+      );
       result.appendChild(head);
-      const meta = el('div', { style: 'font-size:11px;color:#9fc2ff;margin-bottom:4px;' });
+      const meta = el('div', {
+        style: 'font-size:11px;color:#9fc2ff;margin-bottom:4px;',
+      });
       meta.appendChild(pagerBadge(impact.pager.level));
       if (impact.pager.economic?.level) {
-        meta.appendChild(el('span', { style: 'margin-left:8px;font-size:11px;' }, `econ: ${impact.pager.economic.level}`));
+        meta.appendChild(
+          el(
+            'span',
+            { style: 'margin-left:8px;font-size:11px;' },
+            `econ: ${impact.pager.economic.level}`,
+          ),
+        );
       }
       result.appendChild(meta);
       const counts = el('div', { style: 'font-size:11px;color:#9fc2ff;' });
       counts.textContent =
         `DYFI felt cells: ${impact.dyfi.points.length} (observation) · ` +
         `ShakeMap MMI contours: ${impact.shakemap.contours.length} (model) · `;
-      const link = el('a', { href: impact.detailUrl, target: '_blank', rel: 'noopener', style: 'color:#9fc2ff;' }, 'USGS event page');
+      const link = el(
+        'a',
+        {
+          href: impact.detailUrl,
+          target: '_blank',
+          rel: 'noopener',
+          style: 'color:#9fc2ff;',
+        },
+        'USGS event page',
+      );
       counts.appendChild(link);
       result.appendChild(counts);
       status.textContent = new Date(impact.timeMs).toLocaleString();
 
       if (viewer) {
-        try { removeMarkers?.(); } catch {}
+        try {
+          removeMarkers?.();
+        } catch {}
         removeMarkers = await addImpactMarkers(viewer, impact);
       }
     } catch (error) {
-      if (!stopped) status.textContent = `Impact unavailable (${error?.message ?? 'fetch failed'}).`;
+      if (!stopped)
+        status.textContent = `Impact unavailable (${error?.message ?? 'fetch failed'}).`;
     }
   }
 
-  goBtn.addEventListener('click', () => { if (input.value.trim()) show(input.value.trim()); });
-  input.addEventListener('keydown', (e) => { if (e.key === 'Enter' && input.value.trim()) show(input.value.trim()); });
+  goBtn.addEventListener('click', () => {
+    if (input.value.trim()) show(input.value.trim());
+  });
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && input.value.trim()) show(input.value.trim());
+  });
   latestBtn.addEventListener('click', async () => {
     status.textContent = 'Finding the largest recent quake…';
     try {
       const q = await findLargestRecentQuake({ fetchImpl });
-      if (!q) { status.textContent = 'No M5.5+ quakes in the recent feed.'; return; }
+      if (!q) {
+        status.textContent = 'No M5.5+ quakes in the recent feed.';
+        return;
+      }
       input.value = q.eventId;
       show(q.eventId);
     } catch (error) {
@@ -159,11 +220,20 @@ export function initQuakeImpact({ viewer = null, mount = null, fetchImpl = fetch
   return {
     destroy() {
       stopped = true;
-      try { removeMarkers?.(); } catch {}
+      try {
+        removeMarkers?.();
+      } catch {}
       root.remove();
     },
   };
 }
 
 // Re-export the pure model helpers for consumers/tests.
-export { normalizeDyfi, normalizeMmiContours, mmiColor, pagerColor, getQuakeImpact, findLargestRecentQuake };
+export {
+  normalizeDyfi,
+  normalizeMmiContours,
+  mmiColor,
+  pagerColor,
+  getQuakeImpact,
+  findLargestRecentQuake,
+};

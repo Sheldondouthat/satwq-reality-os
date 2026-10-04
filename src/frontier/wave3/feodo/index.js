@@ -25,9 +25,13 @@ export function init({ viewer, apiPath = '/api/feodo' } = {}) {
         dataSource.entities.removeAll();
         const markers = countryMarkers(data.byCountry, data.entries);
         for (const m of markers) {
-          const color = Cesium.Color.fromCssColorString(markerColorCss(m.online));
+          const color = Cesium.Color.fromCssColorString(
+            markerColorCss(m.online),
+          );
           const famRows = m.malware
-            .map(([fam, n]) => `<tr><td>${escapeHtml(fam)}</td><td>${n}</td></tr>`)
+            .map(
+              ([fam, n]) => `<tr><td>${escapeHtml(fam)}</td><td>${n}</td></tr>`,
+            )
             .join('');
           dataSource.entities.add({
             id: `feodo:${m.iso}`,
@@ -49,7 +53,9 @@ export function init({ viewer, apiPath = '/api/feodo' } = {}) {
               `<h3>${m.iso} — Feodo Tracker blocklist</h3>` +
               `<p>${m.count} listed C2 IPs (${m.online} currently online). ` +
               `Country-level marker; positions are approximate country centroids.</p>` +
-              (famRows ? `<table><tr><th>family</th><th>IPs</th></tr>${famRows}</table>` : '') +
+              (famRows
+                ? `<table><tr><th>family</th><th>IPs</th></tr>${famRows}</table>`
+                : '') +
               `<p style="opacity:.7">Threat intel © abuse.ch — defensive display only.</p>`,
           });
         }

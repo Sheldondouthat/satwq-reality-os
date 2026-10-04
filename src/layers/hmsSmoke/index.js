@@ -65,7 +65,9 @@ export function createHmsSmokeLayer({ source } = {}) {
       const request = new AbortController();
       _request = request;
       try {
-        const { polygons } = await source.getSnapshot({ signal: request.signal });
+        const { polygons } = await source.getSnapshot({
+          signal: request.signal,
+        });
         if (request.signal.aborted || _request !== request || !_enabled)
           return false;
 

@@ -4,45 +4,45 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 4 (open-meteo worker)).
  */
 export const SPEC = {
-  "id": "om-flood-discharge-rivers",
-  "title": "Open-Meteo GloFAS river discharge — 8 world rivers",
-  "url": "https://flood-api.open-meteo.com/v1/flood?latitude=38.63,41.26,39.10,48.21,50.94,48.85,31.23,-3.12&longitude=-90.23,-95.93,-84.51,16.37,6.96,2.35,121.47,-60.02&daily=river_discharge,river_discharge_mean,river_discharge_median&timezone=auto",
-  "headers": {
-    "User-Agent": "satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)"
+  id: 'om-flood-discharge-rivers',
+  title: 'Open-Meteo GloFAS river discharge — 8 world rivers',
+  url: 'https://flood-api.open-meteo.com/v1/flood?latitude=38.63,41.26,39.10,48.21,50.94,48.85,31.23,-3.12&longitude=-90.23,-95.93,-84.51,16.37,6.96,2.35,121.47,-60.02&daily=river_discharge,river_discharge_mean,river_discharge_median&timezone=auto',
+  headers: {
+    'User-Agent':
+      'satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)',
   },
-  "ttlSeconds": 21600,
-  "extract": {
-    "items": "$",
-    "limit": 50,
-    "map": {
-      "date": "$.daily.time[0]",
-      "lat": "$.latitude",
-      "lon": "$.longitude",
-      "dischargeM3s": "$.daily.river_discharge[0]",
-      "dischargeMeanM3s": "$.daily.river_discharge_mean[0]",
-      "dischargeMedianM3s": "$.daily.river_discharge_median[0]"
+  ttlSeconds: 21600,
+  extract: {
+    items: '$',
+    limit: 50,
+    map: {
+      date: '$.daily.time[0]',
+      lat: '$.latitude',
+      lon: '$.longitude',
+      dischargeM3s: '$.daily.river_discharge[0]',
+      dischargeMeanM3s: '$.daily.river_discharge_mean[0]',
+      dischargeMedianM3s: '$.daily.river_discharge_median[0]',
     },
-    "numbers": [
-      "lat",
-      "lon",
-      "dischargeM3s",
-      "dischargeMeanM3s",
-      "dischargeMedianM3s"
-    ]
+    numbers: [
+      'lat',
+      'lon',
+      'dischargeM3s',
+      'dischargeMeanM3s',
+      'dischargeMedianM3s',
+    ],
   },
-  "required": [
-    "dischargeM3s"
-  ],
-  "source": "Open-Meteo Flood API (GloFAS v4)",
-  "attribution": "Weather data by Open-Meteo.com (CC-BY 4.0) — keyless API.",
-  "units": {
-    "lat": "deg",
-    "lon": "deg",
-    "dischargeM3s": "m3/s",
-    "dischargeMeanM3s": "m3/s",
-    "dischargeMedianM3s": "m3/s"
+  required: ['dischargeM3s'],
+  source: 'Open-Meteo Flood API (GloFAS v4)',
+  attribution: 'Weather data by Open-Meteo.com (CC-BY 4.0) — keyless API.',
+  units: {
+    lat: 'deg',
+    lon: 'deg',
+    dischargeM3s: 'm3/s',
+    dischargeMeanM3s: 'm3/s',
+    dischargeMedianM3s: 'm3/s',
   },
-  "honesty": "GloFAS v4 river-discharge model, day-0 of the 7-day window (not gauge observations). Rows in request order: Mississippi at St. Louis, Missouri at Omaha, Ohio at Cincinnati, Danube at Vienna, Rhine at Cologne, Seine at Paris, Yangtze at Shanghai, Amazon at Manaus. Null where the model grid has no river cell.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 4 (open-meteo worker)"
+  honesty:
+    'GloFAS v4 river-discharge model, day-0 of the 7-day window (not gauge observations). Rows in request order: Mississippi at St. Louis, Missouri at Omaha, Ohio at Cincinnati, Danube at Vienna, Rhine at Cologne, Seine at Paris, Yangtze at Shanghai, Amazon at Manaus. Null where the model grid has no river cell.',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 4 (open-meteo worker)',
 };

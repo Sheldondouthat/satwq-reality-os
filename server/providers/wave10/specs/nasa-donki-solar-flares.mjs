@@ -4,34 +4,34 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 7 (nasa worker)).
  */
 export const SPEC = {
-  "attribution": "Data: NASA open APIs — keyless (DEMO_KEY).",
-  "extract": {
-    "items": "$",
-    "limit": 13,
-    "map": {
-      "begin": "$.beginTime",
-      "class": "$.classType",
-      "end": "$.endTime",
-      "id": "$.flrID",
-      "link": "$.link",
-      "location": "$.sourceLocation",
-      "note": "$.note",
-      "peak": "$.peakTime",
-      "region": "$.activeRegionNum"
+  attribution: 'Data: NASA open APIs — keyless (DEMO_KEY).',
+  extract: {
+    items: '$',
+    limit: 13,
+    map: {
+      begin: '$.beginTime',
+      class: '$.classType',
+      end: '$.endTime',
+      id: '$.flrID',
+      link: '$.link',
+      location: '$.sourceLocation',
+      note: '$.note',
+      peak: '$.peakTime',
+      region: '$.activeRegionNum',
     },
-    "numbers": []
+    numbers: [],
   },
-  "headers": {},
-  "honesty": "Solar flare catalog from the M2M catalog (GOES X-ray). NOTE: the api.nasa.gov/DONKI alias 301-redirects to a CCMC news page, so the spec points at the canonical keyless DONKI web service. activeRegionNum may be null. Window 2026-09-01..2026-10-02 yielded 13 flares. Verified 13/13 rows in fixture (6912 bytes).",
-  "id": "nasa-donki-solar-flares",
-  "required": [
-    "id"
-  ],
-  "source": "NASA DONKI — ccmc.gsfc.nasa.gov/DONKI/WS/get/FLR (keyless; api.nasa.gov/DONKI alias is dead)",
-  "title": "NASA DONKI — solar flares, Sep 2026",
-  "ttlSeconds": 86400,
-  "units": {},
-  "url": "https://ccmc.gsfc.nasa.gov/DONKI/WS/get/FLR?startDate=2026-09-01&endDate=2026-10-02",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 7 (nasa worker)"
+  headers: {},
+  honesty:
+    'Solar flare catalog from the M2M catalog (GOES X-ray). NOTE: the api.nasa.gov/DONKI alias 301-redirects to a CCMC news page, so the spec points at the canonical keyless DONKI web service. activeRegionNum may be null. Window 2026-09-01..2026-10-02 yielded 13 flares. Verified 13/13 rows in fixture (6912 bytes).',
+  id: 'nasa-donki-solar-flares',
+  required: ['id'],
+  source:
+    'NASA DONKI — ccmc.gsfc.nasa.gov/DONKI/WS/get/FLR (keyless; api.nasa.gov/DONKI alias is dead)',
+  title: 'NASA DONKI — solar flares, Sep 2026',
+  ttlSeconds: 86400,
+  units: {},
+  url: 'https://ccmc.gsfc.nasa.gov/DONKI/WS/get/FLR?startDate=2026-09-01&endDate=2026-10-02',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 7 (nasa worker)',
 };

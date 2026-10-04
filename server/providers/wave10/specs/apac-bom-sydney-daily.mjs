@@ -4,55 +4,55 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 6 (apac-weather worker)).
  */
 export const SPEC = {
-  "id": "apac-bom-sydney-daily",
-  "title": "BOM Australia — 8-day forecast, Sydney",
-  "url": "https://api.weather.bom.gov.au/v1/locations/r3gx2f/forecasts/daily",
-  "headers": {
-    "User-Agent": "satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)"
+  id: 'apac-bom-sydney-daily',
+  title: 'BOM Australia — 8-day forecast, Sydney',
+  url: 'https://api.weather.bom.gov.au/v1/locations/r3gx2f/forecasts/daily',
+  headers: {
+    'User-Agent':
+      'satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)',
   },
-  "ttlSeconds": 21600,
-  "extract": {
-    "items": "$.data",
-    "limit": 8,
-    "map": {
-      "date": "$.date",
-      "short": "$.short_text",
-      "text": "$.extended_text",
-      "icon": "$.icon_descriptor",
-      "maxC": "$.temp_max",
-      "minC": "$.temp_min",
-      "rainChancePct": "$.rain.chance",
-      "rainMinMm": "$.rain.amount.min",
-      "rainMaxMm": "$.rain.amount.max",
-      "uvIndex": "$.uv.max_index",
-      "uvCategory": "$.uv.category",
-      "fireDanger": "$.fire_danger",
-      "sunrise": "$.astronomical.sunrise_time",
-      "sunset": "$.astronomical.sunset_time"
+  ttlSeconds: 21600,
+  extract: {
+    items: '$.data',
+    limit: 8,
+    map: {
+      date: '$.date',
+      short: '$.short_text',
+      text: '$.extended_text',
+      icon: '$.icon_descriptor',
+      maxC: '$.temp_max',
+      minC: '$.temp_min',
+      rainChancePct: '$.rain.chance',
+      rainMinMm: '$.rain.amount.min',
+      rainMaxMm: '$.rain.amount.max',
+      uvIndex: '$.uv.max_index',
+      uvCategory: '$.uv.category',
+      fireDanger: '$.fire_danger',
+      sunrise: '$.astronomical.sunrise_time',
+      sunset: '$.astronomical.sunset_time',
     },
-    "numbers": [
-      "maxC",
-      "minC",
-      "rainChancePct",
-      "rainMinMm",
-      "rainMaxMm",
-      "uvIndex"
-    ]
+    numbers: [
+      'maxC',
+      'minC',
+      'rainChancePct',
+      'rainMinMm',
+      'rainMaxMm',
+      'uvIndex',
+    ],
   },
-  "required": [
-    "date",
-    "short"
-  ],
-  "source": "Bureau of Meteorology (BOM), Australia",
-  "attribution": "Data: Bureau of Meteorology, Australia — api.weather.bom.gov.au — keyless; data owned by BOM per its metadata terms.",
-  "units": {
-    "maxC": "C",
-    "minC": "C",
-    "rainMinMm": "mm",
-    "rainMaxMm": "mm",
-    "uvIndex": "index"
+  required: ['date', 'short'],
+  source: 'Bureau of Meteorology (BOM), Australia',
+  attribution:
+    'Data: Bureau of Meteorology, Australia — api.weather.bom.gov.au — keyless; data owned by BOM per its metadata terms.',
+  units: {
+    maxC: 'C',
+    minC: 'C',
+    rainMinMm: 'mm',
+    rainMaxMm: 'mm',
+    uvIndex: 'index',
   },
-  "honesty": "8-day Sydney-area forecast (geohash r3gx2f); extended_text is full BOM prose; rain amounts are mm ranges with percent chance; fireDanger may be null outside fire season.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 6 (apac-weather worker)"
+  honesty:
+    '8-day Sydney-area forecast (geohash r3gx2f); extended_text is full BOM prose; rain amounts are mm ranges with percent chance; fireDanger may be null outside fire season.',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 6 (apac-weather worker)',
 };

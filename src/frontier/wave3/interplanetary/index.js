@@ -53,8 +53,7 @@ function el(tag, attrs = {}, text = '') {
   return node;
 }
 
-const PANEL_STYLE =
-  'font:12px/1.5 system-ui,sans-serif;color:#dfe9ff;';
+const PANEL_STYLE = 'font:12px/1.5 system-ui,sans-serif;color:#dfe9ff;';
 
 function buildOverlay(onClose) {
   const overlay = el('div', {
@@ -63,7 +62,8 @@ function buildOverlay(onClose) {
       'display:flex;flex-direction:column;padding:18px;box-sizing:border-box;',
   });
   const head = el('div', {
-    style: 'display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;',
+    style:
+      'display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;',
   });
   head.appendChild(
     el('div', {}, '🛰 INTERPLANETARY — live deep-space positions'),
@@ -83,20 +83,31 @@ function buildOverlay(onClose) {
 
   const note = el(
     'div',
-    { style: 'font-size:11px;color:#8aa4d6;margin-bottom:8px;max-width:900px;' },
+    {
+      style: 'font-size:11px;color:#8aa4d6;margin-bottom:8px;max-width:900px;',
+    },
     'Positions: JPL Horizons, solar-system-barycentric ecliptic J2000 (live). ' +
       'LOG-DISTANCE chart — rings labeled in AU; the inner solar system is compressed ' +
       'and nothing is to scale. The Earth globe is untouched.',
   );
   overlay.appendChild(note);
 
-  const canvas = el('canvas', { style: 'flex:1;min-height:0;width:100%;border:1px solid rgba(120,180,255,.2);border-radius:10px;' });
+  const canvas = el('canvas', {
+    style:
+      'flex:1;min-height:0;width:100%;border:1px solid rgba(120,180,255,.2);border-radius:10px;',
+  });
   overlay.appendChild(canvas);
 
-  const detail = el('div', { style: 'margin-top:8px;min-height:20px;color:#9fc2ff;' }, 'Click a craft dot for details.');
+  const detail = el(
+    'div',
+    { style: 'margin-top:8px;min-height:20px;color:#9fc2ff;' },
+    'Click a craft dot for details.',
+  );
   overlay.appendChild(detail);
 
-  const tableWrap = el('div', { style: 'margin-top:8px;overflow:auto;max-height:30%;' });
+  const tableWrap = el('div', {
+    style: 'margin-top:8px;overflow:auto;max-height:30%;',
+  });
   overlay.appendChild(tableWrap);
 
   document.body.appendChild(overlay);
@@ -126,7 +137,8 @@ function drawChart(canvas, craft, selectedId, onSelect) {
     const r = radiusPx(au);
     ctx.beginPath();
     ctx.arc(cx, cy, r, 0, Math.PI * 2);
-    ctx.strokeStyle = au === 1 ? 'rgba(120,200,255,.55)' : 'rgba(120,180,255,.18)';
+    ctx.strokeStyle =
+      au === 1 ? 'rgba(120,200,255,.55)' : 'rgba(120,180,255,.18)';
     ctx.lineWidth = au === 1 ? 1.5 : 1;
     ctx.stroke();
     ctx.fillStyle = '#7d94c4';
@@ -149,7 +161,14 @@ function drawChart(canvas, craft, selectedId, onSelect) {
 
   // Craft
   const dots = [];
-  const colors = ['#7CFFB2', '#7CFFB2', '#ffb454', '#6ec6ff', '#c792ea', '#ff8a80'];
+  const colors = [
+    '#7CFFB2',
+    '#7CFFB2',
+    '#ffb454',
+    '#6ec6ff',
+    '#c792ea',
+    '#ff8a80',
+  ];
   craft.forEach((c, i) => {
     const r = logRadius01(c.distAu);
     if (r == null) return;
@@ -184,14 +203,33 @@ function drawChart(canvas, craft, selectedId, onSelect) {
 
 function renderTable(tableWrap, craft, onSelect) {
   tableWrap.innerHTML = '';
-  const table = el('table', { style: 'width:100%;border-collapse:collapse;font-size:12px;' });
+  const table = el('table', {
+    style: 'width:100%;border-collapse:collapse;font-size:12px;',
+  });
   const head = el('tr', { style: 'color:#8aa4d6;text-align:left;' });
-  for (const h of ['Craft', 'Distance', 'One-way light time', 'Speed', 'Notes']) {
-    head.appendChild(el('th', { style: 'padding:4px 8px;border-bottom:1px solid rgba(120,180,255,.25);font-weight:600;' }, h));
+  for (const h of [
+    'Craft',
+    'Distance',
+    'One-way light time',
+    'Speed',
+    'Notes',
+  ]) {
+    head.appendChild(
+      el(
+        'th',
+        {
+          style:
+            'padding:4px 8px;border-bottom:1px solid rgba(120,180,255,.25);font-weight:600;',
+        },
+        h,
+      ),
+    );
   }
   table.appendChild(head);
   for (const c of craft) {
-    const tr = el('tr', { style: 'border-bottom:1px solid rgba(120,180,255,.12);cursor:pointer;' });
+    const tr = el('tr', {
+      style: 'border-bottom:1px solid rgba(120,180,255,.12);cursor:pointer;',
+    });
     tr.addEventListener('click', () => onSelect(c.id));
     const cells = [
       c.name,
@@ -200,7 +238,8 @@ function renderTable(tableWrap, craft, onSelect) {
       Number.isFinite(c.speedKms) ? `${c.speedKms.toFixed(2)} km/s` : '—',
       c.blurb ?? '',
     ];
-    for (const v of cells) tr.appendChild(el('td', { style: 'padding:4px 8px;' }, v));
+    for (const v of cells)
+      tr.appendChild(el('td', { style: 'padding:4px 8px;' }, v));
     table.appendChild(tr);
   }
   tableWrap.appendChild(table);
@@ -235,7 +274,9 @@ export function init({ viewer, dock } = {}) {
         overlayNodes.detail.textContent =
           `${c.name}: ${formatDistance(c.distAu)} from the Sun, ` +
           `one-way light time ${formatLightTime(c.lightTimeHrs)}` +
-          (Number.isFinite(c.speedKms) ? `, moving ${c.speedKms.toFixed(2)} km/s` : '') +
+          (Number.isFinite(c.speedKms)
+            ? `, moving ${c.speedKms.toFixed(2)} km/s`
+            : '') +
           `. ${c.blurb ?? ''} (${c.frame ?? ''})`;
         drawChart(overlayNodes.canvas, craftCache, selectedId, selectCraft);
       } else {
@@ -249,7 +290,9 @@ export function init({ viewer, dock } = {}) {
     overlayNodes = buildOverlay(closeOverlay);
     overlayNodes.detail.textContent = 'Contacting JPL Horizons…';
     try {
-      const res = await fetch(API_URL, { headers: { accept: 'application/json' } });
+      const res = await fetch(API_URL, {
+        headers: { accept: 'application/json' },
+      });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
       craftCache = Array.isArray(data?.craft) ? data.craft : [];
@@ -258,11 +301,12 @@ export function init({ viewer, dock } = {}) {
       drawChart(overlayNodes.canvas, craftCache, selectedId, selectCraft);
       overlayNodes.detail.textContent =
         `Live snapshot ${data.fetchedAt ?? ''} — ${craftCache.length} craft` +
-        (data.failed?.length ? ` (${data.failed.length} upstream fetch failed)` : '') +
+        (data.failed?.length
+          ? ` (${data.failed.length} upstream fetch failed)`
+          : '') +
         '. Click a craft dot for details.';
     } catch (error) {
-      overlayNodes.detail.textContent =
-        `Could not reach JPL Horizons (${error?.message ?? error}). The deep-space board will retry next open.`;
+      overlayNodes.detail.textContent = `Could not reach JPL Horizons (${error?.message ?? error}). The deep-space board will retry next open.`;
       overlayNodes.tableWrap.textContent = '';
     }
   };
@@ -281,11 +325,22 @@ export function init({ viewer, dock } = {}) {
   if (host) {
     section = el('div', { style: 'margin-top:10px;' });
     section.appendChild(
-      el('div', { style: 'font-size:10px;letter-spacing:.12em;color:#8aa4d6;margin-bottom:4px;font-weight:600;' }, t('feature.interplanetary')),
+      el(
+        'div',
+        {
+          style:
+            'font-size:10px;letter-spacing:.12em;color:#8aa4d6;margin-bottom:4px;font-weight:600;',
+        },
+        t('feature.interplanetary'),
+      ),
     );
     section.appendChild(openBtn);
     section.appendChild(
-      el('div', { style: 'font-size:10px;color:#7288b3;margin-top:4px;' }, 'Voyager 1 & 2, Parker Solar Probe, JWST, New Horizons, BepiColombo — live from JPL Horizons.'),
+      el(
+        'div',
+        { style: 'font-size:10px;color:#7288b3;margin-top:4px;' },
+        'Voyager 1 & 2, Parker Solar Probe, JWST, New Horizons, BepiColombo — live from JPL Horizons.',
+      ),
     );
     host.appendChild(section);
   } else {
@@ -294,7 +349,8 @@ export function init({ viewer, dock } = {}) {
   }
 
   const onResize = () => {
-    if (overlayNodes && craftCache.length) drawChart(overlayNodes.canvas, craftCache, selectedId, selectCraft);
+    if (overlayNodes && craftCache.length)
+      drawChart(overlayNodes.canvas, craftCache, selectedId, selectCraft);
   };
   window.addEventListener('resize', onResize);
 

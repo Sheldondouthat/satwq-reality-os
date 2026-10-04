@@ -4,36 +4,32 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 4 (marine+state-open-data worker)).
  */
 export const SPEC = {
-  "headers": {
-    "User-Agent": "satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)"
+  headers: {
+    'User-Agent':
+      'satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)',
   },
-  "source": "California Data Exchange Center (CA Dept. of Water Resources)",
-  "attribution": "Data: CA CDEC — keyless.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 4 (marine+state-open-data worker)",
-  "id": "cdec-reservoir-storage",
-  "title": "CA CDEC — major reservoir storage (Shasta/Oroville/Folsom)",
-  "url": "https://cdec.water.ca.gov/dynamicapp/req/JSONDataServlet?Stations=SHA,ORO,FOL&SensorNums=15&dur_code=D&Start=2026-09-25&End=2026-10-02",
-  "ttlSeconds": 21600,
-  "extract": {
-    "items": "$",
-    "limit": 50,
-    "map": {
-      "station": "$.stationId",
-      "date": "$.date",
-      "storageAF": "$.value",
-      "unitsRaw": "$.units"
+  source: 'California Data Exchange Center (CA Dept. of Water Resources)',
+  attribution: 'Data: CA CDEC — keyless.',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 4 (marine+state-open-data worker)',
+  id: 'cdec-reservoir-storage',
+  title: 'CA CDEC — major reservoir storage (Shasta/Oroville/Folsom)',
+  url: 'https://cdec.water.ca.gov/dynamicapp/req/JSONDataServlet?Stations=SHA,ORO,FOL&SensorNums=15&dur_code=D&Start=2026-09-25&End=2026-10-02',
+  ttlSeconds: 21600,
+  extract: {
+    items: '$',
+    limit: 50,
+    map: {
+      station: '$.stationId',
+      date: '$.date',
+      storageAF: '$.value',
+      unitsRaw: '$.units',
     },
-    "numbers": [
-      "storageAF"
-    ]
+    numbers: ['storageAF'],
   },
-  "required": [
-    "station",
-    "date"
-  ],
-  "units": {
-    "storageAF": "acre-ft"
+  required: ['station', 'date'],
+  units: {
+    storageAF: 'acre-ft',
   },
-  "honesty": "Daily reservoir storage observations; values in acre-feet."
+  honesty: 'Daily reservoir storage observations; values in acre-feet.',
 };

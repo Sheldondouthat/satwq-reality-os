@@ -10,11 +10,7 @@
  * "live right now" for a tag that last surfaced weeks ago. Z-pings carry
  * no location — the provider labels them, never counts them.
  */
-import {
-  isUnavailable,
-  withTags,
-  pickNum,
-} from '../../wave3/common/ticker.js';
+import { isUnavailable, withTags, pickNum } from '../../wave3/common/ticker.js';
 
 export const ROUTE = '/api/ocearch';
 export const EMOJI = '🦈';
@@ -27,7 +23,10 @@ export function valueLine(doc) {
   const fresh = pickNum(doc.summary?.fresh);
   if (ok == null || total == null) return null;
   const freshBit = fresh != null && fresh > 0 ? ` · ${fresh} fresh` : '';
-  return withTags(`${EMOJI} OCEARCH ${ok}/${total} sharks tracked${freshBit}`, doc);
+  return withTags(
+    `${EMOJI} OCEARCH ${ok}/${total} sharks tracked${freshBit}`,
+    doc,
+  );
 }
 
 export function detailLine(doc) {
@@ -43,6 +42,8 @@ export function detailLine(doc) {
     });
   const parts = [];
   if (live.length) parts.push(`Latest pings: ${live.join(' · ')}`);
-  parts.push('SPOT tags ping only when the fin breaks the surface; z-pings have no location; straight lines between pings are not the true path.');
+  parts.push(
+    'SPOT tags ping only when the fin breaks the surface; z-pings have no location; straight lines between pings are not the true path.',
+  );
   return parts.join(' ');
 }

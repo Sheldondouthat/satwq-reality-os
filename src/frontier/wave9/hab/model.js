@@ -12,11 +12,7 @@
  * The valueLine returns null when the payload carries no usable summary;
  * withTags() appends (stale) from the envelope.
  */
-import {
-  isUnavailable,
-  withTags,
-  pickNum,
-} from '../../wave3/common/ticker.js';
+import { isUnavailable, withTags, pickNum } from '../../wave3/common/ticker.js';
 
 export const ROUTE = '/api/hab';
 export const EMOJI = '🪸';

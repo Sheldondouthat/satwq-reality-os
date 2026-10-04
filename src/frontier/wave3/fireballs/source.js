@@ -27,7 +27,8 @@ export function createFireballSource({
   async function getFireballs({ days = 30, minKt = 0 } = {}) {
     const url = `${base}?days=${encodeURIComponent(days)}&minKt=${encodeURIComponent(minKt)}`;
     const payload = await fetchJson(fetchImpl, url);
-    if (!payload || !Array.isArray(payload.events)) throw new Error('Malformed fireballs proxy response');
+    if (!payload || !Array.isArray(payload.events))
+      throw new Error('Malformed fireballs proxy response');
     const events = [];
     for (const raw of payload.events) {
       const ev = coerceFireball(raw);

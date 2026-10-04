@@ -10,11 +10,7 @@
  * valueLine returns null when the payload carries no usable summary; the
  * detail line names the max/latest residuals with their timestamps.
  */
-import {
-  isUnavailable,
-  withTags,
-  pickNum,
-} from '../../wave3/common/ticker.js';
+import { isUnavailable, withTags, pickNum } from '../../wave3/common/ticker.js';
 
 export const ROUTE = '/api/storm-surge';
 export const EMOJI = '🌀';
@@ -57,12 +53,18 @@ export function detailLine(doc) {
       );
     }
     if (Number.isFinite(s.meanResidualFeet)) {
-      parts.push(`mean ${s.meanResidualFeet >= 0 ? '+' : ''}${s.meanResidualFeet} ft over ${s.matchedHours}h`);
+      parts.push(
+        `mean ${s.meanResidualFeet >= 0 ? '+' : ''}${s.meanResidualFeet} ft over ${s.matchedHours}h`,
+      );
     }
   } else {
-    parts.push('No matched observation/prediction hours in this payload — quiet or gap, not a zero.');
+    parts.push(
+      'No matched observation/prediction hours in this payload — quiet or gap, not a zero.',
+    );
   }
-  parts.push('Observed minus NOAA predicted tide; past conditions, not a forecast.');
+  parts.push(
+    'Observed minus NOAA predicted tide; past conditions, not a forecast.',
+  );
   return parts.join(' ');
 }
 

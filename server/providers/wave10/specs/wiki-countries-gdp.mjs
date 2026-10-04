@@ -4,35 +4,33 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 8 (wikidata worker)).
  */
 export const SPEC = {
-  "id": "wiki-countries-gdp",
-  "title": "Wikidata — Countries by GDP (latest claim)",
-  "url": "https://query.wikidata.org/sparql?format=json&query=SELECT%20%3Fcountry%20%3FcountryLabel%20%3Fgdp%20WHERE%20%7B%20%7B%20SELECT%20%3Fcountry%20%28MAX%28%3Ft%29%20AS%20%3Fmt%29%20WHERE%20%7B%20%3Fcountry%20wdt%3AP31%20wd%3AQ6256%3B%20p%3AP2131%2Fpq%3AP585%20%3Ft.%20%7D%20GROUP%20BY%20%3Fcountry%20%7D%20%3Fcountry%20p%3AP2131%20%3Fst.%20%3Fst%20ps%3AP2131%20%3Fgdp%3B%20pq%3AP585%20%3Fmt.%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22en%22.%20%7D%20%7D%20ORDER%20BY%20DESC%28%3Fgdp%29%20LIMIT%2050",
-  "headers": {
-    "User-Agent": "satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)"
+  id: 'wiki-countries-gdp',
+  title: 'Wikidata — Countries by GDP (latest claim)',
+  url: 'https://query.wikidata.org/sparql?format=json&query=SELECT%20%3Fcountry%20%3FcountryLabel%20%3Fgdp%20WHERE%20%7B%20%7B%20SELECT%20%3Fcountry%20%28MAX%28%3Ft%29%20AS%20%3Fmt%29%20WHERE%20%7B%20%3Fcountry%20wdt%3AP31%20wd%3AQ6256%3B%20p%3AP2131%2Fpq%3AP585%20%3Ft.%20%7D%20GROUP%20BY%20%3Fcountry%20%7D%20%3Fcountry%20p%3AP2131%20%3Fst.%20%3Fst%20ps%3AP2131%20%3Fgdp%3B%20pq%3AP585%20%3Fmt.%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22en%22.%20%7D%20%7D%20ORDER%20BY%20DESC%28%3Fgdp%29%20LIMIT%2050',
+  headers: {
+    'User-Agent':
+      'satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)',
   },
-  "ttlSeconds": 86400,
-  "timeoutMs": 60000,
-  "extract": {
-    "items": "$.results.bindings",
-    "limit": 50,
-    "map": {
-      "name": "$.countryLabel.value",
-      "gdp": "$.gdp.value",
-      "wikidata": "$.country.value"
+  ttlSeconds: 86400,
+  timeoutMs: 60000,
+  extract: {
+    items: '$.results.bindings',
+    limit: 50,
+    map: {
+      name: '$.countryLabel.value',
+      gdp: '$.gdp.value',
+      wikidata: '$.country.value',
     },
-    "numbers": [
-      "gdp"
-    ]
+    numbers: ['gdp'],
   },
-  "required": [
-    "name"
-  ],
-  "source": "Wikidata",
-  "attribution": "Data: Wikidata Query Service — keyless, CC0.",
-  "units": {
-    "gdp": "USD"
+  required: ['name'],
+  source: 'Wikidata',
+  attribution: 'Data: Wikidata Query Service — keyless, CC0.',
+  units: {
+    gdp: 'USD',
   },
-  "honesty": "Countries (Q6256) by nominal GDP, one row per country using the most recent year claim (point-in-time qualifier). Top of list: United States 28.75T, China 17.96T. Reference years vary by country. 50 bindings verified 2026-10-02.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 8 (wikidata worker)"
+  honesty:
+    'Countries (Q6256) by nominal GDP, one row per country using the most recent year claim (point-in-time qualifier). Top of list: United States 28.75T, China 17.96T. Reference years vary by country. 50 bindings verified 2026-10-02.',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 8 (wikidata worker)',
 };

@@ -67,9 +67,11 @@ export function createDotCamsLayer({ viewer, fetchImpl } = {}) {
         name: cam.name,
         position: Cesium.Cartesian3.fromDegrees(cam.lon, cam.lat),
         billboard: {
-          image: 'data:image/svg+xml,' + encodeURIComponent(
-            '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"><rect x="2" y="4" width="12" height="8" rx="2" fill="none" stroke="#7fd4ff" stroke-width="2"/><circle cx="8" cy="8" r="2.5" fill="#7fd4ff"/></svg>',
-          ),
+          image:
+            'data:image/svg+xml,' +
+            encodeURIComponent(
+              '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"><rect x="2" y="4" width="12" height="8" rx="2" fill="none" stroke="#7fd4ff" stroke-width="2"/><circle cx="8" cy="8" r="2.5" fill="#7fd4ff"/></svg>',
+            ),
           width: 15,
           height: 15,
         },
@@ -92,9 +94,14 @@ export function createDotCamsLayer({ viewer, fetchImpl } = {}) {
       document.body.appendChild(_panel);
     }
     _panel.innerHTML = '';
-    const close = el('button', {
-      style: 'float:right;background:none;border:0;color:#9fc2ff;cursor:pointer;font-size:14px;',
-    }, '✕');
+    const close = el(
+      'button',
+      {
+        style:
+          'float:right;background:none;border:0;color:#9fc2ff;cursor:pointer;font-size:14px;',
+      },
+      '✕',
+    );
     close.addEventListener('click', () => {
       _panel?.remove();
       _panel = null;
@@ -102,15 +109,29 @@ export function createDotCamsLayer({ viewer, fetchImpl } = {}) {
       clearInterval(_refreshTimer);
     });
     _panel.appendChild(close);
-    _panel.appendChild(el('div', { style: 'font-weight:700;color:#9fc2ff;margin-bottom:4px;' }, `📷 ${cam.name}`));
-    _panel.appendChild(el('div', { style: 'color:#8aa4d6;font-size:11px;margin-bottom:8px;' },
-      `${cam.state} · ${cam.source ?? 'DOT'} · ${cam.lat.toFixed(3)}°, ${cam.lon.toFixed(3)}°` +
-      (cam.distKm != null ? ` · ${cam.distKm.toFixed(0)} km away` : '')));
+    _panel.appendChild(
+      el(
+        'div',
+        { style: 'font-weight:700;color:#9fc2ff;margin-bottom:4px;' },
+        `📷 ${cam.name}`,
+      ),
+    );
+    _panel.appendChild(
+      el(
+        'div',
+        { style: 'color:#8aa4d6;font-size:11px;margin-bottom:8px;' },
+        `${cam.state} · ${cam.source ?? 'DOT'} · ${cam.lat.toFixed(3)}°, ${cam.lon.toFixed(3)}°` +
+          (cam.distKm != null ? ` · ${cam.distKm.toFixed(0)} km away` : ''),
+      ),
+    );
     const img = el('img', {
       alt: `Live still: ${cam.name}`,
-      style: 'width:100%;border-radius:6px;background:#0a1220;min-height:180px;',
+      style:
+        'width:100%;border-radius:6px;background:#0a1220;min-height:180px;',
     });
-    const stamp = el('div', { style: 'color:#8aa4d6;font-size:11px;margin-top:6px;' });
+    const stamp = el('div', {
+      style: 'color:#8aa4d6;font-size:11px;margin-top:6px;',
+    });
     const update = () => {
       const url = weatherCamStillUrl(cam);
       if (url) img.src = `${url}&t=${Date.now()}`;
@@ -147,9 +168,13 @@ export function createDotCamsLayer({ viewer, fetchImpl } = {}) {
   function renderStatus() {
     if (!_statusHost) return;
     _statusHost.textContent =
-      _status === 'live' ? `${_cameras.length} DOT cams (CA+IA mesh)` :
-      _status === 'loading' ? 'loading DOT cams…' :
-      _status === 'unavailable' ? `DOT cams unavailable (${_lastError ?? 'unknown'})` : 'off';
+      _status === 'live'
+        ? `${_cameras.length} DOT cams (CA+IA mesh)`
+        : _status === 'loading'
+          ? 'loading DOT cams…'
+          : _status === 'unavailable'
+            ? `DOT cams unavailable (${_lastError ?? 'unknown'})`
+            : 'off';
   }
 
   return {
@@ -168,7 +193,9 @@ export function createDotCamsLayer({ viewer, fetchImpl } = {}) {
           if (_enabled && _cameras.length) renderMarkers();
         }, 800);
       });
-      const clickHandler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
+      const clickHandler = new Cesium.ScreenSpaceEventHandler(
+        viewer.scene.canvas,
+      );
       clickHandler.setInputAction((movement) => {
         const picked = viewer.scene.pick(movement.position);
         const entity = picked?.id;
@@ -197,7 +224,11 @@ export function createDotCamsLayer({ viewer, fetchImpl } = {}) {
     destroy() {
       this.disable();
     },
-    getStatus: () => ({ status: _status, count: _cameras.length, lastError: _lastError }),
+    getStatus: () => ({
+      status: _status,
+      count: _cameras.length,
+      lastError: _lastError,
+    }),
     isEnabled: () => _enabled,
     attachStatus(host) {
       _statusHost = host;
@@ -210,13 +241,21 @@ export function createDotCamsLayer({ viewer, fetchImpl } = {}) {
 export function mountDotCamsDock({ section, chip, el: elFn, t, layer } = {}) {
   if (!section || !chip || !layer) return null;
   const host = section(t ? t('feature.dotCams') : 'WEATHER CAMS');
-  const statusLine = elFn('div', { style: 'font-size:10px;color:#8aa4d6;margin:4px 0;min-height:14px;' }, '—');
+  const statusLine = elFn(
+    'div',
+    { style: 'font-size:10px;color:#8aa4d6;margin:4px 0;min-height:14px;' },
+    '—',
+  );
   layer.attachStatus(statusLine);
   host.appendChild(
-    chip('📷 DOT cams', (on) => {
-      if (on) layer.enable();
-      else layer.disable();
-    }, false),
+    chip(
+      '📷 DOT cams',
+      (on) => {
+        if (on) layer.enable();
+        else layer.disable();
+      },
+      false,
+    ),
   );
   host.appendChild(statusLine);
   return { element: host, destroy() {} };

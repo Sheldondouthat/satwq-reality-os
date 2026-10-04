@@ -26,7 +26,14 @@ export function escapeHtml(value) {
 }
 
 /** Great-circle-ish arc positions between two lon/lat points, peaked at heightM. */
-export function arcPositions(lon1, lat1, lon2, lat2, heightM = 600000, segments = 48) {
+export function arcPositions(
+  lon1,
+  lat1,
+  lon2,
+  lat2,
+  heightM = 600000,
+  segments = 48,
+) {
   const start = Cesium.Cartesian3.fromDegrees(lon1, lat1, 0);
   const end = Cesium.Cartesian3.fromDegrees(lon2, lat2, 0);
   const pts = [];
@@ -36,12 +43,20 @@ export function arcPositions(lon1, lat1, lon2, lat2, heightM = 600000, segments 
     Cesium.Cartesian3.lerp(start, end, t, p);
     const lift = Math.sin(Math.PI * t) * heightM;
     const carto = Cesium.Cartographic.fromCartesian(p);
-    pts.push(Cesium.Cartesian3.fromRadians(carto.longitude, carto.latitude, lift));
+    pts.push(
+      Cesium.Cartesian3.fromRadians(carto.longitude, carto.latitude, lift),
+    );
   }
   return pts;
 }
 
-export function mountPollingLayer({ name, apiPath, intervalMs, render, query = '' }) {
+export function mountPollingLayer({
+  name,
+  apiPath,
+  intervalMs,
+  render,
+  query = '',
+}) {
   if (!name || !apiPath || typeof render !== 'function') {
     throw new TypeError('mountPollingLayer requires name, apiPath, render');
   }
@@ -61,7 +76,10 @@ export function mountPollingLayer({ name, apiPath, intervalMs, render, query = '
         if (!res.ok) throw new Error(`http_${res.status}`);
         data = await res.json();
       } catch (error) {
-        console.warn(`[wave3:${name}] refresh failed:`, error?.message || error);
+        console.warn(
+          `[wave3:${name}] refresh failed:`,
+          error?.message || error,
+        );
         return;
       }
       if (mine !== seq || !enabled || !dataSource) return;
@@ -84,9 +102,14 @@ export function mountPollingLayer({ name, apiPath, intervalMs, render, query = '
     function disable() {
       enabled = false;
       seq++;
-      if (timer) { clearInterval(timer); timer = null; }
+      if (timer) {
+        clearInterval(timer);
+        timer = null;
+      }
       if (dataSource) {
-        try { viewer.dataSources.remove(dataSource, true); } catch {}
+        try {
+          viewer.dataSources.remove(dataSource, true);
+        } catch {}
         dataSource = null;
       }
     }

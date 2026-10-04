@@ -34,9 +34,7 @@ const SLICE_LOADERS = {
 const MAX_POLY_VERTICES = 400;
 
 function ringToHierarchy(ring) {
-  const pts = ring.map(([lon, lat]) =>
-    Cesium.Cartesian3.fromDegrees(lon, lat),
-  );
+  const pts = ring.map(([lon, lat]) => Cesium.Cartesian3.fromDegrees(lon, lat));
   return new Cesium.PolygonHierarchy(pts);
 }
 
@@ -61,7 +59,11 @@ export function init(viewer, { mount = null } = {}) {
 
   function clearPolygons() {
     for (const e of owned.splice(0)) {
-      try { entities.remove(e); } catch { /* best effort */ }
+      try {
+        entities.remove(e);
+      } catch {
+        /* best effort */
+      }
     }
     currentSlice = null;
   }
@@ -71,7 +73,8 @@ export function init(viewer, { mount = null } = {}) {
     const mod = await SLICE_LOADERS[ageMa]();
     const doc = mod?.default ?? mod;
     const check = validateSlice(doc);
-    if (!check.ok) throw new Error(`invalid deep-time slice ${ageMa}Ma: ${check.reason}`);
+    if (!check.ok)
+      throw new Error(`invalid deep-time slice ${ageMa}Ma: ${check.reason}`);
     cache.set(ageMa, doc);
     return doc;
   }
@@ -92,11 +95,14 @@ export function init(viewer, { mount = null } = {}) {
                 material: land,
                 height: 0,
                 outline: true,
-                outlineColor: Cesium.Color.fromCssColorString('#9fc2ff').withAlpha(0.5),
+                outlineColor:
+                  Cesium.Color.fromCssColorString('#9fc2ff').withAlpha(0.5),
               },
             }),
           );
-        } catch { /* one bad polygon never kills the render */ }
+        } catch {
+          /* one bad polygon never kills the render */
+        }
       }
     }
     currentSlice = ageMa;
@@ -120,7 +126,9 @@ export function init(viewer, { mount = null } = {}) {
     }
   }
 
-  function sliceMa(s) { return `${s} Ma`; }
+  function sliceMa(s) {
+    return `${s} Ma`;
+  }
 
   // — UI —
   const panel = document.createElement('div');
@@ -128,7 +136,8 @@ export function init(viewer, { mount = null } = {}) {
     'margin-top:8px;padding:8px;border-radius:8px;background:rgba(10,18,32,.7);' +
     'border:1px solid rgba(120,180,255,.2);';
   const title = document.createElement('div');
-  title.style.cssText = 'font-size:10px;letter-spacing:.12em;color:#8aa4d6;font-weight:600;';
+  title.style.cssText =
+    'font-size:10px;letter-spacing:.12em;color:#8aa4d6;font-weight:600;';
   title.textContent = '⏳ DEEP TIME';
   const label = document.createElement('div');
   label.style.cssText = 'color:#dfe9ff;font-size:12px;margin:4px 0;';
@@ -142,10 +151,12 @@ export function init(viewer, { mount = null } = {}) {
   slider.setAttribute('aria-label', 'Millions of years before present');
   slider.style.cssText = 'width:100%;';
   const caption = document.createElement('div');
-  caption.style.cssText = 'color:#9fb4dd;font-size:10px;margin-top:2px;min-height:24px;';
+  caption.style.cssText =
+    'color:#9fb4dd;font-size:10px;margin-top:2px;min-height:24px;';
   caption.textContent = ageLabel(0);
   const honesty = document.createElement('div');
-  honesty.style.cssText = 'color:#7d8fb5;font-size:9px;margin-top:4px;line-height:1.4;';
+  honesty.style.cssText =
+    'color:#7d8fb5;font-size:9px;margin-top:4px;line-height:1.4;';
   honesty.textContent = DEEP_TIME_HONESTY;
 
   let debounce = null;
@@ -174,4 +185,10 @@ export function init(viewer, { mount = null } = {}) {
   };
 }
 
-export { AGE_SLICES_MA, DEEP_TIME_HONESTY, sliceAssetName, nearestSliceAge, ageLabel };
+export {
+  AGE_SLICES_MA,
+  DEEP_TIME_HONESTY,
+  sliceAssetName,
+  nearestSliceAge,
+  ageLabel,
+};

@@ -4,31 +4,30 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 8 (police-uk worker)).
  */
 export const SPEC = {
-  "id": "policeuk-stops-2026-07-metropolitan",
-  "title": "UK stop & search — Metropolitan Police Service (Jul 2026)",
-  "url": "https://data.police.uk/api/stops-force?force=metropolitan&date=2026-07",
-  "headers": {},
-  "ttlSeconds": 86400,
-  "extract": {
-    "items": "$",
-    "limit": 50,
-    "map": {
-      "type": "$.type",
-      "age_range": "$.age_range",
-      "gender": "$.gender",
-      "legislation": "$.legislation",
-      "object_of_search": "$.object_of_search",
-      "outcome": "$.outcome",
-      "datetime": "$.datetime",
-      "street": "$.location.street.name"
-    }
+  id: 'policeuk-stops-2026-07-metropolitan',
+  title: 'UK stop & search — Metropolitan Police Service (Jul 2026)',
+  url: 'https://data.police.uk/api/stops-force?force=metropolitan&date=2026-07',
+  headers: {},
+  ttlSeconds: 86400,
+  extract: {
+    items: '$',
+    limit: 50,
+    map: {
+      type: '$.type',
+      age_range: '$.age_range',
+      gender: '$.gender',
+      legislation: '$.legislation',
+      object_of_search: '$.object_of_search',
+      outcome: '$.outcome',
+      datetime: '$.datetime',
+      street: '$.location.street.name',
+    },
   },
-  "required": [
-    "type"
-  ],
-  "source": "UK Police",
-  "attribution": "Data: data.police.uk — keyless, Open Government Licence.",
-  "honesty": "Stop-and-search records for Metropolitan Police Service, data month 2026-07 (latest month with data for this endpoint; Aug 2026 returned empty for tested forces). Verified 12088 rows in fixture (2026-10-02). Aggregate attributes only (type, age range, gender, legislation, outcome); no personal identifiers. lat/lng excluded from the map.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 8 (police-uk worker)"
+  required: ['type'],
+  source: 'UK Police',
+  attribution: 'Data: data.police.uk — keyless, Open Government Licence.',
+  honesty:
+    'Stop-and-search records for Metropolitan Police Service, data month 2026-07 (latest month with data for this endpoint; Aug 2026 returned empty for tested forces). Verified 12088 rows in fixture (2026-10-02). Aggregate attributes only (type, age range, gender, legislation, outcome); no personal identifiers. lat/lng excluded from the map.',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 8 (police-uk worker)',
 };

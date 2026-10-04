@@ -4,35 +4,33 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 6 (apac-weather worker)).
  */
 export const SPEC = {
-  "id": "apac-hko-current-temp",
-  "title": "HKO Hong Kong — current station temperatures",
-  "url": "https://data.weather.gov.hk/weatherAPI/opendata/weather.php?dataType=rhrread&lang=en",
-  "headers": {
-    "User-Agent": "satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)"
+  id: 'apac-hko-current-temp',
+  title: 'HKO Hong Kong — current station temperatures',
+  url: 'https://data.weather.gov.hk/weatherAPI/opendata/weather.php?dataType=rhrread&lang=en',
+  headers: {
+    'User-Agent':
+      'satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)',
   },
-  "ttlSeconds": 900,
-  "extract": {
-    "items": "$.temperature.data",
-    "limit": 30,
-    "map": {
-      "place": "$.place",
-      "tempC": "$.value",
-      "unit": "$.unit"
+  ttlSeconds: 900,
+  extract: {
+    items: '$.temperature.data',
+    limit: 30,
+    map: {
+      place: '$.place',
+      tempC: '$.value',
+      unit: '$.unit',
     },
-    "numbers": [
-      "tempC"
-    ]
+    numbers: ['tempC'],
   },
-  "required": [
-    "place",
-    "tempC"
-  ],
-  "source": "Hong Kong Observatory (HKO)",
-  "attribution": "Data: Hong Kong Observatory — data.weather.gov.hk (Open Data) — keyless.",
-  "units": {
-    "tempC": "C"
+  required: ['place', 'tempC'],
+  source: 'Hong Kong Observatory (HKO)',
+  attribution:
+    'Data: Hong Kong Observatory — data.weather.gov.hk (Open Data) — keyless.',
+  units: {
+    tempC: 'C',
   },
-  "honesty": "27 HKO automatic station readings; per-station observation time is at the top-level recordTime (HKT); stations report on differing cadences.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 6 (apac-weather worker)"
+  honesty:
+    '27 HKO automatic station readings; per-station observation time is at the top-level recordTime (HKT); stations report on differing cadences.',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 6 (apac-weather worker)',
 };

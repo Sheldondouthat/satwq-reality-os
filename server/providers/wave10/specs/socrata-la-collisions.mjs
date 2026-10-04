@@ -4,31 +4,29 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 6 (socrata2 worker)).
  */
 export const SPEC = {
-  "id": "socrata-la-collisions",
-  "title": "Los Angeles (data.lacity.org) — traffic collisions",
-  "url": "https://data.lacity.org/resource/d5tf-ez2w.json?%24limit=50",
-  "headers": {},
-  "ttlSeconds": 3600,
-  "extract": {
-    "items": "$",
-    "limit": 50,
-    "map": {
-      "key": "$.dr_no",
-      "date": "$.date_occ",
-      "time": "$.time_occ",
-      "area": "$.area_name",
-      "desc": "$.crm_cd_desc"
+  id: 'socrata-la-collisions',
+  title: 'Los Angeles (data.lacity.org) — traffic collisions',
+  url: 'https://data.lacity.org/resource/d5tf-ez2w.json?%24limit=50',
+  headers: {},
+  ttlSeconds: 3600,
+  extract: {
+    items: '$',
+    limit: 50,
+    map: {
+      key: '$.dr_no',
+      date: '$.date_occ',
+      time: '$.time_occ',
+      area: '$.area_name',
+      desc: '$.crm_cd_desc',
     },
-    "numbers": []
+    numbers: [],
   },
-  "required": [
-    "key",
-    "date"
-  ],
-  "source": "LAPD — data.lacity.org (Socrata)",
-  "attribution": "Data: LAPD — data.lacity.org (Socrata) — keyless Socrata API.",
-  "units": {},
-  "honesty": "STALE-ERA DATA, honestly labeled: LAPD's legacy collision feed; dataset last updated 2026-01-02 and fixture rows are 2019-2023 era (44/50 from 2019) — LAPD migrated to a new reporting system. Real records, aggregate victim demographics only (no names), but do NOT treat as a live feed. date_occ ISO. Verified 50 rows in fixture (38127 bytes).",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 6 (socrata2 worker)"
+  required: ['key', 'date'],
+  source: 'LAPD — data.lacity.org (Socrata)',
+  attribution: 'Data: LAPD — data.lacity.org (Socrata) — keyless Socrata API.',
+  units: {},
+  honesty:
+    "STALE-ERA DATA, honestly labeled: LAPD's legacy collision feed; dataset last updated 2026-01-02 and fixture rows are 2019-2023 era (44/50 from 2019) — LAPD migrated to a new reporting system. Real records, aggregate victim demographics only (no names), but do NOT treat as a live feed. date_occ ISO. Verified 50 rows in fixture (38127 bytes).",
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 6 (socrata2 worker)',
 };

@@ -31,10 +31,14 @@ export async function fetchTextCapped({
       headers: { 'User-Agent': userAgent, Accept: accept },
     });
     if (!res.ok)
-      throw Object.assign(new Error(`${label}_upstream_${res.status}`), { status: 502 });
+      throw Object.assign(new Error(`${label}_upstream_${res.status}`), {
+        status: 502,
+      });
     const { tooLarge, text } = await readCappedResponseText(res, bodyCapBytes);
     if (tooLarge)
-      throw Object.assign(new Error(`${label}_upstream_too_large`), { status: 502 });
+      throw Object.assign(new Error(`${label}_upstream_too_large`), {
+        status: 502,
+      });
     return text;
   } catch (err) {
     if (err?.status === 502) throw err;
@@ -52,7 +56,10 @@ export async function fetchJsonCapped(opts) {
   try {
     return JSON.parse(text);
   } catch {
-    throw Object.assign(new Error(`${opts.label ?? 'wave5'}_upstream_bad_json`), { status: 502 });
+    throw Object.assign(
+      new Error(`${opts.label ?? 'wave5'}_upstream_bad_json`),
+      { status: 502 },
+    );
   }
 }
 
@@ -62,7 +69,12 @@ export function numOrNull(v) {
   return Number.isFinite(n) ? n : null;
 }
 
-export function sendJson(res, status, body, cacheControl = 'public, max-age=300') {
+export function sendJson(
+  res,
+  status,
+  body,
+  cacheControl = 'public, max-age=300',
+) {
   res.writeHead(status, {
     'Content-Type': 'application/json; charset=utf-8',
     'Cache-Control': cacheControl,
@@ -116,4 +128,11 @@ export function buildProxy({ name, route, handler }) {
   return proxy;
 }
 
-export const _wave5LibInternals = { fetchTextCapped, fetchJsonCapped, numOrNull, makeCache, buildProxy, sendJson };
+export const _wave5LibInternals = {
+  fetchTextCapped,
+  fetchJsonCapped,
+  numOrNull,
+  makeCache,
+  buildProxy,
+  sendJson,
+};

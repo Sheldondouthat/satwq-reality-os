@@ -4,37 +4,33 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 8 (scholarly worker)).
  */
 export const SPEC = {
-  "id": "scholar-openalex-fusion",
-  "title": "OpenAlex — fusion energy works",
-  "url": "https://api.openalex.org/works?search=fusion+energy&per-page=20&mailto=sheldondouthat@gmail.com",
-  "headers": {},
-  "ttlSeconds": 86400,
-  "extract": {
-    "items": "$.results",
-    "limit": 20,
-    "map": {
-      "title": "$.title",
-      "year": "$.publication_year",
-      "cited_by_count": "$.cited_by_count",
-      "doi": "$.doi",
-      "first_author": "$.authorships[0].author.display_name",
-      "venue": "$.primary_location.source.display_name",
-      "type": "$.type"
+  id: 'scholar-openalex-fusion',
+  title: 'OpenAlex — fusion energy works',
+  url: 'https://api.openalex.org/works?search=fusion+energy&per-page=20&mailto=sheldondouthat@gmail.com',
+  headers: {},
+  ttlSeconds: 86400,
+  extract: {
+    items: '$.results',
+    limit: 20,
+    map: {
+      title: '$.title',
+      year: '$.publication_year',
+      cited_by_count: '$.cited_by_count',
+      doi: '$.doi',
+      first_author: '$.authorships[0].author.display_name',
+      venue: '$.primary_location.source.display_name',
+      type: '$.type',
     },
-    "numbers": [
-      "year",
-      "cited_by_count"
-    ]
+    numbers: ['year', 'cited_by_count'],
   },
-  "required": [
-    "doi"
-  ],
-  "source": "OpenAlex",
-  "attribution": "Data: OpenAlex (CC0) — keyless.",
-  "units": {
-    "cited_by_count": "citations"
+  required: ['doi'],
+  source: 'OpenAlex',
+  attribution: 'Data: OpenAlex (CC0) — keyless.',
+  units: {
+    cited_by_count: 'citations',
   },
-  "honesty": "OpenAlex relevance-ranked works. API reports 1,027,973 total matching works; fixture: 20 rows. Coverage: doi 19/20, venue 18/20, rest 20/20. DOI-filtered rows only. Verified 200 OK from this VM.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 8 (scholarly worker)"
+  honesty:
+    'OpenAlex relevance-ranked works. API reports 1,027,973 total matching works; fixture: 20 rows. Coverage: doi 19/20, venue 18/20, rest 20/20. DOI-filtered rows only. Verified 200 OK from this VM.',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 8 (scholarly worker)',
 };

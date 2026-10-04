@@ -8,7 +8,12 @@
 
 /** Export a camera state as a compact paste-ready code. */
 export function exportCameraState(camera) {
-  if (!camera || !Number.isFinite(camera.lon) || !Number.isFinite(camera.lat) || !Number.isFinite(camera.height)) {
+  if (
+    !camera ||
+    !Number.isFinite(camera.lon) ||
+    !Number.isFinite(camera.lat) ||
+    !Number.isFinite(camera.height)
+  ) {
     return null;
   }
   const compact = {
@@ -22,7 +27,8 @@ export function exportCameraState(camera) {
   const json = JSON.stringify(compact);
   const bytes = new TextEncoder().encode(json);
   let bin = '';
-  for (let i = 0; i < bytes.length; i += 1) bin += String.fromCharCode(bytes[i]);
+  for (let i = 0; i < bytes.length; i += 1)
+    bin += String.fromCharCode(bytes[i]);
   return `SATWQ-EYE:${btoa(bin).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '')}`;
 }
 
@@ -40,9 +46,17 @@ export function importCameraState(code) {
     const obj = JSON.parse(new TextDecoder().decode(bytes));
     if (!obj || obj.v !== 1) return null;
     const { lon, lat, h, hd, p } = obj;
-    if (!Number.isFinite(lon) || !Number.isFinite(lat) || !Number.isFinite(h)) return null;
-    if (lon < -180 || lon > 180 || lat < -90 || lat > 90 || h < 0 || h > 1e9) return null;
-    return { lon, lat, height: h, heading: Number.isFinite(hd) ? hd : 0, pitch: Number.isFinite(p) ? p : -60 };
+    if (!Number.isFinite(lon) || !Number.isFinite(lat) || !Number.isFinite(h))
+      return null;
+    if (lon < -180 || lon > 180 || lat < -90 || lat > 90 || h < 0 || h > 1e9)
+      return null;
+    return {
+      lon,
+      lat,
+      height: h,
+      heading: Number.isFinite(hd) ? hd : 0,
+      pitch: Number.isFinite(p) ? p : -60,
+    };
   } catch {
     return null;
   }
@@ -61,7 +75,12 @@ export function readViewerCamera(viewer) {
     const height = carto.height;
     const heading = (viewer.camera.heading * 180) / Math.PI || 0;
     const pitch = (viewer.camera.pitch * 180) / Math.PI || 0;
-    if (!Number.isFinite(lon) || !Number.isFinite(lat) || !Number.isFinite(height)) return null;
+    if (
+      !Number.isFinite(lon) ||
+      !Number.isFinite(lat) ||
+      !Number.isFinite(height)
+    )
+      return null;
     return { lon, lat, height, heading, pitch };
   } catch {
     return null;
@@ -72,13 +91,21 @@ export function readViewerCamera(viewer) {
  * Fly a Cesium viewer to a camera state. Returns a promise; never throws.
  * `cesiumImport` is injectable (defaults to dynamic `import('cesium')`).
  */
-export async function flyViewerTo(viewer, camera, cesiumImport = () => import('cesium')) {
+export async function flyViewerTo(
+  viewer,
+  camera,
+  cesiumImport = () => import('cesium'),
+) {
   if (!viewer || !camera) return false;
   try {
     const { Cartesian3, Math: CMath } = await cesiumImport();
     await new Promise((resolve) => {
       viewer.camera.flyTo({
-        destination: Cartesian3.fromDegrees(camera.lon, camera.lat, camera.height),
+        destination: Cartesian3.fromDegrees(
+          camera.lon,
+          camera.lat,
+          camera.height,
+        ),
         orientation: {
           heading: CMath.toRadians(camera.heading ?? 0),
           pitch: CMath.toRadians(camera.pitch ?? -60),

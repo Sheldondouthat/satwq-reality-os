@@ -4,39 +4,34 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 6 (usgsx worker)).
  */
 export const SPEC = {
-  "id": "usgsx-gw-centralvalley",
-  "title": "USGS Water — Groundwater levels, Central Valley (CA)",
-  "url": "https://waterservices.usgs.gov/nwis/iv/?format=json&sites=353328119144403,353328119144404,353328119144405,353328119144406,355933119062001&parameterCd=72019",
-  "headers": {
-    "User-Agent": "satwq-reality-os/1.0 (surge-500 probe)"
+  id: 'usgsx-gw-centralvalley',
+  title: 'USGS Water — Groundwater levels, Central Valley (CA)',
+  url: 'https://waterservices.usgs.gov/nwis/iv/?format=json&sites=353328119144403,353328119144404,353328119144405,353328119144406,355933119062001&parameterCd=72019',
+  headers: {
+    'User-Agent': 'satwq-reality-os/1.0 (surge-500 probe)',
   },
-  "ttlSeconds": 3600,
-  "extract": {
-    "items": "$.value.timeSeries",
-    "limit": 10,
-    "map": {
-      "name": "$.sourceInfo.siteName",
-      "site": "$.sourceInfo.siteCode[0].value",
-      "value": "$.values[0].value[0].value",
-      "time": "$.values[0].value[0].dateTime",
-      "lat": "$.sourceInfo.geoLocation.geogLocation.latitude",
-      "lon": "$.sourceInfo.geoLocation.geogLocation.longitude"
+  ttlSeconds: 3600,
+  extract: {
+    items: '$.value.timeSeries',
+    limit: 10,
+    map: {
+      name: '$.sourceInfo.siteName',
+      site: '$.sourceInfo.siteCode[0].value',
+      value: '$.values[0].value[0].value',
+      time: '$.values[0].value[0].dateTime',
+      lat: '$.sourceInfo.geoLocation.geogLocation.latitude',
+      lon: '$.sourceInfo.geoLocation.geogLocation.longitude',
     },
-    "numbers": [
-      "value",
-      "lat",
-      "lon"
-    ]
+    numbers: ['value', 'lat', 'lon'],
   },
-  "required": [
-    "name"
-  ],
-  "source": "USGS Water Services (NWIS)",
-  "attribution": "Data: U.S. Geological Survey, NWIS — keyless.",
-  "units": {
-    "value": "ft below land surface"
+  required: ['name'],
+  source: 'USGS Water Services (NWIS)',
+  attribution: 'Data: U.S. Geological Survey, NWIS — keyless.',
+  units: {
+    value: 'ft below land surface',
   },
-  "honesty": "Depth to water level in feet BELOW land surface at five real-time wells in California's Central Valley (including a 4-well nested site), typically updated hourly.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 6 (usgsx worker)"
+  honesty:
+    "Depth to water level in feet BELOW land surface at five real-time wells in California's Central Valley (including a 4-well nested site), typically updated hourly.",
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 6 (usgsx worker)',
 };

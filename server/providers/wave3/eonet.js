@@ -120,8 +120,9 @@ export function normalizeEvent(event) {
   let track = points;
   if (points.length > MAX_TRACK_POINTS) {
     const step = (points.length - 1) / (MAX_TRACK_POINTS - 1);
-    track = Array.from({ length: MAX_TRACK_POINTS }, (_, i) =>
-      points[Math.round(i * step)],
+    track = Array.from(
+      { length: MAX_TRACK_POINTS },
+      (_, i) => points[Math.round(i * step)],
     );
   }
   return {
@@ -148,7 +149,8 @@ export function parseQuery(searchParams) {
   const rawDays = searchParams.get('days');
   if (rawDays !== null) {
     const d = Number(rawDays);
-    if (Number.isFinite(d)) days = Math.min(MAX_DAYS, Math.max(1, Math.floor(d)));
+    if (Number.isFinite(d))
+      days = Math.min(MAX_DAYS, Math.max(1, Math.floor(d)));
   }
   const category = searchParams.get('category') || null;
   if (category && !CATEGORY_VALUES.has(category))

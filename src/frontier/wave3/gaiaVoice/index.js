@@ -14,7 +14,10 @@ export function initGaiaVoice({ pollMs } = {}) {
   const cleanups = [];
   try {
     const speaker = createGaiaSpeaker();
-    const watcher = startGaiaWatcher({ ...(pollMs ? { pollMs } : {}), speaker });
+    const watcher = startGaiaWatcher({
+      ...(pollMs ? { pollMs } : {}),
+      speaker,
+    });
     cleanups.push(() => watcher.stop());
 
     const wrap = document.createElement('div');
@@ -24,7 +27,9 @@ export function initGaiaVoice({ pollMs } = {}) {
 
     const muteBtn = document.createElement('button');
     const paintMute = () => {
-      muteBtn.textContent = watcher.isMuted() ? '🔇 gaia muted' : '🔊 gaia listening';
+      muteBtn.textContent = watcher.isMuted()
+        ? '🔇 gaia muted'
+        : '🔊 gaia listening';
       muteBtn.setAttribute('aria-pressed', String(!watcher.isMuted()));
     };
     muteBtn.style.cssText =
@@ -50,7 +55,8 @@ export function initGaiaVoice({ pollMs } = {}) {
         id: 'gaia:test',
         severity: 'moderate',
         kind: 'test',
-        utterance: 'Gaia listening. I will speak when the planet does something worth hearing.',
+        utterance:
+          'Gaia listening. I will speak when the planet does something worth hearing.',
       });
     });
 

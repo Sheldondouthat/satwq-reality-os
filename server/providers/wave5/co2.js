@@ -14,9 +14,16 @@
  * reads, redirect:'error' pinned host, no node: imports, no WASM).
  */
 
-import { fetchTextCapped, makeCache, numOrNull, sendJson, buildProxy } from './_lib.js';
+import {
+  fetchTextCapped,
+  makeCache,
+  numOrNull,
+  sendJson,
+  buildProxy,
+} from './_lib.js';
 
-const UPSTREAM_URL = 'https://gml.noaa.gov/webdata/ccgg/trends/co2/co2_daily_mlo.csv';
+const UPSTREAM_URL =
+  'https://gml.noaa.gov/webdata/ccgg/trends/co2/co2_daily_mlo.csv';
 const UPSTREAM_TIMEOUT_MS = 20_000;
 const BODY_CAP_BYTES = 2 * 1024 * 1024; // full-record CSV is ~450 KB
 const CACHE_TTL_MS = 6 * 3600_000; // daily series; 6h keeps it fresh
@@ -34,7 +41,8 @@ export function parseCo2Csv(text) {
     if (parts.length < 5) continue;
     const [year, month, day, decimalDate] = parts.map(Number);
     const ppm = numOrNull(parts[4]);
-    if (![year, month, day, decimalDate].every(Number.isFinite) || ppm === null) continue;
+    if (![year, month, day, decimalDate].every(Number.isFinite) || ppm === null)
+      continue;
     if (ppm === MISSING_PPM) continue; // missing-data flag, not a measurement
     rows.push({ year, month, day, decimalDate, ppm });
   }
@@ -47,7 +55,10 @@ export function pickLatestAndYearAgo(rows) {
   const latest = rows[rows.length - 1];
   // Prefer the exact same month/day one year earlier…
   let yearAgo = rows.find(
-    (r) => r.year === latest.year - 1 && r.month === latest.month && r.day === latest.day,
+    (r) =>
+      r.year === latest.year - 1 &&
+      r.month === latest.month &&
+      r.day === latest.day,
   );
   // …otherwise the nearest measurement within ±8 days of decimalDate-1.
   if (!yearAgo) {
@@ -69,8 +80,7 @@ export function pickLatestAndYearAgo(rows) {
 export function trimCo2Payload(text) {
   const rows = parseCo2Csv(text);
   const { latest, yearAgo } = pickLatestAndYearAgo(rows);
-  if (!latest)
-    throw Object.assign(new Error('co2_no_rows'), { status: 502 });
+  if (!latest) throw Object.assign(new Error('co2_no_rows'), { status: 502 });
   const delta1yPpm =
     yearAgo != null ? Math.round((latest.ppm - yearAgo.ppm) * 100) / 100 : null;
   const date = `${String(latest.year).padStart(4, '0')}-${String(latest.month).padStart(2, '0')}-${String(latest.day).padStart(2, '0')}`;
@@ -110,7 +120,8 @@ const cache = makeCache(
 /** Mount the CO₂ proxy. Mirrors the vaac/nwsAlerts provider shape. */
 export function co2Proxy() {
   async function handler(req, res) {
-    if (req.method !== 'GET') return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
     try {
       sendJson(res, 200, await cache.get(), 'public, max-age=21600');
     } catch (error) {

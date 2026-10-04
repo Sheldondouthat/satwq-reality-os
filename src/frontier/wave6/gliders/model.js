@@ -20,17 +20,17 @@ export const EMOJI = '🪂';
 export const LABEL = 'Gliders (live)';
 
 export function valueLine(doc) {
-      if (isUnavailable(doc)) return null;
-      const n = pickNum(doc.count, doc.markers?.length);
-      if (n == null) return null;
-      return withTags(`${EMOJI} ${n.toLocaleString('en-US')} gliders live`, doc);
-    }
+  if (isUnavailable(doc)) return null;
+  const n = pickNum(doc.count, doc.markers?.length);
+  if (n == null) return null;
+  return withTags(`${EMOJI} ${n.toLocaleString('en-US')} gliders live`, doc);
+}
 
 export function detailLine(doc) {
-      if (isUnavailable(doc)) return '';
-      const m = pickArr(doc.markers)[0];
-      if (!m) return '';
-      const alt = pickNum(m.altM);
-      const spd = pickNum(m.speedKmh);
-      return `${pickStr(m.reg, m.cn, 'glider')}${alt != null ? ` · ${alt.toLocaleString('en-US')} m` : ''}${spd != null ? ` · ${spd} km/h` : ''}`;
-    }
+  if (isUnavailable(doc)) return '';
+  const m = pickArr(doc.markers)[0];
+  if (!m) return '';
+  const alt = pickNum(m.altM);
+  const spd = pickNum(m.speedKmh);
+  return `${pickStr(m.reg, m.cn, 'glider')}${alt != null ? ` · ${alt.toLocaleString('en-US')} m` : ''}${spd != null ? ` · ${spd} km/h` : ''}`;
+}

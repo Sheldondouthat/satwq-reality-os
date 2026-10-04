@@ -63,7 +63,8 @@ export const ISS_CHIME_NOTES = Object.freeze([523.25, 659.25, 783.99]);
 export const ISS_CHIME_STAGGER_S = 0.22;
 
 export function issChimeParams(noteIndex = 0) {
-  const idx = ((noteIndex % ISS_CHIME_NOTES.length) + ISS_CHIME_NOTES.length) %
+  const idx =
+    ((noteIndex % ISS_CHIME_NOTES.length) + ISS_CHIME_NOTES.length) %
     ISS_CHIME_NOTES.length;
   return {
     type: 'sine',
@@ -82,7 +83,9 @@ export function panForLon(lon) {
 }
 
 const clampVolume = (v) =>
-  Number.isFinite(v) ? Math.min(1, Math.max(0, v)) : SONIFICATION_DEFAULT_VOLUME;
+  Number.isFinite(v)
+    ? Math.min(1, Math.max(0, v))
+    : SONIFICATION_DEFAULT_VOLUME;
 
 /**
  * @param {object} options
@@ -278,7 +281,13 @@ export function initSonification({ getAudioContext, volume } = {}) {
         osc.type = 'sine';
         osc.frequency.value = params.frequency;
         const g = _ctx.createGain();
-        envelope(g.gain, params.gain, params.attack, params.duration, t0 + params.delay);
+        envelope(
+          g.gain,
+          params.gain,
+          params.attack,
+          params.duration,
+          t0 + params.delay,
+        );
         const panner = panNode(lon);
         osc.connect(g);
         const tail = panner ?? g;

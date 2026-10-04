@@ -15,7 +15,13 @@
  * reads, redirect:'error' pinned host, no node: imports, no WASM).
  */
 
-import { fetchJsonCapped, makeCache, numOrNull, sendJson, buildProxy } from './_lib.js';
+import {
+  fetchJsonCapped,
+  makeCache,
+  numOrNull,
+  sendJson,
+  buildProxy,
+} from './_lib.js';
 
 const UPSTREAM_URL = 'https://api.carbonintensity.org.uk/intensity';
 const UPSTREAM_TIMEOUT_MS = 15_000;
@@ -69,7 +75,8 @@ const cache = makeCache(
 /** Mount the carbon-intensity proxy. Mirrors the vaac/nwsAlerts provider shape. */
 export function carbonProxy() {
   async function handler(req, res) {
-    if (req.method !== 'GET') return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
     try {
       sendJson(res, 200, await cache.get(), 'public, max-age=1800');
     } catch (error) {

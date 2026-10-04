@@ -43,7 +43,9 @@ function num(v) {
 function buildPayload(state, { now = () => Date.now() } = {}) {
   const t = now();
   const pressure = num(state?.pressure_hpa);
-  const pts = Number.isFinite(state?.pressure_ts_ms) ? state.pressure_ts_ms : null;
+  const pts = Number.isFinite(state?.pressure_ts_ms)
+    ? state.pressure_ts_ms
+    : null;
   const ageMs = pts == null ? null : Math.max(0, t - pts);
 
   const base = {
@@ -57,46 +59,62 @@ function buildPayload(state, { now = () => Date.now() } = {}) {
     return {
       ...base,
       count: 0,
-      sources: [{
-        id: 's21-barometer', name: 'S21 barometer (LPS22HH)', kind: 'obs',
-        status: 'unavailable', count: 0,
-      }],
+      sources: [
+        {
+          id: 's21-barometer',
+          name: 'S21 barometer (LPS22HH)',
+          kind: 'obs',
+          status: 'unavailable',
+          count: 0,
+        },
+      ],
       stations: [],
       stale: false,
       unavailable: true,
-      reason: 'No phone barometer reading on the VM (poller dark or phone unreachable).',
-      attribution: 'S21 barometer, polled on the VM. Pressure only — position never leaves the private plane.',
+      reason:
+        'No phone barometer reading on the VM (poller dark or phone unreachable).',
+      attribution:
+        'S21 barometer, polled on the VM. Pressure only — position never leaves the private plane.',
     };
   }
 
   return {
     ...base,
     count: 1,
-    sources: [{
-      id: 's21-barometer', name: 'S21 barometer (LPS22HH)', kind: 'obs',
-      status: 'ok', count: 1,
-    }],
-    stations: [{
-      source: 's21-barometer',
-      id: 's21',
-      name: 'S21 · phone barometer',
-      lat: null, // privacy: coordinates never served here, even when known
-      lon: null,
-      tempC: null,
-      windMs: null,
-      windDirDeg: null,
-      rhPct: null,
-      pressureHpa: pressure,
-      timeMs: pts,
-      kind: 'obs',
-      coordApprox: false,
-    }],
+    sources: [
+      {
+        id: 's21-barometer',
+        name: 'S21 barometer (LPS22HH)',
+        kind: 'obs',
+        status: 'ok',
+        count: 1,
+      },
+    ],
+    stations: [
+      {
+        source: 's21-barometer',
+        id: 's21',
+        name: 'S21 · phone barometer',
+        lat: null, // privacy: coordinates never served here, even when known
+        lon: null,
+        tempC: null,
+        windMs: null,
+        windDirDeg: null,
+        rhPct: null,
+        pressureHpa: pressure,
+        timeMs: pts,
+        kind: 'obs',
+        coordApprox: false,
+      },
+    ],
     stale: ageMs > FRESH_MS,
     unavailable: false,
-    reason: ageMs > FRESH_MS ? 'Reading older than 5 min; showing last known.' : null,
+    reason:
+      ageMs > FRESH_MS ? 'Reading older than 5 min; showing last known.' : null,
     readingAgeMs: ageMs,
-    attribution: 'S21 barometer (STMicro LPS22HH via Termux sensor API), polled on the VM. '
-      + 'Pressure only — GPS position renders solely on the private key-gated plane.',
+    attribution:
+      'S21 barometer (STMicro LPS22HH via Termux sensor API), polled on the VM. ' +
+      'Pressure only — GPS position renders solely on the private key-gated plane.',
   };
 }
 
@@ -117,14 +135,21 @@ async function defaultReadState() {
   }
 }
 
-export function phoneSensorsProxy({ readState = defaultReadState, now = () => Date.now() } = {}) {
+export function phoneSensorsProxy({
+  readState = defaultReadState,
+  now = () => Date.now(),
+} = {}) {
   async function handler(req, res) {
     const json = (status, value) => {
-      res.writeHead(status, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
+      res.writeHead(status, {
+        'Content-Type': 'application/json',
+        'Cache-Control': 'no-store',
+      });
       res.end(JSON.stringify(value));
     };
     try {
-      if (req.method !== 'GET') return json(405, { error: 'method_not_allowed' });
+      if (req.method !== 'GET')
+        return json(405, { error: 'method_not_allowed' });
       const state = await readState().catch(() => null);
       json(200, buildPayload(state, { now }));
     } catch (error) {
@@ -143,4 +168,9 @@ export function phoneSensorsProxy({ readState = defaultReadState, now = () => Da
   };
 }
 
-export const _phoneSensorsInternals = { num, buildPayload, FRESH_MS, STALE_CAP_MS };
+export const _phoneSensorsInternals = {
+  num,
+  buildPayload,
+  FRESH_MS,
+  STALE_CAP_MS,
+};

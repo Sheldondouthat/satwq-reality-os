@@ -35,13 +35,23 @@
  * 'error' throws at the edge (main 2ec4053), no node: imports, no WASM).
  */
 
-import { readResponseTextCapped } from "../common/http.js";
+import { readResponseTextCapped } from '../common/http.js';
 
-const DATASELECT_URL = "https://service.earthscope.org/fdsnws/dataselect/1/query";
-const NETWORK = "IM";
-const CHANNEL = "BDF";
-const STATIONS = ["I53H1", "I53H2", "I53H3", "I53H4", "I53H5", "I53H6", "I53H7", "I53H8"];
-const DEFAULT_STATION = "I53H1";
+const DATASELECT_URL =
+  'https://service.earthscope.org/fdsnws/dataselect/1/query';
+const NETWORK = 'IM';
+const CHANNEL = 'BDF';
+const STATIONS = [
+  'I53H1',
+  'I53H2',
+  'I53H3',
+  'I53H4',
+  'I53H5',
+  'I53H6',
+  'I53H7',
+  'I53H8',
+];
+const DEFAULT_STATION = 'I53H1';
 const DEFAULT_MINUTES = 5;
 const MAX_MINUTES = 10;
 const UPSTREAM_TIMEOUT_MS = 25_000;
@@ -51,7 +61,7 @@ const RETRY_COOLDOWN_MS = 60_000;
 const STALE_MS = 15 * 60_000;
 const MIN_SAMPLES = 20; // a 1-min request at 20 Hz yields 1200; 20 is the sanity floor
 const SERIES_MAX_POINTS = 300; // downsampled pressure series for chart consumers
-const USER_AGENT = "Gods Eye View (EarthScope IMS infrasound layer)";
+const USER_AGENT = 'Gods Eye View (EarthScope IMS infrasound layer)';
 
 let cache = null; // {at, key, payload}
 let inflight = null; // {key, promise}
@@ -59,37 +69,47 @@ let attemptedAt = -Infinity;
 
 /** Parse a GeoCSV 2.0 slist document (pure text). Throws {status:502} on bad shape. */
 export function parseGeoCsvSlist(text) {
-  const fail = (msg) => Object.assign(new Error(`infrasound_geocsv_invalid: ${msg}`), { status: 502 });
-  const lines = text.split("\n");
+  const fail = (msg) =>
+    Object.assign(new Error(`infrasound_geocsv_invalid: ${msg}`), {
+      status: 502,
+    });
+  const lines = text.split('\n');
   const header = {};
   let i = 0;
   for (; i < lines.length; i++) {
     const line = lines[i];
-    if (!line.startsWith("#")) break;
+    if (!line.startsWith('#')) break;
     const body = line.slice(1).trim();
-    const sep = body.indexOf(":");
+    const sep = body.indexOf(':');
     if (sep > 0) header[body.slice(0, sep).trim()] = body.slice(sep + 1).trim();
   }
-  if (header.dataset !== "GeoCSV 2.0") throw fail(`dataset is ${JSON.stringify(header.dataset)}`);
-  const columnLine = (lines[i] ?? "").trim();
-  if (columnLine.toLowerCase() !== "sample") throw fail(`expected "Sample" column, got ${JSON.stringify(columnLine)}`);
+  if (header.dataset !== 'GeoCSV 2.0')
+    throw fail(`dataset is ${JSON.stringify(header.dataset)}`);
+  const columnLine = (lines[i] ?? '').trim();
+  if (columnLine.toLowerCase() !== 'sample')
+    throw fail(`expected "Sample" column, got ${JSON.stringify(columnLine)}`);
   i++;
   const samples = [];
   for (; i < lines.length; i++) {
     const s = lines[i].trim();
     if (!s) continue;
     const v = Number(s);
-    if (!Number.isFinite(v)) throw fail(`non-numeric sample ${JSON.stringify(s)}`);
+    if (!Number.isFinite(v))
+      throw fail(`non-numeric sample ${JSON.stringify(s)}`);
     samples.push(v);
   }
   if (samples.length < MIN_SAMPLES)
-    throw fail(`only ${samples.length} samples (min ${MIN_SAMPLES}) — window likely empty upstream`);
+    throw fail(
+      `only ${samples.length} samples (min ${MIN_SAMPLES}) — window likely empty upstream`,
+    );
   const sampleRateHz = Number(header.sample_rate_hz);
   const startMs = Date.parse(header.start_time);
   const scaleFactor = Number(header.scale_factor);
-  if (!Number.isFinite(sampleRateHz) || sampleRateHz <= 0) throw fail("bad sample_rate_hz");
-  if (!Number.isFinite(startMs)) throw fail("bad start_time");
-  if (!Number.isFinite(scaleFactor) || scaleFactor === 0) throw fail("bad scale_factor");
+  if (!Number.isFinite(sampleRateHz) || sampleRateHz <= 0)
+    throw fail('bad sample_rate_hz');
+  if (!Number.isFinite(startMs)) throw fail('bad start_time');
+  if (!Number.isFinite(scaleFactor) || scaleFactor === 0)
+    throw fail('bad scale_factor');
   return {
     sid: header.SID ?? null,
     instrument: header.instrument ?? null,
@@ -111,7 +131,8 @@ export function parseGeoCsvSlist(text) {
  * stride so consumers can reconstruct timing.
  */
 export function downsample(samples, maxPoints = SERIES_MAX_POINTS) {
-  if (samples.length <= maxPoints) return { stride: 1, values: samples.slice() };
+  if (samples.length <= maxPoints)
+    return { stride: 1, values: samples.slice() };
   const stride = Math.ceil(samples.length / maxPoints);
   const values = [];
   for (let i = 0; i < samples.length; i += stride) values.push(samples[i]);
@@ -137,7 +158,12 @@ function summarize(values) {
 export function buildInfrasoundPayload(parsed, { station, minutes, nowMs }) {
   const toPa = (counts) => counts / parsed.scaleFactor;
   const countStats = summarize(parsed.samples);
-  const pa = (s) => ({ min: toPa(s.min), max: toPa(s.max), mean: toPa(s.mean), rms: toPa(s.rms) });
+  const pa = (s) => ({
+    min: toPa(s.min),
+    max: toPa(s.max),
+    mean: toPa(s.mean),
+    rms: toPa(s.rms),
+  });
   const { stride, values } = downsample(parsed.samples);
   return {
     generatedAt: new Date(nowMs).toISOString(),
@@ -156,7 +182,9 @@ export function buildInfrasoundPayload(parsed, { station, minutes, nowMs }) {
       windowMinutes: minutes,
       sampleRateHz: parsed.sampleRateHz,
       startTime: new Date(parsed.startMs).toISOString(),
-      endTime: new Date(parsed.startMs + (parsed.samples.length / parsed.sampleRateHz) * 1000).toISOString(),
+      endTime: new Date(
+        parsed.startMs + (parsed.samples.length / parsed.sampleRateHz) * 1000,
+      ).toISOString(),
       headerSampleCount: parsed.headerSampleCount,
       actualSampleCount: parsed.samples.length,
     },
@@ -164,8 +192,8 @@ export function buildInfrasoundPayload(parsed, { station, minutes, nowMs }) {
       counts: countStats,
       pascals: pa(countStats),
       pascalsNote:
-        "counts divided by header scale_factor (linear-calibration assumption, SEED convention); " +
-        `scale_units=${parsed.scaleUnits ?? "unknown"}, scale_factor=${parsed.scaleFactor}`,
+        'counts divided by header scale_factor (linear-calibration assumption, SEED convention); ' +
+        `scale_units=${parsed.scaleUnits ?? 'unknown'}, scale_factor=${parsed.scaleFactor}`,
     },
     series: {
       startTime: new Date(parsed.startMs).toISOString(),
@@ -174,35 +202,40 @@ export function buildInfrasoundPayload(parsed, { station, minutes, nowMs }) {
       valuesPa: values.map(toPa),
     },
     attribution:
-      "Infrasound waveform: EarthScope FDSN dataselect, IMS network IM station " +
+      'Infrasound waveform: EarthScope FDSN dataselect, IMS network IM station ' +
       `${station} (I53US array, Fairbanks AK). Keyless/open; cite EarthScope and the IM network. ` +
-      "Fetched live in text GeoCSV (geocsv.slist) format because miniSEED binary is not edge-parseable.",
+      'Fetched live in text GeoCSV (geocsv.slist) format because miniSEED binary is not edge-parseable.',
   };
 }
 
 export function buildDataselectUrl({ station, minutes, endMs }) {
   const end = new Date(endMs);
   const start = new Date(endMs - minutes * 60_000);
-  const fmt = (d) => d.toISOString().replace(/\.\d{3}Z$/, "Z");
+  const fmt = (d) => d.toISOString().replace(/\.\d{3}Z$/, 'Z');
   const params = new URLSearchParams({
     network: NETWORK,
     station,
     channel: CHANNEL,
     starttime: fmt(start),
     endtime: fmt(end),
-    format: "geocsv.slist",
+    format: 'geocsv.slist',
   });
   return `${DATASELECT_URL}?${params.toString()}`;
 }
 
 function parseQuery(url) {
-  const params = new URL(url, "http://localhost").searchParams;
-  const station = (params.get("station") ?? DEFAULT_STATION).toUpperCase();
+  const params = new URL(url, 'http://localhost').searchParams;
+  const station = (params.get('station') ?? DEFAULT_STATION).toUpperCase();
   if (!STATIONS.includes(station))
-    throw Object.assign(new Error(`infrasound_bad_station: ${station}`), { status: 400 });
-  const minutes = Number(params.get("minutes") ?? DEFAULT_MINUTES);
+    throw Object.assign(new Error(`infrasound_bad_station: ${station}`), {
+      status: 400,
+    });
+  const minutes = Number(params.get('minutes') ?? DEFAULT_MINUTES);
   if (!Number.isFinite(minutes) || minutes < 1 || minutes > MAX_MINUTES)
-    throw Object.assign(new Error(`infrasound_bad_minutes: ${params.get("minutes")}`), { status: 400 });
+    throw Object.assign(
+      new Error(`infrasound_bad_minutes: ${params.get('minutes')}`),
+      { status: 400 },
+    );
   return { station, minutes: Math.floor(minutes) };
 }
 
@@ -216,12 +249,17 @@ async function fetchUpstream(fetchImpl, { station, minutes, endMs }) {
       // NOTE: redirect:'follow' — workerd supports only 'follow'/'manual';
       // 'error' throws at the edge (main 2ec4053). EarthScope redirects
       // http→https, so follow is required here.
-      redirect: "follow",
-      headers: { "User-Agent": USER_AGENT, Accept: "text/csv, text/plain" },
+      redirect: 'follow',
+      headers: { 'User-Agent': USER_AGENT, Accept: 'text/csv, text/plain' },
     });
     if (res.status === 204)
-      throw Object.assign(new Error("infrasound_no_data_in_window"), { status: 502 });
-    if (!res.ok) throw Object.assign(new Error(`infrasound_upstream_${res.status}`), { status: 502 });
+      throw Object.assign(new Error('infrasound_no_data_in_window'), {
+        status: 502,
+      });
+    if (!res.ok)
+      throw Object.assign(new Error(`infrasound_upstream_${res.status}`), {
+        status: 502,
+      });
     const text = await readResponseTextCapped(res, BODY_CAP_BYTES); // throws when too large
     const parsed = parseGeoCsvSlist(text); // throws {status:502} on bad shape
     return buildInfrasoundPayload(parsed, { station, minutes, nowMs: endMs });
@@ -230,10 +268,10 @@ async function fetchUpstream(fetchImpl, { station, minutes, endMs }) {
   }
 }
 
-function sendJson(res, status, body, cacheControl = "public, max-age=60") {
+function sendJson(res, status, body, cacheControl = 'public, max-age=60') {
   res.writeHead(status, {
-    "Content-Type": "application/json; charset=utf-8",
-    "Cache-Control": cacheControl,
+    'Content-Type': 'application/json; charset=utf-8',
+    'Cache-Control': cacheControl,
   });
   res.end(JSON.stringify(body));
 }
@@ -241,10 +279,15 @@ function sendJson(res, status, body, cacheControl = "public, max-age=60") {
 async function getPayload(fetchImpl, query, nowMs, signal) {
   const key = `${query.station}:${query.minutes}`;
   if (cache && cache.key === key && nowMs - cache.at < CACHE_TTL_MS)
-    return { ...cache.payload, generatedAt: new Date(nowMs).toISOString(), stale: false };
+    return {
+      ...cache.payload,
+      generatedAt: new Date(nowMs).toISOString(),
+      stale: false,
+    };
   signal?.throwIfAborted?.();
   if (!inflight || inflight.key !== key) {
-    if (nowMs - attemptedAt < RETRY_COOLDOWN_MS) throw new Error("infrasound_retry_later");
+    if (nowMs - attemptedAt < RETRY_COOLDOWN_MS)
+      throw new Error('infrasound_retry_later');
     attemptedAt = nowMs;
     const promise = fetchUpstream(fetchImpl, { ...query, endMs: nowMs })
       .then((payload) => {
@@ -259,62 +302,85 @@ async function getPayload(fetchImpl, query, nowMs, signal) {
   const wait = inflight.promise;
   if (!signal) return wait;
   const cancelled = new Promise((_, reject) => {
-    const abort = () => reject(signal.reason ?? new Error("cancelled"));
-    signal.addEventListener("abort", abort, { once: true });
-    const detach = () => signal.removeEventListener("abort", abort);
+    const abort = () => reject(signal.reason ?? new Error('cancelled'));
+    signal.addEventListener('abort', abort, { once: true });
+    const detach = () => signal.removeEventListener('abort', abort);
     wait.then(detach, detach);
   });
   return Promise.race([wait, cancelled]);
 }
 
-export function infrasoundProxy({ fetchImpl = fetch, now = () => Date.now() } = {}) {
+export function infrasoundProxy({
+  fetchImpl = fetch,
+  now = () => Date.now(),
+} = {}) {
   async function handler(req, res) {
-    if (req.method !== "GET")
-      return sendJson(res, 405, { error: "method_not_allowed" }, "no-store");
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
     const controller = new AbortController();
     const close = () => controller.abort();
-    res.once?.("close", close);
+    res.once?.('close', close);
     try {
       let query;
       try {
         query = parseQuery(req.url);
-        query.key = query.station ? `${query.station}:${query.minutes}` : `${query.id}:${query.hours}`;
+        query.key = query.station
+          ? `${query.station}:${query.minutes}`
+          : `${query.id}:${query.hours}`;
       } catch (error) {
-        return sendJson(res, 400, { error: "infrasound_bad_request", detail: error.message }, "no-store");
+        return sendJson(
+          res,
+          400,
+          { error: 'infrasound_bad_request', detail: error.message },
+          'no-store',
+        );
       }
       try {
-        const payload = await getPayload(fetchImpl, query, now(), controller.signal);
+        const payload = await getPayload(
+          fetchImpl,
+          query,
+          now(),
+          controller.signal,
+        );
         sendJson(res, 200, payload);
       } catch (error) {
         // Stale fallback is key-scoped: only serve a cache entry captured for THIS query.
-        const usable = cache && cache.key === query.key && now() - cache.at <= STALE_MS;
+        const usable =
+          cache && cache.key === query.key && now() - cache.at <= STALE_MS;
         if (usable) {
-          sendJson(res, 200, { ...cache.payload, generatedAt: new Date(now()).toISOString(), stale: true });
+          sendJson(res, 200, {
+            ...cache.payload,
+            generatedAt: new Date(now()).toISOString(),
+            stale: true,
+          });
           return;
         }
         const upstreamFail =
           error?.status === 502 ||
-          error?.name === "AbortError" ||
-          /aborted?/i.test(error?.message ?? "");
+          error?.name === 'AbortError' ||
+          /aborted?/i.test(error?.message ?? '');
         sendJson(
           res,
           upstreamFail ? 502 : 500,
-          { error: "infrasound_unavailable", detail: error?.message ?? "unknown" },
-          "no-store",
+          {
+            error: 'infrasound_unavailable',
+            detail: error?.message ?? 'unknown',
+          },
+          'no-store',
         );
       }
     } finally {
-      res.removeListener?.("close", close);
+      res.removeListener?.('close', close);
     }
   }
 
   return {
-    name: "infrasoundIms",
+    name: 'infrasoundIms',
     configureServer({ middlewares }) {
-      middlewares.use("/api/infrasound-ims", handler);
+      middlewares.use('/api/infrasound-ims', handler);
     },
     configurePreviewServer({ middlewares }) {
-      middlewares.use("/api/infrasound-ims", handler);
+      middlewares.use('/api/infrasound-ims', handler);
     },
   };
 }

@@ -95,9 +95,11 @@ export function createConjunctionLayer({ source } = {}) {
         parent: entityGroup,
         position: Cesium.Cartesian3.fromDegrees(mid[0], mid[1], mid[2] + 40000),
         label: {
-          text: new Cesium.CallbackProperty(() =>
-            `${ev.name1} × ${ev.name2}\n${ev.minRangeKm.toFixed(2)} km · p=${ev.maxProb.toExponential(1)}\n${formatCountdown(ev.tcaMs)}`,
-          false),
+          text: new Cesium.CallbackProperty(
+            () =>
+              `${ev.name1} × ${ev.name2}\n${ev.minRangeKm.toFixed(2)} km · p=${ev.maxProb.toExponential(1)}\n${formatCountdown(ev.tcaMs)}`,
+            false,
+          ),
           font: '11px system-ui, sans-serif',
           fillColor: cssColor(tier.color, 1),
           outlineColor: Cesium.Color.BLACK.withAlpha(0.85),
@@ -122,7 +124,9 @@ export function createConjunctionLayer({ source } = {}) {
 
   return {
     id: 'conjunctions',
-    init(v) { viewer = v; },
+    init(v) {
+      viewer = v;
+    },
     enable() {
       if (!viewer || enabled) return;
       enabled = true;
@@ -136,7 +140,10 @@ export function createConjunctionLayer({ source } = {}) {
       refreshTimer = countdownTimer = null;
       clear();
     },
-    destroy() { this.disable(); viewer = null; },
+    destroy() {
+      this.disable();
+      viewer = null;
+    },
     getEvents: () => lastEvents,
     refresh,
   };
@@ -150,8 +157,11 @@ export function createConjunctionPanel({ layer }) {
     const events = rankConjunctions(layer.getEvents()).slice(0, 10);
     root.innerHTML = '';
     const title = document.createElement('div');
-    title.style.cssText = 'font-weight:600;letter-spacing:.06em;margin-bottom:4px;';
-    title.textContent = events.length ? `⚠ ${layer.getEvents().length} near-misses ≤5 km (7d)` : '⚠ conjunctions — waiting on /api/conjunctions';
+    title.style.cssText =
+      'font-weight:600;letter-spacing:.06em;margin-bottom:4px;';
+    title.textContent = events.length
+      ? `⚠ ${layer.getEvents().length} near-misses ≤5 km (7d)`
+      : '⚠ conjunctions — waiting on /api/conjunctions';
     root.appendChild(title);
     for (const ev of events) {
       const tier = riskTier(ev);
@@ -161,20 +171,30 @@ export function createConjunctionPanel({ layer }) {
       root.appendChild(row);
     }
     const note = document.createElement('div');
-    note.style.cssText = 'opacity:.55;margin-top:4px;font-size:10px;color:#dfe9ff;';
+    note.style.cssText =
+      'opacity:.55;margin-top:4px;font-size:10px;color:#dfe9ff;';
     note.textContent = CONJUNCTION_HONESTY;
     root.appendChild(note);
   };
   const timer = setInterval(render, COUNTDOWN_MS);
   render();
-  return { element: root, sync: render, destroy() { clearInterval(timer); root.remove(); } };
+  return {
+    element: root,
+    sync: render,
+    destroy() {
+      clearInterval(timer);
+      root.remove();
+    },
+  };
 }
 
 /** Fail-soft mount for initFrontier. Never throws; returns a cleanup fn. */
 export function initConjunctions({ viewer } = {}) {
   try {
     if (!viewer) return () => {};
-    const layer = createConjunctionLayer({ source: createConjunctionSource({}) });
+    const layer = createConjunctionLayer({
+      source: createConjunctionSource({}),
+    });
     layer.init(viewer);
     layer.enable();
     return () => layer.destroy();

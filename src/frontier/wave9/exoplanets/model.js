@@ -9,11 +9,7 @@
  * payload carries no usable summary; withTags() appends (stale)/(partial)
  * from the envelope.
  */
-import {
-  isUnavailable,
-  withTags,
-  pickNum,
-} from '../../wave3/common/ticker.js';
+import { isUnavailable, withTags, pickNum } from '../../wave3/common/ticker.js';
 
 export const ROUTE = '/api/exoplanets';
 export const EMOJI = '🪐';
@@ -28,12 +24,16 @@ export function valueLine(doc) {
   if (isUnavailable(doc)) return null;
   const count = pickNum(doc.confirmedPlanets);
   if (count == null) return null;
-  const newest = Array.isArray(doc.latest) && doc.latest.length ? doc.latest[0] : null;
+  const newest =
+    Array.isArray(doc.latest) && doc.latest.length ? doc.latest[0] : null;
   const newestBit =
     newest && newest.name
       ? ` · newest ${newest.name}${newest.discYear != null ? ` (${newest.discYear})` : ''}`
       : '';
-  return withTags(`${EMOJI} Exoplanets ${fmtInt(count)} confirmed${newestBit}`, doc);
+  return withTags(
+    `${EMOJI} Exoplanets ${fmtInt(count)} confirmed${newestBit}`,
+    doc,
+  );
 }
 
 function fmtPlanet(p) {
@@ -51,9 +51,13 @@ export function detailLine(doc) {
   const latest = Array.isArray(doc.latest) ? doc.latest : [];
   const parts = [];
   if (doc.confirmedPlanets != null)
-    parts.push(`${fmtInt(doc.confirmedPlanets)} confirmed exoplanets in the NASA Exoplanet Archive (candidates excluded).`);
+    parts.push(
+      `${fmtInt(doc.confirmedPlanets)} confirmed exoplanets in the NASA Exoplanet Archive (candidates excluded).`,
+    );
   const rows = latest.slice(0, 5).map(fmtPlanet).filter(Boolean);
   if (rows.length) parts.push(`Newest: ${rows.join(' · ')}.`);
-  parts.push('Discovery year = archive announcement year; blank parameters were never measured.');
+  parts.push(
+    'Discovery year = archive announcement year; blank parameters were never measured.',
+  );
   return parts.join(' ');
 }

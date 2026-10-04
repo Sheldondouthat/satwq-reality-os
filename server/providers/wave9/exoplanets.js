@@ -40,11 +40,11 @@
  * refresh — far under the Workers subrequest headroom rule.
  */
 
-import { readResponseTextCapped } from "../common/http.js";
+import { readResponseTextCapped } from '../common/http.js';
 
-const TAP_BASE = "https://exoplanetarchive.ipac.caltech.edu/TAP/sync";
+const TAP_BASE = 'https://exoplanetarchive.ipac.caltech.edu/TAP/sync';
 const USER_AGENT =
-  "satwq-reality-os/1.0 (gods-eye-view; exoplanet archive layer; keyless)";
+  'satwq-reality-os/1.0 (gods-eye-view; exoplanet archive layer; keyless)';
 const UPSTREAM_TIMEOUT_MS = 30_000; // TAP ADQL can take a few seconds
 const BODY_CAP_BYTES = 256 * 1024; // observed ~1 KB; generous headroom
 const CACHE_TTL_MS = 24 * 3600_000; // catalog cadence — daily
@@ -62,7 +62,7 @@ const PAYLOAD_CACHE_MAX = 16;
 /** Number(null)===0 guard: null/NaN upstream numerics become null, never 0. */
 function numOrNull(v) {
   if (v == null) return null;
-  if (typeof v === "string" && v.trim() === "") return null; // Number('')===0 trap
+  if (typeof v === 'string' && v.trim() === '') return null; // Number('')===0 trap
   const n = Number(v);
   return Number.isFinite(n) ? n : null;
 }
@@ -75,11 +75,11 @@ function roundOrNull(v, decimals) {
 }
 
 function tapUrl(query) {
-  const q = new URLSearchParams({ query, format: "json" });
+  const q = new URLSearchParams({ query, format: 'json' });
   return `${TAP_BASE}?${q.toString()}`;
 }
 
-const COUNT_QUERY = "select count(distinct pl_name) as n from ps";
+const COUNT_QUERY = 'select count(distinct pl_name) as n from ps';
 
 function latestQuery(n) {
   return (
@@ -94,16 +94,18 @@ function latestQuery(n) {
  */
 export function parseTapCount(text) {
   const fail = (msg) =>
-    Object.assign(new Error(`exoplanets_invalid_count: ${msg}`), { status: 502 });
+    Object.assign(new Error(`exoplanets_invalid_count: ${msg}`), {
+      status: 502,
+    });
   let rows;
   try {
     rows = JSON.parse(text);
   } catch {
-    throw fail("not JSON (VOTABLE error page?)");
+    throw fail('not JSON (VOTABLE error page?)');
   }
-  if (!Array.isArray(rows) || rows.length !== 1) throw fail("expected one row");
+  if (!Array.isArray(rows) || rows.length !== 1) throw fail('expected one row');
   const n = numOrNull(rows[0]?.n);
-  if (n == null || !Number.isInteger(n) || n < 0) throw fail("bad count value");
+  if (n == null || !Number.isInteger(n) || n < 0) throw fail('bad count value');
   return n;
 }
 
@@ -113,17 +115,25 @@ export function parseTapCount(text) {
  */
 export function parseTapLatest(text) {
   const fail = (msg) =>
-    Object.assign(new Error(`exoplanets_invalid_latest: ${msg}`), { status: 502 });
+    Object.assign(new Error(`exoplanets_invalid_latest: ${msg}`), {
+      status: 502,
+    });
   let rows;
   try {
     rows = JSON.parse(text);
   } catch {
-    throw fail("not JSON (VOTABLE error page?)");
+    throw fail('not JSON (VOTABLE error page?)');
   }
-  if (!Array.isArray(rows)) throw fail("expected a JSON array");
+  if (!Array.isArray(rows)) throw fail('expected a JSON array');
   return rows.map((r) => ({
-    name: typeof r?.pl_name === "string" && r.pl_name.trim() ? r.pl_name.trim() : null,
-    host: typeof r?.hostname === "string" && r.hostname.trim() ? r.hostname.trim() : null,
+    name:
+      typeof r?.pl_name === 'string' && r.pl_name.trim()
+        ? r.pl_name.trim()
+        : null,
+    host:
+      typeof r?.hostname === 'string' && r.hostname.trim()
+        ? r.hostname.trim()
+        : null,
     discYear: numOrNull(r?.disc_year),
     distPc: roundOrNull(r?.sy_dist, 2),
     orbPeriodDays: roundOrNull(r?.pl_orbper, 4),
@@ -139,9 +149,9 @@ export function buildExoplanetsPayload(parsed, { nowMs, query }) {
   const fail = (msg, status = 502) =>
     Object.assign(new Error(`exoplanets_${msg}`), { status });
   const { confirmedPlanets, latest } = parsed;
-  if (!Array.isArray(latest) || !latest.length) throw fail("no_latest_rows");
+  if (!Array.isArray(latest) || !latest.length) throw fail('no_latest_rows');
   const named = latest.filter((p) => p.name);
-  if (!named.length) throw fail("no_named_planets");
+  if (!named.length) throw fail('no_named_planets');
   const years = named.map((p) => p.discYear).filter((y) => y != null);
   const maxDiscYear = years.length ? Math.max(...years) : null;
   return {
@@ -153,30 +163,31 @@ export function buildExoplanetsPayload(parsed, { nowMs, query }) {
     maxDiscYear,
     latest: named,
     attribution:
-      "NASA Exoplanet Archive — Planetary Systems (ps) table via IVOA TAP; keyless, no signup",
+      'NASA Exoplanet Archive — Planetary Systems (ps) table via IVOA TAP; keyless, no signup',
     honesty: {
       confirmedOnly:
-        "confirmed planets only — the ps Planetary Systems composite table; TOI/KOI candidates are excluded from the count and the list",
+        'confirmed planets only — the ps Planetary Systems composite table; TOI/KOI candidates are excluded from the count and the list',
       countSemantics:
-        "confirmedPlanets = COUNT(DISTINCT pl_name): the ps table carries multiple parameter rows per planet; they are collapsed, never double-counted",
+        'confirmedPlanets = COUNT(DISTINCT pl_name): the ps table carries multiple parameter rows per planet; they are collapsed, never double-counted',
       discYear:
         "disc_year is the archive's discovery/announcement year, not a detection timestamp",
       nulls:
-        "orbital/physical parameters are null when unmeasured — never zero-filled",
-      cadence:
-        "the archive grows as papers publish; results cached up to 24h",
+        'orbital/physical parameters are null when unmeasured — never zero-filled',
+      cadence: 'the archive grows as papers publish; results cached up to 24h',
     },
   };
 }
 
 function parseQuery(url) {
-  const params = new URL(url, "http://localhost").searchParams;
-  const nRaw = params.get("n");
+  const params = new URL(url, 'http://localhost').searchParams;
+  const nRaw = params.get('n');
   let n = DEFAULT_N;
   if (nRaw != null) {
     const v = Number(nRaw.trim());
     if (!Number.isInteger(v) || v < 1 || v > MAX_N)
-      throw Object.assign(new Error(`exoplanets_bad_n: ${nRaw}`), { status: 400 });
+      throw Object.assign(new Error(`exoplanets_bad_n: ${nRaw}`), {
+        status: 400,
+      });
     n = v;
   }
   return { n, key: `n=${n}` };
@@ -190,13 +201,15 @@ async function fetchJson(fetchImpl, url) {
       signal: controller.signal,
       // NOTE: redirect:'follow' — workerd supports only 'follow'/'manual';
       // 'error' throws at the edge (main 2ec4053).
-      redirect: "follow",
-      headers: { "User-Agent": USER_AGENT, Accept: "application/json" },
+      redirect: 'follow',
+      headers: { 'User-Agent': USER_AGENT, Accept: 'application/json' },
     });
     // TAP answers bad ADQL with HTTP 400 + VOTABLE XML — an upstream fault,
     // never a shape we parse as data.
     if (!res.ok)
-      throw Object.assign(new Error(`exoplanets_upstream_${res.status}`), { status: 502 });
+      throw Object.assign(new Error(`exoplanets_upstream_${res.status}`), {
+        status: 502,
+      });
     return await readResponseTextCapped(res, BODY_CAP_BYTES); // throws when too large
   } finally {
     clearTimeout(timer);
@@ -211,10 +224,10 @@ async function fetchUpstream(fetchImpl, n) {
   return { confirmedPlanets, latest };
 }
 
-function sendJson(res, status, body, cacheControl = "public, max-age=86400") {
+function sendJson(res, status, body, cacheControl = 'public, max-age=86400') {
   res.writeHead(status, {
-    "Content-Type": "application/json; charset=utf-8",
-    "Cache-Control": cacheControl,
+    'Content-Type': 'application/json; charset=utf-8',
+    'Cache-Control': cacheControl,
   });
   res.end(JSON.stringify(body));
 }
@@ -228,7 +241,7 @@ async function getDoc(fetchImpl, n, nowMs, signal) {
     // Retry gate fires only after a FAILED doc fetch — the failure is an
     // upstream outage, so classify as 502 (honest degrade), never 500.
     if (nowMs - docFailedAt < RETRY_COOLDOWN_MS) {
-      const gate = new Error("exoplanets_retry_later");
+      const gate = new Error('exoplanets_retry_later');
       gate.status = 502;
       throw gate;
     }
@@ -249,9 +262,9 @@ async function getDoc(fetchImpl, n, nowMs, signal) {
   const wait = docInflight;
   if (!signal) return wait;
   const cancelled = new Promise((_, reject) => {
-    const abort = () => reject(signal.reason ?? new Error("cancelled"));
-    signal.addEventListener("abort", abort, { once: true });
-    const detach = () => signal.removeEventListener("abort", abort);
+    const abort = () => reject(signal.reason ?? new Error('cancelled'));
+    signal.addEventListener('abort', abort, { once: true });
+    const detach = () => signal.removeEventListener('abort', abort);
     wait.then(detach, detach);
   });
   return Promise.race([wait, cancelled]);
@@ -275,18 +288,25 @@ async function getPayload(fetchImpl, query, nowMs, signal) {
     // Stale fallback is key-scoped: only serve a payload captured for THIS query.
     const hit = payloadCache.get(query.key);
     if (hit && nowMs - hit.at <= STALE_MS)
-      return { ...hit.payload, generatedAt: new Date(nowMs).toISOString(), stale: true };
+      return {
+        ...hit.payload,
+        generatedAt: new Date(nowMs).toISOString(),
+        stale: true,
+      };
     throw error;
   }
 }
 
-export function exoplanetsProxy({ fetchImpl = fetch, now = () => Date.now() } = {}) {
+export function exoplanetsProxy({
+  fetchImpl = fetch,
+  now = () => Date.now(),
+} = {}) {
   async function handler(req, res) {
-    if (req.method !== "GET")
-      return sendJson(res, 405, { error: "method_not_allowed" }, "no-store");
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
     const controller = new AbortController();
     const close = () => controller.abort();
-    res.once?.("close", close);
+    res.once?.('close', close);
     try {
       let query;
       try {
@@ -295,34 +315,42 @@ export function exoplanetsProxy({ fetchImpl = fetch, now = () => Date.now() } = 
         return sendJson(
           res,
           400,
-          { error: "exoplanets_bad_request", detail: error.message },
-          "no-store",
+          { error: 'exoplanets_bad_request', detail: error.message },
+          'no-store',
         );
       }
       try {
-        const payload = await getPayload(fetchImpl, query, now(), controller.signal);
+        const payload = await getPayload(
+          fetchImpl,
+          query,
+          now(),
+          controller.signal,
+        );
         sendJson(res, 200, payload);
       } catch (error) {
         const upstreamFail =
           error?.status === 502 ||
-          error?.name === "AbortError" ||
-          /aborted?|fetch failed/i.test(error?.message ?? "");
+          error?.name === 'AbortError' ||
+          /aborted?|fetch failed/i.test(error?.message ?? '');
         sendJson(
           res,
           upstreamFail ? 502 : 500,
-          { error: "exoplanets_unavailable", detail: error?.message ?? "unknown" },
-          "no-store",
+          {
+            error: 'exoplanets_unavailable',
+            detail: error?.message ?? 'unknown',
+          },
+          'no-store',
         );
       }
     } finally {
-      res.removeListener?.("close", close);
+      res.removeListener?.('close', close);
     }
   }
 
   return {
-    name: "exoplanets",
+    name: 'exoplanets',
     configureServer({ middlewares }) {
-      middlewares.use("/api/exoplanets", handler);
+      middlewares.use('/api/exoplanets', handler);
     },
   };
 }

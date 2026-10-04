@@ -40,7 +40,9 @@ let arxivLastAt = 0; // module-scope pacing gate
 
 function assertPinnedHost(url, host) {
   if (new URL(url).host !== host)
-    throw Object.assign(new Error(`research_unexpected_host_${host}`), { status: 502 });
+    throw Object.assign(new Error(`research_unexpected_host_${host}`), {
+      status: 502,
+    });
 }
 
 async function fetchJsonCapped(url, host, signal) {
@@ -56,10 +58,14 @@ async function fetchJsonCapped(url, host, signal) {
       headers: { 'User-Agent': USER_AGENT, Accept: 'application/json' },
     });
     if (!response.ok)
-      throw Object.assign(new Error(`research_upstream_${response.status}`), { status: 502 });
+      throw Object.assign(new Error(`research_upstream_${response.status}`), {
+        status: 502,
+      });
     const buffer = await response.arrayBuffer();
     if (buffer.byteLength > BODY_CAP_BYTES)
-      throw Object.assign(new Error('research_upstream_too_large'), { status: 502 });
+      throw Object.assign(new Error('research_upstream_too_large'), {
+        status: 502,
+      });
     return JSON.parse(new TextDecoder().decode(buffer));
   } finally {
     clearTimeout(timeout);
@@ -86,10 +92,14 @@ async function fetchArxivAtom(url) {
       headers: { 'User-Agent': USER_AGENT, Accept: 'application/atom+xml' },
     });
     if (!response.ok)
-      throw Object.assign(new Error(`research_upstream_${response.status}`), { status: 502 });
+      throw Object.assign(new Error(`research_upstream_${response.status}`), {
+        status: 502,
+      });
     const buffer = await response.arrayBuffer();
     if (buffer.byteLength > BODY_CAP_BYTES)
-      throw Object.assign(new Error('research_upstream_too_large'), { status: 502 });
+      throw Object.assign(new Error('research_upstream_too_large'), {
+        status: 502,
+      });
     return new TextDecoder().decode(buffer);
   } finally {
     clearTimeout(timeout);
@@ -97,18 +107,24 @@ async function fetchArxivAtom(url) {
 }
 
 function capText(value) {
-  const s = String(value ?? '').replace(/\s+/g, ' ').trim();
+  const s = String(value ?? '')
+    .replace(/\s+/g, ' ')
+    .trim();
   return s.length > TEXT_CAP ? s.slice(0, TEXT_CAP) + '…' : s;
 }
 
 function normDoi(value) {
-  const s = String(value ?? '').trim().toLowerCase();
+  const s = String(value ?? '')
+    .trim()
+    .toLowerCase();
   if (!s) return '';
   return s.replace(/^https?:\/\/(dx\.)?doi\.org\//, '');
 }
 
 function normTitle(value) {
-  return String(value ?? '').toLowerCase().replace(/[^a-z0-9]+/g, '');
+  return String(value ?? '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '');
 }
 
 function joinAuthors(names) {
@@ -149,7 +165,11 @@ function trimCrossref(item) {
     authors,
     doi: normDoi(item?.DOI),
     published,
-    venue: capText(Array.isArray(item?.['container-title']) ? item['container-title'][0] : ''),
+    venue: capText(
+      Array.isArray(item?.['container-title'])
+        ? item['container-title'][0]
+        : '',
+    ),
     url: String(item?.URL ?? ''),
   };
 }
@@ -176,12 +196,13 @@ function atomField(entry, tag) {
 
 function trimArxivEntry(entry) {
   const authors = joinAuthors(
-    [...entry.matchAll(/<author[^>]*>\s*<name[^>]*>([\s\S]*?)<\/name>/gi)].map((m) =>
-      m[1].replace(/\s+/g, ' ').trim(),
+    [...entry.matchAll(/<author[^>]*>\s*<name[^>]*>([\s\S]*?)<\/name>/gi)].map(
+      (m) => m[1].replace(/\s+/g, ' ').trim(),
     ),
   );
   const id = atomField(entry, 'id').replace(/v\d+$/, '');
-  const doiMatch = atomField(entry, 'arxiv:doi').trim() || atomField(entry, 'doi').trim();
+  const doiMatch =
+    atomField(entry, 'arxiv:doi').trim() || atomField(entry, 'doi').trim();
   return {
     feed: 'arxiv',
     id: id || atomField(entry, 'id'),
@@ -197,7 +218,8 @@ function trimArxivEntry(entry) {
 
 export function parseArxivAtom(xml) {
   const entries = [];
-  const blocks = String(xml ?? '').match(/<entry[\s>][\s\S]*?<\/entry>/gi) ?? [];
+  const blocks =
+    String(xml ?? '').match(/<entry[\s>][\s\S]*?<\/entry>/gi) ?? [];
   for (const block of blocks) entries.push(trimArxivEntry(block));
   return entries;
 }
@@ -210,7 +232,9 @@ async function fetchOpenAlex() {
 
 async function fetchCrossref() {
   const upstream = await fetchJsonCapped(CROSSREF_URL, CROSSREF_HOST, null);
-  const works = Array.isArray(upstream?.message?.items) ? upstream.message.items : [];
+  const works = Array.isArray(upstream?.message?.items)
+    ? upstream.message.items
+    : [];
   return works.map(trimCrossref).filter((w) => w.title);
 }
 
@@ -227,7 +251,9 @@ async function fetchPubMed() {
   );
   const result = summary?.result ?? {};
   return idlist
-    .map((uid) => (result[String(uid)] ? trimPubMed(uid, result[String(uid)]) : null))
+    .map((uid) =>
+      result[String(uid)] ? trimPubMed(uid, result[String(uid)]) : null,
+    )
     .filter((w) => w && w.title);
 }
 
@@ -251,11 +277,13 @@ export function dedupeWorks(lists) {
   for (const list of lists) {
     for (const item of list) {
       const titleKey = `title:${normTitle(item.title)}`;
-      const existing = (item.doi && byDoi.get(item.doi)) || byTitle.get(titleKey);
+      const existing =
+        (item.doi && byDoi.get(item.doi)) || byTitle.get(titleKey);
       if (existing) {
         if (existing.feed !== item.feed) {
           existing.alsoSeen = existing.alsoSeen ?? [];
-          if (!existing.alsoSeen.includes(item.feed)) existing.alsoSeen.push(item.feed);
+          if (!existing.alsoSeen.includes(item.feed))
+            existing.alsoSeen.push(item.feed);
         }
         // Cross-register the survivor under the duplicate's other key so
         // later arrivals match through either identity.
@@ -310,14 +338,19 @@ async function getSnapshot() {
         try {
           return { name, result: await fetch() };
         } catch (error) {
-          return { name, result: error instanceof Error ? error : new Error('unknown') };
+          return {
+            name,
+            result: error instanceof Error ? error : new Error('unknown'),
+          };
         }
       }),
     )
       .then((sourceResults) => {
         const payload = trimResearchPayload(sourceResults);
         if (payload.degradedSources.length >= SOURCES.length)
-          throw Object.assign(new Error('research_all_sources_unavailable'), { status: 502 });
+          throw Object.assign(new Error('research_all_sources_unavailable'), {
+            status: 502,
+          });
         cache = { at: Date.now(), payload };
         return payload;
       })
@@ -339,15 +372,21 @@ function sendJson(res, status, body, cacheControl = 'public, max-age=1800') {
 /** Mount the research ticker proxy. Mirrors the nwsAlerts provider shape. */
 export function researchProxy() {
   async function handler(req, res) {
-    if (req.method !== 'GET') return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
     req.on?.('close', () => {});
     try {
       sendJson(res, 200, await getSnapshot());
     } catch (error) {
-      sendJson(res, error?.status === 502 ? 502 : 500, {
-        error: 'research_unavailable',
-        detail: error?.message ?? 'unknown',
-      }, 'no-store');
+      sendJson(
+        res,
+        error?.status === 502 ? 502 : 500,
+        {
+          error: 'research_unavailable',
+          detail: error?.message ?? 'unknown',
+        },
+        'no-store',
+      );
     } finally {
       req.removeListener?.('close', () => {});
     }
@@ -374,5 +413,9 @@ export const _researchInternals = {
   trimPubMed,
   trimArxivEntry,
   trimResearchPayload,
-  clearCaches: () => { cache = null; inflight = null; arxivLastAt = 0; },
+  clearCaches: () => {
+    cache = null;
+    inflight = null;
+    arxivLastAt = 0;
+  },
 };

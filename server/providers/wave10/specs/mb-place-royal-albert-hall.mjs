@@ -4,39 +4,35 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 6 (musicbrainz worker)).
  */
 export const SPEC = {
-  "id": "mb-place-royal-albert-hall",
-  "title": "MusicBrainz — place search: Royal Albert Hall",
-  "url": "https://musicbrainz.org/ws/2/place/?query=place:royal%20albert%20hall&fmt=json&limit=10",
-  "headers": {
-    "User-Agent": "SATWQ-RealityOS/1.0 (https://satwq-reality-os.pages.dev)"
+  id: 'mb-place-royal-albert-hall',
+  title: 'MusicBrainz — place search: Royal Albert Hall',
+  url: 'https://musicbrainz.org/ws/2/place/?query=place:royal%20albert%20hall&fmt=json&limit=10',
+  headers: {
+    'User-Agent': 'SATWQ-RealityOS/1.0 (https://satwq-reality-os.pages.dev)',
   },
-  "ttlSeconds": 86400,
-  "extract": {
-    "items": "$.places",
-    "limit": 10,
-    "map": {
-      "name": "$.name",
-      "key": "$.id",
-      "type": "$.type",
-      "address": "$.address",
-      "area": "$.area.name",
-      "lat": "$.coordinates.latitude",
-      "lon": "$.coordinates.longitude",
-      "score": "$.score"
+  ttlSeconds: 86400,
+  extract: {
+    items: '$.places',
+    limit: 10,
+    map: {
+      name: '$.name',
+      key: '$.id',
+      type: '$.type',
+      address: '$.address',
+      area: '$.area.name',
+      lat: '$.coordinates.latitude',
+      lon: '$.coordinates.longitude',
+      score: '$.score',
     },
-    "numbers": [
-      "lat",
-      "lon",
-      "score"
-    ]
+    numbers: ['lat', 'lon', 'score'],
   },
-  "required": [
-    "name"
-  ],
-  "source": "MusicBrainz",
-  "attribution": "Data: MusicBrainz (MetaBrainz Foundation) — keyless, CC0 metadata.",
-  "units": {},
-  "honesty": "Ranked by MusicBrainz relevance score (0-100); the London venue ranks alongside other halls with similar names. Coordinates as strings in source, numeric-normalized by the engine. Community-curated CC0 metadata.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 6 (musicbrainz worker)"
+  required: ['name'],
+  source: 'MusicBrainz',
+  attribution:
+    'Data: MusicBrainz (MetaBrainz Foundation) — keyless, CC0 metadata.',
+  units: {},
+  honesty:
+    'Ranked by MusicBrainz relevance score (0-100); the London venue ranks alongside other halls with similar names. Coordinates as strings in source, numeric-normalized by the engine. Community-curated CC0 metadata.',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 6 (musicbrainz worker)',
 };

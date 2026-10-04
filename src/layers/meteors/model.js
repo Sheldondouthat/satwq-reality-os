@@ -9,7 +9,7 @@ const normLon = (lon) => ((lon + 540) % 360) - 180;
 export function gmstDeg(date) {
   const jd = date.getTime() / 86400000 + 2440587.5;
   const d = jd - 2451545.0;
-  return ((280.46061837 + 360.98564736629 * d) % 360 + 360) % 360;
+  return (((280.46061837 + 360.98564736629 * d) % 360) + 360) % 360;
 }
 
 /**
@@ -29,8 +29,18 @@ export function meteorColor(zhr) {
 
 const monthName = (m) =>
   [
-    'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
   ][m - 1];
 
 /**

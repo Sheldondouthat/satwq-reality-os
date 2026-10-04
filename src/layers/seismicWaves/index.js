@@ -61,7 +61,11 @@ export function createSeismicWavesLayer({ source, overlayHost } = {}) {
     const nowMs = Date.now();
     for (const q of quakes) {
       const center = Cesium.Cartesian3.fromDegrees(q.lon, q.lat);
-      const { ageSec } = wavefrontRadii(q.originTimeMs, nowMs, WAVEFRONT_TTL_MS);
+      const { ageSec } = wavefrontRadii(
+        q.originTimeMs,
+        nowMs,
+        WAVEFRONT_TTL_MS,
+      );
       const alpha = wavefrontAlpha(ageSec);
       const outlineWidth = 2;
 
@@ -176,12 +180,16 @@ export function createSeismicWavesLayer({ source, overlayHost } = {}) {
         const live = pickSignificantQuakes(rows, {
           limit: WAVEFRONT_QUAKE_LIMIT,
           minMag: WAVEFRONT_MIN_MAG,
-        }).filter((q) => !isWavefrontExpired(q.originTimeMs, nowMs, WAVEFRONT_TTL_MS));
+        }).filter(
+          (q) => !isWavefrontExpired(q.originTimeMs, nowMs, WAVEFRONT_TTL_MS),
+        );
         _quakes = live;
         renderQuakes(live);
         _lastUpdate = nowMs;
         _lastError = null;
-        console.log(`[Data:SeismicWaves] Updated: ${live.length} live wavefronts`);
+        console.log(
+          `[Data:SeismicWaves] Updated: ${live.length} live wavefronts`,
+        );
         return true;
       } catch (e) {
         if (request.signal.aborted || _request !== request || !_enabled)
@@ -216,7 +224,11 @@ export function createSeismicWavesLayer({ source, overlayHost } = {}) {
       if (!_dataSource || !_dataSource.show) return [];
       const nowMs = Date.now();
       return _quakes.slice(0, maxCount).map((q) => {
-        const { ageSec, pKm, sKm } = wavefrontRadii(q.originTimeMs, nowMs, WAVEFRONT_TTL_MS);
+        const { ageSec, pKm, sKm } = wavefrontRadii(
+          q.originTimeMs,
+          nowMs,
+          WAVEFRONT_TTL_MS,
+        );
         return {
           id: `seismic-wave-${q.id}`,
           type: 'seismic-wavefront',

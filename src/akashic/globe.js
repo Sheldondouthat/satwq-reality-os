@@ -64,7 +64,8 @@ function escapeHtml(value) {
  * @param {object} options.viewer Cesium viewer (required).
  */
 export function createAkashicGlobeLayer({ viewer } = {}) {
-  if (!viewer?.dataSources) throw new TypeError('Akashic globe layer requires a viewer');
+  if (!viewer?.dataSources)
+    throw new TypeError('Akashic globe layer requires a viewer');
   const dataSource = new Cesium.CustomDataSource(AKASHIC_SOURCE_NAME);
   viewer.dataSources.add(dataSource);
   let visible = true;
@@ -75,10 +76,7 @@ export function createAkashicGlobeLayer({ viewer } = {}) {
     // Most severe first so the cap keeps the events that matter.
     const ranked = inScope
       .slice()
-      .sort(
-        (a, b) =>
-          (b.severity ?? 0) - (a.severity ?? 0) || b.time - a.time,
-      )
+      .sort((a, b) => (b.severity ?? 0) - (a.severity ?? 0) || b.time - a.time)
       .slice(0, AKASHIC_RENDER_CAP);
     dataSource.entities.removeAll();
     for (const event of ranked) {

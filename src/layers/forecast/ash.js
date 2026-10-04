@@ -26,7 +26,8 @@
  */
 import * as Cesium from 'cesium';
 
-export const TOKYO_VAAC_LIST_URL = 'https://ds.data.jma.go.jp/svd/vaac/data/vaac_list.html';
+export const TOKYO_VAAC_LIST_URL =
+  'https://ds.data.jma.go.jp/svd/vaac/data/vaac_list.html';
 /** Same-origin proxy path this layer fetches; wire it per INTEGRATION.md. */
 export const VAAC_PROXY_PATH = '/api/vaac';
 const MAX_LIST_ROWS = 200;
@@ -68,7 +69,13 @@ function parseDayTimeDtg(token, contextMs) {
   const m = /^(\d{2})\/(\d{4})Z$/.exec(token?.trim() ?? '');
   if (!m || !Number.isFinite(contextMs)) return null;
   const ctx = new Date(contextMs);
-  return Date.UTC(ctx.getUTCFullYear(), ctx.getUTCMonth(), +m[1], +m[2].slice(0, 2), +m[2].slice(2));
+  return Date.UTC(
+    ctx.getUTCFullYear(),
+    ctx.getUTCMonth(),
+    +m[1],
+    +m[2].slice(0, 2),
+    +m[2].slice(2),
+  );
 }
 
 /** Parse one OBS/FCST VA CLD polygon tail: "N3135 E13043 - N3129 E13034 - ..." */
@@ -110,13 +117,19 @@ export function parseVaacAdvisoryText(rawText) {
   if (!volcanoMatch) return null;
   const summit = parseVaacPositionPair(
     (/PSN:\s*([NSEW]\d{4,6}(?:\.\d+)?)/.exec(text) || [])[1],
-    (/PSN:\s*[NSEW]\d{4,6}(?:\.\d+)?\s+([NSEW]\d{5,7}(?:\.\d+)?)/.exec(text) || [])[1],
+    (/PSN:\s*[NSEW]\d{4,6}(?:\.\d+)?\s+([NSEW]\d{5,7}(?:\.\d+)?)/.exec(text) ||
+      [])[1],
   );
-  const advisoryNr = (/ADVISORY NR:\s*(\d{4}\/\d{1,4})/.exec(text) || [])[1] ?? null;
+  const advisoryNr =
+    (/ADVISORY NR:\s*(\d{4}\/\d{1,4})/.exec(text) || [])[1] ?? null;
 
   const clouds = [];
-  const obsDtg = parseDayTimeDtg((/OBS VA DTG:\s*(\d{2}\/\d{4}Z)/.exec(text) || [])[1], dtgMs);
-  const obsCloud = (/OBS VA CLD:\s*(.+?)(?=\s(?:FCST|RMK|NXT)\b)/s.exec(text) || [])[1];
+  const obsDtg = parseDayTimeDtg(
+    (/OBS VA DTG:\s*(\d{2}\/\d{4}Z)/.exec(text) || [])[1],
+    dtgMs,
+  );
+  const obsCloud = (/OBS VA CLD:\s*(.+?)(?=\s(?:FCST|RMK|NXT)\b)/s.exec(text) ||
+    [])[1];
   if (obsCloud && !/NO VA (?:EXP|OBS)/.test(obsCloud)) {
     const levels = /^(SFC\/FL\d+|FL\d+\/\d+)\s+/.exec(obsCloud);
     const polyText = levels ? obsCloud.slice(levels[0].length) : obsCloud;
@@ -133,17 +146,34 @@ export function parseVaacAdvisoryText(rawText) {
       movement: mov ? { fromCompass: mov[1], speedKt: Number(mov[2]) } : null,
     });
   }
-  for (const m of text.matchAll(/FCST VA CLD \+(\d+)\s*HR:\s*(.+?)(?=\sFCST VA CLD|\sRMK:|\sNXT ADVISORY:|$)/gs)) {
+  for (const m of text.matchAll(
+    /FCST VA CLD \+(\d+)\s*HR:\s*(.+?)(?=\sFCST VA CLD|\sRMK:|\sNXT ADVISORY:|$)/gs,
+  )) {
     const body = m[2].trim();
     if (/NO VA EXP/.test(body)) continue;
-    const dtg = parseDayTimeDtg((/^(\d{2}\/\d{4}Z)/.exec(body) || [])[1], dtgMs);
-    const levels = /^(SFC\/FL\d+|FL\d+\/\d+)\s+/.exec(body.replace(/^\d{2}\/\d{4}Z\s*/, ''));
-    const polyText = body.replace(/^\d{2}\/\d{4}Z\s*/, '').replace(/^(SFC\/FL\d+|FL\d+\/\d+)\s+/, '');
+    const dtg = parseDayTimeDtg(
+      (/^(\d{2}\/\d{4}Z)/.exec(body) || [])[1],
+      dtgMs,
+    );
+    const levels = /^(SFC\/FL\d+|FL\d+\/\d+)\s+/.exec(
+      body.replace(/^\d{2}\/\d{4}Z\s*/, ''),
+    );
+    const polyText = body
+      .replace(/^\d{2}\/\d{4}Z\s*/, '')
+      .replace(/^(SFC\/FL\d+|FL\d+\/\d+)\s+/, '');
     const polygon = parseVaacCloudPolygon(polyText);
     if (!polygon) continue;
-    clouds.push({ kind: 'forecast', tauHours: Number(m[1]), dtgMs: dtg, levels: levels?.[1] ?? null, polygon });
+    clouds.push({
+      kind: 'forecast',
+      tauHours: Number(m[1]),
+      dtgMs: dtg,
+      levels: levels?.[1] ?? null,
+      polygon,
+    });
   }
-  const nextAdvisory = parseVaacDtg((/NXT ADVISORY:\s*(\d{8}\/\d{4}Z)=?/.exec(text) || [])[1]);
+  const nextAdvisory = parseVaacDtg(
+    (/NXT ADVISORY:\s*(\d{8}\/\d{4}Z)=?/.exec(text) || [])[1],
+  );
   return {
     volcano: volcanoMatch[1].trim(),
     volcanoId: volcanoMatch[2],
@@ -170,7 +200,13 @@ export function parseVaacAdvisoryList(html, baseUrl = TOKYO_VAAC_LIST_URL) {
     /(\d{4}\/\d{2}\/\d{2} \d{2}:\d{2}:\d{2})\s+[^<]*?([A-Z][A-Z ()'.-]{1,80}?)\s+([A-Z][A-Z ()'.-]{1,60}?)\s+(\d{4}\/\d{1,4})\s*<a[^>]*href="(TextData\/[^"]+)"[^>]*>/g;
   let m;
   while ((m = rowRe.exec(html)) && rows.length < MAX_LIST_ROWS) {
-    const [ts, volcano, country, advisoryNumber, href] = [m[1], m[2], m[3], m[4], m[5]];
+    const [ts, volcano, country, advisoryNumber, href] = [
+      m[1],
+      m[2],
+      m[3],
+      m[4],
+      m[5],
+    ];
     const ms = Date.parse(ts.replace(/\//g, '-').replace(' ', 'T') + 'Z');
     if (!Number.isFinite(ms)) continue;
     let url = href;
@@ -196,7 +232,8 @@ export function latestAdvisoryPerVolcano(rows) {
   const byVolcano = new Map();
   for (const row of rows) {
     const prev = byVolcano.get(row.volcano);
-    if (!prev || row.issuedAtMs > prev.issuedAtMs) byVolcano.set(row.volcano, row);
+    if (!prev || row.issuedAtMs > prev.issuedAtMs)
+      byVolcano.set(row.volcano, row);
   }
   return [...byVolcano.values()].sort((a, b) => b.issuedAtMs - a.issuedAtMs);
 }
@@ -265,13 +302,20 @@ export function createVaacSource({
       try {
         signal?.throwIfAborted();
         const listHtml = await get(listUrl, 512 * 1024);
-        const rows = latestAdvisoryPerVolcano(parseVaacAdvisoryList(listHtml, listBaseUrl));
+        const rows = latestAdvisoryPerVolcano(
+          parseVaacAdvisoryList(listHtml, listBaseUrl),
+        );
         const advisories = [];
         for (const row of rows.slice(0, maxAdvisories)) {
           try {
             const bodyHtml = await get(row.href, ADVISORY_BYTES_CAP);
             const advisory = parseVaacAdvisoryText(stripTags(bodyHtml));
-            if (advisory) advisories.push({ ...advisory, listHref: row.href, country: row.country });
+            if (advisory)
+              advisories.push({
+                ...advisory,
+                listHref: row.href,
+                country: row.country,
+              });
           } catch {
             // One bad advisory never kills the batch (per-part degradation).
           }
@@ -280,9 +324,13 @@ export function createVaacSource({
           advisories,
           fetchedAt: Date.now(),
           source: 'Tokyo VAAC (JMA)',
-          coverage: 'Asia-Pacific volcanoes; other VAACs via the documented proxy additions.',
+          coverage:
+            'Asia-Pacific volcanoes; other VAACs via the documented proxy additions.',
           unavailable: advisories.length === 0,
-          reason: advisories.length === 0 ? 'No advisories parsed — feed may be down' : null,
+          reason:
+            advisories.length === 0
+              ? 'No advisories parsed — feed may be down'
+              : null,
         };
       } catch (e) {
         if (controller.signal.aborted) throw e;
@@ -324,7 +372,10 @@ export function renderAshPanel(container, snapshot, { onRefresh = null } = {}) {
   const meta = document.createElement('p');
   meta.className = 'vaac-ash-meta';
   const fetched = snapshot?.fetchedAt
-    ? new Date(snapshot.fetchedAt).toISOString().replace('T', ' ').slice(0, 19) + ' UTC'
+    ? new Date(snapshot.fetchedAt)
+        .toISOString()
+        .replace('T', ' ')
+        .slice(0, 19) + ' UTC'
     : 'never';
   meta.textContent = `Source: ${snapshot?.source ?? 'Tokyo VAAC (JMA)'} · fetched ${fetched}`;
   root.appendChild(meta);
@@ -355,10 +406,12 @@ export function renderAshPanel(container, snapshot, { onRefresh = null } = {}) {
       head.textContent = `${a.volcano}${a.country ? ` (${a.country})` : ''}`;
       item.appendChild(head);
       const detail = document.createElement('div');
-      const dtg = new Date(a.dtgMs).toISOString().slice(0, 16).replace('T', ' ') + ' UTC';
+      const dtg =
+        new Date(a.dtgMs).toISOString().slice(0, 16).replace('T', ' ') + ' UTC';
       detail.textContent =
         `Advisory ${a.advisoryNumber ?? '?'} · issued ${dtg} · ` +
-        a.clouds.map((c) => cloudSummary(c)).join(', ') || 'no ash cloud polygons';
+          a.clouds.map((c) => cloudSummary(c)).join(', ') ||
+        'no ash cloud polygons';
       item.appendChild(detail);
       if (a.eruptionDetails) {
         const erup = document.createElement('div');
@@ -404,7 +457,9 @@ export function ashAdvisoryEntities(advisory, { cesium = Cesium } = {}) {
       cloud.polygon.flatMap(([lon, lat]) => [lon, lat]),
     );
     const color = cesium.Color.fromCssColorString(
-      cloud.kind === 'observed' ? ASH_CLOUD_COLORS.observed : ASH_CLOUD_COLORS.forecast,
+      cloud.kind === 'observed'
+        ? ASH_CLOUD_COLORS.observed
+        : ASH_CLOUD_COLORS.forecast,
     ).withAlpha(cloud.kind === 'observed' ? 0.4 : 0.25);
     entities.push(
       new cesium.Entity({
@@ -421,7 +476,8 @@ export function ashAdvisoryEntities(advisory, { cesium = Cesium } = {}) {
         },
       }),
     );
-    if (i === 0) entities[entities.length - 1].cloudCount = advisory.clouds.length;
+    if (i === 0)
+      entities[entities.length - 1].cloudCount = advisory.clouds.length;
   }
   entities.push(
     new cesium.Entity({

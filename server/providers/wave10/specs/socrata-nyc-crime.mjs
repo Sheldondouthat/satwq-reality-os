@@ -4,33 +4,29 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 1 (socrata worker)).
  */
 export const SPEC = {
-  "attribution": "Data: City of New York Open Data — keyless Socrata API.",
-  "extract": {
-    "items": "$",
-    "limit": 50,
-    "map": {
-      "borough": "$.boro_nm",
-      "created": "$.cmplnt_fr_dt",
-      "key": "$.cmplnt_num",
-      "lat": "$.latitude",
-      "lon": "$.longitude",
-      "type": "$.ofns_desc"
+  attribution: 'Data: City of New York Open Data — keyless Socrata API.',
+  extract: {
+    items: '$',
+    limit: 50,
+    map: {
+      borough: '$.boro_nm',
+      created: '$.cmplnt_fr_dt',
+      key: '$.cmplnt_num',
+      lat: '$.latitude',
+      lon: '$.longitude',
+      type: '$.ofns_desc',
     },
-    "numbers": [
-      "lat",
-      "lon"
-    ]
+    numbers: ['lat', 'lon'],
   },
-  "honesty": "NYPD complaint data, year to date; updates periodically; some records lack geocoding.",
-  "id": "socrata-nyc-crime",
-  "required": [
-    "key"
-  ],
-  "source": "NYC Open Data (Socrata)",
-  "title": "NYC Open Data — NYPD complaint data (YTD)",
-  "ttlSeconds": 3600,
-  "units": {},
-  "url": "https://data.cityofnewyork.us/resource/5uac-w243.json?$limit=50",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 1 (socrata worker)"
+  honesty:
+    'NYPD complaint data, year to date; updates periodically; some records lack geocoding.',
+  id: 'socrata-nyc-crime',
+  required: ['key'],
+  source: 'NYC Open Data (Socrata)',
+  title: 'NYC Open Data — NYPD complaint data (YTD)',
+  ttlSeconds: 3600,
+  units: {},
+  url: 'https://data.cityofnewyork.us/resource/5uac-w243.json?$limit=50',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 1 (socrata worker)',
 };

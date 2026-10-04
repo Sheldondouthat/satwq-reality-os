@@ -14,7 +14,8 @@
 import { parseEmWeather } from './model.js';
 
 const SWPC = {
-  speed: 'https://services.swpc.noaa.gov/products/summary/solar-wind-speed.json',
+  speed:
+    'https://services.swpc.noaa.gov/products/summary/solar-wind-speed.json',
   mag: 'https://services.swpc.noaa.gov/products/summary/solar-wind-mag-field.json',
   xray: 'https://services.swpc.noaa.gov/json/goes/primary/xrays-6-hour.json',
   kp: 'https://services.swpc.noaa.gov/json/planetary_k_index_1m.json',
@@ -58,7 +59,11 @@ export function createInvisibleOceanSource({
     const url = `${proxyBase}/spots?limit=800`;
     const payload = await fetchJson(fetchImpl, url, { signal });
     signal?.throwIfAborted();
-    if (!payload || typeof payload !== 'object' || !Array.isArray(payload.spots)) {
+    if (
+      !payload ||
+      typeof payload !== 'object' ||
+      !Array.isArray(payload.spots)
+    ) {
       throw new Error('Malformed invisible-ocean proxy response');
     }
     return {
@@ -80,7 +85,10 @@ export function createInvisibleOceanSource({
   async function getEmWeatherSnapshot({ signal } = {}) {
     signal?.throwIfAborted();
     const results = await Promise.allSettled(
-      Object.entries(SWPC).map(async ([key, url]) => [key, await fetchJson(fetchImpl, url, { signal })]),
+      Object.entries(SWPC).map(async ([key, url]) => [
+        key,
+        await fetchJson(fetchImpl, url, { signal }),
+      ]),
     );
     signal?.throwIfAborted();
     const rows = {};

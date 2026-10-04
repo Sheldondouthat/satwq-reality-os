@@ -37,7 +37,9 @@ let inflight = null;
 
 function assertPinnedHost(url, host) {
   if (new URL(url).host !== host)
-    throw Object.assign(new Error(`civic_unexpected_host_${host}`), { status: 502 });
+    throw Object.assign(new Error(`civic_unexpected_host_${host}`), {
+      status: 502,
+    });
 }
 
 async function fetchJsonCapped(url, host, signal) {
@@ -53,10 +55,14 @@ async function fetchJsonCapped(url, host, signal) {
       headers: { 'User-Agent': USER_AGENT, Accept: 'application/json' },
     });
     if (!response.ok)
-      throw Object.assign(new Error(`civic_upstream_${response.status}`), { status: 502 });
+      throw Object.assign(new Error(`civic_upstream_${response.status}`), {
+        status: 502,
+      });
     const buffer = await response.arrayBuffer();
     if (buffer.byteLength > BODY_CAP_BYTES)
-      throw Object.assign(new Error('civic_upstream_too_large'), { status: 502 });
+      throw Object.assign(new Error('civic_upstream_too_large'), {
+        status: 502,
+      });
     return JSON.parse(new TextDecoder().decode(buffer));
   } finally {
     clearTimeout(timeout);
@@ -65,7 +71,9 @@ async function fetchJsonCapped(url, host, signal) {
 }
 
 function capText(value) {
-  const s = String(value ?? '').replace(/\s+/g, ' ').trim();
+  const s = String(value ?? '')
+    .replace(/\s+/g, ' ')
+    .trim();
   return s.length > TEXT_CAP ? s.slice(0, TEXT_CAP) + '…' : s;
 }
 
@@ -90,9 +98,13 @@ function trimHnItem(item) {
     summary: item?.url ? capText(String(item.url)) : '',
     score: Number.isFinite(item?.score) ? item.score : null,
     by: String(item?.by ?? ''),
-    published: Number.isFinite(item?.time) ? new Date(item.time * 1000).toISOString() : null,
+    published: Number.isFinite(item?.time)
+      ? new Date(item.time * 1000).toISOString()
+      : null,
     comments: Number.isFinite(item?.descendants) ? item.descendants : null,
-    url: item?.url ? String(item.url) : `https://news.ycombinator.com/item?id=${item?.id ?? ''}`,
+    url: item?.url
+      ? String(item.url)
+      : `https://news.ycombinator.com/item?id=${item?.id ?? ''}`,
   };
 }
 
@@ -104,7 +116,9 @@ function trim311(row) {
     id: String(row?.unique_key ?? ''),
     kind: String(row?.complaint_type ?? ''),
     title: capText(row?.descriptor || row?.complaint_type),
-    summary: capText(row?.agency ? `${row.agency} · ${row?.borough ?? ''}`.trim() : ''),
+    summary: capText(
+      row?.agency ? `${row.agency} · ${row?.borough ?? ''}`.trim() : '',
+    ),
     published: row?.created_date ?? null,
     url: row?.unique_key
       ? `https://portal.311.nyc.gov/article/?kanumber=${encodeURIComponent(String(row.unique_key))}`
@@ -124,9 +138,14 @@ async function fetchHackerNews() {
   const ids = await fetchJsonCapped(HN_TOP_URL, HN_HOST, null);
   const top = (Array.isArray(ids) ? ids : []).slice(0, HN_ITEM_COUNT);
   const stories = await Promise.all(
-    top.map((id) => fetchJsonCapped(HN_ITEM_URL(id), HN_HOST, null).catch(() => null)),
+    top.map((id) =>
+      fetchJsonCapped(HN_ITEM_URL(id), HN_HOST, null).catch(() => null),
+    ),
   );
-  return stories.filter(Boolean).map(trimHnItem).filter((s) => s.id && s.title);
+  return stories
+    .filter(Boolean)
+    .map(trimHnItem)
+    .filter((s) => s.id && s.title);
 }
 
 async function fetchNyc311() {
@@ -171,14 +190,19 @@ async function getSnapshot() {
         try {
           return { name, result: await fetch() };
         } catch (error) {
-          return { name, result: error instanceof Error ? error : new Error('unknown') };
+          return {
+            name,
+            result: error instanceof Error ? error : new Error('unknown'),
+          };
         }
       }),
     )
       .then((sourceResults) => {
         const payload = trimCivicPayload(sourceResults);
         if (payload.degradedSources.length >= SOURCES.length)
-          throw Object.assign(new Error('civic_all_sources_unavailable'), { status: 502 });
+          throw Object.assign(new Error('civic_all_sources_unavailable'), {
+            status: 502,
+          });
         cache = { at: Date.now(), payload };
         return payload;
       })
@@ -200,15 +224,21 @@ function sendJson(res, status, body, cacheControl = 'public, max-age=900') {
 /** Mount the civic ticker proxy. Mirrors the nwsAlerts provider shape. */
 export function civicProxy() {
   async function handler(req, res) {
-    if (req.method !== 'GET') return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
     req.on?.('close', () => {});
     try {
       sendJson(res, 200, await getSnapshot());
     } catch (error) {
-      sendJson(res, error?.status === 502 ? 502 : 500, {
-        error: 'civic_unavailable',
-        detail: error?.message ?? 'unknown',
-      }, 'no-store');
+      sendJson(
+        res,
+        error?.status === 502 ? 502 : 500,
+        {
+          error: 'civic_unavailable',
+          detail: error?.message ?? 'unknown',
+        },
+        'no-store',
+      );
     } finally {
       req.removeListener?.('close', () => {});
     }
@@ -230,5 +260,8 @@ export const _civicInternals = {
   trimHnItem,
   trim311,
   trimCivicPayload,
-  clearCaches: () => { cache = null; inflight = null; },
+  clearCaches: () => {
+    cache = null;
+    inflight = null;
+  },
 };

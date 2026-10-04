@@ -4,37 +4,32 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 2 (usgs worker)).
  */
 export const SPEC = {
-  "attribution": "Data: U.S. Geological Survey, NWIS — keyless.",
-  "extract": {
-    "items": "$.value.timeSeries",
-    "limit": 10,
-    "map": {
-      "lat": "$.sourceInfo.geoLocation.geogLocation.latitude",
-      "lon": "$.sourceInfo.geoLocation.geogLocation.longitude",
-      "name": "$.sourceInfo.siteName",
-      "site": "$.sourceInfo.siteCode[0].value",
-      "time": "$.values[0].value[0].dateTime",
-      "value": "$.values[0].value[0].value"
+  attribution: 'Data: U.S. Geological Survey, NWIS — keyless.',
+  extract: {
+    items: '$.value.timeSeries',
+    limit: 10,
+    map: {
+      lat: '$.sourceInfo.geoLocation.geogLocation.latitude',
+      lon: '$.sourceInfo.geoLocation.geogLocation.longitude',
+      name: '$.sourceInfo.siteName',
+      site: '$.sourceInfo.siteCode[0].value',
+      time: '$.values[0].value[0].dateTime',
+      value: '$.values[0].value[0].value',
     },
-    "numbers": [
-      "value",
-      "lat",
-      "lon"
-    ]
+    numbers: ['value', 'lat', 'lon'],
   },
-  "headers": {},
-  "honesty": "Instantaneous water temperature at Atlanta, GA, typically updated every 15-60 min; provisional data (qualifier P) possible. Only sites with a temperature sensor report 00010 — the James and Savannah gages have none, so this is a single-site feed.",
-  "id": "usgs-water-temp-chattahoochee",
-  "required": [
-    "name"
-  ],
-  "source": "USGS Water Services (NWIS)",
-  "title": "USGS Water — Water temperature, Chattahoochee River at Atlanta, GA",
-  "ttlSeconds": 3600,
-  "units": {
-    "value": "°C"
+  headers: {},
+  honesty:
+    'Instantaneous water temperature at Atlanta, GA, typically updated every 15-60 min; provisional data (qualifier P) possible. Only sites with a temperature sensor report 00010 — the James and Savannah gages have none, so this is a single-site feed.',
+  id: 'usgs-water-temp-chattahoochee',
+  required: ['name'],
+  source: 'USGS Water Services (NWIS)',
+  title: 'USGS Water — Water temperature, Chattahoochee River at Atlanta, GA',
+  ttlSeconds: 3600,
+  units: {
+    value: '°C',
   },
-  "url": "https://waterservices.usgs.gov/nwis/iv/?format=json&sites=02336000&parameterCd=00010",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 2 (usgs worker)"
+  url: 'https://waterservices.usgs.gov/nwis/iv/?format=json&sites=02336000&parameterCd=00010',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 2 (usgs worker)',
 };

@@ -4,30 +4,30 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 4 (new socrata cities)).
  */
 export const SPEC = {
-  "attribution": "Data: City of Cambridge MA — data.cambridgema.gov (Socrata) — keyless Socrata API.",
-  "extract": {
-    "items": "$",
-    "limit": 50,
-    "map": {
-      "address": "$.full_address",
-      "description": "$.business_name",
-      "key": "$.id",
-      "status": "$.status",
-      "time": "$.case_open_date"
+  attribution:
+    'Data: City of Cambridge MA — data.cambridgema.gov (Socrata) — keyless Socrata API.',
+  extract: {
+    items: '$',
+    limit: 50,
+    map: {
+      address: '$.full_address',
+      description: '$.business_name',
+      key: '$.id',
+      status: '$.status',
+      time: '$.case_open_date',
     },
-    "numbers": []
+    numbers: [],
   },
-  "headers": {},
-  "honesty": "Cambridge sanitary inspections, fresh through 2026-09-17; ordering by case_open_date DESC with nulls filtered; business names are public food establishments (civic data, no private individuals).",
-  "id": "socrata-cambridge-inspections",
-  "required": [
-    "key"
-  ],
-  "source": "City of Cambridge MA — data.cambridgema.gov (Socrata)",
-  "title": "Cambridge MA (data.cambridgema.gov) — sanitary inspections",
-  "ttlSeconds": 1800,
-  "units": {},
-  "url": "https://data.cambridgema.gov/resource/ryb9-qzmw.json?$limit=50&$where=case_open_date%20is%20not%20null&$order=case_open_date%20DESC",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 4 (new socrata cities)"
+  headers: {},
+  honesty:
+    'Cambridge sanitary inspections, fresh through 2026-09-17; ordering by case_open_date DESC with nulls filtered; business names are public food establishments (civic data, no private individuals).',
+  id: 'socrata-cambridge-inspections',
+  required: ['key'],
+  source: 'City of Cambridge MA — data.cambridgema.gov (Socrata)',
+  title: 'Cambridge MA (data.cambridgema.gov) — sanitary inspections',
+  ttlSeconds: 1800,
+  units: {},
+  url: 'https://data.cambridgema.gov/resource/ryb9-qzmw.json?$limit=50&$where=case_open_date%20is%20not%20null&$order=case_open_date%20DESC',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 4 (new socrata cities)',
 };

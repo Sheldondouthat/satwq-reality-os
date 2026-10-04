@@ -4,35 +4,31 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 1 (coops worker)).
  */
 export const SPEC = {
-  "headers": {
-    "User-Agent": "satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)"
+  headers: {
+    'User-Agent':
+      'satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)',
   },
-  "source": "NOAA Center for Operational Oceanography Products",
-  "attribution": "Data: NOAA CO-OPS — keyless.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 1 (coops worker)",
-  "id": "coops-waterlevel-seattle",
-  "title": "NOAA Tides — Seattle water level",
-  "url": "https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?product=water_level&station=9447130&date=recent&datum=MLLW&time_zone=gmt&units=english&format=json",
-  "ttlSeconds": 1800,
-  "extract": {
-    "items": "$.data",
-    "limit": 48,
-    "map": {
-      "time": "$.t",
-      "levelFt": "$.v",
-      "sigma": "$.s"
+  source: 'NOAA Center for Operational Oceanography Products',
+  attribution: 'Data: NOAA CO-OPS — keyless.',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 1 (coops worker)',
+  id: 'coops-waterlevel-seattle',
+  title: 'NOAA Tides — Seattle water level',
+  url: 'https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?product=water_level&station=9447130&date=recent&datum=MLLW&time_zone=gmt&units=english&format=json',
+  ttlSeconds: 1800,
+  extract: {
+    items: '$.data',
+    limit: 48,
+    map: {
+      time: '$.t',
+      levelFt: '$.v',
+      sigma: '$.s',
     },
-    "numbers": [
-      "levelFt",
-      "sigma"
-    ]
+    numbers: ['levelFt', 'sigma'],
   },
-  "required": [
-    "time"
-  ],
-  "units": {
-    "levelFt": "ft"
+  required: ['time'],
+  units: {
+    levelFt: 'ft',
   },
-  "honesty": "6-minute observations; most recent point typically <1h old."
+  honesty: '6-minute observations; most recent point typically <1h old.',
 };

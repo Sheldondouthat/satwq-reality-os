@@ -65,7 +65,10 @@ export function saveIndoorState(state, storage) {
   const store = resolveStorage(storage);
   if (!store) return false;
   try {
-    store.setItem(INDOOR_STORAGE_KEY, JSON.stringify(serializeIndoorState(state)));
+    store.setItem(
+      INDOOR_STORAGE_KEY,
+      JSON.stringify(serializeIndoorState(state)),
+    );
     return true;
   } catch {
     return false; // Quota exceeded, etc. — fail soft, the editor keeps running.
@@ -89,7 +92,11 @@ export function loadIndoorState(storage) {
   if (!raw) return null;
   try {
     const parsed = JSON.parse(raw);
-    if (!parsed || typeof parsed !== 'object' || parsed.version !== INDOOR_STATE_VERSION) {
+    if (
+      !parsed ||
+      typeof parsed !== 'object' ||
+      parsed.version !== INDOOR_STATE_VERSION
+    ) {
       return null;
     }
     return {

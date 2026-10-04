@@ -25,70 +25,70 @@
  */
 
 const CRW_BASE =
-  "https://coralreefwatch.noaa.gov/data_current/5km/v3.1_op/animation/gif";
+  'https://coralreefwatch.noaa.gov/data_current/5km/v3.1_op/animation/gif';
 const CACHE_TTL_MS = 6 * 60 * 60_000; // GIFs regenerate daily; the manifest is stable
 
 const ANIMATIONS = [
   {
-    id: "crw-sst-crb",
-    region: "crb",
-    name: "Caribbean",
+    id: 'crw-sst-crb',
+    region: 'crb',
+    name: 'Caribbean',
     url: `${CRW_BASE}/sst_animation_30day_crb_930x580.gif`,
   },
   {
-    id: "crw-sst-45ns",
-    region: "45ns",
-    name: "45°N/S region",
+    id: 'crw-sst-45ns',
+    region: '45ns',
+    name: '45°N/S region',
     url: `${CRW_BASE}/sst_animation_30day_45ns_930x580.gif`,
   },
   {
-    id: "crw-sst-coraltriangle",
-    region: "coraltriangle",
-    name: "Coral Triangle",
+    id: 'crw-sst-coraltriangle',
+    region: 'coraltriangle',
+    name: 'Coral Triangle',
     url: `${CRW_BASE}/sst_animation_30day_coraltriangle_930x580.gif`,
   },
   {
-    id: "crw-sst-east",
-    region: "east",
-    name: "Eastern Pacific",
+    id: 'crw-sst-east',
+    region: 'east',
+    name: 'Eastern Pacific',
     url: `${CRW_BASE}/sst_animation_30day_east_930x580.gif`,
   },
   {
-    id: "crw-sst-fl",
-    region: "fl",
-    name: "Florida",
+    id: 'crw-sst-fl',
+    region: 'fl',
+    name: 'Florida',
     url: `${CRW_BASE}/sst_animation_30day_fl_930x580.gif`,
   },
   {
-    id: "crw-sst-gbr",
-    region: "gbr",
-    name: "Great Barrier Reef",
+    id: 'crw-sst-gbr',
+    region: 'gbr',
+    name: 'Great Barrier Reef',
     url: `${CRW_BASE}/sst_animation_30day_gbr_930x580.gif`,
   },
   {
-    id: "crw-sst-hi",
-    region: "hi",
+    id: 'crw-sst-hi',
+    region: 'hi',
     name: "Hawai'i",
     url: `${CRW_BASE}/sst_animation_30day_hi_930x580.gif`,
   },
   {
-    id: "crw-sst-indian",
-    region: "indian",
-    name: "Indian Ocean",
+    id: 'crw-sst-indian',
+    region: 'indian',
+    name: 'Indian Ocean',
     url: `${CRW_BASE}/sst_animation_30day_indian_930x580.gif`,
   },
 ].map((a) => ({
   ...a,
-  format: "animated GIF 930×580",
-  cadence: "daily, 30-day window",
-  attribution: "NOAA Coral Reef Watch",
-  license: "NOAA public domain",
-  probe: "vm-206",
+  format: 'animated GIF 930×580',
+  cadence: 'daily, 30-day window',
+  attribution: 'NOAA Coral Reef Watch',
+  license: 'NOAA public domain',
+  probe: 'vm-206',
 }));
 
 const PROBE_NOTE =
-  "probe legend — vm-206: range probe returned HTTP 206 image/gif from the build VM on 2026-09-27; " +
-  "the GIF URL pattern was verified 200 by the feed-catalog survey earlier on 2026-09-27.";
+  'probe legend — vm-206: range probe returned HTTP 206 image/gif from the build VM on 2026-09-27; ' +
+  'the GIF URL pattern was verified 200 by the feed-catalog survey earlier on 2026-09-27.';
 
 let cache = null; // {at, payload}
 let inflight = null;
@@ -98,9 +98,9 @@ function buildManifest() {
     generatedAt: new Date().toISOString(),
     count: ANIMATIONS.length,
     attribution:
-      "Sea-surface-temperature animations: NOAA Coral Reef Watch 5km v3.1 (public domain). " +
-      "Satellite/model imagery — label honestly as model-blended SST. " +
-      "Manifest only — GIF bytes are loaded client-side from the origin host.",
+      'Sea-surface-temperature animations: NOAA Coral Reef Watch 5km v3.1 (public domain). ' +
+      'Satellite/model imagery — label honestly as model-blended SST. ' +
+      'Manifest only — GIF bytes are loaded client-side from the origin host.',
     probeNote: PROBE_NOTE,
     animations: ANIMATIONS.map((a) => ({ ...a })),
   };
@@ -122,44 +122,44 @@ async function getManifest() {
   return inflight;
 }
 
-function sendJson(res, status, body, cacheControl = "public, max-age=21600") {
+function sendJson(res, status, body, cacheControl = 'public, max-age=21600') {
   res.writeHead(status, {
-    "Content-Type": "application/json; charset=utf-8",
-    "Cache-Control": cacheControl,
+    'Content-Type': 'application/json; charset=utf-8',
+    'Cache-Control': cacheControl,
   });
   res.end(JSON.stringify(body));
 }
 
 export function coralProxy() {
   async function handler(req, res) {
-    if (req.method !== "GET")
-      return sendJson(res, 405, { error: "method_not_allowed" }, "no-store");
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
     try {
       sendJson(res, 200, await getManifest());
     } catch (error) {
       const upstreamFail =
         error?.status === 502 ||
-        error?.name === "AbortError" ||
-        /aborted?/i.test(error?.message ?? "");
+        error?.name === 'AbortError' ||
+        /aborted?/i.test(error?.message ?? '');
       sendJson(
         res,
         upstreamFail ? 502 : 500,
         {
-          error: "coral_unavailable",
-          detail: error?.message ?? "unknown",
+          error: 'coral_unavailable',
+          detail: error?.message ?? 'unknown',
         },
-        "no-store",
+        'no-store',
       );
     }
   }
 
   return {
-    name: "coral",
+    name: 'coral',
     configureServer({ middlewares }) {
-      middlewares.use("/api/coral", handler);
+      middlewares.use('/api/coral', handler);
     },
     configurePreviewServer({ middlewares }) {
-      middlewares.use("/api/coral", handler);
+      middlewares.use('/api/coral', handler);
     },
   };
 }

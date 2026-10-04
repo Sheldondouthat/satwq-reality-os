@@ -49,12 +49,23 @@ export function transmitterSummary(tx) {
 /** Keep only live transmitters with a usable downlink, capped. */
 export function plottableTransmitters(rows, cap = 100) {
   return (Array.isArray(rows) ? rows : [])
-    .filter((t) => t?.alive && Number.isFinite(t?.downlinkHz?.low ?? t?.downlinkHz?.high))
+    .filter(
+      (t) =>
+        t?.alive && Number.isFinite(t?.downlinkHz?.low ?? t?.downlinkHz?.high),
+    )
     .slice(0, cap);
 }
 
 export function escapeHtml(s) {
-  return String(s ?? '').replace(/[&<>"']/g, (c) => ({
-    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
-  })[c]);
+  return String(s ?? '').replace(
+    /[&<>"']/g,
+    (c) =>
+      ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;',
+      })[c],
+  );
 }

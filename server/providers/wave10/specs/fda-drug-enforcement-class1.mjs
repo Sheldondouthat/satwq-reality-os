@@ -4,36 +4,33 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 6 (fda worker)).
  */
 export const SPEC = {
-  "id": "fda-drug-enforcement-class1",
-  "title": "openFDA — Class I drug recalls",
-  "url": "https://api.fda.gov/drug/enforcement.json?limit=20&search=classification:%22Class+I%22",
-  "headers": {},
-  "ttlSeconds": 86400,
-  "extract": {
-    "items": "$.results",
-    "limit": 20,
-    "map": {
-      "key": "$.recall_number",
-      "firm": "$.recalling_firm",
-      "state": "$.state",
-      "classification": "$.classification",
-      "date": "$.report_date",
-      "product": "$.product_description",
-      "reason": "$.reason_for_recall",
-      "status": "$.status",
-      "distribution": "$.distribution_pattern"
+  id: 'fda-drug-enforcement-class1',
+  title: 'openFDA — Class I drug recalls',
+  url: 'https://api.fda.gov/drug/enforcement.json?limit=20&search=classification:%22Class+I%22',
+  headers: {},
+  ttlSeconds: 86400,
+  extract: {
+    items: '$.results',
+    limit: 20,
+    map: {
+      key: '$.recall_number',
+      firm: '$.recalling_firm',
+      state: '$.state',
+      classification: '$.classification',
+      date: '$.report_date',
+      product: '$.product_description',
+      reason: '$.reason_for_recall',
+      status: '$.status',
+      distribution: '$.distribution_pattern',
     },
-    "numbers": []
+    numbers: [],
   },
-  "required": [
-    "key",
-    "firm",
-    "classification"
-  ],
-  "source": "openFDA",
-  "attribution": "Data: U.S. Food & Drug Administration, openFDA — keyless.",
-  "units": {},
-  "honesty": "Class I (highest-risk) drug enforcement actions; 1,750 total. Row order is openFDA's default sort, not chronological.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 6 (fda worker)"
+  required: ['key', 'firm', 'classification'],
+  source: 'openFDA',
+  attribution: 'Data: U.S. Food & Drug Administration, openFDA — keyless.',
+  units: {},
+  honesty:
+    "Class I (highest-risk) drug enforcement actions; 1,750 total. Row order is openFDA's default sort, not chronological.",
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 6 (fda worker)',
 };

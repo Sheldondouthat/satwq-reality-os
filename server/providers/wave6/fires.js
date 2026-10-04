@@ -28,8 +28,10 @@
  * 'error' throws at the edge (main 2ec4053) — no node: imports, no WASM).
  */
 
-const HMS_URL = 'https://satepsanone.nesdis.noaa.gov/pub/FIRE/HMS/latesthms.txt';
-const NIFC_DCAT_URL = 'https://data-nifc.opendata.arcgis.com/api/feed/dcat-us/1.1.json';
+const HMS_URL =
+  'https://satepsanone.nesdis.noaa.gov/pub/FIRE/HMS/latesthms.txt';
+const NIFC_DCAT_URL =
+  'https://data-nifc.opendata.arcgis.com/api/feed/dcat-us/1.1.json';
 
 // DCAT dataset title preference, most-current first.
 const NIFC_TITLE_PREFERENCE = [
@@ -87,7 +89,9 @@ function clampLatLon(lat, lon) {
 
 /** YYYYDDD ("2022199") → ISO date string, or null. */
 function yearDayToIso(yearDay) {
-  const m = String(yearDay ?? '').trim().match(/^(\d{4})(\d{3})$/);
+  const m = String(yearDay ?? '')
+    .trim()
+    .match(/^(\d{4})(\d{3})$/);
   if (!m) return null;
   const year = Number(m[1]);
   const day = Number(m[2]);
@@ -108,10 +112,15 @@ async function fetchCapped(sourceKey, url, kind, accept) {
       headers: { 'User-Agent': USER_AGENT, Accept: accept },
     });
     if (!response.ok)
-      throw Object.assign(new Error(`fires_${sourceKey}_upstream_${response.status}`), { status: 502 });
+      throw Object.assign(
+        new Error(`fires_${sourceKey}_upstream_${response.status}`),
+        { status: 502 },
+      );
     const buffer = await response.arrayBuffer();
     if (buffer.byteLength > BODY_CAP_BYTES)
-      throw Object.assign(new Error(`fires_${sourceKey}_upstream_too_large`), { status: 502 });
+      throw Object.assign(new Error(`fires_${sourceKey}_upstream_too_large`), {
+        status: 502,
+      });
     const text = new TextDecoder().decode(buffer);
     return {
       data: kind === 'json' ? JSON.parse(text) : text,
@@ -143,7 +152,10 @@ export function parseHmsText(text) {
     if (!ll) continue;
     const yearDay = cols[2];
     const satellite = cols[4];
-    const frp = cols[7] === '-999' || cols[7] === '-999.000' ? null : finiteOrNull(cols[7], 3);
+    const frp =
+      cols[7] === '-999' || cols[7] === '-999.000'
+        ? null
+        : finiteOrNull(cols[7], 3);
     out.push({
       id: `hms:${satellite.replace(/\s+/g, '')}:${roundNum(ll.lon)}:${roundNum(ll.lat)}:${yearDay}`,
       kind: 'detection',
@@ -171,7 +183,10 @@ export function dedupeHmsDetections(detections) {
   for (const d of detections) {
     const key = `${d.satellite}|${roundNum(d.lat, 3)}|${roundNum(d.lon, 3)}`;
     const prior = byKey.get(key);
-    if (!prior || (d.fireRadiativePower ?? -1) > (prior.fireRadiativePower ?? -1)) {
+    if (
+      !prior ||
+      (d.fireRadiativePower ?? -1) > (prior.fireRadiativePower ?? -1)
+    ) {
       byKey.set(key, d);
     }
   }
@@ -194,7 +209,10 @@ export function discoverNifcIncidentService(dcat) {
     const dists = Array.isArray(ds.distribution) ? ds.distribution : [];
     for (const dist of dists) {
       const accessURL = String(dist?.accessURL ?? dist?.downloadURL ?? '');
-      if (dist?.mediaType === 'application/json' && /FeatureServer/i.test(accessURL)) {
+      if (
+        dist?.mediaType === 'application/json' &&
+        /FeatureServer/i.test(accessURL)
+      ) {
         ranked.push({ pref, title, serviceUrl: accessURL.replace(/\/$/, '') });
       }
     }
@@ -221,8 +239,11 @@ export function parseNifcIncidents(geojson) {
   const out = [];
   for (const f of features) {
     const p = f?.properties ?? {};
-    const coords = f?.geometry?.type === 'Point' ? f.geometry.coordinates : null;
-    const ll = coords ? clampLatLon(Number(coords[1]), Number(coords[0])) : null;
+    const coords =
+      f?.geometry?.type === 'Point' ? f.geometry.coordinates : null;
+    const ll = coords
+      ? clampLatLon(Number(coords[1]), Number(coords[0]))
+      : null;
     if (!ll) continue;
     const irwin = String(p.IrwinID ?? '').replace(/[{}]/g, '');
     const discovered = isFiniteNum(p.FireDiscoveryDateTime)
@@ -254,17 +275,27 @@ export function parseNifcIncidents(geojson) {
 async function fetchHmsSource() {
   const started = Date.now();
   try {
-    const { data: text, headers } = await fetchCapped('hms', HMS_URL, 'text', 'text/plain');
-    const parsed = dedupeHmsDetections(parseHmsText(text)).slice(0, MAX_HMS_DETECTIONS);
+    const { data: text, headers } = await fetchCapped(
+      'hms',
+      HMS_URL,
+      'text',
+      'text/plain',
+    );
+    const parsed = dedupeHmsDetections(parseHmsText(text)).slice(
+      0,
+      MAX_HMS_DETECTIONS,
+    );
     const bySatellite = {};
-    for (const d of parsed) bySatellite[d.satellite] = (bySatellite[d.satellite] ?? 0) + 1;
+    for (const d of parsed)
+      bySatellite[d.satellite] = (bySatellite[d.satellite] ?? 0) + 1;
     const fileLastModified = headers?.get?.('last-modified') ?? null;
     const vintages = new Set(parsed.map((d) => d.yearDay).filter(Boolean));
     const dataVintage = vintages.size === 1 ? [...vintages][0] : null;
     const lmMs = fileLastModified ? Date.parse(fileLastModified) : NaN;
-    const staleNote = Number.isFinite(lmMs) && Date.now() - lmMs > 7 * 86_400_000
-      ? `upstream "latest" file frozen since ${fileLastModified}; detections are NOT current`
-      : null;
+    const staleNote =
+      Number.isFinite(lmMs) && Date.now() - lmMs > 7 * 86_400_000
+        ? `upstream "latest" file frozen since ${fileLastModified}; detections are NOT current`
+        : null;
     return {
       key: 'hms',
       ok: true,
@@ -302,10 +333,18 @@ async function fetchNifcSource() {
     fires: [],
   };
   try {
-    const { data: dcat } = await fetchCapped('nifc', NIFC_DCAT_URL, 'json', 'application/json');
+    const { data: dcat } = await fetchCapped(
+      'nifc',
+      NIFC_DCAT_URL,
+      'json',
+      'application/json',
+    );
     const discovered = discoverNifcIncidentService(dcat);
     if (!discovered)
-      throw Object.assign(new Error('fires_nifc_no_incident_service_discovered'), { status: 502 });
+      throw Object.assign(
+        new Error('fires_nifc_no_incident_service_discovered'),
+        { status: 502 },
+      );
     meta.discoveredDataset = discovered.title;
     meta.discoveredService = discovered.serviceUrl;
     const { data: geojson } = await fetchCapped(
@@ -337,14 +376,17 @@ function buildSnapshot(results) {
       ...(r.ok ? {} : { error: r.error }),
       ...(r.key === 'hms' && r.ok
         ? {
-          fileLastModified: r.fileLastModified ?? null,
-          dataVintage: r.dataVintage ?? null,
-          ...(r.staleNote ? { staleNote: r.staleNote } : {}),
-          detectionsBySatellite: r.detectionsBySatellite ?? {},
-        }
+            fileLastModified: r.fileLastModified ?? null,
+            dataVintage: r.dataVintage ?? null,
+            ...(r.staleNote ? { staleNote: r.staleNote } : {}),
+            detectionsBySatellite: r.detectionsBySatellite ?? {},
+          }
         : {}),
       ...(r.key === 'nifc' && r.ok
-        ? { discoveredDataset: r.discoveredDataset, discoveredService: r.discoveredService }
+        ? {
+            discoveredDataset: r.discoveredDataset,
+            discoveredService: r.discoveredService,
+          }
         : {}),
     };
     fires.push(...r.fires);
@@ -352,7 +394,9 @@ function buildSnapshot(results) {
   // Incidents (named, authoritative) first, detections after; incidents sorted newest-first.
   fires.sort((a, b) => {
     if (a.kind !== b.kind) return a.kind === 'incident' ? -1 : 1;
-    return String(b.discoveryTime ?? b.date ?? '').localeCompare(String(a.discoveryTime ?? a.date ?? ''));
+    return String(b.discoveryTime ?? b.date ?? '').localeCompare(
+      String(a.discoveryTime ?? a.date ?? ''),
+    );
   });
   return {
     generatedAt: new Date().toISOString(),
@@ -374,7 +418,9 @@ async function getSnapshot() {
       .then((results) => {
         if (!results.some((r) => r.ok)) {
           const detail = results.map((r) => `${r.key}:${r.error}`).join('; ');
-          throw Object.assign(new Error(`fires_all_upstream_down: ${detail}`), { status: 502 });
+          throw Object.assign(new Error(`fires_all_upstream_down: ${detail}`), {
+            status: 502,
+          });
         }
         const payload = buildSnapshot(results);
         cache = { at: Date.now(), payload };
@@ -398,15 +444,24 @@ function sendJson(res, status, body, cacheControl = 'public, max-age=900') {
 /** Mount the wave-6 wildfire aggregation proxy. Mirrors the wave5 quakes provider shape. */
 export function firesProxy() {
   async function handler(req, res) {
-    if (req.method !== 'GET') return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
     try {
       sendJson(res, 200, await getSnapshot());
     } catch (error) {
-      const upstreamFail = error?.status === 502 || error?.name === 'AbortError' || /aborted?/i.test(error?.message ?? '');
-      sendJson(res, upstreamFail ? 502 : 500, {
-        error: 'fires_unavailable',
-        detail: error?.message ?? 'unknown',
-      }, 'no-store');
+      const upstreamFail =
+        error?.status === 502 ||
+        error?.name === 'AbortError' ||
+        /aborted?/i.test(error?.message ?? '');
+      sendJson(
+        res,
+        upstreamFail ? 502 : 500,
+        {
+          error: 'fires_unavailable',
+          detail: error?.message ?? 'unknown',
+        },
+        'no-store',
+      );
     }
   }
 
@@ -429,5 +484,8 @@ export const _firesInternals = {
   buildNifcQueryUrl,
   parseNifcIncidents,
   buildSnapshot,
-  clearCaches: () => { cache = null; inflight = null; },
+  clearCaches: () => {
+    cache = null;
+    inflight = null;
+  },
 };

@@ -107,9 +107,14 @@ export function normalizeQuakeFeature(feature) {
   const mag = finiteNumber(props?.mag);
   if (lon === null || lat === null || mag === null) return null;
   return {
-    id: String(feature?.id ?? props?.code ?? `quake-${lat.toFixed(2)}-${lon.toFixed(2)}`),
+    id: String(
+      feature?.id ?? props?.code ?? `quake-${lat.toFixed(2)}-${lon.toFixed(2)}`,
+    ),
     mag,
-    place: typeof props?.place === 'string' ? props.place.slice(0, 120) : 'Unknown location',
+    place:
+      typeof props?.place === 'string'
+        ? props.place.slice(0, 120)
+        : 'Unknown location',
     lat,
     lon,
     depthKm: finiteNumber(coords?.[2]),
@@ -128,10 +133,13 @@ export function normalizeStorm(storm) {
   return {
     id: String(storm?.id ?? 'storm-unknown'),
     name: typeof storm?.name === 'string' ? storm.name : 'Unnamed',
-    classification: typeof storm?.classification === 'string' ? storm.classification : '',
+    classification:
+      typeof storm?.classification === 'string' ? storm.classification : '',
     lat,
     lon,
-    windKt: Number.isFinite(Number(storm?.windKt)) ? Number(storm.windKt) : null,
+    windKt: Number.isFinite(Number(storm?.windKt))
+      ? Number(storm.windKt)
+      : null,
     advisoryNumber: storm?.advisoryNumber ?? null,
   };
 }
@@ -149,7 +157,9 @@ export function normalizeOpenSkyState(vector) {
   const lat = finiteNumber(vector[6]);
   if (lon === null || lat === null) return null;
   if (lon < -180 || lon > 180 || lat < -90 || lat > 90) return null;
-  const icao24 = String(vector[0] ?? '').trim().toLowerCase();
+  const icao24 = String(vector[0] ?? '')
+    .trim()
+    .toLowerCase();
   if (!icao24) return null;
   const callsign =
     typeof vector[1] === 'string' && vector[1].trim() ? vector[1].trim() : null;
@@ -196,7 +206,11 @@ export function buildTrafficDensity(tracks, cellDeg = DENSITY_CELL_DEG) {
     const key = `${keyLat}:${keyLon}`;
     let cell = cells.get(key);
     if (!cell) {
-      cell = { lat: (keyLat + 0.5) * cellDeg, lon: (keyLon + 0.5) * cellDeg, count: 0 };
+      cell = {
+        lat: (keyLat + 0.5) * cellDeg,
+        lon: (keyLon + 0.5) * cellDeg,
+        count: 0,
+      };
       cells.set(key, cell);
     }
     cell.count++;
@@ -222,7 +236,12 @@ export const INCIDENT_RULES = Object.freeze({
   MAX_INCIDENTS: 40,
 });
 
-const SEVERITY_ORDER = Object.freeze({ low: 0, moderate: 1, high: 2, critical: 3 });
+const SEVERITY_ORDER = Object.freeze({
+  low: 0,
+  moderate: 1,
+  high: 2,
+  critical: 3,
+});
 
 function clampConfidence(value) {
   const n = Number(value);
@@ -290,13 +309,19 @@ export function synthesizeIncidents({
     push({
       id: `smoke-traffic:${smoke.lat.toFixed(2)},${smoke.lon.toFixed(2)}`,
       type: 'smoke-near-traffic',
-      title: heavy ? 'Heavy wildfire smoke near dense air traffic' : 'Wildfire smoke near dense air traffic',
+      title: heavy
+        ? 'Heavy wildfire smoke near dense air traffic'
+        : 'Wildfire smoke near dense air traffic',
       detail:
         `${heavy ? 'Heavy' : 'Moderate'}-density HMS smoke ~${Math.round(hit.km)} km ` +
         `from a traffic cell with ${hit.count} aircraft. Smoke can degrade visibility ` +
         `and force reroutes; watch for diversions.`,
       severity: heavy ? 'high' : 'moderate',
-      confidence: proximityConfidence(hit.km, INCIDENT_RULES.SMOKE_NEAR_TRAFFIC_KM, heavy ? 0.55 : 0.45),
+      confidence: proximityConfidence(
+        hit.km,
+        INCIDENT_RULES.SMOKE_NEAR_TRAFFIC_KM,
+        heavy ? 0.55 : 0.45,
+      ),
       sources: ['hms-smoke', 'opensky'],
       lat: smoke.lat,
       lon: smoke.lon,
@@ -318,7 +343,11 @@ export function synthesizeIncidents({
         `from ${hit.density}-density smoke. Compound hazard: seismic damage plus ` +
         `smoke-impaired response/visibility.`,
       severity: strong ? 'high' : 'moderate',
-      confidence: proximityConfidence(hit.km, INCIDENT_RULES.QUAKE_NEAR_SMOKE_KM, strong ? 0.6 : 0.45),
+      confidence: proximityConfidence(
+        hit.km,
+        INCIDENT_RULES.QUAKE_NEAR_SMOKE_KM,
+        strong ? 0.6 : 0.45,
+      ),
       sources: ['usgs-quakes', 'hms-smoke'],
       lat: quake.lat,
       lon: quake.lon,
@@ -339,7 +368,11 @@ export function synthesizeIncidents({
         `from ${hit.name} (${hit.classification || 'tropical system'}). ` +
         `Storm response capacity in the region may be degraded.`,
       severity: quake.mag >= 6 ? 'moderate' : 'low',
-      confidence: proximityConfidence(hit.km, INCIDENT_RULES.QUAKE_NEAR_STORM_KM, 0.4),
+      confidence: proximityConfidence(
+        hit.km,
+        INCIDENT_RULES.QUAKE_NEAR_STORM_KM,
+        0.4,
+      ),
       sources: ['usgs-quakes', 'nhc-storms'],
       lat: quake.lat,
       lon: quake.lon,
@@ -360,7 +393,11 @@ export function synthesizeIncidents({
         `${storm.windKt != null ? `, ${storm.windKt} kt` : ''}) ~${Math.round(hit.km)} km ` +
         `from a traffic cell with ${hit.count} aircraft. Expect reroutes and delays.`,
       severity: 'moderate',
-      confidence: proximityConfidence(hit.km, INCIDENT_RULES.STORM_NEAR_TRAFFIC_KM, 0.45),
+      confidence: proximityConfidence(
+        hit.km,
+        INCIDENT_RULES.STORM_NEAR_TRAFFIC_KM,
+        0.45,
+      ),
       sources: ['nhc-storms', 'opensky'],
       lat: storm.lat,
       lon: storm.lon,
@@ -381,9 +418,9 @@ export function synthesizeIncidents({
 // ---------------------------------------------------------------------------
 
 export const EMERGENCY_SQUAWKS = Object.freeze({
-  '7500': 'unlawful interference (hijack)',
-  '7600': 'radio failure',
-  '7700': 'general emergency',
+  7500: 'unlawful interference (hijack)',
+  7600: 'radio failure',
+  7700: 'general emergency',
 });
 
 /**
@@ -393,20 +430,46 @@ export const EMERGENCY_SQUAWKS = Object.freeze({
  * not an airport database.
  */
 export const MAJOR_AIRPORTS = Object.freeze([
-  ['ATL', 33.6407, -84.4277], ['DFW', 32.8998, -97.0403], ['DEN', 39.8561, -104.6737],
-  ['ORD', 41.9742, -87.9073], ['LAX', 33.9416, -118.4085], ['JFK', 40.6413, -73.7781],
-  ['SFO', 37.6213, -122.379], ['SEA', 47.4502, -122.3088], ['LAS', 36.084, -115.1537],
-  ['MCO', 28.4312, -81.3081], ['MIA', 25.7932, -80.2906], ['EWR', 40.6895, -74.1745],
-  ['CLT', 35.2144, -80.9473], ['PHX', 33.4373, -112.0078], ['IAH', 29.9844, -95.3414],
-  ['BOS', 42.3656, -71.0096], ['MSP', 44.8848, -93.2223], ['DTW', 42.2162, -83.3554],
-  ['PHL', 39.8729, -75.2437], ['LGA', 40.7769, -73.874],
-  ['LHR', 51.47, -0.4543], ['CDG', 49.0097, 2.5479], ['AMS', 52.3105, 4.7683],
-  ['FRA', 50.0379, 8.5622], ['MAD', 40.4983, -3.5676], ['BCN', 41.2974, 2.0785],
-  ['FCO', 41.8003, 12.2389], ['ZRH', 47.4647, 8.5492], ['DUB', 53.4214, -6.2701],
-  ['NRT', 35.772, 140.3929], ['HND', 35.5494, 139.7798], ['ICN', 37.4691, 126.4505],
-  ['SIN', 1.3644, 103.9915], ['HKG', 22.308, 113.9145], ['SYD', -33.9399, 151.1753],
-  ['DXB', 25.2532, 55.3657], ['DOH', 25.2731, 51.6081], ['GRU', -23.4356, -46.4731],
-  ['MEX', 19.4363, -99.0721], ['YYZ', 43.6777, -79.6248],
+  ['ATL', 33.6407, -84.4277],
+  ['DFW', 32.8998, -97.0403],
+  ['DEN', 39.8561, -104.6737],
+  ['ORD', 41.9742, -87.9073],
+  ['LAX', 33.9416, -118.4085],
+  ['JFK', 40.6413, -73.7781],
+  ['SFO', 37.6213, -122.379],
+  ['SEA', 47.4502, -122.3088],
+  ['LAS', 36.084, -115.1537],
+  ['MCO', 28.4312, -81.3081],
+  ['MIA', 25.7932, -80.2906],
+  ['EWR', 40.6895, -74.1745],
+  ['CLT', 35.2144, -80.9473],
+  ['PHX', 33.4373, -112.0078],
+  ['IAH', 29.9844, -95.3414],
+  ['BOS', 42.3656, -71.0096],
+  ['MSP', 44.8848, -93.2223],
+  ['DTW', 42.2162, -83.3554],
+  ['PHL', 39.8729, -75.2437],
+  ['LGA', 40.7769, -73.874],
+  ['LHR', 51.47, -0.4543],
+  ['CDG', 49.0097, 2.5479],
+  ['AMS', 52.3105, 4.7683],
+  ['FRA', 50.0379, 8.5622],
+  ['MAD', 40.4983, -3.5676],
+  ['BCN', 41.2974, 2.0785],
+  ['FCO', 41.8003, 12.2389],
+  ['ZRH', 47.4647, 8.5492],
+  ['DUB', 53.4214, -6.2701],
+  ['NRT', 35.772, 140.3929],
+  ['HND', 35.5494, 139.7798],
+  ['ICN', 37.4691, 126.4505],
+  ['SIN', 1.3644, 103.9915],
+  ['HKG', 22.308, 113.9145],
+  ['SYD', -33.9399, 151.1753],
+  ['DXB', 25.2532, 55.3657],
+  ['DOH', 25.2731, 51.6081],
+  ['GRU', -23.4356, -46.4731],
+  ['MEX', 19.4363, -99.0721],
+  ['YYZ', 43.6777, -79.6248],
 ]);
 
 export const SKY_ALERT_RULES = Object.freeze({
@@ -509,7 +572,10 @@ export function detectSkyAlerts(snapshots, { nowMs = Date.now() } = {}) {
     // v1 holding-pattern heuristic: slow, low-ish, turning in a small area.
     {
       const mean = samples.reduce(
-        (acc, s) => ({ lat: acc.lat + s.track.lat / samples.length, lon: acc.lon + s.track.lon / samples.length }),
+        (acc, s) => ({
+          lat: acc.lat + s.track.lat / samples.length,
+          lon: acc.lon + s.track.lon / samples.length,
+        }),
         { lat: 0, lon: 0 },
       );
       let maxR = 0;
@@ -517,12 +583,16 @@ export function detectSkyAlerts(snapshots, { nowMs = Date.now() } = {}) {
       let speedN = 0;
       const headings = [];
       for (const s of samples) {
-        maxR = Math.max(maxR, haversineKm(s.track.lat, s.track.lon, mean.lat, mean.lon));
+        maxR = Math.max(
+          maxR,
+          haversineKm(s.track.lat, s.track.lon, mean.lat, mean.lon),
+        );
         if (Number.isFinite(s.track.speedMps)) {
           speedSum += s.track.speedMps;
           speedN++;
         }
-        if (Number.isFinite(s.track.headingDeg)) headings.push(s.track.headingDeg);
+        if (Number.isFinite(s.track.headingDeg))
+          headings.push(s.track.headingDeg);
       }
       const avgSpeed = speedN ? speedSum / speedN : null;
       const spread = headingSpreadDeg(headings);

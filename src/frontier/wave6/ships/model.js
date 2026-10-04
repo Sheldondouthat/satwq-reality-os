@@ -21,16 +21,16 @@ export const EMOJI = '🚢';
 export const LABEL = 'Ships (merged)';
 
 export function valueLine(doc) {
-      if (isUnavailable(doc)) return null;
-      const n = pickNum(doc.count, doc.merged, doc.ships?.length);
-      if (n == null) return null;
-      return withTags(`${EMOJI} ${n.toLocaleString('en-US')} vessels tracked`, doc);
-    }
+  if (isUnavailable(doc)) return null;
+  const n = pickNum(doc.count, doc.merged, doc.ships?.length);
+  if (n == null) return null;
+  return withTags(`${EMOJI} ${n.toLocaleString('en-US')} vessels tracked`, doc);
+}
 
 export function detailLine(doc) {
-      if (isUnavailable(doc)) return '';
-      const s = pickArr(doc.ships)[0];
-      const first = s ? pickStr(s.name, s.mmsi, 'vessel') : '';
-      const health = sourceHealthLine(doc);
-      return [first && `e.g. ${first}`, health].filter(Boolean).join(' · ');
-    }
+  if (isUnavailable(doc)) return '';
+  const s = pickArr(doc.ships)[0];
+  const first = s ? pickStr(s.name, s.mmsi, 'vessel') : '';
+  const health = sourceHealthLine(doc);
+  return [first && `e.g. ${first}`, health].filter(Boolean).join(' · ');
+}

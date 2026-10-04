@@ -11,11 +11,20 @@ import { centroidFor, ITU_TO_ISO2 } from '../common/geo.js';
 
 /** Classic HF broadcast bands (kHz ranges) for labeling. */
 const BANDS = [
-  [2300, 2500, '120m'], [3200, 3400, '90m'], [3900, 4000, '75m'],
-  [4750, 5060, '60m'], [5900, 6200, '49m'], [7200, 7450, '41m'],
-  [9400, 9900, '31m'], [11600, 12100, '25m'], [13570, 13870, '22m'],
-  [15100, 15830, '19m'], [17480, 17900, '16m'], [18900, 19020, '15m'],
-  [21450, 21750, '13m'], [25670, 26100, '11m'],
+  [2300, 2500, '120m'],
+  [3200, 3400, '90m'],
+  [3900, 4000, '75m'],
+  [4750, 5060, '60m'],
+  [5900, 6200, '49m'],
+  [7200, 7450, '41m'],
+  [9400, 9900, '31m'],
+  [11600, 12100, '25m'],
+  [13570, 13870, '22m'],
+  [15100, 15830, '19m'],
+  [17480, 17900, '16m'],
+  [18900, 19020, '15m'],
+  [21450, 21750, '13m'],
+  [25670, 26100, '11m'],
 ];
 
 export function bandOf(freqKhz) {
@@ -63,7 +72,9 @@ export function aggregateOnAir(onAir, cap = 60) {
       });
     }
   }
-  const markers = [...byIso.values()].sort((a, b) => b.count - a.count).slice(0, cap);
+  const markers = [...byIso.values()]
+    .sort((a, b) => b.count - a.count)
+    .slice(0, cap);
   return { markers, unmapped, unmappedCount: unmapped.length };
 }
 

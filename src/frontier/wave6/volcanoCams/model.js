@@ -21,21 +21,27 @@ export const EMOJI = '🌋';
 export const LABEL = 'Volcano cameras';
 
 export function valueLine(doc) {
-      if (isUnavailable(doc)) return null;
-      const n = pickNum(doc.count, doc.cams?.length);
-      if (n == null) return null;
-      return withTags(`${EMOJI} ${n} volcano cams`, doc);
-    }
+  if (isUnavailable(doc)) return null;
+  const n = pickNum(doc.count, doc.cams?.length);
+  if (n == null) return null;
+  return withTags(`${EMOJI} ${n} volcano cams`, doc);
+}
 
 export function detailLine(doc) {
-      if (isUnavailable(doc)) return '';
-      const health = sourceHealthLine(doc);
-      const names = pickArr(doc.cams).slice(0, 2).map((c) => pickStr(c.name)).filter(Boolean);
-      return [names.join(' · '), health].filter(Boolean).join(' · ');
-    }
+  if (isUnavailable(doc)) return '';
+  const health = sourceHealthLine(doc);
+  const names = pickArr(doc.cams)
+    .slice(0, 2)
+    .map((c) => pickStr(c.name))
+    .filter(Boolean);
+  return [names.join(' · '), health].filter(Boolean).join(' · ');
+}
 export function thumbUrls(doc) {
-      return pickArr(doc.cams).slice(0, 4).map((c) => ({
-        url: pickStr(c.url),
-        caption: pickStr(c.name),
-      })).filter((t) => t.url);
-    }
+  return pickArr(doc.cams)
+    .slice(0, 4)
+    .map((c) => ({
+      url: pickStr(c.url),
+      caption: pickStr(c.name),
+    }))
+    .filter((t) => t.url);
+}

@@ -28,8 +28,12 @@ export function valueLine(doc) {
   if (withSnow == null || total == null) return null;
   const maxSnwd = pickNum(doc.summary?.maxSnwdIn);
   const maxStation = pickStr(doc.summary?.maxSnwdStation);
-  const maxBit = maxSnwd != null && maxStation ? ` · max ${maxSnwd}in ${maxStation}` : '';
-  return withTags(`${EMOJI} SNOTEL ${withSnow}/${total} stations w/ snow${maxBit}`, doc);
+  const maxBit =
+    maxSnwd != null && maxStation ? ` · max ${maxSnwd}in ${maxStation}` : '';
+  return withTags(
+    `${EMOJI} SNOTEL ${withSnow}/${total} stations w/ snow${maxBit}`,
+    doc,
+  );
 }
 
 export function detailLine(doc) {
@@ -42,6 +46,8 @@ export function detailLine(doc) {
     .map((s) => `${s.name}, ${s.state} ${s.snwdIn}in`);
   const parts = [];
   if (snowy.length) parts.push(`Deepest: ${snowy.join(' · ')}.`);
-  parts.push('WTEQ = snow water equivalent (in); SNWD = snow depth (in). 0 = sensor reported no snow (real reading).');
+  parts.push(
+    'WTEQ = snow water equivalent (in); SNWD = snow depth (in). 0 = sensor reported no snow (real reading).',
+  );
   return parts.join(' ');
 }

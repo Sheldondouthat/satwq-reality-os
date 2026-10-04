@@ -26,12 +26,42 @@ const AU_KM = 149597870.7;
 
 /** Horizons spacecraft COMMAND ids (JPL Horizons manual, major-body/spacecraft list). */
 const CRAFT = [
-  { id: 'vgr1', name: 'Voyager 1', command: '-31', blurb: 'Interstellar mission — most distant human-made object' },
-  { id: 'vgr2', name: 'Voyager 2', command: '-32', blurb: 'Interstellar mission — only craft to visit all four outer planets' },
-  { id: 'psp', name: 'Parker Solar Probe', command: '-96', blurb: 'Closest approach to the Sun of any spacecraft' },
-  { id: 'jwst', name: 'JWST', command: '-170', blurb: 'Halo orbit around Sun–Earth L2' },
-  { id: 'nh', name: 'New Horizons', command: '-98', blurb: 'Kuiper Belt extended mission (post-Arrokoth)' },
-  { id: 'bepi', name: 'BepiColombo', command: '-121', blurb: 'ESA/JAXA Mercury orbiter mission' },
+  {
+    id: 'vgr1',
+    name: 'Voyager 1',
+    command: '-31',
+    blurb: 'Interstellar mission — most distant human-made object',
+  },
+  {
+    id: 'vgr2',
+    name: 'Voyager 2',
+    command: '-32',
+    blurb: 'Interstellar mission — only craft to visit all four outer planets',
+  },
+  {
+    id: 'psp',
+    name: 'Parker Solar Probe',
+    command: '-96',
+    blurb: 'Closest approach to the Sun of any spacecraft',
+  },
+  {
+    id: 'jwst',
+    name: 'JWST',
+    command: '-170',
+    blurb: 'Halo orbit around Sun–Earth L2',
+  },
+  {
+    id: 'nh',
+    name: 'New Horizons',
+    command: '-98',
+    blurb: 'Kuiper Belt extended mission (post-Arrokoth)',
+  },
+  {
+    id: 'bepi',
+    name: 'BepiColombo',
+    command: '-121',
+    blurb: 'ESA/JAXA Mercury orbiter mission',
+  },
 ];
 
 /**
@@ -79,10 +109,15 @@ async function fetchTextCapped(url) {
       headers: { 'User-Agent': USER_AGENT },
     });
     if (!response.ok)
-      throw Object.assign(new Error(`interplanetary_upstream_${response.status}`), { status: 502 });
+      throw Object.assign(
+        new Error(`interplanetary_upstream_${response.status}`),
+        { status: 502 },
+      );
     const buffer = await response.arrayBuffer();
     if (buffer.byteLength > BODY_CAP_BYTES)
-      throw Object.assign(new Error('interplanetary_upstream_too_large'), { status: 502 });
+      throw Object.assign(new Error('interplanetary_upstream_too_large'), {
+        status: 502,
+      });
     return new TextDecoder().decode(buffer);
   } finally {
     clearTimeout(timeout);
@@ -106,15 +141,22 @@ function ymd(date) {
 }
 
 async function fetchCraft(craft, startDate, stopDate) {
-  const text = await fetchTextCapped(horizonsUrl(craft.command, startDate, stopDate));
+  const text = await fetchTextCapped(
+    horizonsUrl(craft.command, startDate, stopDate),
+  );
   let parsed;
   try {
     parsed = JSON.parse(text);
   } catch {
-    throw Object.assign(new Error('interplanetary_bad_upstream_json'), { status: 502 });
+    throw Object.assign(new Error('interplanetary_bad_upstream_json'), {
+      status: 502,
+    });
   }
   const vec = parseHorizonsVectors(parsed?.result);
-  if (!vec) throw Object.assign(new Error('interplanetary_no_ephemeris'), { status: 502 });
+  if (!vec)
+    throw Object.assign(new Error('interplanetary_no_ephemeris'), {
+      status: 502,
+    });
   const rangeKm = vec.rangeKm ?? Math.hypot(vec.xKm, vec.yKm, vec.zKm);
   const speedKms =
     vec.vxKms == null ? null : Math.hypot(vec.vxKms, vec.vyKms, vec.vzKms);
@@ -148,9 +190,16 @@ async function buildSnapshot() {
   const errors = [];
   settled.forEach((result, i) => {
     if (result.status === 'fulfilled') craft.push(result.value);
-    else errors.push({ id: CRAFT[i].id, error: String(result.reason?.message ?? result.reason) });
+    else
+      errors.push({
+        id: CRAFT[i].id,
+        error: String(result.reason?.message ?? result.reason),
+      });
   });
-  if (!craft.length) throw Object.assign(new Error('interplanetary_all_failed'), { status: 502 });
+  if (!craft.length)
+    throw Object.assign(new Error('interplanetary_all_failed'), {
+      status: 502,
+    });
   const payload = {
     schemaVersion: 1,
     fetchedAt: new Date(now).toISOString(),
@@ -176,7 +225,8 @@ function sendJson(res, status, value) {
 /** Mount the interplanetary proxy. Mirrors the vaac/hmsSmoke provider shape. */
 export function interplanetaryProxy() {
   async function handler(req, res) {
-    if (req.method !== 'GET') return sendJson(res, 405, { error: 'method_not_allowed' });
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' });
     try {
       sendJson(res, 200, await buildSnapshot());
     } catch (error) {

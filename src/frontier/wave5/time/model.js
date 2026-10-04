@@ -16,14 +16,17 @@ export function leapLine(nextLeap) {
   if (!nextLeap) return 'no leap second announced';
   const date = nextLeap.date ?? 'unknown date';
   const by = nextLeap.announcedBy ? ` (${nextLeap.announcedBy})` : '';
-  const off = Number.isFinite(nextLeap.taiMinusUtc) ? ` → TAI−UTC ${nextLeap.taiMinusUtc} s` : '';
+  const off = Number.isFinite(nextLeap.taiMinusUtc)
+    ? ` → TAI−UTC ${nextLeap.taiMinusUtc} s`
+    : '';
   return `next leap: ${date}${by}${off}`;
 }
 
 export function tickerLine(doc) {
   if (!doc || doc.unavailable) return '🕰 time standards unavailable';
   const parts = [`🕰 ${formatTaiUtc(doc.taiMinusUtc)}`, leapLine(doc.nextLeap)];
-  if (doc.agreement === 'disagree') parts.push('⚠ IERS/IANA disagree — IERS shown');
+  if (doc.agreement === 'disagree')
+    parts.push('⚠ IERS/IANA disagree — IERS shown');
   if (doc.stale) parts.push('(stale)');
   return parts.join(' · ');
 }

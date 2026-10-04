@@ -10,7 +10,11 @@
  * The store caps the log at `cap` events (default 10k) and prunes the oldest
  * first. No DOM, no Cesium, no network.
  */
-import { AKASHIC_MAX_EVENTS, compareEventsOldestFirst, isAkashicEvent } from './schema.js';
+import {
+  AKASHIC_MAX_EVENTS,
+  compareEventsOldestFirst,
+  isAkashicEvent,
+} from './schema.js';
 
 const DB_NAME = 'akashic-db';
 const STORE_NAME = 'events';
@@ -63,14 +67,16 @@ function openDatabase() {
       }
     };
     request.onsuccess = () => resolve(request.result);
-    request.onerror = () => reject(request.error ?? new Error('IndexedDB open failed'));
+    request.onerror = () =>
+      reject(request.error ?? new Error('IndexedDB open failed'));
   });
 }
 
 function idbRequest(request) {
   return new Promise((resolve, reject) => {
     request.onsuccess = () => resolve(request.result);
-    request.onerror = () => reject(request.error ?? new Error('IndexedDB request failed'));
+    request.onerror = () =>
+      reject(request.error ?? new Error('IndexedDB request failed'));
   });
 }
 
@@ -118,7 +124,10 @@ export function createIndexedDbBackend() {
  * @param {number} [options.cap] Max events retained (default 10k).
  * @param {object} [options.backend] Injected backend (tests). Otherwise auto-detect.
  */
-export function createAkashicStore({ cap = AKASHIC_MAX_EVENTS, backend = null } = {}) {
+export function createAkashicStore({
+  cap = AKASHIC_MAX_EVENTS,
+  backend = null,
+} = {}) {
   const maxEvents = Math.max(1, Math.floor(Number(cap) || AKASHIC_MAX_EVENTS));
   let activeBackend = backend;
   let degraded = false;
@@ -186,7 +195,11 @@ export function createAkashicStore({ cap = AKASHIC_MAX_EVENTS, backend = null } 
     async exportJson() {
       const all = await this.getAll();
       return JSON.stringify(
-        { exportedAt: new Date().toISOString(), count: all.length, events: all },
+        {
+          exportedAt: new Date().toISOString(),
+          count: all.length,
+          events: all,
+        },
         null,
         2,
       );

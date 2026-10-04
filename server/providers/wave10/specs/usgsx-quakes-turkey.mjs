@@ -4,40 +4,37 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 6 (usgsx worker)).
  */
 export const SPEC = {
-  "id": "usgsx-quakes-turkey",
-  "title": "USGS — Turkey earthquakes (latest M4.5+)",
-  "url": "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&minmagnitude=4.5&minlatitude=35&maxlatitude=43&minlongitude=26&maxlongitude=46&orderby=time&limit=30",
-  "headers": {
-    "User-Agent": "satwq-reality-os/1.0 (surge-500 probe)"
+  id: 'usgsx-quakes-turkey',
+  title: 'USGS — Turkey earthquakes (latest M4.5+)',
+  url: 'https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&minmagnitude=4.5&minlatitude=35&maxlatitude=43&minlongitude=26&maxlongitude=46&orderby=time&limit=30',
+  headers: {
+    'User-Agent': 'satwq-reality-os/1.0 (surge-500 probe)',
   },
-  "ttlSeconds": 3600,
-  "extract": {
-    "items": "$.features",
-    "limit": 30,
-    "map": {
-      "mag": "$.properties.mag",
-      "place": "$.properties.place",
-      "title": "$.properties.title",
-      "timeMs": "$.properties.time",
-      "type": "$.properties.type",
-      "url": "$.properties.url",
-      "coords": "$.geometry.coordinates"
+  ttlSeconds: 3600,
+  extract: {
+    items: '$.features',
+    limit: 30,
+    map: {
+      mag: '$.properties.mag',
+      place: '$.properties.place',
+      title: '$.properties.title',
+      timeMs: '$.properties.time',
+      type: '$.properties.type',
+      url: '$.properties.url',
+      coords: '$.geometry.coordinates',
     },
-    "numbers": [
-      "mag"
-    ]
+    numbers: ['mag'],
   },
-  "required": [
-    "place"
-  ],
-  "source": "U.S. Geological Survey",
-  "attribution": "Data: U.S. Geological Survey — keyless API.",
-  "units": {
-    "mag": "magnitude",
-    "timeMs": "ms epoch",
-    "coords": "lon,lat,depth(km)"
+  required: ['place'],
+  source: 'U.S. Geological Survey',
+  attribution: 'Data: U.S. Geological Survey — keyless API.',
+  units: {
+    mag: 'magnitude',
+    timeMs: 'ms epoch',
+    coords: 'lon,lat,depth(km)',
   },
-  "honesty": "Live fdsnws catalog query: M4.5+ events in Turkey and surroundings (newest-first; only 2 in the last 30 days at verification — the region is quiet at M4.5+ right now).",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 6 (usgsx worker)"
+  honesty:
+    'Live fdsnws catalog query: M4.5+ events in Turkey and surroundings (newest-first; only 2 in the last 30 days at verification — the region is quiet at M4.5+ right now).',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 6 (usgsx worker)',
 };

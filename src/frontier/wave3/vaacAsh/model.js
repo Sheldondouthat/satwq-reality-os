@@ -34,7 +34,12 @@ export function flattenAshVolumes(advisories) {
           time: obs.time,
           status: obs.status,
           upperFt: v.upperFl != null ? v.upperFl * FT_PER_FL : null,
-          lowerFt: v.lowerFl != null ? v.lowerFl * FT_PER_FL : v.lowerGround ? 0 : null,
+          lowerFt:
+            v.lowerFl != null
+              ? v.lowerFl * FT_PER_FL
+              : v.lowerGround
+                ? 0
+                : null,
           rings: v.rings,
         });
       }
@@ -49,7 +54,12 @@ export function flattenAshVolumes(advisories) {
           time: fc.time,
           status: null,
           upperFt: v.upperFl != null ? v.upperFl * FT_PER_FL : null,
-          lowerFt: v.lowerFl != null ? v.lowerFl * FT_PER_FL : v.lowerGround ? 0 : null,
+          lowerFt:
+            v.lowerFl != null
+              ? v.lowerFl * FT_PER_FL
+              : v.lowerGround
+                ? 0
+                : null,
           rings: v.rings,
         });
       }
@@ -64,7 +74,10 @@ export function pointInRing(lon, lat, ring) {
   for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) {
     const [xi, yi] = ring[i];
     const [xj, yj] = ring[j];
-    if (yi > lat !== yj > lat && lon < ((xj - xi) * (lat - yi)) / (yj - yi) + xi) {
+    if (
+      yi > lat !== yj > lat &&
+      lon < ((xj - xi) * (lat - yi)) / (yj - yi) + xi
+    ) {
       inside = !inside;
     }
   }
@@ -83,12 +96,14 @@ export function crossAshWithAircraft(volumes, aircraft) {
     if (!Number.isFinite(ac?.lon) || !Number.isFinite(ac?.lat)) continue;
     for (const vol of volumes ?? []) {
       if (!Array.isArray(vol.rings)) continue;
-      const inside = vol.rings.some((ring) => pointInRing(ac.lon, ac.lat, ring));
+      const inside = vol.rings.some((ring) =>
+        pointInRing(ac.lon, ac.lat, ring),
+      );
       if (!inside) continue;
       const altOk =
         !Number.isFinite(ac.altFt) ||
-        (vol.lowerFt == null || ac.altFt >= vol.lowerFt) &&
-          (vol.upperFt == null || ac.altFt <= vol.upperFt);
+        ((vol.lowerFt == null || ac.altFt >= vol.lowerFt) &&
+          (vol.upperFt == null || ac.altFt <= vol.upperFt));
       if (altOk) {
         hits.push({
           aircraft: ac,

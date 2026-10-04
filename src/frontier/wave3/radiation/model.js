@@ -26,14 +26,19 @@ export const BAND_LABELS = {
 };
 
 export function validateRadiationPayload(payload) {
-  if (!payload || typeof payload !== 'object') return { ok: false, reason: 'not an object' };
-  if (!Array.isArray(payload.points)) return { ok: false, reason: 'points missing' };
+  if (!payload || typeof payload !== 'object')
+    return { ok: false, reason: 'not an object' };
+  if (!Array.isArray(payload.points))
+    return { ok: false, reason: 'points missing' };
   for (let i = 0; i < payload.points.length; i += 1) {
     const p = payload.points[i];
     if (
-      !p || !Number.isFinite(p.lat) || !Number.isFinite(p.lon) ||
+      !p ||
+      !Number.isFinite(p.lat) ||
+      !Number.isFinite(p.lon) ||
       !Number.isFinite(p.valueUsvH) ||
-      Math.abs(p.lat) > 90 || Math.abs(p.lon) > 180
+      Math.abs(p.lat) > 90 ||
+      Math.abs(p.lon) > 180
     ) {
       return { ok: false, reason: `point ${i} malformed` };
     }

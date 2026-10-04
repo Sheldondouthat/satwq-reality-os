@@ -4,40 +4,37 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 6 (usgsx worker)).
  */
 export const SPEC = {
-  "id": "usgsx-quakes-japan",
-  "title": "USGS — Japan earthquakes (latest M4.5+)",
-  "url": "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&minmagnitude=4.5&minlatitude=30&maxlatitude=46&minlongitude=128&maxlongitude=146&orderby=time&limit=30",
-  "headers": {
-    "User-Agent": "satwq-reality-os/1.0 (surge-500 probe)"
+  id: 'usgsx-quakes-japan',
+  title: 'USGS — Japan earthquakes (latest M4.5+)',
+  url: 'https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&minmagnitude=4.5&minlatitude=30&maxlatitude=46&minlongitude=128&maxlongitude=146&orderby=time&limit=30',
+  headers: {
+    'User-Agent': 'satwq-reality-os/1.0 (surge-500 probe)',
   },
-  "ttlSeconds": 3600,
-  "extract": {
-    "items": "$.features",
-    "limit": 30,
-    "map": {
-      "mag": "$.properties.mag",
-      "place": "$.properties.place",
-      "title": "$.properties.title",
-      "timeMs": "$.properties.time",
-      "type": "$.properties.type",
-      "url": "$.properties.url",
-      "coords": "$.geometry.coordinates"
+  ttlSeconds: 3600,
+  extract: {
+    items: '$.features',
+    limit: 30,
+    map: {
+      mag: '$.properties.mag',
+      place: '$.properties.place',
+      title: '$.properties.title',
+      timeMs: '$.properties.time',
+      type: '$.properties.type',
+      url: '$.properties.url',
+      coords: '$.geometry.coordinates',
     },
-    "numbers": [
-      "mag"
-    ]
+    numbers: ['mag'],
   },
-  "required": [
-    "place"
-  ],
-  "source": "U.S. Geological Survey",
-  "attribution": "Data: U.S. Geological Survey — keyless API.",
-  "units": {
-    "mag": "magnitude",
-    "timeMs": "ms epoch",
-    "coords": "lon,lat,depth(km)"
+  required: ['place'],
+  source: 'U.S. Geological Survey',
+  attribution: 'Data: U.S. Geological Survey — keyless API.',
+  units: {
+    mag: 'magnitude',
+    timeMs: 'ms epoch',
+    coords: 'lon,lat,depth(km)',
   },
-  "honesty": "Live fdsnws catalog query: M4.5+ events in the Japan region (newest-first; 23 at verification, roughly the last month).",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 6 (usgsx worker)"
+  honesty:
+    'Live fdsnws catalog query: M4.5+ events in the Japan region (newest-first; 23 at verification, roughly the last month).',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 6 (usgsx worker)',
 };

@@ -4,32 +4,31 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 6 (socrata2 worker)).
  */
 export const SPEC = {
-  "id": "socrata-chicago-311",
-  "title": "Chicago (data.cityofchicago.org) — 311 service requests",
-  "url": "https://data.cityofchicago.org/resource/v6vf-nfxy.json?%24limit=50&%24order=created_date%20DESC",
-  "headers": {},
-  "ttlSeconds": 3600,
-  "extract": {
-    "items": "$",
-    "limit": 50,
-    "map": {
-      "key": "$.sr_number",
-      "type": "$.sr_type",
-      "status": "$.status",
-      "dept": "$.owner_department",
-      "created": "$.created_date",
-      "address": "$.street_address"
+  id: 'socrata-chicago-311',
+  title: 'Chicago (data.cityofchicago.org) — 311 service requests',
+  url: 'https://data.cityofchicago.org/resource/v6vf-nfxy.json?%24limit=50&%24order=created_date%20DESC',
+  headers: {},
+  ttlSeconds: 3600,
+  extract: {
+    items: '$',
+    limit: 50,
+    map: {
+      key: '$.sr_number',
+      type: '$.sr_type',
+      status: '$.status',
+      dept: '$.owner_department',
+      created: '$.created_date',
+      address: '$.street_address',
     },
-    "numbers": []
+    numbers: [],
   },
-  "required": [
-    "key",
-    "type"
-  ],
-  "source": "City of Chicago — data.cityofchicago.org (Socrata)",
-  "attribution": "Data: City of Chicago — data.cityofchicago.org (Socrata) — keyless Socrata API.",
-  "units": {},
-  "honesty": "Rolling 311 feed; created_date ISO-8601. Verified 50 rows in fixture (40685 bytes); 50/50 rows dated 2026.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 6 (socrata2 worker)"
+  required: ['key', 'type'],
+  source: 'City of Chicago — data.cityofchicago.org (Socrata)',
+  attribution:
+    'Data: City of Chicago — data.cityofchicago.org (Socrata) — keyless Socrata API.',
+  units: {},
+  honesty:
+    'Rolling 311 feed; created_date ISO-8601. Verified 50 rows in fixture (40685 bytes); 50/50 rows dated 2026.',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 6 (socrata2 worker)',
 };

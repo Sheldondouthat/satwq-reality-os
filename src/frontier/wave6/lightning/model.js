@@ -20,15 +20,15 @@ export const EMOJI = '⚡';
 export const LABEL = 'Lightning (Blitzortung)';
 
 export function valueLine(doc) {
-      if (isUnavailable(doc)) return null;
-      const n = pickNum(doc.count, doc.strikes?.length);
-      if (n == null) return null;
-      return withTags(`${EMOJI} ${n.toLocaleString('en-US')} strikes`, doc);
-    }
+  if (isUnavailable(doc)) return null;
+  const n = pickNum(doc.count, doc.strikes?.length);
+  if (n == null) return null;
+  return withTags(`${EMOJI} ${n.toLocaleString('en-US')} strikes`, doc);
+}
 
 export function detailLine(doc) {
-      if (isUnavailable(doc)) return '';
-      const strikes = pickArr(doc.strikes);
-      const last = strikes[strikes.length - 1];
-      return last?.time ? `newest strike ${ageAgo(last.time)}` : '';
-    }
+  if (isUnavailable(doc)) return '';
+  const strikes = pickArr(doc.strikes);
+  const last = strikes[strikes.length - 1];
+  return last?.time ? `newest strike ${ageAgo(last.time)}` : '';
+}

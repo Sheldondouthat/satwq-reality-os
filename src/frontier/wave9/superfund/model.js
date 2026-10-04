@@ -9,11 +9,7 @@
  * top state; detailLine carries the final/proposed split and the top-5
  * states. Coordinates in the payload are EPA facility centroids.
  */
-import {
-  isUnavailable,
-  withTags,
-  pickNum,
-} from '../../wave3/common/ticker.js';
+import { isUnavailable, withTags, pickNum } from '../../wave3/common/ticker.js';
 
 export const ROUTE = '/api/superfund';
 export const EMOJI = '☣️';
@@ -23,9 +19,14 @@ export function valueLine(doc) {
   if (isUnavailable(doc)) return null;
   const total = pickNum(doc.summary?.total);
   if (total == null) return null;
-  const top = Array.isArray(doc.summary?.topStates) ? doc.summary.topStates[0] : null;
+  const top = Array.isArray(doc.summary?.topStates)
+    ? doc.summary.topStates[0]
+    : null;
   const topBit = top ? ` — most in ${top.state} (${top.count})` : '';
-  return withTags(`${EMOJI} Superfund NPL: ${total} site${total === 1 ? '' : 's'}${topBit}`, doc);
+  return withTags(
+    `${EMOJI} Superfund NPL: ${total} site${total === 1 ? '' : 's'}${topBit}`,
+    doc,
+  );
 }
 
 export function detailLine(doc) {
@@ -36,8 +37,12 @@ export function detailLine(doc) {
     `Final NPL ${by.final ?? '?'} · proposed ${by.proposed ?? '?'}.`,
   ];
   if (tops.length) {
-    parts.push(`Top states: ${tops.map((t) => `${t.state} ${t.count}`).join(', ')}.`);
+    parts.push(
+      `Top states: ${tops.map((t) => `${t.state} ${t.count}`).join(', ')}.`,
+    );
   }
-  parts.push('Listing is not a cleanup-status readout; coordinates are EPA facility centroids.');
+  parts.push(
+    'Listing is not a cleanup-status readout; coordinates are EPA facility centroids.',
+  );
   return parts.join(' ');
 }

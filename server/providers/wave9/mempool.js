@@ -36,7 +36,8 @@ const MEMPOOL_HONESTY = {
     'Recommended fees (sat/vB) are mempool.space inclusion-time projections (fastest / ~30 min / ~1 h / economy) — estimates, never a confirmation guarantee.',
   nodeView:
     "Mempool counts reflect mempool.space's own node view; other nodes see slightly different counts.",
-  tipTimestamp: "The tip block timestamp is the block's own timestamp, not when we observed it.",
+  tipTimestamp:
+    "The tip block timestamp is the block's own timestamp, not when we observed it.",
   noPrices: 'No fiat data here — prices are the /api/markets layer.',
   nullsNeverZero: 'Missing values read null, never 0.',
   attribution: 'Data: mempool.space (keyless public API).',
@@ -62,12 +63,21 @@ export function parseTipBlock(blocks) {
   const tip = blocks[0];
   if (!tip || typeof tip !== 'object') return null;
   return {
-    height: numOrNull(tip.height) == null ? null : Math.trunc(numOrNull(tip.height)),
+    height:
+      numOrNull(tip.height) == null ? null : Math.trunc(numOrNull(tip.height)),
     hash: typeof tip.id === 'string' && tip.id ? tip.id : null,
-    timestamp: numOrNull(tip.timestamp) == null ? null : Math.trunc(numOrNull(tip.timestamp)),
-    txCount: numOrNull(tip.tx_count) == null ? null : Math.trunc(numOrNull(tip.tx_count)),
-    sizeBytes: numOrNull(tip.size) == null ? null : Math.trunc(numOrNull(tip.size)),
-    weight: numOrNull(tip.weight) == null ? null : Math.trunc(numOrNull(tip.weight)),
+    timestamp:
+      numOrNull(tip.timestamp) == null
+        ? null
+        : Math.trunc(numOrNull(tip.timestamp)),
+    txCount:
+      numOrNull(tip.tx_count) == null
+        ? null
+        : Math.trunc(numOrNull(tip.tx_count)),
+    sizeBytes:
+      numOrNull(tip.size) == null ? null : Math.trunc(numOrNull(tip.size)),
+    weight:
+      numOrNull(tip.weight) == null ? null : Math.trunc(numOrNull(tip.weight)),
     difficulty: numOrNull(tip.difficulty),
   };
 }
@@ -90,8 +100,12 @@ export function parseMempool(body) {
   const txCount = numOrNull(body.count);
   return {
     txCount: txCount == null ? null : Math.trunc(txCount),
-    vsizeBytes: numOrNull(body.vsize) == null ? null : Math.trunc(numOrNull(body.vsize)),
-    totalFeeSats: numOrNull(body.total_fee) == null ? null : Math.trunc(numOrNull(body.total_fee)),
+    vsizeBytes:
+      numOrNull(body.vsize) == null ? null : Math.trunc(numOrNull(body.vsize)),
+    totalFeeSats:
+      numOrNull(body.total_fee) == null
+        ? null
+        : Math.trunc(numOrNull(body.total_fee)),
   };
 }
 
@@ -120,18 +134,28 @@ async function fetchCapped(url, capBytes) {
       // NOTE: redirect:'follow' — workerd supports only 'follow'/'manual';
       // 'error' throws at the edge.
       redirect: 'follow',
-      headers: { 'User-Agent': USER_AGENT, Accept: 'application/json, text/plain, */*' },
+      headers: {
+        'User-Agent': USER_AGENT,
+        Accept: 'application/json, text/plain, */*',
+      },
     });
     if (!response.ok) {
-      throw Object.assign(new Error(`mempool_upstream_${response.status}`), { status: 502 });
+      throw Object.assign(new Error(`mempool_upstream_${response.status}`), {
+        status: 502,
+      });
     }
     const buffer = await response.arrayBuffer();
     if (buffer.byteLength > capBytes)
-      throw Object.assign(new Error('mempool_upstream_too_large'), { status: 502 });
+      throw Object.assign(new Error('mempool_upstream_too_large'), {
+        status: 502,
+      });
     return new TextDecoder().decode(buffer);
   } catch (error) {
     if (error?.status === 502) throw error;
-    throw Object.assign(new Error(`mempool_fetch_failed: ${error?.message ?? 'unknown'}`), { status: 502 });
+    throw Object.assign(
+      new Error(`mempool_fetch_failed: ${error?.message ?? 'unknown'}`),
+      { status: 502 },
+    );
   } finally {
     clearTimeout(timeout);
   }
@@ -146,10 +170,15 @@ async function getPayload() {
   const key = 'all';
   const now = Date.now();
   const hit = payloadCache.get(key);
-  if (hit && now - hit.at < CACHE_TTL_MS) return { payload: hit.payload, stale: false };
+  if (hit && now - hit.at < CACHE_TTL_MS)
+    return { payload: hit.payload, stale: false };
   let op = inflight.get(key);
   if (!op) {
-    if (now - docFailedAt < RETRY_COOLDOWN_MS && hit && now - hit.at < STALE_MS) {
+    if (
+      now - docFailedAt < RETRY_COOLDOWN_MS &&
+      hit &&
+      now - hit.at < STALE_MS
+    ) {
       return { payload: hit.payload, stale: true };
     }
     op = (async () => {
@@ -157,20 +186,26 @@ async function getPayload() {
         const heightText = await fetchCapped(ENDPOINTS.height, BODY_CAP_BYTES);
         const blocksJson = await fetchCapped(ENDPOINTS.blocks, BODY_CAP_BYTES);
         const feesJson = await fetchCapped(ENDPOINTS.fees, BODY_CAP_BYTES);
-        const mempoolJson = await fetchCapped(ENDPOINTS.mempool, BODY_CAP_BYTES);
+        const mempoolJson = await fetchCapped(
+          ENDPOINTS.mempool,
+          BODY_CAP_BYTES,
+        );
         const height = parseHeightText(heightText);
         const tip = parseTipBlock(JSON.parse(blocksJson));
         const fees = parseFees(JSON.parse(feesJson));
         const mempool = parseMempool(JSON.parse(mempoolJson));
         if (height == null && tip == null && fees == null && mempool == null) {
-          throw Object.assign(new Error('mempool_all_parts_null'), { status: 502 });
+          throw Object.assign(new Error('mempool_all_parts_null'), {
+            status: 502,
+          });
         }
         const payload = buildPayload({ height, tip, fees, mempool }, false);
         payloadCache.set(key, { at: Date.now(), payload });
         return { payload, stale: false };
       } catch (error) {
         docFailedAt = Date.now();
-        if (hit && Date.now() - hit.at < STALE_MS) return { payload: hit.payload, stale: true };
+        if (hit && Date.now() - hit.at < STALE_MS)
+          return { payload: hit.payload, stale: true };
         throw error;
       }
     })().finally(() => inflight.delete(key));
@@ -190,17 +225,26 @@ function sendJson(res, status, body, cacheControl = CACHE_CONTROL) {
 /** Mount the wave-9 mempool.space Bitcoin network-state proxy. */
 export function mempoolProxy() {
   async function handler(req, res) {
-    if (req.method !== 'GET') return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
     try {
       const { payload, stale } = await getPayload();
       sendJson(res, 200, stale ? { ...payload, stale: true } : payload);
     } catch (error) {
-      const upstreamFail = error?.status === 502 || error?.name === 'AbortError' || /aborted?/i.test(error?.message ?? '');
-      sendJson(res, upstreamFail ? 502 : 500, {
-        error: 'mempool_unavailable',
-        detail: error?.message ?? 'unknown',
-        honesty: { attribution: 'Data: mempool.space (keyless public API).' },
-      }, 'no-store');
+      const upstreamFail =
+        error?.status === 502 ||
+        error?.name === 'AbortError' ||
+        /aborted?/i.test(error?.message ?? '');
+      sendJson(
+        res,
+        upstreamFail ? 502 : 500,
+        {
+          error: 'mempool_unavailable',
+          detail: error?.message ?? 'unknown',
+          honesty: { attribution: 'Data: mempool.space (keyless public API).' },
+        },
+        'no-store',
+      );
     }
   }
 
@@ -225,5 +269,9 @@ export const _mempoolInternals = {
   parseMempool,
   buildPayload,
   numOrNull,
-  resetCache: () => { payloadCache.clear(); inflight.clear(); docFailedAt = -Infinity; },
+  resetCache: () => {
+    payloadCache.clear();
+    inflight.clear();
+    docFailedAt = -Infinity;
+  },
 };

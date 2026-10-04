@@ -128,13 +128,12 @@ export function isConvectivePixel(r, g, b) {
 
 /** Convert a warm-pixel fraction into a 0..1 strike intensity. */
 export function intensityFromWarmFraction(warmFraction) {
-  if (!Number.isFinite(warmFraction) || warmFraction < CONVECTIVE_CELL_THRESHOLD)
+  if (
+    !Number.isFinite(warmFraction) ||
+    warmFraction < CONVECTIVE_CELL_THRESHOLD
+  )
     return 0;
-  return clamp(
-    warmFraction / CONVECTIVE_CELL_SATURATION,
-    0,
-    1,
-  );
+  return clamp(warmFraction / CONVECTIVE_CELL_SATURATION, 0, 1);
 }
 
 /** Convert a WebMercator tile+pixel coordinate to lon/lat degrees. */

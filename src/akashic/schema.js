@@ -44,7 +44,9 @@ export function normalizeAkashicEvent(raw) {
   if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return null;
   const id = String(raw.id ?? '').trim();
   const time = Number(raw.time);
-  const type = String(raw.type ?? '').trim().toLowerCase();
+  const type = String(raw.type ?? '')
+    .trim()
+    .toLowerCase();
   const layer = String(raw.layer ?? '').trim();
   const title = String(raw.title ?? '').trim();
   const lat = Number(raw.lat);
@@ -72,7 +74,8 @@ export function normalizeAkashicEvent(raw) {
     title,
     lat,
     lon,
-    magnitude: magnitude != null && Number.isFinite(magnitude) ? magnitude : null,
+    magnitude:
+      magnitude != null && Number.isFinite(magnitude) ? magnitude : null,
     severity,
     source: typeof raw.source === 'string' && raw.source ? raw.source : null,
     url: typeof raw.url === 'string' && raw.url ? raw.url : null,
@@ -83,7 +86,9 @@ export function normalizeAkashicEvent(raw) {
 
 /** Predicate: is this already a valid canonical record? */
 export function isAkashicEvent(value) {
-  return normalizeAkashicEvent(value) !== null && value?.v === AKASHIC_SCHEMA_VERSION;
+  return (
+    normalizeAkashicEvent(value) !== null && value?.v === AKASHIC_SCHEMA_VERSION
+  );
 }
 
 /** Sort helper: newest first, stable by id. */

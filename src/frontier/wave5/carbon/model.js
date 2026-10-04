@@ -28,8 +28,6 @@ export function tickerSummary(payload) {
     color: indexColor(payload.index),
     isForecast: payload.valueIsForecast === true,
     window:
-      payload.from && payload.to
-        ? `${payload.from} → ${payload.to}`
-        : null,
+      payload.from && payload.to ? `${payload.from} → ${payload.to}` : null,
   };
 }

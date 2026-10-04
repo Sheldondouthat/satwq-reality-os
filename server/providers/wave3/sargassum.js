@@ -53,7 +53,9 @@ export function parseAnalysisDate(html) {
   const m = html.match(/<option[^>]*value="SIR_(\d{8})"[^>]*selected[^>]*>/i);
   if (m) return m[1];
   // fallback: newest date directory referenced by regional images
-  const dirs = [...html.matchAll(/\.\/images\/(\d{8})\/[A-Z]+\.png/g)].map((x) => x[1]);
+  const dirs = [...html.matchAll(/\.\/images\/(\d{8})\/[A-Z]+\.png/g)].map(
+    (x) => x[1],
+  );
   if (!dirs.length) return null;
   return dirs.sort().pop();
 }
@@ -73,7 +75,8 @@ export function describeSargassum({ dateStr, regions, fetchedAt, origin }) {
   return {
     schemaVersion: 1,
     source: 'NOAA AOML Sargassum Inundation Report',
-    attribution: 'Imagery: NOAA Atlantic Oceanographic and Meteorological Laboratory (AOML)',
+    attribution:
+      'Imagery: NOAA Atlantic Oceanographic and Meteorological Laboratory (AOML)',
     analysisDate: dateStr,
     fetchedAt,
     stale: false,
@@ -116,11 +119,16 @@ export function sargassumProxy({
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), timeoutMs);
     try {
-      const html = await fetchTextCapped(SIR_BASE, fetchImpl, controller.signal);
+      const html = await fetchTextCapped(
+        SIR_BASE,
+        fetchImpl,
+        controller.signal,
+      );
       const dateStr = parseAnalysisDate(html);
       if (!dateStr) throw new Error('no analysis date found on SIR page');
       const present = regionsPresent(html, dateStr);
-      if (!present.length) throw new Error('no regional images found for ' + dateStr);
+      if (!present.length)
+        throw new Error('no regional images found for ' + dateStr);
       const regions = SARGASSUM_REGIONS.filter((r) => present.includes(r.code));
       return { at: Date.now(), dateStr, regions, origin };
     } finally {
@@ -162,7 +170,10 @@ export function sargassumProxy({
           try {
             mem = await refreshSingleFlight(origin);
           } catch (err) {
-            console.warn('[sargassum-proxy] upstream failed:', err?.message || err);
+            console.warn(
+              '[sargassum-proxy] upstream failed:',
+              err?.message || err,
+            );
             if (!mem) {
               sendJson(503, {
                 error: 'sargassum_unavailable',
@@ -202,13 +213,16 @@ export function sargassumProxy({
         const region = url.searchParams.get('region') || '';
         const kind = url.searchParams.get('kind') || '';
         // SSRF guard: strict allowlist — only the official SIR image paths.
-        if (!/^\d{8}$/.test(date) || !REGION_CODES.has(region) || (kind !== '' && kind !== 'bar')) {
+        if (
+          !/^\d{8}$/.test(date) ||
+          !REGION_CODES.has(region) ||
+          (kind !== '' && kind !== 'bar')
+        ) {
           res.writeHead(400, { 'Content-Type': 'application/json' });
           res.end(JSON.stringify({ error: 'invalid_sargassum_image_request' }));
           return;
         }
-        const upstreamUrl =
-          `${SIR_BASE}images/${date}/${region}${kind === 'bar' ? '_bar' : ''}.png`;
+        const upstreamUrl = `${SIR_BASE}images/${date}/${region}${kind === 'bar' ? '_bar' : ''}.png`;
         const controller = new AbortController();
         const timer = setTimeout(() => controller.abort(), timeoutMs);
         try {

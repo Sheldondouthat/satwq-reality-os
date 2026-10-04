@@ -168,7 +168,11 @@ export function createNominatimSearchProvider({
     if (cached && Date.now() - cached.cachedAt <= NOMINATIM_SEARCH_CACHE_MS) {
       // Cached replays carry WHEN they were cached so consumers can weigh
       // the 5-minute window; cached:true alone hides the age.
-      return { ...cached.payload, cached: true, cachedAt: new Date(cached.cachedAt).toISOString() };
+      return {
+        ...cached.payload,
+        cached: true,
+        cachedAt: new Date(cached.cachedAt).toISOString(),
+      };
     }
     const { promise } = coalesceProxyRequest(inFlight, cacheKey, async () => {
       const params = new URLSearchParams({

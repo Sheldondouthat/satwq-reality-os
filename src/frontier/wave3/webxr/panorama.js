@@ -33,7 +33,7 @@ function makeStars(seed, count, width, height) {
   return stars;
 }
 
-const STARS = makeStars(0xC0FFEE, 900, PANO_WIDTH, PANO_HEIGHT);
+const STARS = makeStars(0xc0ffee, 900, PANO_WIDTH, PANO_HEIGHT);
 
 /**
  * Paint the panorama. `sprites` = [{lon, lat, color, size, label}].
@@ -132,7 +132,11 @@ export function paintPanorama(sprites = [], reuse = null) {
   // Caption strip.
   ctx.fillStyle = 'rgba(159,194,255,.75)';
   ctx.font = '28px system-ui, sans-serif';
-  ctx.fillText('SATWQ · inside the planet · live data sprites · v1', 28, PANO_HEIGHT - 28);
+  ctx.fillText(
+    'SATWQ · inside the planet · live data sprites · v1',
+    28,
+    PANO_HEIGHT - 28,
+  );
 
   return canvas;
 }

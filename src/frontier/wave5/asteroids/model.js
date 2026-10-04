@@ -13,7 +13,8 @@ export async function fetchAsteroids({ fetchImpl = fetch } = {}) {
   const response = await fetchImpl('/api/asteroids', { cache: 'no-store' });
   if (!response.ok) throw new Error(`asteroids_http_${response.status}`);
   const payload = await response.json();
-  if (!Array.isArray(payload?.approaches)) throw new Error('asteroids_bad_payload');
+  if (!Array.isArray(payload?.approaches))
+    throw new Error('asteroids_bad_payload');
   return payload;
 }
 
@@ -23,7 +24,8 @@ export async function fetchAsteroids({ fetchImpl = fetch } = {}) {
  */
 export function parseCd(cd) {
   if (typeof cd !== 'string' || !cd) return NaN;
-  const normalized = cd.trim().replace(' ', 'T') + (cd.includes('Z') ? '' : 'Z');
+  const normalized =
+    cd.trim().replace(' ', 'T') + (cd.includes('Z') ? '' : 'Z');
   const t = Date.parse(normalized);
   if (!Number.isFinite(t)) return NaN;
   return t;
@@ -59,7 +61,8 @@ export function approachDelta(cd, now = Date.now()) {
 
 /** Lunar-distance framing for the dock list: label + dot color. */
 export function ldBadge(distLd) {
-  if (!Number.isFinite(distLd)) return { label: 'distance n/a', color: '#8a93a6' };
+  if (!Number.isFinite(distLd))
+    return { label: 'distance n/a', color: '#8a93a6' };
   if (distLd < 1) return { label: 'inside the Moon’s orbit', color: '#ff5a5a' };
   if (distLd < 5) return { label: 'very close (<5 LD)', color: '#ff9f43' };
   if (distLd < 20) return { label: 'near-Earth (<20 LD)', color: '#ffb454' };
@@ -88,18 +91,26 @@ export function formatLd(distLd) {
 /** Dock status summary: "12 approaches · next: 2026 AA in 2d 3h". */
 export function windowSummary(payload, now = Date.now()) {
   const approaches = sortApproaches(payload?.approaches ?? []);
-  const next = approaches.find((a) => Number.isFinite(parseCd(a?.cd)) && parseCd(a.cd) >= now - 3600_000);
-  const nextText = next ? `${next.des ?? 'unnamed'} ${approachDelta(next.cd, now)}` : 'no dated approaches';
+  const next = approaches.find(
+    (a) => Number.isFinite(parseCd(a?.cd)) && parseCd(a.cd) >= now - 3600_000,
+  );
+  const nextText = next
+    ? `${next.des ?? 'unnamed'} ${approachDelta(next.cd, now)}`
+    : 'no dated approaches';
   return `${approaches.length} approaches · next: ${nextText}`;
 }
 
 /** Escape user-controlled strings for HTML description fields. */
 export function escapeHtml(s) {
-  return String(s).replace(/[&<>"']/g, (c) => ({
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#39;',
-  })[c]);
+  return String(s).replace(
+    /[&<>"']/g,
+    (c) =>
+      ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;',
+      })[c],
+  );
 }

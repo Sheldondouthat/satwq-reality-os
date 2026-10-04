@@ -65,7 +65,10 @@ export function createVolcanoOverlayEntry({
  * Elevated volcanoes sort first so they win label collisions; the rest fill
  * the remaining cohort budget.
  */
-export function selectVolcanoOverlayCohort(entries, limit = VOLCANO_OVERLAY_COHORT_LIMIT) {
+export function selectVolcanoOverlayCohort(
+  entries,
+  limit = VOLCANO_OVERLAY_COHORT_LIMIT,
+) {
   const elevated = [];
   const rest = [];
   for (const entry of entries) {

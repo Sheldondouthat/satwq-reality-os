@@ -65,11 +65,16 @@ export function describeEclipse(eventKey, stepMin) {
       lon: +s.center.lonDeg.toFixed(4),
       widthKm: s.ellipse ? +s.ellipse.widthKm.toFixed(1) : null,
       semiMajorKm: s.ellipse ? +s.ellipse.semiMajorKm.toFixed(1) : null,
-      majorAxisBearingDeg: s.ellipse ? +s.ellipse.majorAxisBearingDeg.toFixed(1) : null,
+      majorAxisBearingDeg: s.ellipse
+        ? +s.ellipse.majorAxisBearingDeg.toFixed(1)
+        : null,
       sunAltitudeDeg: s.ellipse ? +s.ellipse.sunAltitudeDeg.toFixed(1) : null,
       durationSec: s.durationSec ? Math.round(s.durationSec) : null,
-      inUs: s.center.lonDeg > -130 && s.center.lonDeg < -65 &&
-        s.center.latDeg > 20 && s.center.latDeg < 55,
+      inUs:
+        s.center.lonDeg > -130 &&
+        s.center.lonDeg < -65 &&
+        s.center.latDeg > 20 &&
+        s.center.latDeg < 55,
     })),
     usPassage:
       usSamples.length > 0

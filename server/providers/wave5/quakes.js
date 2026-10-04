@@ -53,11 +53,36 @@ const DEDUPE_KM = 50;
 const DEDUPE_MAG_TOL = 0.8;
 
 const SOURCES = [
-  { key: 'usgs', url: 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson', parse: parseUsgs, attribution: 'USGS (public domain GeoJSON)' },
-  { key: 'jma', url: 'https://www.jma.go.jp/bosai/quake/data/list.json', parse: parseJma, attribution: 'Japan Meteorological Agency (attribution)' },
-  { key: 'bmkg', url: 'https://data.bmkg.go.id/DataMKG/TEWS/autogempa.json', parse: parseBmkg, attribution: 'BMKG Indonesia (public)' },
-  { key: 'geonet', url: 'https://api.geonet.org.nz/quake?MMI=3', parse: parseGeonet, attribution: 'GeoNet / GNS Science (attribution)' },
-  { key: 'emsc', url: 'https://seismicportal.eu/fdsnws/event/1/query?format=json&limit=5&minmag=5', parse: parseEmsc, attribution: 'EMSC (free non-commercial)' },
+  {
+    key: 'usgs',
+    url: 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson',
+    parse: parseUsgs,
+    attribution: 'USGS (public domain GeoJSON)',
+  },
+  {
+    key: 'jma',
+    url: 'https://www.jma.go.jp/bosai/quake/data/list.json',
+    parse: parseJma,
+    attribution: 'Japan Meteorological Agency (attribution)',
+  },
+  {
+    key: 'bmkg',
+    url: 'https://data.bmkg.go.id/DataMKG/TEWS/autogempa.json',
+    parse: parseBmkg,
+    attribution: 'BMKG Indonesia (public)',
+  },
+  {
+    key: 'geonet',
+    url: 'https://api.geonet.org.nz/quake?MMI=3',
+    parse: parseGeonet,
+    attribution: 'GeoNet / GNS Science (attribution)',
+  },
+  {
+    key: 'emsc',
+    url: 'https://seismicportal.eu/fdsnws/event/1/query?format=json&limit=5&minmag=5',
+    parse: parseEmsc,
+    attribution: 'EMSC (free non-commercial)',
+  },
 ];
 
 // ——— Item 61: USGS DYFI enrichment (#96) ———
@@ -100,11 +125,12 @@ function finiteOrNull(value, decimals = 4) {
 function normalizeQuake({ id, lat, lon, depthKm, mag, place, time, source }) {
   const ll = clampLatLon(Number(lat), Number(lon));
   if (!id || !ll) return null;
-  const timeMs = time instanceof Date
-    ? time.getTime()
-    : typeof time === 'number'
-      ? time // USGS feeds carry epoch millis, not ISO strings
-      : Date.parse(time);
+  const timeMs =
+    time instanceof Date
+      ? time.getTime()
+      : typeof time === 'number'
+        ? time // USGS feeds carry epoch millis, not ISO strings
+        : Date.parse(time);
   if (!Number.isFinite(timeMs)) return null;
   return {
     id: String(id),
@@ -127,7 +153,10 @@ function haversineKm(aLat, aLon, bLat, bLon) {
   const s2 = Math.sin(dLon / 2);
   const h =
     s1 * s1 +
-    Math.cos((aLat * Math.PI) / 180) * Math.cos((bLat * Math.PI) / 180) * s2 * s2;
+    Math.cos((aLat * Math.PI) / 180) *
+      Math.cos((bLat * Math.PI) / 180) *
+      s2 *
+      s2;
   return 2 * r * Math.asin(Math.min(1, Math.sqrt(h)));
 }
 
@@ -148,11 +177,17 @@ function dedupeQuakes(quakes) {
     const hit = merged.find((m) => {
       if (Math.abs(Date.parse(m.time) - qTime) > DEDUPE_TIME_MS) return false;
       if (haversineKm(m.lat, m.lon, q.lat, q.lon) > DEDUPE_KM) return false;
-      if (m.mag != null && q.mag != null && Math.abs(m.mag - q.mag) > DEDUPE_MAG_TOL) return false;
+      if (
+        m.mag != null &&
+        q.mag != null &&
+        Math.abs(m.mag - q.mag) > DEDUPE_MAG_TOL
+      )
+        return false;
       return true;
     });
     if (hit) {
-      for (const s of q.sources) if (!hit.sources.includes(s)) hit.sources.push(s);
+      for (const s of q.sources)
+        if (!hit.sources.includes(s)) hit.sources.push(s);
       // Prefer the richer report for id/fields when this report has higher mag.
       if ((q.mag ?? -9) > (hit.mag ?? -9)) {
         hit.id = q.id;
@@ -221,7 +256,11 @@ function parseJma(upstream) {
     const prior = byEid.get(eid);
     const ser = Number(e.ser);
     const priorSer = prior ? Number(prior.ser) : -1;
-    if (!prior || ser > priorSer || (ser === priorSer && String(e.ctt ?? '') > String(prior.ctt ?? ''))) {
+    if (
+      !prior ||
+      ser > priorSer ||
+      (ser === priorSer && String(e.ctt ?? '') > String(prior.ctt ?? ''))
+    ) {
       byEid.set(eid, e);
     }
   }
@@ -334,8 +373,9 @@ export function parseDyfiDetail(detail) {
     detail?.type === 'Feature'
       ? detail
       : Array.isArray(detail?.features)
-        ? detail.features.find((f) => Array.isArray(f?.properties?.products?.dyfi)) ??
-          detail.features[0]
+        ? (detail.features.find((f) =>
+            Array.isArray(f?.properties?.products?.dyfi),
+          ) ?? detail.features[0])
         : null;
   const products = feature?.properties?.products?.dyfi;
   if (!Array.isArray(products) || products.length === 0) return null;
@@ -352,7 +392,9 @@ export function parseDyfiDetail(detail) {
     code: best.code != null ? String(best.code) : null,
     source: best.source != null ? String(best.source) : null,
     updateTime: Number.isFinite(updateMs) ? updateMs : null,
-    updateTimeIso: Number.isFinite(updateMs) ? new Date(updateMs).toISOString() : null,
+    updateTimeIso: Number.isFinite(updateMs)
+      ? new Date(updateMs).toISOString()
+      : null,
     numrespUrl,
     zipUrl,
   };
@@ -400,7 +442,12 @@ export function centroidOfPolygon(coordinates) {
     const ring = Array.isArray(poly?.[0]) ? poly[0] : poly;
     if (!Array.isArray(ring)) continue;
     for (const pt of ring) {
-      if (!Array.isArray(pt) || !Number.isFinite(pt[0]) || !Number.isFinite(pt[1])) continue;
+      if (
+        !Array.isArray(pt) ||
+        !Number.isFinite(pt[0]) ||
+        !Number.isFinite(pt[1])
+      )
+        continue;
       sx += pt[0];
       sy += pt[1];
       n += 1;
@@ -410,7 +457,10 @@ export function centroidOfPolygon(coordinates) {
   const lon = sx / n;
   const lat = sy / n;
   if (lat < -90 || lat > 90 || lon < -180 || lon > 180) return null;
-  return { lat: Math.round(lat * 10000) / 10000, lon: Math.round(lon * 10000) / 10000 };
+  return {
+    lat: Math.round(lat * 10000) / 10000,
+    lon: Math.round(lon * 10000) / 10000,
+  };
 }
 
 /**
@@ -424,19 +474,23 @@ export function parseDyfiZip(doc, limit = DYFI_MAX_LOCATIONS) {
     const p = f?.properties ?? {};
     const nresp = Number(p.nresp);
     if (!Number.isFinite(nresp) || nresp <= 0) continue;
-    const centroid = f?.geometry ? centroidOfPolygon(f.geometry.coordinates) : null;
+    const centroid = f?.geometry
+      ? centroidOfPolygon(f.geometry.coordinates)
+      : null;
     out.push({
       name: String(p.name ?? '').slice(0, 160) || null,
       nresp,
-      cdi: p.cdi != null && Number.isFinite(Number(p.cdi)) ? Number(p.cdi) : null,
-      distKm: p.dist != null && Number.isFinite(Number(p.dist)) ? Number(p.dist) : null,
+      cdi:
+        p.cdi != null && Number.isFinite(Number(p.cdi)) ? Number(p.cdi) : null,
+      distKm:
+        p.dist != null && Number.isFinite(Number(p.dist))
+          ? Number(p.dist)
+          : null,
       lat: centroid?.lat ?? null,
       lon: centroid?.lon ?? null,
     });
   }
-  return out
-    .sort((a, b) => b.nresp - a.nresp)
-    .slice(0, Math.max(0, limit));
+  return out.sort((a, b) => b.nresp - a.nresp).slice(0, Math.max(0, limit));
 }
 
 async function fetchJsonDyfi(url, capBytes) {
@@ -451,10 +505,15 @@ async function fetchJsonDyfi(url, capBytes) {
       headers: { 'User-Agent': USER_AGENT, Accept: 'application/json' },
     });
     if (!response.ok)
-      throw Object.assign(new Error(`quakes_dyfi_upstream_${response.status}`), { status: 502 });
+      throw Object.assign(
+        new Error(`quakes_dyfi_upstream_${response.status}`),
+        { status: 502 },
+      );
     const buffer = await response.arrayBuffer();
     if (buffer.byteLength > capBytes)
-      throw Object.assign(new Error('quakes_dyfi_upstream_too_large'), { status: 502 });
+      throw Object.assign(new Error('quakes_dyfi_upstream_too_large'), {
+        status: 502,
+      });
     return JSON.parse(new TextDecoder().decode(buffer));
   } finally {
     clearTimeout(timeout);
@@ -487,7 +546,9 @@ export async function fetchDyfiFor(eventId) {
     locationsError: null,
   };
   if (product.numrespUrl) {
-    const numresp = parseNumresp(await fetchJsonDyfi(product.numrespUrl, DYFI_NUMRESP_CAP));
+    const numresp = parseNumresp(
+      await fetchJsonDyfi(product.numrespUrl, DYFI_NUMRESP_CAP),
+    );
     if (numresp) {
       out.totalResponses = numresp.totalResponses;
       out.series = numresp.series;
@@ -496,7 +557,9 @@ export async function fetchDyfiFor(eventId) {
   }
   if (product.zipUrl) {
     try {
-      const locations = parseDyfiZip(await fetchJsonDyfi(product.zipUrl, DYFI_ZIP_CAP));
+      const locations = parseDyfiZip(
+        await fetchJsonDyfi(product.zipUrl, DYFI_ZIP_CAP),
+      );
       out.locations = locations;
       out.locationsCount = locations.length;
     } catch (error) {
@@ -553,10 +616,15 @@ async function fetchJsonCapped(sourceKey, url) {
       headers: { 'User-Agent': USER_AGENT, Accept: 'application/json' },
     });
     if (!response.ok)
-      throw Object.assign(new Error(`quakes_${sourceKey}_upstream_${response.status}`), { status: 502 });
+      throw Object.assign(
+        new Error(`quakes_${sourceKey}_upstream_${response.status}`),
+        { status: 502 },
+      );
     const buffer = await response.arrayBuffer();
     if (buffer.byteLength > BODY_CAP_BYTES)
-      throw Object.assign(new Error(`quakes_${sourceKey}_upstream_too_large`), { status: 502 });
+      throw Object.assign(new Error(`quakes_${sourceKey}_upstream_too_large`), {
+        status: 502,
+      });
     return JSON.parse(new TextDecoder().decode(buffer));
   } finally {
     clearTimeout(timeout);
@@ -621,7 +689,10 @@ async function getSnapshot() {
         const ok = results.some((r) => r.ok);
         if (!ok) {
           const detail = results.map((r) => `${r.key}:${r.error}`).join('; ');
-          throw Object.assign(new Error(`quakes_all_upstream_down: ${detail}`), { status: 502 });
+          throw Object.assign(
+            new Error(`quakes_all_upstream_down: ${detail}`),
+            { status: 502 },
+          );
         }
         const payload = buildSnapshot(results);
         // Item 61: DYFI is best-effort enrichment on the USGS feed — it can
@@ -639,7 +710,9 @@ async function getSnapshot() {
               eventId: dyfi?.eventId ?? null,
               attribution: DYFI_ATTRIBUTION,
               latencyMs: Date.now() - started,
-              ...(dyfi ? {} : { note: 'no DYFI product for felt candidates in window' }),
+              ...(dyfi
+                ? {}
+                : { note: 'no DYFI product for felt candidates in window' }),
             };
           } catch (error) {
             payload.sources.dyfi = {
@@ -682,14 +755,20 @@ function sendJson(res, status, body, cacheControl = 'public, max-age=180') {
 /** Mount the wave-5 quakes aggregation proxy. Mirrors the nwsAlerts provider shape. */
 export function quakesProxy() {
   async function handler(req, res) {
-    if (req.method !== 'GET') return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
     try {
       sendJson(res, 200, await getSnapshot());
     } catch (error) {
-      sendJson(res, error?.status === 502 ? 502 : 500, {
-        error: 'quakes_unavailable',
-        detail: error?.message ?? 'unknown',
-      }, 'no-store');
+      sendJson(
+        res,
+        error?.status === 502 ? 502 : 500,
+        {
+          error: 'quakes_unavailable',
+          detail: error?.message ?? 'unknown',
+        },
+        'no-store',
+      );
     }
   }
 
@@ -722,5 +801,8 @@ export const _quakesInternals = {
   centroidOfPolygon,
   fetchDyfiFor,
   enrichDyfi,
-  clearCaches: () => { cache = null; inflight = null; },
+  clearCaches: () => {
+    cache = null;
+    inflight = null;
+  },
 };

@@ -93,9 +93,7 @@ export function createAuroraLayer({ source, overlayHost } = {}) {
             polyline: {
               positions,
               width: 4,
-              material: new Cesium.ColorMaterialProperty(
-                color.withAlpha(0.85),
-              ),
+              material: new Cesium.ColorMaterialProperty(color.withAlpha(0.85)),
               clampToGround: true,
             },
           }),

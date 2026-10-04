@@ -4,37 +4,35 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 7 (tfl worker)).
  */
 export const SPEC = {
-  "id": "tfl-tube-status",
-  "title": "TfL — Tube line status",
-  "url": "https://api.tfl.gov.uk/Line/Mode/tube/Status",
-  "headers": {
-    "User-Agent": "satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)"
+  id: 'tfl-tube-status',
+  title: 'TfL — Tube line status',
+  url: 'https://api.tfl.gov.uk/Line/Mode/tube/Status',
+  headers: {
+    'User-Agent':
+      'satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)',
   },
-  "ttlSeconds": 300,
-  "extract": {
-    "items": "$",
-    "limit": 100,
-    "map": {
-      "lineId": "$.id",
-      "lineName": "$.name",
-      "mode": "$.modeName",
-      "status": "$.lineStatuses[0].statusSeverityDescription",
-      "severity": "$.lineStatuses[0].statusSeverity",
-      "disruptionReason": "$.lineStatuses[0].reason",
-      "updated": "$.modified"
+  ttlSeconds: 300,
+  extract: {
+    items: '$',
+    limit: 100,
+    map: {
+      lineId: '$.id',
+      lineName: '$.name',
+      mode: '$.modeName',
+      status: '$.lineStatuses[0].statusSeverityDescription',
+      severity: '$.lineStatuses[0].statusSeverity',
+      disruptionReason: '$.lineStatuses[0].reason',
+      updated: '$.modified',
     },
-    "numbers": [
-      "severity"
-    ]
+    numbers: ['severity'],
   },
-  "required": [
-    "lineName",
-    "status"
-  ],
-  "source": "Transport for London",
-  "attribution": "Data: Transport for London (TfL) Unified API — keyless, Open Government Licence.",
-  "units": {},
-  "honesty": "Live TfL line status; index [0] of lineStatuses is the current status window; disruptionReason is null when service is normal. Victoria line showed 'Severe Delays' at verification (track fault at Brixton).",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 7 (tfl worker)"
+  required: ['lineName', 'status'],
+  source: 'Transport for London',
+  attribution:
+    'Data: Transport for London (TfL) Unified API — keyless, Open Government Licence.',
+  units: {},
+  honesty:
+    "Live TfL line status; index [0] of lineStatuses is the current status window; disruptionReason is null when service is normal. Victoria line showed 'Severe Delays' at verification (track fault at Brixton).",
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 7 (tfl worker)',
 };

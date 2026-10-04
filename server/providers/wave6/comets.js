@@ -55,7 +55,9 @@ function finiteOrNull(value, decimals = 1) {
 }
 
 function windowFromDate() {
-  return new Date(Date.now() - WINDOW_DAYS * 86_400_000).toISOString().slice(0, 10);
+  return new Date(Date.now() - WINDOW_DAYS * 86_400_000)
+    .toISOString()
+    .slice(0, 10);
 }
 
 // ——— parsers (all pure, exported for tests) ———
@@ -79,7 +81,9 @@ export function trimObservation(r) {
 }
 
 export function trimObservations(upstream) {
-  const rows = Array.isArray(upstream) ? upstream : upstream?.observations ?? [];
+  const rows = Array.isArray(upstream)
+    ? upstream
+    : (upstream?.observations ?? []);
   const list = Array.isArray(rows) ? rows : [];
   return list
     .map(trimObservation)
@@ -93,7 +97,8 @@ export function rollupComets(observations) {
   const byDes = new Map();
   for (const o of observations) {
     const prior = byDes.get(o.des);
-    if (!prior || String(o.date ?? '') > String(prior.date ?? '')) byDes.set(o.des, o);
+    if (!prior || String(o.date ?? '') > String(prior.date ?? ''))
+      byDes.set(o.des, o);
   }
   const comets = [...byDes.entries()].map(([des, latest]) => ({
     des,
@@ -103,7 +108,9 @@ export function rollupComets(observations) {
     observer: latest.observer,
     method: latest.method,
   }));
-  comets.sort((a, b) => String(b.latestDate ?? '').localeCompare(String(a.latestDate ?? '')));
+  comets.sort((a, b) =>
+    String(b.latestDate ?? '').localeCompare(String(a.latestDate ?? '')),
+  );
   return comets.slice(0, MAX_COMETS);
 }
 
@@ -115,7 +122,8 @@ export function trimCometPayload(upstream) {
     count: observations.length,
     comets: rollupComets(observations),
     observations,
-    source: 'COBS — Comet Observation Database, Crni Vrh Observatory (free, attribution)',
+    source:
+      'COBS — Comet Observation Database, Crni Vrh Observatory (free, attribution)',
   };
 }
 
@@ -134,10 +142,14 @@ async function fetchJsonCapped(url) {
       headers: { 'User-Agent': USER_AGENT, Accept: 'application/json' },
     });
     if (!response.ok)
-      throw Object.assign(new Error(`comets_upstream_${response.status}`), { status: 502 });
+      throw Object.assign(new Error(`comets_upstream_${response.status}`), {
+        status: 502,
+      });
     const buffer = await response.arrayBuffer();
     if (buffer.byteLength > BODY_CAP_BYTES)
-      throw Object.assign(new Error('comets_upstream_too_large'), { status: 502 });
+      throw Object.assign(new Error('comets_upstream_too_large'), {
+        status: 502,
+      });
     return JSON.parse(new TextDecoder().decode(buffer));
   } finally {
     clearTimeout(timeout);
@@ -173,15 +185,24 @@ function sendJson(res, status, body, cacheControl = 'public, max-age=3600') {
 /** Mount the COBS comet-observation proxy. Mirrors the felt provider shape. */
 export function cometsProxy() {
   async function handler(req, res) {
-    if (req.method !== 'GET') return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
     try {
       sendJson(res, 200, await getSnapshot());
     } catch (error) {
-      const upstreamFail = error?.status === 502 || error?.name === 'AbortError' || /aborted?/i.test(error?.message ?? '');
-      sendJson(res, upstreamFail ? 502 : 500, {
-        error: 'comets_unavailable',
-        detail: error?.message ?? 'unknown',
-      }, 'no-store');
+      const upstreamFail =
+        error?.status === 502 ||
+        error?.name === 'AbortError' ||
+        /aborted?/i.test(error?.message ?? '');
+      sendJson(
+        res,
+        upstreamFail ? 502 : 500,
+        {
+          error: 'comets_unavailable',
+          detail: error?.message ?? 'unknown',
+        },
+        'no-store',
+      );
     }
   }
 
@@ -201,5 +222,8 @@ export const _cometsInternals = {
   trimObservations,
   rollupComets,
   trimCometPayload,
-  clearCaches: () => { cache = null; inflight = null; },
+  clearCaches: () => {
+    cache = null;
+    inflight = null;
+  },
 };

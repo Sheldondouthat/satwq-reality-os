@@ -57,11 +57,37 @@ function ccmcUrls(feed) {
 }
 
 const SOURCES = [
-  { key: 'cme', urls: ccmcUrls('CME'), parse: parseCme, attribution: 'NASA/CCMC DONKI (public domain)', joinKey: 'activityID' },
-  { key: 'cmeAnalysis', urls: ccmcUrls('CMEAnalysis'), parse: parseCmeAnalysis, attribution: 'NASA/CCMC DONKI (public domain)' },
-  { key: 'flares', urls: ccmcUrls('FLR'), parse: parseFlares, attribution: 'NASA/CCMC DONKI (public domain)' },
-  { key: 'storms', urls: ccmcUrls('GST'), parse: parseStorms, attribution: 'NASA/CCMC DONKI (public domain)' },
-  { key: 'notifications', urls: ccmcUrls('notifications'), parse: parseNotifications, attribution: 'NASA/CCMC DONKI (public domain)' },
+  {
+    key: 'cme',
+    urls: ccmcUrls('CME'),
+    parse: parseCme,
+    attribution: 'NASA/CCMC DONKI (public domain)',
+    joinKey: 'activityID',
+  },
+  {
+    key: 'cmeAnalysis',
+    urls: ccmcUrls('CMEAnalysis'),
+    parse: parseCmeAnalysis,
+    attribution: 'NASA/CCMC DONKI (public domain)',
+  },
+  {
+    key: 'flares',
+    urls: ccmcUrls('FLR'),
+    parse: parseFlares,
+    attribution: 'NASA/CCMC DONKI (public domain)',
+  },
+  {
+    key: 'storms',
+    urls: ccmcUrls('GST'),
+    parse: parseStorms,
+    attribution: 'NASA/CCMC DONKI (public domain)',
+  },
+  {
+    key: 'notifications',
+    urls: ccmcUrls('notifications'),
+    parse: parseNotifications,
+    attribution: 'NASA/CCMC DONKI (public domain)',
+  },
 ];
 
 let cache = null; // {at, payload}
@@ -98,14 +124,18 @@ function parseCme(upstream) {
       id: str(r?.activityID, 80),
       startTime: isoOrNull(r?.startTime),
       sourceLocation: str(r?.sourceLocation, 40),
-      activeRegionNum: isFiniteNum(r?.activeRegionNum) ? r.activeRegionNum : null,
+      activeRegionNum: isFiniteNum(r?.activeRegionNum)
+        ? r.activeRegionNum
+        : null,
       instruments: instrumentNames(r?.instruments),
       note: str(r?.note, 500),
       link: str(r?.link, 300),
       analysis: null, // joined later from CMEAnalysis
     }))
     .filter((c) => c.id)
-    .sort((a, b) => String(b.startTime ?? '').localeCompare(String(a.startTime ?? '')))
+    .sort((a, b) =>
+      String(b.startTime ?? '').localeCompare(String(a.startTime ?? '')),
+    )
     .slice(0, MAX_CMES);
 }
 
@@ -147,12 +177,16 @@ function parseFlares(upstream) {
       endTime: isoOrNull(r?.endTime),
       class: str(r?.classType, 12),
       sourceLocation: str(r?.sourceLocation, 40),
-      activeRegionNum: isFiniteNum(r?.activeRegionNum) ? r.activeRegionNum : null,
+      activeRegionNum: isFiniteNum(r?.activeRegionNum)
+        ? r.activeRegionNum
+        : null,
       instruments: instrumentNames(r?.instruments),
       link: str(r?.link, 300),
     }))
     .filter((f) => f.id)
-    .sort((a, b) => String(b.peakTime ?? '').localeCompare(String(a.peakTime ?? '')))
+    .sort((a, b) =>
+      String(b.peakTime ?? '').localeCompare(String(a.peakTime ?? '')),
+    )
     .slice(0, MAX_FLARES);
 }
 
@@ -161,7 +195,10 @@ function parseStorms(upstream) {
   return rows
     .map((r) => {
       const kp = Array.isArray(r?.allKpIndex) ? r.allKpIndex : [];
-      const kpMax = kp.reduce((m, k) => (isFiniteNum(k?.kpIndex) && k.kpIndex > m ? k.kpIndex : m), null);
+      const kpMax = kp.reduce(
+        (m, k) => (isFiniteNum(k?.kpIndex) && k.kpIndex > m ? k.kpIndex : m),
+        null,
+      );
       return {
         id: str(r?.gstID, 80),
         startTime: isoOrNull(r?.startTime),
@@ -171,7 +208,9 @@ function parseStorms(upstream) {
       };
     })
     .filter((s) => s.id)
-    .sort((a, b) => String(b.startTime ?? '').localeCompare(String(a.startTime ?? '')))
+    .sort((a, b) =>
+      String(b.startTime ?? '').localeCompare(String(a.startTime ?? '')),
+    )
     .slice(0, MAX_STORMS);
 }
 
@@ -186,7 +225,9 @@ function parseNotifications(upstream) {
       body: str(r?.messageBody, 1200),
     }))
     .filter((n) => n.id)
-    .sort((a, b) => String(b.issueTime ?? '').localeCompare(String(a.issueTime ?? '')))
+    .sort((a, b) =>
+      String(b.issueTime ?? '').localeCompare(String(a.issueTime ?? '')),
+    )
     .slice(0, MAX_NOTIFICATIONS);
 }
 
@@ -209,12 +250,18 @@ async function fetchJsonFirstOk(sourceKey, urls) {
           headers: { 'User-Agent': USER_AGENT, Accept: 'application/json' },
         });
         if (!response.ok) {
-          lastError = Object.assign(new Error(`donki_${sourceKey}_upstream_${response.status}`), { status: 502 });
+          lastError = Object.assign(
+            new Error(`donki_${sourceKey}_upstream_${response.status}`),
+            { status: 502 },
+          );
           continue;
         }
         const buffer = await response.arrayBuffer();
         if (buffer.byteLength > BODY_CAP_BYTES) {
-          lastError = Object.assign(new Error(`donki_${sourceKey}_upstream_too_large`), { status: 502 });
+          lastError = Object.assign(
+            new Error(`donki_${sourceKey}_upstream_too_large`),
+            { status: 502 },
+          );
           continue;
         }
         return JSON.parse(new TextDecoder().decode(buffer));
@@ -226,7 +273,12 @@ async function fetchJsonFirstOk(sourceKey, urls) {
         throw error; // abort/timeout/network — try the next mirror too
       }
     }
-    throw lastError ?? Object.assign(new Error(`donki_${sourceKey}_all_mirrors_down`), { status: 502 });
+    throw (
+      lastError ??
+      Object.assign(new Error(`donki_${sourceKey}_all_mirrors_down`), {
+        status: 502,
+      })
+    );
   } finally {
     clearTimeout(timeout);
   }
@@ -265,7 +317,8 @@ function buildSnapshot(results) {
       latencyMs: r.latencyMs,
       ...(r.ok ? {} : { error: r.error }),
     };
-    if (r.ok) parsed[r.key] = SOURCES.find((s) => s.key === r.key).parse(r.data);
+    if (r.ok)
+      parsed[r.key] = SOURCES.find((s) => s.key === r.key).parse(r.data);
   }
 
   // Join CMEAnalysis onto CMEs (only when both feeds landed).
@@ -299,7 +352,9 @@ async function getSnapshot() {
         const ok = results.some((r) => r.ok);
         if (!ok) {
           const detail = results.map((r) => `${r.key}:${r.error}`).join('; ');
-          throw Object.assign(new Error(`donki_all_upstream_down: ${detail}`), { status: 502 });
+          throw Object.assign(new Error(`donki_all_upstream_down: ${detail}`), {
+            status: 502,
+          });
         }
         const payload = buildSnapshot(results);
         cache = { at: Date.now(), payload };
@@ -323,15 +378,24 @@ function sendJson(res, status, body, cacheControl = 'public, max-age=1800') {
 /** Mount the DONKI space-weather aggregation proxy. Mirrors the quakes provider shape. */
 export function donkiProxy() {
   async function handler(req, res) {
-    if (req.method !== 'GET') return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
     try {
       sendJson(res, 200, await getSnapshot());
     } catch (error) {
-      const upstreamFail = error?.status === 502 || error?.name === 'AbortError' || /aborted?/i.test(error?.message ?? '');
-      sendJson(res, upstreamFail ? 502 : 500, {
-        error: 'donki_unavailable',
-        detail: error?.message ?? 'unknown',
-      }, 'no-store');
+      const upstreamFail =
+        error?.status === 502 ||
+        error?.name === 'AbortError' ||
+        /aborted?/i.test(error?.message ?? '');
+      sendJson(
+        res,
+        upstreamFail ? 502 : 500,
+        {
+          error: 'donki_unavailable',
+          detail: error?.message ?? 'unknown',
+        },
+        'no-store',
+      );
     }
   }
 
@@ -353,5 +417,8 @@ export const _donkiInternals = {
   parseStorms,
   parseNotifications,
   buildSnapshot,
-  clearCaches: () => { cache = null; inflight = null; },
+  clearCaches: () => {
+    cache = null;
+    inflight = null;
+  },
 };

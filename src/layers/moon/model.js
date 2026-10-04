@@ -20,10 +20,12 @@ function gmstDeg(date) {
 }
 
 function eccentricAnomaly(Mdeg, e) {
-  let E = Mdeg + DEG * e * Math.sin(Mdeg * RAD) * (1 + e * Math.cos(Mdeg * RAD));
+  let E =
+    Mdeg + DEG * e * Math.sin(Mdeg * RAD) * (1 + e * Math.cos(Mdeg * RAD));
   for (let k = 0; k < 10; k++) {
     const next =
-      E - (E - DEG * e * Math.sin(E * RAD) - Mdeg) / (1 - e * Math.cos(E * RAD));
+      E -
+      (E - DEG * e * Math.sin(E * RAD) - Mdeg) / (1 - e * Math.cos(E * RAD));
     if (Math.abs(next - E) < 1e-4) return next;
     E = next;
   }
@@ -61,9 +63,11 @@ function moonEcliptic(d, Ms, ws) {
   const Nr = N * RAD;
   const ir = i * RAD;
   const xh =
-    r * (Math.cos(Nr) * Math.cos(vw) - Math.sin(Nr) * Math.sin(vw) * Math.cos(ir));
+    r *
+    (Math.cos(Nr) * Math.cos(vw) - Math.sin(Nr) * Math.sin(vw) * Math.cos(ir));
   const yh =
-    r * (Math.sin(Nr) * Math.cos(vw) + Math.cos(Nr) * Math.sin(vw) * Math.cos(ir));
+    r *
+    (Math.sin(Nr) * Math.cos(vw) + Math.cos(Nr) * Math.sin(vw) * Math.cos(ir));
   const zh = r * Math.sin(vw) * Math.sin(ir);
   let lon = norm360(Math.atan2(yh, xh) * DEG);
   let lat = Math.atan2(zh, Math.sqrt(xh * xh + yh * yh)) * DEG;
@@ -106,8 +110,10 @@ function eclipticToRaDec(lon, lat, d) {
   const br = lat * RAD;
   const er = ecl * RAD;
   const x = Math.cos(lr) * Math.cos(br);
-  const y = Math.sin(lr) * Math.cos(br) * Math.cos(er) - Math.sin(br) * Math.sin(er);
-  const z = Math.sin(lr) * Math.cos(br) * Math.sin(er) + Math.sin(br) * Math.cos(er);
+  const y =
+    Math.sin(lr) * Math.cos(br) * Math.cos(er) - Math.sin(br) * Math.sin(er);
+  const z =
+    Math.sin(lr) * Math.cos(br) * Math.sin(er) + Math.sin(br) * Math.cos(er);
   return {
     ra: norm360(Math.atan2(y, x) * DEG),
     dec: Math.atan2(z, Math.sqrt(x * x + y * y)) * DEG,

@@ -27,7 +27,8 @@ export function createReentrySource({
   async function getReentries({ max = 25 } = {}) {
     const url = `${base}?limit=${encodeURIComponent(max)}`;
     const payload = await fetchJson(fetchImpl, url);
-    if (!payload || !Array.isArray(payload.candidates)) throw new Error('Malformed reentries proxy response');
+    if (!payload || !Array.isArray(payload.candidates))
+      throw new Error('Malformed reentries proxy response');
     const candidates = [];
     for (const raw of payload.candidates) {
       const c = coerceCandidate(raw);

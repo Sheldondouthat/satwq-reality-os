@@ -4,30 +4,30 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 6 (apac-weather worker)).
  */
 export const SPEC = {
-  "id": "apac-nea-2hour-forecast",
-  "title": "NEA Singapore — 2-hour nowcast by area",
-  "url": "https://api.data.gov.sg/v1/environment/2-hour-weather-forecast",
-  "headers": {
-    "User-Agent": "satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)"
+  id: 'apac-nea-2hour-forecast',
+  title: 'NEA Singapore — 2-hour nowcast by area',
+  url: 'https://api.data.gov.sg/v1/environment/2-hour-weather-forecast',
+  headers: {
+    'User-Agent':
+      'satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)',
   },
-  "ttlSeconds": 1800,
-  "extract": {
-    "items": "$.items[0].forecasts",
-    "limit": 50,
-    "map": {
-      "area": "$.area",
-      "forecast": "$.forecast"
+  ttlSeconds: 1800,
+  extract: {
+    items: '$.items[0].forecasts',
+    limit: 50,
+    map: {
+      area: '$.area',
+      forecast: '$.forecast',
     },
-    "numbers": []
+    numbers: [],
   },
-  "required": [
-    "area",
-    "forecast"
-  ],
-  "source": "National Environment Agency (NEA), Singapore",
-  "attribution": "Data: NEA Singapore — api.data.gov.sg (v1 environment API) — keyless.",
-  "units": {},
-  "honesty": "47 Singapore planning areas; 2-hour nowcast refreshed every 30 minutes; valid period is at items[0].valid_period (SGT, ISO-8601).",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 6 (apac-weather worker)"
+  required: ['area', 'forecast'],
+  source: 'National Environment Agency (NEA), Singapore',
+  attribution:
+    'Data: NEA Singapore — api.data.gov.sg (v1 environment API) — keyless.',
+  units: {},
+  honesty:
+    '47 Singapore planning areas; 2-hour nowcast refreshed every 30 minutes; valid period is at items[0].valid_period (SGT, ISO-8601).',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 6 (apac-weather worker)',
 };

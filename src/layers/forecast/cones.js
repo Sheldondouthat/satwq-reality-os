@@ -24,7 +24,11 @@ const malformed = () => new Error('Malformed cyclone snapshot');
 const isFiniteNumber = (v) => typeof v === 'number' && Number.isFinite(v);
 
 function position(value) {
-  if (!value || !isFiniteNumber(value.longitude) || !isFiniteNumber(value.latitude))
+  if (
+    !value ||
+    !isFiniteNumber(value.longitude) ||
+    !isFiniteNumber(value.latitude)
+  )
     throw malformed();
   if (Math.abs(value.longitude) > 180 || Math.abs(value.latitude) > 90)
     throw malformed();
@@ -36,7 +40,11 @@ export function validateConeGeometry(value, budget) {
   if (value === null) return null;
   if (!['Polygon', 'MultiPolygon'].includes(value?.type)) throw malformed();
   const point = (pair) => {
-    if (!Array.isArray(pair) || pair.length !== 2 || !pair.every(isFiniteNumber))
+    if (
+      !Array.isArray(pair) ||
+      pair.length !== 2 ||
+      !pair.every(isFiniteNumber)
+    )
       throw malformed();
     if (Math.abs(pair[0]) > 180 || Math.abs(pair[1]) > 90) throw malformed();
     if (++budget.count > MAX_COORDS) throw malformed();
@@ -59,13 +67,16 @@ export function validateConeGeometry(value, budget) {
     value.type === 'Polygon'
       ? polygon(value.coordinates)
       : value.coordinates.length > 32
-        ? (() => { throw malformed(); })()
+        ? (() => {
+            throw malformed();
+          })()
         : value.coordinates.map(polygon);
   return { type: value.type, coordinates };
 }
 
 const text = (value, max = 80) => {
-  if (typeof value !== 'string' || !value.trim() || value.length > max) throw malformed();
+  if (typeof value !== 'string' || !value.trim() || value.length > max)
+    throw malformed();
   return value.trim();
 };
 
@@ -74,9 +85,14 @@ const text = (value, max = 80) => {
  * Storms whose geometry is not 'current' are skipped (never relabeled).
  */
 export function parseConeStorms(payload) {
-  if (!payload || !Array.isArray(payload.storms) || payload.storms.length > MAX_STORMS)
+  if (
+    !payload ||
+    !Array.isArray(payload.storms) ||
+    payload.storms.length > MAX_STORMS
+  )
     throw malformed();
-  if (payload.unavailable) return { storms: [], unavailable: true, reason: payload.reason ?? null };
+  if (payload.unavailable)
+    return { storms: [], unavailable: true, reason: payload.reason ?? null };
   const budget = { count: 0 };
   const storms = [];
   for (const raw of payload.storms) {
@@ -87,9 +103,13 @@ export function parseConeStorms(payload) {
     storms.push({
       id: raw.id,
       name: text(raw.name),
-      classification: typeof raw.classification === 'string' ? raw.classification.slice(0, 16) : '',
+      classification:
+        typeof raw.classification === 'string'
+          ? raw.classification.slice(0, 16)
+          : '',
       position: position(raw.position),
-      advisoryNumber: typeof raw.advisoryNumber === 'string' ? raw.advisoryNumber : '?',
+      advisoryNumber:
+        typeof raw.advisoryNumber === 'string' ? raw.advisoryNumber : '?',
       cone,
     });
   }
@@ -122,7 +142,8 @@ export function createConeSource({
           throw new Error(`Cone HTTP ${response.status}`);
         }
         const raw = await response.text();
-        if (raw.length > RESPONSE_LIMIT) throw new Error('Cone response too large');
+        if (raw.length > RESPONSE_LIMIT)
+          throw new Error('Cone response too large');
         controller.signal.throwIfAborted();
         return parseConeStorms(JSON.parse(raw));
       } finally {
@@ -140,7 +161,8 @@ const CONE_ALPHA = 0.28;
 export function coneStormEntity(storm, { cesium = Cesium } = {}) {
   const toHierarchy = (polygon) => {
     const [outer, ...holes] = polygon;
-    const ring = (pts) => pts.map(([lon, lat]) => cesium.Cartesian3.fromDegrees(lon, lat));
+    const ring = (pts) =>
+      pts.map(([lon, lat]) => cesium.Cartesian3.fromDegrees(lon, lat));
     return new cesium.PolygonHierarchy(
       ring(outer),
       holes.map((h) => new cesium.PolygonHierarchy(ring(h))),
@@ -154,7 +176,10 @@ export function coneStormEntity(storm, { cesium = Cesium } = {}) {
   const line = cesium.Color.fromCssColorString(CONE_FILL).withAlpha(0.9);
   return new cesium.Entity({
     id: `forecast-cone:${storm.id}`,
-    position: cesium.Cartesian3.fromDegrees(storm.position.longitude, storm.position.latitude),
+    position: cesium.Cartesian3.fromDegrees(
+      storm.position.longitude,
+      storm.position.latitude,
+    ),
     polygon: {
       hierarchy: new cesium.PolygonHierarchy(
         hierarchies.flatMap((h) => h.positions),

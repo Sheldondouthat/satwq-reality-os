@@ -36,7 +36,9 @@ function rgba(r, g, b, a = 1) {
 }
 
 async function fetchVessels(fetchImpl) {
-  const response = await fetchImpl('/api/ais-live?maxRows=50000', { cache: 'no-store' });
+  const response = await fetchImpl('/api/ais-live?maxRows=50000', {
+    cache: 'no-store',
+  });
   if (!response.ok) {
     const error = new Error(`ais_live_http_${response.status}`);
     error.status = response.status;
@@ -49,9 +51,12 @@ async function fetchVessels(fetchImpl) {
 /** Track-based corroboration: span ≥30 min with ≤500 m displacement. */
 async function corroborateTrack(mmsi, fetchImpl) {
   try {
-    const response = await fetchImpl(`/api/ais-live/track?mmsi=${encodeURIComponent(mmsi)}`, {
-      cache: 'no-store',
-    });
+    const response = await fetchImpl(
+      `/api/ais-live/track?mmsi=${encodeURIComponent(mmsi)}`,
+      {
+        cache: 'no-store',
+      },
+    );
     if (!response.ok) return false;
     const payload = await response.json();
     const samples = Array.isArray(payload?.samples) ? payload.samples : [];
@@ -88,7 +93,11 @@ function threatDescription(threat) {
   );
 }
 
-export function createCableThreatLayer({ viewer, fetchImpl, pollMs = DEFAULT_POLL_MS } = {}) {
+export function createCableThreatLayer({
+  viewer,
+  fetchImpl,
+  pollMs = DEFAULT_POLL_MS,
+} = {}) {
   let _viewer = viewer || null;
   let _enabled = false;
   let _dataSource = null;
@@ -189,11 +198,13 @@ export function createCableThreatLayer({ viewer, fetchImpl, pollMs = DEFAULT_POL
     id: 'cable-threat',
     name: 'Cable threats (AIS × cables)',
     icon: '🔌',
-    source: 'AIS broadcast metadata × TeleGeography cable routes (in-house join)',
+    source:
+      'AIS broadcast metadata × TeleGeography cable routes (in-house join)',
     updateInterval: pollMs,
 
     init(v) {
-      if (_viewer && _viewer !== v) throw new Error('Cable-threat layer is already initialized');
+      if (_viewer && _viewer !== v)
+        throw new Error('Cable-threat layer is already initialized');
       _viewer = v || _viewer;
       if (!_viewer) throw new Error('Cable-threat layer needs a viewer');
       _dataSource = new Cesium.CustomDataSource('cable-threat');
@@ -206,7 +217,9 @@ export function createCableThreatLayer({ viewer, fetchImpl, pollMs = DEFAULT_POL
       if (_dataSource) _dataSource.show = true;
       void refresh();
       if (_timer) clearInterval(_timer);
-      _timer = setInterval(() => { if (_enabled) void refresh(); }, pollMs);
+      _timer = setInterval(() => {
+        if (_enabled) void refresh();
+      }, pollMs);
       if (_flashTimer) clearInterval(_flashTimer);
       _flashTimer = setInterval(flashTick, FLASH_MS);
     },
@@ -214,8 +227,14 @@ export function createCableThreatLayer({ viewer, fetchImpl, pollMs = DEFAULT_POL
     disable() {
       _enabled = false;
       if (_dataSource) _dataSource.show = false;
-      if (_timer) { clearInterval(_timer); _timer = null; }
-      if (_flashTimer) { clearInterval(_flashTimer); _flashTimer = null; }
+      if (_timer) {
+        clearInterval(_timer);
+        _timer = null;
+      }
+      if (_flashTimer) {
+        clearInterval(_flashTimer);
+        _flashTimer = null;
+      }
     },
 
     async update() {
@@ -223,12 +242,23 @@ export function createCableThreatLayer({ viewer, fetchImpl, pollMs = DEFAULT_POL
     },
 
     getStatus() {
-      return { status: _status, summary: _summary, lastError: _lastError, enabled: _enabled };
+      return {
+        status: _status,
+        summary: _summary,
+        lastError: _lastError,
+        enabled: _enabled,
+      };
     },
 
     destroy() {
-      if (_timer) { clearInterval(_timer); _timer = null; }
-      if (_flashTimer) { clearInterval(_flashTimer); _flashTimer = null; }
+      if (_timer) {
+        clearInterval(_timer);
+        _timer = null;
+      }
+      if (_flashTimer) {
+        clearInterval(_flashTimer);
+        _flashTimer = null;
+      }
       if (_viewer && _dataSource) _viewer.dataSources.remove(_dataSource, true);
       _dataSource = null;
     },
@@ -241,12 +271,20 @@ export function createCableThreatLayer({ viewer, fetchImpl, pollMs = DEFAULT_POL
 export function mountCableThreatDock({ section, chip, el, t, layer } = {}) {
   if (!section || !chip || !el || !layer) return null;
   const host = section(t ? t('feature.cableThreat') : 'CABLE THREATS');
-  const statusLine = el('div', {
-    style: 'font-size:10px;color:#8aa4d6;margin:4px 0;min-height:14px;',
-  }, '—');
-  const noteLine = el('div', {
-    style: 'font-size:10px;color:#6b7f9e;margin:2px 0;',
-  }, `Slow <${CANDIDATE_SPEED_KN} kn for >30 min within ${CANDIDATE_DIST_M / 1000} km of a cable → flash. Heuristic, not proof.`);
+  const statusLine = el(
+    'div',
+    {
+      style: 'font-size:10px;color:#8aa4d6;margin:4px 0;min-height:14px;',
+    },
+    '—',
+  );
+  const noteLine = el(
+    'div',
+    {
+      style: 'font-size:10px;color:#6b7f9e;margin:2px 0;',
+    },
+    `Slow <${CANDIDATE_SPEED_KN} kn for >30 min within ${CANDIDATE_DIST_M / 1000} km of a cable → flash. Heuristic, not proof.`,
+  );
   const setStatus = () => {
     const s = layer.getStatus();
     statusLine.textContent =
@@ -259,14 +297,23 @@ export function mountCableThreatDock({ section, chip, el, t, layer } = {}) {
             : 'off';
   };
   host.appendChild(
-    chip('🔌 Cable threats', (on) => {
-      if (on) layer.enable();
-      else layer.disable();
-      setStatus();
-    }, false),
+    chip(
+      '🔌 Cable threats',
+      (on) => {
+        if (on) layer.enable();
+        else layer.disable();
+        setStatus();
+      },
+      false,
+    ),
   );
   host.appendChild(statusLine);
   host.appendChild(noteLine);
   const poller = setInterval(setStatus, 30_000);
-  return { element: host, destroy() { clearInterval(poller); } };
+  return {
+    element: host,
+    destroy() {
+      clearInterval(poller);
+    },
+  };
 }

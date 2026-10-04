@@ -123,7 +123,9 @@ export function createFireballLayer({ source } = {}) {
 
   return {
     id: 'fireballs',
-    init(v) { viewer = v; },
+    init(v) {
+      viewer = v;
+    },
     enable() {
       if (!viewer || enabled) return;
       enabled = true;
@@ -133,10 +135,16 @@ export function createFireballLayer({ source } = {}) {
     },
     disable() {
       enabled = false;
-      if (timer) { clearInterval(timer); timer = null; }
+      if (timer) {
+        clearInterval(timer);
+        timer = null;
+      }
       clear();
     },
-    destroy() { this.disable(); viewer = null; },
+    destroy() {
+      this.disable();
+      viewer = null;
+    },
     getEvents: () => lastEvents,
     refresh,
   };
@@ -151,8 +159,11 @@ export function createFireballPanel({ layer }) {
     const top = highlightReel(events, 6);
     root.innerHTML = '';
     const title = document.createElement('div');
-    title.style.cssText = 'font-weight:600;letter-spacing:.06em;margin-bottom:4px;';
-    title.textContent = events.length ? `☄ ${events.length} sensor fireballs (30d recent glow)` : '☄ fireballs — waiting on /api/fireballs';
+    title.style.cssText =
+      'font-weight:600;letter-spacing:.06em;margin-bottom:4px;';
+    title.textContent = events.length
+      ? `☄ ${events.length} sensor fireballs (30d recent glow)`
+      : '☄ fireballs — waiting on /api/fireballs';
     root.appendChild(title);
     for (const ev of top) {
       const assoc = showerForFireball(ev);
@@ -171,7 +182,10 @@ export function createFireballPanel({ layer }) {
   return {
     element: root,
     sync: render,
-    destroy() { clearInterval(timer); root.remove(); },
+    destroy() {
+      clearInterval(timer);
+      root.remove();
+    },
   };
 }
 

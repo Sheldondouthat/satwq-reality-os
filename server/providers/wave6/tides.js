@@ -62,48 +62,300 @@ const MAX_MULTI_STATIONS = 10;
  * names/coords are the live values from those responses.
  */
 const STATIONS = [
-  { id: '8638610', name: 'Sewells Point', lat: 36.9428, lon: -76.3286, region: 'Virginia' },
-  { id: '8443970', name: 'Boston', lat: 42.35389, lon: -71.05028, region: 'Massachusetts' },
-  { id: '8518750', name: 'The Battery', lat: 40.700554, lon: -74.01417, region: 'New York' },
-  { id: '8724580', name: 'Key West', lat: 24.5557, lon: -81.8079, region: 'Florida' },
-  { id: '8728690', name: 'Apalachicola', lat: 29.724445, lon: -84.98055, region: 'Florida' },
-  { id: '8761724', name: 'Grand Isle', lat: 29.2633, lon: -89.9567, region: 'Louisiana' },
-  { id: '9410170', name: 'San Diego', lat: 32.715557, lon: -117.17667, region: 'California' },
-  { id: '9414290', name: 'San Francisco', lat: 37.806305, lon: -122.46589, region: 'California' },
-  { id: '9444900', name: 'Port Townsend', lat: 48.11122, lon: -122.759674, region: 'Washington' },
-  { id: '8725520', name: 'Fort Myers', lat: 26.647778, lon: -81.87111, region: 'Florida' }, // verified 2026-09-27 recur
-  { id: '8661070', name: 'Springmaid Pier', lat: 33.655, lon: -78.9183, region: 'South Carolina' }, // verified 2026-09-27 recur
-  { id: '8454000', name: 'Providence', lat: 41.807167, lon: -71.400665, region: 'Rhode Island' }, // verified 2026-09-27 recur
-  { id: '8545240', name: 'Philadelphia', lat: 39.933056, lon: -75.14198, region: 'Pennsylvania' }, // verified 2026-09-27 recur
-  { id: '8761927', name: 'New Canal Station', lat: 30.027222, lon: -90.113335, region: 'Louisiana' }, // verified 2026-09-27 recur
-  { id: '8665530', name: 'Charleston', lat: 32.780834, lon: -79.923615, region: 'South Carolina' }, // verified 2026-09-28 recur
-  { id: '1612340', name: 'Honolulu', lat: 21.303333, lon: -157.86453, region: 'Hawaii' }, // verified 2026-09-28 recur
-  { id: '9447130', name: 'Seattle', lat: 47.60264, lon: -122.3393, region: 'Washington' }, // verified 2026-09-28 recur
-  { id: '8771450', name: 'Galveston Pier 21', lat: 29.31, lon: -94.7933, region: 'Texas' }, // verified 2026-09-28 recur
-  { id: '8531680', name: 'Sandy Hook', lat: 40.4669, lon: -74.0094, region: 'New Jersey' }, // verified 2026-09-28 recur
-  { id: '8574680', name: 'Baltimore', lat: 39.266693, lon: -76.57831, region: 'Maryland' }, // verified 2026-09-28 recur
-  { id: '8723214', name: 'Virginia Key', lat: 25.7314, lon: -80.1618, region: 'Florida' }, // verified 2026-09-28 recur
-  { id: '8510560', name: 'Montauk', lat: 41.048332, lon: -71.95944, region: 'New York' }, // verified 2026-09-28 recur
-  { id: '9411340', name: 'Santa Barbara', lat: 34.40459, lon: -119.6925, region: 'California' }, // verified 2026-09-28 recur
-  { id: '9439040', name: 'Astoria', lat: 46.207306, lon: -123.7683, region: 'Oregon' }, // verified 2026-09-28 recur
-  { id: '8735180', name: 'Dauphin Island', lat: 30.25, lon: -88.075, region: 'Alabama' }, // verified 2026-09-29 recur
-  { id: '9755371', name: 'San Juan', lat: 18.458944, lon: -66.11642, region: 'Puerto Rico' }, // verified 2026-09-29 recur (mdapi full name "San Juan, La Puntilla, San Juan Bay")
-  { id: '9452210', name: 'Juneau', lat: 58.2988, lon: -134.4106, region: 'Alaska' }, // verified 2026-09-29 recur
-  { id: '1611400', name: 'Nawiliwili', lat: 21.9544, lon: -159.3561, region: 'Hawaii' }, // verified 2026-09-29 recur
-  { id: '9443090', name: 'Neah Bay', lat: 48.370724, lon: -124.601585, region: 'Washington' }, // verified 2026-09-29 recur
-  { id: '8413320', name: 'Bar Harbor', lat: 44.392193, lon: -68.20428, region: 'Maine' }, // verified 2026-09-29 recur
-  { id: '1630000', name: 'Apra Harbor', lat: 13.443389, lon: 144.65636, region: 'Guam' }, // verified 2026-09-29 recur (mdapi full name "Apra Harbor, Guam")
-  { id: '9751639', name: 'Charlotte Amalie', lat: 18.330584, lon: -64.925804, region: 'US Virgin Islands' }, // verified 2026-09-29 recur
-  { id: '9450460', name: 'Ketchikan', lat: 55.331944, lon: -131.62611, region: 'Alaska' }, // verified 2026-09-29 recur
-  { id: '9419750', name: 'Crescent City', lat: 41.74561, lon: -124.18439, region: 'California' }, // verified 2026-09-29 recur
-  { id: '8658120', name: 'Wilmington', lat: 34.2267, lon: -77.9533, region: 'North Carolina' }, // verified 2026-09-29 recur
-  { id: '8575512', name: 'Annapolis', lat: 38.983883, lon: -76.480034, region: 'Maryland' }, // verified 2026-09-29 recur
-  { id: '8557380', name: 'Lewes', lat: 38.782833, lon: -75.11928, region: 'Delaware' }, // verified 2026-09-29 recur (first Delaware station)
-  { id: '8670870', name: 'Fort Pulaski', lat: 32.034695, lon: -80.90303, region: 'Georgia' }, // verified 2026-09-29 recur (first Georgia station)
-  { id: '8467150', name: 'Bridgeport', lat: 41.17582, lon: -73.18397, region: 'Connecticut' }, // verified 2026-09-29 recur (first Connecticut station)
-  { id: '8729108', name: 'Panama City', lat: 30.149723, lon: -85.664444, region: 'Florida' }, // verified 2026-09-29 recur (mdapi name is Panama City, not Pensacola)
-  { id: '9410660', name: 'Los Angeles', lat: 33.72, lon: -118.272, region: 'California' }, // verified 2026-09-29 recur
-  { id: '1770000', name: 'Pago Pago', lat: -14.28, lon: -170.69, region: 'American Samoa' }, // verified 2026-09-29 recur (mdapi full name "Pago Pago, American Samoa"; first American Samoa territory station)
+  {
+    id: '8638610',
+    name: 'Sewells Point',
+    lat: 36.9428,
+    lon: -76.3286,
+    region: 'Virginia',
+  },
+  {
+    id: '8443970',
+    name: 'Boston',
+    lat: 42.35389,
+    lon: -71.05028,
+    region: 'Massachusetts',
+  },
+  {
+    id: '8518750',
+    name: 'The Battery',
+    lat: 40.700554,
+    lon: -74.01417,
+    region: 'New York',
+  },
+  {
+    id: '8724580',
+    name: 'Key West',
+    lat: 24.5557,
+    lon: -81.8079,
+    region: 'Florida',
+  },
+  {
+    id: '8728690',
+    name: 'Apalachicola',
+    lat: 29.724445,
+    lon: -84.98055,
+    region: 'Florida',
+  },
+  {
+    id: '8761724',
+    name: 'Grand Isle',
+    lat: 29.2633,
+    lon: -89.9567,
+    region: 'Louisiana',
+  },
+  {
+    id: '9410170',
+    name: 'San Diego',
+    lat: 32.715557,
+    lon: -117.17667,
+    region: 'California',
+  },
+  {
+    id: '9414290',
+    name: 'San Francisco',
+    lat: 37.806305,
+    lon: -122.46589,
+    region: 'California',
+  },
+  {
+    id: '9444900',
+    name: 'Port Townsend',
+    lat: 48.11122,
+    lon: -122.759674,
+    region: 'Washington',
+  },
+  {
+    id: '8725520',
+    name: 'Fort Myers',
+    lat: 26.647778,
+    lon: -81.87111,
+    region: 'Florida',
+  }, // verified 2026-09-27 recur
+  {
+    id: '8661070',
+    name: 'Springmaid Pier',
+    lat: 33.655,
+    lon: -78.9183,
+    region: 'South Carolina',
+  }, // verified 2026-09-27 recur
+  {
+    id: '8454000',
+    name: 'Providence',
+    lat: 41.807167,
+    lon: -71.400665,
+    region: 'Rhode Island',
+  }, // verified 2026-09-27 recur
+  {
+    id: '8545240',
+    name: 'Philadelphia',
+    lat: 39.933056,
+    lon: -75.14198,
+    region: 'Pennsylvania',
+  }, // verified 2026-09-27 recur
+  {
+    id: '8761927',
+    name: 'New Canal Station',
+    lat: 30.027222,
+    lon: -90.113335,
+    region: 'Louisiana',
+  }, // verified 2026-09-27 recur
+  {
+    id: '8665530',
+    name: 'Charleston',
+    lat: 32.780834,
+    lon: -79.923615,
+    region: 'South Carolina',
+  }, // verified 2026-09-28 recur
+  {
+    id: '1612340',
+    name: 'Honolulu',
+    lat: 21.303333,
+    lon: -157.86453,
+    region: 'Hawaii',
+  }, // verified 2026-09-28 recur
+  {
+    id: '9447130',
+    name: 'Seattle',
+    lat: 47.60264,
+    lon: -122.3393,
+    region: 'Washington',
+  }, // verified 2026-09-28 recur
+  {
+    id: '8771450',
+    name: 'Galveston Pier 21',
+    lat: 29.31,
+    lon: -94.7933,
+    region: 'Texas',
+  }, // verified 2026-09-28 recur
+  {
+    id: '8531680',
+    name: 'Sandy Hook',
+    lat: 40.4669,
+    lon: -74.0094,
+    region: 'New Jersey',
+  }, // verified 2026-09-28 recur
+  {
+    id: '8574680',
+    name: 'Baltimore',
+    lat: 39.266693,
+    lon: -76.57831,
+    region: 'Maryland',
+  }, // verified 2026-09-28 recur
+  {
+    id: '8723214',
+    name: 'Virginia Key',
+    lat: 25.7314,
+    lon: -80.1618,
+    region: 'Florida',
+  }, // verified 2026-09-28 recur
+  {
+    id: '8510560',
+    name: 'Montauk',
+    lat: 41.048332,
+    lon: -71.95944,
+    region: 'New York',
+  }, // verified 2026-09-28 recur
+  {
+    id: '9411340',
+    name: 'Santa Barbara',
+    lat: 34.40459,
+    lon: -119.6925,
+    region: 'California',
+  }, // verified 2026-09-28 recur
+  {
+    id: '9439040',
+    name: 'Astoria',
+    lat: 46.207306,
+    lon: -123.7683,
+    region: 'Oregon',
+  }, // verified 2026-09-28 recur
+  {
+    id: '8735180',
+    name: 'Dauphin Island',
+    lat: 30.25,
+    lon: -88.075,
+    region: 'Alabama',
+  }, // verified 2026-09-29 recur
+  {
+    id: '9755371',
+    name: 'San Juan',
+    lat: 18.458944,
+    lon: -66.11642,
+    region: 'Puerto Rico',
+  }, // verified 2026-09-29 recur (mdapi full name "San Juan, La Puntilla, San Juan Bay")
+  {
+    id: '9452210',
+    name: 'Juneau',
+    lat: 58.2988,
+    lon: -134.4106,
+    region: 'Alaska',
+  }, // verified 2026-09-29 recur
+  {
+    id: '1611400',
+    name: 'Nawiliwili',
+    lat: 21.9544,
+    lon: -159.3561,
+    region: 'Hawaii',
+  }, // verified 2026-09-29 recur
+  {
+    id: '9443090',
+    name: 'Neah Bay',
+    lat: 48.370724,
+    lon: -124.601585,
+    region: 'Washington',
+  }, // verified 2026-09-29 recur
+  {
+    id: '8413320',
+    name: 'Bar Harbor',
+    lat: 44.392193,
+    lon: -68.20428,
+    region: 'Maine',
+  }, // verified 2026-09-29 recur
+  {
+    id: '1630000',
+    name: 'Apra Harbor',
+    lat: 13.443389,
+    lon: 144.65636,
+    region: 'Guam',
+  }, // verified 2026-09-29 recur (mdapi full name "Apra Harbor, Guam")
+  {
+    id: '9751639',
+    name: 'Charlotte Amalie',
+    lat: 18.330584,
+    lon: -64.925804,
+    region: 'US Virgin Islands',
+  }, // verified 2026-09-29 recur
+  {
+    id: '9450460',
+    name: 'Ketchikan',
+    lat: 55.331944,
+    lon: -131.62611,
+    region: 'Alaska',
+  }, // verified 2026-09-29 recur
+  {
+    id: '9419750',
+    name: 'Crescent City',
+    lat: 41.74561,
+    lon: -124.18439,
+    region: 'California',
+  }, // verified 2026-09-29 recur
+  {
+    id: '8658120',
+    name: 'Wilmington',
+    lat: 34.2267,
+    lon: -77.9533,
+    region: 'North Carolina',
+  }, // verified 2026-09-29 recur
+  {
+    id: '8575512',
+    name: 'Annapolis',
+    lat: 38.983883,
+    lon: -76.480034,
+    region: 'Maryland',
+  }, // verified 2026-09-29 recur
+  {
+    id: '8557380',
+    name: 'Lewes',
+    lat: 38.782833,
+    lon: -75.11928,
+    region: 'Delaware',
+  }, // verified 2026-09-29 recur (first Delaware station)
+  {
+    id: '8670870',
+    name: 'Fort Pulaski',
+    lat: 32.034695,
+    lon: -80.90303,
+    region: 'Georgia',
+  }, // verified 2026-09-29 recur (first Georgia station)
+  {
+    id: '8467150',
+    name: 'Bridgeport',
+    lat: 41.17582,
+    lon: -73.18397,
+    region: 'Connecticut',
+  }, // verified 2026-09-29 recur (first Connecticut station)
+  {
+    id: '8729108',
+    name: 'Panama City',
+    lat: 30.149723,
+    lon: -85.664444,
+    region: 'Florida',
+  }, // verified 2026-09-29 recur (mdapi name is Panama City, not Pensacola)
+  {
+    id: '9410660',
+    name: 'Los Angeles',
+    lat: 33.72,
+    lon: -118.272,
+    region: 'California',
+  }, // verified 2026-09-29 recur
+  {
+    id: '1770000',
+    name: 'Pago Pago',
+    lat: -14.28,
+    lon: -170.69,
+    region: 'American Samoa',
+  }, // verified 2026-09-29 recur (mdapi full name "Pago Pago, American Samoa"; first American Samoa territory station)
 ];
 
 let cache = null; // {at, key, payload}
@@ -281,12 +533,24 @@ export function parseQuery(req) {
   const stationsRaw = url.searchParams.get('stations');
   let stations = null;
   if (stationsRaw != null && stationsRaw.trim() !== '') {
-    stations = [...new Set(stationsRaw.split(',').map((s) => s.trim()).filter(Boolean))];
+    stations = [
+      ...new Set(
+        stationsRaw
+          .split(',')
+          .map((s) => s.trim())
+          .filter(Boolean),
+      ),
+    ];
     if (stations.length === 0 || stations.length > MAX_MULTI_STATIONS)
-      throw Object.assign(new Error(`tides_too_many_stations:${stations.length}`), { status: 400 });
+      throw Object.assign(
+        new Error(`tides_too_many_stations:${stations.length}`),
+        { status: 400 },
+      );
     for (const st of stations) {
       if (!STATION_RE.test(st))
-        throw Object.assign(new Error(`tides_bad_station:${st.slice(0, 32)}`), { status: 400 });
+        throw Object.assign(new Error(`tides_bad_station:${st.slice(0, 32)}`), {
+          status: 400,
+        });
     }
   }
   return { station, stations, kind };
@@ -311,7 +575,9 @@ async function getMultiSnapshot(stations, kind) {
     const products = productsFor(kind);
     inflight = Promise.all(
       stations.map(async (station) => {
-        const results = await Promise.all(products.map((p) => fetchProduct(p, station)));
+        const results = await Promise.all(
+          products.map((p) => fetchProduct(p, station)),
+        );
         const okOnes = results.filter((r) => r.ok);
         if (okOnes.length === 0) {
           return {
@@ -325,8 +591,12 @@ async function getMultiSnapshot(stations, kind) {
     )
       .then((entries) => {
         if (!entries.some((e) => e.ok)) {
-          const detail = entries.map((e) => `${e.station.id}:${e.error}`).join('; ');
-          throw Object.assign(new Error(`tides_all_upstream_down: ${detail}`), { status: 502 });
+          const detail = entries
+            .map((e) => `${e.station.id}:${e.error}`)
+            .join('; ');
+          throw Object.assign(new Error(`tides_all_upstream_down: ${detail}`), {
+            status: 502,
+          });
         }
         const payload = {
           generatedAt: new Date().toISOString(),
@@ -352,7 +622,9 @@ async function getSnapshot(station, kind) {
   const now = Date.now();
   if (cache && cache.key === key && now - cache.at < ttl) return cache.payload;
   if (!inflight) {
-    inflight = Promise.all(productsFor(kind).map((p) => fetchProduct(p, station)))
+    inflight = Promise.all(
+      productsFor(kind).map((p) => fetchProduct(p, station)),
+    )
       .then((results) => {
         if (!results.some((r) => r.ok)) {
           const detail = results.map((r) => `${r.key}:${r.error}`).join('; ');
@@ -386,7 +658,13 @@ export function tidesProxy() {
       return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
     try {
       const { station, stations, kind } = parseQuery(req);
-      sendJson(res, 200, stations ? await getMultiSnapshot(stations, kind) : await getSnapshot(station, kind));
+      sendJson(
+        res,
+        200,
+        stations
+          ? await getMultiSnapshot(stations, kind)
+          : await getSnapshot(station, kind),
+      );
     } catch (error) {
       if (error?.status === 400)
         return sendJson(
@@ -541,7 +819,11 @@ export function monthlyMaxima(readings) {
   }
   return [...byMonth.entries()]
     .sort(([a], [b]) => (a < b ? -1 : a > b ? 1 : 0))
-    .map(([month, p]) => ({ month, monthlyMax: true, ...annotateKingTideEvent(p) }));
+    .map(([month, p]) => ({
+      month,
+      monthlyMax: true,
+      ...annotateKingTideEvent(p),
+    }));
 }
 
 const KING_TIDES_HONESTY = {
@@ -596,20 +878,35 @@ function buildKingTidesEntry(station, year, top, result) {
 async function getKingTidesSnapshot(stations, year, top) {
   const key = `king:${stations.join(',')}:${year}:${top}`;
   const now = Date.now();
-  if (kingCache && kingCache.key === key && now - kingCache.at < KING_TIDES_TTL_MS)
+  if (
+    kingCache &&
+    kingCache.key === key &&
+    now - kingCache.at < KING_TIDES_TTL_MS
+  )
     return kingCache.payload;
   if (kingInflight) return kingInflight;
-  if (now < kingRetryAt && kingCache && now - kingCache.at < KING_TIDES_STALE_MS)
+  if (
+    now < kingRetryAt &&
+    kingCache &&
+    now - kingCache.at < KING_TIDES_STALE_MS
+  )
     return { ...kingCache.payload, stale: true };
   kingInflight = Promise.all(stations.map((s) => fetchYearPredictions(s, year)))
     .then((results) => {
-      const entries = stations.map((s, i) => buildKingTidesEntry(s, year, top, results[i]));
+      const entries = stations.map((s, i) =>
+        buildKingTidesEntry(s, year, top, results[i]),
+      );
       if (!entries.some((e) => e.ok)) {
         kingRetryAt = Date.now() + KING_TIDES_COOLDOWN_MS;
-        const detail = entries.map((e) => `${e.station.id}:${e.error}`).join('; ');
-        throw Object.assign(new Error(`kingtides_all_upstream_down: ${detail}`), {
-          status: 502,
-        });
+        const detail = entries
+          .map((e) => `${e.station.id}:${e.error}`)
+          .join('; ');
+        throw Object.assign(
+          new Error(`kingtides_all_upstream_down: ${detail}`),
+          {
+            status: 502,
+          },
+        );
       }
       const payload = {
         generatedAt: new Date().toISOString(),
@@ -642,14 +939,21 @@ export function parseKingTidesQuery(req) {
   const url = new URL(req.url ?? '/api/king-tides', 'http://localhost');
   const station = url.searchParams.get('station') ?? '8638610';
   if (!STATION_RE.test(station))
-    throw Object.assign(new Error(`kingtides_bad_station:${station.slice(0, 32)}`), {
-      status: 400,
-    });
-  const yearRaw = url.searchParams.get('year') ?? String(new Date().getUTCFullYear());
+    throw Object.assign(
+      new Error(`kingtides_bad_station:${station.slice(0, 32)}`),
+      {
+        status: 400,
+      },
+    );
+  const yearRaw =
+    url.searchParams.get('year') ?? String(new Date().getUTCFullYear());
   if (!KING_TIDES_YEAR_RE.test(yearRaw))
-    throw Object.assign(new Error(`kingtides_bad_year:${yearRaw.slice(0, 8)}`), {
-      status: 400,
-    });
+    throw Object.assign(
+      new Error(`kingtides_bad_year:${yearRaw.slice(0, 8)}`),
+      {
+        status: 400,
+      },
+    );
   const topRaw = url.searchParams.get('top') ?? String(KING_TIDES_DEFAULT_TOP);
   const top = Number(topRaw);
   if (!Number.isInteger(top) || top < 1 || top > KING_TIDES_MAX_TOP)
@@ -659,16 +963,29 @@ export function parseKingTidesQuery(req) {
   const stationsRaw = url.searchParams.get('stations');
   let stations = null;
   if (stationsRaw != null && stationsRaw.trim() !== '') {
-    stations = [...new Set(stationsRaw.split(',').map((s) => s.trim()).filter(Boolean))];
+    stations = [
+      ...new Set(
+        stationsRaw
+          .split(',')
+          .map((s) => s.trim())
+          .filter(Boolean),
+      ),
+    ];
     if (stations.length === 0 || stations.length > KING_TIDES_MAX_STATIONS)
-      throw Object.assign(new Error(`kingtides_too_many_stations:${stations.length}`), {
-        status: 400,
-      });
+      throw Object.assign(
+        new Error(`kingtides_too_many_stations:${stations.length}`),
+        {
+          status: 400,
+        },
+      );
     for (const st of stations) {
       if (!STATION_RE.test(st))
-        throw Object.assign(new Error(`kingtides_bad_station:${st.slice(0, 32)}`), {
-          status: 400,
-        });
+        throw Object.assign(
+          new Error(`kingtides_bad_station:${st.slice(0, 32)}`),
+          {
+            status: 400,
+          },
+        );
     }
   }
   return { station, stations, year: Number(yearRaw), top };
@@ -693,7 +1010,10 @@ export function kingTidesProxy() {
         return sendJson(
           res,
           400,
-          { error: 'kingtides_bad_request', detail: error?.message ?? 'unknown' },
+          {
+            error: 'kingtides_bad_request',
+            detail: error?.message ?? 'unknown',
+          },
           'no-store',
         );
       const upstreamFail =
@@ -818,7 +1138,9 @@ async function fetchSurgeWaterLevel(station) {
 async function fetchHourlyPredictions(station, days) {
   const started = Date.now();
   try {
-    const upstream = await fetchJsonCapped(stormSurgePredictionsUrl(station, days));
+    const upstream = await fetchJsonCapped(
+      stormSurgePredictionsUrl(station, days),
+    );
     return {
       key: 'predictions',
       ok: true,
@@ -891,8 +1213,12 @@ export function summarizeResiduals(residuals) {
       latestResidualTime: null,
     };
   }
-  const max = matched.reduce((a, b) => (b.residualFeet > a.residualFeet ? b : a));
-  const min = matched.reduce((a, b) => (b.residualFeet < a.residualFeet ? b : a));
+  const max = matched.reduce((a, b) =>
+    b.residualFeet > a.residualFeet ? b : a,
+  );
+  const min = matched.reduce((a, b) =>
+    b.residualFeet < a.residualFeet ? b : a,
+  );
   const latest = matched[matched.length - 1];
   return {
     matchedHours: matched.length,
@@ -972,10 +1298,18 @@ function buildStormSurgeEntry(station, days, wl, pred) {
 async function getStormSurgeSnapshot(stations, days) {
   const key = `surge:${stations.join(',')}:${days}`;
   const now = Date.now();
-  if (surgeCache && surgeCache.key === key && now - surgeCache.at < STORM_SURGE_TTL_MS)
+  if (
+    surgeCache &&
+    surgeCache.key === key &&
+    now - surgeCache.at < STORM_SURGE_TTL_MS
+  )
     return surgeCache.payload;
   if (surgeInflight) return surgeInflight;
-  if (now < surgeRetryAt && surgeCache && now - surgeCache.at < STORM_SURGE_STALE_MS)
+  if (
+    now < surgeRetryAt &&
+    surgeCache &&
+    now - surgeCache.at < STORM_SURGE_STALE_MS
+  )
     return { ...surgeCache.payload, stale: true };
   surgeInflight = Promise.all(
     stations.map(async (s) => {
@@ -989,10 +1323,15 @@ async function getStormSurgeSnapshot(stations, days) {
     .then((entries) => {
       if (!entries.some((e) => e.ok)) {
         surgeRetryAt = Date.now() + STORM_SURGE_COOLDOWN_MS;
-        const detail = entries.map((e) => `${e.station.id}:${e.error}`).join('; ');
-        throw Object.assign(new Error(`stormsurge_all_upstream_down: ${detail}`), {
-          status: 502,
-        });
+        const detail = entries
+          .map((e) => `${e.station.id}:${e.error}`)
+          .join('; ');
+        throw Object.assign(
+          new Error(`stormsurge_all_upstream_down: ${detail}`),
+          {
+            status: 502,
+          },
+        );
       }
       const payload = {
         generatedAt: new Date().toISOString(),
@@ -1027,7 +1366,8 @@ export function parseStormSurgeQuery(req) {
       new Error(`stormsurge_bad_station:${station.slice(0, 32)}`),
       { status: 400 },
     );
-  const daysRaw = url.searchParams.get('days') ?? String(STORM_SURGE_DAYS_DEFAULT);
+  const daysRaw =
+    url.searchParams.get('days') ?? String(STORM_SURGE_DAYS_DEFAULT);
   const days = Number(daysRaw);
   if (!Number.isInteger(days) || days < 1 || days > STORM_SURGE_DAYS_MAX)
     throw Object.assign(
@@ -1038,7 +1378,12 @@ export function parseStormSurgeQuery(req) {
   let stations = null;
   if (stationsRaw != null && stationsRaw.trim() !== '') {
     stations = [
-      ...new Set(stationsRaw.split(',').map((s) => s.trim()).filter(Boolean)),
+      ...new Set(
+        stationsRaw
+          .split(',')
+          .map((s) => s.trim())
+          .filter(Boolean),
+      ),
     ];
     if (stations.length === 0 || stations.length > STORM_SURGE_MAX_STATIONS)
       throw Object.assign(

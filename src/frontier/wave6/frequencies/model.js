@@ -20,16 +20,19 @@ export const EMOJI = '📡';
 export const LABEL = 'Satellite frequencies';
 
 export function valueLine(doc) {
-      if (isUnavailable(doc)) return null;
-      const shown = pickNum(doc.shown, doc.transmitters?.length);
-      if (shown == null) return null;
-      const total = pickNum(doc.total);
-      return withTags(`${EMOJI} ${shown.toLocaleString('en-US')}${total != null ? `/${total.toLocaleString('en-US')}` : ''} satellite transmitters`, doc);
-    }
+  if (isUnavailable(doc)) return null;
+  const shown = pickNum(doc.shown, doc.transmitters?.length);
+  if (shown == null) return null;
+  const total = pickNum(doc.total);
+  return withTags(
+    `${EMOJI} ${shown.toLocaleString('en-US')}${total != null ? `/${total.toLocaleString('en-US')}` : ''} satellite transmitters`,
+    doc,
+  );
+}
 
 export function detailLine(doc) {
-      if (isUnavailable(doc)) return '';
-      const tx = pickArr(doc.transmitters)[0];
-      if (!tx) return '';
-      return `${pickStr(tx.satellite, 'satellite')}${pickStr(tx.mode) ? ` · ${tx.mode}` : ''}${tx.alive === false ? ' · silent' : ''}`;
-    }
+  if (isUnavailable(doc)) return '';
+  const tx = pickArr(doc.transmitters)[0];
+  if (!tx) return '';
+  return `${pickStr(tx.satellite, 'satellite')}${pickStr(tx.mode) ? ` · ${tx.mode}` : ''}${tx.alive === false ? ' · silent' : ''}`;
+}

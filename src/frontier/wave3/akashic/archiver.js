@@ -78,7 +78,8 @@ export function nwsAlertRecord(feature, capturedMs = Date.now()) {
   const event = text(props?.event, '');
   if (!ARCHIVE_ALERT_EVENTS.includes(event)) return null;
   const id = `akashic:alert:${text(props?.id, '').split('/').pop() || `${event}-${props?.sent || capturedMs}`}`;
-  const atMs = Date.parse(props?.sent) || Date.parse(props?.effective) || capturedMs;
+  const atMs =
+    Date.parse(props?.sent) || Date.parse(props?.effective) || capturedMs;
   if (!Number.isFinite(atMs)) return null;
   const day = dayKey(atMs);
   if (!day) return null;
@@ -94,7 +95,10 @@ export function nwsAlertRecord(feature, capturedMs = Date.now()) {
     kind: 'alert',
     atMs,
     capturedMs,
-    title: truncate(`${event} — ${text(props?.areaDesc, 'area unspecified').split(';')[0]}`, 120),
+    title: truncate(
+      `${event} — ${text(props?.areaDesc, 'area unspecified').split(';')[0]}`,
+      120,
+    ),
     detail: truncate(text(props?.headline, event), 280),
     lat: Number.isFinite(lat) ? lat : null,
     lon: Number.isFinite(lon) ? lon : null,
@@ -113,7 +117,8 @@ export function nwsAlertRecord(feature, capturedMs = Date.now()) {
 /** Build an incident record from a /api/events synthesized incident. */
 export function incidentRecord(incident, capturedMs = Date.now()) {
   if (!incident || typeof incident !== 'object') return null;
-  if (!SIGNIFICANCE.INCIDENT_SEVERITIES.includes(incident.severity)) return null;
+  if (!SIGNIFICANCE.INCIDENT_SEVERITIES.includes(incident.severity))
+    return null;
   const atMs = Date.parse(incident.at) || capturedMs;
   const day = dayKey(atMs);
   if (!day) return null;
@@ -128,10 +133,14 @@ export function incidentRecord(incident, capturedMs = Date.now()) {
     lat: Number.isFinite(incident.lat) ? incident.lat : null,
     lon: Number.isFinite(incident.lon) ? incident.lon : null,
     severity: incident.severity === 'high' ? 'high' : 'moderate',
-    sources: Array.isArray(incident.sources) ? incident.sources.map(String) : [],
+    sources: Array.isArray(incident.sources)
+      ? incident.sources.map(String)
+      : [],
     snapshot: {
       type: text(incident.type, ''),
-      confidence: Number.isFinite(incident.confidence) ? incident.confidence : null,
+      confidence: Number.isFinite(incident.confidence)
+        ? incident.confidence
+        : null,
     },
   };
 }
@@ -142,7 +151,11 @@ export function fireballRecord(row, capturedMs = Date.now()) {
   const atMs = Date.parse(dateStr.replace(' ', 'T') + 'Z');
   if (!Number.isFinite(atMs)) return null;
   const energyKt = Number(row?.['impact-e']);
-  if (Number.isFinite(energyKt) && energyKt < SIGNIFICANCE.FIREBALL_ENERGY_KT_MIN) return null;
+  if (
+    Number.isFinite(energyKt) &&
+    energyKt < SIGNIFICANCE.FIREBALL_ENERGY_KT_MIN
+  )
+    return null;
   let lat = Number(row?.lat);
   if (String(row?.['lat-dir']).toUpperCase() === 'S') lat = -Math.abs(lat);
   let lon = Number(row?.lon);
@@ -151,7 +164,8 @@ export function fireballRecord(row, capturedMs = Date.now()) {
   if (!day) return null;
   // Number('') and Number(null) are both 0 — treat blank as unreported (null),
   // never as a measured zero.
-  const numField = (v) => (v === null || v === undefined || v === '' ? null : Number(v));
+  const numField = (v) =>
+    v === null || v === undefined || v === '' ? null : Number(v);
   const vel = numField(row?.vel);
   const altKm = numField(row?.alt);
   return {
@@ -236,7 +250,8 @@ export function stormRecord(storm, capturedMs = Date.now()) {
   const lon = Number(storm?.lon ?? storm?.position?.longitude);
   const windKt = Number(storm?.windKt ?? storm?.wind_kt);
   if (!Number.isFinite(lat) || !Number.isFinite(lon)) return null;
-  if (Number.isFinite(windKt) && windKt < SIGNIFICANCE.STORM_WIND_KT_MIN) return null;
+  if (Number.isFinite(windKt) && windKt < SIGNIFICANCE.STORM_WIND_KT_MIN)
+    return null;
   const atMs = Number.isFinite(storm?.atMs) ? storm.atMs : capturedMs;
   const day = dayKey(atMs);
   if (!day) return null;
@@ -247,7 +262,10 @@ export function stormRecord(storm, capturedMs = Date.now()) {
     kind: 'storm',
     atMs,
     capturedMs,
-    title: truncate(`${name} — ${text(storm?.classification, 'tropical system')}`, 120),
+    title: truncate(
+      `${name} — ${text(storm?.classification, 'tropical system')}`,
+      120,
+    ),
     detail: truncate(
       `Hurricane-force system${Number.isFinite(windKt) ? ` with ${Math.round(windKt)} kt winds` : ''}. Source: NHC.`,
       280,
@@ -270,7 +288,10 @@ async function fetchJson(url, { timeoutMs = 12000 } = {}) {
   try {
     const res = await fetch(url, {
       signal: ctrl.signal,
-      headers: { Accept: 'application/json', 'User-Agent': 'SATWQ-Akashic/1.0' },
+      headers: {
+        Accept: 'application/json',
+        'User-Agent': 'SATWQ-Akashic/1.0',
+      },
     });
     if (!res.ok) return null;
     return await res.json();
@@ -327,9 +348,24 @@ export async function runArchiveSweep(store, { fetchImpl = fetchJson } = {}) {
   await sweep('quakes', USGS_QUAKES_URL, (p) => p?.features, quakeRecord);
   await sweep('alerts', NWS_ALERTS_URL, (p) => p?.alerts, trimmedAlertRecord);
   await sweep('incidents', '/api/events', (p) => p?.incidents, incidentRecord);
-  await sweep('fireballs', FIREBALL_URL, (p) => p?.events, normalizedFireballRecord);
-  await sweep('launches', '/api/launches', (p) => p?.results ?? p?.launches, launchRecord);
-  await sweep('storms', '/api/cyclones', (p) => p?.storms ?? p?.cyclones, stormRecord);
+  await sweep(
+    'fireballs',
+    FIREBALL_URL,
+    (p) => p?.events,
+    normalizedFireballRecord,
+  );
+  await sweep(
+    'launches',
+    '/api/launches',
+    (p) => p?.results ?? p?.launches,
+    launchRecord,
+  );
+  await sweep(
+    'storms',
+    '/api/cyclones',
+    (p) => p?.storms ?? p?.cyclones,
+    stormRecord,
+  );
 
   return summary;
 }
@@ -347,9 +383,14 @@ function trimmedAlertToFeature(alert) {
   const geo = alert?.geometry;
   let point = null;
   if (geo && (geo.type === 'Polygon' || geo.type === 'MultiPolygon')) {
-    const rings = geo.type === 'Polygon' ? geo.coordinates : geo.coordinates?.[0];
+    const rings =
+      geo.type === 'Polygon' ? geo.coordinates : geo.coordinates?.[0];
     const first = Array.isArray(rings) ? rings[0]?.[0] : null;
-    if (Array.isArray(first) && Number.isFinite(first[0]) && Number.isFinite(first[1])) {
+    if (
+      Array.isArray(first) &&
+      Number.isFinite(first[0]) &&
+      Number.isFinite(first[1])
+    ) {
       point = { type: 'Point', coordinates: [first[0], first[1]] };
     }
   }
@@ -382,7 +423,9 @@ export function trimmedAlertRecord(alert, capturedMs = Date.now()) {
  * significance floor and snapshot logic stay in one place.
  */
 function coercedFireballToRow(ev) {
-  const dateStr = String(ev.dateUtc ?? '').replace('T', ' ').slice(0, 19);
+  const dateStr = String(ev.dateUtc ?? '')
+    .replace('T', ' ')
+    .slice(0, 19);
   return {
     date: dateStr,
     energy: ev.radiatedE10J ?? '',

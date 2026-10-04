@@ -4,56 +4,49 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 9 (cities2 worker)).
  */
 export const SPEC = {
-  "id": "nashville-police-incidents",
-  "title": "Nashville — police department incidents",
-  "url": "https://services2.arcgis.com/HdTo6HJqh92wn4D8/arcgis/rest/services/Metro_Nashville_Police_Department_Incidents_view/FeatureServer/0/query?where=1%3D1&outFields=Incident_Number%2CReport_Type_Description%2CIncident_Status_Description%2COffense_Description%2CWeapon_Description%2CDomestic_Related%2CZone%2CZIP_Code%2CIncident_Occurred%2CIncident_Reported&orderByFields=Incident_Occurred%20DESC&resultRecordCount=50&f=json",
-  "headers": {
-    "User-Agent": "satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)"
+  id: 'nashville-police-incidents',
+  title: 'Nashville — police department incidents',
+  url: 'https://services2.arcgis.com/HdTo6HJqh92wn4D8/arcgis/rest/services/Metro_Nashville_Police_Department_Incidents_view/FeatureServer/0/query?where=1%3D1&outFields=Incident_Number%2CReport_Type_Description%2CIncident_Status_Description%2COffense_Description%2CWeapon_Description%2CDomestic_Related%2CZone%2CZIP_Code%2CIncident_Occurred%2CIncident_Reported&orderByFields=Incident_Occurred%20DESC&resultRecordCount=50&f=json',
+  headers: {
+    'User-Agent':
+      'satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)',
   },
-  "ttlSeconds": 3600,
-  "bodyCapBytes": 2097152,
-  "extract": {
-    "items": "$.features",
-    "limit": 50,
-    "map": {
-      "incidentNumber": "$.attributes.Incident_Number",
-      "reportType": "$.attributes.Report_Type_Description",
-      "status": "$.attributes.Incident_Status_Description",
-      "offense": "$.attributes.Offense_Description",
-      "weapon": "$.attributes.Weapon_Description",
-      "domesticRelated": "$.attributes.Domestic_Related",
-      "zone": "$.attributes.Zone",
-      "zip": "$.attributes.ZIP_Code",
-      "occurredMs": "$.attributes.Incident_Occurred",
-      "reportedMs": "$.attributes.Incident_Reported"
+  ttlSeconds: 3600,
+  bodyCapBytes: 2097152,
+  extract: {
+    items: '$.features',
+    limit: 50,
+    map: {
+      incidentNumber: '$.attributes.Incident_Number',
+      reportType: '$.attributes.Report_Type_Description',
+      status: '$.attributes.Incident_Status_Description',
+      offense: '$.attributes.Offense_Description',
+      weapon: '$.attributes.Weapon_Description',
+      domesticRelated: '$.attributes.Domestic_Related',
+      zone: '$.attributes.Zone',
+      zip: '$.attributes.ZIP_Code',
+      occurredMs: '$.attributes.Incident_Occurred',
+      reportedMs: '$.attributes.Incident_Reported',
     },
-    "numbers": [
-      "incidentNumber",
-      "occurredMs",
-      "reportedMs",
-      "zone"
-    ]
+    numbers: ['incidentNumber', 'occurredMs', 'reportedMs', 'zone'],
   },
-  "required": [
-    "incidentNumber",
-    "offense",
-    "occurredMs"
-  ],
-  "source": "Metro Nashville",
-  "attribution": "Data: Metro Nashville open data portal (ArcGIS Hub) — keyless.",
-  "units": {
-    "incidentNumber": "text",
-    "reportType": "text",
-    "status": "text",
-    "offense": "text",
-    "weapon": "text",
-    "domesticRelated": "text",
-    "zone": "text",
-    "zip": "text",
-    "occurredMs": "ms_epoch",
-    "reportedMs": "ms_epoch"
+  required: ['incidentNumber', 'offense', 'occurredMs'],
+  source: 'Metro Nashville',
+  attribution: 'Data: Metro Nashville open data portal (ArcGIS Hub) — keyless.',
+  units: {
+    incidentNumber: 'text',
+    reportType: 'text',
+    status: 'text',
+    offense: 'text',
+    weapon: 'text',
+    domesticRelated: 'text',
+    zone: 'text',
+    zip: 'text',
+    occurredMs: 'ms_epoch',
+    reportedMs: 'ms_epoch',
   },
-  "honesty": "Newest-first 50 via orderByFields=Incident_Occurred DESC on MNPD incidents FeatureServer view. Newest incident at probe 2026-10-02 — same-day freshness. Aggregate public offense data only; victim demographics and street location fields excluded by design.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 9 (cities2 worker)"
+  honesty:
+    'Newest-first 50 via orderByFields=Incident_Occurred DESC on MNPD incidents FeatureServer view. Newest incident at probe 2026-10-02 — same-day freshness. Aggregate public offense data only; victim demographics and street location fields excluded by design.',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 9 (cities2 worker)',
 };

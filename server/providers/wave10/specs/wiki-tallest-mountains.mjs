@@ -4,35 +4,33 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 8 (wikidata worker)).
  */
 export const SPEC = {
-  "id": "wiki-tallest-mountains",
-  "title": "Wikidata — Tallest mountains by elevation",
-  "url": "https://query.wikidata.org/sparql?format=json&query=SELECT%20%3Fmountain%20%3FmountainLabel%20%28MAX%28%3FelevM%29%20AS%20%3Felev%29%20WHERE%20%7B%20%3Fmountain%20wdt%3AP31%20wd%3AQ8502%3B%20p%3AP2044%20%3Fst.%20%3Fst%20ps%3AP2044%20%3Fe%3B%20psv%3AP2044%20%3Fv.%20%3Fv%20wikibase%3AquantityAmount%20%3Famt%3B%20wikibase%3AquantityUnit%20%3Funit.%20FILTER%28%3Funit%20IN%20%28wd%3AQ11573%2C%20wd%3AQ3710%29%29%20BIND%28IF%28%3Funit%20%3D%20wd%3AQ3710%2C%20%3Famt%20%2A%200.3048%2C%20%3Famt%29%20AS%20%3FelevM%29%20FILTER%28%3FelevM%20%3E%207000%29%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22en%22.%20%7D%20%7D%20GROUP%20BY%20%3Fmountain%20%3FmountainLabel%20ORDER%20BY%20DESC%28%3Felev%29%20LIMIT%2050",
-  "headers": {
-    "User-Agent": "satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)"
+  id: 'wiki-tallest-mountains',
+  title: 'Wikidata — Tallest mountains by elevation',
+  url: 'https://query.wikidata.org/sparql?format=json&query=SELECT%20%3Fmountain%20%3FmountainLabel%20%28MAX%28%3FelevM%29%20AS%20%3Felev%29%20WHERE%20%7B%20%3Fmountain%20wdt%3AP31%20wd%3AQ8502%3B%20p%3AP2044%20%3Fst.%20%3Fst%20ps%3AP2044%20%3Fe%3B%20psv%3AP2044%20%3Fv.%20%3Fv%20wikibase%3AquantityAmount%20%3Famt%3B%20wikibase%3AquantityUnit%20%3Funit.%20FILTER%28%3Funit%20IN%20%28wd%3AQ11573%2C%20wd%3AQ3710%29%29%20BIND%28IF%28%3Funit%20%3D%20wd%3AQ3710%2C%20%3Famt%20%2A%200.3048%2C%20%3Famt%29%20AS%20%3FelevM%29%20FILTER%28%3FelevM%20%3E%207000%29%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22en%22.%20%7D%20%7D%20GROUP%20BY%20%3Fmountain%20%3FmountainLabel%20ORDER%20BY%20DESC%28%3Felev%29%20LIMIT%2050',
+  headers: {
+    'User-Agent':
+      'satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)',
   },
-  "ttlSeconds": 86400,
-  "timeoutMs": 60000,
-  "extract": {
-    "items": "$.results.bindings",
-    "limit": 50,
-    "map": {
-      "name": "$.mountainLabel.value",
-      "elevation_m": "$.elev.value",
-      "wikidata": "$.mountain.value"
+  ttlSeconds: 86400,
+  timeoutMs: 60000,
+  extract: {
+    items: '$.results.bindings',
+    limit: 50,
+    map: {
+      name: '$.mountainLabel.value',
+      elevation_m: '$.elev.value',
+      wikidata: '$.mountain.value',
     },
-    "numbers": [
-      "elevation_m"
-    ]
+    numbers: ['elevation_m'],
   },
-  "required": [
-    "name"
-  ],
-  "source": "Wikidata",
-  "attribution": "Data: Wikidata Query Service — keyless, CC0.",
-  "units": {
-    "elevation_m": "m"
+  required: ['name'],
+  source: 'Wikidata',
+  attribution: 'Data: Wikidata Query Service — keyless, CC0.',
+  units: {
+    elevation_m: 'm',
   },
-  "honesty": "Mountains (Q8502) over 7000 m, elevations unit-normalized to metres (metre Q11573 and foot Q3710 claims converted via the quantity unit; claims in other units excluded). One row per mountain via MAX of its elevation claims. Top of list: Everest 8850, K2 8611. 50 bindings verified 2026-10-02.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 8 (wikidata worker)"
+  honesty:
+    'Mountains (Q8502) over 7000 m, elevations unit-normalized to metres (metre Q11573 and foot Q3710 claims converted via the quantity unit; claims in other units excluded). One row per mountain via MAX of its elevation claims. Top of list: Everest 8850, K2 8611. 50 bindings verified 2026-10-02.',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 8 (wikidata worker)',
 };

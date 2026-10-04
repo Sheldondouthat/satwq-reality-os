@@ -9,11 +9,7 @@
  * when the payload carries no usable summary; the detail line names the
  * densest 10°x10° cells and the week's joiners/retirees.
  */
-import {
-  isUnavailable,
-  withTags,
-  pickNum,
-} from '../../wave3/common/ticker.js';
+import { isUnavailable, withTags, pickNum } from '../../wave3/common/ticker.js';
 
 export const ROUTE = '/api/raspberryshake';
 export const EMOJI = '📳';
@@ -26,7 +22,7 @@ export function valueLine(doc) {
   if (active == null || total == null) return null;
   return withTags(
     `${EMOJI} Raspberry Shake: ${active.toLocaleString('en-US')} of ${total.toLocaleString('en-US')} citizen seismometers listed active`,
-    doc
+    doc,
   );
 }
 
@@ -37,14 +33,18 @@ export function detailLine(doc) {
   if (cells.length) {
     parts.push(
       'Densest cells: ' +
-        cells.map((c) => `${c.cell} (${c.count})`).join(' · ')
+        cells.map((c) => `${c.cell} (${c.count})`).join(' · '),
     );
   }
   const nw = pickNum(doc.summary?.newWeek);
   const rw = pickNum(doc.summary?.retiredWeek);
   if (nw != null || rw != null) {
-    parts.push(`${nw ?? 0} joined / ${rw ?? 0} retired in the last 7 days (registry epochs).`);
+    parts.push(
+      `${nw ?? 0} joined / ${rw ?? 0} retired in the last 7 days (registry epochs).`,
+    );
   }
-  parts.push('Registry metadata, not live data flow — a listed-open station can be dark.');
+  parts.push(
+    'Registry metadata, not live data flow — a listed-open station can be dark.',
+  );
   return parts.join(' ');
 }

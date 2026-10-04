@@ -4,35 +4,31 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 2 (coops worker)).
  */
 export const SPEC = {
-  "id": "coops-waterlevel-montauk",
-  "title": "NOAA Tides — Montauk water level",
-  "url": "https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?product=water_level&station=8510560&date=recent&datum=MLLW&time_zone=gmt&units=english&format=json",
-  "headers": {
-    "User-Agent": "satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)"
+  id: 'coops-waterlevel-montauk',
+  title: 'NOAA Tides — Montauk water level',
+  url: 'https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?product=water_level&station=8510560&date=recent&datum=MLLW&time_zone=gmt&units=english&format=json',
+  headers: {
+    'User-Agent':
+      'satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)',
   },
-  "ttlSeconds": 1800,
-  "extract": {
-    "items": "$.data",
-    "limit": 48,
-    "map": {
-      "time": "$.t",
-      "levelFt": "$.v",
-      "sigma": "$.s"
+  ttlSeconds: 1800,
+  extract: {
+    items: '$.data',
+    limit: 48,
+    map: {
+      time: '$.t',
+      levelFt: '$.v',
+      sigma: '$.s',
     },
-    "numbers": [
-      "levelFt",
-      "sigma"
-    ]
+    numbers: ['levelFt', 'sigma'],
   },
-  "required": [
-    "time"
-  ],
-  "source": "NOAA Center for Operational Oceanography Products",
-  "attribution": "Data: NOAA CO-OPS — keyless.",
-  "units": {
-    "levelFt": "ft"
+  required: ['time'],
+  source: 'NOAA Center for Operational Oceanography Products',
+  attribution: 'Data: NOAA CO-OPS — keyless.',
+  units: {
+    levelFt: 'ft',
   },
-  "honesty": "6-minute observations; most recent point typically <1h old.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 2 (coops worker)"
+  honesty: '6-minute observations; most recent point typically <1h old.',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 2 (coops worker)',
 };

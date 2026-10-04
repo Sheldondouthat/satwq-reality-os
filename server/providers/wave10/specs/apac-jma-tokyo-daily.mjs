@@ -4,34 +4,34 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 6 (apac-weather worker)).
  */
 export const SPEC = {
-  "id": "apac-jma-tokyo-daily",
-  "title": "JMA Japan — daily forecast, Tokyo",
-  "url": "https://www.jma.go.jp/bosai/forecast/data/forecast/130000.json",
-  "headers": {
-    "User-Agent": "satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)"
+  id: 'apac-jma-tokyo-daily',
+  title: 'JMA Japan — daily forecast, Tokyo',
+  url: 'https://www.jma.go.jp/bosai/forecast/data/forecast/130000.json',
+  headers: {
+    'User-Agent':
+      'satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)',
   },
-  "ttlSeconds": 10800,
-  "extract": {
-    "items": "$[0].timeSeries[0].areas",
-    "limit": 10,
-    "map": {
-      "area": "$.area.name",
-      "areaCode": "$.area.code",
-      "weatherCode": "$.weatherCodes[0]",
-      "weatherJa": "$.weathers[0]",
-      "windJa": "$.winds[0]",
-      "waveJa": "$.waves[0]"
+  ttlSeconds: 10800,
+  extract: {
+    items: '$[0].timeSeries[0].areas',
+    limit: 10,
+    map: {
+      area: '$.area.name',
+      areaCode: '$.area.code',
+      weatherCode: '$.weatherCodes[0]',
+      weatherJa: '$.weathers[0]',
+      windJa: '$.winds[0]',
+      waveJa: '$.waves[0]',
     },
-    "numbers": []
+    numbers: [],
   },
-  "required": [
-    "area",
-    "weatherJa"
-  ],
-  "source": "Japan Meteorological Agency (JMA)",
-  "attribution": "Data: Japan Meteorological Agency — jma.go.jp (bosai open data) — keyless.",
-  "units": {},
-  "honesty": "Today/tomorrow forecast per sub-area (Japanese prose); weatherCode is JMA's numeric code — legend published in JMA's 'weather codes' table; index [0] is today's slot aligned with timeDefines[0]; reportDatetime is at the top level.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 6 (apac-weather worker)"
+  required: ['area', 'weatherJa'],
+  source: 'Japan Meteorological Agency (JMA)',
+  attribution:
+    'Data: Japan Meteorological Agency — jma.go.jp (bosai open data) — keyless.',
+  units: {},
+  honesty:
+    "Today/tomorrow forecast per sub-area (Japanese prose); weatherCode is JMA's numeric code — legend published in JMA's 'weather codes' table; index [0] is today's slot aligned with timeDefines[0]; reportDatetime is at the top level.",
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 6 (apac-weather worker)',
 };

@@ -24,7 +24,11 @@ export const WAVEFRONT_MIN_MAG = 4.5;
  * Live wavefront radii for a quake at a frozen clock.
  * Returns `{ ageSec, pKm, sKm, expired }`.
  */
-export function wavefrontRadii(originTimeMs, nowMs = Date.now(), ttlMs = WAVEFRONT_TTL_MS) {
+export function wavefrontRadii(
+  originTimeMs,
+  nowMs = Date.now(),
+  ttlMs = WAVEFRONT_TTL_MS,
+) {
   if (!Number.isFinite(originTimeMs) || !Number.isFinite(nowMs))
     throw new TypeError('wavefrontRadii needs finite originTimeMs and nowMs');
   const ageSec = Math.max(0, (nowMs - originTimeMs) / 1000);
@@ -37,7 +41,11 @@ export function wavefrontRadii(originTimeMs, nowMs = Date.now(), ttlMs = WAVEFRO
   };
 }
 
-export function isWavefrontExpired(originTimeMs, nowMs = Date.now(), ttlMs = WAVEFRONT_TTL_MS) {
+export function isWavefrontExpired(
+  originTimeMs,
+  nowMs = Date.now(),
+  ttlMs = WAVEFRONT_TTL_MS,
+) {
   if (!Number.isFinite(originTimeMs) || !Number.isFinite(nowMs)) return true;
   return nowMs - originTimeMs > ttlMs;
 }
@@ -46,7 +54,10 @@ export function isWavefrontExpired(originTimeMs, nowMs = Date.now(), ttlMs = WAV
  * Ring opacity fades from `maxAlpha` at t=0 to `minAlpha` at TTL.
  * Pure linear fade; clamped.
  */
-export function wavefrontAlpha(ageSec, { ttlSec = WAVEFRONT_TTL_MS / 1000, maxAlpha = 0.95, minAlpha = 0.06 } = {}) {
+export function wavefrontAlpha(
+  ageSec,
+  { ttlSec = WAVEFRONT_TTL_MS / 1000, maxAlpha = 0.95, minAlpha = 0.06 } = {},
+) {
   const t = Math.min(1, Math.max(0, ageSec / ttlSec));
   return maxAlpha + (minAlpha - maxAlpha) * t;
 }
@@ -95,7 +106,13 @@ export function pickSignificantQuakes(
 ) {
   if (!Array.isArray(rows)) return [];
   return rows
-    .filter((q) => q && Number.isFinite(q.mag) && q.mag >= minMag && Number.isFinite(q.originTimeMs))
+    .filter(
+      (q) =>
+        q &&
+        Number.isFinite(q.mag) &&
+        q.mag >= minMag &&
+        Number.isFinite(q.originTimeMs),
+    )
     .sort((a, b) => b.originTimeMs - a.originTimeMs || b.mag - a.mag)
     .slice(0, Math.max(0, Math.floor(limit)));
 }

@@ -4,35 +4,33 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 9 (wikidata2 worker)).
  */
 export const SPEC = {
-  "id": "wiki-deepest-lakes",
-  "title": "Wikidata — Deepest lakes by depth",
-  "url": "https://query.wikidata.org/sparql?format=json&query=SELECT%20%3Fitem%20%3FitemLabel%20%3Fdepth%20WHERE%20%7B%20%7B%20SELECT%20%3Fitem%20%28MAX%28%3Fd%29%20AS%20%3Fdepth%29%20WHERE%20%7B%20%3Fitem%20wdt%3AP31%20wd%3AQ23397%3B%20wdt%3AP4511%20%3Fd.%20%7D%20GROUP%20BY%20%3Fitem%20%7D%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22en%22.%20%7D%20%7D%20ORDER%20BY%20DESC%28%3Fdepth%29%20LIMIT%2050",
-  "headers": {
-    "User-Agent": "satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)"
+  id: 'wiki-deepest-lakes',
+  title: 'Wikidata — Deepest lakes by depth',
+  url: 'https://query.wikidata.org/sparql?format=json&query=SELECT%20%3Fitem%20%3FitemLabel%20%3Fdepth%20WHERE%20%7B%20%7B%20SELECT%20%3Fitem%20%28MAX%28%3Fd%29%20AS%20%3Fdepth%29%20WHERE%20%7B%20%3Fitem%20wdt%3AP31%20wd%3AQ23397%3B%20wdt%3AP4511%20%3Fd.%20%7D%20GROUP%20BY%20%3Fitem%20%7D%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22en%22.%20%7D%20%7D%20ORDER%20BY%20DESC%28%3Fdepth%29%20LIMIT%2050',
+  headers: {
+    'User-Agent':
+      'satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)',
   },
-  "ttlSeconds": 86400,
-  "timeoutMs": 60000,
-  "extract": {
-    "items": "$.results.bindings",
-    "limit": 50,
-    "map": {
-      "name": "$.itemLabel.value",
-      "depth_m": "$.depth.value",
-      "wikidata": "$.item.value"
+  ttlSeconds: 86400,
+  timeoutMs: 60000,
+  extract: {
+    items: '$.results.bindings',
+    limit: 50,
+    map: {
+      name: '$.itemLabel.value',
+      depth_m: '$.depth.value',
+      wikidata: '$.item.value',
     },
-    "numbers": [
-      "depth_m"
-    ]
+    numbers: ['depth_m'],
   },
-  "required": [
-    "name"
-  ],
-  "source": "Wikidata",
-  "attribution": "Data: Wikidata Query Service — keyless, CC0.",
-  "units": {
-    "depth_m": "m"
+  required: ['name'],
+  source: 'Wikidata',
+  attribution: 'Data: Wikidata Query Service — keyless, CC0.',
+  units: {
+    depth_m: 'm',
   },
-  "honesty": "Lakes ranked by vertical depth (P4511, verified live on Lake Tanganyika's entity data). Lake Baikal #1 at 1642 m. One row per lake via MAX over best-ranked claims. 50 bindings verified 2026-10-02.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 9 (wikidata2 worker)"
+  honesty:
+    "Lakes ranked by vertical depth (P4511, verified live on Lake Tanganyika's entity data). Lake Baikal #1 at 1642 m. One row per lake via MAX over best-ranked claims. 50 bindings verified 2026-10-02.",
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 9 (wikidata2 worker)',
 };

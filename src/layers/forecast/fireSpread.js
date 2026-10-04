@@ -36,8 +36,7 @@ const DEG = Math.PI / 180;
 const KM_PER_DEG_LAT = 111.32;
 
 const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
-const clampFinite = (v, fallback) =>
-  Number.isFinite(v) ? v : fallback;
+const clampFinite = (v, fallback) => (Number.isFinite(v) ? v : fallback);
 
 /**
  * Validate one ignition. Returns null when invalid (caller skips + counts).

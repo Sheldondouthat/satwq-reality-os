@@ -25,7 +25,8 @@
  */
 const UPSTREAM_URL =
   'https://data.raspberryshake.org/fdsnws/station/1/query?network=AM&level=station&format=text';
-const UPSTREAM_VERSION_URL = 'https://data.raspberryshake.org/fdsnws/station/1/version';
+const UPSTREAM_VERSION_URL =
+  'https://data.raspberryshake.org/fdsnws/station/1/version';
 const USER_AGENT = 'satwq-reality-os/1.0 (+https://satwq-reality-os.pages.dev)';
 const UPSTREAM_TIMEOUT_MS = 20000;
 const BODY_CAP_BYTES = 8 * 1024 * 1024; // live doc is ~3.8 MB
@@ -122,8 +123,10 @@ export function parseStationInventory(text, nowMs) {
         density.set(cell, (density.get(cell) ?? 0) + 1);
       }
     }
-    if (st.firstStartMs != null && nowMs - st.firstStartMs <= WEEK_MS) newWeek += 1;
-    if (!st.open && st.lastEndMs != null && nowMs - st.lastEndMs <= WEEK_MS) retiredWeek += 1;
+    if (st.firstStartMs != null && nowMs - st.firstStartMs <= WEEK_MS)
+      newWeek += 1;
+    if (!st.open && st.lastEndMs != null && nowMs - st.lastEndMs <= WEEK_MS)
+      retiredWeek += 1;
     list.push(st);
   }
   const densityCells = [...density.entries()]
@@ -164,7 +167,8 @@ function stationRow(st) {
     elevM: st.elevM,
     site: st.site,
     epochs: st.epochs.length,
-    firstStart: st.firstStartMs != null ? new Date(st.firstStartMs).toISOString() : null,
+    firstStart:
+      st.firstStartMs != null ? new Date(st.firstStartMs).toISOString() : null,
     lastEnd: st.lastEndMs != null ? new Date(st.lastEndMs).toISOString() : null,
   };
 }
@@ -197,15 +201,24 @@ export function buildPayload(doc, query, stale) {
     if (
       parts.length !== 4 ||
       parts.some((p) => !Number.isFinite(p)) ||
-      parts[0] < -180 || parts[2] > 180 || parts[1] < -90 || parts[3] > 90 ||
-      parts[0] > parts[2] || parts[1] > parts[3]
+      parts[0] < -180 ||
+      parts[2] > 180 ||
+      parts[1] < -90 ||
+      parts[3] > 90 ||
+      parts[0] > parts[2] ||
+      parts[1] > parts[3]
     ) {
       return { status: 400, body: { error: 'rs_bad_box' } };
     }
     const [minLon, minLat, maxLon, maxLat] = parts;
     const inBox = doc.stations.filter(
-      (st) => st.lat != null && st.lon != null &&
-        st.lon >= minLon && st.lon <= maxLon && st.lat >= minLat && st.lat <= maxLat
+      (st) =>
+        st.lat != null &&
+        st.lon != null &&
+        st.lon >= minLon &&
+        st.lon <= maxLon &&
+        st.lat >= minLat &&
+        st.lat <= maxLat,
     );
     inBox.sort((a, b) => (a.code < b.code ? -1 : 1));
     truncated = inBox.length > BOX_CAP;
@@ -213,13 +226,18 @@ export function buildPayload(doc, query, stale) {
   } else if (near != null) {
     const parts = near.split(',').map(Number);
     if (
-      parts.length !== 2 || parts.some((p) => !Number.isFinite(p)) ||
-      parts[0] < -90 || parts[0] > 90 || parts[1] < -180 || parts[1] > 180
+      parts.length !== 2 ||
+      parts.some((p) => !Number.isFinite(p)) ||
+      parts[0] < -90 ||
+      parts[0] > 90 ||
+      parts[1] < -180 ||
+      parts[1] > 180
     ) {
       return { status: 400, body: { error: 'rs_bad_near' } };
     }
     let n = query.n != null ? Number(query.n) : NEAR_DEFAULT;
-    if (!Number.isFinite(n)) return { status: 400, body: { error: 'rs_bad_n' } };
+    if (!Number.isFinite(n))
+      return { status: 400, body: { error: 'rs_bad_n' } };
     n = Math.max(1, Math.min(NEAR_MAX, Math.floor(n)));
     const [lat, lon] = parts;
     stations = doc.stations
@@ -227,7 +245,10 @@ export function buildPayload(doc, query, stale) {
       .map((st) => ({ st, km: haversineKm(lat, lon, st.lat, st.lon) }))
       .sort((a, b) => a.km - b.km)
       .slice(0, n)
-      .map(({ st, km }) => ({ ...stationRow(st), distKm: Math.round(km * 10) / 10 }));
+      .map(({ st, km }) => ({
+        ...stationRow(st),
+        distKm: Math.round(km * 10) / 10,
+      }));
   }
 
   return {
@@ -259,7 +280,8 @@ export function buildPayload(doc, query, stale) {
           'Live waveform data is a separate service (fdsnws-dataselect, miniSEED binary) — not covered by this route.',
         noEventCatalog:
           'Raspberry Shake publishes no FDSN event catalog (event/1/query → 404); this route covers the station network, not quake lists.',
-        attribution: 'Data: Raspberry Shake (raspberryshake.org), FDSN station web service.',
+        attribution:
+          'Data: Raspberry Shake (raspberryshake.org), FDSN station web service.',
       },
     },
   };
@@ -279,7 +301,9 @@ async function fetchTextCapped(url, capBytes) {
       headers: { 'User-Agent': USER_AGENT, Accept: 'text/plain' },
     });
     if (!response.ok) {
-      throw Object.assign(new Error(`rs_upstream_${response.status}`), { status: 502 });
+      throw Object.assign(new Error(`rs_upstream_${response.status}`), {
+        status: 502,
+      });
     }
     const buffer = await response.arrayBuffer();
     if (buffer.byteLength > capBytes)
@@ -287,7 +311,10 @@ async function fetchTextCapped(url, capBytes) {
     return new TextDecoder().decode(buffer);
   } catch (error) {
     if (error?.status === 502) throw error;
-    throw Object.assign(new Error(`rs_fetch_failed: ${error?.message ?? 'unknown'}`), { status: 502 });
+    throw Object.assign(
+      new Error(`rs_fetch_failed: ${error?.message ?? 'unknown'}`),
+      { status: 502 },
+    );
   } finally {
     clearTimeout(timeout);
   }
@@ -318,7 +345,8 @@ async function getDoc() {
         return { doc, stale: false };
       } catch (error) {
         failedAt.set(key, Date.now());
-        if (hit && Date.now() - hit.at < STALE_MS) return { doc: hit.doc, stale: true };
+        if (hit && Date.now() - hit.at < STALE_MS)
+          return { doc: hit.doc, stale: true };
         throw error;
       }
     })().finally(() => inflight.delete(key));
@@ -334,7 +362,8 @@ async function getPayload(query) {
   if (hit && now - hit.at < CACHE_TTL_MS) return hit.payload;
   const { doc, stale } = await getDoc();
   const result = buildPayload(doc, query, stale);
-  if (result.status === 200) payloadCache.set(key, { at: Date.now(), payload: result });
+  if (result.status === 200)
+    payloadCache.set(key, { at: Date.now(), payload: result });
   return result;
 }
 
@@ -349,7 +378,8 @@ function sendJson(res, status, body, cacheControl = CACHE_CONTROL) {
 /** Mount the wave-9 Raspberry Shake network-inventory proxy. */
 export function raspberryShakeProxy() {
   async function handler(req, res) {
-    if (req.method !== 'GET') return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
     try {
       const url = new URL(req.url, 'http://localhost');
       const query = {
@@ -361,12 +391,23 @@ export function raspberryShakeProxy() {
       const { status, body } = await getPayload(query);
       sendJson(res, status, body, status === 200 ? CACHE_CONTROL : 'no-store');
     } catch (error) {
-      const upstreamFail = error?.status === 502 || error?.name === 'AbortError' || /aborted?/i.test(error?.message ?? '');
-      sendJson(res, upstreamFail ? 502 : 500, {
-        error: 'rs_unavailable',
-        detail: error?.message ?? 'unknown',
-        honesty: { attribution: 'Data: Raspberry Shake (raspberryshake.org), FDSN station web service.' },
-      }, 'no-store');
+      const upstreamFail =
+        error?.status === 502 ||
+        error?.name === 'AbortError' ||
+        /aborted?/i.test(error?.message ?? '');
+      sendJson(
+        res,
+        upstreamFail ? 502 : 500,
+        {
+          error: 'rs_unavailable',
+          detail: error?.message ?? 'unknown',
+          honesty: {
+            attribution:
+              'Data: Raspberry Shake (raspberryshake.org), FDSN station web service.',
+          },
+        },
+        'no-store',
+      );
     }
   }
 
@@ -391,5 +432,10 @@ export const _raspberryShakeInternals = {
   latOrNull,
   lonOrNull,
   haversineKm,
-  resetCache: () => { docCache.clear(); payloadCache.clear(); inflight.clear(); failedAt.clear(); },
+  resetCache: () => {
+    docCache.clear();
+    payloadCache.clear();
+    inflight.clear();
+    failedAt.clear();
+  },
 };

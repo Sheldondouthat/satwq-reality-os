@@ -49,7 +49,9 @@ export function createDvrSource({
     /** Set the frame date (YYYY-MM-DD). Throws on invalid input. */
     setDate(dateStr) {
       if (!isValidGibsDate(dateStr))
-        throw new TypeError(`DVR setDate: invalid date ${JSON.stringify(dateStr)}`);
+        throw new TypeError(
+          `DVR setDate: invalid date ${JSON.stringify(dateStr)}`,
+        );
       _date = dateStr;
     },
 
@@ -72,7 +74,9 @@ export function createDvrSource({
      */
     async probeDate(dateStr, { signal } = {}) {
       if (!isValidGibsDate(dateStr))
-        throw new TypeError(`DVR probeDate: invalid date ${JSON.stringify(dateStr)}`);
+        throw new TypeError(
+          `DVR probeDate: invalid date ${JSON.stringify(dateStr)}`,
+        );
       signal?.throwIfAborted();
       const response = await fetchImpl(probeTileUrl(product, dateStr), {
         signal,

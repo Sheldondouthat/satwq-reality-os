@@ -4,34 +4,33 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 6 (socrata2 worker)).
  */
 export const SPEC = {
-  "id": "socrata-chicago-permits",
-  "title": "Chicago (data.cityofchicago.org) — building permits",
-  "url": "https://data.cityofchicago.org/resource/ydr8-5enu.json?%24limit=50&%24order=issue_date%20DESC",
-  "headers": {},
-  "ttlSeconds": 3600,
-  "extract": {
-    "items": "$",
-    "limit": 50,
-    "map": {
-      "key": "$.id",
-      "permit": "$.permit_",
-      "type": "$.permit_type",
-      "status": "$.permit_status",
-      "applied": "$.application_start_date",
-      "issued": "$.issue_date",
-      "street": "$.street_name",
-      "work": "$.work_description"
+  id: 'socrata-chicago-permits',
+  title: 'Chicago (data.cityofchicago.org) — building permits',
+  url: 'https://data.cityofchicago.org/resource/ydr8-5enu.json?%24limit=50&%24order=issue_date%20DESC',
+  headers: {},
+  ttlSeconds: 3600,
+  extract: {
+    items: '$',
+    limit: 50,
+    map: {
+      key: '$.id',
+      permit: '$.permit_',
+      type: '$.permit_type',
+      status: '$.permit_status',
+      applied: '$.application_start_date',
+      issued: '$.issue_date',
+      street: '$.street_name',
+      work: '$.work_description',
     },
-    "numbers": []
+    numbers: [],
   },
-  "required": [
-    "key",
-    "permit"
-  ],
-  "source": "Chicago Dept. of Buildings — data.cityofchicago.org (Socrata)",
-  "attribution": "Data: Chicago Dept. of Buildings — data.cityofchicago.org (Socrata) — keyless Socrata API.",
-  "units": {},
-  "honesty": "Permit applications; no owner/contractor personal names in mapped fields. Verified 50 rows in fixture (102085 bytes).",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 6 (socrata2 worker)"
+  required: ['key', 'permit'],
+  source: 'Chicago Dept. of Buildings — data.cityofchicago.org (Socrata)',
+  attribution:
+    'Data: Chicago Dept. of Buildings — data.cityofchicago.org (Socrata) — keyless Socrata API.',
+  units: {},
+  honesty:
+    'Permit applications; no owner/contractor personal names in mapped fields. Verified 50 rows in fixture (102085 bytes).',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 6 (socrata2 worker)',
 };

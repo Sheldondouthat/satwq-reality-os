@@ -36,11 +36,14 @@ function el(tag, attrs = {}, text = '') {
 
 function bar(pct, color) {
   const wrap = el('div', {
-    style: 'height:8px;border-radius:4px;background:rgba(255,255,255,.12);margin-top:4px;overflow:hidden;',
+    style:
+      'height:8px;border-radius:4px;background:rgba(255,255,255,.12);margin-top:4px;overflow:hidden;',
   });
-  wrap.appendChild(el('div', {
-    style: `height:100%;width:${Math.max(0, Math.min(100, pct))}%;background:${color};`,
-  }));
+  wrap.appendChild(
+    el('div', {
+      style: `height:100%;width:${Math.max(0, Math.min(100, pct))}%;background:${color};`,
+    }),
+  );
   return wrap;
 }
 
@@ -48,9 +51,14 @@ function reservoirRow(r) {
   const row = el('div', { style: 'margin:6px 0;font-size:11px;' });
   const band = reservoirBand(r.pctFull);
   row.appendChild(
-    el('div', {}, `${r.name} — ${r.pctFull != null ? `${r.pctFull}% full` : reservoirBandLabel(band)}`),
+    el(
+      'div',
+      {},
+      `${r.name} — ${r.pctFull != null ? `${r.pctFull}% full` : reservoirBandLabel(band)}`,
+    ),
   );
-  if (r.pctFull != null) row.appendChild(bar(r.pctFull, reservoirBandColor(band)));
+  if (r.pctFull != null)
+    row.appendChild(bar(r.pctFull, reservoirBandColor(band)));
   return row;
 }
 
@@ -61,16 +69,27 @@ function riverRow(r) {
   const gage = r.gageFt != null ? `${r.gageFt.toFixed(1)} ft` : '—';
   row.appendChild(el('div', {}, `${r.name} — ${bandLabel(r.band)}`));
   row.appendChild(
-    el('div', { style: 'color:#9fc2ff;' },
-      `gage ${gage} · flood stage ${r.floodStageFt} ft${r.flowCfs != null ? ` · ${Math.round(r.flowCfs).toLocaleString()} cfs` : ''}`),
+    el(
+      'div',
+      { style: 'color:#9fc2ff;' },
+      `gage ${gage} · flood stage ${r.floodStageFt} ft${r.flowCfs != null ? ` · ${Math.round(r.flowCfs).toLocaleString()} cfs` : ''}`,
+    ),
   );
   return row;
 }
 
 export function createWaterTwinSection() {
   const element = el('div', {});
-  const summary = el('div', { style: 'font-size:11px;color:#9fc2ff;margin-bottom:4px;' }, 'checking…');
-  const precipRow = el('div', { style: 'font-size:10px;color:#7d8fb3;margin-bottom:2px;' }, '🌧 radar: checking…');
+  const summary = el(
+    'div',
+    { style: 'font-size:11px;color:#9fc2ff;margin-bottom:4px;' },
+    'checking…',
+  );
+  const precipRow = el(
+    'div',
+    { style: 'font-size:10px;color:#7d8fb3;margin-bottom:2px;' },
+    '🌧 radar: checking…',
+  );
   const resWrap = el('div', {});
   const rivWrap = el('div', {});
   element.append(summary, precipRow, resWrap, rivWrap);
@@ -80,7 +99,10 @@ export function createWaterTwinSection() {
     /** Precipitation overlay state from precip.js (fail-soft). */
     setPrecip(precip) {
       if (precip?.available) {
-        const when = new Date(precip.frameTime * 1000).toISOString().replace('T', ' ').slice(0, 16);
+        const when = new Date(precip.frameTime * 1000)
+          .toISOString()
+          .replace('T', ' ')
+          .slice(0, 16);
         precipRow.textContent = `🌧 radar frame ${when} UTC — observed precip, not a forecast`;
       } else {
         precipRow.textContent = '🌧 radar unavailable';
@@ -91,19 +113,52 @@ export function createWaterTwinSection() {
       rivWrap.textContent = '';
       const s = summarizeTwin(payload);
       const bits = [];
-      if (s.driestReservoir) bits.push(`driest: ${s.driestReservoir.name} ${s.driestReservoir.pctFull}%`);
-      if (s.worstRiver && s.worstRiver.band !== 'normal' && s.worstRiver.band !== 'unknown')
-        bits.push(`worst river: ${s.worstRiver.name} (${bandLabel(s.worstRiver.band)})`);
-      summary.textContent = bits.length ? bits.join(' · ') : 'all gauges normal';
+      if (s.driestReservoir)
+        bits.push(
+          `driest: ${s.driestReservoir.name} ${s.driestReservoir.pctFull}%`,
+        );
+      if (
+        s.worstRiver &&
+        s.worstRiver.band !== 'normal' &&
+        s.worstRiver.band !== 'unknown'
+      )
+        bits.push(
+          `worst river: ${s.worstRiver.name} (${bandLabel(s.worstRiver.band)})`,
+        );
+      summary.textContent = bits.length
+        ? bits.join(' · ')
+        : 'all gauges normal';
       if (payload?.stale) summary.textContent += ' (cached)';
 
-      resWrap.appendChild(el('div', { style: 'font-size:10px;letter-spacing:.1em;color:#8aa4d6;margin-top:6px;' }, 'RESERVOIRS — % OF CAPACITY'));
-      for (const r of payload?.reservoirs ?? []) resWrap.appendChild(reservoirRow(r));
-      rivWrap.appendChild(el('div', { style: 'font-size:10px;letter-spacing:.1em;color:#8aa4d6;margin-top:6px;' }, 'RIVERS — GAGE VS FLOOD STAGE'));
+      resWrap.appendChild(
+        el(
+          'div',
+          {
+            style:
+              'font-size:10px;letter-spacing:.1em;color:#8aa4d6;margin-top:6px;',
+          },
+          'RESERVOIRS — % OF CAPACITY',
+        ),
+      );
+      for (const r of payload?.reservoirs ?? [])
+        resWrap.appendChild(reservoirRow(r));
+      rivWrap.appendChild(
+        el(
+          'div',
+          {
+            style:
+              'font-size:10px;letter-spacing:.1em;color:#8aa4d6;margin-top:6px;',
+          },
+          'RIVERS — GAGE VS FLOOD STAGE',
+        ),
+      );
       for (const r of payload?.rivers ?? []) rivWrap.appendChild(riverRow(r));
       rivWrap.appendChild(
-        el('div', { style: 'font-size:10px;color:#7d8fb3;margin-top:4px;' },
-          'Bands vs curated reference stages — not official NWS categories. Capacities are approximate.'),
+        el(
+          'div',
+          { style: 'font-size:10px;color:#7d8fb3;margin-top:4px;' },
+          'Bands vs curated reference stages — not official NWS categories. Capacities are approximate.',
+        ),
       );
     },
     fail(reason) {
@@ -134,7 +189,9 @@ async function addGlobeMarkers(viewer, rivers) {
       }),
     );
   }
-  return () => { for (const e of entities) viewer.entities.remove(e); };
+  return () => {
+    for (const e of entities) viewer.entities.remove(e);
+  };
 }
 
 /** Approximate marker positions for the curated river gauges (from the registry). */
@@ -153,11 +210,21 @@ async function addRadarLayer(viewer, tileTemplate) {
     maximumLevel: 10,
   });
   const layer = viewer.imageryLayers.addImageryProvider(provider);
-  try { layer.alpha = 0.55; } catch {}
-  return () => { try { viewer.imageryLayers.remove(layer); } catch {} };
+  try {
+    layer.alpha = 0.55;
+  } catch {}
+  return () => {
+    try {
+      viewer.imageryLayers.remove(layer);
+    } catch {}
+  };
 }
 
-export function initWaterTwin({ viewer = null, fetchImpl = fetch, mount = null } = {}) {
+export function initWaterTwin({
+  viewer = null,
+  fetchImpl = fetch,
+  mount = null,
+} = {}) {
   const section = createWaterTwinSection();
   if (mount) mount(section.element);
   let timer = null;
@@ -177,12 +244,19 @@ export function initWaterTwin({ viewer = null, fetchImpl = fetch, mount = null }
         if (stopped) return;
         section.setPrecip(precip);
         if (viewer) {
-          try { removeRadar?.(); } catch {}
-          removeRadar = await addRadarLayer(viewer, precip.available ? precip.tileTemplate : null);
+          try {
+            removeRadar?.();
+          } catch {}
+          removeRadar = await addRadarLayer(
+            viewer,
+            precip.available ? precip.tileTemplate : null,
+          );
         }
       } catch {}
       if (viewer) {
-        try { removeMarkers?.(); } catch {}
+        try {
+          removeMarkers?.();
+        } catch {}
         removeMarkers = await addGlobeMarkers(viewer, payload.rivers ?? []);
       }
     } catch (error) {
@@ -196,8 +270,12 @@ export function initWaterTwin({ viewer = null, fetchImpl = fetch, mount = null }
     destroy() {
       stopped = true;
       if (timer) clearInterval(timer);
-      try { removeMarkers?.(); } catch {}
-      try { removeRadar?.(); } catch {}
+      try {
+        removeMarkers?.();
+      } catch {}
+      try {
+        removeRadar?.();
+      } catch {}
       section.element.remove();
     },
   };

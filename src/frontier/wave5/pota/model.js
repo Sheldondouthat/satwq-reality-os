@@ -11,7 +11,8 @@ export function modeColor(mode) {
   const m = String(mode ?? '').toUpperCase();
   if (m === 'CW') return '#ffb454';
   if (m === 'SSB' || m === 'LSB' || m === 'USB') return '#4dd0a6';
-  if (['FT8', 'FT4', 'FM', 'AM', 'PSK31', 'RTTY', 'DATA'].includes(m)) return '#6aa8ff';
+  if (['FT8', 'FT4', 'FM', 'AM', 'PSK31', 'RTTY', 'DATA'].includes(m))
+    return '#6aa8ff';
   return '#8a93a6';
 }
 
@@ -21,10 +22,18 @@ export function bandLabel(frequencyKhz) {
   if (!Number.isFinite(f) || f <= 0) return '—';
   const mhz = f / 1000;
   const bands = [
-    [1.8, 2.0, '160m'], [3.5, 4.0, '80m'], [7.0, 7.3, '40m'],
-    [10.1, 10.15, '30m'], [14.0, 14.35, '20m'], [18.068, 18.168, '17m'],
-    [21.0, 21.45, '15m'], [24.89, 24.99, '12m'], [28.0, 29.7, '10m'],
-    [50, 54, '6m'], [144, 148, '2m'], [420, 450, '70cm'],
+    [1.8, 2.0, '160m'],
+    [3.5, 4.0, '80m'],
+    [7.0, 7.3, '40m'],
+    [10.1, 10.15, '30m'],
+    [14.0, 14.35, '20m'],
+    [18.068, 18.168, '17m'],
+    [21.0, 21.45, '15m'],
+    [24.89, 24.99, '12m'],
+    [28.0, 29.7, '10m'],
+    [50, 54, '6m'],
+    [144, 148, '2m'],
+    [420, 450, '70cm'],
   ];
   for (const [lo, hi, label] of bands) {
     if (mhz >= lo && mhz <= hi) return label;
@@ -51,7 +60,9 @@ export function spotLabel(spot) {
   const call = String(spot?.activator ?? '');
   const band = bandLabel(spot?.frequencyKhz);
   const mode = String(spot?.mode ?? '');
-  return [call, band !== '—' ? band : null, mode || null].filter(Boolean).join(' · ');
+  return [call, band !== '—' ? band : null, mode || null]
+    .filter(Boolean)
+    .join(' · ');
 }
 
 /** Keep only spots with usable coords, capped for the globe. */
@@ -62,7 +73,15 @@ export function plottableSpots(spots, cap = 300) {
 }
 
 export function escapeHtml(s) {
-  return String(s ?? '').replace(/[&<>"']/g, (c) => ({
-    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
-  })[c]);
+  return String(s ?? '').replace(
+    /[&<>"']/g,
+    (c) =>
+      ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;',
+      })[c],
+  );
 }

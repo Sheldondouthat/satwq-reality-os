@@ -13,7 +13,11 @@ export { createMeteorSource } from './source.js';
 export { METEOR_SHOWERS, showersActiveOn } from './records.js';
 
 /** Own one meteor-shower display and its refresh lifecycle. */
-export function createMeteorsLayer({ source, overlayHost, now = () => new Date() } = {}) {
+export function createMeteorsLayer({
+  source,
+  overlayHost,
+  now = () => new Date(),
+} = {}) {
   if (typeof source?.getSnapshot !== 'function')
     throw new TypeError('Meteors require a snapshot source');
   if (!overlayHost) throw new TypeError('Meteors require an overlay host');
@@ -113,15 +117,11 @@ export function createMeteorsLayer({ source, overlayHost, now = () => new Date()
         _dataSource.entities.removeAll();
         for (const entity of nextEntities) _dataSource.entities.add(entity);
         if (_enabled) {
-          overlayHost.setEntries(
-            METEOR_OVERLAY_SOURCE_ID,
-            overlayEntries,
-            {
-              cohortLimit: METEOR_OVERLAY_COHORT_LIMIT,
-              collisionCapacity: METEOR_OVERLAY_COLLISION_CAPACITY,
-              moving: false,
-            },
-          );
+          overlayHost.setEntries(METEOR_OVERLAY_SOURCE_ID, overlayEntries, {
+            cohortLimit: METEOR_OVERLAY_COHORT_LIMIT,
+            collisionCapacity: METEOR_OVERLAY_COLLISION_CAPACITY,
+            moving: false,
+          });
         }
 
         _count = count;

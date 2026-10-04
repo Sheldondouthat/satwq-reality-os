@@ -4,35 +4,35 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 9 (inat2 worker)).
  */
 export const SPEC = {
-  "id": "inat-birds-glacier-np",
-  "title": "Recent bird observations in Glacier National Park — iNaturalist (Aves taxon_id=3, place_id=72841)",
-  "url": "https://api.inaturalist.org/v1/observations?per_page=20&order_by=observed_on&order=desc&taxon_id=3&place_id=72841",
-  "extract": {
-    "items": "$.results",
-    "limit": 20,
-    "map": {
-      "observation_id": "$.id",
-      "species_guess": "$.species_guess",
-      "scientific_name": "$.taxon.name",
-      "common_name": "$.taxon.preferred_common_name",
-      "iconic_taxon": "$.taxon.iconic_taxon_name",
-      "observed_on": "$.observed_on",
-      "location": "$.location",
-      "quality_grade": "$.quality_grade",
-      "observer": "$.user.login",
-      "observation_url": "$.uri"
+  id: 'inat-birds-glacier-np',
+  title:
+    'Recent bird observations in Glacier National Park — iNaturalist (Aves taxon_id=3, place_id=72841)',
+  url: 'https://api.inaturalist.org/v1/observations?per_page=20&order_by=observed_on&order=desc&taxon_id=3&place_id=72841',
+  extract: {
+    items: '$.results',
+    limit: 20,
+    map: {
+      observation_id: '$.id',
+      species_guess: '$.species_guess',
+      scientific_name: '$.taxon.name',
+      common_name: '$.taxon.preferred_common_name',
+      iconic_taxon: '$.taxon.iconic_taxon_name',
+      observed_on: '$.observed_on',
+      location: '$.location',
+      quality_grade: '$.quality_grade',
+      observer: '$.user.login',
+      observation_url: '$.uri',
     },
-    "numbers": []
+    numbers: [],
   },
-  "required": [
-    "observation_id"
-  ],
-  "honesty": "Recent bird observations in Glacier National Park; API reports 4949 total matching records. Fixture: 20 rows (1244837 bytes), 20/20 rows carry observation_id, 20/20 carry scientific_name, 20/20 carry species_guess, 20/20 carry coordinates, 20/20 carry observed_on, 20/20 carry observer. Coordinates absent on some rows. Verified 200 OK from this VM.",
-  "headers": {},
-  "ttlSeconds": 86400,
-  "source": "iNaturalist",
-  "attribution": "Data: iNaturalist.org — keyless, CC0/CC-BY.",
-  "units": {},
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 9 (inat2 worker)"
+  required: ['observation_id'],
+  honesty:
+    'Recent bird observations in Glacier National Park; API reports 4949 total matching records. Fixture: 20 rows (1244837 bytes), 20/20 rows carry observation_id, 20/20 carry scientific_name, 20/20 carry species_guess, 20/20 carry coordinates, 20/20 carry observed_on, 20/20 carry observer. Coordinates absent on some rows. Verified 200 OK from this VM.',
+  headers: {},
+  ttlSeconds: 86400,
+  source: 'iNaturalist',
+  attribution: 'Data: iNaturalist.org — keyless, CC0/CC-BY.',
+  units: {},
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 9 (inat2 worker)',
 };

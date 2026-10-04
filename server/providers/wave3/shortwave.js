@@ -30,7 +30,8 @@ export const SHORTWAVE_ROUTE = '/api/shortwave-oracle';
 
 const EIBI_ROUTE = '/api/eibi';
 const SPOTS_ROUTE = '/api/invisible-ocean/spots';
-const FLUX_URL = 'https://services.swpc.noaa.gov/products/summary/10cm-flux.json';
+const FLUX_URL =
+  'https://services.swpc.noaa.gov/products/summary/10cm-flux.json';
 const KP_URL = 'https://services.swpc.noaa.gov/json/planetary_k_index_1m.json';
 
 const CACHE_TTL_MS = 5 * 60_000;
@@ -104,7 +105,11 @@ export function bandForMhz(freqMhz, table = HAM_BANDS) {
 export function mufEstimate(flux) {
   const f = Number(flux);
   if (!Number.isFinite(f) || f <= 0) {
-    return { dayMufMhz: null, nightMufMhz: null, model: 'foF2≈2.2+0.026×F10.7, M=3.3' };
+    return {
+      dayMufMhz: null,
+      nightMufMhz: null,
+      model: 'foF2≈2.2+0.026×F10.7, M=3.3',
+    };
   }
   const foF2Day = 2.2 + 0.026 * f;
   const round1 = (v) => Math.round(v * 10) / 10;
@@ -141,18 +146,29 @@ export function kpPenalty(kp) {
  *   sky       (30%): day/night × Kp heuristic
  * Returns null when there is no data at all for the band.
  */
-export function scoreBand({ band, wsprCount, wsprMedianSnr, eibiCount, kp, hourUtc }) {
-  const hasData =
-    Number.isFinite(wsprCount) || Number.isFinite(eibiCount);
+export function scoreBand({
+  band,
+  wsprCount,
+  wsprMedianSnr,
+  eibiCount,
+  kp,
+  hourUtc,
+}) {
+  const hasData = Number.isFinite(wsprCount) || Number.isFinite(eibiCount);
   if (!hasData) return null;
   const count = Number.isFinite(wsprCount) ? wsprCount : 0;
   const snr = Number.isFinite(wsprMedianSnr) ? wsprMedianSnr : null;
   const measured =
     Math.min(1, count / 25) * 0.6 +
     (snr === null ? 0 : Math.max(0, Math.min(1, (snr + 25) / 30)) * 0.4);
-  const scheduled = Math.min(1, (Number.isFinite(eibiCount) ? eibiCount : 0) / 40);
+  const scheduled = Math.min(
+    1,
+    (Number.isFinite(eibiCount) ? eibiCount : 0) / 40,
+  );
   const sky = dayNightFactor(band.centerMhz, hourUtc) * kpPenalty(kp);
-  const score = Math.round(100 * (0.5 * measured + 0.2 * scheduled + 0.3 * sky));
+  const score = Math.round(
+    100 * (0.5 * measured + 0.2 * scheduled + 0.3 * sky),
+  );
   return {
     score,
     components: {
@@ -175,8 +191,15 @@ export function verdictFor(score) {
  * Build the oracle document from raw inputs. All inputs optional —
  * missing pieces degrade to "unknown" rather than failing.
  */
-export function buildOracle({ eibiOnAir = [], spots = [], flux = null, kp = null, nowMs = Date.now() } = {}) {
-  const hourUtc = new Date(nowMs).getUTCHours() + new Date(nowMs).getUTCMinutes() / 60;
+export function buildOracle({
+  eibiOnAir = [],
+  spots = [],
+  flux = null,
+  kp = null,
+  nowMs = Date.now(),
+} = {}) {
+  const hourUtc =
+    new Date(nowMs).getUTCHours() + new Date(nowMs).getUTCMinutes() / 60;
   // null-safe numeric coercion: Number(null) === 0 would fabricate solar data
   const numOrNull = (v) =>
     v === null || v === undefined || v === '' || !Number.isFinite(Number(v))
@@ -200,9 +223,7 @@ export function buildOracle({ eibiOnAir = [], spots = [], flux = null, kp = null
     const finite = snrs.filter(Number.isFinite).sort((a, b) => a - b);
     wsprStats.set(band, {
       count: snrs.length,
-      medianSnr: finite.length
-        ? finite[Math.floor(finite.length / 2)]
-        : null,
+      medianSnr: finite.length ? finite[Math.floor(finite.length / 2)] : null,
     });
   }
 
@@ -259,7 +280,9 @@ export function buildOracle({ eibiOnAir = [], spots = [], flux = null, kp = null
     },
     muf: mufEstimate(fluxNum),
     bands,
-    bestBand: best ? { band: best.band, score: best.score, verdict: best.verdict } : null,
+    bestBand: best
+      ? { band: best.band, score: best.score, verdict: best.verdict }
+      : null,
     sources: {
       eibiOnAir: eibiOnAir.length,
       wsprSpots30m: [...wsprByBand.values()].reduce((a, v) => a + v.length, 0),
@@ -320,13 +343,23 @@ export function shortwaveOracleProxy({
     const timed = (p) => {
       const c = new AbortController();
       const t = setTimeout(() => c.abort(), timeoutMs);
-      return { signal: c.signal, done: () => clearTimeout(t), promise: p(c.signal) };
+      return {
+        signal: c.signal,
+        done: () => clearTimeout(t),
+        promise: p(c.signal),
+      };
     };
     const jobs = [];
     // Sibling APIs (already cached by their owners) — degrade independently.
     if (origin) {
-      jobs.push(['eibi', timed((s) => fetchJson(`${origin}${EIBI_ROUTE}`, fetchImpl, s))]);
-      jobs.push(['spots', timed((s) => fetchJson(`${origin}${SPOTS_ROUTE}`, fetchImpl, s))]);
+      jobs.push([
+        'eibi',
+        timed((s) => fetchJson(`${origin}${EIBI_ROUTE}`, fetchImpl, s)),
+      ]);
+      jobs.push([
+        'spots',
+        timed((s) => fetchJson(`${origin}${SPOTS_ROUTE}`, fetchImpl, s)),
+      ]);
     }
     jobs.push(['flux', timed((s) => fetchJson(FLUX_URL, fetchImpl, s))]);
     jobs.push(['kp', timed((s) => fetchJson(KP_URL, fetchImpl, s))]);
@@ -344,16 +377,18 @@ export function shortwaveOracleProxy({
       }),
     );
 
-    const eibiOnAir = out.eibi?.ok ? out.eibi.data?.onAir ?? [] : [];
-    const spots = out.spots?.ok ? out.spots.data?.spots ?? [] : [];
+    const eibiOnAir = out.eibi?.ok ? (out.eibi.data?.onAir ?? []) : [];
+    const spots = out.spots?.ok ? (out.spots.data?.spots ?? []) : [];
     const fluxDoc = out.flux?.ok ? out.flux.data : null;
-    const flux = Array.isArray(fluxDoc) && fluxDoc.length
-      ? Number(fluxDoc[fluxDoc.length - 1]?.flux)
-      : null;
+    const flux =
+      Array.isArray(fluxDoc) && fluxDoc.length
+        ? Number(fluxDoc[fluxDoc.length - 1]?.flux)
+        : null;
     const kpDoc = out.kp?.ok ? out.kp.data : null;
-    const kp = Array.isArray(kpDoc) && kpDoc.length
-      ? Number(kpDoc[kpDoc.length - 1]?.kp_index)
-      : null;
+    const kp =
+      Array.isArray(kpDoc) && kpDoc.length
+        ? Number(kpDoc[kpDoc.length - 1]?.kp_index)
+        : null;
 
     return {
       at: Date.now(),
@@ -393,7 +428,10 @@ export function shortwaveOracleProxy({
           try {
             mem = await refreshSingleFlight(originFromReq(req));
           } catch (err) {
-            console.warn('[shortwave-oracle] upstream failed:', err?.message || err);
+            console.warn(
+              '[shortwave-oracle] upstream failed:',
+              err?.message || err,
+            );
             if (!mem) {
               sendJson(503, { error: 'shortwave_oracle_unavailable' });
               return;

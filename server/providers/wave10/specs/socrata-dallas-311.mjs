@@ -4,32 +4,31 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 4 (new socrata cities)).
  */
 export const SPEC = {
-  "attribution": "Data: City of Dallas — dallasopendata.com (Socrata) — keyless Socrata API.",
-  "extract": {
-    "items": "$",
-    "limit": 50,
-    "map": {
-      "address": "$.address",
-      "description": "$.method_received_description",
-      "key": "$.service_request_number",
-      "status": "$.status",
-      "time": "$.created_date",
-      "type": "$.service_request_type"
+  attribution:
+    'Data: City of Dallas — dallasopendata.com (Socrata) — keyless Socrata API.',
+  extract: {
+    items: '$',
+    limit: 50,
+    map: {
+      address: '$.address',
+      description: '$.method_received_description',
+      key: '$.service_request_number',
+      status: '$.status',
+      time: '$.created_date',
+      type: '$.service_request_type',
     },
-    "numbers": []
+    numbers: [],
   },
-  "headers": {},
-  "honesty": "Dallas 311 service requests, fresh through 2026-10-01; created_date is ISO-8601; district/department columns present; note city_council_district is a text label, not a number.",
-  "id": "socrata-dallas-311",
-  "required": [
-    "key",
-    "type"
-  ],
-  "source": "City of Dallas — dallasopendata.com (Socrata)",
-  "title": "Dallas (dallasopendata.com) — 311 service requests",
-  "ttlSeconds": 1800,
-  "units": {},
-  "url": "https://www.dallasopendata.com/resource/gc4d-8a49.json?$limit=50&$order=created_date%20DESC",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 4 (new socrata cities)"
+  headers: {},
+  honesty:
+    'Dallas 311 service requests, fresh through 2026-10-01; created_date is ISO-8601; district/department columns present; note city_council_district is a text label, not a number.',
+  id: 'socrata-dallas-311',
+  required: ['key', 'type'],
+  source: 'City of Dallas — dallasopendata.com (Socrata)',
+  title: 'Dallas (dallasopendata.com) — 311 service requests',
+  ttlSeconds: 1800,
+  units: {},
+  url: 'https://www.dallasopendata.com/resource/gc4d-8a49.json?$limit=50&$order=created_date%20DESC',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 4 (new socrata cities)',
 };

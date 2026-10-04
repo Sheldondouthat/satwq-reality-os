@@ -6,7 +6,13 @@
  * for observations that carry coordinates (iNaturalist + GBIF).
  */
 import * as Cesium from 'cesium';
-import { feedGlyph, hasCoords, observationSubtitle, observationsWithCoords, taxonColor } from './model.js';
+import {
+  feedGlyph,
+  hasCoords,
+  observationSubtitle,
+  observationsWithCoords,
+  taxonColor,
+} from './model.js';
 
 const API = '/api/biosphere';
 const REFRESH_MS = 30 * 60_000;
@@ -57,7 +63,10 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
             style: Cesium.LabelStyle.FILL_AND_OUTLINE,
             verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
             pixelOffset: new Cesium.Cartesian2(0, -10),
-            distanceDisplayCondition: new Cesium.DistanceDisplayCondition(0, 8_000_000),
+            distanceDisplayCondition: new Cesium.DistanceDisplayCondition(
+              0,
+              8_000_000,
+            ),
           }),
           description:
             `<b>${escapeHtml(o.name ?? 'observation')}</b><br>` +
@@ -65,7 +74,9 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
               ? `<i>${escapeHtml(o.scientificName)}</i><br>`
               : '') +
             `Source: ${escapeHtml(o.feed ?? '')}<br>` +
-            (o.observed ? `Observed: ${escapeHtml(String(o.observed).slice(0, 10))}<br>` : '') +
+            (o.observed
+              ? `Observed: ${escapeHtml(String(o.observed).slice(0, 10))}<br>`
+              : '') +
             (o.url
               ? `<a href="${escapeHtml(o.url)}" target="_blank" rel="noopener">record</a>`
               : ''),
@@ -74,23 +85,34 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
     }
 
     function escapeHtml(s) {
-      return String(s).replace(/[&<>"']/g, (c) => ({
-        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
-      }[c]));
+      return String(s).replace(
+        /[&<>"']/g,
+        (c) =>
+          ({
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#39;',
+          })[c],
+      );
     }
 
     let listEl = null;
     let statusEl = null;
     function renderList(items, payload) {
       if (statusEl) {
-        const degraded = Array.isArray(payload?.degradedSources) && payload.degradedSources.length
-          ? ` · degraded: ${payload.degradedSources.join(', ')}`
-          : '';
+        const degraded =
+          Array.isArray(payload?.degradedSources) &&
+          payload.degradedSources.length
+            ? ` · degraded: ${payload.degradedSources.join(', ')}`
+            : '';
         statusEl.textContent = `${items.length} observations (${observationsWithCoords(items).length} mapped)${degraded}`;
       }
       if (!listEl) return;
       if (!items.length) {
-        listEl.innerHTML = '<div style="opacity:.6">biosphere feed unavailable</div>';
+        listEl.innerHTML =
+          '<div style="opacity:.6">biosphere feed unavailable</div>';
         return;
       }
       listEl.innerHTML = items
@@ -126,11 +148,13 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
     if (mount && typeof chip === 'function') {
       try {
         statusEl = document.createElement('div');
-        statusEl.style.cssText = 'font-size:10px;color:#8aa4d6;margin:2px 0 4px;';
+        statusEl.style.cssText =
+          'font-size:10px;color:#8aa4d6;margin:2px 0 4px;';
         statusEl.textContent = 'biosphere ticker: loading…';
         mount.appendChild(statusEl);
         listEl = document.createElement('div');
-        listEl.style.cssText = 'font-size:10px;color:#c8d6f5;max-height:220px;overflow-y:auto;';
+        listEl.style.cssText =
+          'font-size:10px;color:#c8d6f5;max-height:220px;overflow-y:auto;';
         mount.appendChild(listEl);
         const apply = (on) => setEnabled(on);
         if (typeof trackLayer === 'function') {
@@ -139,14 +163,20 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
             disable: () => setEnabled(false),
           });
           mount.appendChild(
-            chip(T('feature.biosphere') || 'Biosphere ticker', (on) =>
-              on ? tracked.show() : tracked.hide(), false),
+            chip(
+              T('feature.biosphere') || 'Biosphere ticker',
+              (on) => (on ? tracked.show() : tracked.hide()),
+              false,
+            ),
           );
         } else {
-          mount.appendChild(chip(T('feature.biosphere') || 'Biosphere ticker', apply, false));
+          mount.appendChild(
+            chip(T('feature.biosphere') || 'Biosphere ticker', apply, false),
+          );
         }
         const legend = document.createElement('div');
-        legend.style.cssText = 'font-size:10px;color:#8aa4d6;margin-top:4px;line-height:1.5;';
+        legend.style.cssText =
+          'font-size:10px;color:#8aa4d6;margin-top:4px;line-height:1.5;';
         legend.innerHTML =
           '<span style="opacity:.75">iNaturalist + GBIF. Points fade beyond ' +
           '8,000 km. Click a point for the record link.</span>';

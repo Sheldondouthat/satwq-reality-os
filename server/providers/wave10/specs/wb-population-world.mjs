@@ -4,47 +4,45 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch-4 diversity worker).
  */
 export const SPEC = {
-  "attribution": "Data: World Bank (CC BY-4.0) — keyless.",
-  "extract": {
-    "items": "$[1]",
-    "limit": 50,
-    "map": {
-      "country": "$.country.value",
-      "indicator": "$.indicator.value",
-      "population": "$.value",
-      "year": "$.date"
+  attribution: 'Data: World Bank (CC BY-4.0) — keyless.',
+  extract: {
+    items: '$[1]',
+    limit: 50,
+    map: {
+      country: '$.country.value',
+      indicator: '$.indicator.value',
+      population: '$.value',
+      year: '$.date',
     },
-    "numbers": [
-      "population"
-    ]
+    numbers: ['population'],
   },
-  "fieldMap": {
-    "country": "aggregate name (World)",
-    "indicator": "indicator label",
-    "population": "total world population (people)",
-    "year": "calendar year"
+  fieldMap: {
+    country: 'aggregate name (World)',
+    indicator: 'indicator label',
+    population: 'total world population (people)',
+    year: 'calendar year',
   },
-  "headers": {
-    "User-Agent": "satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)"
+  headers: {
+    'User-Agent':
+      'satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)',
   },
-  "honestLabels": {
-    "coverage": "World aggregate (WLD), 2000–2024, one observation per year.",
-    "freshness": "Annual series; latest observation per World Bank lastupdated 2026-07-13.",
-    "model": "None — official World Bank WDI aggregate."
+  honestLabels: {
+    coverage: 'World aggregate (WLD), 2000–2024, one observation per year.',
+    freshness:
+      'Annual series; latest observation per World Bank lastupdated 2026-07-13.',
+    model: 'None — official World Bank WDI aggregate.',
   },
-  "honesty": "Annual World Bank WDI series SP.POP.TOTL for the world aggregate. Estimates, updated yearly — not real-time.",
-  "id": "wb-population-world",
-  "required": [
-    "year",
-    "population"
-  ],
-  "source": "World Bank World Development Indicators",
-  "title": "World Bank — world population, total (annual)",
-  "ttlSeconds": 86400,
-  "units": {
-    "population": "people"
+  honesty:
+    'Annual World Bank WDI series SP.POP.TOTL for the world aggregate. Estimates, updated yearly — not real-time.',
+  id: 'wb-population-world',
+  required: ['year', 'population'],
+  source: 'World Bank World Development Indicators',
+  title: 'World Bank — world population, total (annual)',
+  ttlSeconds: 86400,
+  units: {
+    population: 'people',
   },
-  "url": "https://api.worldbank.org/v2/country/WLD/indicator/SP.POP.TOTL?format=json&per_page=60&date=2000:2024",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch-4 diversity worker"
+  url: 'https://api.worldbank.org/v2/country/WLD/indicator/SP.POP.TOTL?format=json&per_page=60&date=2000:2024',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch-4 diversity worker',
 };

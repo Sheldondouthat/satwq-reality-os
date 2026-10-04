@@ -35,7 +35,8 @@ const STATIC_CAP = 16 * 1024 * 1024; // heavy dump — hard cap; truncation thro
 const STATIC_CACHE_TTL_MS = 30 * 60_000; // snapshot refreshes hourly
 const STATIC_STALE_MS = 2 * 60 * 60_000;
 const STATIC_MAX_SENSORS = 50_000;
-const USER_AGENT = 'satwq-reality-os/1.0 (Sensor.Community public sensor data; contact via repo)';
+const USER_AGENT =
+  'satwq-reality-os/1.0 (Sensor.Community public sensor data; contact via repo)';
 
 const CACHE_TTL_MS = 5 * 60_000; // citizen sensors report every ~2-5 min
 const STALE_MS = 30 * 60_000;
@@ -96,7 +97,13 @@ export function summarizeSensors(sensors) {
         maxPm25: Math.max(...pm25s),
         worstAqi: Math.max(...sensors.map((s) => s.aqi ?? 0)),
       }
-    : { count: sensors.length, withPm25: 0, avgPm25: null, maxPm25: null, worstAqi: 0 };
+    : {
+        count: sensors.length,
+        withPm25: 0,
+        avgPm25: null,
+        maxPm25: null,
+        worstAqi: 0,
+      };
 }
 
 /** Validate lat/lon/r query. Throws {status}. */
@@ -167,7 +174,10 @@ export function parseSensorPayload(text, { maxSensors = MAX_SENSORS } = {}) {
  * if it were complete. Returns unfiltered normalized sensors (area
  * filtering happens per-request via filterToArea).
  */
-export function parseStaticPayload(text, { maxSensors = STATIC_MAX_SENSORS } = {}) {
+export function parseStaticPayload(
+  text,
+  { maxSensors = STATIC_MAX_SENSORS } = {},
+) {
   let docs;
   try {
     docs = JSON.parse(text);
@@ -175,7 +185,9 @@ export function parseStaticPayload(text, { maxSensors = STATIC_MAX_SENSORS } = {
     throw Object.assign(new Error('air_static_truncated'), { status: 502 });
   }
   if (!Array.isArray(docs))
-    throw Object.assign(new Error('air_static_unexpected_shape'), { status: 502 });
+    throw Object.assign(new Error('air_static_unexpected_shape'), {
+      status: 502,
+    });
   const sensors = [];
   for (const rec of docs) {
     const s = parseSensorRecord(rec);
@@ -190,8 +202,10 @@ function describe(value, { stale = false, reason = null, via = 'area' } = {}) {
     schemaVersion: 1,
     source: 'Sensor.Community citizen sensors via local proxy',
     via, // 'area' (airrohr filter API) or 'static' (hourly global snapshot, area-filtered locally)
-    attribution: 'Sensor data © Sensor.Community contributors (volunteer network).',
-    aqiModel: 'US EPA PM2.5 breakpoints mapped to 1-6 categories — estimate, not an official AQI.',
+    attribution:
+      'Sensor data © Sensor.Community contributors (volunteer network).',
+    aqiModel:
+      'US EPA PM2.5 breakpoints mapped to 1-6 categories — estimate, not an official AQI.',
     fetchedAt: value?.fetchedAt ?? null,
     stale,
     unavailable: !value,
@@ -215,7 +229,8 @@ export function sensorCommunityProxy({
   let staticInflight = null;
   let staticAttemptedAt = -Infinity;
 
-  const areaKey = (area) => `${area.lat.toFixed(2)},${area.lon.toFixed(2)},${area.r}`;
+  const areaKey = (area) =>
+    `${area.lat.toFixed(2)},${area.lon.toFixed(2)},${area.r}`;
 
   async function fetchUpstream(area, signal) {
     const url = `${UPSTREAM}${area.lat},${area.lon},${area.r}`;
@@ -247,13 +262,18 @@ export function sensorCommunityProxy({
     });
     if (!response.ok) {
       await response.body?.cancel().catch(() => {});
-      throw Object.assign(new Error(`air_static_http_${response.status}`), { status: 502 });
+      throw Object.assign(new Error(`air_static_http_${response.status}`), {
+        status: 502,
+      });
     }
     let text;
     try {
       text = await readResponseTextCapped(response, STATIC_CAP, signal);
     } catch (error) {
-      throw Object.assign(new Error(`air_static_too_large: ${error?.message ?? 'unknown'}`), { status: 502 });
+      throw Object.assign(
+        new Error(`air_static_too_large: ${error?.message ?? 'unknown'}`),
+        { status: 502 },
+      );
     }
     signal.throwIfAborted();
     return { sensors: parseStaticPayload(text), fetchedAt: now() };
@@ -265,7 +285,8 @@ export function sensorCommunityProxy({
       return Promise.resolve({ value: staticCache, stale: false });
     signal.throwIfAborted();
     if (!staticInflight) {
-      if (now() - staticAttemptedAt < RETRY_COOLDOWN_MS) throw new Error('air_static_retry_later');
+      if (now() - staticAttemptedAt < RETRY_COOLDOWN_MS)
+        throw new Error('air_static_retry_later');
       staticAttemptedAt = now();
       const controller = new AbortController();
       const timer = setTimeout(() => controller.abort(), timeoutMs + 60_000);
@@ -293,7 +314,12 @@ export function sensorCommunityProxy({
     const { value, stale } = await acquireStatic(signal);
     const sensors = filterToArea(value.sensors, area).slice(0, MAX_SENSORS);
     return {
-      value: { area, sensors, summary: summarizeSensors(sensors), fetchedAt: value.fetchedAt },
+      value: {
+        area,
+        sensors,
+        summary: summarizeSensors(sensors),
+        fetchedAt: value.fetchedAt,
+      },
       stale,
       via: 'static',
     };
@@ -362,11 +388,15 @@ export function sensorCommunityProxy({
     res.once?.('close', close);
     const json = (status, value) => {
       if (controller.signal.aborted) return;
-      res.writeHead(status, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
+      res.writeHead(status, {
+        'Content-Type': 'application/json',
+        'Cache-Control': 'no-store',
+      });
       res.end(JSON.stringify(value));
     };
     try {
-      if (req.method !== 'GET') return json(405, { error: 'method_not_allowed' });
+      if (req.method !== 'GET')
+        return json(405, { error: 'method_not_allowed' });
       const query = new URL(req.url, 'http://localhost').searchParams;
       let area;
       try {
@@ -381,7 +411,11 @@ export function sensorCommunityProxy({
         return json(error.status ?? 400, { error: error.message });
       }
       try {
-        const { value, stale, via } = await acquire(area, controller.signal, mode);
+        const { value, stale, via } = await acquire(
+          area,
+          controller.signal,
+          mode,
+        );
         json(200, describe(value, { stale, via }));
       } catch (error) {
         if (error.status === 502)
@@ -396,7 +430,8 @@ export function sensorCommunityProxy({
         const key = areaKey(area);
         const hit = cache.get(key);
         const usable = hit && now() - hit.fetchedAt <= STALE_MS;
-        const staticUsable = staticCache && now() - staticCache.at <= STATIC_STALE_MS;
+        const staticUsable =
+          staticCache && now() - staticCache.at <= STATIC_STALE_MS;
         if (usable) {
           json(
             200,
@@ -407,18 +442,34 @@ export function sensorCommunityProxy({
             }),
           );
         } else if (staticUsable) {
-          const sensors = filterToArea(staticCache.sensors, area).slice(0, MAX_SENSORS);
+          const sensors = filterToArea(staticCache.sensors, area).slice(
+            0,
+            MAX_SENSORS,
+          );
           json(
             200,
             describe(
-              { area, sensors, summary: summarizeSensors(sensors), fetchedAt: staticCache.fetchedAt },
-              { stale: true, via: 'static', reason: 'Sensor.Community unreachable; showing last static snapshot.' },
+              {
+                area,
+                sensors,
+                summary: summarizeSensors(sensors),
+                fetchedAt: staticCache.fetchedAt,
+              },
+              {
+                stale: true,
+                via: 'static',
+                reason:
+                  'Sensor.Community unreachable; showing last static snapshot.',
+              },
             ),
           );
         } else {
           json(
             200,
-            describe(null, { reason: 'Sensor.Community unreachable and no cached sweep exists.' }),
+            describe(null, {
+              reason:
+                'Sensor.Community unreachable and no cached sweep exists.',
+            }),
           );
         }
       }

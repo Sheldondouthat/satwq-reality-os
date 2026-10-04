@@ -36,9 +36,17 @@ const PRESSURE_COLORS = {
 };
 
 function escapeHtml(s) {
-  return String(s ?? '').replace(/[&<>"']/g, (c) => ({
-    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
-  })[c]);
+  return String(s ?? '').replace(
+    /[&<>"']/g,
+    (c) =>
+      ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;',
+      })[c],
+  );
 }
 
 /* fmtPa, envelopeSparkline, audifyEnvelope live in ./model.js (node-testable). */
@@ -69,7 +77,8 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
         render(json.stations ?? []);
         updateStatus(json);
       } catch {
-        if (statusEl) statusEl.textContent = 'infrasound unavailable — retrying';
+        if (statusEl)
+          statusEl.textContent = 'infrasound unavailable — retrying';
       }
     }
 
@@ -111,7 +120,9 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
     function updateStatus(json) {
       if (!statusEl) return;
       const live = (json.stations ?? []).filter((s) => s.state === 'live');
-      const hot = live.filter((s) => s.pressure === 'loud' || s.pressure === 'elevated');
+      const hot = live.filter(
+        (s) => s.pressure === 'loud' || s.pressure === 'elevated',
+      );
       statusEl.textContent =
         live.length === 0
           ? 'no live infrasound stations'
@@ -175,11 +186,13 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
     if (mount && typeof chip === 'function') {
       try {
         statusEl = document.createElement('div');
-        statusEl.style.cssText = 'font-size:10px;color:#8aa4d6;margin:2px 0 4px;';
+        statusEl.style.cssText =
+          'font-size:10px;color:#8aa4d6;margin:2px 0 4px;';
         statusEl.textContent = 'listening for eruptions…';
         mount.appendChild(statusEl);
         panelEl = document.createElement('div');
-        panelEl.style.cssText = 'font-size:11px;color:#c8d6f5;max-height:320px;overflow:auto;';
+        panelEl.style.cssText =
+          'font-size:11px;color:#c8d6f5;max-height:320px;overflow:auto;';
         mount.appendChild(panelEl);
         const apply = (on) => setEnabled(on);
         if (typeof trackLayer === 'function') {
@@ -188,14 +201,20 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
             disable: () => setEnabled(false),
           });
           mount.appendChild(
-            chip(T('feature.infrasound') || 'Volcano infrasound', (on) =>
-              on ? tracked.show() : tracked.hide(), false),
+            chip(
+              T('feature.infrasound') || 'Volcano infrasound',
+              (on) => (on ? tracked.show() : tracked.hide()),
+              false,
+            ),
           );
         } else {
-          mount.appendChild(chip(T('feature.infrasound') || 'Volcano infrasound', apply, false));
+          mount.appendChild(
+            chip(T('feature.infrasound') || 'Volcano infrasound', apply, false),
+          );
         }
         const legend = document.createElement('div');
-        legend.style.cssText = 'font-size:10px;color:#8aa4d6;margin-top:4px;line-height:1.5;';
+        legend.style.cssText =
+          'font-size:10px;color:#8aa4d6;margin-top:4px;line-height:1.5;';
         legend.innerHTML =
           '<span style="color:#4dd0a6">●</span> quiet · ' +
           '<span style="color:#ffd166">●</span> active · ' +

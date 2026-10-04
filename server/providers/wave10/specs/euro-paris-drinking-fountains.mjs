@@ -4,35 +4,34 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 7 (euro worker)).
  */
 export const SPEC = {
-  "attribution": "Data: Ville de Paris — opendata.paris.fr (Opendatasoft API) — keyless.",
-  "extract": {
-    "items": "$.results",
-    "limit": 50,
-    "map": {
-      "available": "$.dispo",
-      "commune": "$.commune",
-      "geo": "$.geo_point_2d",
-      "model": "$.modele",
-      "object_type": "$.type_objet",
-      "record_id": "$.gid",
-      "street": "$.voie"
+  attribution:
+    'Data: Ville de Paris — opendata.paris.fr (Opendatasoft API) — keyless.',
+  extract: {
+    items: '$.results',
+    limit: 50,
+    map: {
+      available: '$.dispo',
+      commune: '$.commune',
+      geo: '$.geo_point_2d',
+      model: '$.modele',
+      object_type: '$.type_objet',
+      record_id: '$.gid',
+      street: '$.voie',
     },
-    "numbers": []
+    numbers: [],
   },
-  "headers": {},
-  "honesty": "Drinking-fountain directory (type, availability, location). Civic data; no personal identifiers. Verified 50 rows in fixture (24510 bytes); 1323 fountains total.",
-  "id": "euro-paris-drinking-fountains",
-  "required": [
-    "street",
-    "commune"
-  ],
-  "source": "Ville de Paris — opendata.paris.fr (Opendatasoft)",
-  "title": "Paris — drinking fountains",
-  "ttlSeconds": 3600,
-  "units": {
-    "geo": "lon,lat"
+  headers: {},
+  honesty:
+    'Drinking-fountain directory (type, availability, location). Civic data; no personal identifiers. Verified 50 rows in fixture (24510 bytes); 1323 fountains total.',
+  id: 'euro-paris-drinking-fountains',
+  required: ['street', 'commune'],
+  source: 'Ville de Paris — opendata.paris.fr (Opendatasoft)',
+  title: 'Paris — drinking fountains',
+  ttlSeconds: 3600,
+  units: {
+    geo: 'lon,lat',
   },
-  "url": "https://opendata.paris.fr/api/explore/v2.1/catalog/datasets/fontaines-a-boire/records?limit=50",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 7 (euro worker)"
+  url: 'https://opendata.paris.fr/api/explore/v2.1/catalog/datasets/fontaines-a-boire/records?limit=50',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 7 (euro worker)',
 };

@@ -4,32 +4,31 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 4 (new socrata cities)).
  */
 export const SPEC = {
-  "attribution": "Data: City of New Orleans — data.nola.gov (Socrata) — keyless Socrata API.",
-  "extract": {
-    "items": "$",
-    "limit": 50,
-    "map": {
-      "address": "$.address",
-      "description": "$.description",
-      "key": "$.numstring",
-      "status": "$.currentstatus",
-      "time": "$.filingdate",
-      "type": "$.type"
+  attribution:
+    'Data: City of New Orleans — data.nola.gov (Socrata) — keyless Socrata API.',
+  extract: {
+    items: '$',
+    limit: 50,
+    map: {
+      address: '$.address',
+      description: '$.description',
+      key: '$.numstring',
+      status: '$.currentstatus',
+      time: '$.filingdate',
+      type: '$.type',
     },
-    "numbers": []
+    numbers: [],
   },
-  "headers": {},
-  "honesty": "New Orleans building/permit records (Permits dataset), max filingdate 2026-10-01; filingdate is ISO-8601; fee fields are numeric strings; contractor and owner fields are often blank.",
-  "id": "socrata-neworleans-permits",
-  "required": [
-    "key",
-    "type"
-  ],
-  "source": "City of New Orleans — data.nola.gov (Socrata)",
-  "title": "New Orleans (data.nola.gov) — building permits",
-  "ttlSeconds": 1800,
-  "units": {},
-  "url": "https://data.nola.gov/resource/rcm3-fn58.json?$limit=50&$order=filingdate%20DESC",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 4 (new socrata cities)"
+  headers: {},
+  honesty:
+    'New Orleans building/permit records (Permits dataset), max filingdate 2026-10-01; filingdate is ISO-8601; fee fields are numeric strings; contractor and owner fields are often blank.',
+  id: 'socrata-neworleans-permits',
+  required: ['key', 'type'],
+  source: 'City of New Orleans — data.nola.gov (Socrata)',
+  title: 'New Orleans (data.nola.gov) — building permits',
+  ttlSeconds: 1800,
+  units: {},
+  url: 'https://data.nola.gov/resource/rcm3-fn58.json?$limit=50&$order=filingdate%20DESC',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 4 (new socrata cities)',
 };

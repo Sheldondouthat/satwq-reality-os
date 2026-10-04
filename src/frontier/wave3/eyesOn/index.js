@@ -76,7 +76,10 @@ export function isImagingCandidate(name) {
  */
 export function parseTleText(text) {
   if (typeof text !== 'string') return [];
-  const lines = text.split(/\r?\n/).map((l) => l.trimEnd()).filter((l) => l.length > 0);
+  const lines = text
+    .split(/\r?\n/)
+    .map((l) => l.trimEnd())
+    .filter((l) => l.length > 0);
   const out = [];
   for (let i = 0; i + 2 < lines.length; i += 3) {
     const [name, line1, line2] = [lines[i], lines[i + 1], lines[i + 2]];
@@ -106,7 +109,13 @@ export function formatUtc(ms) {
  * {name, satrec}. Runs in time-sliced chunks so the UI stays responsive.
  * Pure w.r.t. its inputs (SGP4 math only). Exported for tests.
  */
-export async function findEarliestPass(candidates, latDeg, lonDeg, fromMs, onProgress) {
+export async function findEarliestPass(
+  candidates,
+  latDeg,
+  lonDeg,
+  fromMs,
+  onProgress,
+) {
   let best = null;
   let done = 0;
   for (const cand of candidates) {
@@ -165,9 +174,23 @@ export function init({ viewer, dock } = {}) {
   let currentBest = null;
   let observer = { lat: NaN, lon: NaN };
 
-  const status = el('div', { style: 'margin-top:6px;min-height:18px;color:#9fc2ff;font-size:11px;' }, 'Pick a point, then find the next imaging overpass.');
-  const latInput = el('input', { type: 'text', placeholder: 'lat', 'aria-label': 'Latitude', style: INPUT_STYLE });
-  const lonInput = el('input', { type: 'text', placeholder: 'lon', 'aria-label': 'Longitude', style: INPUT_STYLE });
+  const status = el(
+    'div',
+    { style: 'margin-top:6px;min-height:18px;color:#9fc2ff;font-size:11px;' },
+    'Pick a point, then find the next imaging overpass.',
+  );
+  const latInput = el('input', {
+    type: 'text',
+    placeholder: 'lat',
+    'aria-label': 'Latitude',
+    style: INPUT_STYLE,
+  });
+  const lonInput = el('input', {
+    type: 'text',
+    placeholder: 'lon',
+    'aria-label': 'Longitude',
+    style: INPUT_STYLE,
+  });
 
   const findBtn = el(
     'button',
@@ -182,7 +205,9 @@ export function init({ viewer, dock } = {}) {
   const clearTrack = () => {
     if (viewer) {
       for (const e of trackEntities) {
-        try { viewer.entities.remove(e); } catch {}
+        try {
+          viewer.entities.remove(e);
+        } catch {}
       }
     }
     trackEntities = [];
@@ -216,9 +241,15 @@ export function init({ viewer, dock } = {}) {
       positions.push(new Cartesian3(ecf.x * 1000, ecf.y * 1000, ecf.z * 1000));
     }
     if (positions.length < 2) return;
-    trackEntities.push(viewer.entities.add({
-      polyline: { positions, width: 2, material: Color.fromCssColorString('#7CFFB2').withAlpha(0.9) },
-    }));
+    trackEntities.push(
+      viewer.entities.add({
+        polyline: {
+          positions,
+          width: 2,
+          material: Color.fromCssColorString('#7CFFB2').withAlpha(0.9),
+        },
+      }),
+    );
   }
 
   function stopCountdown() {
@@ -236,12 +267,32 @@ export function init({ viewer, dock } = {}) {
       const { name, pass } = currentBest;
       if (now < pass.riseMs) {
         status.innerHTML = '';
-        status.appendChild(el('div', { style: 'font-size:15px;color:#7CFFB2;' }, `👁 EYES ON in ${formatCountdown(pass.riseMs - now)}`));
-        status.appendChild(el('div', {}, `${name} — rises ${formatUtc(pass.riseMs)}, peak ${pass.maxElevDeg.toFixed(0)}° at ${formatUtc(pass.maxElevMs)}`));
+        status.appendChild(
+          el(
+            'div',
+            { style: 'font-size:15px;color:#7CFFB2;' },
+            `👁 EYES ON in ${formatCountdown(pass.riseMs - now)}`,
+          ),
+        );
+        status.appendChild(
+          el(
+            'div',
+            {},
+            `${name} — rises ${formatUtc(pass.riseMs)}, peak ${pass.maxElevDeg.toFixed(0)}° at ${formatUtc(pass.maxElevMs)}`,
+          ),
+        );
       } else if (now <= pass.setMs) {
         status.innerHTML = '';
-        status.appendChild(el('div', { style: 'font-size:15px;color:#ffd97a;' }, '👁 OVERHEAD NOW'));
-        status.appendChild(el('div', {}, `${name} — sets ${formatUtc(pass.setMs)}`));
+        status.appendChild(
+          el(
+            'div',
+            { style: 'font-size:15px;color:#ffd97a;' },
+            '👁 OVERHEAD NOW',
+          ),
+        );
+        status.appendChild(
+          el('div', {}, `${name} — sets ${formatUtc(pass.setMs)}`),
+        );
       } else {
         status.textContent = 'Pass complete — searching for the next one…';
         stopCountdown();
@@ -255,8 +306,14 @@ export function init({ viewer, dock } = {}) {
   async function runSearch() {
     const lat = Number.parseFloat(latInput.value);
     const lon = Number.parseFloat(lonInput.value);
-    if (!Number.isFinite(lat) || Math.abs(lat) > 90 || !Number.isFinite(lon) || Math.abs(lon) > 180) {
-      status.textContent = 'Enter a valid latitude (−90…90) and longitude (−180…180), or pick a point on the globe.';
+    if (
+      !Number.isFinite(lat) ||
+      Math.abs(lat) > 90 ||
+      !Number.isFinite(lon) ||
+      Math.abs(lon) > 180
+    ) {
+      status.textContent =
+        'Enter a valid latitude (−90…90) and longitude (−180…180), or pick a point on the globe.';
       return;
     }
     observer = { lat, lon };
@@ -266,16 +323,22 @@ export function init({ viewer, dock } = {}) {
     findBtn.disabled = true;
     try {
       status.textContent = 'Fetching CelesTrak TLEs…';
-      const res = await fetch(TLE_GROUP_URL, { headers: { accept: 'text/plain' } });
+      const res = await fetch(TLE_GROUP_URL, {
+        headers: { accept: 'text/plain' },
+      });
       if (!res.ok) throw new Error(`TLE feed HTTP ${res.status}`);
       const text = await res.text();
       const all = parseTleText(text);
       const imaging = all.filter((t) => isImagingCandidate(t.name));
-      if (!imaging.length) throw new Error('no imaging candidates in TLE group');
+      if (!imaging.length)
+        throw new Error('no imaging candidates in TLE group');
       const candidates = [];
       for (const t of imaging) {
         try {
-          candidates.push({ name: t.name, satrec: twoline2satrec(t.line1, t.line2) });
+          candidates.push({
+            name: t.name,
+            satrec: twoline2satrec(t.line1, t.line2),
+          });
         } catch {}
       }
       status.textContent = `Scanning ${candidates.length} imaging candidates over ${HORIZON_HOURS} h…`;
@@ -284,14 +347,20 @@ export function init({ viewer, dock } = {}) {
         lat,
         lon,
         Date.now(),
-        (done, total) => { status.textContent = `Scanning ${done}/${total} imaging candidates…`; },
+        (done, total) => {
+          status.textContent = `Scanning ${done}/${total} imaging candidates…`;
+        },
       );
       if (!best) {
         status.textContent = `No imaging overpass above ${MIN_ELEV_DEG}° in the next ${HORIZON_HOURS} h. Try a longer horizon or another point.`;
         return;
       }
       currentBest = best;
-      await drawGroundTrack(best.pass && candidates.find((c) => c.name === best.name)?.satrec, best.pass.riseMs, best.pass.setMs);
+      await drawGroundTrack(
+        best.pass && candidates.find((c) => c.name === best.name)?.satrec,
+        best.pass.riseMs,
+        best.pass.setMs,
+      );
       startCountdown();
     } catch (error) {
       status.textContent = `Overpass search failed: ${error?.message ?? error}`;
@@ -315,17 +384,22 @@ export function init({ viewer, dock } = {}) {
   async function setPicking(next) {
     picking = next;
     pickBtn.setAttribute('aria-pressed', String(picking));
-    pickBtn.style.background = picking ? 'rgba(90,160,255,.35)' : 'rgba(30,45,70,.6)';
+    pickBtn.style.background = picking
+      ? 'rgba(90,160,255,.35)'
+      : 'rgba(30,45,70,.6)';
     if (picking && viewer) {
       try {
         const C = await import('cesium');
         const handler = new C.ScreenSpaceEventHandler(viewer.scene.canvas);
         handler.setInputAction((movement) => {
-          const cartesian = viewer.camera.pickEllipsoid(movement.position, C.Ellipsoid.WGS84);
+          const cartesian = viewer.camera.pickEllipsoid(
+            movement.position,
+            C.Ellipsoid.WGS84,
+          );
           if (cartesian) {
             const carto = C.Cartographic.fromCartesian(cartesian);
-            latInput.value = (carto.latitude * 180 / Math.PI).toFixed(3);
-            lonInput.value = (carto.longitude * 180 / Math.PI).toFixed(3);
+            latInput.value = ((carto.latitude * 180) / Math.PI).toFixed(3);
+            lonInput.value = ((carto.longitude * 180) / Math.PI).toFixed(3);
             status.textContent = `Target set: ${latInput.value}, ${lonInput.value} — hit "Find next eyes-on".`;
           }
           setPicking(false);
@@ -335,7 +409,9 @@ export function init({ viewer, dock } = {}) {
         setPicking(false);
       }
     } else if (clickHandler) {
-      try { clickHandler.destroy(); } catch {}
+      try {
+        clickHandler.destroy();
+      } catch {}
       clickHandler = null;
     }
   }
@@ -356,8 +432,8 @@ export function init({ viewer, dock } = {}) {
           try {
             const C = await import('cesium');
             const carto = viewer.camera.positionCartographic;
-            latInput.value = (C.Math.toDegrees(carto.latitude)).toFixed(3);
-            lonInput.value = (C.Math.toDegrees(carto.longitude)).toFixed(3);
+            latInput.value = C.Math.toDegrees(carto.latitude).toFixed(3);
+            lonInput.value = C.Math.toDegrees(carto.longitude).toFixed(3);
           } catch {}
         });
         return b;
@@ -367,9 +443,18 @@ export function init({ viewer, dock } = {}) {
   if (dock) {
     section = el('div', { style: 'margin-top:10px;' });
     section.appendChild(
-      el('div', { style: 'font-size:10px;letter-spacing:.12em;color:#8aa4d6;margin-bottom:4px;font-weight:600;' }, t('feature.eyesOn')),
+      el(
+        'div',
+        {
+          style:
+            'font-size:10px;letter-spacing:.12em;color:#8aa4d6;margin-bottom:4px;font-weight:600;',
+        },
+        t('feature.eyesOn'),
+      ),
     );
-    const row = el('div', { style: 'display:flex;gap:4px;align-items:center;flex-wrap:wrap;' });
+    const row = el('div', {
+      style: 'display:flex;gap:4px;align-items:center;flex-wrap:wrap;',
+    });
     row.appendChild(latInput);
     row.appendChild(lonInput);
     if (viewer) row.appendChild(pickBtn);
@@ -393,7 +478,9 @@ export function init({ viewer, dock } = {}) {
         'border:1px solid rgba(120,180,255,.25);border-radius:10px;padding:10px;color:#dfe9ff;' +
         'font:11px/1.5 system-ui,sans-serif;max-width:250px;',
     });
-    floating.appendChild(el('div', { style: 'font-weight:600;margin-bottom:6px;' }, '👁 EYES-ON'));
+    floating.appendChild(
+      el('div', { style: 'font-weight:600;margin-bottom:6px;' }, '👁 EYES-ON'),
+    );
     const row = el('div', { style: 'display:flex;gap:4px;margin-bottom:6px;' });
     row.appendChild(latInput);
     row.appendChild(lonInput);
@@ -408,7 +495,9 @@ export function init({ viewer, dock } = {}) {
     stopCountdown();
     clearTrack();
     if (clickHandler) {
-      try { clickHandler.destroy(); } catch {}
+      try {
+        clickHandler.destroy();
+      } catch {}
       clickHandler = null;
     }
     if (section) section.remove();

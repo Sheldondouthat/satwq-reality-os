@@ -4,37 +4,32 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 4 (usgs water+volcano worker)).
  */
 export const SPEC = {
-  "headers": {},
-  "ttlSeconds": 3600,
-  "extract": {
-    "items": "$.value.timeSeries",
-    "limit": 40,
-    "map": {
-      "name": "$.sourceInfo.siteName",
-      "site": "$.sourceInfo.siteCode[0].value",
-      "value": "$.values[0].value[0].value",
-      "time": "$.values[0].value[0].dateTime",
-      "lat": "$.sourceInfo.geoLocation.geogLocation.latitude",
-      "lon": "$.sourceInfo.geoLocation.geogLocation.longitude"
+  headers: {},
+  ttlSeconds: 3600,
+  extract: {
+    items: '$.value.timeSeries',
+    limit: 40,
+    map: {
+      name: '$.sourceInfo.siteName',
+      site: '$.sourceInfo.siteCode[0].value',
+      value: '$.values[0].value[0].value',
+      time: '$.values[0].value[0].dateTime',
+      lat: '$.sourceInfo.geoLocation.geogLocation.latitude',
+      lon: '$.sourceInfo.geoLocation.geogLocation.longitude',
     },
-    "numbers": [
-      "value",
-      "lat",
-      "lon"
-    ]
+    numbers: ['value', 'lat', 'lon'],
   },
-  "required": [
-    "name"
-  ],
-  "source": "USGS Water Services (NWIS)",
-  "attribution": "Data: U.S. Geological Survey, NWIS — keyless.",
-  "units": {
-    "value": "ft"
+  required: ['name'],
+  source: 'USGS Water Services (NWIS)',
+  attribution: 'Data: U.S. Geological Survey, NWIS — keyless.',
+  units: {
+    value: 'ft',
   },
-  "honesty": "Instantaneous gage height (stage) at Fargo — a key spring-flood watch site — typically updated every 15-60 min; provisional values possible (qualifier P).",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 4 (usgs water+volcano worker)",
-  "id": "usgs-water-stage-redriver-fargo",
-  "title": "USGS Water — Red River stage (Fargo, ND)",
-  "url": "https://waterservices.usgs.gov/nwis/iv/?format=json&sites=05054000&parameterCd=00065"
+  honesty:
+    'Instantaneous gage height (stage) at Fargo — a key spring-flood watch site — typically updated every 15-60 min; provisional values possible (qualifier P).',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 4 (usgs water+volcano worker)',
+  id: 'usgs-water-stage-redriver-fargo',
+  title: 'USGS Water — Red River stage (Fargo, ND)',
+  url: 'https://waterservices.usgs.gov/nwis/iv/?format=json&sites=05054000&parameterCd=00065',
 };

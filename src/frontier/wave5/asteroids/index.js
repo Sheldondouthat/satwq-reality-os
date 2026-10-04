@@ -77,7 +77,10 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
         const tMs = parseCd(a?.cd);
         return Number.isFinite(tMs) && tMs >= now - 86400_000; // keep recent past briefly visible
       });
-      const rows = (upcoming.length ? upcoming : lastApproaches).slice(0, MAX_ROWS);
+      const rows = (upcoming.length ? upcoming : lastApproaches).slice(
+        0,
+        MAX_ROWS,
+      );
       listEl.innerHTML = rows.length
         ? rows
             .map((a) => {
@@ -112,11 +115,13 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
     if (mount && typeof chip === 'function') {
       try {
         statusEl = document.createElement('div');
-        statusEl.style.cssText = 'font-size:10px;color:#8aa4d6;margin:2px 0 4px;';
+        statusEl.style.cssText =
+          'font-size:10px;color:#8aa4d6;margin:2px 0 4px;';
         statusEl.textContent = 'tracking close approaches…';
         mount.appendChild(statusEl);
         listEl = document.createElement('div');
-        listEl.style.cssText = 'font-size:10px;color:#c8d6f5;margin:2px 0;line-height:1.5;';
+        listEl.style.cssText =
+          'font-size:10px;color:#c8d6f5;margin:2px 0;line-height:1.5;';
         listEl.style.display = 'none';
         mount.appendChild(listEl);
         const apply = (on) => setEnabled(on);
@@ -126,14 +131,20 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
             disable: () => setEnabled(false),
           });
           mount.appendChild(
-            chip(T('feature.asteroids') || 'Asteroid flybys', (on) =>
-              on ? tracked.show() : tracked.hide(), false),
+            chip(
+              T('feature.asteroids') || 'Asteroid flybys',
+              (on) => (on ? tracked.show() : tracked.hide()),
+              false,
+            ),
           );
         } else {
-          mount.appendChild(chip(T('feature.asteroids') || 'Asteroid flybys', apply, false));
+          mount.appendChild(
+            chip(T('feature.asteroids') || 'Asteroid flybys', apply, false),
+          );
         }
         const legend = document.createElement('div');
-        legend.style.cssText = 'font-size:10px;color:#8aa4d6;margin-top:4px;line-height:1.6;';
+        legend.style.cssText =
+          'font-size:10px;color:#8aa4d6;margin-top:4px;line-height:1.6;';
         legend.innerHTML =
           '<span style="color:#ff5a5a">●</span> inside Moon’s orbit (<1 LD) · ' +
           '<span style="color:#ff9f43">●</span> very close (<5 LD) · ' +
@@ -142,7 +153,8 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
           '<span style="opacity:.75">Distances are geocentric; 1 LD = 384,400 km. ' +
           'H is absolute magnitude (brightness) — not a diameter. The wave-3 ' +
           'planetary-defense board (/api/neo) carries the full enriched shape. ' +
-          escapeHtml(API_NOTE) + '</span>';
+          escapeHtml(API_NOTE) +
+          '</span>';
         mount.appendChild(legend);
       } catch {
         /* dock UI optional */

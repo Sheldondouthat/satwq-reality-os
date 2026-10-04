@@ -13,13 +13,16 @@ export function pickVoice(voices = []) {
   if (!voices.length) return null;
   const en = voices.filter((v) => /^en([-_]|$)/i.test(v?.lang || ''));
   const pool = en.length ? en : voices;
-  const natural = pool.find((v) => /natural|neural|samantha|zira|google us english/i.test(v?.name || ''));
+  const natural = pool.find((v) =>
+    /natural|neural|samantha|zira|google us english/i.test(v?.name || ''),
+  );
   return natural || pool[0] || null;
 }
 
 function synthOf() {
   try {
-    if (typeof window !== 'undefined' && window.speechSynthesis) return window.speechSynthesis;
+    if (typeof window !== 'undefined' && window.speechSynthesis)
+      return window.speechSynthesis;
     if (typeof speechSynthesis !== 'undefined') return speechSynthesis;
   } catch {
     /* ignore */

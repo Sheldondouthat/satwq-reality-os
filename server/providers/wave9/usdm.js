@@ -43,11 +43,12 @@
  * refresh — far under the Workers subrequest headroom rule.
  */
 
-import { readResponseTextCapped } from "../common/http.js";
+import { readResponseTextCapped } from '../common/http.js';
 
 const API_BASE =
-  "https://usdmdataservices.unl.edu/api/USStatistics/GetBasicStatisticsByAreaPercent";
-const USER_AGENT = "satwq-reality-os/1.0 (gods-eye-view; USDM drought layer; keyless)";
+  'https://usdmdataservices.unl.edu/api/USStatistics/GetBasicStatisticsByAreaPercent';
+const USER_AGENT =
+  'satwq-reality-os/1.0 (gods-eye-view; USDM drought layer; keyless)';
 const UPSTREAM_TIMEOUT_MS = 25_000;
 const BODY_CAP_BYTES = 64 * 1024; // observed ~1 KB; generous headroom
 const CACHE_TTL_MS = 6 * 3600_000; // weekly cadence — 6h TTL is plenty
@@ -55,7 +56,7 @@ const RETRY_COOLDOWN_MS = 60_000;
 const STALE_MS = 9 * 24 * 3600_000; // >9d without a new map reads stale
 const MAX_WEEKS = 8;
 const DEFAULT_WEEKS = 2;
-const LEVELS = ["D1", "D2", "D3", "D4"];
+const LEVELS = ['D1', 'D2', 'D3', 'D4'];
 
 let docCache = null; // {at, parsed, key} — one upstream fetch per weeks-key
 let docInflight = null;
@@ -66,7 +67,7 @@ const PAYLOAD_CACHE_MAX = 16;
 /** Number(null)===0 guard: null/NaN upstream numerics become null, never 0. */
 function numOrNull(v) {
   if (v == null) return null;
-  if (typeof v === "string" && v.trim() === "") return null; // Number('')===0 trap
+  if (typeof v === 'string' && v.trim() === '') return null; // Number('')===0 trap
   const n = Number(v);
   return Number.isFinite(n) ? n : null;
 }
@@ -74,10 +75,10 @@ function numOrNull(v) {
 /** Parse a locale-formatted number ("1,787,430.62") — commas stripped first. */
 function parseLocaleNum(v) {
   if (v == null) return null;
-  if (typeof v === "string") {
+  if (typeof v === 'string') {
     const t = v.trim();
-    if (t === "") return null;
-    return numOrNull(t.replace(/,/g, ""));
+    if (t === '') return null;
+    return numOrNull(t.replace(/,/g, ''));
   }
   return numOrNull(v);
 }
@@ -85,7 +86,7 @@ function parseLocaleNum(v) {
 /** Quote-aware CSV line split (handles "1,787,430.62" and "" escapes). Pure. */
 export function parseCsvLine(line) {
   const fields = [];
-  let cur = "";
+  let cur = '';
   let inQuotes = false;
   for (let i = 0; i < line.length; i++) {
     const ch = line[i];
@@ -102,9 +103,9 @@ export function parseCsvLine(line) {
       }
     } else if (ch === '"') {
       inQuotes = true;
-    } else if (ch === ",") {
+    } else if (ch === ',') {
       fields.push(cur);
-      cur = "";
+      cur = '';
     } else {
       cur += ch;
     }
@@ -114,18 +115,18 @@ export function parseCsvLine(line) {
 }
 
 const HEADER = [
-  "AreaOfInterest",
-  "AreaCurrentPercent",
-  "AreaCurrent",
-  "PopulationCurrent",
-  "PopulationCurrentPercent",
-  "PercentChangeFromWAve",
-  "AreaChangeFromWAve",
-  "StatisticFormatID",
-  "USDMLevelID",
-  "USDMLevel",
-  "AreaMiles",
-  "MapDate",
+  'AreaOfInterest',
+  'AreaCurrentPercent',
+  'AreaCurrent',
+  'PopulationCurrent',
+  'PopulationCurrentPercent',
+  'PercentChangeFromWAve',
+  'AreaChangeFromWAve',
+  'StatisticFormatID',
+  'USDMLevelID',
+  'USDMLevel',
+  'AreaMiles',
+  'MapDate',
 ];
 
 /**
@@ -133,32 +134,36 @@ const HEADER = [
  * Throws {status:502} on bad shape (never returns fabricated rows).
  */
 export function parseUsdmCsv(text) {
-  const fail = (msg) => Object.assign(new Error(`usdm_invalid_csv: ${msg}`), { status: 502 });
-  if (typeof text !== "string" || !text.trim()) throw fail("empty body");
-  const lines = text.split(/\r?\n/).filter((l) => l.trim() !== "");
-  if (lines.length < 2) throw fail("no data rows");
+  const fail = (msg) =>
+    Object.assign(new Error(`usdm_invalid_csv: ${msg}`), { status: 502 });
+  if (typeof text !== 'string' || !text.trim()) throw fail('empty body');
+  const lines = text.split(/\r?\n/).filter((l) => l.trim() !== '');
+  if (lines.length < 2) throw fail('no data rows');
   const header = parseCsvLine(lines[0]).map((h) => h.trim());
   for (let i = 0; i < HEADER.length; i++) {
-    if (header[i] !== HEADER[i]) throw fail(`unexpected header col ${i}: ${header[i]}`);
+    if (header[i] !== HEADER[i])
+      throw fail(`unexpected header col ${i}: ${header[i]}`);
   }
   const rows = [];
   for (const line of lines.slice(1)) {
     const f = parseCsvLine(line);
     if (f.length < HEADER.length) continue; // ragged line — skip, counted
-    const level = (f[9] ?? "").trim().toUpperCase();
+    const level = (f[9] ?? '').trim().toUpperCase();
     rows.push({
-      aoi: (f[0] ?? "").trim() || null,
+      aoi: (f[0] ?? '').trim() || null,
       areaPercent: numOrNull(f[1]),
       areaSqMi: parseLocaleNum(f[2]),
       population: parseLocaleNum(f[3]),
       populationPercent: numOrNull(f[4]),
       level,
       levelId: numOrNull(f[8]),
-      mapDate: /^\d{4}-\d{2}-\d{2}$/.test((f[11] ?? "").trim()) ? f[11].trim() : null,
+      mapDate: /^\d{4}-\d{2}-\d{2}$/.test((f[11] ?? '').trim())
+        ? f[11].trim()
+        : null,
     });
   }
   const dated = rows.filter((r) => r.mapDate && LEVELS.includes(r.level));
-  if (!dated.length) throw fail("no dated D1–D4 rows");
+  if (!dated.length) throw fail('no dated D1–D4 rows');
   return dated;
 }
 
@@ -172,7 +177,9 @@ export function selectWeeks(rows, weeks) {
   const dates = [...byDate.keys()].sort().reverse().slice(0, weeks);
   return dates.map((d) => ({
     mapDate: d,
-    categories: LEVELS.map((lvl) => byDate.get(d).find((r) => r.level === lvl) ?? null).filter(Boolean),
+    categories: LEVELS.map(
+      (lvl) => byDate.get(d).find((r) => r.level === lvl) ?? null,
+    ).filter(Boolean),
   }));
 }
 
@@ -183,12 +190,13 @@ export function selectWeeks(rows, weeks) {
  * read 0.00 in this query mode and are ignored.
  */
 export function buildUsdmPayload(parsed, { nowMs, query }) {
-  const fail = (msg, status = 502) => Object.assign(new Error(`usdm_${msg}`), { status });
+  const fail = (msg, status = 502) =>
+    Object.assign(new Error(`usdm_${msg}`), { status });
   const weekGroups = selectWeeks(parsed, query.weeks);
-  if (!weekGroups.length) throw fail("no_weeks");
+  if (!weekGroups.length) throw fail('no_weeks');
   const latest = weekGroups[0];
   const prev = weekGroups[1] ?? null;
-  if (!latest.categories.length) throw fail("no_categories");
+  if (!latest.categories.length) throw fail('no_categories');
 
   const categories = latest.categories.map((c) => {
     const p = prev?.categories.find((x) => x.level === c.level) ?? null;
@@ -209,9 +217,12 @@ export function buildUsdmPayload(parsed, { nowMs, query }) {
   const byLevel = Object.fromEntries(categories.map((c) => [c.level, c]));
   const d1 = byLevel.D1 ?? {};
   const d3 = byLevel.D3 ?? {};
-  const worst = [...categories].reverse().find((c) => (c.areaPercent ?? 0) > 0) ?? null;
+  const worst =
+    [...categories].reverse().find((c) => (c.areaPercent ?? 0) > 0) ?? null;
   const mapMs = Date.parse(`${latest.mapDate}T12:00:00Z`);
-  const mapAgeDays = Number.isFinite(mapMs) ? Math.max(0, (nowMs - mapMs) / 86_400_000) : null;
+  const mapAgeDays = Number.isFinite(mapMs)
+    ? Math.max(0, (nowMs - mapMs) / 86_400_000)
+    : null;
 
   return {
     generatedAt: new Date(nowMs).toISOString(),
@@ -228,14 +239,18 @@ export function buildUsdmPayload(parsed, { nowMs, query }) {
       worstLevel: worst?.level ?? null,
       worstAreaPercent: worst?.areaPercent ?? null,
     },
-    attribution: "U.S. Drought Monitor (UNL / NOAA / USDA) — usdmdataservices.unl.edu documented REST",
+    attribution:
+      'U.S. Drought Monitor (UNL / NOAA / USDA) — usdmdataservices.unl.edu documented REST',
     honesty: {
-      cadence: "weekly; maps dated Tuesdays, released Thursdays",
+      cadence: 'weekly; maps dated Tuesdays, released Thursdays',
       cumulative:
-        "category rows are cumulative: the D1 row is the share of the US in D1-or-worse drought, not the D1-only band",
-      categoriesAvailable: "D1–D4 only — D0/None are not exposed by this UNL statistics variant and are never synthesized",
-      scope: "national only — StateStatistics AOI queries returned empty during 2026-09-30 verification",
-      deltas: "weekOverWeek wowDeltaPctPoints are provider-computed from consecutive weekly rows (percentage points)",
+        'category rows are cumulative: the D1 row is the share of the US in D1-or-worse drought, not the D1-only band',
+      categoriesAvailable:
+        'D1–D4 only — D0/None are not exposed by this UNL statistics variant and are never synthesized',
+      scope:
+        'national only — StateStatistics AOI queries returned empty during 2026-09-30 verification',
+      deltas:
+        'weekOverWeek wowDeltaPctPoints are provider-computed from consecutive weekly rows (percentage points)',
     },
   };
 }
@@ -249,25 +264,27 @@ function buildUsdmUrl(weeks, nowMs) {
   const endMs = nowMs;
   const startMs = nowMs - weeks * 7 * 86_400_000;
   const q = new URLSearchParams({
-    aoi: "TOTAL",
-    dx: "1",
-    DxLevelThresholdFrom: "0",
-    DxLevelThresholdTo: "70",
+    aoi: 'TOTAL',
+    dx: '1',
+    DxLevelThresholdFrom: '0',
+    DxLevelThresholdTo: '70',
     startdate: fmtUsDate(startMs),
     enddate: fmtUsDate(endMs),
-    statisticsType: "1",
+    statisticsType: '1',
   });
   return `${API_BASE}?${q.toString()}`;
 }
 
 function parseQuery(url) {
-  const params = new URL(url, "http://localhost").searchParams;
-  const weeksRaw = params.get("weeks");
+  const params = new URL(url, 'http://localhost').searchParams;
+  const weeksRaw = params.get('weeks');
   let weeks = DEFAULT_WEEKS;
   if (weeksRaw != null) {
     const n = Number(weeksRaw.trim());
     if (!Number.isInteger(n) || n < 1 || n > MAX_WEEKS)
-      throw Object.assign(new Error(`usdm_bad_weeks: ${weeksRaw}`), { status: 400 });
+      throw Object.assign(new Error(`usdm_bad_weeks: ${weeksRaw}`), {
+        status: 400,
+      });
     weeks = n;
   }
   return { weeks, key: `weeks=${weeks}` };
@@ -281,10 +298,13 @@ async function fetchUpstream(fetchImpl, weeks, nowMs) {
       signal: controller.signal,
       // NOTE: redirect:'follow' — workerd supports only 'follow'/'manual';
       // 'error' throws at the edge (main 2ec4053).
-      redirect: "follow",
-      headers: { "User-Agent": USER_AGENT, Accept: "text/csv, text/plain" },
+      redirect: 'follow',
+      headers: { 'User-Agent': USER_AGENT, Accept: 'text/csv, text/plain' },
     });
-    if (!res.ok) throw Object.assign(new Error(`usdm_upstream_${res.status}`), { status: 502 });
+    if (!res.ok)
+      throw Object.assign(new Error(`usdm_upstream_${res.status}`), {
+        status: 502,
+      });
     const text = await readResponseTextCapped(res, BODY_CAP_BYTES); // throws when too large
     return parseUsdmCsv(text); // throws {status:502} on bad shape
   } finally {
@@ -292,21 +312,23 @@ async function fetchUpstream(fetchImpl, weeks, nowMs) {
   }
 }
 
-function sendJson(res, status, body, cacheControl = "public, max-age=21600") {
+function sendJson(res, status, body, cacheControl = 'public, max-age=21600') {
   res.writeHead(status, {
-    "Content-Type": "application/json; charset=utf-8",
-    "Cache-Control": cacheControl,
+    'Content-Type': 'application/json; charset=utf-8',
+    'Cache-Control': cacheControl,
   });
   res.end(JSON.stringify(body));
 }
 
 async function getDoc(fetchImpl, weeks, nowMs, signal) {
   const key = `weeks=${weeks}`;
-  if (docCache && docCache.key === key && nowMs - docCache.at < CACHE_TTL_MS) return docCache.parsed;
+  if (docCache && docCache.key === key && nowMs - docCache.at < CACHE_TTL_MS)
+    return docCache.parsed;
   signal?.throwIfAborted?.();
   if (!docInflight) {
     // Retry gate fires only after a FAILED doc fetch.
-    if (nowMs - docFailedAt < RETRY_COOLDOWN_MS) throw new Error("usdm_retry_later");
+    if (nowMs - docFailedAt < RETRY_COOLDOWN_MS)
+      throw new Error('usdm_retry_later');
     docInflight = fetchUpstream(fetchImpl, weeks, nowMs)
       .then((parsed) => {
         docCache = { at: nowMs, parsed, key };
@@ -324,9 +346,9 @@ async function getDoc(fetchImpl, weeks, nowMs, signal) {
   const wait = docInflight;
   if (!signal) return wait;
   const cancelled = new Promise((_, reject) => {
-    const abort = () => reject(signal.reason ?? new Error("cancelled"));
-    signal.addEventListener("abort", abort, { once: true });
-    const detach = () => signal.removeEventListener("abort", abort);
+    const abort = () => reject(signal.reason ?? new Error('cancelled'));
+    signal.addEventListener('abort', abort, { once: true });
+    const detach = () => signal.removeEventListener('abort', abort);
     wait.then(detach, detach);
   });
   return Promise.race([wait, cancelled]);
@@ -350,49 +372,63 @@ async function getPayload(fetchImpl, query, nowMs, signal) {
     // Stale fallback is key-scoped: only serve a payload captured for THIS query.
     const hit = payloadCache.get(query.key);
     if (hit && nowMs - hit.at <= STALE_MS)
-      return { ...hit.payload, generatedAt: new Date(nowMs).toISOString(), stale: true };
+      return {
+        ...hit.payload,
+        generatedAt: new Date(nowMs).toISOString(),
+        stale: true,
+      };
     throw error;
   }
 }
 
 export function usdmProxy({ fetchImpl = fetch, now = () => Date.now() } = {}) {
   async function handler(req, res) {
-    if (req.method !== "GET")
-      return sendJson(res, 405, { error: "method_not_allowed" }, "no-store");
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
     const controller = new AbortController();
     const close = () => controller.abort();
-    res.once?.("close", close);
+    res.once?.('close', close);
     try {
       let query;
       try {
         query = parseQuery(req.url);
       } catch (error) {
-        return sendJson(res, 400, { error: "usdm_bad_request", detail: error.message }, "no-store");
+        return sendJson(
+          res,
+          400,
+          { error: 'usdm_bad_request', detail: error.message },
+          'no-store',
+        );
       }
       try {
-        const payload = await getPayload(fetchImpl, query, now(), controller.signal);
+        const payload = await getPayload(
+          fetchImpl,
+          query,
+          now(),
+          controller.signal,
+        );
         sendJson(res, 200, payload);
       } catch (error) {
         const upstreamFail =
           error?.status === 502 ||
-          error?.name === "AbortError" ||
-          /aborted?|fetch failed/i.test(error?.message ?? "");
+          error?.name === 'AbortError' ||
+          /aborted?|fetch failed/i.test(error?.message ?? '');
         sendJson(
           res,
           upstreamFail ? 502 : 500,
-          { error: "usdm_unavailable", detail: error?.message ?? "unknown" },
-          "no-store",
+          { error: 'usdm_unavailable', detail: error?.message ?? 'unknown' },
+          'no-store',
         );
       }
     } finally {
-      res.removeListener?.("close", close);
+      res.removeListener?.('close', close);
     }
   }
 
   return {
-    name: "usdm",
+    name: 'usdm',
     configureServer({ middlewares }) {
-      middlewares.use("/api/usdm", handler);
+      middlewares.use('/api/usdm', handler);
     },
   };
 }

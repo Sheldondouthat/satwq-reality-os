@@ -16,18 +16,25 @@ import { createAkashicTimeline } from './timeline.js';
 
 export const ARCHIVE_POLL_MS = 10 * 60 * 1000; // 10 minutes
 
-export function initAkashicArchive({ viewer = null, dvr = null, pollMs = ARCHIVE_POLL_MS } = {}) {
+export function initAkashicArchive({
+  viewer = null,
+  dvr = null,
+  pollMs = ARCHIVE_POLL_MS,
+} = {}) {
   if (typeof document === 'undefined') return null;
   const cleanups = [];
   try {
     const storage = typeof window !== 'undefined' ? window.localStorage : null;
-    const store = createAkashicStore({ backend: createLocalStorageBackend(storage) });
+    const store = createAkashicStore({
+      backend: createLocalStorageBackend(storage),
+    });
 
     let stopped = false;
     const sweepOnce = async () => {
       try {
         const summary = await runArchiveSweep(store);
-        if (summary.added > 0) console.info('[akashic] archived', summary.added, 'new events');
+        if (summary.added > 0)
+          console.info('[akashic] archived', summary.added, 'new events');
       } catch (error) {
         console.warn('[akashic] sweep failed:', error);
       }

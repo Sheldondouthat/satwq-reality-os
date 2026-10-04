@@ -19,16 +19,19 @@ export const EMOJI = '🔊';
 export const LABEL = 'IMS infrasound';
 
 export function valueLine(doc) {
-      if (isUnavailable(doc)) return null;
-      const st = doc.station ?? {};
-      const id = pickStr(st.station, st.sid, 'IMS');
-      return withTags(`${EMOJI} IMS ${id} infrasound`, doc);
-    }
+  if (isUnavailable(doc)) return null;
+  const st = doc.station ?? {};
+  const id = pickStr(st.station, st.sid, 'IMS');
+  return withTags(`${EMOJI} IMS ${id} infrasound`, doc);
+}
 
 export function detailLine(doc) {
-      if (isUnavailable(doc)) return '';
-      const st = doc.station ?? {};
-      const lat = pickNum(st.lat);
-      const lon = pickNum(st.lon);
-      return `${pickStr(st.network, '')}${lat != null && lon != null ? ` · ${lat}, ${lon}` : ''}`.replace(/^ · /, '');
-    }
+  if (isUnavailable(doc)) return '';
+  const st = doc.station ?? {};
+  const lat = pickNum(st.lat);
+  const lon = pickNum(st.lon);
+  return `${pickStr(st.network, '')}${lat != null && lon != null ? ` · ${lat}, ${lon}` : ''}`.replace(
+    /^ · /,
+    '',
+  );
+}

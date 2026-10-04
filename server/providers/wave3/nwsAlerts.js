@@ -36,7 +36,9 @@ async function fetchJsonCapped(url, signal) {
       headers: { 'User-Agent': USER_AGENT, Accept: 'application/geo+json' },
     });
     if (!response.ok)
-      throw Object.assign(new Error(`nws_upstream_${response.status}`), { status: 502 });
+      throw Object.assign(new Error(`nws_upstream_${response.status}`), {
+        status: 502,
+      });
     const buffer = await response.arrayBuffer();
     if (buffer.byteLength > BODY_CAP_BYTES)
       throw Object.assign(new Error('nws_upstream_too_large'), { status: 502 });
@@ -60,7 +62,9 @@ function trimGeometry(geometry) {
   const ringify = (rings) =>
     rings.map((ring) => ring.map((pos) => pos.map(roundNum)));
   const coordinates =
-    type === 'Polygon' ? ringify(geometry.coordinates) : geometry.coordinates.map(ringify);
+    type === 'Polygon'
+      ? ringify(geometry.coordinates)
+      : geometry.coordinates.map(ringify);
   return { type, coordinates };
 }
 
@@ -71,9 +75,10 @@ function trimAlert(feature) {
     id: String(feature?.id ?? props.id ?? ''),
     event: String(props.event ?? ''),
     headline: String(props.headline ?? ''),
-    description: description.length > DESCRIPTION_CAP
-      ? description.slice(0, DESCRIPTION_CAP) + '…'
-      : description,
+    description:
+      description.length > DESCRIPTION_CAP
+        ? description.slice(0, DESCRIPTION_CAP) + '…'
+        : description,
     severity: String(props.severity ?? ''),
     certainty: String(props.certainty ?? ''),
     urgency: String(props.urgency ?? ''),
@@ -129,15 +134,21 @@ function sendJson(res, status, body, cacheControl = 'public, max-age=300') {
 /** Mount the NWS alerts proxy. Mirrors the vaac/hmsSmoke provider shape. */
 export function nwsAlertsProxy() {
   async function handler(req, res) {
-    if (req.method !== 'GET') return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
     req.on?.('close', () => {});
     try {
       sendJson(res, 200, await getSnapshot());
     } catch (error) {
-      sendJson(res, error?.status === 502 ? 502 : 500, {
-        error: 'nws_alerts_unavailable',
-        detail: error?.message ?? 'unknown',
-      }, 'no-store');
+      sendJson(
+        res,
+        error?.status === 502 ? 502 : 500,
+        {
+          error: 'nws_alerts_unavailable',
+          detail: error?.message ?? 'unknown',
+        },
+        'no-store',
+      );
     } finally {
       req.removeListener?.('close', () => {});
     }
@@ -158,5 +169,8 @@ export const _nwsAlertsInternals = {
   trimGeometry,
   trimAlert,
   trimNwsAlertsPayload,
-  clearCaches: () => { cache = null; inflight = null; },
+  clearCaches: () => {
+    cache = null;
+    inflight = null;
+  },
 };

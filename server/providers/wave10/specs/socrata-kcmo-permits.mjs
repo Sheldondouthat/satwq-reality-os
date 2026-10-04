@@ -4,38 +4,35 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 3 (socrata worker)).
  */
 export const SPEC = {
-  "id": "socrata-kcmo-permits",
-  "title": "Kansas City (KCMO) Open Data — building permits (CPD)",
-  "url": "https://data.kcmo.org/resource/ntw8-aacc.json?$limit=50&$order=applieddate%20DESC",
-  "headers": {},
-  "ttlSeconds": 3600,
-  "source": "City of Kansas City, Missouri — Open Data KC (Socrata)",
-  "attribution": "Data: City of Kansas City, Missouri — Open Data KC (Socrata) — keyless Socrata API.",
-  "honesty": "City Planning & Development permit records, newest applied first (through 2025). Geocoded. Some rows carry NULL lat/lon/cost strings.",
-  "units": {},
-  "extract": {
-    "items": "$",
-    "limit": 50,
-    "map": {
-      "key": "$.permitnum",
-      "time": "$.applieddate",
-      "type": "$.permittypedesc",
-      "description": "$.description",
-      "address": "$.originaladdress1",
-      "city": "$.originalcity",
-      "status": "$.statuscurrent",
-      "cost": "$.estprojectcost",
-      "lat": "$.latitude",
-      "lon": "$.longitude"
+  id: 'socrata-kcmo-permits',
+  title: 'Kansas City (KCMO) Open Data — building permits (CPD)',
+  url: 'https://data.kcmo.org/resource/ntw8-aacc.json?$limit=50&$order=applieddate%20DESC',
+  headers: {},
+  ttlSeconds: 3600,
+  source: 'City of Kansas City, Missouri — Open Data KC (Socrata)',
+  attribution:
+    'Data: City of Kansas City, Missouri — Open Data KC (Socrata) — keyless Socrata API.',
+  honesty:
+    'City Planning & Development permit records, newest applied first (through 2025). Geocoded. Some rows carry NULL lat/lon/cost strings.',
+  units: {},
+  extract: {
+    items: '$',
+    limit: 50,
+    map: {
+      key: '$.permitnum',
+      time: '$.applieddate',
+      type: '$.permittypedesc',
+      description: '$.description',
+      address: '$.originaladdress1',
+      city: '$.originalcity',
+      status: '$.statuscurrent',
+      cost: '$.estprojectcost',
+      lat: '$.latitude',
+      lon: '$.longitude',
     },
-    "numbers": [
-      "lat",
-      "lon"
-    ]
+    numbers: ['lat', 'lon'],
   },
-  "required": [
-    "key"
-  ],
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 3 (socrata worker)"
+  required: ['key'],
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 3 (socrata worker)',
 };

@@ -114,8 +114,12 @@ function trimStation(systemKey, info, statusById) {
 
 /** Parse one GBFS system's station_status + station_information pair. */
 function parseGbfsSystem(system, statusJson, infoJson) {
-  const statusList = Array.isArray(statusJson?.data?.stations) ? statusJson.data.stations : [];
-  const infoList = Array.isArray(infoJson?.data?.stations) ? infoJson.data.stations : [];
+  const statusList = Array.isArray(statusJson?.data?.stations)
+    ? statusJson.data.stations
+    : [];
+  const infoList = Array.isArray(infoJson?.data?.stations)
+    ? infoJson.data.stations
+    : [];
   const statusById = new Map();
   for (const s of statusList) {
     if (s && s.station_id != null) statusById.set(String(s.station_id), s);
@@ -156,10 +160,16 @@ async function fetchJsonCapped(systemKey, kind, url) {
       headers: { 'User-Agent': USER_AGENT, Accept: 'application/json' },
     });
     if (!response.ok)
-      throw Object.assign(new Error(`bikeshare_${systemKey}_${kind}_upstream_${response.status}`), { status: 502 });
+      throw Object.assign(
+        new Error(`bikeshare_${systemKey}_${kind}_upstream_${response.status}`),
+        { status: 502 },
+      );
     const buffer = await response.arrayBuffer();
     if (buffer.byteLength > BODY_CAP_BYTES)
-      throw Object.assign(new Error(`bikeshare_${systemKey}_${kind}_upstream_too_large`), { status: 502 });
+      throw Object.assign(
+        new Error(`bikeshare_${systemKey}_${kind}_upstream_too_large`),
+        { status: 502 },
+      );
     return JSON.parse(new TextDecoder().decode(buffer));
   } finally {
     clearTimeout(timeout);
@@ -210,7 +220,9 @@ function buildSnapshot(results) {
     stations.push(...r.stations);
   }
   // Station ids are already prefixed per system, but sort for stability.
-  stations.sort((a, b) => (a.system < b.system ? -1 : a.system > b.system ? 1 : a.id < b.id ? -1 : 1));
+  stations.sort((a, b) =>
+    a.system < b.system ? -1 : a.system > b.system ? 1 : a.id < b.id ? -1 : 1,
+  );
   return {
     generatedAt: new Date().toISOString(),
     systems,
@@ -228,7 +240,10 @@ async function getSnapshot() {
         const ok = results.some((r) => r.ok);
         if (!ok) {
           const detail = results.map((r) => `${r.key}:${r.error}`).join('; ');
-          throw Object.assign(new Error(`bikeshare_all_upstream_down: ${detail}`), { status: 502 });
+          throw Object.assign(
+            new Error(`bikeshare_all_upstream_down: ${detail}`),
+            { status: 502 },
+          );
         }
         const payload = buildSnapshot(results);
         cache = { at: Date.now(), payload };
@@ -252,15 +267,24 @@ function sendJson(res, status, body, cacheControl = 'public, max-age=60') {
 /** Mount the wave-6 bikeshare aggregation proxy. Mirrors the quakes provider shape. */
 export function bikeshareProxy() {
   async function handler(req, res) {
-    if (req.method !== 'GET') return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
     try {
       sendJson(res, 200, await getSnapshot());
     } catch (error) {
-      const upstreamFail = error?.status === 502 || error?.name === 'AbortError' || /aborted?/i.test(error?.message ?? '');
-      sendJson(res, upstreamFail ? 502 : 500, {
-        error: 'bikeshare_unavailable',
-        detail: error?.message ?? 'unknown',
-      }, 'no-store');
+      const upstreamFail =
+        error?.status === 502 ||
+        error?.name === 'AbortError' ||
+        /aborted?/i.test(error?.message ?? '');
+      sendJson(
+        res,
+        upstreamFail ? 502 : 500,
+        {
+          error: 'bikeshare_unavailable',
+          detail: error?.message ?? 'unknown',
+        },
+        'no-store',
+      );
     }
   }
 
@@ -279,5 +303,8 @@ export const _bikeshareInternals = {
   trimStation,
   parseGbfsSystem,
   buildSnapshot,
-  clearCaches: () => { cache = null; inflight = null; },
+  clearCaches: () => {
+    cache = null;
+    inflight = null;
+  },
 };

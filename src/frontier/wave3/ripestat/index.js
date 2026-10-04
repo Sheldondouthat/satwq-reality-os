@@ -9,7 +9,12 @@
  * Exported surface: init (fail-soft mount), plus model/source re-exports.
  */
 import { mountPollingLayer, arcPositions } from '../common/layer.js';
-import { locateCollectors, starArcs, pulseSize, PREFIX_COLORS } from './model.js';
+import {
+  locateCollectors,
+  starArcs,
+  pulseSize,
+  PREFIX_COLORS,
+} from './model.js';
 import { createRipestatSource } from './source.js';
 
 export * from './model.js';
@@ -21,7 +26,10 @@ const MAX_COLLECTORS_PER_PREFIX = 12;
 function collectorDescription(prefixDoc, c) {
   const rows = prefixDoc.collectors
     .slice(0, 12)
-    .map((x) => `<tr><td>${x.rrc}</td><td>${x.peers}</td><td>${x.avgPathLen ?? '–'}</td></tr>`)
+    .map(
+      (x) =>
+        `<tr><td>${x.rrc}</td><td>${x.peers}</td><td>${x.avgPathLen ?? '–'}</td></tr>`,
+    )
     .join('');
   return (
     `<h3>${c.rrc.toUpperCase()} — ${c.city} (${c.ixp})</h3>` +
@@ -79,7 +87,13 @@ export function init({ viewer, apiPath = '/api/ripestat-collectors' } = {}) {
             dataSource.entities.add({
               id: `ripestat:arc:${prefixDoc.prefix}:${hub.rrc}-${spoke.rrc}`,
               polyline: {
-                positions: arcPositions(hub.lon, hub.lat, spoke.lon, spoke.lat, 900000),
+                positions: arcPositions(
+                  hub.lon,
+                  hub.lat,
+                  spoke.lon,
+                  spoke.lat,
+                  900000,
+                ),
                 width: 1.5,
                 material: color.withAlpha(0.45),
                 arcType: Cesium.ArcType.NONE,

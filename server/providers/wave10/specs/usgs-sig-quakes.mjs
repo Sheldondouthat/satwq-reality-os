@@ -4,36 +4,32 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 1 (federal worker)).
  */
 export const SPEC = {
-  "id": "usgs-sig-quakes",
-  "title": "USGS — significant earthquakes (M6+)",
-  "url": "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&minmagnitude=6&limit=20&orderby=time",
-  "headers": {
-    "User-Agent": "satwq-reality-os/1.0 (surge-500 probe)"
+  id: 'usgs-sig-quakes',
+  title: 'USGS — significant earthquakes (M6+)',
+  url: 'https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&minmagnitude=6&limit=20&orderby=time',
+  headers: {
+    'User-Agent': 'satwq-reality-os/1.0 (surge-500 probe)',
   },
-  "ttlSeconds": 3600,
-  "extract": {
-    "items": "$.features",
-    "limit": 20,
-    "map": {
-      "mag": "$.properties.mag",
-      "place": "$.properties.place",
-      "timeMs": "$.properties.time",
-      "coords": "$.geometry.coordinates"
+  ttlSeconds: 3600,
+  extract: {
+    items: '$.features',
+    limit: 20,
+    map: {
+      mag: '$.properties.mag',
+      place: '$.properties.place',
+      timeMs: '$.properties.time',
+      coords: '$.geometry.coordinates',
     },
-    "numbers": [
-      "mag"
-    ]
+    numbers: ['mag'],
   },
-  "required": [
-    "place"
-  ],
-  "source": "USGS Earthquake Hazards Program",
-  "attribution": "Data: USGS — keyless.",
-  "units": {
-    "mag": "magnitude",
-    "timeMs": "ms epoch"
+  required: ['place'],
+  source: 'USGS Earthquake Hazards Program',
+  attribution: 'Data: USGS — keyless.',
+  units: {
+    mag: 'magnitude',
+    timeMs: 'ms epoch',
   },
-  "honesty": "M6+ catalog events; not real-time felt reports.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 1 (federal worker)"
+  honesty: 'M6+ catalog events; not real-time felt reports.',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 1 (federal worker)',
 };

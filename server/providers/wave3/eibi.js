@@ -27,7 +27,8 @@
 import { createKeylessProxy, fetchUpstreamText } from './lib/proxy.js';
 
 const URL = 'http://eibispace.de/dx/sked-a26.csv';
-const USER_AGENT = 'SATWQ-RealityOS/1.0 (EiBi public schedules; keyless; contact via repo)';
+const USER_AGENT =
+  'SATWQ-RealityOS/1.0 (EiBi public schedules; keyless; contact via repo)';
 const SEASON = 'a26';
 
 const CACHE_TTL_MS = 60_000; // "on air now" is minute-precision
@@ -85,7 +86,7 @@ export function parseTimeWindow(cell) {
   if (!m) return null;
   const toMin = (s) => {
     const p = s.padStart(4, '0');
-    return (+p.slice(0, 2)) * 60 + (+p.slice(2));
+    return +p.slice(0, 2) * 60 + +p.slice(2);
   };
   let start = toMin(m[1]);
   let end = toMin(m[2]);
@@ -107,7 +108,9 @@ function inWindow(minOfDay, [start, end]) {
  * "[0626]" carries NO season bound.
  */
 export function parseSeasonDate(cell) {
-  const unbracketed = String(cell ?? '').replace(/\[[^\]]*\]/g, '').trim();
+  const unbracketed = String(cell ?? '')
+    .replace(/\[[^\]]*\]/g, '')
+    .trim();
   if (!/^\d{4}$/.test(unbracketed)) return null;
   const dd = +unbracketed.slice(0, 2);
   const mm = +unbracketed.slice(2);
@@ -153,7 +156,11 @@ export function isOnAir(entry, nowMs = Date.now()) {
   if (!inWindow(minOfDay, window)) return false;
   if (!parseDaysCell(entry.days).has(d.getUTCDay())) return false;
   const mmdd = month * 100 + d.getUTCDate();
-  return inSeason(mmdd, parseSeasonDate(entry.start), parseSeasonDate(entry.stop));
+  return inSeason(
+    mmdd,
+    parseSeasonDate(entry.start),
+    parseSeasonDate(entry.stop),
+  );
 }
 
 /** Normalize one CSV row to the canonical schedule shape. Exported for tests. */
@@ -171,11 +178,21 @@ export function normalizeEibiRow(fields) {
     freqKhz: Math.round(freq * 10) / 10,
     time: String(fields[F_TIME] ?? '').trim(),
     days: String(fields[F_DAYS] ?? '').trim(),
-    itu: String(fields[F_ITU] ?? '').trim().toUpperCase(),
-    station: String(fields[F_STATION] ?? '').trim().slice(0, 120),
-    lang: String(fields[F_LANG] ?? '').trim().slice(0, 40),
-    target: String(fields[F_TARGET] ?? '').trim().slice(0, 40),
-    site: String(fields[F_REMARKS] ?? '').trim().slice(0, 40),
+    itu: String(fields[F_ITU] ?? '')
+      .trim()
+      .toUpperCase(),
+    station: String(fields[F_STATION] ?? '')
+      .trim()
+      .slice(0, 120),
+    lang: String(fields[F_LANG] ?? '')
+      .trim()
+      .slice(0, 40),
+    target: String(fields[F_TARGET] ?? '')
+      .trim()
+      .slice(0, 40),
+    site: String(fields[F_REMARKS] ?? '')
+      .trim()
+      .slice(0, 40),
     persistence,
     powerKw: null, // NOTE: the "P" column is the persistence CODE (entry #9),
     // not power — README: 0=this season, 1=everlasting, 4/5=winter/summer

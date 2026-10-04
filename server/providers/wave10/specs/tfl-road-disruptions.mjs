@@ -4,46 +4,43 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 7 (tfl worker)).
  */
 export const SPEC = {
-  "id": "tfl-road-disruptions",
-  "title": "TfL — London road disruptions",
-  "url": "https://api.tfl.gov.uk/Road/all/Disruption?stripContent=true",
-  "headers": {
-    "User-Agent": "satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)"
+  id: 'tfl-road-disruptions',
+  title: 'TfL — London road disruptions',
+  url: 'https://api.tfl.gov.uk/Road/all/Disruption?stripContent=true',
+  headers: {
+    'User-Agent':
+      'satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)',
   },
-  "ttlSeconds": 300,
-  "extract": {
-    "items": "$",
-    "limit": 60,
-    "map": {
-      "disruptionId": "$.id",
-      "location": "$.location",
-      "comments": "$.comments",
-      "severity": "$.severity",
-      "category": "$.category",
-      "subCategory": "$.subCategory",
-      "startDateTime": "$.startDateTime",
-      "endDateTime": "$.endDateTime",
-      "closures": "$.hasClosures",
-      "lastModified": "$.lastModifiedTime",
-      "lon": "$.geography.coordinates[0]",
-      "lat": "$.geography.coordinates[1]"
+  ttlSeconds: 300,
+  extract: {
+    items: '$',
+    limit: 60,
+    map: {
+      disruptionId: '$.id',
+      location: '$.location',
+      comments: '$.comments',
+      severity: '$.severity',
+      category: '$.category',
+      subCategory: '$.subCategory',
+      startDateTime: '$.startDateTime',
+      endDateTime: '$.endDateTime',
+      closures: '$.hasClosures',
+      lastModified: '$.lastModifiedTime',
+      lon: '$.geography.coordinates[0]',
+      lat: '$.geography.coordinates[1]',
     },
-    "numbers": [
-      "lon",
-      "lat"
-    ]
+    numbers: ['lon', 'lat'],
   },
-  "required": [
-    "location",
-    "comments"
-  ],
-  "source": "Transport for London",
-  "attribution": "Data: Transport for London (TfL) Unified API — keyless, Open Government Licence.",
-  "units": {
-    "lat": "deg",
-    "lon": "deg"
+  required: ['location', 'comments'],
+  source: 'Transport for London',
+  attribution:
+    'Data: Transport for London (TfL) Unified API — keyless, Open Government Licence.',
+  units: {
+    lat: 'deg',
+    lon: 'deg',
   },
-  "honesty": "Live road disruptions across London's TfL-managed network; 113 active at verification. Severity values are TfL's labels (Minimal/Moderate/Severe etc.). Comments carry the operator's free-text description; stripContent=true trims nested HTML.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 7 (tfl worker)"
+  honesty:
+    "Live road disruptions across London's TfL-managed network; 113 active at verification. Severity values are TfL's labels (Minimal/Moderate/Severe etc.). Comments carry the operator's free-text description; stripContent=true trims nested HTML.",
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 7 (tfl worker)',
 };

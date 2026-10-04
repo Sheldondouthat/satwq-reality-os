@@ -39,7 +39,11 @@ export function initCinematic({ components } = {}) {
       })),
     isEnabled: (layerId) => !!dataManager.layers.get(layerId)?.enabled,
     destinationFor: (view) =>
-      Cesium.Cartesian3.fromDegrees(view.longitude, view.latitude, view.heightM),
+      Cesium.Cartesian3.fromDegrees(
+        view.longitude,
+        view.latitude,
+        view.heightM,
+      ),
     requestRender: () => {
       try {
         viewer.scene?.requestRender?.();
@@ -65,4 +69,8 @@ export function initCinematic({ components } = {}) {
 export { TourDirector } from './tourDirector.js';
 export { AmbientEngine } from './ambientEngine.js';
 export { withTourVoiceActions } from './voiceTourActions.js';
-export { animateStatValue, formatCompact, formatInt } from './layerStatsTicker.js';
+export {
+  animateStatValue,
+  formatCompact,
+  formatInt,
+} from './layerStatsTicker.js';

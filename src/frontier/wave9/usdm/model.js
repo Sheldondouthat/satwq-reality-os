@@ -9,11 +9,7 @@
  * appends (stale)/(partial) from the envelope. Week-over-week bits are the
  * provider's own percentage-point deltas, labeled as such in detailLine.
  */
-import {
-  isUnavailable,
-  withTags,
-  pickNum,
-} from '../../wave3/common/ticker.js';
+import { isUnavailable, withTags, pickNum } from '../../wave3/common/ticker.js';
 
 export const ROUTE = '/api/usdm';
 export const EMOJI = '🌵';
@@ -32,14 +28,18 @@ export function valueLine(doc) {
   if (d1 == null) return null;
   const popBit = fmtPop(pop) != null ? ` · ${fmtPop(pop)} people` : '';
   const d3Bit = d3 != null ? ` · D3+ ${d3}%` : '';
-  return withTags(`${EMOJI} USDM ${d1}% of US in drought (D1+)${d3Bit}${popBit}`, doc);
+  return withTags(
+    `${EMOJI} USDM ${d1}% of US in drought (D1+)${d3Bit}${popBit}`,
+    doc,
+  );
 }
 
 export function detailLine(doc) {
   if (isUnavailable(doc)) return '';
   const cats = Array.isArray(doc.categories) ? doc.categories : [];
   const parts = [];
-  if (doc.mapDate) parts.push(`Map week of ${doc.mapDate} (weekly; maps dated Tuesdays).`);
+  if (doc.mapDate)
+    parts.push(`Map week of ${doc.mapDate} (weekly; maps dated Tuesdays).`);
   const catBits = cats
     .filter((c) => c && c.areaPercent != null)
     .map((c) => {
@@ -49,7 +49,10 @@ export function detailLine(doc) {
           : '';
       return `${c.level} ${c.areaPercent}%${wow}`;
     });
-  if (catBits.length) parts.push(`Cumulative coverage: ${catBits.join(' · ')}.`);
-  parts.push('Rows are cumulative (D1 = D1-or-worse); D0/None not reported by this UNL feed.');
+  if (catBits.length)
+    parts.push(`Cumulative coverage: ${catBits.join(' · ')}.`);
+  parts.push(
+    'Rows are cumulative (D1 = D1-or-worse); D0/None not reported by this UNL feed.',
+  );
   return parts.join(' ');
 }

@@ -30,46 +30,46 @@
  * Worker probe) — recorded as probe:'vm-000', included not broken.
  */
 
-const HAPI_BASE = "https://api.phys.ucalgary.ca/hapi";
+const HAPI_BASE = 'https://api.phys.ucalgary.ca/hapi';
 const UPSTREAM_TIMEOUT_MS = 25_000;
 const BODY_CAP_BYTES = 512 * 1024;
 const CACHE_TTL_MS = 15 * 60_000;
 const MAX_SERIES_POINTS = 48;
-const USER_AGENT = "Gods Eye View (magnetometer layer)";
+const USER_AGENT = 'Gods Eye View (magnetometer layer)';
 
 const HAPI_DATASETS = [
   {
-    id: "NORSTAR_RIOMETER_K0@GILL",
-    parameter: "raw_signal",
-    title: "NORSTAR Riometer K0 raw signal — Gillam",
+    id: 'NORSTAR_RIOMETER_K0@GILL',
+    parameter: 'raw_signal',
+    title: 'NORSTAR Riometer K0 raw signal — Gillam',
   },
   {
-    id: "SWAN_HSR_K0@CHUR",
-    parameter: "raw_power",
-    title: "SWAN HSR K0 raw power — Churchill",
+    id: 'SWAN_HSR_K0@CHUR',
+    parameter: 'raw_power',
+    title: 'SWAN HSR K0 raw power — Churchill',
   },
 ];
 
 const IRF_PLOTS = [
   {
-    id: "irf-sgu1-lycksele",
-    name: "IRF maggraph — Lycksele (SGU1)",
-    url: "https://www.irf.se/maggraphs/sgu1/lycksele.png",
-    format: "PNG",
-    cadence: "rolling",
-    attribution: "Swedish Institute of Space Physics / SGU",
-    license: "IRF/SGU attribution",
-    probe: "vm-000",
+    id: 'irf-sgu1-lycksele',
+    name: 'IRF maggraph — Lycksele (SGU1)',
+    url: 'https://www.irf.se/maggraphs/sgu1/lycksele.png',
+    format: 'PNG',
+    cadence: 'rolling',
+    attribution: 'Swedish Institute of Space Physics / SGU',
+    license: 'IRF/SGU attribution',
+    probe: 'vm-000',
   },
   {
-    id: "irf-sgu2-lycksele",
-    name: "IRF maggraph — Lycksele (SGU2)",
-    url: "https://www.irf.se/maggraphs/sgu2/lycksele.png",
-    format: "PNG",
-    cadence: "rolling",
-    attribution: "Swedish Institute of Space Physics / SGU",
-    license: "IRF/SGU attribution",
-    probe: "vm-000",
+    id: 'irf-sgu2-lycksele',
+    name: 'IRF maggraph — Lycksele (SGU2)',
+    url: 'https://www.irf.se/maggraphs/sgu2/lycksele.png',
+    format: 'PNG',
+    cadence: 'rolling',
+    attribution: 'Swedish Institute of Space Physics / SGU',
+    license: 'IRF/SGU attribution',
+    probe: 'vm-000',
   },
 ];
 
@@ -84,15 +84,15 @@ let inflight = null;
 export function parseHapiCsv(text, primaryParam) {
   const headerLines = [];
   const dataLines = [];
-  for (const line of String(text ?? "").split("\n")) {
+  for (const line of String(text ?? '').split('\n')) {
     if (!line) continue;
-    if (line.startsWith("#")) headerLines.push(line.replace(/^#\s?/, ""));
+    if (line.startsWith('#')) headerLines.push(line.replace(/^#\s?/, ''));
     else dataLines.push(line);
   }
-  if (dataLines.length === 0) throw new Error("magnetometers_hapi_no_data");
+  if (dataLines.length === 0) throw new Error('magnetometers_hapi_no_data');
   let params = [];
   try {
-    params = JSON.parse(headerLines.join("\n"))?.parameters ?? [];
+    params = JSON.parse(headerLines.join('\n'))?.parameters ?? [];
   } catch {
     params = [];
   }
@@ -110,14 +110,14 @@ export function parseHapiCsv(text, primaryParam) {
       description = p?.description ?? null;
       break;
     }
-    if (p?.type === "isotime" || /^time$/i.test(String(p?.name ?? "")))
+    if (p?.type === 'isotime' || /^time$/i.test(String(p?.name ?? '')))
       continue;
     const ps = Array.isArray(p?.size) ? Number(p.size[0]) : 1;
     col += Number.isFinite(ps) && ps > 0 ? ps : 1;
   }
   const rows = [];
   for (const line of dataLines) {
-    const parts = line.split(",");
+    const parts = line.split(',');
     const t = Date.parse(parts[0]);
     if (!Number.isFinite(t)) continue;
     const vals = parts
@@ -127,7 +127,7 @@ export function parseHapiCsv(text, primaryParam) {
     if (vals.length === 0) continue;
     rows.push({ t, vals });
   }
-  if (rows.length === 0) throw new Error("magnetometers_hapi_no_rows");
+  if (rows.length === 0) throw new Error('magnetometers_hapi_no_rows');
   const step = Math.max(1, Math.ceil(rows.length / MAX_SERIES_POINTS));
   const series = rows
     .filter((_, i) => i % step === 0)
@@ -158,8 +158,8 @@ async function fetchTextCapped(fetchImpl, url) {
       signal: controller.signal,
       // NOTE: redirect:'follow' — workerd supports only 'follow'/'manual';
       // 'error' throws at the edge (main 2ec4053).
-      redirect: "follow",
-      headers: { "User-Agent": USER_AGENT, Accept: "text/csv, */*" },
+      redirect: 'follow',
+      headers: { 'User-Agent': USER_AGENT, Accept: 'text/csv, */*' },
     });
     if (!response.ok)
       throw Object.assign(new Error(`magnetometers_hapi_${response.status}`), {
@@ -167,7 +167,7 @@ async function fetchTextCapped(fetchImpl, url) {
       });
     const buffer = await response.arrayBuffer();
     if (buffer.byteLength > BODY_CAP_BYTES)
-      throw Object.assign(new Error("magnetometers_hapi_too_large"), {
+      throw Object.assign(new Error('magnetometers_hapi_too_large'), {
         status: 502,
       });
     return new TextDecoder().decode(buffer);
@@ -180,7 +180,7 @@ function hapiWindow(nowMs) {
   // Archive lags ~1 day: sample a 1-hour window ending 49h ago.
   const stop = new Date(nowMs - 49 * 3600_000);
   const start = new Date(stop.getTime() - 3600_000);
-  const iso = (d) => d.toISOString().replace(/\.\d{3}Z$/, ".000Z");
+  const iso = (d) => d.toISOString().replace(/\.\d{3}Z$/, '.000Z');
   return { start: iso(start), stop: iso(stop) };
 }
 
@@ -214,7 +214,7 @@ async function fetchHapiDataset(fetchImpl, ds, window) {
       datasetId: ds.id,
       title: ds.title,
       ok: false,
-      error: error?.message ?? "unknown",
+      error: error?.message ?? 'unknown',
       latencyMs: Date.now() - started,
     };
   }
@@ -226,17 +226,17 @@ function buildSnapshot(results, window) {
     irf: {
       ok: true,
       count: IRF_PLOTS.length,
-      attribution: "Swedish Institute of Space Physics / SGU",
-      note: "manifest entries; image bytes load client-side. irf.se unreachable from build VM (vm-000, needs Worker probe).",
+      attribution: 'Swedish Institute of Space Physics / SGU',
+      note: 'manifest entries; image bytes load client-side. irf.se unreachable from build VM (vm-000, needs Worker probe).',
     },
     hapi: {
       ok: ok.length > 0,
       liveCount: ok.length,
       requested: results.length,
-      attribution: "University of Calgary (NORSTAR/SWAN); cite dataset DOI",
-      note: "HAPI 3.3 endpoint exposes NORSTAR riometers + SWAN HSR raw power only — no vector magnetometer datasets.",
+      attribution: 'University of Calgary (NORSTAR/SWAN); cite dataset DOI',
+      note: 'HAPI 3.3 endpoint exposes NORSTAR riometers + SWAN HSR raw power only — no vector magnetometer datasets.',
       ...(!ok.length && results.length
-        ? { error: results.map((r) => `${r.datasetId}:${r.error}`).join("; ") }
+        ? { error: results.map((r) => `${r.datasetId}:${r.error}`).join('; ') }
         : {}),
     },
   };
@@ -271,10 +271,10 @@ async function getSnapshot(fetchImpl, nowMs) {
   return inflight;
 }
 
-function sendJson(res, status, body, cacheControl = "public, max-age=900") {
+function sendJson(res, status, body, cacheControl = 'public, max-age=900') {
   res.writeHead(status, {
-    "Content-Type": "application/json; charset=utf-8",
-    "Cache-Control": cacheControl,
+    'Content-Type': 'application/json; charset=utf-8',
+    'Cache-Control': cacheControl,
   });
   res.end(JSON.stringify(body));
 }
@@ -284,34 +284,34 @@ export function magnetometersProxy({
   now = () => Date.now(),
 } = {}) {
   async function handler(req, res) {
-    if (req.method !== "GET")
-      return sendJson(res, 405, { error: "method_not_allowed" }, "no-store");
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
     try {
       sendJson(res, 200, await getSnapshot(fetchImpl, now()));
     } catch (error) {
       const upstreamFail =
         error?.status === 502 ||
-        error?.name === "AbortError" ||
-        /aborted?/i.test(error?.message ?? "");
+        error?.name === 'AbortError' ||
+        /aborted?/i.test(error?.message ?? '');
       sendJson(
         res,
         upstreamFail ? 502 : 500,
         {
-          error: "magnetometers_unavailable",
-          detail: error?.message ?? "unknown",
+          error: 'magnetometers_unavailable',
+          detail: error?.message ?? 'unknown',
         },
-        "no-store",
+        'no-store',
       );
     }
   }
 
   return {
-    name: "magnetometers",
+    name: 'magnetometers',
     configureServer({ middlewares }) {
-      middlewares.use("/api/magnetometers", handler);
+      middlewares.use('/api/magnetometers', handler);
     },
     configurePreviewServer({ middlewares }) {
-      middlewares.use("/api/magnetometers", handler);
+      middlewares.use('/api/magnetometers', handler);
     },
   };
 }

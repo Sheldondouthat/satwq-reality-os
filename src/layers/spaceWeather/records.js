@@ -10,7 +10,9 @@
 function parseTimeMs(timeTag) {
   if (typeof timeTag !== 'string' || timeTag.length === 0) return NaN;
   // SWPC stamps are UTC; some carry no zone designator.
-  const stamped = /[zZ]|[+-]\d{2}:?\d{2}$/.test(timeTag) ? timeTag : `${timeTag}Z`;
+  const stamped = /[zZ]|[+-]\d{2}:?\d{2}$/.test(timeTag)
+    ? timeTag
+    : `${timeTag}Z`;
   return Date.parse(stamped);
 }
 

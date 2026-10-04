@@ -4,37 +4,34 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 4 (marine+state-open-data worker)).
  */
 export const SPEC = {
-  "headers": {
-    "User-Agent": "satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)"
+  headers: {
+    'User-Agent':
+      'satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)',
   },
-  "source": "NOAA Center for Operational Oceanography Products",
-  "attribution": "Data: NOAA CO-OPS — keyless.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 4 (marine+state-open-data worker)",
-  "id": "coops-currents-capecod",
-  "title": "NOAA Tides — Cape Cod Canal tidal currents",
-  "url": "https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?date=recent&station=ca0101&product=currents&bin=14&units=english&time_zone=gmt&format=json",
-  "ttlSeconds": 1800,
-  "extract": {
-    "items": "$.data",
-    "limit": 48,
-    "map": {
-      "time": "$.t",
-      "speedKt": "$.s",
-      "dirDeg": "$.d",
-      "bin": "$.b"
+  source: 'NOAA Center for Operational Oceanography Products',
+  attribution: 'Data: NOAA CO-OPS — keyless.',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 4 (marine+state-open-data worker)',
+  id: 'coops-currents-capecod',
+  title: 'NOAA Tides — Cape Cod Canal tidal currents',
+  url: 'https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?date=recent&station=ca0101&product=currents&bin=14&units=english&time_zone=gmt&format=json',
+  ttlSeconds: 1800,
+  extract: {
+    items: '$.data',
+    limit: 48,
+    map: {
+      time: '$.t',
+      speedKt: '$.s',
+      dirDeg: '$.d',
+      bin: '$.b',
     },
-    "numbers": [
-      "speedKt",
-      "dirDeg"
-    ]
+    numbers: ['speedKt', 'dirDeg'],
   },
-  "required": [
-    "time"
-  ],
-  "units": {
-    "speedKt": "kt",
-    "dirDeg": "deg"
+  required: ['time'],
+  units: {
+    speedKt: 'kt',
+    dirDeg: 'deg',
   },
-  "honesty": "Real-time ADCP current observations (bin 14 = live bin), 6-minute cadence; most recent point typically <1h old."
+  honesty:
+    'Real-time ADCP current observations (bin 14 = live bin), 6-minute cadence; most recent point typically <1h old.',
 };

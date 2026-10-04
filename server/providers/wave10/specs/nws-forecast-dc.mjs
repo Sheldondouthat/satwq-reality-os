@@ -4,35 +4,32 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 1 (federal worker)).
  */
 export const SPEC = {
-  "id": "nws-forecast-dc",
-  "title": "NWS — Washington DC gridpoint forecast (LWX)",
-  "url": "https://api.weather.gov/gridpoints/LWX/30,45/forecast",
-  "headers": {
-    "User-Agent": "Gods Eye View (public NWS context)"
+  id: 'nws-forecast-dc',
+  title: 'NWS — Washington DC gridpoint forecast (LWX)',
+  url: 'https://api.weather.gov/gridpoints/LWX/30,45/forecast',
+  headers: {
+    'User-Agent': 'Gods Eye View (public NWS context)',
   },
-  "ttlSeconds": 3600,
-  "extract": {
-    "items": "$.properties.periods",
-    "limit": 14,
-    "map": {
-      "name": "$.name",
-      "tempF": "$.temperature",
-      "wind": "$.windSpeed",
-      "forecast": "$.shortForecast"
+  ttlSeconds: 3600,
+  extract: {
+    items: '$.properties.periods',
+    limit: 14,
+    map: {
+      name: '$.name',
+      tempF: '$.temperature',
+      wind: '$.windSpeed',
+      forecast: '$.shortForecast',
     },
-    "numbers": [
-      "tempF"
-    ]
+    numbers: ['tempF'],
   },
-  "required": [
-    "name"
-  ],
-  "source": "National Weather Service (api.weather.gov)",
-  "attribution": "Data: NWS — keyless, UA-identified.",
-  "units": {
-    "tempF": "F"
+  required: ['name'],
+  source: 'National Weather Service (api.weather.gov)',
+  attribution: 'Data: NWS — keyless, UA-identified.',
+  units: {
+    tempF: 'F',
   },
-  "honesty": "Model forecast grids, updated multiple times daily; not observations.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 1 (federal worker)"
+  honesty:
+    'Model forecast grids, updated multiple times daily; not observations.',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 1 (federal worker)',
 };

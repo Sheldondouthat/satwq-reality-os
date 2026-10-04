@@ -4,31 +4,30 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 3 (socrata recovery)).
  */
 export const SPEC = {
-  "attribution": "Data: City and County of Honolulu — data.honolulu.gov (Socrata) — keyless Socrata API.",
-  "extract": {
-    "items": "$",
-    "limit": 50,
-    "map": {
-      "address": "$.blockaddress",
-      "description": "$.type",
-      "key": "$.incidentnum",
-      "time": "$.date",
-      "type": "$.type"
+  attribution:
+    'Data: City and County of Honolulu — data.honolulu.gov (Socrata) — keyless Socrata API.',
+  extract: {
+    items: '$',
+    limit: 50,
+    map: {
+      address: '$.blockaddress',
+      description: '$.type',
+      key: '$.incidentnum',
+      time: '$.date',
+      type: '$.type',
     },
-    "numbers": []
+    numbers: [],
   },
-  "headers": {},
-  "honesty": "Honolulu Police Department crime incidents, current through 2026-10-01, newest 50 first; block-level addresses only with no lat/lon columns, and incidentnum is the row-unique key.",
-  "id": "socrata-honolulu-crime",
-  "required": [
-    "key",
-    "type"
-  ],
-  "source": "City and County of Honolulu — data.honolulu.gov (Socrata)",
-  "title": "Honolulu (data.honolulu.gov) — HPD crime incidents",
-  "ttlSeconds": 1800,
-  "units": {},
-  "url": "https://data.honolulu.gov/resource/vg88-5rn5.json?$limit=50&$order=date%20DESC",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 3 (socrata recovery)"
+  headers: {},
+  honesty:
+    'Honolulu Police Department crime incidents, current through 2026-10-01, newest 50 first; block-level addresses only with no lat/lon columns, and incidentnum is the row-unique key.',
+  id: 'socrata-honolulu-crime',
+  required: ['key', 'type'],
+  source: 'City and County of Honolulu — data.honolulu.gov (Socrata)',
+  title: 'Honolulu (data.honolulu.gov) — HPD crime incidents',
+  ttlSeconds: 1800,
+  units: {},
+  url: 'https://data.honolulu.gov/resource/vg88-5rn5.json?$limit=50&$order=date%20DESC',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 3 (socrata recovery)',
 };

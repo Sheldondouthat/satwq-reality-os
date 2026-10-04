@@ -47,7 +47,11 @@ export function buildSphereMesh(segments = 48, rings = 32, radius = 10) {
     for (let s = 0; s <= segments; s += 1) {
       const lon = (s / segments) * 360 - 180;
       const theta = ((lon + 180) * Math.PI) / 180;
-      positions.push(-sinPhi * Math.cos(theta) * radius, y, sinPhi * Math.sin(theta) * radius);
+      positions.push(
+        -sinPhi * Math.cos(theta) * radius,
+        y,
+        sinPhi * Math.sin(theta) * radius,
+      );
       uvs.push(s / segments, r / rings);
     }
   }
@@ -62,7 +66,11 @@ export function buildSphereMesh(segments = 48, rings = 32, radius = 10) {
       indices.push(a, c, b, b, c, d);
     }
   }
-  return { positions: new Float32Array(positions), uvs: new Float32Array(uvs), indices: new Uint16Array(indices) };
+  return {
+    positions: new Float32Array(positions),
+    uvs: new Float32Array(uvs),
+    indices: new Uint16Array(indices),
+  };
 }
 
 function compileShader(gl, type, src) {
@@ -91,14 +99,21 @@ function createProgram(gl) {
  * Returns { session, stop } — throws when WebXR is unavailable (caller falls
  * back to the 2D viewer).
  */
-export async function startImmersiveSession(panoramaCanvas, { navigatorLike } = {}) {
-  const nav = navigatorLike || (typeof navigator !== 'undefined' ? navigator : null);
+export async function startImmersiveSession(
+  panoramaCanvas,
+  { navigatorLike } = {},
+) {
+  const nav =
+    navigatorLike || (typeof navigator !== 'undefined' ? navigator : null);
   const supported = await xrImmersiveSupported(nav);
   if (!supported) throw new Error('immersive-vr not supported');
   if (typeof document === 'undefined') throw new Error('no DOM');
 
   const glCanvas = document.createElement('canvas');
-  const gl = glCanvas.getContext('webgl', { xrCompatible: true, antialias: true });
+  const gl = glCanvas.getContext('webgl', {
+    xrCompatible: true,
+    antialias: true,
+  });
   if (!gl) throw new Error('WebGL unavailable');
 
   const session = await nav.xr.requestSession('immersive-vr', {
@@ -130,7 +145,14 @@ export async function startImmersiveSession(panoramaCanvas, { navigatorLike } = 
   const tex = gl.createTexture();
   const uploadTexture = () => {
     gl.bindTexture(gl.TEXTURE_2D, tex);
-    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, panoramaCanvas);
+    gl.texImage2D(
+      gl.TEXTURE_2D,
+      0,
+      gl.RGBA,
+      gl.RGBA,
+      gl.UNSIGNED_BYTE,
+      panoramaCanvas,
+    );
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
@@ -197,7 +219,11 @@ export async function startImmersiveSession(panoramaCanvas, { navigatorLike } = 
 }
 
 /** Repaint loop helper: repaint the panorama every `intervalMs`, calling onRepaint. */
-export function startPanoramaRefresh(getSprites, onRepaint, intervalMs = 30000) {
+export function startPanoramaRefresh(
+  getSprites,
+  onRepaint,
+  intervalMs = 30000,
+) {
   let stopped = false;
   let canvas = null;
   const tick = async () => {

@@ -15,14 +15,23 @@ export function clusterMentions(mentions, cellDeg = 0.5) {
     let cell = cells.get(key);
     if (!cell) {
       cell = {
-        lon: 0, lat: 0, count: 0, toneSum: 0, toneN: 0, names: [], urls: [],
+        lon: 0,
+        lat: 0,
+        count: 0,
+        toneSum: 0,
+        toneN: 0,
+        names: [],
+        urls: [],
       };
       cells.set(key, cell);
     }
     cell.count++;
     cell.lon += m.lon;
     cell.lat += m.lat;
-    if (Number.isFinite(m.tone)) { cell.toneSum += m.tone; cell.toneN++; }
+    if (Number.isFinite(m.tone)) {
+      cell.toneSum += m.tone;
+      cell.toneN++;
+    }
     if (m.name && cell.names.length < 6 && !cell.names.includes(m.name)) {
       cell.names.push(m.name);
     }
@@ -36,7 +45,9 @@ export function clusterMentions(mentions, cellDeg = 0.5) {
       lon: Math.round((cell.lon / cell.count) * 100) / 100,
       lat: Math.round((cell.lat / cell.count) * 100) / 100,
       count: cell.count,
-      avgTone: cell.toneN ? Math.round((cell.toneSum / cell.toneN) * 10) / 10 : null,
+      avgTone: cell.toneN
+        ? Math.round((cell.toneSum / cell.toneN) * 10) / 10
+        : null,
       names: cell.names,
       urls: cell.urls,
     });

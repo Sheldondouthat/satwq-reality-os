@@ -32,12 +32,12 @@ export const ECLIPSE_2045 = {
   tanF1: 0.0046137, // penumbral cone
   tanF2: 0.0045908, // umbral cone
   // [a0, a1, a2, a3]
-  x: [0.2406600, 0.5332199, -0.0000535, -0.0000090],
-  y: [0.1240940, -0.2388144, -0.0000966, 0.0000042],
-  d: [14.6739397, -0.0121070, -0.0000030, 0],
-  l1: [0.5309430, -0.0000029, -0.0000129, 0],
-  l2: [-0.0151190, -0.0000029, -0.0000128, 0],
-  mu: [88.760483, 15.003170, 0, 0],
+  x: [0.24066, 0.5332199, -0.0000535, -0.000009],
+  y: [0.124094, -0.2388144, -0.0000966, 0.0000042],
+  d: [14.6739397, -0.012107, -0.000003, 0],
+  l1: [0.530943, -0.0000029, -0.0000129, 0],
+  l2: [-0.015119, -0.0000029, -0.0000128, 0],
+  mu: [88.760483, 15.00317, 0, 0],
   // Anchors for validation (greatest eclipse):
   greatestEclipseUtc: '2045-08-12T17:41:10Z',
   greatestLat: 25.9,
@@ -91,7 +91,9 @@ export function subShadowPoint(ev, t) {
   let yz = 1 - dot * sz;
   const yn = Math.hypot(yx, yy, yz);
   if (yn < 1e-12) return null;
-  yx /= yn; yy /= yn; yz /= yn;
+  yx /= yn;
+  yy /= yn;
+  yz /= yn;
   // xF = yN x s (right-handed: xF x yN = s).
   const xx = yy * sz - yz * sy;
   const xy = yz * sx - yx * sz;
@@ -114,7 +116,13 @@ export function subShadowPoint(ev, t) {
   let lon = Math.atan2(qy, qx) * R2D;
   if (lon > 180) lon -= 360;
   if (lon < -180) lon += 360;
-  return { latDeg: lat, lonDeg: lon, q: [qx / qn, qy / qn, qz / qn], sHit: s, p2 };
+  return {
+    latDeg: lat,
+    lonDeg: lon,
+    q: [qx / qn, qy / qn, qz / qn],
+    sHit: s,
+    p2,
+  };
 }
 
 /**
@@ -140,8 +148,7 @@ export function umbralEllipse(ev, t) {
   const sx = cosD * Math.cos(e.mu);
   const sy = -cosD * Math.sin(e.mu);
   const sz = Math.sin(e.d);
-  const cosZen = Math.max(0.05,
-    sx * sub.q[0] + sy * sub.q[1] + sz * sub.q[2]);
+  const cosZen = Math.max(0.05, sx * sub.q[0] + sy * sub.q[1] + sz * sub.q[2]);
   const zenDeg = Math.acos(Math.min(1, cosZen)) * R2D;
   const semiMinorKm = rKm;
   const semiMajorKm = rKm / cosZen;
@@ -153,10 +160,12 @@ export function umbralEllipse(ev, t) {
   let subLonR = -e.mu;
   // Initial bearing from sub-shadow point to subsolar point.
   const dLon = subLonR - lonR;
-  const brg = Math.atan2(
-    Math.sin(dLon) * Math.cos(subLatR),
-    Math.cos(latR) * Math.sin(subLatR) - Math.sin(latR) * Math.cos(subLatR) * Math.cos(dLon),
-  ) * R2D;
+  const brg =
+    Math.atan2(
+      Math.sin(dLon) * Math.cos(subLatR),
+      Math.cos(latR) * Math.sin(subLatR) -
+        Math.sin(latR) * Math.cos(subLatR) * Math.cos(dLon),
+    ) * R2D;
   return {
     center: { latDeg: sub.latDeg, lonDeg: sub.lonDeg },
     semiMinorKm,
@@ -181,7 +190,11 @@ export function shadowSpeedKms(ev, t, dtH = 0.005) {
   const toCart = (p) => {
     const la = p.latDeg * D2R;
     const lo = p.lonDeg * D2R;
-    return [Math.cos(la) * Math.cos(lo), Math.cos(la) * Math.sin(lo), Math.sin(la)];
+    return [
+      Math.cos(la) * Math.cos(lo),
+      Math.cos(la) * Math.sin(lo),
+      Math.sin(la),
+    ];
   };
   const ca = toCart(a);
   const cb = toCart(b);
@@ -221,8 +234,7 @@ export function sampleEclipse(ev, { stepMin = 5, padH = 4 } = {}) {
       ellipse,
       speedKms: speed,
       // Central duration ≈ minor-axis width / ground speed.
-      durationSec:
-        ellipse && speed ? (2 * ellipse.semiMinorKm) / speed : null,
+      durationSec: ellipse && speed ? (2 * ellipse.semiMinorKm) / speed : null,
     });
   }
   return { samples, tStart, tEnd };
@@ -278,7 +290,8 @@ export function ringAroundPoint(latDeg, lonDeg, rDeg, n = 128) {
   const pts = [];
   for (let i = 0; i <= n; i++) {
     const brg = (i / n) * 2 * Math.PI;
-    const sinLa2 = Math.sin(la) * Math.cos(r) + Math.cos(la) * Math.sin(r) * Math.cos(brg);
+    const sinLa2 =
+      Math.sin(la) * Math.cos(r) + Math.cos(la) * Math.sin(r) * Math.cos(brg);
     const la2 = Math.asin(Math.max(-1, Math.min(1, sinLa2)));
     const lo2 =
       lo +

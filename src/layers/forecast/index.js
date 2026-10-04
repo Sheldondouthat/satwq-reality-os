@@ -15,11 +15,7 @@ import {
   DEFAULT_WIND,
   SPREAD_HOURS_DEFAULT,
 } from './fireSpread.js';
-import {
-  createConeSource,
-  coneStormEntity,
-  CONE_FILL,
-} from './cones.js';
+import { createConeSource, coneStormEntity, CONE_FILL } from './cones.js';
 import {
   createVaacSource,
   ashAdvisoryEntities,
@@ -81,7 +77,10 @@ export function createFireSpreadLayer({
       count += 1;
     }
     // Ignition markers (proxies — never unlabeled).
-    for (const ring of result.rings.filter((r, i, a) => a.findIndex((x) => x.ignitionIndex === r.ignitionIndex) === i)) {
+    for (const ring of result.rings.filter(
+      (r, i, a) =>
+        a.findIndex((x) => x.ignitionIndex === r.ignitionIndex) === i,
+    )) {
       const { ignition } = ring;
       _dataSource.entities.add(
         new cesium.Entity({
@@ -178,9 +177,15 @@ export function createFireSpreadLayer({
           params: { hour },
         })),
         legend: [
-          { label: `+${_activeHour ?? '—'}h active projection`, color: '#ff4500' },
+          {
+            label: `+${_activeHour ?? '—'}h active projection`,
+            color: '#ff4500',
+          },
           { label: 'Other time steps (dimmed)', color: '#ff450088' },
-          { label: 'Ignition proxy (smoke centroid / perimeter anchor)', color: '#ff0000' },
+          {
+            label: 'Ignition proxy (smoke centroid / perimeter anchor)',
+            color: '#ff0000',
+          },
         ],
         info:
           'MODELED projection — first-order downwind ellipses, not a physics ' +
@@ -243,7 +248,8 @@ export function createForecastConesLayer({
     updateInterval: 300_000,
 
     init(viewer) {
-      if (_viewer) throw new Error('Forecast cones layer is already initialized');
+      if (_viewer)
+        throw new Error('Forecast cones layer is already initialized');
       _viewer = viewer;
       _dataSource = new cesium.CustomDataSource('forecast-cones');
       _dataSource.show = false;
@@ -270,7 +276,8 @@ export function createForecastConesLayer({
       _request = request;
       try {
         const snapshot = await source.getSnapshot({ signal: request.signal });
-        if (request.signal.aborted || _request !== request || !_enabled) return false;
+        if (request.signal.aborted || _request !== request || !_enabled)
+          return false;
         _empty = !snapshot.unavailable && snapshot.storms.length === 0;
         _dataSource.entities.removeAll();
         for (const storm of snapshot.storms) {
@@ -282,7 +289,8 @@ export function createForecastConesLayer({
         console.log(`[Data:ForecastCones] Updated: ${_count} storms`);
         return true;
       } catch (e) {
-        if (request.signal.aborted || _request !== request || !_enabled) return false;
+        if (request.signal.aborted || _request !== request || !_enabled)
+          return false;
         _lastError = e?.message || 'Cone source unavailable';
         console.warn('[Data:ForecastCones] Fetch error:', e);
         return false;
@@ -302,7 +310,12 @@ export function createForecastConesLayer({
     },
 
     getStats() {
-      return { count: _count, lastUpdate: _lastUpdate, error: _lastError, empty: _empty };
+      return {
+        count: _count,
+        lastUpdate: _lastUpdate,
+        error: _lastError,
+        empty: _empty,
+      };
     },
 
     destroy(viewer = _viewer) {
@@ -371,7 +384,8 @@ export function createVolcanicAshLayer({
       _request = request;
       try {
         const snapshot = await source.getSnapshot({ signal: request.signal });
-        if (request.signal.aborted || _request !== request || !_enabled) return false;
+        if (request.signal.aborted || _request !== request || !_enabled)
+          return false;
         _snapshot = snapshot;
         _dataSource.entities.removeAll();
         for (const advisory of snapshot.advisories) {
@@ -381,10 +395,13 @@ export function createVolcanicAshLayer({
         }
         _lastUpdate = Date.now();
         _lastError = snapshot.unavailable ? snapshot.reason : null;
-        console.log(`[Data:VolcanicAsh] Updated: ${snapshot.advisories.length} advisories`);
+        console.log(
+          `[Data:VolcanicAsh] Updated: ${snapshot.advisories.length} advisories`,
+        );
         return true;
       } catch (e) {
-        if (request.signal.aborted || _request !== request || !_enabled) return false;
+        if (request.signal.aborted || _request !== request || !_enabled)
+          return false;
         _lastError = e?.message || 'VAAC source unavailable';
         console.warn('[Data:VolcanicAsh] Fetch error:', e);
         return false;
@@ -426,7 +443,9 @@ export function createVolcanicAshLayer({
         count: _snapshot?.advisories.length ?? 0,
         lastUpdate: _lastUpdate,
         error: _lastError,
-        empty: Boolean(_snapshot && !_snapshot.unavailable && !_snapshot.advisories.length),
+        empty: Boolean(
+          _snapshot && !_snapshot.unavailable && !_snapshot.advisories.length,
+        ),
         unavailable: Boolean(_snapshot?.unavailable),
       };
     },

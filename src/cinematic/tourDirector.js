@@ -34,31 +34,60 @@ const DEG = Math.PI / 180;
 export const REGION_VIEWS = Object.freeze({
   /** Aurora: north polar oval. */
   northPolar: Object.freeze({
-    longitude: -100, latitude: 78, heightM: 12_000_000, headingDeg: 0, pitchDeg: -70,
+    longitude: -100,
+    latitude: 78,
+    heightM: 12_000_000,
+    headingDeg: 0,
+    pitchDeg: -70,
   }),
   /** Volcanoes / live eruptions: Pacific Ring of Fire. */
   ringOfFire: Object.freeze({
-    longitude: 150, latitude: 10, heightM: 9_000_000, headingDeg: 0, pitchDeg: -60,
+    longitude: 150,
+    latitude: 10,
+    heightM: 9_000_000,
+    headingDeg: 0,
+    pitchDeg: -60,
   }),
   /** FIRMS hotspots / HMS smoke: CONUS. */
   conus: Object.freeze({
-    longitude: -98.5, latitude: 39.8, heightM: 7_000_000, headingDeg: 0, pitchDeg: -60,
+    longitude: -98.5,
+    latitude: 39.8,
+    heightM: 7_000_000,
+    headingDeg: 0,
+    pitchDeg: -60,
   }),
   /** Buoys: Pacific basin. */
   pacificBasin: Object.freeze({
-    longitude: -150, latitude: 12, heightM: 11_000_000, headingDeg: 0, pitchDeg: -65,
+    longitude: -150,
+    latitude: 12,
+    heightM: 11_000_000,
+    headingDeg: 0,
+    pitchDeg: -65,
   }),
   /** Satellites: high-orbit pull-back. */
   highOrbit: Object.freeze({
-    longitude: -30, latitude: 20, heightM: 26_000_000, headingDeg: 0, pitchDeg: -90,
+    longitude: -30,
+    latitude: 20,
+    heightM: 26_000_000,
+    headingDeg: 0,
+    pitchDeg: -90,
   }),
   /** GIBS / RainViewer / weather-satellite: global slow spin. */
   globalSpin: Object.freeze({
-    longitude: 0, latitude: 20, heightM: 21_000_000, headingDeg: 0, pitchDeg: -90, spin: true,
+    longitude: 0,
+    latitude: 20,
+    heightM: 21_000_000,
+    headingDeg: 0,
+    pitchDeg: -90,
+    spin: true,
   }),
   /** Terminator / moon: space-side view. */
   spaceSide: Object.freeze({
-    longitude: 0, latitude: 0, heightM: 24_000_000, headingDeg: 0, pitchDeg: -90,
+    longitude: 0,
+    latitude: 0,
+    heightM: 24_000_000,
+    headingDeg: 0,
+    pitchDeg: -90,
   }),
 });
 
@@ -81,7 +110,13 @@ function firstCoordinate(stats) {
   }
   const self = pick(stats);
   if (self) return self;
-  for (const key of ['hotspots', 'features', 'points', 'events', 'latestEvents']) {
+  for (const key of [
+    'hotspots',
+    'features',
+    'points',
+    'events',
+    'latestEvents',
+  ]) {
     const arr = stats[key];
     if (Array.isArray(arr)) {
       for (const item of arr) {
@@ -122,16 +157,56 @@ function closeUpOr(fallback, layer, heightM = CLOSEUP_HEIGHT_M) {
  * cinematic viewpoint. Layers without a mapping are skipped by buildStops().
  */
 const STOP_MAP = Object.freeze([
-  { id: 'aurora', label: 'Aurora — north polar oval', view: () => ({ ...REGION_VIEWS.northPolar }) },
-  { id: 'volcanoes', label: 'Volcanoes — Pacific Ring of Fire', view: (l) => closeUpOr(REGION_VIEWS.ringOfFire, l) },
-  { id: 'firms', label: 'FIRMS — live fire detections', view: (l) => closeUpOr(REGION_VIEWS.conus, l) },
-  { id: 'hms-smoke', label: 'HMS smoke plumes — CONUS', view: () => ({ ...REGION_VIEWS.conus }) },
-  { id: 'buoys', label: 'Ocean buoys — Pacific basin', view: (l) => closeUpOr(REGION_VIEWS.pacificBasin, l) },
-  { id: 'satellites', label: 'Satellites — high-orbit pull-back', view: () => ({ ...REGION_VIEWS.highOrbit }) },
-  { prefix: 'gibs-', label: 'Global imagery — slow spin', view: () => ({ ...REGION_VIEWS.globalSpin }) },
-  { prefix: 'rainviewer-', label: 'Precipitation radar — slow spin', view: () => ({ ...REGION_VIEWS.globalSpin }) },
-  { id: 'terminator', label: 'Day/night terminator — space-side', view: () => ({ ...REGION_VIEWS.spaceSide }) },
-  { id: 'moon', label: 'Lunar view — space-side', view: () => ({ ...REGION_VIEWS.spaceSide }) },
+  {
+    id: 'aurora',
+    label: 'Aurora — north polar oval',
+    view: () => ({ ...REGION_VIEWS.northPolar }),
+  },
+  {
+    id: 'volcanoes',
+    label: 'Volcanoes — Pacific Ring of Fire',
+    view: (l) => closeUpOr(REGION_VIEWS.ringOfFire, l),
+  },
+  {
+    id: 'firms',
+    label: 'FIRMS — live fire detections',
+    view: (l) => closeUpOr(REGION_VIEWS.conus, l),
+  },
+  {
+    id: 'hms-smoke',
+    label: 'HMS smoke plumes — CONUS',
+    view: () => ({ ...REGION_VIEWS.conus }),
+  },
+  {
+    id: 'buoys',
+    label: 'Ocean buoys — Pacific basin',
+    view: (l) => closeUpOr(REGION_VIEWS.pacificBasin, l),
+  },
+  {
+    id: 'satellites',
+    label: 'Satellites — high-orbit pull-back',
+    view: () => ({ ...REGION_VIEWS.highOrbit }),
+  },
+  {
+    prefix: 'gibs-',
+    label: 'Global imagery — slow spin',
+    view: () => ({ ...REGION_VIEWS.globalSpin }),
+  },
+  {
+    prefix: 'rainviewer-',
+    label: 'Precipitation radar — slow spin',
+    view: () => ({ ...REGION_VIEWS.globalSpin }),
+  },
+  {
+    id: 'terminator',
+    label: 'Day/night terminator — space-side',
+    view: () => ({ ...REGION_VIEWS.spaceSide }),
+  },
+  {
+    id: 'moon',
+    label: 'Lunar view — space-side',
+    view: () => ({ ...REGION_VIEWS.spaceSide }),
+  },
 ]);
 
 export class TourDirector {
@@ -146,8 +221,10 @@ export class TourDirector {
     destinationFor = (view) => ({ ...view }),
   } = {}) {
     if (!viewer) throw new TypeError('TourDirector requires a viewer');
-    if (typeof getLayers !== 'function') throw new TypeError('TourDirector requires getLayers()');
-    if (typeof isEnabled !== 'function') throw new TypeError('TourDirector requires isEnabled(layerId)');
+    if (typeof getLayers !== 'function')
+      throw new TypeError('TourDirector requires getLayers()');
+    if (typeof isEnabled !== 'function')
+      throw new TypeError('TourDirector requires isEnabled(layerId)');
     this._viewer = viewer;
     this._getLayers = getLayers;
     this._isEnabled = isEnabled;

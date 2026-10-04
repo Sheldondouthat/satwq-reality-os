@@ -80,7 +80,10 @@ function toVec(latDeg, lonDeg) {
 }
 
 function toLatLon([x, y, z]) {
-  return { lat: Math.asin(Math.max(-1, Math.min(1, z))) * DEG, lon: Math.atan2(y, x) * DEG };
+  return {
+    lat: Math.asin(Math.max(-1, Math.min(1, z))) * DEG,
+    lon: Math.atan2(y, x) * DEG,
+  };
 }
 
 /** Haversine distance in km between two {lat, lon} points. */
@@ -101,7 +104,10 @@ export function haversineKm(a, b) {
 export function greatCirclePath(a, b, segments = 24) {
   const va = toVec(a.lat, a.lon);
   const vb = toVec(b.lat, b.lon);
-  const dot = Math.max(-1, Math.min(1, va[0] * vb[0] + va[1] * vb[1] + va[2] * vb[2]));
+  const dot = Math.max(
+    -1,
+    Math.min(1, va[0] * vb[0] + va[1] * vb[1] + va[2] * vb[2]),
+  );
   const omega = Math.acos(dot);
   const steps = Math.max(1, Math.floor(segments));
   const path = [];
@@ -130,7 +136,11 @@ export function arcMidpoint(a, b) {
   const vb = toVec(b.lat, b.lon);
   const len = Math.hypot(va[0] + vb[0], va[1] + vb[1], va[2] + vb[2]);
   if (len < 1e-9) return { lat: a.lat, lon: a.lon };
-  return toLatLon([(va[0] + vb[0]) / len, (va[1] + vb[1]) / len, (va[2] + vb[2]) / len]);
+  return toLatLon([
+    (va[0] + vb[0]) / len,
+    (va[1] + vb[1]) / len,
+    (va[2] + vb[2]) / len,
+  ]);
 }
 
 /**
@@ -153,18 +163,102 @@ export function arcSegments(distanceKm) {
 
 /** Amateur bands we actually see in WSPR/PSK traffic. freqHz -> band. */
 const BANDS = [
-  { name: '160m', meters: 160, lowHz: 1_800_000, highHz: 2_000_000, color: '#7b5cff', typicalMHz: 1.9 },
-  { name: '80m', meters: 80, lowHz: 3_500_000, highHz: 4_000_000, color: '#5aa2ff', typicalMHz: 3.6 },
-  { name: '60m', meters: 60, lowHz: 5_300_000, highHz: 5_410_000, color: '#4fd1c5', typicalMHz: 5.35 },
-  { name: '40m', meters: 40, lowHz: 7_000_000, highHz: 7_300_000, color: '#48bb78', typicalMHz: 7.1 },
-  { name: '30m', meters: 30, lowHz: 10_100_000, highHz: 10_150_000, color: '#a3e635', typicalMHz: 10.12 },
-  { name: '20m', meters: 20, lowHz: 14_000_000, highHz: 14_350_000, color: '#f6e05e', typicalMHz: 14.2 },
-  { name: '17m', meters: 17, lowHz: 18_068_000, highHz: 18_168_000, color: '#f6ad55', typicalMHz: 18.1 },
-  { name: '15m', meters: 15, lowHz: 21_000_000, highHz: 21_450_000, color: '#fc8181', typicalMHz: 21.2 },
-  { name: '12m', meters: 12, lowHz: 24_890_000, highHz: 24_990_000, color: '#f687b3', typicalMHz: 24.94 },
-  { name: '10m', meters: 10, lowHz: 28_000_000, highHz: 29_700_000, color: '#e53e3e', typicalMHz: 28.5 },
-  { name: '6m', meters: 6, lowHz: 50_000_000, highHz: 54_000_000, color: '#ff7ab8', typicalMHz: 50.3 },
-  { name: '2m', meters: 2, lowHz: 144_000_000, highHz: 148_000_000, color: '#e2e8f0', typicalMHz: 144.5 },
+  {
+    name: '160m',
+    meters: 160,
+    lowHz: 1_800_000,
+    highHz: 2_000_000,
+    color: '#7b5cff',
+    typicalMHz: 1.9,
+  },
+  {
+    name: '80m',
+    meters: 80,
+    lowHz: 3_500_000,
+    highHz: 4_000_000,
+    color: '#5aa2ff',
+    typicalMHz: 3.6,
+  },
+  {
+    name: '60m',
+    meters: 60,
+    lowHz: 5_300_000,
+    highHz: 5_410_000,
+    color: '#4fd1c5',
+    typicalMHz: 5.35,
+  },
+  {
+    name: '40m',
+    meters: 40,
+    lowHz: 7_000_000,
+    highHz: 7_300_000,
+    color: '#48bb78',
+    typicalMHz: 7.1,
+  },
+  {
+    name: '30m',
+    meters: 30,
+    lowHz: 10_100_000,
+    highHz: 10_150_000,
+    color: '#a3e635',
+    typicalMHz: 10.12,
+  },
+  {
+    name: '20m',
+    meters: 20,
+    lowHz: 14_000_000,
+    highHz: 14_350_000,
+    color: '#f6e05e',
+    typicalMHz: 14.2,
+  },
+  {
+    name: '17m',
+    meters: 17,
+    lowHz: 18_068_000,
+    highHz: 18_168_000,
+    color: '#f6ad55',
+    typicalMHz: 18.1,
+  },
+  {
+    name: '15m',
+    meters: 15,
+    lowHz: 21_000_000,
+    highHz: 21_450_000,
+    color: '#fc8181',
+    typicalMHz: 21.2,
+  },
+  {
+    name: '12m',
+    meters: 12,
+    lowHz: 24_890_000,
+    highHz: 24_990_000,
+    color: '#f687b3',
+    typicalMHz: 24.94,
+  },
+  {
+    name: '10m',
+    meters: 10,
+    lowHz: 28_000_000,
+    highHz: 29_700_000,
+    color: '#e53e3e',
+    typicalMHz: 28.5,
+  },
+  {
+    name: '6m',
+    meters: 6,
+    lowHz: 50_000_000,
+    highHz: 54_000_000,
+    color: '#ff7ab8',
+    typicalMHz: 50.3,
+  },
+  {
+    name: '2m',
+    meters: 2,
+    lowHz: 144_000_000,
+    highHz: 148_000_000,
+    color: '#e2e8f0',
+    typicalMHz: 144.5,
+  },
 ];
 
 /** Band descriptor for a frequency in Hz, or null when off-band. */
@@ -216,7 +310,13 @@ export function normalizeSpot(raw) {
   if (distanceKm < MIN_ARC_KM) return null;
   const snrDb = Number(raw.snrDb);
   return {
-    id: hashId([provider, String(raw.txCall ?? ''), String(raw.rxCall ?? ''), String(raw.freqHz), String(timeMs)]),
+    id: hashId([
+      provider,
+      String(raw.txCall ?? ''),
+      String(raw.rxCall ?? ''),
+      String(raw.freqHz),
+      String(timeMs),
+    ]),
     provider,
     txLat: tx.lat,
     txLon: tx.lon,
@@ -259,7 +359,10 @@ export function spotAlpha(spot, now = Date.now(), ttlMs = SPOT_TTL_MS) {
  */
 export function capSpots(spots, max = MAX_ARCS) {
   const sorted = [...spots].sort((a, b) => b.timeMs - a.timeMs);
-  return { spots: sorted.slice(0, max), dropped: Math.max(0, sorted.length - max) };
+  return {
+    spots: sorted.slice(0, max),
+    dropped: Math.max(0, sorted.length - max),
+  };
 }
 
 // ---------------------------------------------------------------------------
@@ -286,7 +389,12 @@ export function parsePskXml(text, now = Date.now()) {
     while ((attr = attrRe.exec(tag[1]))) attrs[attr[1]] = attr[2];
     const freqHz = Number(attrs.frequency);
     const flowSeconds = Number(attrs.flowStartSeconds);
-    if (!Number.isFinite(freqHz) || !isValidGrid(attrs.senderLocator) || !isValidGrid(attrs.receiverLocator)) continue;
+    if (
+      !Number.isFinite(freqHz) ||
+      !isValidGrid(attrs.senderLocator) ||
+      !isValidGrid(attrs.receiverLocator)
+    )
+      continue;
     reports.push({
       provider: 'pskreporter',
       txCall: attrs.senderCallsign || '—',
@@ -298,7 +406,9 @@ export function parsePskXml(text, now = Date.now()) {
       snrDb: attrs.sNR ?? null,
       // flowStartSeconds is epoch seconds at the reporter; trust but bound it.
       timeMs:
-        Number.isFinite(flowSeconds) && flowSeconds > 1_500_000_000 && flowSeconds * 1000 <= now + 600_000
+        Number.isFinite(flowSeconds) &&
+        flowSeconds > 1_500_000_000 &&
+        flowSeconds * 1000 <= now + 600_000
           ? flowSeconds * 1000
           : now,
     });
@@ -337,9 +447,29 @@ export function parseWsprHtml(text, now = Date.now()) {
     while ((cell = cellRe.exec(row[1]))) cells.push(stripTags(cell[1]));
     // Header rows and nav rows have few/different cells; spot rows have >= 13.
     if (cells.length < 13) continue;
-    const [dateStr, call, freqMHzStr, snrStr, , grid, , , reporter, reporterGrid, , , mode] = cells;
+    const [
+      dateStr,
+      call,
+      freqMHzStr,
+      snrStr,
+      ,
+      grid,
+      ,
+      ,
+      reporter,
+      reporterGrid,
+      ,
+      ,
+      mode,
+    ] = cells;
     const freqHz = Number(freqMHzStr) * 1_000_000;
-    if (!call || !Number.isFinite(freqHz) || !isValidGrid(grid) || !isValidGrid(reporterGrid)) continue;
+    if (
+      !call ||
+      !Number.isFinite(freqHz) ||
+      !isValidGrid(grid) ||
+      !isValidGrid(reporterGrid)
+    )
+      continue;
     const parsed = Date.parse(`${dateStr} UTC`);
     reports.push({
       provider: 'wsprnet',
@@ -365,7 +495,8 @@ function latestValid(rows, pick) {
   if (!Array.isArray(rows)) return null;
   for (let i = rows.length - 1; i >= 0; i--) {
     const v = pick(rows[i]);
-    if (v !== null && v !== undefined && Number.isFinite(Number(v))) return Number(v);
+    if (v !== null && v !== undefined && Number.isFinite(Number(v)))
+      return Number(v);
   }
   return null;
 }
@@ -394,7 +525,13 @@ export function goesSubclass(fluxWm2) {
  * Parse the four SWPC summary feeds into one EM-weather state object.
  * Every field is null-tolerant: partial data still yields a usable state.
  */
-export function parseEmWeather({ speedRows, magRows, xrayRows, kpRows, sfiRows } = {}) {
+export function parseEmWeather({
+  speedRows,
+  magRows,
+  xrayRows,
+  kpRows,
+  sfiRows,
+} = {}) {
   const solarWindKms = latestValid(speedRows, (r) => r?.proton_speed);
   const bzGsm = latestValid(magRows, (r) => r?.bz_gsm);
   const bt = latestValid(magRows, (r) => r?.bt);
@@ -480,7 +617,9 @@ export function bestBandsHint(em, { dayFactor = 0.5 } = {}) {
   const preferred = usable.filter((b) =>
     night ? b.meters >= 30 : b.meters <= 20,
   );
-  const picks = (preferred.length ? preferred : usable).slice(-3).map((b) => b.name);
+  const picks = (preferred.length ? preferred : usable)
+    .slice(-3)
+    .map((b) => b.name);
   return { mufMHz, bands: picks, night, basis: 'intuition' };
 }
 
@@ -494,26 +633,38 @@ export function emWeatherSummary(em, { dayFactor = 0.5 } = {}) {
     const v = em.solarWindKms;
     lines.push(
       `Solar wind ${Math.round(v)} km/s — ` +
-        (v < 400 ? 'calm breeze' : v < 550 ? 'brisk stream' : 'gale conditions'),
+        (v < 400
+          ? 'calm breeze'
+          : v < 550
+            ? 'brisk stream'
+            : 'gale conditions'),
     );
   }
   if (Number.isFinite(em?.kp)) {
     lines.push(
       `Kp ${em.kp} — ` +
-        (em.kp <= 3 ? 'quiet geomagnetic field' : em.kp <= 5 ? 'unsettled field' : 'geomagnetic storm'),
+        (em.kp <= 3
+          ? 'quiet geomagnetic field'
+          : em.kp <= 5
+            ? 'unsettled field'
+            : 'geomagnetic storm'),
     );
   }
   if (em?.xraySubclass) {
     const flaring = em.xrayClass === 'M' || em.xrayClass === 'X';
     lines.push(
       `X-ray ${em.xraySubclass} — ` +
-        (flaring ? 'flare in progress; day-side HF may fade' : 'no significant flare'),
+        (flaring
+          ? 'flare in progress; day-side HF may fade'
+          : 'no significant flare'),
     );
   }
   if (Number.isFinite(em?.bzGsm)) {
     lines.push(
       `IMF Bz ${em.bzGsm >= 0 ? '+' : ''}${em.bzGsm.toFixed(1)} nT — ` +
-        (em.bzGsm < -5 ? 'southward; coupling into the magnetosphere' : 'not strongly coupling'),
+        (em.bzGsm < -5
+          ? 'southward; coupling into the magnetosphere'
+          : 'not strongly coupling'),
     );
   }
   const hint = bestBandsHint(em, { dayFactor });

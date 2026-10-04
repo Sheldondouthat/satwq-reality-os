@@ -19,17 +19,20 @@ export const EMOJI = '🧭';
 export const LABEL = 'Geomag (USGS)';
 
 export function valueLine(doc) {
-      if (isUnavailable(doc)) return null;
-      const lv = doc.latestValid ?? doc.latest;
-      if (!lv) return null;
-      const h = pickNum(lv.h);
-      const d = pickNum(lv.d);
-      const mag = h != null ? `H ${h} nT` : `X ${pickNum(lv.x) ?? '?'} nT`;
-      return withTags(`${EMOJI} ${pickStr(doc.observatory?.code, 'BOU')} ${mag}${d != null ? ` D ${d}°` : ''}`, doc);
-    }
+  if (isUnavailable(doc)) return null;
+  const lv = doc.latestValid ?? doc.latest;
+  if (!lv) return null;
+  const h = pickNum(lv.h);
+  const d = pickNum(lv.d);
+  const mag = h != null ? `H ${h} nT` : `X ${pickNum(lv.x) ?? '?'} nT`;
+  return withTags(
+    `${EMOJI} ${pickStr(doc.observatory?.code, 'BOU')} ${mag}${d != null ? ` D ${d}°` : ''}`,
+    doc,
+  );
+}
 
 export function detailLine(doc) {
-      if (isUnavailable(doc)) return '';
-      const lv = doc.latestValid ?? doc.latest ?? {};
-      return `latest valid ${pickStr(lv.t, 'n/a')}`;
-    }
+  if (isUnavailable(doc)) return '';
+  const lv = doc.latestValid ?? doc.latest ?? {};
+  return `latest valid ${pickStr(lv.t, 'n/a')}`;
+}

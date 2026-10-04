@@ -4,49 +4,46 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch-4 diversity worker).
  */
 export const SPEC = {
-  "attribution": "Data: MusicBrainz (MetaBrainz, CC0 metadata) — keyless.",
-  "extract": {
-    "items": "$.artists",
-    "limit": 5,
-    "map": {
-      "country": "$.country",
-      "disambiguation": "$.disambiguation",
-      "mbid": "$.id",
-      "name": "$.name",
-      "score": "$.score",
-      "type": "$.type"
+  attribution: 'Data: MusicBrainz (MetaBrainz, CC0 metadata) — keyless.',
+  extract: {
+    items: '$.artists',
+    limit: 5,
+    map: {
+      country: '$.country',
+      disambiguation: '$.disambiguation',
+      mbid: '$.id',
+      name: '$.name',
+      score: '$.score',
+      type: '$.type',
     },
-    "numbers": [
-      "score"
-    ]
+    numbers: ['score'],
   },
-  "fieldMap": {
-    "country": "artist country code",
-    "disambiguation": "disambiguation note",
-    "mbid": "MusicBrainz ID (stable entity key)",
-    "name": "artist name",
-    "score": "search relevance score",
-    "type": "artist type (Group/Person/...)"
+  fieldMap: {
+    country: 'artist country code',
+    disambiguation: 'disambiguation note',
+    mbid: 'MusicBrainz ID (stable entity key)',
+    name: 'artist name',
+    score: 'search relevance score',
+    type: 'artist type (Group/Person/...)',
   },
-  "headers": {
-    "User-Agent": "satwq-reality-os/1.0 (surge-500 diversity worker; contact sheldondouthat@gmail.com)"
+  headers: {
+    'User-Agent':
+      'satwq-reality-os/1.0 (surge-500 diversity worker; contact sheldondouthat@gmail.com)',
   },
-  "honestLabels": {
-    "coverage": "MusicBrainz search index; results depend on the fixed query.",
-    "freshness": "Community-curated, continuously edited.",
-    "model": "MusicBrainz relevance scoring, not popularity."
+  honestLabels: {
+    coverage: 'MusicBrainz search index; results depend on the fixed query.',
+    freshness: 'Community-curated, continuously edited.',
+    model: 'MusicBrainz relevance scoring, not popularity.',
   },
-  "honesty": "MusicBrainz artist search for the fixed query 'artist:queen' (limit 5). MBIDs are stable; fields update as editors curate.",
-  "id": "mb-artist-search-queen",
-  "required": [
-    "mbid",
-    "name"
-  ],
-  "source": "MusicBrainz",
-  "title": "MusicBrainz — artist search (query: artist:queen)",
-  "ttlSeconds": 86400,
-  "units": {},
-  "url": "https://musicbrainz.org/ws/2/artist/?query=artist:queen&fmt=json&limit=5",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch-4 diversity worker"
+  honesty:
+    "MusicBrainz artist search for the fixed query 'artist:queen' (limit 5). MBIDs are stable; fields update as editors curate.",
+  id: 'mb-artist-search-queen',
+  required: ['mbid', 'name'],
+  source: 'MusicBrainz',
+  title: 'MusicBrainz — artist search (query: artist:queen)',
+  ttlSeconds: 86400,
+  units: {},
+  url: 'https://musicbrainz.org/ws/2/artist/?query=artist:queen&fmt=json&limit=5',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch-4 diversity worker',
 };

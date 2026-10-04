@@ -40,7 +40,8 @@ const MS_TO_FPM = 196.85;
 
 // One bounded box per OpenSky refresh: NA + Europe in a single fetch.
 // (OpenSky docs/catalog note: bounded queries only.)
-const OPENSKY_URL = 'https://opensky-network.org/api/states/all?lamin=20&lamax=65&lomin=-130&lomax=40';
+const OPENSKY_URL =
+  'https://opensky-network.org/api/states/all?lamin=20&lamax=65&lomin=-130&lomax=40';
 
 // adsb.lol serves bounded radius queries only — a few high-traffic hubs,
 // not a global scrape.
@@ -53,12 +54,23 @@ const ADSB_LOL_HUBS = [
 ];
 
 const ADSB_LOL_URLS = ADSB_LOL_HUBS.map(
-  (h) => `https://api.adsb.lol/v2/lat/${h.lat}/lon/${h.lon}/dist/${ADSB_LOL_RADIUS_NM}`,
+  (h) =>
+    `https://api.adsb.lol/v2/lat/${h.lat}/lon/${h.lon}/dist/${ADSB_LOL_RADIUS_NM}`,
 );
 
 const SOURCES = [
-  { key: 'opensky', urls: [OPENSKY_URL], parse: parseOpenSky, attribution: 'OpenSky Network (CC BY-NC-SA 4.0, cite IPSN 2014)' },
-  { key: 'adsb_lol', urls: ADSB_LOL_URLS, parse: parseAdsbLol, attribution: 'adsb.lol community ADS-B (ODbL 1.0)' },
+  {
+    key: 'opensky',
+    urls: [OPENSKY_URL],
+    parse: parseOpenSky,
+    attribution: 'OpenSky Network (CC BY-NC-SA 4.0, cite IPSN 2014)',
+  },
+  {
+    key: 'adsb_lol',
+    urls: ADSB_LOL_URLS,
+    parse: parseAdsbLol,
+    attribution: 'adsb.lol community ADS-B (ODbL 1.0)',
+  },
 ];
 
 let cache = null; // {at, payload}
@@ -88,32 +100,58 @@ function finiteOrNull(value, decimals = 4) {
 }
 
 function normalizeAircraft({
-  icao24, callsign, originCountry, reg, type, lat, lon,
-  altitudeFt, onGround, speedKts, trackDeg, verticalRateFpm, squawk,
-  lastContact, source,
+  icao24,
+  callsign,
+  originCountry,
+  reg,
+  type,
+  lat,
+  lon,
+  altitudeFt,
+  onGround,
+  speedKts,
+  trackDeg,
+  verticalRateFpm,
+  squawk,
+  lastContact,
+  source,
 }) {
-  const hex = String(icao24 ?? '').toLowerCase().trim();
+  const hex = String(icao24 ?? '')
+    .toLowerCase()
+    .trim();
   // NOTE: Number(null) === 0 — nulls must be screened before coercion,
   // otherwise (0,0) slips through as a valid Gulf of Guinea coordinate.
   if (lat == null || lon == null || lat === '' || lon === '') return null;
   const ll = clampLatLon(Number(lat), Number(lon));
   if (!hex || !ll) return null;
-  const contactMs = lastContact instanceof Date
-    ? lastContact.getTime()
-    : typeof lastContact === 'number'
-      ? lastContact // OpenSky epoch seconds → handled below
-      : Date.parse(lastContact);
+  const contactMs =
+    lastContact instanceof Date
+      ? lastContact.getTime()
+      : typeof lastContact === 'number'
+        ? lastContact // OpenSky epoch seconds → handled below
+        : Date.parse(lastContact);
   let contactIso = null;
   if (Number.isFinite(contactMs)) {
     // OpenSky carries epoch SECONDS; adsb.lol relative `seen` secs need `now`.
-    contactIso = new Date(contactMs < 1e12 ? contactMs * 1000 : contactMs).toISOString();
+    contactIso = new Date(
+      contactMs < 1e12 ? contactMs * 1000 : contactMs,
+    ).toISOString();
   }
   return {
     icao24: hex,
-    callsign: String(callsign ?? '').trim().slice(0, 16) || null,
+    callsign:
+      String(callsign ?? '')
+        .trim()
+        .slice(0, 16) || null,
     originCountry: String(originCountry ?? '').slice(0, 80) || null,
-    reg: String(reg ?? '').trim().slice(0, 16) || null,
-    type: String(type ?? '').trim().slice(0, 24) || null,
+    reg:
+      String(reg ?? '')
+        .trim()
+        .slice(0, 16) || null,
+    type:
+      String(type ?? '')
+        .trim()
+        .slice(0, 24) || null,
     lat: roundNum(ll.lat),
     lon: roundNum(ll.lon),
     altitudeFt: finiteOrNull(altitudeFt, 0),
@@ -121,7 +159,10 @@ function normalizeAircraft({
     speedKts: finiteOrNull(speedKts, 1),
     trackDeg: finiteOrNull(trackDeg, 1),
     verticalRateFpm: finiteOrNull(verticalRateFpm, 0),
-    squawk: String(squawk ?? '').trim().slice(0, 8) || null,
+    squawk:
+      String(squawk ?? '')
+        .trim()
+        .slice(0, 8) || null,
     lastContact: contactIso,
     sources: [source],
   };
@@ -147,7 +188,8 @@ function parseOpenSky(upstream) {
       type: null,
       lat: s[6],
       lon: s[5],
-      altitudeFt: s[13] != null ? s[13] * M_TO_FT : (s[7] != null ? s[7] * M_TO_FT : null),
+      altitudeFt:
+        s[13] != null ? s[13] * M_TO_FT : s[7] != null ? s[7] * M_TO_FT : null,
       onGround: s[8],
       speedKts: s[9] != null ? s[9] * MS_TO_KT : null,
       trackDeg: s[10],
@@ -208,17 +250,23 @@ function dedupeAircraft(records) {
       byIcao.set(r.icao24, { ...r, sources: [...r.sources] });
       continue;
     }
-    for (const s of r.sources) if (!prior.sources.includes(s)) prior.sources.push(s);
+    for (const s of r.sources)
+      if (!prior.sources.includes(s)) prior.sources.push(s);
     const rTime = Date.parse(r.lastContact ?? '');
     const pTime = Date.parse(prior.lastContact ?? '');
-    const rNewer = Number.isFinite(rTime) && (!Number.isFinite(pTime) || rTime > pTime);
+    const rNewer =
+      Number.isFinite(rTime) && (!Number.isFinite(pTime) || rTime > pTime);
     if (rNewer) {
       const keep = {
-        callsign: prior.callsign, reg: prior.reg, type: prior.type,
-        originCountry: prior.originCountry, squawk: prior.squawk,
+        callsign: prior.callsign,
+        reg: prior.reg,
+        type: prior.type,
+        originCountry: prior.originCountry,
+        squawk: prior.squawk,
       };
       Object.assign(prior, r, { sources: prior.sources });
-      for (const [k, v] of Object.entries(keep)) if (prior[k] == null) prior[k] = v;
+      for (const [k, v] of Object.entries(keep))
+        if (prior[k] == null) prior[k] = v;
     } else {
       for (const k of ['callsign', 'reg', 'type', 'originCountry', 'squawk']) {
         if (prior[k] == null && r[k] != null) prior[k] = r[k];
@@ -241,13 +289,23 @@ async function fetchJsonCapped(sourceKey, url, extraHeaders = {}) {
       // was NOT verified from this VM (curl 000, 2026-09-27) — flagged
       // VM-throttled, needs Worker-side probe.
       redirect: 'follow',
-      headers: { 'User-Agent': USER_AGENT, Accept: 'application/json', ...extraHeaders },
+      headers: {
+        'User-Agent': USER_AGENT,
+        Accept: 'application/json',
+        ...extraHeaders,
+      },
     });
     if (!response.ok)
-      throw Object.assign(new Error(`aircraft_${sourceKey}_upstream_${response.status}`), { status: 502 });
+      throw Object.assign(
+        new Error(`aircraft_${sourceKey}_upstream_${response.status}`),
+        { status: 502 },
+      );
     const buffer = await response.arrayBuffer();
     if (buffer.byteLength > BODY_CAP_BYTES)
-      throw Object.assign(new Error(`aircraft_${sourceKey}_upstream_too_large`), { status: 502 });
+      throw Object.assign(
+        new Error(`aircraft_${sourceKey}_upstream_too_large`),
+        { status: 502 },
+      );
     return JSON.parse(new TextDecoder().decode(buffer));
   } finally {
     clearTimeout(timeout);
@@ -257,7 +315,9 @@ async function fetchJsonCapped(sourceKey, url, extraHeaders = {}) {
 async function fetchOneSource(source) {
   const started = Date.now();
   try {
-    const bodies = await Promise.all(source.urls.map((u) => fetchJsonCapped(source.key, u)));
+    const bodies = await Promise.all(
+      source.urls.map((u) => fetchJsonCapped(source.key, u)),
+    );
     const records = [];
     for (const body of bodies) records.push(...source.parse(body));
     return {
@@ -313,7 +373,10 @@ async function getSnapshot() {
         const ok = results.some((r) => r.ok);
         if (!ok) {
           const detail = results.map((r) => `${r.key}:${r.error}`).join('; ');
-          throw Object.assign(new Error(`aircraft_all_upstream_down: ${detail}`), { status: 502 });
+          throw Object.assign(
+            new Error(`aircraft_all_upstream_down: ${detail}`),
+            { status: 502 },
+          );
         }
         const payload = buildSnapshot(results);
         cache = { at: Date.now(), payload };
@@ -337,15 +400,24 @@ function sendJson(res, status, body, cacheControl = 'public, max-age=30') {
 /** Mount the wave-6 aircraft aggregation proxy. Mirrors the wave-5 quakes shape. */
 export function aircraftProxy() {
   async function handler(req, res) {
-    if (req.method !== 'GET') return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
     try {
       sendJson(res, 200, await getSnapshot());
     } catch (error) {
-      const upstreamFail = error?.status === 502 || error?.name === 'AbortError' || /aborted?/i.test(error?.message ?? '');
-      sendJson(res, upstreamFail ? 502 : 500, {
-        error: 'aircraft_unavailable',
-        detail: error?.message ?? 'unknown',
-      }, 'no-store');
+      const upstreamFail =
+        error?.status === 502 ||
+        error?.name === 'AbortError' ||
+        /aborted?/i.test(error?.message ?? '');
+      sendJson(
+        res,
+        upstreamFail ? 502 : 500,
+        {
+          error: 'aircraft_unavailable',
+          detail: error?.message ?? 'unknown',
+        },
+        'no-store',
+      );
     }
   }
 
@@ -368,5 +440,8 @@ export const _aircraftInternals = {
   buildSnapshot,
   ADSB_LOL_HUBS,
   ADSB_LOL_URLS,
-  clearCaches: () => { cache = null; inflight = null; },
+  clearCaches: () => {
+    cache = null;
+    inflight = null;
+  },
 };

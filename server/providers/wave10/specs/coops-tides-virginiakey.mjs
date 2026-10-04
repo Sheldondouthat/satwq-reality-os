@@ -4,33 +4,30 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 1 (coops worker)).
  */
 export const SPEC = {
-  "headers": {
-    "User-Agent": "satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)"
+  headers: {
+    'User-Agent':
+      'satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)',
   },
-  "source": "NOAA Center for Operational Oceanography Products",
-  "attribution": "Data: NOAA CO-OPS — keyless.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 1 (coops worker)",
-  "id": "coops-tides-virginiakey",
-  "title": "NOAA Tides — Virginia Key (Miami) tide predictions",
-  "url": "https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?product=predictions&station=8723214&date=today&datum=MLLW&time_zone=gmt&units=english&interval=h&format=json",
-  "ttlSeconds": 3600,
-  "extract": {
-    "items": "$.predictions",
-    "limit": 24,
-    "map": {
-      "time": "$.t",
-      "levelFt": "$.v"
+  source: 'NOAA Center for Operational Oceanography Products',
+  attribution: 'Data: NOAA CO-OPS — keyless.',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 1 (coops worker)',
+  id: 'coops-tides-virginiakey',
+  title: 'NOAA Tides — Virginia Key (Miami) tide predictions',
+  url: 'https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?product=predictions&station=8723214&date=today&datum=MLLW&time_zone=gmt&units=english&interval=h&format=json',
+  ttlSeconds: 3600,
+  extract: {
+    items: '$.predictions',
+    limit: 24,
+    map: {
+      time: '$.t',
+      levelFt: '$.v',
     },
-    "numbers": [
-      "levelFt"
-    ]
+    numbers: ['levelFt'],
   },
-  "required": [
-    "time"
-  ],
-  "units": {
-    "levelFt": "ft"
+  required: ['time'],
+  units: {
+    levelFt: 'ft',
   },
-  "honesty": "Hourly astronomical tide predictions for today (GMT), datum MLLW."
+  honesty: 'Hourly astronomical tide predictions for today (GMT), datum MLLW.',
 };

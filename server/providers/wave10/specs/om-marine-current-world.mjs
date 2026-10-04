@@ -4,61 +4,61 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 4 (open-meteo worker)).
  */
 export const SPEC = {
-  "id": "om-marine-current-world",
-  "title": "Open-Meteo marine nowcast — 8 world coastal waters",
-  "url": "https://marine-api.open-meteo.com/v1/marine?latitude=-33.87,35.65,-22.97,-33.92,18.94,1.29,41.38,49.28&longitude=151.21,139.77,-43.18,18.42,72.84,103.85,2.19,-123.12&current=wave_height,wave_direction,wave_period,wind_wave_height,swell_wave_height,swell_wave_direction,ocean_current_velocity,sea_surface_temperature&timezone=auto",
-  "headers": {
-    "User-Agent": "satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)"
+  id: 'om-marine-current-world',
+  title: 'Open-Meteo marine nowcast — 8 world coastal waters',
+  url: 'https://marine-api.open-meteo.com/v1/marine?latitude=-33.87,35.65,-22.97,-33.92,18.94,1.29,41.38,49.28&longitude=151.21,139.77,-43.18,18.42,72.84,103.85,2.19,-123.12&current=wave_height,wave_direction,wave_period,wind_wave_height,swell_wave_height,swell_wave_direction,ocean_current_velocity,sea_surface_temperature&timezone=auto',
+  headers: {
+    'User-Agent':
+      'satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)',
   },
-  "ttlSeconds": 3600,
-  "extract": {
-    "items": "$",
-    "limit": 50,
-    "map": {
-      "time": "$.current.time",
-      "lat": "$.latitude",
-      "lon": "$.longitude",
-      "tz": "$.timezone",
-      "waveHeightM": "$.current.wave_height",
-      "waveDirDeg": "$.current.wave_direction",
-      "wavePeriodS": "$.current.wave_period",
-      "windWaveHeightM": "$.current.wind_wave_height",
-      "swellWaveHeightM": "$.current.swell_wave_height",
-      "swellWaveDirDeg": "$.current.swell_wave_direction",
-      "currentKmh": "$.current.ocean_current_velocity",
-      "sstC": "$.current.sea_surface_temperature"
+  ttlSeconds: 3600,
+  extract: {
+    items: '$',
+    limit: 50,
+    map: {
+      time: '$.current.time',
+      lat: '$.latitude',
+      lon: '$.longitude',
+      tz: '$.timezone',
+      waveHeightM: '$.current.wave_height',
+      waveDirDeg: '$.current.wave_direction',
+      wavePeriodS: '$.current.wave_period',
+      windWaveHeightM: '$.current.wind_wave_height',
+      swellWaveHeightM: '$.current.swell_wave_height',
+      swellWaveDirDeg: '$.current.swell_wave_direction',
+      currentKmh: '$.current.ocean_current_velocity',
+      sstC: '$.current.sea_surface_temperature',
     },
-    "numbers": [
-      "lat",
-      "lon",
-      "waveHeightM",
-      "waveDirDeg",
-      "wavePeriodS",
-      "windWaveHeightM",
-      "swellWaveHeightM",
-      "swellWaveDirDeg",
-      "currentKmh",
-      "sstC"
-    ]
+    numbers: [
+      'lat',
+      'lon',
+      'waveHeightM',
+      'waveDirDeg',
+      'wavePeriodS',
+      'windWaveHeightM',
+      'swellWaveHeightM',
+      'swellWaveDirDeg',
+      'currentKmh',
+      'sstC',
+    ],
   },
-  "required": [
-    "waveHeightM"
-  ],
-  "source": "Open-Meteo Marine API (GFS wave model)",
-  "attribution": "Weather data by Open-Meteo.com (CC-BY 4.0) — keyless API.",
-  "units": {
-    "lat": "deg",
-    "lon": "deg",
-    "waveHeightM": "m",
-    "waveDirDeg": "deg",
-    "wavePeriodS": "s",
-    "windWaveHeightM": "m",
-    "swellWaveHeightM": "m",
-    "swellWaveDirDeg": "deg",
-    "currentKmh": "km/h",
-    "sstC": "C"
+  required: ['waveHeightM'],
+  source: 'Open-Meteo Marine API (GFS wave model)',
+  attribution: 'Weather data by Open-Meteo.com (CC-BY 4.0) — keyless API.',
+  units: {
+    lat: 'deg',
+    lon: 'deg',
+    waveHeightM: 'm',
+    waveDirDeg: 'deg',
+    wavePeriodS: 's',
+    windWaveHeightM: 'm',
+    swellWaveHeightM: 'm',
+    swellWaveDirDeg: 'deg',
+    currentKmh: 'km/h',
+    sstC: 'C',
   },
-  "honesty": "GFS/WAM-family marine model nowcast, not buoy observations. Rows in request order: Sydney, Tokyo, Rio de Janeiro, Cape Town, Mumbai, Singapore, Barcelona, Vancouver.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 4 (open-meteo worker)"
+  honesty:
+    'GFS/WAM-family marine model nowcast, not buoy observations. Rows in request order: Sydney, Tokyo, Rio de Janeiro, Cape Town, Mumbai, Singapore, Barcelona, Vancouver.',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 4 (open-meteo worker)',
 };

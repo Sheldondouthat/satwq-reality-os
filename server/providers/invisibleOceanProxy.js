@@ -30,7 +30,8 @@ const RETRY_COOLDOWN_MS = 60_000;
 const UPSTREAM_TIMEOUT_MS = 15_000;
 const TEXT_CAP = 4 * 1024 * 1024; // 4 MB per upstream document
 const MAX_SPOTS = 800; // served to the client (client renders <= 350)
-const USER_AGENT = 'Gods Eye View InvisibleOcean/1.0 (public volunteer RF metadata; contact via repo)';
+const USER_AGENT =
+  'Gods Eye View InvisibleOcean/1.0 (public volunteer RF metadata; contact via repo)';
 
 function invalid(message) {
   return new Error(message || 'invalid_invisible_ocean_data');
@@ -84,7 +85,10 @@ export function invisibleOceanProxy({
     signal.throwIfAborted();
     const response = await fetchImpl(url, {
       signal,
-      headers: { 'User-Agent': USER_AGENT, Accept: 'text/html,application/xml,text/xml,*/*' },
+      headers: {
+        'User-Agent': USER_AGENT,
+        Accept: 'text/html,application/xml,text/xml,*/*',
+      },
     });
     if (!response.ok) {
       await response.body?.cancel();
@@ -102,7 +106,12 @@ export function invisibleOceanProxy({
       const spots = parseSpotPayload(reports, now());
       return { name, ok: true, spots, count: spots.length };
     } catch (error) {
-      return { name, ok: false, spots: [], error: error?.message || 'upstream_failed' };
+      return {
+        name,
+        ok: false,
+        spots: [],
+        error: error?.message || 'upstream_failed',
+      };
     }
   }
 
@@ -131,7 +140,8 @@ export function invisibleOceanProxy({
     if (cache && now() - cache.fetchedAt < CACHE_TTL_MS) return cache;
     if (operation?.controller.signal.aborted) operation = null;
     if (!operation) {
-      if (now() - attemptedAt < RETRY_COOLDOWN_MS) throw new Error('invisible_ocean_retry_later');
+      if (now() - attemptedAt < RETRY_COOLDOWN_MS)
+        throw new Error('invisible_ocean_retry_later');
       attemptedAt = now();
       const controller = new AbortController();
       const owned = { controller, waiters: 0 };
@@ -143,7 +153,8 @@ export function invisibleOceanProxy({
       operation = owned;
     }
     const owned = operation;
-    if (owned.waiters >= 32) throw Object.assign(new Error('invisible_ocean_busy'), { status: 429 });
+    if (owned.waiters >= 32)
+      throw Object.assign(new Error('invisible_ocean_busy'), { status: 429 });
     owned.waiters++;
     let abort;
     const cancelled = new Promise((_, reject) => {
@@ -175,7 +186,8 @@ export function invisibleOceanProxy({
       res.end(JSON.stringify(value));
     };
     try {
-      if (req.method !== 'GET') return json(405, { error: 'method_not_allowed' });
+      if (req.method !== 'GET')
+        return json(405, { error: 'method_not_allowed' });
       // Mounted at /api/invisible-ocean: req.url is the remainder ('/spots?...').
       const pathname = (req.url || '').split('?')[0];
       if (pathname !== '/' && pathname !== '' && pathname !== '/spots') {
@@ -184,13 +196,20 @@ export function invisibleOceanProxy({
       try {
         json(200, describe(await acquire(controller.signal)));
       } catch (error) {
-        if (error.status === 429) return json(429, { error: 'invisible_ocean_busy' });
+        if (error.status === 429)
+          return json(429, { error: 'invisible_ocean_busy' });
         const usable = cache && now() - cache.fetchedAt <= STALE_MS;
         json(
           200,
           usable
-            ? describe(cache, { stale: true, reason: 'Upstream unreachable; showing last good sweep.' })
-            : describe(null, { reason: 'Propagation feeds unreachable and no cached sweep exists.' }),
+            ? describe(cache, {
+                stale: true,
+                reason: 'Upstream unreachable; showing last good sweep.',
+              })
+            : describe(null, {
+                reason:
+                  'Propagation feeds unreachable and no cached sweep exists.',
+              }),
         );
       }
     } finally {

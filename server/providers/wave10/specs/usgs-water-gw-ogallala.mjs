@@ -4,37 +4,32 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 4 (usgs water+volcano worker)).
  */
 export const SPEC = {
-  "headers": {},
-  "ttlSeconds": 3600,
-  "extract": {
-    "items": "$.value.timeSeries",
-    "limit": 40,
-    "map": {
-      "name": "$.sourceInfo.siteName",
-      "site": "$.sourceInfo.siteCode[0].value",
-      "value": "$.values[0].value[0].value",
-      "time": "$.values[0].value[0].dateTime",
-      "lat": "$.sourceInfo.geoLocation.geogLocation.latitude",
-      "lon": "$.sourceInfo.geoLocation.geogLocation.longitude"
+  headers: {},
+  ttlSeconds: 3600,
+  extract: {
+    items: '$.value.timeSeries',
+    limit: 40,
+    map: {
+      name: '$.sourceInfo.siteName',
+      site: '$.sourceInfo.siteCode[0].value',
+      value: '$.values[0].value[0].value',
+      time: '$.values[0].value[0].dateTime',
+      lat: '$.sourceInfo.geoLocation.geogLocation.latitude',
+      lon: '$.sourceInfo.geoLocation.geogLocation.longitude',
     },
-    "numbers": [
-      "value",
-      "lat",
-      "lon"
-    ]
+    numbers: ['value', 'lat', 'lon'],
   },
-  "required": [
-    "name"
-  ],
-  "source": "USGS Water Services (NWIS)",
-  "attribution": "Data: U.S. Geological Survey, NWIS — keyless.",
-  "units": {
-    "value": "ft below land surface"
+  required: ['name'],
+  source: 'USGS Water Services (NWIS)',
+  attribution: 'Data: U.S. Geological Survey, NWIS — keyless.',
+  units: {
+    value: 'ft below land surface',
   },
-  "honesty": "Depth to water level in feet BELOW land surface (larger number = deeper water table), from continuous recorder wells over the Ogallala in western Nebraska, typically updated hourly. bBox query: the set of wells returned can change as recorders go dark or come back online.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 4 (usgs water+volcano worker)",
-  "id": "usgs-water-gw-ogallala",
-  "title": "USGS Water — Groundwater levels, High Plains aquifer (Ogallala)",
-  "url": "https://waterservices.usgs.gov/nwis/iv/?format=json&bBox=-103.5,39.5,-100.5,41.5&siteType=GW&parameterCd=72019"
+  honesty:
+    'Depth to water level in feet BELOW land surface (larger number = deeper water table), from continuous recorder wells over the Ogallala in western Nebraska, typically updated hourly. bBox query: the set of wells returned can change as recorders go dark or come back online.',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 4 (usgs water+volcano worker)',
+  id: 'usgs-water-gw-ogallala',
+  title: 'USGS Water — Groundwater levels, High Plains aquifer (Ogallala)',
+  url: 'https://waterservices.usgs.gov/nwis/iv/?format=json&bBox=-103.5,39.5,-100.5,41.5&siteType=GW&parameterCd=72019',
 };

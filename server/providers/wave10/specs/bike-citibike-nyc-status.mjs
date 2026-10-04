@@ -4,45 +4,41 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 8 (bikeshare-chicago worker)).
  */
 export const SPEC = {
-  "id": "bike-citibike-nyc-status",
-  "title": "Citi Bike (NYC) — live availability",
-  "url": "https://gbfs.citibikenyc.com/gbfs/en/station_status.json",
-  "headers": {
-    "User-Agent": "satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)"
+  id: 'bike-citibike-nyc-status',
+  title: 'Citi Bike (NYC) — live availability',
+  url: 'https://gbfs.citibikenyc.com/gbfs/en/station_status.json',
+  headers: {
+    'User-Agent':
+      'satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)',
   },
-  "ttlSeconds": 300,
-  "bodyCapBytes": 2097152,
-  "extract": {
-    "items": "$.data.stations",
-    "limit": 50,
-    "map": {
-      "stationId": "$.station_id",
-      "bikesAvailable": "$.num_bikes_available",
-      "docksAvailable": "$.num_docks_available",
-      "isInstalled": "$.is_installed",
-      "isRenting": "$.is_renting",
-      "isReturning": "$.is_returning"
+  ttlSeconds: 300,
+  bodyCapBytes: 2097152,
+  extract: {
+    items: '$.data.stations',
+    limit: 50,
+    map: {
+      stationId: '$.station_id',
+      bikesAvailable: '$.num_bikes_available',
+      docksAvailable: '$.num_docks_available',
+      isInstalled: '$.is_installed',
+      isRenting: '$.is_renting',
+      isReturning: '$.is_returning',
     },
-    "numbers": [
-      "bikesAvailable",
-      "docksAvailable"
-    ]
+    numbers: ['bikesAvailable', 'docksAvailable'],
   },
-  "required": [
-    "stationId",
-    "bikesAvailable"
-  ],
-  "source": "GBFS",
-  "attribution": "Data: Citi Bike GBFS feed — keyless.",
-  "units": {
-    "stationId": "text",
-    "bikesAvailable": "count",
-    "docksAvailable": "count",
-    "isInstalled": "0/1",
-    "isRenting": "0/1",
-    "isReturning": "0/1"
+  required: ['stationId', 'bikesAvailable'],
+  source: 'GBFS',
+  attribution: 'Data: Citi Bike GBFS feed — keyless.',
+  units: {
+    stationId: 'text',
+    bikesAvailable: 'count',
+    docksAvailable: 'count',
+    isInstalled: '0/1',
+    isRenting: '0/1',
+    isReturning: '0/1',
   },
-  "honesty": "Live availability snapshot: 2520 stations at probe (969176 bytes). Values refresh every few minutes — fixture is a point-in-time snapshot. num_bikes_available=0 with is_installed=0 flags out-of-service stations. Feed last_updated epoch 1790989148.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 8 (bikeshare-chicago worker)"
+  honesty:
+    'Live availability snapshot: 2520 stations at probe (969176 bytes). Values refresh every few minutes — fixture is a point-in-time snapshot. num_bikes_available=0 with is_installed=0 flags out-of-service stations. Feed last_updated epoch 1790989148.',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 8 (bikeshare-chicago worker)',
 };

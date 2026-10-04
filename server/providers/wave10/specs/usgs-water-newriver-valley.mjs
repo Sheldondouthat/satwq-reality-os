@@ -4,37 +4,32 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 2 (usgs worker)).
  */
 export const SPEC = {
-  "attribution": "Data: U.S. Geological Survey, NWIS — keyless.",
-  "extract": {
-    "items": "$.value.timeSeries",
-    "limit": 40,
-    "map": {
-      "lat": "$.sourceInfo.geoLocation.geogLocation.latitude",
-      "lon": "$.sourceInfo.geoLocation.geogLocation.longitude",
-      "name": "$.sourceInfo.siteName",
-      "site": "$.sourceInfo.siteCode[0].value",
-      "time": "$.values[0].value[0].dateTime",
-      "value": "$.values[0].value[0].value"
+  attribution: 'Data: U.S. Geological Survey, NWIS — keyless.',
+  extract: {
+    items: '$.value.timeSeries',
+    limit: 40,
+    map: {
+      lat: '$.sourceInfo.geoLocation.geogLocation.latitude',
+      lon: '$.sourceInfo.geoLocation.geogLocation.longitude',
+      name: '$.sourceInfo.siteName',
+      site: '$.sourceInfo.siteCode[0].value',
+      time: '$.values[0].value[0].dateTime',
+      value: '$.values[0].value[0].value',
     },
-    "numbers": [
-      "value",
-      "lat",
-      "lon"
-    ]
+    numbers: ['value', 'lat', 'lon'],
   },
-  "headers": {},
-  "honesty": "bBox query over the New River Valley, VA: the set of gages returned can change as sites go dark or come back online. Instantaneous values, typically updated every 15-60 min; some values flagged provisional (qualifier P).",
-  "id": "usgs-water-newriver-valley",
-  "required": [
-    "name"
-  ],
-  "source": "USGS Water Services (NWIS)",
-  "title": "USGS Water — Streamflow, New River Valley VA (all gages in bbox)",
-  "ttlSeconds": 3600,
-  "units": {
-    "value": "ft3/s"
+  headers: {},
+  honesty:
+    'bBox query over the New River Valley, VA: the set of gages returned can change as sites go dark or come back online. Instantaneous values, typically updated every 15-60 min; some values flagged provisional (qualifier P).',
+  id: 'usgs-water-newriver-valley',
+  required: ['name'],
+  source: 'USGS Water Services (NWIS)',
+  title: 'USGS Water — Streamflow, New River Valley VA (all gages in bbox)',
+  ttlSeconds: 3600,
+  units: {
+    value: 'ft3/s',
   },
-  "url": "https://waterservices.usgs.gov/nwis/iv/?format=json&bBox=-81.6,36.9,-80.3,37.9&siteType=ST&parameterCd=00060",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 2 (usgs worker)"
+  url: 'https://waterservices.usgs.gov/nwis/iv/?format=json&bBox=-81.6,36.9,-80.3,37.9&siteType=ST&parameterCd=00060',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 2 (usgs worker)',
 };

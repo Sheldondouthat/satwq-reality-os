@@ -7,7 +7,13 @@
 /** "$84,752.39" or "—" on garbage. */
 export function formatUsd(v) {
   if (!Number.isFinite(v)) return '—';
-  return '$' + v.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  return (
+    '$' +
+    v.toLocaleString('en-US', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    })
+  );
 }
 
 /** "0.8770" for FX rates or "—" on garbage. */
@@ -32,19 +38,31 @@ export function legStatus(btc, degraded) {
   return { live, degraded: dead };
 }
 
-const LEG_LABEL = { coingecko: 'CoinGecko', binanceUs: 'Binance US', coinbase: 'Coinbase' };
+const LEG_LABEL = {
+  coingecko: 'CoinGecko',
+  binanceUs: 'Binance US',
+  coinbase: 'Coinbase',
+};
 
 /** One-line ticker summary of a /api/markets payload; null on bad payload. */
 export function tickerSummary(payload) {
   if (!payload || typeof payload !== 'object') return null;
-  const eur = Number.isFinite(payload.fx?.rates?.EUR) ? payload.fx.rates.EUR : null;
-  const { live, degraded } = legStatus(payload.crypto?.btc, payload.crypto?.degraded);
+  const eur = Number.isFinite(payload.fx?.rates?.EUR)
+    ? payload.fx.rates.EUR
+    : null;
+  const { live, degraded } = legStatus(
+    payload.crypto?.btc,
+    payload.crypto?.degraded,
+  );
   return {
     btcMedian: formatUsd(payload.value),
     fxEur: eur !== null ? `€1 = ${formatRate(1 / eur)}` : null, // EUR→USD cross
     fxDate: payload.fx?.date ?? null,
     fxDegraded: payload.fx?.degraded ?? true,
-    liveLegs: live.map((l) => ({ label: LEG_LABEL[l.key], price: formatUsd(l.price) })),
+    liveLegs: live.map((l) => ({
+      label: LEG_LABEL[l.key],
+      price: formatUsd(l.price),
+    })),
     degradedLegs: degraded.map((k) => LEG_LABEL[k]),
     anyDegraded: degraded.length > 0 || (payload.fx?.degraded ?? true),
   };

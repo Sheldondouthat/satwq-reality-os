@@ -45,7 +45,12 @@ const SNAPSHOT_MAX_BYTES = 4 * 1024 * 1024;
 // CSV-only). These are the real breakup clouds (Iridium-33/Cosmos-2251
 // collision, Fengyun-1C ASAT) plus the analyst set: the most likely
 // reentry candidates. Per-group failure is tolerated.
-const GROUPS = ['analyst', 'cosmos-2251-debris', 'fengyun-1c-debris', 'iridium-33-debris'];
+const GROUPS = [
+  'analyst',
+  'cosmos-2251-debris',
+  'fengyun-1c-debris',
+  'iridium-33-debris',
+];
 const UPSTREAM_TIMEOUT_MS = 25_000;
 const BODY_CAP_BYTES = 4 * 1024 * 1024;
 const CACHE_TTL_MS = 6 * 3600_000;
@@ -65,9 +70,18 @@ async function fetchText(url) {
       signal: controller.signal,
       headers: { 'User-Agent': USER_AGENT, Accept: 'text/plain' },
     });
-    if (!res.ok) throw Object.assign(new Error(`reentry_upstream_${res.status}`), { status: 502 });
-    const { tooLarge, text } = await readCappedResponseText(res, BODY_CAP_BYTES);
-    if (tooLarge) throw Object.assign(new Error('reentry_upstream_too_large'), { status: 502 });
+    if (!res.ok)
+      throw Object.assign(new Error(`reentry_upstream_${res.status}`), {
+        status: 502,
+      });
+    const { tooLarge, text } = await readCappedResponseText(
+      res,
+      BODY_CAP_BYTES,
+    );
+    if (tooLarge)
+      throw Object.assign(new Error('reentry_upstream_too_large'), {
+        status: 502,
+      });
     if (!/^1 /m.test(text)) throw new Error('reentry_upstream_no_tle');
     return text;
   } finally {
@@ -89,7 +103,10 @@ export function reentriesProxy() {
         headers: { 'User-Agent': USER_AGENT, Accept: 'application/json' },
       });
       if (!res.ok) throw new Error(`snapshot HTTP ${res.status}`);
-      const { tooLarge, text } = await readCappedResponseText(res, SNAPSHOT_MAX_BYTES);
+      const { tooLarge, text } = await readCappedResponseText(
+        res,
+        SNAPSHOT_MAX_BYTES,
+      );
       if (tooLarge) throw new Error('snapshot too large');
       const snap = JSON.parse(text);
       if (!Array.isArray(snap.candidates) || !snap.candidates.length)
@@ -107,7 +124,8 @@ export function reentriesProxy() {
 
   async function getCandidates(maxDays) {
     const nowMs = Date.now();
-    if (cache && nowMs - cache.at < CACHE_TTL_MS && cache.maxDays === maxDays) return cache.candidates;
+    if (cache && nowMs - cache.at < CACHE_TTL_MS && cache.maxDays === maxDays)
+      return cache.candidates;
     if (inflight) return inflight;
     inflight = (async () => {
       try {
@@ -115,13 +133,17 @@ export function reentriesProxy() {
         // to live CelesTrak fetch when the snapshot is missing or invalid.
         try {
           const snapCandidates = await getSnapshotCandidates();
-          const filtered = snapCandidates.filter((c) => c.daysToDecay <= maxDays);
+          const filtered = snapCandidates.filter(
+            (c) => c.daysToDecay <= maxDays,
+          );
           cache = { at: Date.now(), maxDays, candidates: filtered };
           return filtered;
         } catch {
           /* snapshot unavailable — try live upstream */
         }
-        const settled = await Promise.allSettled(GROUPS.map((g) => fetchText(GROUP_URL(g))));
+        const settled = await Promise.allSettled(
+          GROUPS.map((g) => fetchText(GROUP_URL(g))),
+        );
         let fulfilled = 0;
         const seen = new Set();
         const candidates = [];
@@ -153,7 +175,9 @@ export function reentriesProxy() {
           }
         }
         if (fulfilled === 0) throw new Error('reentry_upstream_all_failed');
-        candidates.sort((a, b) => (a.predictedDecayUtc < b.predictedDecayUtc ? -1 : 1));
+        candidates.sort((a, b) =>
+          a.predictedDecayUtc < b.predictedDecayUtc ? -1 : 1,
+        );
         cache = { at: Date.now(), maxDays, candidates };
         return candidates;
       } catch (error) {
@@ -175,15 +199,18 @@ export function reentriesProxy() {
   }
 
   async function handler(req, res) {
-    if (req.method !== 'GET') return sendJson(res, 405, { error: 'method_not_allowed' });
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' });
     let maxDays = 120;
     let limit = 12;
     try {
       const parsed = new URL(req.url, 'http://localhost');
       const md = parsed.searchParams.get('maxDays');
       const lim = parsed.searchParams.get('limit');
-      if (md !== null) maxDays = Math.min(365, Math.max(1, Math.floor(Number(md) || 120)));
-      if (lim !== null) limit = Math.min(30, Math.max(1, Math.floor(Number(lim) || 12)));
+      if (md !== null)
+        maxDays = Math.min(365, Math.max(1, Math.floor(Number(md) || 120)));
+      if (lim !== null)
+        limit = Math.min(30, Math.max(1, Math.floor(Number(lim) || 12)));
     } catch {
       return sendJson(res, 400, { error: 'reentries_bad_request' });
     }

@@ -69,10 +69,9 @@ export function createImageryTileLayer({
   function attach(template, snapshot) {
     const provider = new Cesium.UrlTemplateImageryProvider({
       url: template,
-      maximumLevel:
-        Number.isFinite(snapshot?.maximumLevel)
-          ? snapshot.maximumLevel
-          : maximumLevel,
+      maximumLevel: Number.isFinite(snapshot?.maximumLevel)
+        ? snapshot.maximumLevel
+        : maximumLevel,
       credit: snapshot?.credit ?? credit,
     });
     const imageryLayer = _viewer.imageryLayers.addImageryProvider(provider);

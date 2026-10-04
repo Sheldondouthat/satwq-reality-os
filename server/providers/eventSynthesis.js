@@ -55,7 +55,12 @@ const OPENSKY_STATES_URL = 'https://opensky-network.org/api/states/all';
 
 const UA = 'Gods Eye View event-synthesis (keyless F1/F6)';
 
-const SOURCE_IDS = Object.freeze(['hms-smoke', 'usgs-quakes', 'nhc-storms', 'opensky']);
+const SOURCE_IDS = Object.freeze([
+  'hms-smoke',
+  'usgs-quakes',
+  'nhc-storms',
+  'opensky',
+]);
 
 function byteLengthUtf8(text) {
   return new TextEncoder().encode(text).byteLength;
@@ -87,7 +92,11 @@ async function fetchCapped(fetchImpl, url, { capBytes, timeoutMs, accept }) {
       await response.body?.cancel?.().catch(() => {});
       return { ok: false, reason: `http_${response.status}` };
     }
-    const text = await readResponseTextCapped(response, capBytes, controller.signal);
+    const text = await readResponseTextCapped(
+      response,
+      capBytes,
+      controller.signal,
+    );
     return { ok: true, text };
   } catch (error) {
     if (error?.name === 'AbortError') return { ok: false, reason: 'timeout' };
@@ -128,9 +137,15 @@ async function fetchHmsSmoke(fetchImpl) {
   const picked = pickHmsSmokeCandidate(attempts);
   if (!picked) {
     const reasons = attempts
-      .map((a) => `${a.date}:${a.ok ? (a.looksLikeKml ? 'bad-kml' : 'non-kml') : 'fetch-failed'}`)
+      .map(
+        (a) =>
+          `${a.date}:${a.ok ? (a.looksLikeKml ? 'bad-kml' : 'non-kml') : 'fetch-failed'}`,
+      )
       .join(',');
-    return { status: 'error', reason: `hms_unavailable(${reasons || 'no-candidates'})` };
+    return {
+      status: 'error',
+      reason: `hms_unavailable(${reasons || 'no-candidates'})`,
+    };
   }
   try {
     // FEED-DRIFT ADAPTER (2026-09-26, observed live): the real HMS KML names
@@ -150,7 +165,10 @@ async function fetchHmsSmoke(fetchImpl) {
     const polygons = parseSmokeKml(canonical, { maxPolygons: 600 });
     return { status: 'ok', data: polygons, date: picked.date };
   } catch (error) {
-    return { status: 'error', reason: `hms_kml_parse_failed:${String(error?.message || error).slice(0, 80)}` };
+    return {
+      status: 'error',
+      reason: `hms_kml_parse_failed:${String(error?.message || error).slice(0, 80)}`,
+    };
   }
 }
 
@@ -160,7 +178,8 @@ async function fetchUsgsQuakes(fetchImpl) {
     timeoutMs: 15_000,
     accept: 'application/geo+json,application/json',
   });
-  if (!res.ok) return { status: 'error', reason: `usgs_unavailable(${res.reason})` };
+  if (!res.ok)
+    return { status: 'error', reason: `usgs_unavailable(${res.reason})` };
   let payload;
   try {
     payload = JSON.parse(res.text);
@@ -182,7 +201,8 @@ async function fetchNhcStorms(fetchImpl, nowMs) {
     timeoutMs: 15_000,
     accept: 'application/json',
   });
-  if (!res.ok) return { status: 'error', reason: `nhc_unavailable(${res.reason})` };
+  if (!res.ok)
+    return { status: 'error', reason: `nhc_unavailable(${res.reason})` };
   let payload;
   try {
     payload = JSON.parse(res.text);
@@ -190,7 +210,9 @@ async function fetchNhcStorms(fetchImpl, nowMs) {
     return { status: 'error', reason: 'nhc_invalid_json' };
   }
   try {
-    const storms = parseCycloneStatus(payload, nowMs).map(normalizeStorm).filter(Boolean);
+    const storms = parseCycloneStatus(payload, nowMs)
+      .map(normalizeStorm)
+      .filter(Boolean);
     return { status: 'ok', data: storms };
   } catch (error) {
     // Strict NHC validator rejected the payload — degrade honestly rather
@@ -208,7 +230,8 @@ async function fetchOpenSkyStates(fetchImpl) {
     timeoutMs: 20_000,
     accept: 'application/json',
   });
-  if (!res.ok) return { status: 'error', reason: `opensky_unavailable(${res.reason})` };
+  if (!res.ok)
+    return { status: 'error', reason: `opensky_unavailable(${res.reason})` };
   let payload;
   try {
     payload = JSON.parse(res.text);
@@ -222,7 +245,11 @@ async function fetchOpenSkyStates(fetchImpl) {
     if (t) tracks.push(t);
     if (tracks.length >= 20_000) break;
   }
-  return { status: 'ok', data: tracks, epochMs: Number(payload?.time) * 1000 || null };
+  return {
+    status: 'ok',
+    data: tracks,
+    epochMs: Number(payload?.time) * 1000 || null,
+  };
 }
 
 // ---------------------------------------------------------------------------
@@ -245,7 +272,8 @@ export function eventSynthesisProxy({
 
   async function acquireEvents() {
     const t = now();
-    if (eventsCache && t - eventsCache.at < eventsTtlMs) return { ...eventsCache.payload, stale: false };
+    if (eventsCache && t - eventsCache.at < eventsTtlMs)
+      return { ...eventsCache.payload, stale: false };
     if (!eventsFlight) {
       eventsFlight = buildEventsPayload().finally(() => {
         eventsFlight = null;
@@ -275,7 +303,8 @@ export function eventSynthesisProxy({
     const sourceState = (id, result, count) =>
       result.status === 'ok'
         ? { source: id, ok: true, count }
-        : (degradedSources.push({ source: id, reason: result.reason }), { source: id, ok: false, count: 0 });
+        : (degradedSources.push({ source: id, reason: result.reason }),
+          { source: id, ok: false, count: 0 });
 
     const smokePolygons = hms.status === 'ok' ? hms.data : [];
     const quakeList = quakes.status === 'ok' ? quakes.data : [];
@@ -312,7 +341,8 @@ export function eventSynthesisProxy({
 
   async function acquireSkyAlerts() {
     const t = now();
-    if (skyCache && t - skyCache.at < skyTtlMs) return { ...skyCache.payload, stale: false };
+    if (skyCache && t - skyCache.at < skyTtlMs)
+      return { ...skyCache.payload, stale: false };
     if (!skyFlight) {
       skyFlight = buildSkyPayload().finally(() => {
         skyFlight = null;
@@ -333,7 +363,9 @@ export function eventSynthesisProxy({
     const opensky = await fetchOpenSkyStates(fetchImpl);
     const tracks = opensky.status === 'ok' ? opensky.data : [];
     if (opensky.status === 'ok' && tracks.length) {
-      trackHistory = [...trackHistory, { atMs: t, tracks }].slice(-Math.max(1, historyKept));
+      trackHistory = [...trackHistory, { atMs: t, tracks }].slice(
+        -Math.max(1, historyKept),
+      );
     }
     const alerts = detectSkyAlerts(trackHistory, { nowMs: t });
     const degraded = opensky.status !== 'ok';
@@ -341,11 +373,17 @@ export function eventSynthesisProxy({
       schemaVersion: 1,
       alerts,
       degraded,
-      degradedSources: degraded ? [{ source: 'opensky', reason: opensky.reason }] : [],
+      degradedSources: degraded
+        ? [{ source: 'opensky', reason: opensky.reason }]
+        : [],
       reason: degraded ? `opensky (${opensky.reason})` : null,
       fetchedAt: new Date(t).toISOString(),
       windowSec: trackHistory.length
-        ? Math.round((trackHistory[trackHistory.length - 1].atMs - trackHistory[0].atMs) / 1000)
+        ? Math.round(
+            (trackHistory[trackHistory.length - 1].atMs -
+              trackHistory[0].atMs) /
+              1000,
+          )
         : 0,
       snapshotCount: trackHistory.length,
       trackCount: tracks.length,
@@ -364,8 +402,10 @@ export function eventSynthesisProxy({
   const install = (server) => {
     server.middlewares.use(EVENTS_ROUTE, async (req, res) => {
       try {
-        if (req.method !== 'GET') return sendJson(res, 405, { error: 'method_not_allowed' });
-        if (req.url !== '/' && req.url !== '') return sendJson(res, 400, { error: 'invalid_events_query' });
+        if (req.method !== 'GET')
+          return sendJson(res, 405, { error: 'method_not_allowed' });
+        if (req.url !== '/' && req.url !== '')
+          return sendJson(res, 400, { error: 'invalid_events_query' });
         try {
           sendJson(res, 200, await acquireEvents());
         } catch (error) {
@@ -375,9 +415,16 @@ export function eventSynthesisProxy({
             schemaVersion: 1,
             incidents: [],
             degraded: true,
-            degradedSources: SOURCE_IDS.map((source) => ({ source, reason: 'unavailable' })),
+            degradedSources: SOURCE_IDS.map((source) => ({
+              source,
+              reason: 'unavailable',
+            })),
             reason: String(error?.message || 'event_synthesis_unavailable'),
-            sources: SOURCE_IDS.map((source) => ({ source, ok: false, count: 0 })),
+            sources: SOURCE_IDS.map((source) => ({
+              source,
+              ok: false,
+              count: 0,
+            })),
             fetchedAt: new Date(now()).toISOString(),
             stale: false,
           });
@@ -389,8 +436,10 @@ export function eventSynthesisProxy({
 
     server.middlewares.use(SKY_ALERTS_ROUTE, async (req, res) => {
       try {
-        if (req.method !== 'GET') return sendJson(res, 405, { error: 'method_not_allowed' });
-        if (req.url !== '/' && req.url !== '') return sendJson(res, 400, { error: 'invalid_sky_alerts_query' });
+        if (req.method !== 'GET')
+          return sendJson(res, 405, { error: 'method_not_allowed' });
+        if (req.url !== '/' && req.url !== '')
+          return sendJson(res, 400, { error: 'invalid_sky_alerts_query' });
         try {
           sendJson(res, 200, await acquireSkyAlerts());
         } catch (error) {

@@ -4,41 +4,35 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 7 (nasa worker)).
  */
 export const SPEC = {
-  "attribution": "Data: NASA open APIs — keyless (DEMO_KEY).",
-  "extract": {
-    "items": "$.near_earth_objects",
-    "limit": 20,
-    "map": {
-      "abs_mag": "$.absolute_magnitude_h",
-      "dia_max_km": "$.estimated_diameter.kilometers.estimated_diameter_max",
-      "dia_min_km": "$.estimated_diameter.kilometers.estimated_diameter_min",
-      "hazardous": "$.is_potentially_hazardous_asteroid",
-      "id": "$.id",
-      "jpl": "$.nasa_jpl_url",
-      "name": "$.name"
+  attribution: 'Data: NASA open APIs — keyless (DEMO_KEY).',
+  extract: {
+    items: '$.near_earth_objects',
+    limit: 20,
+    map: {
+      abs_mag: '$.absolute_magnitude_h',
+      dia_max_km: '$.estimated_diameter.kilometers.estimated_diameter_max',
+      dia_min_km: '$.estimated_diameter.kilometers.estimated_diameter_min',
+      hazardous: '$.is_potentially_hazardous_asteroid',
+      id: '$.id',
+      jpl: '$.nasa_jpl_url',
+      name: '$.name',
     },
-    "numbers": [
-      "abs_mag",
-      "dia_min_km",
-      "dia_max_km"
-    ]
+    numbers: ['abs_mag', 'dia_min_km', 'dia_max_km'],
   },
-  "headers": {},
-  "honesty": "Paged browse of the asteroid catalog (page 0 of many; page.size 20). Uses /neo/browse because the date-keyed feed object is unmappable. Diameter estimates are NASA model estimates, not measurements. Verified 20/20 rows in fixture (182741 bytes).",
-  "id": "nasa-neo-browse",
-  "required": [
-    "id",
-    "name"
-  ],
-  "source": "NASA NeoWs — api.nasa.gov/neo/rest/v1/neo/browse (DEMO_KEY)",
-  "title": "NASA near-Earth asteroids — catalog browse",
-  "ttlSeconds": 86400,
-  "units": {
-    "abs_mag": "mag",
-    "dia_max_km": "km",
-    "dia_min_km": "km"
+  headers: {},
+  honesty:
+    'Paged browse of the asteroid catalog (page 0 of many; page.size 20). Uses /neo/browse because the date-keyed feed object is unmappable. Diameter estimates are NASA model estimates, not measurements. Verified 20/20 rows in fixture (182741 bytes).',
+  id: 'nasa-neo-browse',
+  required: ['id', 'name'],
+  source: 'NASA NeoWs — api.nasa.gov/neo/rest/v1/neo/browse (DEMO_KEY)',
+  title: 'NASA near-Earth asteroids — catalog browse',
+  ttlSeconds: 86400,
+  units: {
+    abs_mag: 'mag',
+    dia_max_km: 'km',
+    dia_min_km: 'km',
   },
-  "url": "https://api.nasa.gov/neo/rest/v1/neo/browse?api_key=DEMO_KEY",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 7 (nasa worker)"
+  url: 'https://api.nasa.gov/neo/rest/v1/neo/browse?api_key=DEMO_KEY',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 7 (nasa worker)',
 };

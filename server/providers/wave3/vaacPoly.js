@@ -24,8 +24,10 @@
  * reads, redirect:'follow' — no node: imports, no WASM).
  */
 
-const MESSAGES_URL = 'https://www.ospo.noaa.gov/products/atmosphere/vaac/messages.html';
-const XML_BASE = 'https://www.ospo.noaa.gov/products/atmosphere/vaac/volcanoes/xml_files/';
+const MESSAGES_URL =
+  'https://www.ospo.noaa.gov/products/atmosphere/vaac/messages.html';
+const XML_BASE =
+  'https://www.ospo.noaa.gov/products/atmosphere/vaac/volcanoes/xml_files/';
 const MAX_ADVISORIES = 8;
 const FETCH_TIMEOUT_MS = 20_000;
 const MESSAGES_CAP_BYTES = 1 * 1024 * 1024;
@@ -43,13 +45,20 @@ async function fetchTextCapped(url, capBytes) {
     const response = await fetch(url, {
       signal: controller.signal,
       redirect: 'follow',
-      headers: { 'User-Agent': USER_AGENT, Accept: 'text/html,application/xhtml+xml,application/xml' },
+      headers: {
+        'User-Agent': USER_AGENT,
+        Accept: 'text/html,application/xhtml+xml,application/xml',
+      },
     });
     if (!response.ok)
-      throw Object.assign(new Error(`vaacpoly_upstream_${response.status}`), { status: 502 });
+      throw Object.assign(new Error(`vaacpoly_upstream_${response.status}`), {
+        status: 502,
+      });
     const buffer = await response.arrayBuffer();
     if (buffer.byteLength > capBytes)
-      throw Object.assign(new Error('vaacpoly_upstream_too_large'), { status: 502 });
+      throw Object.assign(new Error('vaacpoly_upstream_too_large'), {
+        status: 502,
+      });
     return new TextDecoder().decode(buffer);
   } finally {
     clearTimeout(timeout);
@@ -94,10 +103,14 @@ export function extractVolumes(spanXml) {
   let m;
   while ((m = re.exec(spanXml))) {
     const block = m[1];
-    const upperRaw = /<aixm:upperLimit[^>]*>([^<]*)</.exec(block)?.[1]?.trim() ?? null;
-    const upperUom = /<aixm:upperLimit[^>]*uom="([^"]*)"/.exec(block)?.[1] ?? null;
-    const lowerRaw = /<aixm:lowerLimit[^>]*>([^<]*)</.exec(block)?.[1]?.trim() ?? null;
-    const lowerUom = /<aixm:lowerLimit[^>]*uom="([^"]*)"/.exec(block)?.[1] ?? null;
+    const upperRaw =
+      /<aixm:upperLimit[^>]*>([^<]*)</.exec(block)?.[1]?.trim() ?? null;
+    const upperUom =
+      /<aixm:upperLimit[^>]*uom="([^"]*)"/.exec(block)?.[1] ?? null;
+    const lowerRaw =
+      /<aixm:lowerLimit[^>]*>([^<]*)</.exec(block)?.[1]?.trim() ?? null;
+    const lowerUom =
+      /<aixm:lowerLimit[^>]*uom="([^"]*)"/.exec(block)?.[1] ?? null;
     const rings = [];
     const plRe = /<gml:posList[^>]*>([^<]+)<\/gml:posList>/g;
     let pl;
@@ -107,8 +120,14 @@ export function extractVolumes(spanXml) {
     }
     if (rings.length > 0) {
       volumes.push({
-        upperFl: upperUom === 'FL' && Number.isFinite(Number(upperRaw)) ? Number(upperRaw) : null,
-        lowerFl: lowerUom === 'FL' && Number.isFinite(Number(lowerRaw)) ? Number(lowerRaw) : null,
+        upperFl:
+          upperUom === 'FL' && Number.isFinite(Number(upperRaw))
+            ? Number(upperRaw)
+            : null,
+        lowerFl:
+          lowerUom === 'FL' && Number.isFinite(Number(lowerRaw))
+            ? Number(lowerRaw)
+            : null,
         lowerGround: lowerRaw === 'GND',
         rings,
       });
@@ -119,22 +138,40 @@ export function extractVolumes(spanXml) {
 
 /** Parse one IWXXM advisory XML into the globe-ready record. */
 export function parseVaacAdvisory(xml, fileName = null) {
-  const volcano = firstGroup(/<EruptingVolcano[\s\S]*?<name>([^<]+)<\/name>/, xml);
-  const volcanoPos = /<EruptingVolcano[\s\S]*?<gml:pos>([^<]+)<\/gml:pos>/.exec(xml)?.[1];
+  const volcano = firstGroup(
+    /<EruptingVolcano[\s\S]*?<name>([^<]+)<\/name>/,
+    xml,
+  );
+  const volcanoPos = /<EruptingVolcano[\s\S]*?<gml:pos>([^<]+)<\/gml:pos>/.exec(
+    xml,
+  )?.[1];
   const latLon = (volcanoPos ?? '').trim().split(/\s+/).map(Number);
-  const advisoryNumber = firstGroup(/<advisoryNumber>([^<]+)<\/advisoryNumber>/, xml);
+  const advisoryNumber = firstGroup(
+    /<advisoryNumber>([^<]+)<\/advisoryNumber>/,
+    xml,
+  );
   const issueTime = firstGroup(
     /<VolcanicAshAdvisory[\s\S]*?<issueTime>[\s\S]*?<gml:timePosition>([^<]+)<\/gml:timePosition>/,
     xml,
   );
-  const stateOrRegion = firstGroup(/<stateOrRegion>([^<]+)<\/stateOrRegion>/, xml);
-  const eruptionDetails = firstGroup(/<eruptionDetails>([^<]+)<\/eruptionDetails>/, xml);
+  const stateOrRegion = firstGroup(
+    /<stateOrRegion>([^<]+)<\/stateOrRegion>/,
+    xml,
+  );
+  const eruptionDetails = firstGroup(
+    /<eruptionDetails>([^<]+)<\/eruptionDetails>/,
+    xml,
+  );
 
   const obsMatch = /<observation>([\s\S]*?)<\/observation>/.exec(xml);
   const obsStatus = obsMatch
-    ? /<VolcanicAshObservedOrEstimatedConditions[^>]*status="([^"]*)"/.exec(obsMatch[1])?.[1] ?? null
+    ? (/<VolcanicAshObservedOrEstimatedConditions[^>]*status="([^"]*)"/.exec(
+        obsMatch[1],
+      )?.[1] ?? null)
     : null;
-  const obsTime = obsMatch ? firstGroup(/<gml:timePosition>([^<]+)<\/gml:timePosition>/, obsMatch[1]) : null;
+  const obsTime = obsMatch
+    ? firstGroup(/<gml:timePosition>([^<]+)<\/gml:timePosition>/, obsMatch[1])
+    : null;
   const observation = obsMatch
     ? { time: obsTime, status: obsStatus, volumes: extractVolumes(obsMatch[1]) }
     : null;
@@ -143,7 +180,10 @@ export function parseVaacAdvisory(xml, fileName = null) {
   const fcRe = /<forecast>([\s\S]*?)<\/forecast>/g;
   let fc;
   while ((fc = fcRe.exec(xml))) {
-    const time = firstGroup(/<gml:timePosition>([^<]+)<\/gml:timePosition>/, fc[1]);
+    const time = firstGroup(
+      /<gml:timePosition>([^<]+)<\/gml:timePosition>/,
+      fc[1],
+    );
     const volumes = extractVolumes(fc[1]);
     if (volumes.length > 0) forecasts.push({ time, volumes });
   }
@@ -187,9 +227,7 @@ async function loadSnapshot() {
   });
   await Promise.all(workers);
   // Preserve index order (latest first).
-  advisories.sort(
-    (a, b) => files.indexOf(a.file) - files.indexOf(b.file),
-  );
+  advisories.sort((a, b) => files.indexOf(a.file) - files.indexOf(b.file));
   return {
     generatedAt: new Date().toISOString(),
     count: advisories.length,
@@ -227,15 +265,24 @@ function sendJson(res, status, body, cacheControl) {
 /** Mount the VAAC polygon proxy. Mirrors the nws-alerts provider shape. */
 export function vaacPolyProxy() {
   async function handler(req, res) {
-    if (req.method !== 'GET') return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
     req.on?.('close', () => {});
     try {
-      sendJson(res, 200, await getSnapshot(), `public, max-age=${Math.floor(CACHE_TTL_MS / 2000)}`);
+      sendJson(
+        res,
+        200,
+        await getSnapshot(),
+        `public, max-age=${Math.floor(CACHE_TTL_MS / 2000)}`,
+      );
     } catch (error) {
       sendJson(
         res,
         error?.status === 502 ? 502 : 500,
-        { error: 'vaac_polygons_unavailable', detail: error?.message ?? 'unknown' },
+        {
+          error: 'vaac_polygons_unavailable',
+          detail: error?.message ?? 'unknown',
+        },
         'no-store',
       );
     } finally {

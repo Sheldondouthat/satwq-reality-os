@@ -4,38 +4,34 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 7 (gbif worker)).
  */
 export const SPEC = {
-  "id": "gbif-brazil-observations",
-  "title": "Brazil wildlife observations — GBIF occurrence search (country=BR)",
-  "url": "https://api.gbif.org/v1/occurrence/search?country=BR&limit=20",
-  "extract": {
-    "items": "$.results",
-    "limit": 20,
-    "map": {
-      "species": "$.species",
-      "scientific_name": "$.scientificName",
-      "lat": "$.decimalLatitude",
-      "lon": "$.decimalLongitude",
-      "event_date": "$.eventDate",
-      "basis_of_record": "$.basisOfRecord",
-      "institution": "$.institutionCode",
-      "country": "$.countryCode",
-      "taxon_key": "$.taxonKey",
-      "iucn": "$.iucnRedListCategory"
+  id: 'gbif-brazil-observations',
+  title: 'Brazil wildlife observations — GBIF occurrence search (country=BR)',
+  url: 'https://api.gbif.org/v1/occurrence/search?country=BR&limit=20',
+  extract: {
+    items: '$.results',
+    limit: 20,
+    map: {
+      species: '$.species',
+      scientific_name: '$.scientificName',
+      lat: '$.decimalLatitude',
+      lon: '$.decimalLongitude',
+      event_date: '$.eventDate',
+      basis_of_record: '$.basisOfRecord',
+      institution: '$.institutionCode',
+      country: '$.countryCode',
+      taxon_key: '$.taxonKey',
+      iucn: '$.iucnRedListCategory',
     },
-    "numbers": [
-      "lat",
-      "lon"
-    ]
+    numbers: ['lat', 'lon'],
   },
-  "required": [
-    "species"
-  ],
-  "honesty": "Recent species occurrence records published for Brazil; coordinates may be absent on some rows. Fixture: 20 rows (143849 bytes), 18/20 rows carry species, 20/20 rows have coordinates; API reports 45529870 total matching records. Verified 200 OK from this VM.",
-  "headers": {},
-  "ttlSeconds": 86400,
-  "source": "GBIF",
-  "attribution": "Data: GBIF.org — keyless, CC BY 4.0.",
-  "units": {},
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 7 (gbif worker)"
+  required: ['species'],
+  honesty:
+    'Recent species occurrence records published for Brazil; coordinates may be absent on some rows. Fixture: 20 rows (143849 bytes), 18/20 rows carry species, 20/20 rows have coordinates; API reports 45529870 total matching records. Verified 200 OK from this VM.',
+  headers: {},
+  ttlSeconds: 86400,
+  source: 'GBIF',
+  attribution: 'Data: GBIF.org — keyless, CC BY 4.0.',
+  units: {},
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 7 (gbif worker)',
 };

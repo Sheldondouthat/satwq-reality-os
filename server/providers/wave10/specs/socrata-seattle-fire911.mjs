@@ -4,35 +4,31 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 6 (socrata2 worker)).
  */
 export const SPEC = {
-  "id": "socrata-seattle-fire911",
-  "title": "Seattle (data.seattle.gov) — real-time fire 911 calls",
-  "url": "https://data.seattle.gov/resource/kzjm-xkqj.json?%24limit=50&%24order=datetime%20DESC",
-  "headers": {},
-  "ttlSeconds": 3600,
-  "extract": {
-    "items": "$",
-    "limit": 50,
-    "map": {
-      "key": "$.incident_number",
-      "type": "$.type",
-      "time": "$.datetime",
-      "address": "$.address",
-      "lat": "$.latitude",
-      "lon": "$.longitude"
+  id: 'socrata-seattle-fire911',
+  title: 'Seattle (data.seattle.gov) — real-time fire 911 calls',
+  url: 'https://data.seattle.gov/resource/kzjm-xkqj.json?%24limit=50&%24order=datetime%20DESC',
+  headers: {},
+  ttlSeconds: 3600,
+  extract: {
+    items: '$',
+    limit: 50,
+    map: {
+      key: '$.incident_number',
+      type: '$.type',
+      time: '$.datetime',
+      address: '$.address',
+      lat: '$.latitude',
+      lon: '$.longitude',
     },
-    "numbers": [
-      "lat",
-      "lon"
-    ]
+    numbers: ['lat', 'lon'],
   },
-  "required": [
-    "key",
-    "type"
-  ],
-  "source": "Seattle Fire Dept. — data.seattle.gov (Socrata)",
-  "attribution": "Data: Seattle Fire Dept. — data.seattle.gov (Socrata) — keyless Socrata API.",
-  "units": {},
-  "honesty": "Near-real-time dispatch feed; datetime ISO-8601; no personal identifiers. Verified 50 rows in fixture (12373 bytes).",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 6 (socrata2 worker)"
+  required: ['key', 'type'],
+  source: 'Seattle Fire Dept. — data.seattle.gov (Socrata)',
+  attribution:
+    'Data: Seattle Fire Dept. — data.seattle.gov (Socrata) — keyless Socrata API.',
+  units: {},
+  honesty:
+    'Near-real-time dispatch feed; datetime ISO-8601; no personal identifiers. Verified 50 rows in fixture (12373 bytes).',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 6 (socrata2 worker)',
 };

@@ -38,7 +38,8 @@ function readDoc(storage, key) {
     const raw = storage.get(key);
     if (!raw) return null;
     const doc = JSON.parse(raw);
-    if (!doc || doc.v !== SCHEMA_VERSION || !Array.isArray(doc.events)) return null;
+    if (!doc || doc.v !== SCHEMA_VERSION || !Array.isArray(doc.events))
+      return null;
     return doc;
   } catch {
     return null;
@@ -47,10 +48,16 @@ function readDoc(storage, key) {
 
 /** Append events to a day's log. Returns the new event count. */
 export function appendEvents(storage, dayOrDate, events) {
-  const key = typeof dayOrDate === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(dayOrDate)
-    ? LOG_KEY_PREFIX + dayOrDate
-    : dayKey(dayOrDate);
-  const doc = readDoc(storage, key) ?? { v: SCHEMA_VERSION, day: key.slice(LOG_KEY_PREFIX.length), events: [], updatedAt: 0 };
+  const key =
+    typeof dayOrDate === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(dayOrDate)
+      ? LOG_KEY_PREFIX + dayOrDate
+      : dayKey(dayOrDate);
+  const doc = readDoc(storage, key) ?? {
+    v: SCHEMA_VERSION,
+    day: key.slice(LOG_KEY_PREFIX.length),
+    events: [],
+    updatedAt: 0,
+  };
   const seen = new Set(doc.events.map((e) => `${e.t}|${e.type}|${e.label}`));
   for (const e of events ?? []) {
     const norm = normalizeEvent(e);
@@ -74,7 +81,8 @@ function normalizeEvent(e) {
   const t = Number(e.t ?? e.timeMs);
   const lat = Number(e.lat);
   const lon = Number(e.lon);
-  if (!Number.isFinite(t) || !Number.isFinite(lat) || !Number.isFinite(lon)) return null;
+  if (!Number.isFinite(t) || !Number.isFinite(lat) || !Number.isFinite(lon))
+    return null;
   return {
     t,
     type: String(e.type ?? 'event'),
@@ -82,7 +90,9 @@ function normalizeEvent(e) {
     lon,
     label: String(e.label ?? e.place ?? 'event'),
     ...(Number.isFinite(Number(e.mag)) ? { mag: Number(e.mag) } : {}),
-    ...(Number.isFinite(Number(e.depthKm)) ? { depthKm: Number(e.depthKm) } : {}),
+    ...(Number.isFinite(Number(e.depthKm))
+      ? { depthKm: Number(e.depthKm) }
+      : {}),
     source: String(e.source ?? 'satwq'),
   };
 }

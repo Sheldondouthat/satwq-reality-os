@@ -40,13 +40,18 @@ async function fetchJsonCapped(url) {
       headers: { 'User-Agent': USER_AGENT, Accept: 'application/json' },
     });
     if (!response.ok)
-      throw Object.assign(new Error(`frequencies_upstream_${response.status}`), { status: 502 });
+      throw Object.assign(
+        new Error(`frequencies_upstream_${response.status}`),
+        { status: 502 },
+      );
     const buffer = await response.arrayBuffer();
     return JSON.parse(new TextDecoder().decode(buffer));
   } catch (error) {
     if (error?.status === 502) throw error;
     if (error instanceof SyntaxError)
-      throw Object.assign(new Error('frequencies_upstream_bad_json'), { status: 502 });
+      throw Object.assign(new Error('frequencies_upstream_bad_json'), {
+        status: 502,
+      });
     throw error;
   } finally {
     clearTimeout(timeout);
@@ -156,15 +161,24 @@ function sendJson(res, status, body, cacheControl = 'public, max-age=86400') {
 /** Mount the SatNOGS transmitter proxy. Mirrors the felt provider shape. */
 export function frequenciesProxy() {
   async function handler(req, res) {
-    if (req.method !== 'GET') return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
     try {
       sendJson(res, 200, await getSnapshot());
     } catch (error) {
-      const upstreamFail = error?.status === 502 || error?.name === 'AbortError' || /aborted?/i.test(error?.message ?? '');
-      sendJson(res, upstreamFail ? 502 : 500, {
-        error: 'frequencies_unavailable',
-        detail: error?.message ?? 'unknown',
-      }, 'no-store');
+      const upstreamFail =
+        error?.status === 502 ||
+        error?.name === 'AbortError' ||
+        /aborted?/i.test(error?.message ?? '');
+      sendJson(
+        res,
+        upstreamFail ? 502 : 500,
+        {
+          error: 'frequencies_unavailable',
+          detail: error?.message ?? 'unknown',
+        },
+        'no-store',
+      );
     }
   }
 
@@ -182,5 +196,8 @@ export function frequenciesProxy() {
 export const _frequenciesInternals = {
   trimTransmitter,
   fetchAllTransmitters,
-  clearCaches: () => { cache = null; inflight = null; },
+  clearCaches: () => {
+    cache = null;
+    inflight = null;
+  },
 };

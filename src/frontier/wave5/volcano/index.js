@@ -9,7 +9,13 @@
  * line: quiet in these feeds ≠ global all-clear.
  */
 import * as Cesium from 'cesium';
-import { levelColor, noElevated, rankActive, tickerLabel, tickerStatus } from './model.js';
+import {
+  levelColor,
+  noElevated,
+  rankActive,
+  tickerLabel,
+  tickerStatus,
+} from './model.js';
 
 const API = '/api/volcano';
 const REFRESH_MS = 30 * 60_000;
@@ -35,7 +41,14 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
       try {
         const res = await fetch(API);
         if (destroyed || !enabled) return;
-        const payload = res.ok ? await res.json() : { geonet: { volcanoes: [] }, avo: { volcanoes: [] }, active: [], warnings: [] };
+        const payload = res.ok
+          ? await res.json()
+          : {
+              geonet: { volcanoes: [] },
+              avo: { volcanoes: [] },
+              active: [],
+              warnings: [],
+            };
         render(payload);
         updateStatus(payload);
       } catch {
@@ -46,16 +59,28 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
     function render(payload) {
       ds.entities.removeAll();
       const all = [
-        ...(payload?.geonet?.volcanoes ?? []).map((v) => ({ ...v, isActive: false })),
+        ...(payload?.geonet?.volcanoes ?? []).map((v) => ({
+          ...v,
+          isActive: false,
+        })),
         ...(payload?.active ?? []).map((v) => ({ ...v, isActive: true })),
       ];
       const seen = new Set();
       for (const v of all) {
-        if (!Number.isFinite(v.lon) || !Number.isFinite(v.lat) || seen.has(v.id)) continue;
+        if (
+          !Number.isFinite(v.lon) ||
+          !Number.isFinite(v.lat) ||
+          seen.has(v.id)
+        )
+          continue;
         seen.add(v.id);
         const color = Cesium.Color.fromCssColorString(levelColor(v.color));
         ds.entities.add({
-          position: Cesium.Cartesian3.fromDegrees(v.lon, v.lat, v.isActive ? 150_000 : 50_000),
+          position: Cesium.Cartesian3.fromDegrees(
+            v.lon,
+            v.lat,
+            v.isActive ? 150_000 : 50_000,
+          ),
           point: new Cesium.PointGraphics({
             pixelSize: v.isActive ? 16 : 8,
             color,
@@ -67,15 +92,25 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
             `Status: <b>${escapeHtml(String(v.color ?? '—'))}</b>` +
             (v.levelText ? `<br>${escapeHtml(v.levelText)}` : '') +
             (v.region ? `<br>Region: ${escapeHtml(v.region)}` : '') +
-            (v.url ? `<br><a href="${escapeHtml(v.url)}" target="_blank" rel="noopener">event page</a>` : ''),
+            (v.url
+              ? `<br><a href="${escapeHtml(v.url)}" target="_blank" rel="noopener">event page</a>`
+              : ''),
         });
       }
     }
 
     function escapeHtml(s) {
-      return String(s).replace(/[&<>"']/g, (c) => ({
-        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
-      })[c]);
+      return String(s).replace(
+        /[&<>"']/g,
+        (c) =>
+          ({
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#39;',
+          })[c],
+      );
     }
 
     let statusEl = null;
@@ -92,8 +127,7 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
       const entry = ranked[tickerIdx % ranked.length];
       tickerIdx += 1;
       const color = levelColor(entry.color);
-      tickerEl.innerHTML =
-        `🌋 <b style="color:${color}">${escapeHtml(tickerLabel(entry))}</b>`;
+      tickerEl.innerHTML = `🌋 <b style="color:${color}">${escapeHtml(tickerLabel(entry))}</b>`;
       if (detailEl) detailEl.textContent = entry.levelText ?? '';
     }
 
@@ -122,7 +156,8 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
     if (mount && typeof chip === 'function') {
       try {
         statusEl = document.createElement('div');
-        statusEl.style.cssText = 'font-size:10px;color:#8aa4d6;margin:2px 0 4px;';
+        statusEl.style.cssText =
+          'font-size:10px;color:#8aa4d6;margin:2px 0 4px;';
         statusEl.textContent = 'loading volcano alerts…';
         mount.appendChild(statusEl);
         tickerEl = document.createElement('div');
@@ -131,7 +166,8 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
         tickerEl.textContent = '…';
         mount.appendChild(tickerEl);
         detailEl = document.createElement('div');
-        detailEl.style.cssText = 'font-size:10px;color:#8aa4d6;line-height:1.5;';
+        detailEl.style.cssText =
+          'font-size:10px;color:#8aa4d6;line-height:1.5;';
         mount.appendChild(detailEl);
         const apply = (on) => setEnabled(on);
         if (typeof trackLayer === 'function') {
@@ -140,14 +176,20 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
             disable: () => setEnabled(false),
           });
           mount.appendChild(
-            chip(T('feature.volcano') || 'Volcano alerts', (on) =>
-              on ? tracked.show() : tracked.hide(), false),
+            chip(
+              T('feature.volcano') || 'Volcano alerts',
+              (on) => (on ? tracked.show() : tracked.hide()),
+              false,
+            ),
           );
         } else {
-          mount.appendChild(chip(T('feature.volcano') || 'Volcano alerts', apply, false));
+          mount.appendChild(
+            chip(T('feature.volcano') || 'Volcano alerts', apply, false),
+          );
         }
         const legend = document.createElement('div');
-        legend.style.cssText = 'font-size:10px;color:#8aa4d6;margin-top:4px;line-height:1.5;';
+        legend.style.cssText =
+          'font-size:10px;color:#8aa4d6;margin-top:4px;line-height:1.5;';
         legend.innerHTML =
           '<span style="color:#3ddc84">●</span> normal · ' +
           '<span style="color:#ffd23d">●</span> elevated · ' +

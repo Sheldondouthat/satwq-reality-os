@@ -4,31 +4,30 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 4 (new socrata cities)).
  */
 export const SPEC = {
-  "attribution": "Data: City of Cambridge MA — data.cambridgema.gov (Socrata) — keyless Socrata API.",
-  "extract": {
-    "items": "$",
-    "limit": 50,
-    "map": {
-      "address": "$.location",
-      "description": "$.reporting_area",
-      "key": "$.file_number",
-      "time": "$.crime_date_time",
-      "type": "$.crime"
+  attribution:
+    'Data: City of Cambridge MA — data.cambridgema.gov (Socrata) — keyless Socrata API.',
+  extract: {
+    items: '$',
+    limit: 50,
+    map: {
+      address: '$.location',
+      description: '$.reporting_area',
+      key: '$.file_number',
+      time: '$.crime_date_time',
+      type: '$.crime',
     },
-    "numbers": []
+    numbers: [],
   },
-  "headers": {},
-  "honesty": "Cambridge police crime reports, 2026 records only (dataset updated 2026-09-22); crime_date_time is MM/DD/YYYY text (not ISO) so ordering is textual and the spec filters to 2026 rows; some crimes have date ranges rather than a single time.",
-  "id": "socrata-cambridge-crime",
-  "required": [
-    "key",
-    "type"
-  ],
-  "source": "City of Cambridge MA — data.cambridgema.gov (Socrata)",
-  "title": "Cambridge MA (data.cambridgema.gov) — police crime reports (2026)",
-  "ttlSeconds": 1800,
-  "units": {},
-  "url": "https://data.cambridgema.gov/resource/xuad-73uj.json?$limit=50&$where=crime_date_time%20like%20%27%252026%25%27&$order=crime_date_time%20DESC",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 4 (new socrata cities)"
+  headers: {},
+  honesty:
+    'Cambridge police crime reports, 2026 records only (dataset updated 2026-09-22); crime_date_time is MM/DD/YYYY text (not ISO) so ordering is textual and the spec filters to 2026 rows; some crimes have date ranges rather than a single time.',
+  id: 'socrata-cambridge-crime',
+  required: ['key', 'type'],
+  source: 'City of Cambridge MA — data.cambridgema.gov (Socrata)',
+  title: 'Cambridge MA (data.cambridgema.gov) — police crime reports (2026)',
+  ttlSeconds: 1800,
+  units: {},
+  url: 'https://data.cambridgema.gov/resource/xuad-73uj.json?$limit=50&$where=crime_date_time%20like%20%27%252026%25%27&$order=crime_date_time%20DESC',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 4 (new socrata cities)',
 };

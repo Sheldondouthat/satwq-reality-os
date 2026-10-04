@@ -85,7 +85,9 @@ function utcShort(iso) {
 
 function confidenceBar(doc, confidence) {
   const wrap = el(doc, 'span', 'ef-conf');
-  const filled = Math.round((Number(confidence) || 0) * CONFIDENCE_BAR_SEGMENTS);
+  const filled = Math.round(
+    (Number(confidence) || 0) * CONFIDENCE_BAR_SEGMENTS,
+  );
   const bar = el(doc, 'span', 'ef-confbar');
   for (let i = 0; i < CONFIDENCE_BAR_SEGMENTS; i++) {
     const seg = doc.createElement('i');
@@ -93,7 +95,9 @@ function confidenceBar(doc, confidence) {
     bar.appendChild(seg);
   }
   wrap.appendChild(bar);
-  wrap.appendChild(doc.createTextNode(`${Math.round((Number(confidence) || 0) * 100)}%`));
+  wrap.appendChild(
+    doc.createTextNode(`${Math.round((Number(confidence) || 0) * 100)}%`),
+  );
   return wrap;
 }
 
@@ -169,7 +173,9 @@ export function createEventFeedPanel({
   degradedBanner.hidden = true;
 
   const incidentsSection = el(document, 'div', 'ef-section');
-  incidentsSection.appendChild(el(document, 'h3', null, 'Cross-layer incidents'));
+  incidentsSection.appendChild(
+    el(document, 'h3', null, 'Cross-layer incidents'),
+  );
   const incidentsList = el(document, 'div', 'ef-list');
   incidentsSection.appendChild(incidentsList);
 
@@ -179,9 +185,21 @@ export function createEventFeedPanel({
   alertsSection.appendChild(alertsList);
 
   const emptyState = el(document, 'div', 'ef-empty');
-  const foot = el(document, 'div', 'ef-foot', 'Keyless sources: HMS smoke · USGS quakes · NHC storms · OpenSky');
+  const foot = el(
+    document,
+    'div',
+    'ef-foot',
+    'Keyless sources: HMS smoke · USGS quakes · NHC storms · OpenSky',
+  );
 
-  root.append(head, degradedBanner, incidentsSection, alertsSection, emptyState, foot);
+  root.append(
+    head,
+    degradedBanner,
+    incidentsSection,
+    alertsSection,
+    emptyState,
+    foot,
+  );
   document.head?.appendChild(style);
   container.appendChild(root);
 
@@ -189,12 +207,29 @@ export function createEventFeedPanel({
   function renderIncident(incident) {
     const card = el(document, 'article', 'ef-card');
     const top = el(document, 'div', 'ef-card-top');
-    top.appendChild(el(document, 'span', `ef-badge ${SEVERITY_CLASS[incident.severity] || 'ef-sev-low'}`, (incident.severity || 'low').toUpperCase()));
-    top.appendChild(el(document, 'span', 'ef-kind', incidentTypeLabel(incident.type)));
+    top.appendChild(
+      el(
+        document,
+        'span',
+        `ef-badge ${SEVERITY_CLASS[incident.severity] || 'ef-sev-low'}`,
+        (incident.severity || 'low').toUpperCase(),
+      ),
+    );
+    top.appendChild(
+      el(document, 'span', 'ef-kind', incidentTypeLabel(incident.type)),
+    );
     top.appendChild(el(document, 'span', 'ef-time', utcShort(incident.at)));
     card.appendChild(top);
-    card.appendChild(el(document, 'h4', 'ef-card-title', incident.title || 'Untitled incident'));
-    if (incident.detail) card.appendChild(el(document, 'p', 'ef-detail', incident.detail));
+    card.appendChild(
+      el(
+        document,
+        'h4',
+        'ef-card-title',
+        incident.title || 'Untitled incident',
+      ),
+    );
+    if (incident.detail)
+      card.appendChild(el(document, 'p', 'ef-detail', incident.detail));
     const meta = el(document, 'div', 'ef-meta');
     meta.appendChild(confidenceBar(document, incident.confidence));
     const chips = el(document, 'span', 'ef-sources');
@@ -210,13 +245,25 @@ export function createEventFeedPanel({
     const card = el(document, 'article', 'ef-card');
     const top = el(document, 'div', 'ef-card-top');
     const sevClass = KIND_ACCENT[alert.kind] || 'ef-sev-moderate';
-    top.appendChild(el(document, 'span', `ef-badge ${sevClass}`, skyAlertKindLabel(alert.kind)));
-    if (alert.heuristic) top.appendChild(el(document, 'span', 'ef-tag', 'HEURISTIC'));
-    if (alert.squawk) top.appendChild(el(document, 'span', 'ef-src', `squawk ${alert.squawk}`));
+    top.appendChild(
+      el(
+        document,
+        'span',
+        `ef-badge ${sevClass}`,
+        skyAlertKindLabel(alert.kind),
+      ),
+    );
+    if (alert.heuristic)
+      top.appendChild(el(document, 'span', 'ef-tag', 'HEURISTIC'));
+    if (alert.squawk)
+      top.appendChild(el(document, 'span', 'ef-src', `squawk ${alert.squawk}`));
     top.appendChild(el(document, 'span', 'ef-time', utcShort(alert.at)));
     card.appendChild(top);
-    card.appendChild(el(document, 'h4', 'ef-card-title', alert.title || 'Untitled alert'));
-    if (alert.detail) card.appendChild(el(document, 'p', 'ef-detail', alert.detail));
+    card.appendChild(
+      el(document, 'h4', 'ef-card-title', alert.title || 'Untitled alert'),
+    );
+    if (alert.detail)
+      card.appendChild(el(document, 'p', 'ef-detail', alert.detail));
     const meta = el(document, 'div', 'ef-meta');
     meta.appendChild(confidenceBar(document, alert.confidence));
     const fly = flyButton(document, onFlyToFn, alert);
@@ -228,7 +275,9 @@ export function createEventFeedPanel({
   function render() {
     if (destroyed) return;
     // status dot
-    dot.className = 'ef-dot' + (state.error ? ' error' : state.degraded ? ' degraded' : ' ok');
+    dot.className =
+      'ef-dot' +
+      (state.error ? ' error' : state.degraded ? ' degraded' : ' ok');
     // degraded banner
     if (state.degraded && state.degradedReason) {
       degradedBanner.hidden = false;
@@ -240,18 +289,30 @@ export function createEventFeedPanel({
     // lists
     incidentsList.textContent = '';
     alertsList.textContent = '';
-    for (const incident of state.incidents) incidentsList.appendChild(renderIncident(incident));
-    for (const alert of state.alerts) alertsList.appendChild(renderAlert(alert));
+    for (const incident of state.incidents)
+      incidentsList.appendChild(renderIncident(incident));
+    for (const alert of state.alerts)
+      alertsList.appendChild(renderAlert(alert));
     // empty state
     emptyState.textContent = '';
     const total = state.incidents.length + state.alerts.length;
     if (total === 0) {
-      const msg = el(document, 'span', null, state.error
-        ? `Feeds unavailable (${state.error}). `
-        : 'No incidents or alerts right now. ');
+      const msg = el(
+        document,
+        'span',
+        null,
+        state.error
+          ? `Feeds unavailable (${state.error}). `
+          : 'No incidents or alerts right now. ',
+      );
       emptyState.appendChild(msg);
       if (state.error) {
-        const retry = el(document, 'span', 'ef-retry', `Retrying${state.nextRetryInSec != null ? ` in ${state.nextRetryInSec}s` : ''}…`);
+        const retry = el(
+          document,
+          'span',
+          'ef-retry',
+          `Retrying${state.nextRetryInSec != null ? ` in ${state.nextRetryInSec}s` : ''}…`,
+        );
         emptyState.appendChild(retry);
       }
     }
@@ -262,7 +323,9 @@ export function createEventFeedPanel({
 
   // --- data ---
   async function fetchJson(url) {
-    const res = await fetchImpl(url, { headers: { Accept: 'application/json' } });
+    const res = await fetchImpl(url, {
+      headers: { Accept: 'application/json' },
+    });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     return res.json();
   }
@@ -297,16 +360,21 @@ export function createEventFeedPanel({
       let ok = false;
       if (eventsRes.status === 'fulfilled') {
         const body = eventsRes.value || {};
-        state.incidents = Array.isArray(body.incidents) ? body.incidents.slice(0, 40) : [];
+        state.incidents = Array.isArray(body.incidents)
+          ? body.incidents.slice(0, 40)
+          : [];
         if (body.degraded) {
           state.degraded = true;
-          state.degradedReason = body.reason || 'one or more sources unavailable';
+          state.degradedReason =
+            body.reason || 'one or more sources unavailable';
         }
         ok = true;
       }
       if (skyRes.status === 'fulfilled') {
         const body = skyRes.value || {};
-        state.alerts = Array.isArray(body.alerts) ? body.alerts.slice(0, 50) : [];
+        state.alerts = Array.isArray(body.alerts)
+          ? body.alerts.slice(0, 50)
+          : [];
         if (body.degraded) {
           state.degraded = true;
           const reason = body.reason || 'sky source unavailable';
@@ -326,12 +394,18 @@ export function createEventFeedPanel({
         }
         // degraded stays true only while a feed reports degraded
         if (eventsRes.status === 'fulfilled' && skyRes.status === 'fulfilled') {
-          state.degraded = Boolean(eventsRes.value?.degraded || skyRes.value?.degraded);
+          state.degraded = Boolean(
+            eventsRes.value?.degraded || skyRes.value?.degraded,
+          );
           if (!state.degraded) state.degradedReason = null;
         }
       } else {
         state.error =
-          (eventsRes.reason?.message || eventsRes.reason || skyRes.reason?.message || skyRes.reason || 'fetch failed');
+          eventsRes.reason?.message ||
+          eventsRes.reason ||
+          skyRes.reason?.message ||
+          skyRes.reason ||
+          'fetch failed';
         scheduleRetry();
       }
       render();
@@ -348,10 +422,14 @@ export function createEventFeedPanel({
     timer = retryTimer = null;
     try {
       style.remove?.();
-    } catch { /* noop */ }
+    } catch {
+      /* noop */
+    }
     try {
       root.remove?.();
-    } catch { /* noop */ }
+    } catch {
+      /* noop */
+    }
   }
 
   timer = setInterval(() => {

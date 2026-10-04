@@ -43,7 +43,8 @@ export function createFallbackViewer(getPanorama) {
   overlay.appendChild(bar);
 
   const canvas = document.createElement('canvas');
-  canvas.style.cssText = 'flex:1;width:100%;height:100%;cursor:grab;touch-action:none;';
+  canvas.style.cssText =
+    'flex:1;width:100%;height:100%;cursor:grab;touch-action:none;';
   overlay.appendChild(canvas);
 
   const state = { yawDeg: 0, pitchDeg: 0 };
@@ -62,7 +63,12 @@ export function createFallbackViewer(getPanorama) {
     }
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
-    const win = viewWindow(state.yawDeg, state.pitchDeg, FALLBACK_FOV_H, FALLBACK_FOV_V);
+    const win = viewWindow(
+      state.yawDeg,
+      state.pitchDeg,
+      FALLBACK_FOV_H,
+      FALLBACK_FOV_V,
+    );
     // Sample the panorama window with u-wrap.
     const srcW = (win.u1 - win.u0) * PANO_WIDTH;
     const srcX = win.u0 * PANO_WIDTH;

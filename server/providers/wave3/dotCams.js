@@ -59,10 +59,14 @@ async function fetchJsonCapped(url) {
       headers: { 'User-Agent': USER_AGENT, Accept: 'application/json' },
     });
     if (!response.ok)
-      throw Object.assign(new Error(`dotcams_upstream_${response.status}`), { status: 502 });
+      throw Object.assign(new Error(`dotcams_upstream_${response.status}`), {
+        status: 502,
+      });
     const buffer = await response.arrayBuffer();
     if (buffer.byteLength > BODY_CAP_BYTES)
-      throw Object.assign(new Error('dotcams_upstream_too_large'), { status: 502 });
+      throw Object.assign(new Error('dotcams_upstream_too_large'), {
+        status: 502,
+      });
     return JSON.parse(new TextDecoder().decode(buffer));
   } finally {
     clearTimeout(timeout);
@@ -133,11 +137,20 @@ async function loadSnapshot() {
       let added = 0;
       for (const item of records) {
         const cam = normalizeCaltransCctv(item?.cctv);
-        if (cam && cam.inService) { cameras.push(cam); added++; }
+        if (cam && cam.inService) {
+          cameras.push(cam);
+          added++;
+        }
       }
       stateResults.push({ state: 'CA', district: n, cameras: added, ok: true });
     } catch (error) {
-      stateResults.push({ state: 'CA', district: n, cameras: 0, ok: false, error: error?.message });
+      stateResults.push({
+        state: 'CA',
+        district: n,
+        cameras: 0,
+        ok: false,
+        error: error?.message,
+      });
     }
   });
   const iowaJob = (async () => {
@@ -147,15 +160,27 @@ async function loadSnapshot() {
       let added = 0;
       for (const item of records) {
         const cam = normalizeIowaCamera(item);
-        if (cam) { cameras.push(cam); added++; }
+        if (cam) {
+          cameras.push(cam);
+          added++;
+        }
       }
       stateResults.push({ state: 'IA', cameras: added, ok: true });
     } catch (error) {
-      stateResults.push({ state: 'IA', cameras: 0, ok: false, error: error?.message });
+      stateResults.push({
+        state: 'IA',
+        cameras: 0,
+        ok: false,
+        error: error?.message,
+      });
     }
   })();
   await Promise.all([...districtJobs, iowaJob]);
-  stateResults.sort((a, b) => String(a.state).localeCompare(String(b.state)) || (a.district ?? 0) - (b.district ?? 0));
+  stateResults.sort(
+    (a, b) =>
+      String(a.state).localeCompare(String(b.state)) ||
+      (a.district ?? 0) - (b.district ?? 0),
+  );
   return {
     generatedAt: new Date().toISOString(),
     states: stateResults,
@@ -209,11 +234,21 @@ export function dotCamsProxy() {
     req.on?.('close', () => {});
     try {
       const parsed = new URL(req.url ?? '/api/dot-cams', 'http://localhost');
-      if (req.method !== 'GET') return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
+      if (req.method !== 'GET')
+        return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
       if (parsed.pathname.endsWith('/image')) {
         const target = imageRedirectTarget(parsed.searchParams.get('u'));
-        if (!target) return sendJson(res, 403, { error: 'dotcams_forbidden_host' }, 'no-store');
-        res.writeHead(302, { Location: target, 'Cache-Control': 'public, max-age=60' });
+        if (!target)
+          return sendJson(
+            res,
+            403,
+            { error: 'dotcams_forbidden_host' },
+            'no-store',
+          );
+        res.writeHead(302, {
+          Location: target,
+          'Cache-Control': 'public, max-age=60',
+        });
         return res.end();
       }
       const payload = await getSnapshot();
@@ -224,11 +259,21 @@ export function dotCamsProxy() {
         return sendJson(
           res,
           200,
-          { ...payload, count: filtered.length, cameras: filtered, state: wanted },
+          {
+            ...payload,
+            count: filtered.length,
+            cameras: filtered,
+            state: wanted,
+          },
           `public, max-age=${Math.floor(CACHE_TTL_MS / 2000)}`,
         );
       }
-      sendJson(res, 200, payload, `public, max-age=${Math.floor(CACHE_TTL_MS / 2000)}`);
+      sendJson(
+        res,
+        200,
+        payload,
+        `public, max-age=${Math.floor(CACHE_TTL_MS / 2000)}`,
+      );
     } catch (error) {
       sendJson(
         res,

@@ -4,38 +4,34 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 2 (federal worker)).
  */
 export const SPEC = {
-  "id": "nws-hourly-phoenix",
-  "title": "NWS — hourly forecast, Phoenix (PSR)",
-  "url": "https://api.weather.gov/gridpoints/PSR/159,56/forecast/hourly",
-  "headers": {
-    "User-Agent": "satwq-reality-os/1.0 (surge-500 probe)"
+  id: 'nws-hourly-phoenix',
+  title: 'NWS — hourly forecast, Phoenix (PSR)',
+  url: 'https://api.weather.gov/gridpoints/PSR/159,56/forecast/hourly',
+  headers: {
+    'User-Agent': 'satwq-reality-os/1.0 (surge-500 probe)',
   },
-  "ttlSeconds": 3600,
-  "extract": {
-    "items": "$.properties.periods",
-    "limit": 48,
-    "map": {
-      "startTime": "$.startTime",
-      "tempF": "$.temperature",
-      "wind": "$.windSpeed",
-      "forecast": "$.shortForecast",
-      "popPct": "$.probabilityOfPrecipitation.value"
+  ttlSeconds: 3600,
+  extract: {
+    items: '$.properties.periods',
+    limit: 48,
+    map: {
+      startTime: '$.startTime',
+      tempF: '$.temperature',
+      wind: '$.windSpeed',
+      forecast: '$.shortForecast',
+      popPct: '$.probabilityOfPrecipitation.value',
     },
-    "numbers": [
-      "tempF",
-      "popPct"
-    ]
+    numbers: ['tempF', 'popPct'],
   },
-  "required": [
-    "startTime"
-  ],
-  "source": "National Weather Service (api.weather.gov)",
-  "attribution": "Data: NWS — keyless, UA-identified.",
-  "units": {
-    "tempF": "F",
-    "popPct": "%"
+  required: ['startTime'],
+  source: 'National Weather Service (api.weather.gov)',
+  attribution: 'Data: NWS — keyless, UA-identified.',
+  units: {
+    tempF: 'F',
+    popPct: '%',
   },
-  "honesty": "Hourly model forecast grids, updated multiple times daily; not observations.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 2 (federal worker)"
+  honesty:
+    'Hourly model forecast grids, updated multiple times daily; not observations.',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 2 (federal worker)',
 };

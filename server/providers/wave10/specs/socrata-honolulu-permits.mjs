@@ -4,33 +4,31 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 3 (socrata recovery)).
  */
 export const SPEC = {
-  "attribution": "Data: City and County of Honolulu — data.honolulu.gov (Socrata) — keyless Socrata API.",
-  "extract": {
-    "items": "$",
-    "limit": 50,
-    "map": {
-      "address": "$.address",
-      "description": "$.statusdescription",
-      "key": "$.objectid",
-      "time": "$.createddate",
-      "type": "$.proposeduse",
-      "estimatedvalueofwork": "$.estimatedvalueofwork"
+  attribution:
+    'Data: City and County of Honolulu — data.honolulu.gov (Socrata) — keyless Socrata API.',
+  extract: {
+    items: '$',
+    limit: 50,
+    map: {
+      address: '$.address',
+      description: '$.statusdescription',
+      key: '$.objectid',
+      time: '$.createddate',
+      type: '$.proposeduse',
+      estimatedvalueofwork: '$.estimatedvalueofwork',
     },
-    "numbers": [
-      "estimatedvalueofwork"
-    ]
+    numbers: ['estimatedvalueofwork'],
   },
-  "headers": {},
-  "honesty": "Building permit applications (dataset title covers 2005-2025); sparse schema on recent rows — buildingpermitno, issuedate and buildingpermittype are absent from the newest application records, so key uses objectid and time uses createddate; proposeduse missing on ~16 of 50 rows.",
-  "id": "socrata-honolulu-permits",
-  "required": [
-    "key"
-  ],
-  "source": "City and County of Honolulu — data.honolulu.gov (Socrata)",
-  "title": "Honolulu (data.honolulu.gov) — building permits 2005–2025",
-  "ttlSeconds": 1800,
-  "units": {},
-  "url": "https://data.honolulu.gov/resource/4vab-c87q.json?$limit=50&$order=createddate%20DESC",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 3 (socrata recovery)"
+  headers: {},
+  honesty:
+    'Building permit applications (dataset title covers 2005-2025); sparse schema on recent rows — buildingpermitno, issuedate and buildingpermittype are absent from the newest application records, so key uses objectid and time uses createddate; proposeduse missing on ~16 of 50 rows.',
+  id: 'socrata-honolulu-permits',
+  required: ['key'],
+  source: 'City and County of Honolulu — data.honolulu.gov (Socrata)',
+  title: 'Honolulu (data.honolulu.gov) — building permits 2005–2025',
+  ttlSeconds: 1800,
+  units: {},
+  url: 'https://data.honolulu.gov/resource/4vab-c87q.json?$limit=50&$order=createddate%20DESC',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 3 (socrata recovery)',
 };

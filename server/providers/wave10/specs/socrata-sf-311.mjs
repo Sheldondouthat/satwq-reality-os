@@ -4,33 +4,29 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 1 (socrata worker)).
  */
 export const SPEC = {
-  "attribution": "Data: City & County of San Francisco Open Data — keyless Socrata API.",
-  "extract": {
-    "items": "$",
-    "limit": 50,
-    "map": {
-      "created": "$.requested_datetime",
-      "key": "$.service_request_id",
-      "lat": "$.lat",
-      "lon": "$.long",
-      "status": "$.status_description",
-      "type": "$.service_name"
+  attribution:
+    'Data: City & County of San Francisco Open Data — keyless Socrata API.',
+  extract: {
+    items: '$',
+    limit: 50,
+    map: {
+      created: '$.requested_datetime',
+      key: '$.service_request_id',
+      lat: '$.lat',
+      lon: '$.long',
+      status: '$.status_description',
+      type: '$.service_name',
     },
-    "numbers": [
-      "lat",
-      "lon"
-    ]
+    numbers: ['lat', 'lon'],
   },
-  "honesty": "SF 311 case feed; many records closed; some lack geocoding.",
-  "id": "socrata-sf-311",
-  "required": [
-    "key"
-  ],
-  "source": "SF Open Data (Socrata)",
-  "title": "San Francisco Open Data — 311 cases",
-  "ttlSeconds": 3600,
-  "units": {},
-  "url": "https://data.sf.gov/resource/vw6y-z8j6.json?$limit=50",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 1 (socrata worker)"
+  honesty: 'SF 311 case feed; many records closed; some lack geocoding.',
+  id: 'socrata-sf-311',
+  required: ['key'],
+  source: 'SF Open Data (Socrata)',
+  title: 'San Francisco Open Data — 311 cases',
+  ttlSeconds: 3600,
+  units: {},
+  url: 'https://data.sf.gov/resource/vw6y-z8j6.json?$limit=50',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 1 (socrata worker)',
 };

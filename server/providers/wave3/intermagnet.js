@@ -83,9 +83,7 @@ async function fetchJsonCapped(fetchImpl, url, maxBytes, timeoutMs) {
 /** True when the HAPI envelope signals success (code 1200). */
 export function hapiOk(envelope) {
   return Boolean(
-    envelope &&
-      envelope.status &&
-      Number(envelope.status.code) === 1200,
+    envelope && envelope.status && Number(envelope.status.code) === 1200,
   );
 }
 
@@ -115,8 +113,7 @@ export function normalizeObservatory(obs, rows) {
     };
   const fs = clean.map((r) => r.f).sort((a, b) => a - b);
   const mid = Math.floor(fs.length / 2);
-  const medianF =
-    fs.length % 2 ? fs[mid] : (fs[mid - 1] + fs[mid]) / 2;
+  const medianF = fs.length % 2 ? fs[mid] : (fs[mid - 1] + fs[mid]) / 2;
   const latest = clean[clean.length - 1];
   return {
     ...base,
@@ -145,7 +142,9 @@ export function intermagnetProxy({
       UPSTREAM_TIMEOUT_MS,
     );
     if (!hapiOk(info) || !info.stopDate)
-      throw Object.assign(new Error('geomag_info_unavailable'), { status: 502 });
+      throw Object.assign(new Error('geomag_info_unavailable'), {
+        status: 502,
+      });
     infoCache.set(dataset, { at: now, stopDate: info.stopDate });
     return info.stopDate;
   }

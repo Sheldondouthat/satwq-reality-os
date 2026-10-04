@@ -12,11 +12,7 @@
  * The valueLine returns null when the payload carries no usable summary;
  * withTags() appends (stale) from the envelope.
  */
-import {
-  isUnavailable,
-  withTags,
-  pickNum,
-} from '../../wave3/common/ticker.js';
+import { isUnavailable, withTags, pickNum } from '../../wave3/common/ticker.js';
 
 export const ROUTE = '/api/great-lakes';
 export const EMOJI = '🌊';
@@ -29,7 +25,9 @@ function fmtFt(v) {
 }
 
 function headline(doc) {
-  const lakes = (Array.isArray(doc.lakes) ? doc.lakes : []).filter((l) => l && l.ok && l.latest);
+  const lakes = (Array.isArray(doc.lakes) ? doc.lakes : []).filter(
+    (l) => l && l.ok && l.latest,
+  );
   return { lakes };
 }
 
@@ -40,7 +38,9 @@ export function valueLine(doc) {
   const all = Array.isArray(doc.lakes) ? doc.lakes.length : lakes.length;
   const dark = all - lakes.length;
   const supers = lakes.find((l) => l.id === 'superior');
-  const bit = supers ? ` · Superior ${fmtFt(supers.latest.levelFt)} (${supers.latest.month})` : '';
+  const bit = supers
+    ? ` · Superior ${fmtFt(supers.latest.levelFt)} (${supers.latest.month})`
+    : '';
   const darkBit = dark ? ` · ${dark} dark` : '';
   return withTags(
     `${EMOJI} Great Lakes ${lakes.length}/${all} lakes${bit}${darkBit} · monthly means`,
@@ -54,7 +54,8 @@ export function detailLine(doc) {
   return lakes
     .map((l) => {
       const a = pickNum(l.anomaly?.levelFt);
-      const aBit = a == null ? '' : ` (${a >= 0 ? '+' : ''}${a.toFixed(2)} ft vs mean)`;
+      const aBit =
+        a == null ? '' : ` (${a >= 0 ? '+' : ''}${a.toFixed(2)} ft vs mean)`;
       return `${l.name}: ${fmtFt(l.latest.levelFt)} @ ${l.latest.month}${aBit}`;
     })
     .join('\n');

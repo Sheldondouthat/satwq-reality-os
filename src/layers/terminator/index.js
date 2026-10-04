@@ -1,9 +1,5 @@
 import * as Cesium from 'cesium';
-import {
-  subsolarPoint,
-  antisolarPoint,
-  terminatorRing,
-} from './model.js';
+import { subsolarPoint, antisolarPoint, terminatorRing } from './model.js';
 export * from './model.js';
 export { createTerminatorSource } from './source.js';
 

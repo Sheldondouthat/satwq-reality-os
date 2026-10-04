@@ -38,8 +38,13 @@ export function parseOvationGrid(payload) {
     if (!Array.isArray(row) || row.length < 3) continue;
     const [lon, lat, aurora] = row;
     if (
-      !Number.isFinite(lon) || !Number.isFinite(lat) || !Number.isFinite(aurora) ||
-      lon < 0 || lon > 359 || lat < -90 || lat > 90
+      !Number.isFinite(lon) ||
+      !Number.isFinite(lat) ||
+      !Number.isFinite(aurora) ||
+      lon < 0 ||
+      lon > 359 ||
+      lat < -90 ||
+      lat > 90
     )
       continue;
     const lonIdx = Math.round(lon);
@@ -48,7 +53,8 @@ export function parseOvationGrid(payload) {
     values[latIdx * OVATION_GRID_LONS + lonIdx] = Math.max(0, aurora);
     count++;
   }
-  if (count === 0) throw new Error('Malformed OVATION response: no valid grid cells');
+  if (count === 0)
+    throw new Error('Malformed OVATION response: no valid grid cells');
   return {
     observationTimeMs: obsMs,
     forecastTimeMs: Number.isFinite(fcstMs) ? fcstMs : null,
@@ -100,7 +106,7 @@ export function angularDistanceDeg(lon1, lat1, lon2, lat2) {
   const s =
     Math.sin(dLat / 2) ** 2 +
     Math.cos(lat1 * RAD) * Math.cos(lat2 * RAD) * Math.sin(dLon / 2) ** 2;
-  return 2 * Math.asin(Math.min(1, Math.sqrt(s))) / RAD;
+  return (2 * Math.asin(Math.min(1, Math.sqrt(s)))) / RAD;
 }
 
 /**
@@ -122,7 +128,8 @@ export function ovationImageBuffer(
   parsed,
   { subLon, subLat, dayDim = 0.08, maxRef = OVATION_RAMP_MAX } = {},
 ) {
-  if (!parsed?.values) throw new TypeError('ovationImageBuffer needs a parsed OVATION grid');
+  if (!parsed?.values)
+    throw new TypeError('ovationImageBuffer needs a parsed OVATION grid');
   const width = OVATION_GRID_LONS;
   const height = OVATION_GRID_LATS;
   const data = new Uint8ClampedArray(width * height * 4);

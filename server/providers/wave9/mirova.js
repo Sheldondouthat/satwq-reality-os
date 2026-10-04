@@ -49,7 +49,8 @@ function numOrNull(v) {
  */
 export function parseMirova(html) {
   const rows = [];
-  const rowRe = /<tr class="([^"]*)">\s*<td>([^<]*)<\/td>\s*<td>([^<]*)<\/td>\s*<td><a[^>]*>([^<]*)<\/a><\/td>\s*<td>([^<]*)<\/td>\s*<td>([^<]*)<\/td>\s*<td>([^<]*)<\/td>/g;
+  const rowRe =
+    /<tr class="([^"]*)">\s*<td>([^<]*)<\/td>\s*<td>([^<]*)<\/td>\s*<td><a[^>]*>([^<]*)<\/a><\/td>\s*<td>([^<]*)<\/td>\s*<td>([^<]*)<\/td>\s*<td>([^<]*)<\/td>/g;
   let m;
   while ((m = rowRe.exec(html)) !== null) {
     const level = (m[1] || '').trim() || null;
@@ -100,10 +101,14 @@ export function buildPayload(parsed, stale) {
     detections,
     honesty: {
       vrp: 'Volcanic Radiative Power (MW) from MODIS/VIIRS middle-infrared: a heat-flux proxy, not lava volume.',
-      distanceKm: 'Distance from the volcano summit to the detected hotspot pixel.',
-      level: "MIROVA's own alert level (row class): extreme >10000, very-high >1000, high >100, moderate >10 MW, else low.",
-      latestOnly: 'Near-real-time latest-detections list (one row per volcano per overpass), not a complete volcano inventory.',
-      quietIsReal: 'A volcano absent from the list has no current detection above threshold — not missing data.',
+      distanceKm:
+        'Distance from the volcano summit to the detected hotspot pixel.',
+      level:
+        "MIROVA's own alert level (row class): extreme >10000, very-high >1000, high >100, moderate >10 MW, else low.",
+      latestOnly:
+        'Near-real-time latest-detections list (one row per volcano per overpass), not a complete volcano inventory.',
+      quietIsReal:
+        'A volcano absent from the list has no current detection above threshold — not missing data.',
       attribution: 'Data: MIROVA (INGV).',
     },
   };
@@ -123,15 +128,22 @@ async function fetchTextCapped(url, capBytes) {
       headers: { 'User-Agent': USER_AGENT, Accept: 'text/html, */*' },
     });
     if (!response.ok) {
-      throw Object.assign(new Error(`mirova_upstream_${response.status}`), { status: 502 });
+      throw Object.assign(new Error(`mirova_upstream_${response.status}`), {
+        status: 502,
+      });
     }
     const buffer = await response.arrayBuffer();
     if (buffer.byteLength > capBytes)
-      throw Object.assign(new Error('mirova_upstream_too_large'), { status: 502 });
+      throw Object.assign(new Error('mirova_upstream_too_large'), {
+        status: 502,
+      });
     return new TextDecoder().decode(buffer);
   } catch (error) {
     if (error?.status === 502) throw error;
-    throw Object.assign(new Error(`mirova_fetch_failed: ${error?.message ?? 'unknown'}`), { status: 502 });
+    throw Object.assign(
+      new Error(`mirova_fetch_failed: ${error?.message ?? 'unknown'}`),
+      { status: 502 },
+    );
   } finally {
     clearTimeout(timeout);
   }
@@ -146,10 +158,15 @@ async function getPayload() {
   const key = 'all';
   const now = Date.now();
   const hit = payloadCache.get(key);
-  if (hit && now - hit.at < CACHE_TTL_MS) return { payload: hit.payload, stale: false };
+  if (hit && now - hit.at < CACHE_TTL_MS)
+    return { payload: hit.payload, stale: false };
   let op = inflight.get(key);
   if (!op) {
-    if (now - docFailedAt < RETRY_COOLDOWN_MS && hit && now - hit.at < STALE_MS) {
+    if (
+      now - docFailedAt < RETRY_COOLDOWN_MS &&
+      hit &&
+      now - hit.at < STALE_MS
+    ) {
       return { payload: hit.payload, stale: true };
     }
     op = (async () => {
@@ -161,7 +178,8 @@ async function getPayload() {
         return { payload, stale: false };
       } catch (error) {
         docFailedAt = Date.now();
-        if (hit && Date.now() - hit.at < STALE_MS) return { payload: hit.payload, stale: true };
+        if (hit && Date.now() - hit.at < STALE_MS)
+          return { payload: hit.payload, stale: true };
         throw error;
       }
     })().finally(() => inflight.delete(key));
@@ -181,17 +199,26 @@ function sendJson(res, status, body, cacheControl = CACHE_CONTROL) {
 /** Mount the wave-9 MIROVA volcano-hotspot proxy. */
 export function mirovaProxy() {
   async function handler(req, res) {
-    if (req.method !== 'GET') return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
     try {
       const { payload, stale } = await getPayload();
       sendJson(res, 200, stale ? { ...payload, stale: true } : payload);
     } catch (error) {
-      const upstreamFail = error?.status === 502 || error?.name === 'AbortError' || /aborted?/i.test(error?.message ?? '');
-      sendJson(res, upstreamFail ? 502 : 500, {
-        error: 'mirova_unavailable',
-        detail: error?.message ?? 'unknown',
-        honesty: { attribution: 'Data: MIROVA (INGV).' },
-      }, 'no-store');
+      const upstreamFail =
+        error?.status === 502 ||
+        error?.name === 'AbortError' ||
+        /aborted?/i.test(error?.message ?? '');
+      sendJson(
+        res,
+        upstreamFail ? 502 : 500,
+        {
+          error: 'mirova_unavailable',
+          detail: error?.message ?? 'unknown',
+          honesty: { attribution: 'Data: MIROVA (INGV).' },
+        },
+        'no-store',
+      );
     }
   }
 
@@ -213,5 +240,9 @@ export const _mirovaInternals = {
   buildPayload,
   decodeEntities,
   numOrNull,
-  resetCache: () => { payloadCache.clear(); inflight.clear(); docFailedAt = -Infinity; },
+  resetCache: () => {
+    payloadCache.clear();
+    inflight.clear();
+    docFailedAt = -Infinity;
+  },
 };

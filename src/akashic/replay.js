@@ -78,7 +78,8 @@ export function createReplayController({
       mode = 'replay';
       cutoff = Number.isFinite(fromMs) ? fromMs : now() - 86400000;
       playEnd = Number.isFinite(toMs) ? toMs : now();
-      playSpeed = Number.isFinite(msPerSecond) && msPerSecond > 0 ? msPerSecond : 3600000;
+      playSpeed =
+        Number.isFinite(msPerSecond) && msPerSecond > 0 ? msPerSecond : 3600000;
       playing = true;
       notify();
       const stepMs = (playSpeed * tickMs) / 1000;

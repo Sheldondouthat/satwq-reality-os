@@ -4,33 +4,30 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 2 (coops worker)).
  */
 export const SPEC = {
-  "id": "coops-tides-sandiego",
-  "title": "NOAA Tides — San Diego tide predictions",
-  "url": "https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?product=predictions&station=9410170&date=today&datum=MLLW&time_zone=gmt&units=english&interval=h&format=json",
-  "headers": {
-    "User-Agent": "satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)"
+  id: 'coops-tides-sandiego',
+  title: 'NOAA Tides — San Diego tide predictions',
+  url: 'https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?product=predictions&station=9410170&date=today&datum=MLLW&time_zone=gmt&units=english&interval=h&format=json',
+  headers: {
+    'User-Agent':
+      'satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)',
   },
-  "ttlSeconds": 3600,
-  "extract": {
-    "items": "$.predictions",
-    "limit": 24,
-    "map": {
-      "time": "$.t",
-      "levelFt": "$.v"
+  ttlSeconds: 3600,
+  extract: {
+    items: '$.predictions',
+    limit: 24,
+    map: {
+      time: '$.t',
+      levelFt: '$.v',
     },
-    "numbers": [
-      "levelFt"
-    ]
+    numbers: ['levelFt'],
   },
-  "required": [
-    "time"
-  ],
-  "source": "NOAA Center for Operational Oceanography Products",
-  "attribution": "Data: NOAA CO-OPS — keyless.",
-  "units": {
-    "levelFt": "ft"
+  required: ['time'],
+  source: 'NOAA Center for Operational Oceanography Products',
+  attribution: 'Data: NOAA CO-OPS — keyless.',
+  units: {
+    levelFt: 'ft',
   },
-  "honesty": "Hourly astronomical tide predictions for today (GMT), datum MLLW.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 2 (coops worker)"
+  honesty: 'Hourly astronomical tide predictions for today (GMT), datum MLLW.',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 2 (coops worker)',
 };

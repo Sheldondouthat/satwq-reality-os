@@ -45,8 +45,7 @@ export function parseNextData(html) {
 /** Pull the feeds array out of the Next dehydrated state. Pure. */
 export function extractFeeds(nextData) {
   try {
-    const queries =
-      nextData?.props?.pageProps?.dehydratedState?.queries ?? [];
+    const queries = nextData?.props?.pageProps?.dehydratedState?.queries ?? [];
     for (const q of queries) {
       const feeds = q?.state?.data?.feeds;
       if (Array.isArray(feeds) && feeds.length) return feeds;
@@ -70,7 +69,12 @@ export function normalizeFeed(f) {
   if (!nodeName || !name) return null;
   const lat = numOrNull(f.latLng?.lat);
   const lon = numOrNull(f.latLng?.lng);
-  if (lat === null || lon === null || Math.abs(lat) > 90 || Math.abs(lon) > 180) {
+  if (
+    lat === null ||
+    lon === null ||
+    Math.abs(lat) > 90 ||
+    Math.abs(lon) > 180
+  ) {
     return null;
   }
   const bucket = String(f.bucket || 'audio-orcasound-net').trim();
@@ -92,7 +96,8 @@ export function describeOrcasound({ feeds, fetchedAt }) {
   return {
     schemaVersion: 1,
     source: 'Orcasound (live.orcasound.net)',
-    attribution: 'Hydrophones: Orcasound community network — audio streamed live, unmodified',
+    attribution:
+      'Hydrophones: Orcasound community network — audio streamed live, unmodified',
     fetchedAt,
     stale: false,
     unavailable: false,
@@ -122,7 +127,8 @@ export function orcasoundProxy({
       });
       if (!res.ok) throw new Error(`Orcasound HTTP ${res.status} for ${url}`);
       const text = await res.text();
-      if (text.length > BODY_CAP_BYTES) throw new Error('Orcasound payload exceeds cap');
+      if (text.length > BODY_CAP_BYTES)
+        throw new Error('Orcasound payload exceeds cap');
       return text;
     } finally {
       clearTimeout(timer);
@@ -143,7 +149,8 @@ export function orcasoundProxy({
   async function refreshUpstream() {
     const html = await fetchText(LISTEN_URL, 'text/html');
     const nextData = parseNextData(html);
-    if (!nextData) throw new Error('__NEXT_DATA__ not found on Orcasound /listen');
+    if (!nextData)
+      throw new Error('__NEXT_DATA__ not found on Orcasound /listen');
     const feeds = extractFeeds(nextData).map(normalizeFeed).filter(Boolean);
     if (!feeds.length) throw new Error('no hydrophone feeds in __NEXT_DATA__');
     // Resolve playlists for online feeds (best-effort, parallel).
@@ -182,9 +189,15 @@ export function orcasoundProxy({
           try {
             mem = await refreshSingleFlight();
           } catch (err) {
-            console.warn('[orcasound-proxy] upstream failed:', err?.message || err);
+            console.warn(
+              '[orcasound-proxy] upstream failed:',
+              err?.message || err,
+            );
             if (!mem) {
-              sendJson(503, { error: 'orcasound_unavailable', honesty: HONESTY });
+              sendJson(503, {
+                error: 'orcasound_unavailable',
+                honesty: HONESTY,
+              });
               return;
             }
             mem = { ...mem, stale: true };

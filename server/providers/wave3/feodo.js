@@ -12,7 +12,8 @@
 import { createKeylessProxy, fetchUpstreamText } from './lib/proxy.js';
 
 const URL = 'https://feodotracker.abuse.ch/downloads/ipblocklist.json';
-const USER_AGENT = 'SATWQ-RealityOS/1.0 (abuse.ch public blocklist; keyless; contact via repo)';
+const USER_AGENT =
+  'SATWQ-RealityOS/1.0 (abuse.ch public blocklist; keyless; contact via repo)';
 
 const CACHE_TTL_MS = 5 * 60_000;
 const STALE_MS = 30 * 60_000;
@@ -25,7 +26,10 @@ export function normalizeFeodoRow(row) {
   if (!row || typeof row !== 'object') return null;
   const ip = String(row.ip_address ?? '').trim();
   if (!/^\d{1,3}(\.\d{1,3}){3}$/.test(ip)) return null;
-  const country = String(row.country ?? '').trim().toUpperCase() || null;
+  const country =
+    String(row.country ?? '')
+      .trim()
+      .toUpperCase() || null;
   return {
     ip,
     port: Number.isFinite(+row.port) ? +row.port : null,
@@ -67,7 +71,13 @@ export function feodoProxy({ fetchImpl = fetch, now = () => Date.now() } = {}) {
       if (e.status === 'online') online++;
       if (e.country) byCountry[e.country] = (byCountry[e.country] ?? 0) + 1;
     }
-    return { fetchedAt: n(), total: entries.length, online, entries, byCountry };
+    return {
+      fetchedAt: n(),
+      total: entries.length,
+      online,
+      entries,
+      byCountry,
+    };
   }
 
   function describe(payload, { stale = false, reason = null } = {}) {

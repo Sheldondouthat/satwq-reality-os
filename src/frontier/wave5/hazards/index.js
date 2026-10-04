@@ -46,7 +46,11 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
         const color = Cesium.Color.fromCssColorString(hazardColor(e.eventtype));
         const live = Boolean(e.iscurrent);
         ds.entities.add({
-          position: Cesium.Cartesian3.fromDegrees(e.lon, e.lat, live ? 120_000 : 60_000),
+          position: Cesium.Cartesian3.fromDegrees(
+            e.lon,
+            e.lat,
+            live ? 120_000 : 60_000,
+          ),
           point: new Cesium.PointGraphics({
             pixelSize: e.alertlevel === 'Red' ? 14 : 10,
             color,
@@ -55,15 +59,15 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
           }),
           label: live
             ? new Cesium.LabelGraphics({
-              text: e.name ?? '',
-              font: '10px system-ui, sans-serif',
-              fillColor: Cesium.Color.WHITE,
-              outlineColor: Cesium.Color.BLACK.withAlpha(0.8),
-              outlineWidth: 2,
-              style: Cesium.LabelStyle.FILL_AND_OUTLINE,
-              verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
-              pixelOffset: new Cesium.Cartesian2(0, -10),
-            })
+                text: e.name ?? '',
+                font: '10px system-ui, sans-serif',
+                fillColor: Cesium.Color.WHITE,
+                outlineColor: Cesium.Color.BLACK.withAlpha(0.8),
+                outlineWidth: 2,
+                style: Cesium.LabelStyle.FILL_AND_OUTLINE,
+                verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
+                pixelOffset: new Cesium.Cartesian2(0, -10),
+              })
             : undefined,
           description:
             `<b>${escapeHtml(e.name ?? 'Hazard event')}</b><br>` +
@@ -80,9 +84,17 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
     }
 
     function escapeHtml(s) {
-      return String(s).replace(/[&<>"']/g, (c) => ({
-        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
-      })[c]);
+      return String(s).replace(
+        /[&<>"']/g,
+        (c) =>
+          ({
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#39;',
+          })[c],
+      );
     }
 
     let statusEl = null;
@@ -92,7 +104,12 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
       if (statusEl) {
         statusEl.textContent =
           `${events.length} events · ${payload?.currentCount ?? 0} live` +
-          (payload?.byType ? ' · ' + Object.entries(payload.byType).map(([k, v]) => `${k}:${v}`).join(' ') : '');
+          (payload?.byType
+            ? ' · ' +
+              Object.entries(payload.byType)
+                .map(([k, v]) => `${k}:${v}`)
+                .join(' ')
+            : '');
       }
       if (listEl) {
         const top = rankHazards(events).slice(0, 12);
@@ -105,7 +122,9 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
                     ? `<a href="${escapeHtml(e.reportUrl)}" target="_blank" rel="noopener" style="color:#ffd23d">${escapeHtml(e.name ?? e.eventid)}</a>`
                     : escapeHtml(e.name ?? e.eventid)) +
                   `<br><span style="opacity:.8">${escapeHtml(hazardLabel(e))}</span>` +
-                  (e.severityText ? `<br><span style="opacity:.65">${escapeHtml(e.severityText)}</span>` : '') +
+                  (e.severityText
+                    ? `<br><span style="opacity:.65">${escapeHtml(e.severityText)}</span>`
+                    : '') +
                   `</div>`,
               )
               .join('')
@@ -127,7 +146,8 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
     if (mount && typeof chip === 'function') {
       try {
         statusEl = document.createElement('div');
-        statusEl.style.cssText = 'font-size:10px;color:#8aa4d6;margin:2px 0 4px;';
+        statusEl.style.cssText =
+          'font-size:10px;color:#8aa4d6;margin:2px 0 4px;';
         statusEl.textContent = 'loading hazards…';
         mount.appendChild(statusEl);
         listEl = document.createElement('div');
@@ -141,14 +161,20 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
             disable: () => setEnabled(false),
           });
           mount.appendChild(
-            chip(T('feature.hazards') || 'Multi-hazard events', (on) =>
-              on ? tracked.show() : tracked.hide(), false),
+            chip(
+              T('feature.hazards') || 'Multi-hazard events',
+              (on) => (on ? tracked.show() : tracked.hide()),
+              false,
+            ),
           );
         } else {
-          mount.appendChild(chip(T('feature.hazards') || 'Multi-hazard events', apply, false));
+          mount.appendChild(
+            chip(T('feature.hazards') || 'Multi-hazard events', apply, false),
+          );
         }
         const legend = document.createElement('div');
-        legend.style.cssText = 'font-size:10px;color:#8aa4d6;margin-top:4px;line-height:1.5;';
+        legend.style.cssText =
+          'font-size:10px;color:#8aa4d6;margin-top:4px;line-height:1.5;';
         legend.innerHTML =
           '🌐 EQ · 🌀 TC · 🌊 FL · 🔥 WF · 🌋 VO · 🏜️ DR<br>' +
           '● LIVE episodes get labels<br>' +

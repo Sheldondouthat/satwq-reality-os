@@ -9,7 +9,14 @@
  * location — the legend says so.
  */
 import * as Cesium from 'cesium';
-import { modeColor, bandLabel, spotAge, spotLabel, plottableSpots, escapeHtml } from './model.js';
+import {
+  modeColor,
+  bandLabel,
+  spotAge,
+  spotLabel,
+  plottableSpots,
+  escapeHtml,
+} from './model.js';
 
 const API = '/api/pota';
 const REFRESH_MS = 5 * 60_000;
@@ -65,7 +72,10 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
             style: Cesium.LabelStyle.FILL_AND_OUTLINE,
             verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
             pixelOffset: new Cesium.Cartesian2(0, -10),
-            distanceDisplayCondition: new Cesium.DistanceDisplayCondition(0, 12_000_000),
+            distanceDisplayCondition: new Cesium.DistanceDisplayCondition(
+              0,
+              12_000_000,
+            ),
           }),
           description:
             `<b>${escapeHtml(spot.activator)}</b> @ ${escapeHtml(spot.reference)}<br>` +
@@ -92,10 +102,14 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
           .sort((a, b) => new Date(b.spotTime) - new Date(a.spotTime))
           .slice(0, 5);
         listEl.innerHTML = newest.length
-          ? newest.map((s) =>
-              `<div><span style="color:${modeColor(s.mode)}">●</span> ` +
-              `${escapeHtml(spotLabel(s))} <span style="opacity:.6">${escapeHtml(spot.reference)} · ` +
-              `${escapeHtml(spotAge(s.spotTime))}</span></div>`).join('')
+          ? newest
+              .map(
+                (s) =>
+                  `<div><span style="color:${modeColor(s.mode)}">●</span> ` +
+                  `${escapeHtml(spotLabel(s))} <span style="opacity:.6">${escapeHtml(spot.reference)} · ` +
+                  `${escapeHtml(spotAge(s.spotTime))}</span></div>`,
+              )
+              .join('')
           : '<div style="opacity:.6">no spots right now</div>';
       }
     }
@@ -114,11 +128,13 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
     if (mount && typeof chip === 'function') {
       try {
         statusEl = document.createElement('div');
-        statusEl.style.cssText = 'font-size:10px;color:#8aa4d6;margin:2px 0 4px;';
+        statusEl.style.cssText =
+          'font-size:10px;color:#8aa4d6;margin:2px 0 4px;';
         statusEl.textContent = 'listening for activators…';
         mount.appendChild(statusEl);
         listEl = document.createElement('div');
-        listEl.style.cssText = 'font-size:10px;color:#c8d6f5;margin:2px 0;line-height:1.5;';
+        listEl.style.cssText =
+          'font-size:10px;color:#c8d6f5;margin:2px 0;line-height:1.5;';
         mount.appendChild(listEl);
         const apply = (on) => setEnabled(on);
         if (typeof trackLayer === 'function') {
@@ -127,14 +143,20 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
             disable: () => setEnabled(false),
           });
           mount.appendChild(
-            chip(T('feature.pota') || "Who's on the air (POTA)", (on) =>
-              on ? tracked.show() : tracked.hide(), false),
+            chip(
+              T('feature.pota') || "Who's on the air (POTA)",
+              (on) => (on ? tracked.show() : tracked.hide()),
+              false,
+            ),
           );
         } else {
-          mount.appendChild(chip(T('feature.pota') || "Who's on the air (POTA)", apply, false));
+          mount.appendChild(
+            chip(T('feature.pota') || "Who's on the air (POTA)", apply, false),
+          );
         }
         const legend = document.createElement('div');
-        legend.style.cssText = 'font-size:10px;color:#8aa4d6;margin-top:4px;line-height:1.5;';
+        legend.style.cssText =
+          'font-size:10px;color:#8aa4d6;margin-top:4px;line-height:1.5;';
         legend.innerHTML =
           '<span style="color:#ffb454">●</span> CW · ' +
           '<span style="color:#4dd0a6">●</span> SSB · ' +

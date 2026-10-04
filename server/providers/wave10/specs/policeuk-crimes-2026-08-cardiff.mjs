@@ -4,27 +4,26 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 8 (police-uk worker)).
  */
 export const SPEC = {
-  "id": "policeuk-crimes-2026-08-cardiff",
-  "title": "UK street crime — Cardiff city centre (Aug 2026)",
-  "url": "https://data.police.uk/api/crimes-street/all-crime?lat=51.4816&lng=-3.1791&date=2026-08",
-  "headers": {},
-  "ttlSeconds": 86400,
-  "extract": {
-    "items": "$",
-    "limit": 50,
-    "map": {
-      "category": "$.category",
-      "street": "$.location.street.name",
-      "month": "$.month",
-      "outcome": "$.outcome_status.category"
-    }
+  id: 'policeuk-crimes-2026-08-cardiff',
+  title: 'UK street crime — Cardiff city centre (Aug 2026)',
+  url: 'https://data.police.uk/api/crimes-street/all-crime?lat=51.4816&lng=-3.1791&date=2026-08',
+  headers: {},
+  ttlSeconds: 86400,
+  extract: {
+    items: '$',
+    limit: 50,
+    map: {
+      category: '$.category',
+      street: '$.location.street.name',
+      month: '$.month',
+      outcome: '$.outcome_status.category',
+    },
   },
-  "required": [
-    "category"
-  ],
-  "source": "UK Police",
-  "attribution": "Data: data.police.uk — keyless, Open Government Licence.",
-  "honesty": "Street-level crimes within ~1 mile of Cardiff city centre, data month 2026-08 (latest available per /crime-last-updated; data lags ~2 months). Verified 1601 rows in fixture (2026-10-02). Locations are anonymized street-level aggregates by police.uk design; lat/lng excluded from the map. Public aggregate police data; no personal identifiers.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 8 (police-uk worker)"
+  required: ['category'],
+  source: 'UK Police',
+  attribution: 'Data: data.police.uk — keyless, Open Government Licence.',
+  honesty:
+    'Street-level crimes within ~1 mile of Cardiff city centre, data month 2026-08 (latest available per /crime-last-updated; data lags ~2 months). Verified 1601 rows in fixture (2026-10-02). Locations are anonymized street-level aggregates by police.uk design; lat/lng excluded from the map. Public aggregate police data; no personal identifiers.',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 8 (police-uk worker)',
 };

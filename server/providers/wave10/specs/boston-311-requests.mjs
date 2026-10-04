@@ -4,51 +4,49 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 9 (cities2 worker)).
  */
 export const SPEC = {
-  "id": "boston-311-requests",
-  "title": "Boston — 311 service requests (new system)",
-  "url": "https://data.boston.gov/api/3/action/datastore_search?resource_id=254adca6-64ab-4c5c-9fc0-a6da622be185&sort=open_date%20desc&limit=50",
-  "headers": {
-    "User-Agent": "satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)"
+  id: 'boston-311-requests',
+  title: 'Boston — 311 service requests (new system)',
+  url: 'https://data.boston.gov/api/3/action/datastore_search?resource_id=254adca6-64ab-4c5c-9fc0-a6da622be185&sort=open_date%20desc&limit=50',
+  headers: {
+    'User-Agent':
+      'satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)',
   },
-  "ttlSeconds": 3600,
-  "bodyCapBytes": 2097152,
-  "extract": {
-    "items": "$.result.records",
-    "limit": 50,
-    "map": {
-      "caseId": "$.case_id",
-      "openDate": "$.open_date",
-      "topic": "$.case_topic",
-      "service": "$.service_name",
-      "department": "$.assigned_department",
-      "status": "$.case_status",
-      "closureReason": "$.closure_reason",
-      "neighborhood": "$.neighborhood",
-      "zip": "$.zip_code",
-      "policeDistrict": "$.police_district"
+  ttlSeconds: 3600,
+  bodyCapBytes: 2097152,
+  extract: {
+    items: '$.result.records',
+    limit: 50,
+    map: {
+      caseId: '$.case_id',
+      openDate: '$.open_date',
+      topic: '$.case_topic',
+      service: '$.service_name',
+      department: '$.assigned_department',
+      status: '$.case_status',
+      closureReason: '$.closure_reason',
+      neighborhood: '$.neighborhood',
+      zip: '$.zip_code',
+      policeDistrict: '$.police_district',
     },
-    "numbers": []
+    numbers: [],
   },
-  "required": [
-    "caseId",
-    "topic",
-    "openDate"
-  ],
-  "source": "City of Boston",
-  "attribution": "Data: data.boston.gov (CKAN datastore) — keyless.",
-  "units": {
-    "caseId": "text",
-    "openDate": "datetime",
-    "topic": "text",
-    "service": "text",
-    "department": "text",
-    "status": "text",
-    "closureReason": "text",
-    "neighborhood": "text",
-    "zip": "text",
-    "policeDistrict": "text"
+  required: ['caseId', 'topic', 'openDate'],
+  source: 'City of Boston',
+  attribution: 'Data: data.boston.gov (CKAN datastore) — keyless.',
+  units: {
+    caseId: 'text',
+    openDate: 'datetime',
+    topic: 'text',
+    service: 'text',
+    department: 'text',
+    status: 'text',
+    closureReason: 'text',
+    neighborhood: 'text',
+    zip: 'text',
+    policeDistrict: 'text',
   },
-  "honesty": "Newest-first 50 via sort=open_date desc on the '311 Service Requests - NEW SYSTEM' datastore resource (64,440 records). Newest case at probe opened 2026-10-02 16:51 — same-day freshness. Exact street address fields excluded by design (privacy rule).",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 9 (cities2 worker)"
+  honesty:
+    "Newest-first 50 via sort=open_date desc on the '311 Service Requests - NEW SYSTEM' datastore resource (64,440 records). Newest case at probe opened 2026-10-02 16:51 — same-day freshness. Exact street address fields excluded by design (privacy rule).",
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 9 (cities2 worker)',
 };

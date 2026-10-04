@@ -4,58 +4,48 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 4 (open-meteo worker)).
  */
 export const SPEC = {
-  "id": "om-aq-current-us",
-  "title": "Open-Meteo air quality nowcast — 10 US cities",
-  "url": "https://air-quality-api.open-meteo.com/v1/air-quality?latitude=40.71,34.05,41.88,29.76,39.74,47.61,25.76,32.78,33.45,33.75&longitude=-74.01,-118.24,-87.63,-95.37,-104.99,-122.33,-80.19,-96.80,-112.07,-84.39&current=us_aqi,pm2_5,pm10,carbon_monoxide,nitrogen_dioxide,sulphur_dioxide,ozone&domains=auto&timezone=auto",
-  "headers": {
-    "User-Agent": "satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)"
+  id: 'om-aq-current-us',
+  title: 'Open-Meteo air quality nowcast — 10 US cities',
+  url: 'https://air-quality-api.open-meteo.com/v1/air-quality?latitude=40.71,34.05,41.88,29.76,39.74,47.61,25.76,32.78,33.45,33.75&longitude=-74.01,-118.24,-87.63,-95.37,-104.99,-122.33,-80.19,-96.80,-112.07,-84.39&current=us_aqi,pm2_5,pm10,carbon_monoxide,nitrogen_dioxide,sulphur_dioxide,ozone&domains=auto&timezone=auto',
+  headers: {
+    'User-Agent':
+      'satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)',
   },
-  "ttlSeconds": 3600,
-  "extract": {
-    "items": "$",
-    "limit": 50,
-    "map": {
-      "time": "$.current.time",
-      "lat": "$.latitude",
-      "lon": "$.longitude",
-      "tz": "$.timezone",
-      "usAqi": "$.current.us_aqi",
-      "pm25": "$.current.pm2_5",
-      "pm10": "$.current.pm10",
-      "co": "$.current.carbon_monoxide",
-      "no2": "$.current.nitrogen_dioxide",
-      "so2": "$.current.sulphur_dioxide",
-      "o3": "$.current.ozone"
+  ttlSeconds: 3600,
+  extract: {
+    items: '$',
+    limit: 50,
+    map: {
+      time: '$.current.time',
+      lat: '$.latitude',
+      lon: '$.longitude',
+      tz: '$.timezone',
+      usAqi: '$.current.us_aqi',
+      pm25: '$.current.pm2_5',
+      pm10: '$.current.pm10',
+      co: '$.current.carbon_monoxide',
+      no2: '$.current.nitrogen_dioxide',
+      so2: '$.current.sulphur_dioxide',
+      o3: '$.current.ozone',
     },
-    "numbers": [
-      "lat",
-      "lon",
-      "usAqi",
-      "pm25",
-      "pm10",
-      "co",
-      "no2",
-      "so2",
-      "o3"
-    ]
+    numbers: ['lat', 'lon', 'usAqi', 'pm25', 'pm10', 'co', 'no2', 'so2', 'o3'],
   },
-  "required": [
-    "usAqi"
-  ],
-  "source": "Open-Meteo Air Quality API (CAMS)",
-  "attribution": "Weather data by Open-Meteo.com (CC-BY 4.0) — keyless API.",
-  "units": {
-    "lat": "deg",
-    "lon": "deg",
-    "usAqi": "US AQI",
-    "pm25": "ug/m3",
-    "pm10": "ug/m3",
-    "co": "ug/m3",
-    "no2": "ug/m3",
-    "so2": "ug/m3",
-    "o3": "ug/m3"
+  required: ['usAqi'],
+  source: 'Open-Meteo Air Quality API (CAMS)',
+  attribution: 'Weather data by Open-Meteo.com (CC-BY 4.0) — keyless API.',
+  units: {
+    lat: 'deg',
+    lon: 'deg',
+    usAqi: 'US AQI',
+    pm25: 'ug/m3',
+    pm10: 'ug/m3',
+    co: 'ug/m3',
+    no2: 'ug/m3',
+    so2: 'ug/m3',
+    o3: 'ug/m3',
   },
-  "honesty": "CAMS model nowcast (hourly model output, not sensor observations). Rows in request order: New York, Los Angeles, Chicago, Houston, Denver, Seattle, Miami, Dallas, Phoenix, Atlanta.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 4 (open-meteo worker)"
+  honesty:
+    'CAMS model nowcast (hourly model output, not sensor observations). Rows in request order: New York, Los Angeles, Chicago, Houston, Denver, Seattle, Miami, Dallas, Phoenix, Atlanta.',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 4 (open-meteo worker)',
 };

@@ -4,37 +4,34 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 2 (socrata worker)).
  */
 export const SPEC = {
-  "attribution": "Data: Chicago Police Department via City of Chicago Open Data — keyless Socrata API.",
-  "extract": {
-    "items": "$",
-    "limit": 50,
-    "map": {
-      "area": "$.community_area",
-      "block": "$.block",
-      "case": "$.case_number",
-      "date": "$.date",
-      "desc": "$.description",
-      "key": "$.id",
-      "lat": "$.latitude",
-      "lon": "$.longitude",
-      "type": "$.primary_type",
-      "ward": "$.ward"
+  attribution:
+    'Data: Chicago Police Department via City of Chicago Open Data — keyless Socrata API.',
+  extract: {
+    items: '$',
+    limit: 50,
+    map: {
+      area: '$.community_area',
+      block: '$.block',
+      case: '$.case_number',
+      date: '$.date',
+      desc: '$.description',
+      key: '$.id',
+      lat: '$.latitude',
+      lon: '$.longitude',
+      type: '$.primary_type',
+      ward: '$.ward',
     },
-    "numbers": [
-      "lat",
-      "lon"
-    ]
+    numbers: ['lat', 'lon'],
   },
-  "honesty": "CPD reported-crime feed ordered newest-first; latest rows ~2026-09-26, lagging several days; some records lack geocoding. Reported crimes only, not convictions.",
-  "id": "socrata-chicago-crime",
-  "required": [
-    "key"
-  ],
-  "source": "Chicago Open Data (Socrata)",
-  "title": "Chicago Open Data — reported crimes (2001–present)",
-  "ttlSeconds": 21600,
-  "units": {},
-  "url": "https://data.cityofchicago.org/resource/ijzp-q8t2.json?$limit=50&$order=date%20DESC",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 2 (socrata worker)"
+  honesty:
+    'CPD reported-crime feed ordered newest-first; latest rows ~2026-09-26, lagging several days; some records lack geocoding. Reported crimes only, not convictions.',
+  id: 'socrata-chicago-crime',
+  required: ['key'],
+  source: 'Chicago Open Data (Socrata)',
+  title: 'Chicago Open Data — reported crimes (2001–present)',
+  ttlSeconds: 21600,
+  units: {},
+  url: 'https://data.cityofchicago.org/resource/ijzp-q8t2.json?$limit=50&$order=date%20DESC',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 2 (socrata worker)',
 };

@@ -14,7 +14,8 @@
 
 function ascii(view, off, len) {
   let s = '';
-  for (let i = 0; i < len; i++) s += String.fromCharCode(view.getUint8(off + i));
+  for (let i = 0; i < len; i++)
+    s += String.fromCharCode(view.getUint8(off + i));
   return s.trim();
 }
 
@@ -58,7 +59,10 @@ function decodeWord(word, nibble, encoding) {
   if (encoding === 10) {
     // Steim-1: dnib is not consulted; nibble alone selects the packing.
     if (nibble === 2) {
-      diffs.push(signExtend((u >>> 16) & 0xffff, 16), signExtend(u & 0xffff, 16));
+      diffs.push(
+        signExtend((u >>> 16) & 0xffff, 16),
+        signExtend(u & 0xffff, 16),
+      );
     } else {
       diffs.push(signExtend(u, 32)); // nibble 3: 1 x 32-bit
     }
@@ -66,9 +70,13 @@ function decodeWord(word, nibble, encoding) {
   }
   // Steim-2
   if (nibble === 2) {
-    if (dnib === 1) diffs.push(signExtend(u & 0x3fffffff, 30)); // 1 x 30-bit
+    if (dnib === 1)
+      diffs.push(signExtend(u & 0x3fffffff, 30)); // 1 x 30-bit
     else if (dnib === 2) {
-      diffs.push(signExtend((u >>> 15) & 0x7fff, 15), signExtend(u & 0x7fff, 15));
+      diffs.push(
+        signExtend((u >>> 15) & 0x7fff, 15),
+        signExtend(u & 0x7fff, 15),
+      );
     } else if (dnib === 3) {
       diffs.push(
         signExtend((u >>> 20) & 0x3ff, 10),
@@ -78,11 +86,14 @@ function decodeWord(word, nibble, encoding) {
     } else throw new Error('Steim-2: impossible dnib=00 for nibble=10');
   } else {
     if (dnib === 0) {
-      for (let k = 0; k < 5; k++) diffs.push(signExtend((u >>> (24 - 6 * k)) & 0x3f, 6));
+      for (let k = 0; k < 5; k++)
+        diffs.push(signExtend((u >>> (24 - 6 * k)) & 0x3f, 6));
     } else if (dnib === 1) {
-      for (let k = 0; k < 6; k++) diffs.push(signExtend((u >>> (25 - 5 * k)) & 0x1f, 5));
+      for (let k = 0; k < 6; k++)
+        diffs.push(signExtend((u >>> (25 - 5 * k)) & 0x1f, 5));
     } else if (dnib === 2) {
-      for (let k = 0; k < 7; k++) diffs.push(signExtend((u >>> (24 - 4 * k)) & 0x0f, 4));
+      for (let k = 0; k < 7; k++)
+        diffs.push(signExtend((u >>> (24 - 4 * k)) & 0x0f, 4));
     } else throw new Error('Steim-2: impossible dnib=11 for nibble=11');
   }
   return { diffs };
@@ -93,7 +104,15 @@ function decodeWord(word, nibble, encoding) {
  * `view` is a DataView over the whole buffer, `recOff` the record start,
  * `reclen` the record length, `bigEndian` from blockette 1000.
  */
-function decodeFrames(view, recOff, reclen, dataOff, nsamp, encoding, bigEndian) {
+function decodeFrames(
+  view,
+  recOff,
+  reclen,
+  dataOff,
+  nsamp,
+  encoding,
+  bigEndian,
+) {
   const get32 = (off) =>
     bigEndian ? view.getInt32(off) : view.getInt32(off, true);
   const samples = [];
@@ -112,7 +131,11 @@ function decodeFrames(view, recOff, reclen, dataOff, nsamp, encoding, bigEndian)
     const wordStart = frameIdx === 0 ? 3 : 1;
     for (let w = wordStart; w < 16; w++) {
       const nibble = (nibbleWord >>> (30 - 2 * w)) & 0x03;
-      const { diffs, special } = decodeWord(get32(fOff + w * 4), nibble, encoding);
+      const { diffs, special } = decodeWord(
+        get32(fOff + w * 4),
+        nibble,
+        encoding,
+      );
       if (special !== undefined) continue; // X0/XN already captured
       frameDiffs.push(...diffs);
     }
@@ -125,7 +148,11 @@ function decodeFrames(view, recOff, reclen, dataOff, nsamp, encoding, bigEndian)
     frameIdx++;
     if (samples.length >= nsamp) break;
   }
-  if (samples.length === nsamp && xn !== null && samples[samples.length - 1] !== xn) {
+  if (
+    samples.length === nsamp &&
+    xn !== null &&
+    samples[samples.length - 1] !== xn
+  ) {
     xnMismatch = true; // integrity warning only — keep the samples
   }
   return { samples: Int32Array.from(samples), x0, xn, xnMismatch };
@@ -150,7 +177,8 @@ function parseHeader(view, off) {
   let reclen = null;
   if (blkOff) {
     const btype = view.getUint16(off + blkOff);
-    if (btype !== 1000) throw new Error(`expected blockette 1000, got ${btype}`);
+    if (btype !== 1000)
+      throw new Error(`expected blockette 1000, got ${btype}`);
     encoding = view.getUint8(off + blkOff + 4);
     const wordOrder = view.getUint8(off + blkOff + 5);
     bigEndian = wordOrder === 1;
@@ -188,7 +216,9 @@ function parseHeader(view, off) {
 export function decodeMiniseed(buffer) {
   const bytes = buffer instanceof Uint8Array ? buffer : new Uint8Array(buffer);
   if (bytes.byteLength < 48) {
-    throw new Error(`buffer too small for miniSEED (${bytes.byteLength} bytes)`);
+    throw new Error(
+      `buffer too small for miniSEED (${bytes.byteLength} bytes)`,
+    );
   }
   const view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
   // Detect record length from the first header's blockette 1000.

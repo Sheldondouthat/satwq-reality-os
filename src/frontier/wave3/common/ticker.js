@@ -160,7 +160,11 @@ export function createTickerInit(spec) {
 
   return function init({ viewer, mount, chip, trackLayer, t } = {}) {
     try {
-      if (typeof document === 'undefined' || !mount || typeof chip !== 'function')
+      if (
+        typeof document === 'undefined' ||
+        !mount ||
+        typeof chip !== 'function'
+      )
         return null;
       const T = typeof t === 'function' ? t : (k) => k;
       const label = () => T(themeKey) || fallbackLabel;
@@ -197,7 +201,8 @@ export function createTickerInit(spec) {
             const thumbs = (thumbUrls(doc) ?? []).filter((x) => x?.url);
             if (thumbs.length) {
               const row = document.createElement('div');
-              row.style.cssText = 'display:flex;gap:4px;margin-top:4px;flex-wrap:wrap;';
+              row.style.cssText =
+                'display:flex;gap:4px;margin-top:4px;flex-wrap:wrap;';
               for (const th of thumbs.slice(0, 4)) {
                 const img = document.createElement('img');
                 img.src = th.url;

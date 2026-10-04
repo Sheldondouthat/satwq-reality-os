@@ -4,32 +4,30 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 4 (open-meteo worker)).
  */
 export const SPEC = {
-  "id": "om-elevation-extremes",
-  "title": "Open-Meteo elevation — 6 world extremes",
-  "url": "https://api.open-meteo.com/v1/elevation?latitude=27.99,31.50,63.07,-32.65,-3.07,36.23&longitude=86.93,35.47,-151.01,-70.01,37.35,-116.77",
-  "headers": {
-    "User-Agent": "satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)"
+  id: 'om-elevation-extremes',
+  title: 'Open-Meteo elevation — 6 world extremes',
+  url: 'https://api.open-meteo.com/v1/elevation?latitude=27.99,31.50,63.07,-32.65,-3.07,36.23&longitude=86.93,35.47,-151.01,-70.01,37.35,-116.77',
+  headers: {
+    'User-Agent':
+      'satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)',
   },
-  "ttlSeconds": 604800,
-  "extract": {
-    "items": "$.elevation",
-    "limit": 50,
-    "map": {
-      "elevationM": "$"
+  ttlSeconds: 604800,
+  extract: {
+    items: '$.elevation',
+    limit: 50,
+    map: {
+      elevationM: '$',
     },
-    "numbers": [
-      "elevationM"
-    ]
+    numbers: ['elevationM'],
   },
-  "required": [
-    "elevationM"
-  ],
-  "source": "Open-Meteo Elevation API (Copernicus DEM)",
-  "attribution": "Weather data by Open-Meteo.com (CC-BY 4.0) — keyless API.",
-  "units": {
-    "elevationM": "m"
+  required: ['elevationM'],
+  source: 'Open-Meteo Elevation API (Copernicus DEM)',
+  attribution: 'Weather data by Open-Meteo.com (CC-BY 4.0) — keyless API.',
+  units: {
+    elevationM: 'm',
   },
-  "honesty": "Copernicus DEM elevation, static reference data. Rows follow request coordinate order (row N = Nth coordinate). Rows in request order: Everest, Dead Sea shore, Denali, Aconcagua, Kilimanjaro, Badwater Basin.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 4 (open-meteo worker)"
+  honesty:
+    'Copernicus DEM elevation, static reference data. Rows follow request coordinate order (row N = Nth coordinate). Rows in request order: Everest, Dead Sea shore, Denali, Aconcagua, Kilimanjaro, Badwater Basin.',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 4 (open-meteo worker)',
 };

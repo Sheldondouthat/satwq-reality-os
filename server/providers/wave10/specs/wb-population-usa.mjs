@@ -4,47 +4,45 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch-4 diversity worker).
  */
 export const SPEC = {
-  "attribution": "Data: World Bank (CC BY-4.0) — keyless.",
-  "extract": {
-    "items": "$[1]",
-    "limit": 50,
-    "map": {
-      "country": "$.country.value",
-      "indicator": "$.indicator.value",
-      "population": "$.value",
-      "year": "$.date"
+  attribution: 'Data: World Bank (CC BY-4.0) — keyless.',
+  extract: {
+    items: '$[1]',
+    limit: 50,
+    map: {
+      country: '$.country.value',
+      indicator: '$.indicator.value',
+      population: '$.value',
+      year: '$.date',
     },
-    "numbers": [
-      "population"
-    ]
+    numbers: ['population'],
   },
-  "fieldMap": {
-    "country": "country name",
-    "indicator": "indicator label",
-    "population": "total resident population (people)",
-    "year": "calendar year"
+  fieldMap: {
+    country: 'country name',
+    indicator: 'indicator label',
+    population: 'total resident population (people)',
+    year: 'calendar year',
   },
-  "headers": {
-    "User-Agent": "satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)"
+  headers: {
+    'User-Agent':
+      'satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)',
   },
-  "honestLabels": {
-    "coverage": "USA only, 2000–2024, one observation per year.",
-    "freshness": "Annual series; latest observation per World Bank lastupdated 2026-07-13.",
-    "model": "None — official World Bank WDI estimates."
+  honestLabels: {
+    coverage: 'USA only, 2000–2024, one observation per year.',
+    freshness:
+      'Annual series; latest observation per World Bank lastupdated 2026-07-13.',
+    model: 'None — official World Bank WDI estimates.',
   },
-  "honesty": "Annual World Bank WDI series SP.POP.TOTL for the United States; values are estimates, updated yearly — not real-time.",
-  "id": "wb-population-usa",
-  "required": [
-    "year",
-    "population"
-  ],
-  "source": "World Bank World Development Indicators",
-  "title": "World Bank — USA population, total (annual)",
-  "ttlSeconds": 86400,
-  "units": {
-    "population": "people"
+  honesty:
+    'Annual World Bank WDI series SP.POP.TOTL for the United States; values are estimates, updated yearly — not real-time.',
+  id: 'wb-population-usa',
+  required: ['year', 'population'],
+  source: 'World Bank World Development Indicators',
+  title: 'World Bank — USA population, total (annual)',
+  ttlSeconds: 86400,
+  units: {
+    population: 'people',
   },
-  "url": "https://api.worldbank.org/v2/country/USA/indicator/SP.POP.TOTL?format=json&per_page=100&date=2000:2024",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch-4 diversity worker"
+  url: 'https://api.worldbank.org/v2/country/USA/indicator/SP.POP.TOTL?format=json&per_page=100&date=2000:2024',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch-4 diversity worker',
 };

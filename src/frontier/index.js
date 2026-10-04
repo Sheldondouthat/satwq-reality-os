@@ -36,7 +36,10 @@ import {
   createVolcanicAshLayer,
 } from '../layers/forecast/index.js';
 import { createHmsSmokeSource } from '../layers/hmsSmoke/source.js';
-import { createNotebook, createLocalStorageBackend } from '../annotations/notebook.js';
+import {
+  createNotebook,
+  createLocalStorageBackend,
+} from '../annotations/notebook.js';
 import { createNotebookPanel } from '../annotations/notebookPanel.js';
 import {
   mountIndoorView,
@@ -78,10 +81,19 @@ import { init as initCerts } from './wave5/certs/index.js';
 import { init as initCivic } from './wave5/civic/index.js';
 import { init as initResearch } from './wave5/research/index.js';
 import { init as initBiosphere } from './wave5/biosphere/index.js';
-import { createCableThreatLayer, mountCableThreatDock } from './wave3/cableThreat/index.js';
-import { createNwsAlertsLayer, mountNwsAlertsDock } from './wave3/nwsAlerts/index.js';
+import {
+  createCableThreatLayer,
+  mountCableThreatDock,
+} from './wave3/cableThreat/index.js';
+import {
+  createNwsAlertsLayer,
+  mountNwsAlertsDock,
+} from './wave3/nwsAlerts/index.js';
 import { createSigmetsLayer, mountSigmetsDock } from './wave3/sigmets/index.js';
-import { createTerminatorRushLayer, mountTerminatorRushDock } from './wave3/terminatorRush/index.js';
+import {
+  createTerminatorRushLayer,
+  mountTerminatorRushDock,
+} from './wave3/terminatorRush/index.js';
 import { init as initDeepTime } from './wave3/deepTime/index.js';
 import { init as initOceanTwin } from './wave3/oceanTwin/index.js';
 import { init as initWhatIf } from './wave3/whatIf/index.js';
@@ -96,13 +108,25 @@ import { init as initWave3Gdelt } from './wave3/gdelt/index.js';
 import { init as initWave3Meteors } from './wave3/meteors/index.js';
 import { init as initWave3Eibi } from './wave3/eibi/index.js';
 import { init as initWave3Aishub } from './wave3/aishub/index.js';
-import { createFireballLayer, createFireballPanel } from './wave3/fireballs/index.js';
+import {
+  createFireballLayer,
+  createFireballPanel,
+} from './wave3/fireballs/index.js';
 import { createFireballSource } from './wave3/fireballs/source.js';
-import { createConjunctionLayer, createConjunctionPanel } from './wave3/conjunctions/index.js';
+import {
+  createConjunctionLayer,
+  createConjunctionPanel,
+} from './wave3/conjunctions/index.js';
 import { createConjunctionSource } from './wave3/conjunctions/source.js';
-import { createReentryLayer, createReentryPanel } from './wave3/reentry/index.js';
+import {
+  createReentryLayer,
+  createReentryPanel,
+} from './wave3/reentry/index.js';
 import { createReentrySource } from './wave3/reentry/source.js';
-import { createCosmicRayLayer, createCosmicRayPanel } from './wave3/cosmicRay/index.js';
+import {
+  createCosmicRayLayer,
+  createCosmicRayPanel,
+} from './wave3/cosmicRay/index.js';
 import { createNmdbSource } from './wave3/nmdb/index.js';
 import { init as initPskreporter } from './wave6/pskreporter/index.js';
 import { init as initSondes } from './wave6/sondes/index.js';
@@ -246,7 +270,9 @@ function chip(label, onClick, active = false) {
   b.addEventListener('click', () => {
     const nowActive = b.getAttribute('aria-pressed') !== 'true';
     b.setAttribute('aria-pressed', String(nowActive));
-    b.style.background = nowActive ? 'rgba(90,160,255,.35)' : 'rgba(30,45,70,.6)';
+    b.style.background = nowActive
+      ? 'rgba(90,160,255,.35)'
+      : 'rgba(30,45,70,.6)';
     onClick(nowActive);
   });
   return b;
@@ -271,7 +297,8 @@ function section(title) {
 export function initFrontier({ viewer } = {}) {
   if (!viewer || typeof document === 'undefined') return null;
   const cleanups = [];
-  const onFail = (name, error) => console.warn(`[frontier] ${name} failed:`, error);
+  const onFail = (name, error) =>
+    console.warn(`[frontier] ${name} failed:`, error);
   const attempt = (name, fn) => {
     try {
       const cleanup = fn();
@@ -311,7 +338,11 @@ export function initFrontier({ viewer } = {}) {
         const { Cartesian3 } = await import('cesium');
         const carto = viewer.camera.positionCartographic;
         const target = dir === 'in' ? carto.height / 2 : carto.height * 2;
-        const dest = Cartesian3.fromRadians(carto.longitude, carto.latitude, target);
+        const dest = Cartesian3.fromRadians(
+          carto.longitude,
+          carto.latitude,
+          target,
+        );
         await new Promise((resolve) => {
           viewer.camera.flyTo({
             destination: dest,
@@ -327,9 +358,17 @@ export function initFrontier({ viewer } = {}) {
   function trackLayer(id, layer) {
     let on = false;
     newLayers[id] = {
-      show: () => { layer.enable(viewer); on = true; },
-      hide: () => { layer.disable(viewer); on = false; },
-      toggle: () => { on ? newLayers[id].hide() : newLayers[id].show(); },
+      show: () => {
+        layer.enable(viewer);
+        on = true;
+      },
+      hide: () => {
+        layer.disable(viewer);
+        on = false;
+      },
+      toggle: () => {
+        on ? newLayers[id].hide() : newLayers[id].show();
+      },
       isOn: () => on,
     };
     return newLayers[id];
@@ -362,7 +401,10 @@ export function initFrontier({ viewer } = {}) {
     s.appendChild(chip('DVR', (on) => (on ? ctl.show() : ctl.hide()), true));
     dock.appendChild(s);
     ctl.show();
-    return () => { controls.destroy(); dvr.destroy(); };
+    return () => {
+      controls.destroy();
+      dvr.destroy();
+    };
   });
 
   // — F3 seismic wavefronts —
@@ -371,7 +413,9 @@ export function initFrontier({ viewer } = {}) {
     waves.init(viewer);
     const ctl = trackLayer('seismicWaves', waves);
     const s = section(t('feature.seismic'));
-    s.appendChild(chip('Wavefronts', (on) => (on ? ctl.show() : ctl.hide()), true));
+    s.appendChild(
+      chip('Wavefronts', (on) => (on ? ctl.show() : ctl.hide()), true),
+    );
     dock.appendChild(s);
     ctl.show();
     return () => waves.destroy();
@@ -385,14 +429,24 @@ export function initFrontier({ viewer } = {}) {
     const s = section(t('feature.ovation'));
     let legend = null;
     const apply = (on) => {
-      if (on) { ctl.show(); legend = createOvationLegend(ovation, { mount: s }); }
-      else { legend?.destroy(); legend = null; ctl.hide(); }
+      if (on) {
+        ctl.show();
+        legend = createOvationLegend(ovation, { mount: s });
+      } else {
+        legend?.destroy();
+        legend = null;
+        ctl.hide();
+      }
     };
     s.appendChild(chip('Aurora (OVATION)', apply, true));
     dock.appendChild(s);
     apply(true);
     const timer = setInterval(() => legend?.sync(), 60000);
-    return () => { clearInterval(timer); legend?.destroy(); ovation.destroy(); };
+    return () => {
+      clearInterval(timer);
+      legend?.destroy();
+      ovation.destroy();
+    };
   });
 
   // — F8 sonification (before F4 so onFlash can wire in) —
@@ -411,7 +465,9 @@ export function initFrontier({ viewer } = {}) {
       volume: 0.7,
     });
     const s = section(t('feature.sonification'));
-    s.appendChild(chip('🔊 Sonify', (on) => sonification.setEnabled(on), false));
+    s.appendChild(
+      chip('🔊 Sonify', (on) => sonification.setEnabled(on), false),
+    );
     dock.appendChild(s);
   });
 
@@ -420,12 +476,20 @@ export function initFrontier({ viewer } = {}) {
     const source = createRadarModeledLightningSource({});
     const layer = createLightningLayer({
       source,
-      onFlash: (s) => { if (s?.intensity > 0.55) { try { sonification?.lightningStrike(s); } catch {} } },
+      onFlash: (s) => {
+        if (s?.intensity > 0.55) {
+          try {
+            sonification?.lightningStrike(s);
+          } catch {}
+        }
+      },
     });
     layer.init(viewer);
     const ctl = trackLayer('lightning', layer);
     const s = section(t('feature.lightning'));
-    s.appendChild(chip('Lightning', (on) => (on ? ctl.show() : ctl.hide()), true));
+    s.appendChild(
+      chip('Lightning', (on) => (on ? ctl.show() : ctl.hide()), true),
+    );
     dock.appendChild(s);
     ctl.show();
     return () => layer.destroy();
@@ -433,17 +497,25 @@ export function initFrontier({ viewer } = {}) {
 
   // — F13 invisible ocean —
   attempt('invisible-ocean', () => {
-    const layer = createInvisibleOceanLayer({ source: createInvisibleOceanSource({}) });
+    const layer = createInvisibleOceanLayer({
+      source: createInvisibleOceanSource({}),
+    });
     layer.init(viewer);
     const ctl = trackLayer('invisibleOcean', layer);
     const s = section(t('feature.invisibleOcean'));
     const panel = createEmWeatherPanel({ getState: () => layer.getEmState() });
     s.appendChild(panel.element);
     panel.start();
-    s.appendChild(chip('RF arcs', (on) => (on ? ctl.show() : ctl.hide()), true));
+    s.appendChild(
+      chip('RF arcs', (on) => (on ? ctl.show() : ctl.hide()), true),
+    );
     dock.appendChild(s);
     ctl.show();
-    return () => { panel.stop(); panel.destroy(); layer.destroy(); };
+    return () => {
+      panel.stop();
+      panel.destroy();
+      layer.destroy();
+    };
   });
 
   // — F9 forecast layers —
@@ -455,72 +527,129 @@ export function initFrontier({ viewer } = {}) {
         const snap = await hms.getSnapshot({});
         const polys = (snap.polygons ?? []).slice(0, 25);
         return polys.map((poly, i) => {
-          let lon = 0, lat = 0;
+          let lon = 0,
+            lat = 0;
           const ring = poly.ring ?? [];
-          for (const [lo, la] of ring) { lon += lo; lat += la; }
+          for (const [lo, la] of ring) {
+            lon += lo;
+            lat += la;
+          }
           const n = Math.max(1, ring.length);
           return {
-            lat: lat / n, lon: lon / n,
+            lat: lat / n,
+            lon: lon / n,
             label: `HMS smoke centroid ${i + 1} (${poly.density})`,
-            source: 'NOAA HMS smoke centroid — ignition PROXY, not a mapped ignition',
+            source:
+              'NOAA HMS smoke centroid — ignition PROXY, not a mapped ignition',
           };
         });
-      } catch { return []; }
+      } catch {
+        return [];
+      }
     };
     const fire = createFireSpreadLayer({ ignitions });
     fire.init(viewer);
     const fireCtl = trackLayer('fireSpread', fire);
-    s.appendChild(chip('Fire spread', (on) => (on ? fireCtl.show() : fireCtl.hide()), false));
+    s.appendChild(
+      chip(
+        'Fire spread',
+        (on) => (on ? fireCtl.show() : fireCtl.hide()),
+        false,
+      ),
+    );
 
     const cones = createForecastConesLayer();
     cones.init(viewer);
     const conesCtl = trackLayer('forecastCones', cones);
-    s.appendChild(chip('Storm cones', (on) => (on ? conesCtl.show() : conesCtl.hide()), true));
+    s.appendChild(
+      chip(
+        'Storm cones',
+        (on) => (on ? conesCtl.show() : conesCtl.hide()),
+        true,
+      ),
+    );
     conesCtl.show();
 
     const ash = createVolcanicAshLayer();
     ash.init(viewer);
     const ashCtl = trackLayer('volcanicAsh', ash);
-    s.appendChild(chip('Volcanic ash', (on) => (on ? ashCtl.show() : ashCtl.hide()), true));
+    s.appendChild(
+      chip('Volcanic ash', (on) => (on ? ashCtl.show() : ashCtl.hide()), true),
+    );
     ashCtl.show();
     const ashPanelHost = el('div', { style: 'margin-top:6px;' });
     s.appendChild(ashPanelHost);
-    try { ash.renderPanel(ashPanelHost); } catch (error) { onFail('ash-panel', error); }
+    try {
+      ash.renderPanel(ashPanelHost);
+    } catch (error) {
+      onFail('ash-panel', error);
+    }
     dock.appendChild(s);
-    return () => { fire.destroy(); cones.destroy(); ash.destroy(); };
+    return () => {
+      fire.destroy();
+      cones.destroy();
+      ash.destroy();
+    };
   });
 
   // — F10 planetary notebook —
   attempt('notebook', () => {
     const notebook = createNotebook({ backend: createLocalStorageBackend() });
     const panel = createNotebookPanel({ notebook });
-    try { panel.attachViewer(viewer); } catch (error) { onFail('notebook-viewer', error); }
+    try {
+      panel.attachViewer(viewer);
+    } catch (error) {
+      onFail('notebook-viewer', error);
+    }
     const s = section(t('feature.notebook'));
     let mounted = false;
-    s.appendChild(chip('📓 Notebook', (on) => {
-      if (on && !mounted) { panel.mount(s); mounted = true; }
-      else if (!on && mounted) { panel.unmount(); mounted = false; }
-    }, false));
+    s.appendChild(
+      chip(
+        '📓 Notebook',
+        (on) => {
+          if (on && !mounted) {
+            panel.mount(s);
+            mounted = true;
+          } else if (!on && mounted) {
+            panel.unmount();
+            mounted = false;
+          }
+        },
+        false,
+      ),
+    );
     dock.appendChild(s);
   });
 
   // — F11 indoor twin —
   attempt('indoor', () => {
     const host = el('div', {
-      style: 'position:fixed;inset:0;z-index:9980;background:#060a12;display:none;',
+      style:
+        'position:fixed;inset:0;z-index:9980;background:#060a12;display:none;',
     });
     document.body.appendChild(host);
     let handle = null;
     const s = section(t('feature.indoorTwin'));
     const toggle = createViewToggle({
       onSwitch: (mode) => {
-        if (mode === 'indoor') { host.style.display = 'block'; handle = mountIndoorView(host); }
-        else { host.style.display = 'none'; if (handle) { unmountIndoorView(handle); handle = null; } }
+        if (mode === 'indoor') {
+          host.style.display = 'block';
+          handle = mountIndoorView(host);
+        } else {
+          host.style.display = 'none';
+          if (handle) {
+            unmountIndoorView(handle);
+            handle = null;
+          }
+        }
       },
     });
     s.appendChild(toggle.el ?? toggle);
     dock.appendChild(s);
-    return () => { if (handle) unmountIndoorView(handle); host.remove(); };
+    return () => {
+      if (handle) unmountIndoorView(handle);
+      host.remove();
+    };
   });
 
   // — F7 NL command bar —
@@ -544,7 +673,8 @@ export function initFrontier({ viewer } = {}) {
         const deps = {
           layers: Object.fromEntries(
             Object.entries(newLayers).map(([id, ctl]) => [
-              id, { show: ctl.show, hide: ctl.hide, toggle: ctl.toggle },
+              id,
+              { show: ctl.show, hide: ctl.hide, toggle: ctl.toggle },
             ]),
           ),
           camera: cameraAdapter,
@@ -572,7 +702,10 @@ export function initFrontier({ viewer } = {}) {
   let activeBriefing = null;
   async function doBriefing() {
     activeBriefing?.cancel();
-    activeBriefing = runBriefing({ camera: cameraAdapter, speak: speakerRef.speak });
+    activeBriefing = runBriefing({
+      camera: cameraAdapter,
+      speak: speakerRef.speak,
+    });
     activeBriefing.done.catch(() => {});
     return activeBriefing;
   }
@@ -585,25 +718,33 @@ export function initFrontier({ viewer } = {}) {
   // — Wave3/C1 Akashic Records: event archive + timeline —
   attempt('akashic', () => {
     const cleanup = initAkashicArchive({ viewer, dvr: dvrLayer });
-    return () => { if (typeof cleanup === 'function') cleanup(); };
+    return () => {
+      if (typeof cleanup === 'function') cleanup();
+    };
   });
 
   // — Wave3/C2 WebXR: inside-the-planet viewer (v1 diorama) —
   attempt('webxr', () => {
     const cleanup = initWebXR();
-    return () => { if (typeof cleanup === 'function') cleanup(); };
+    return () => {
+      if (typeof cleanup === 'function') cleanup();
+    };
   });
 
   // — Wave3/C3 Gaia voice: ambient unprompted narration —
   attempt('gaia-voice', () => {
     const cleanup = initGaiaVoice();
-    return () => { if (typeof cleanup === 'function') cleanup(); };
+    return () => {
+      if (typeof cleanup === 'function') cleanup();
+    };
   });
 
   // — Wave3/C4 shared eye: P2P multi-cursor sessions —
   attempt('shared-eye', () => {
     const cleanup = initSharedEye({ viewer });
-    return () => { if (typeof cleanup === 'function') cleanup(); };
+    return () => {
+      if (typeof cleanup === 'function') cleanup();
+    };
   });
 
   // — Wave 3: interplanetary "beyond" view —
@@ -819,7 +960,10 @@ export function initFrontier({ viewer } = {}) {
     trackLayer('cableThreat', layer);
     const dockCtl = mountCableThreatDock({ section, chip, el, t, layer });
     if (dockCtl) dock.appendChild(dockCtl.element);
-    return () => { dockCtl?.destroy(); layer.destroy(); };
+    return () => {
+      dockCtl?.destroy();
+      layer.destroy();
+    };
   });
 
   // — Wave 3 Track 1a: NWS alert polygons —
@@ -829,7 +973,10 @@ export function initFrontier({ viewer } = {}) {
     trackLayer('nwsAlerts', layer);
     const dockCtl = mountNwsAlertsDock({ section, chip, el, t, layer });
     if (dockCtl) dock.appendChild(dockCtl.element);
-    return () => { dockCtl?.destroy(); layer.destroy(); };
+    return () => {
+      dockCtl?.destroy();
+      layer.destroy();
+    };
   });
 
   // — Wave 3 Track 1a: aviation SIGMETs —
@@ -839,7 +986,10 @@ export function initFrontier({ viewer } = {}) {
     trackLayer('sigmets', layer);
     const dockCtl = mountSigmetsDock({ section, chip, el, t, layer });
     if (dockCtl) dock.appendChild(dockCtl.element);
-    return () => { dockCtl?.destroy(); layer.destroy(); };
+    return () => {
+      dockCtl?.destroy();
+      layer.destroy();
+    };
   });
 
   // — Wave 3 Track 1a: Terminator Rush —
@@ -849,7 +999,10 @@ export function initFrontier({ viewer } = {}) {
     trackLayer('terminatorRush', layer);
     const dockCtl = mountTerminatorRushDock({ section, chip, el, t, layer });
     if (dockCtl) dock.appendChild(dockCtl.element);
-    return () => { dockCtl?.destroy(); layer.destroy(); };
+    return () => {
+      dockCtl?.destroy();
+      layer.destroy();
+    };
   });
 
   // — sci-fi B1 deep time —
@@ -893,7 +1046,10 @@ export function initFrontier({ viewer } = {}) {
   // — Wave 3 · 1.9 DART tsunami coupling —
   attempt('dart-coupling', () => {
     const s = section(t('feature.dartCoupling'));
-    const handle = initDartLayer({ viewer, mount: (node) => s.appendChild(node) });
+    const handle = initDartLayer({
+      viewer,
+      mount: (node) => s.appendChild(node),
+    });
     dock.appendChild(s);
     return () => handle.destroy();
   });
@@ -901,7 +1057,10 @@ export function initFrontier({ viewer } = {}) {
   // — Wave 3 · 1.10 water twin —
   attempt('water-twin', () => {
     const s = section(t('feature.waterTwin'));
-    const handle = initWaterTwin({ viewer, mount: (node) => s.appendChild(node) });
+    const handle = initWaterTwin({
+      viewer,
+      mount: (node) => s.appendChild(node),
+    });
     dock.appendChild(s);
     return () => handle.destroy();
   });
@@ -909,7 +1068,11 @@ export function initFrontier({ viewer } = {}) {
   // — Wave 3 · 1.11 watch queries + Akashic replay —
   attempt('watch-replay', () => {
     const s = section(t('feature.watchReplay'));
-    const handle = initWatchReplay({ viewer, mount: (node) => s.appendChild(node), sonify: sonification });
+    const handle = initWatchReplay({
+      viewer,
+      mount: (node) => s.appendChild(node),
+      sonify: sonification,
+    });
     dock.appendChild(s);
     return () => handle.destroy();
   });
@@ -917,7 +1080,10 @@ export function initFrontier({ viewer } = {}) {
   // — Wave 3 · 1.12 DYFI/ShakeMap impact —
   attempt('quake-impact', () => {
     const s = section(t('feature.quakeImpact'));
-    const handle = initQuakeImpact({ viewer, mount: (node) => s.appendChild(node) });
+    const handle = initQuakeImpact({
+      viewer,
+      mount: (node) => s.appendChild(node),
+    });
     dock.appendChild(s);
     return () => handle.destroy();
   });
@@ -966,10 +1132,21 @@ export function initFrontier({ viewer } = {}) {
     const s = section(t('feature.cosmicRay'));
     const panel = createCosmicRayPanel({ layer });
     s.appendChild(panel.element);
-    s.appendChild(chip('◉ Cosmic rays', (on) => { on ? (ctl.show(), panel.sync()) : ctl.hide(); }, true));
+    s.appendChild(
+      chip(
+        '◉ Cosmic rays',
+        (on) => {
+          on ? (ctl.show(), panel.sync()) : ctl.hide();
+        },
+        true,
+      ),
+    );
     dock.appendChild(s);
     ctl.show();
-    return () => { panel.destroy(); layer.destroy(); };
+    return () => {
+      panel.destroy();
+      layer.destroy();
+    };
   });
 
   // — Wave 3a: CNEOS fireball impacts —
@@ -980,24 +1157,48 @@ export function initFrontier({ viewer } = {}) {
     const s = section(t('feature.fireballs'));
     const panel = createFireballPanel({ layer });
     s.appendChild(panel.element);
-    s.appendChild(chip('☄ Fireballs', (on) => { on ? (ctl.show(), panel.sync()) : ctl.hide(); }, true));
+    s.appendChild(
+      chip(
+        '☄ Fireballs',
+        (on) => {
+          on ? (ctl.show(), panel.sync()) : ctl.hide();
+        },
+        true,
+      ),
+    );
     dock.appendChild(s);
     ctl.show();
-    return () => { panel.destroy(); layer.destroy(); };
+    return () => {
+      panel.destroy();
+      layer.destroy();
+    };
   });
 
   // — Wave 3a: SOCRATES conjunction theater —
   attempt('conjunctions', () => {
-    const layer = createConjunctionLayer({ source: createConjunctionSource({}) });
+    const layer = createConjunctionLayer({
+      source: createConjunctionSource({}),
+    });
     layer.init(viewer);
     const ctl = trackLayer('conjunctions', layer);
     const s = section(t('feature.conjunctions'));
     const panel = createConjunctionPanel({ layer });
     s.appendChild(panel.element);
-    s.appendChild(chip('⚠ Conjunctions', (on) => { on ? (ctl.show(), panel.sync()) : ctl.hide(); }, true));
+    s.appendChild(
+      chip(
+        '⚠ Conjunctions',
+        (on) => {
+          on ? (ctl.show(), panel.sync()) : ctl.hide();
+        },
+        true,
+      ),
+    );
     dock.appendChild(s);
     ctl.show();
-    return () => { panel.destroy(); layer.destroy(); };
+    return () => {
+      panel.destroy();
+      layer.destroy();
+    };
   });
 
   // — Wave 3a: TLE decay prediction —
@@ -1008,83 +1209,148 @@ export function initFrontier({ viewer } = {}) {
     const s = section(t('feature.reentry'));
     const panel = createReentryPanel({ layer });
     s.appendChild(panel.element);
-    s.appendChild(chip('🛰 Reentries', (on) => { on ? (ctl.show(), panel.sync()) : ctl.hide(); }, true));
+    s.appendChild(
+      chip(
+        '🛰 Reentries',
+        (on) => {
+          on ? (ctl.show(), panel.sync()) : ctl.hide();
+        },
+        true,
+      ),
+    );
     dock.appendChild(s);
     ctl.show();
-    return () => { panel.destroy(); layer.destroy(); };
+    return () => {
+      panel.destroy();
+      layer.destroy();
+    };
   });
-
-
 
   // — WAVE 6 · RF / HAM tickers —
   {
     const s = section('WAVE 6 · RF / HAM');
     dock.appendChild(s);
-    attempt('pskreporter', () => initPskreporter({ viewer, mount: s, chip, trackLayer, t }));
-    attempt('hamSpace', () => initHamSpace({ viewer, mount: s, chip, trackLayer, t }));
-    attempt('frequencies', () => initFrequencies({ viewer, mount: s, chip, trackLayer, t }));
+    attempt('pskreporter', () =>
+      initPskreporter({ viewer, mount: s, chip, trackLayer, t }),
+    );
+    attempt('hamSpace', () =>
+      initHamSpace({ viewer, mount: s, chip, trackLayer, t }),
+    );
+    attempt('frequencies', () =>
+      initFrequencies({ viewer, mount: s, chip, trackLayer, t }),
+    );
   }
 
   // — WAVE 6 · AVIATION tickers —
   {
     const s = section('WAVE 6 · AVIATION');
     dock.appendChild(s);
-    attempt('aircraft', () => initAircraft({ viewer, mount: s, chip, trackLayer, t }));
-    attempt('gliders', () => initGliders({ viewer, mount: s, chip, trackLayer, t }));
-    attempt('sondes', () => initSondes({ viewer, mount: s, chip, trackLayer, t }));
+    attempt('aircraft', () =>
+      initAircraft({ viewer, mount: s, chip, trackLayer, t }),
+    );
+    attempt('gliders', () =>
+      initGliders({ viewer, mount: s, chip, trackLayer, t }),
+    );
+    attempt('sondes', () =>
+      initSondes({ viewer, mount: s, chip, trackLayer, t }),
+    );
   }
 
   // — WAVE 6 · OCEAN tickers —
   {
     const s = section('WAVE 6 · OCEAN');
     dock.appendChild(s);
-    attempt('ships', () => initShips({ viewer, mount: s, chip, trackLayer, t }));
-    attempt('buoys', () => initBuoys({ viewer, mount: s, chip, trackLayer, t }));
-    attempt('tides', () => initTides({ viewer, mount: s, chip, trackLayer, t }));
-    attempt('whales', () => initWhales({ viewer, mount: s, chip, trackLayer, t }));
+    attempt('ships', () =>
+      initShips({ viewer, mount: s, chip, trackLayer, t }),
+    );
+    attempt('buoys', () =>
+      initBuoys({ viewer, mount: s, chip, trackLayer, t }),
+    );
+    attempt('tides', () =>
+      initTides({ viewer, mount: s, chip, trackLayer, t }),
+    );
+    attempt('whales', () =>
+      initWhales({ viewer, mount: s, chip, trackLayer, t }),
+    );
   }
 
   // — WAVE 6 · SPACE tickers —
   {
     const s = section('WAVE 6 · SPACE');
     dock.appendChild(s);
-    attempt('comets', () => initComets({ viewer, mount: s, chip, trackLayer, t }));
-    attempt('meteorStations', () => initMeteorStations({ viewer, mount: s, chip, trackLayer, t }));
+    attempt('comets', () =>
+      initComets({ viewer, mount: s, chip, trackLayer, t }),
+    );
+    attempt('meteorStations', () =>
+      initMeteorStations({ viewer, mount: s, chip, trackLayer, t }),
+    );
     attempt('dsn', () => initDsn({ viewer, mount: s, chip, trackLayer, t }));
-    attempt('solarImg', () => initSolarImg({ viewer, mount: s, chip, trackLayer, t }));
-    attempt('magnetometers', () => initMagnetometers({ viewer, mount: s, chip, trackLayer, t }));
+    attempt('solarImg', () =>
+      initSolarImg({ viewer, mount: s, chip, trackLayer, t }),
+    );
+    attempt('magnetometers', () =>
+      initMagnetometers({ viewer, mount: s, chip, trackLayer, t }),
+    );
   }
 
   // — WAVE 6 · EARTH tickers —
   {
     const s = section('WAVE 6 · EARTH');
     dock.appendChild(s);
-    attempt('fires', () => initFires({ viewer, mount: s, chip, trackLayer, t }));
-    attempt('disasters', () => initDisasters({ viewer, mount: s, chip, trackLayer, t }));
-    attempt('alerts', () => initAlerts({ viewer, mount: s, chip, trackLayer, t }));
-    attempt('lightning', () => initLightning({ viewer, mount: s, chip, trackLayer, t }));
-    attempt('stationsExt', () => initStationsExt({ viewer, mount: s, chip, trackLayer, t }));
-    attempt('coral', () => initCoral({ viewer, mount: s, chip, trackLayer, t }));
-    attempt('birdcast', () => initBirdcast({ viewer, mount: s, chip, trackLayer, t }));
-    attempt('auroraCams', () => initAuroraCams({ viewer, mount: s, chip, trackLayer, t }));
-    attempt('volcanoCams', () => initVolcanoCams({ viewer, mount: s, chip, trackLayer, t }));
+    attempt('fires', () =>
+      initFires({ viewer, mount: s, chip, trackLayer, t }),
+    );
+    attempt('disasters', () =>
+      initDisasters({ viewer, mount: s, chip, trackLayer, t }),
+    );
+    attempt('alerts', () =>
+      initAlerts({ viewer, mount: s, chip, trackLayer, t }),
+    );
+    attempt('lightning', () =>
+      initLightning({ viewer, mount: s, chip, trackLayer, t }),
+    );
+    attempt('stationsExt', () =>
+      initStationsExt({ viewer, mount: s, chip, trackLayer, t }),
+    );
+    attempt('coral', () =>
+      initCoral({ viewer, mount: s, chip, trackLayer, t }),
+    );
+    attempt('birdcast', () =>
+      initBirdcast({ viewer, mount: s, chip, trackLayer, t }),
+    );
+    attempt('auroraCams', () =>
+      initAuroraCams({ viewer, mount: s, chip, trackLayer, t }),
+    );
+    attempt('volcanoCams', () =>
+      initVolcanoCams({ viewer, mount: s, chip, trackLayer, t }),
+    );
   }
 
   // — CONTROLS · device bridge (app only; invisible in browsers) —
   {
     const s = section('CONTROLS');
     dock.appendChild(s);
-    attempt('controls', () => initControls({ viewer, mount: s, chip, trackLayer, t }));
+    attempt('controls', () =>
+      initControls({ viewer, mount: s, chip, trackLayer, t }),
+    );
   }
 
   // — WAVE 6 · HUMAN tickers —
   {
     const s = section('WAVE 6 · HUMAN');
     dock.appendChild(s);
-    attempt('trains', () => initTrains({ viewer, mount: s, chip, trackLayer, t }));
-    attempt('bikeshare', () => initBikeshare({ viewer, mount: s, chip, trackLayer, t }));
-    attempt('knowledge', () => initKnowledge({ viewer, mount: s, chip, trackLayer, t }));
-    attempt('sports', () => initSports({ viewer, mount: s, chip, trackLayer, t }));
+    attempt('trains', () =>
+      initTrains({ viewer, mount: s, chip, trackLayer, t }),
+    );
+    attempt('bikeshare', () =>
+      initBikeshare({ viewer, mount: s, chip, trackLayer, t }),
+    );
+    attempt('knowledge', () =>
+      initKnowledge({ viewer, mount: s, chip, trackLayer, t }),
+    );
+    attempt('sports', () =>
+      initSports({ viewer, mount: s, chip, trackLayer, t }),
+    );
   }
 
   // — WAVE 7 tickers —
@@ -1093,53 +1359,115 @@ export function initFrontier({ viewer } = {}) {
     dock.appendChild(s);
     attempt('tec', () => initTec({ viewer, mount: s, chip, trackLayer, t }));
     attempt('mbta', () => initMbta({ viewer, mount: s, chip, trackLayer, t }));
-    attempt('aqModel', () => initAqModel({ viewer, mount: s, chip, trackLayer, t }));
+    attempt('aqModel', () =>
+      initAqModel({ viewer, mount: s, chip, trackLayer, t }),
+    );
     attempt('ioos', () => initIoos({ viewer, mount: s, chip, trackLayer, t }));
-    attempt('birdcastDash', () => initBirdcastDash({ viewer, mount: s, chip, trackLayer, t }));
+    attempt('birdcastDash', () =>
+      initBirdcastDash({ viewer, mount: s, chip, trackLayer, t }),
+    );
   }
 
   // — WAVE 8 tickers —
   {
     const s = section('WAVE 8');
     dock.appendChild(s);
-    attempt('infrasound', () => initInfrasound({ viewer, mount: s, chip, trackLayer, t }));
-    attempt('geomagUsgs', () => initGeomagUsgs({ viewer, mount: s, chip, trackLayer, t }));
-    attempt('iconD2', () => initIconD2({ viewer, mount: s, chip, trackLayer, t }));
-    attempt('currents', () => initCurrents({ viewer, mount: s, chip, trackLayer, t }));
-    attempt('gtfsDe', () => initGtfsDe({ viewer, mount: s, chip, trackLayer, t }));
-    attempt('nhcGis', () => initNhcGis({ viewer, mount: s, chip, trackLayer, t }));
-    attempt('findu', () => initFindu({ viewer, mount: s, chip, trackLayer, t }));
-    attempt('issExt', () => initIssExt({ viewer, mount: s, chip, trackLayer, t }));
-    attempt('gracedb', () => initGracedb({ viewer, mount: s, chip, trackLayer, t }));
-    attempt('nexrad', () => initNexrad({ viewer, mount: s, chip, trackLayer, t }));
+    attempt('infrasound', () =>
+      initInfrasound({ viewer, mount: s, chip, trackLayer, t }),
+    );
+    attempt('geomagUsgs', () =>
+      initGeomagUsgs({ viewer, mount: s, chip, trackLayer, t }),
+    );
+    attempt('iconD2', () =>
+      initIconD2({ viewer, mount: s, chip, trackLayer, t }),
+    );
+    attempt('currents', () =>
+      initCurrents({ viewer, mount: s, chip, trackLayer, t }),
+    );
+    attempt('gtfsDe', () =>
+      initGtfsDe({ viewer, mount: s, chip, trackLayer, t }),
+    );
+    attempt('nhcGis', () =>
+      initNhcGis({ viewer, mount: s, chip, trackLayer, t }),
+    );
+    attempt('findu', () =>
+      initFindu({ viewer, mount: s, chip, trackLayer, t }),
+    );
+    attempt('issExt', () =>
+      initIssExt({ viewer, mount: s, chip, trackLayer, t }),
+    );
+    attempt('gracedb', () =>
+      initGracedb({ viewer, mount: s, chip, trackLayer, t }),
+    );
+    attempt('nexrad', () =>
+      initNexrad({ viewer, mount: s, chip, trackLayer, t }),
+    );
     attempt('goes', () => initGoes({ viewer, mount: s, chip, trackLayer, t }));
     attempt('usdm', () => initUsdm({ viewer, mount: s, chip, trackLayer, t }));
-    attempt('exoplanets', () => initExoplanets({ viewer, mount: s, chip, trackLayer, t }));
-    attempt('pollen', () => initPollen({ viewer, mount: s, chip, trackLayer, t }));
+    attempt('exoplanets', () =>
+      initExoplanets({ viewer, mount: s, chip, trackLayer, t }),
+    );
+    attempt('pollen', () =>
+      initPollen({ viewer, mount: s, chip, trackLayer, t }),
+    );
     attempt('hab', () => initHab({ viewer, mount: s, chip, trackLayer, t }));
-    attempt('usace', () => initUsace({ viewer, mount: s, chip, trackLayer, t }));
-    attempt('great-lakes', () => initGreatLakes({ viewer, mount: s, chip, trackLayer, t }));
-    attempt('ocearch', () => initOcearch({ viewer, mount: s, chip, trackLayer, t }));
-    attempt('faaDelays', () => initFaaDelays({ viewer, mount: s, chip, trackLayer, t }));
-    attempt('mirova', () => initMirova({ viewer, mount: s, chip, trackLayer, t }));
+    attempt('usace', () =>
+      initUsace({ viewer, mount: s, chip, trackLayer, t }),
+    );
+    attempt('great-lakes', () =>
+      initGreatLakes({ viewer, mount: s, chip, trackLayer, t }),
+    );
+    attempt('ocearch', () =>
+      initOcearch({ viewer, mount: s, chip, trackLayer, t }),
+    );
+    attempt('faaDelays', () =>
+      initFaaDelays({ viewer, mount: s, chip, trackLayer, t }),
+    );
+    attempt('mirova', () =>
+      initMirova({ viewer, mount: s, chip, trackLayer, t }),
+    );
     attempt('surf', () => initSurf({ viewer, mount: s, chip, trackLayer, t }));
-    attempt('kingTides', () => initKingTides({ viewer, mount: s, chip, trackLayer, t }));
-    attempt('stormSurge', () => initStormSurge({ viewer, mount: s, chip, trackLayer, t }));
-    attempt('raspberryshake', () => initRaspberryShake({ viewer, mount: s, chip, trackLayer, t }));
-    attempt('superfund', () => initSuperfund({ viewer, mount: s, chip, trackLayer, t }));
-    attempt('lunar', () => initLunar({ viewer, mount: s, chip, trackLayer, t }));
-    attempt('mempool', () => initMempool({ viewer, mount: s, chip, trackLayer, t }));
-    attempt('seaIce', () => initSeaIce({ viewer, mount: s, chip, trackLayer, t }));
-    attempt('ozone', () => initOzone({ viewer, mount: s, chip, trackLayer, t }));
-    attempt('phenology', () => initPhenology({ viewer, mount: s, chip, trackLayer, t }));
-    attempt('selfProbe', () => initSelfProbe({ viewer, mount: s, chip, trackLayer, t }));
-    attempt('alertRules', () => initAlertRules({ viewer, mount: s, chip, trackLayer, t }));
+    attempt('kingTides', () =>
+      initKingTides({ viewer, mount: s, chip, trackLayer, t }),
+    );
+    attempt('stormSurge', () =>
+      initStormSurge({ viewer, mount: s, chip, trackLayer, t }),
+    );
+    attempt('raspberryshake', () =>
+      initRaspberryShake({ viewer, mount: s, chip, trackLayer, t }),
+    );
+    attempt('superfund', () =>
+      initSuperfund({ viewer, mount: s, chip, trackLayer, t }),
+    );
+    attempt('lunar', () =>
+      initLunar({ viewer, mount: s, chip, trackLayer, t }),
+    );
+    attempt('mempool', () =>
+      initMempool({ viewer, mount: s, chip, trackLayer, t }),
+    );
+    attempt('seaIce', () =>
+      initSeaIce({ viewer, mount: s, chip, trackLayer, t }),
+    );
+    attempt('ozone', () =>
+      initOzone({ viewer, mount: s, chip, trackLayer, t }),
+    );
+    attempt('phenology', () =>
+      initPhenology({ viewer, mount: s, chip, trackLayer, t }),
+    );
+    attempt('selfProbe', () =>
+      initSelfProbe({ viewer, mount: s, chip, trackLayer, t }),
+    );
+    attempt('alertRules', () =>
+      initAlertRules({ viewer, mount: s, chip, trackLayer, t }),
+    );
   }
 
   return {
     destroy() {
       for (const fn of cleanups.splice(0).reverse()) {
-        try { fn(); } catch {}
+        try {
+          fn();
+        } catch {}
       }
       document.getElementById(DOCK_ID)?.remove();
     },

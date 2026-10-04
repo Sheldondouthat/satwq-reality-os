@@ -47,15 +47,22 @@ async function fetchJsonCapped(url, tag) {
       headers: { 'User-Agent': USER_AGENT, Accept: 'application/json' },
     });
     if (!response.ok)
-      throw Object.assign(new Error(`sports_${tag}_upstream_${response.status}`), { status: 502 });
+      throw Object.assign(
+        new Error(`sports_${tag}_upstream_${response.status}`),
+        { status: 502 },
+      );
     const buffer = await response.arrayBuffer();
     if (buffer.byteLength > BODY_CAP_BYTES)
-      throw Object.assign(new Error(`sports_${tag}_upstream_too_large`), { status: 502 });
+      throw Object.assign(new Error(`sports_${tag}_upstream_too_large`), {
+        status: 502,
+      });
     return JSON.parse(new TextDecoder().decode(buffer));
   } catch (error) {
     if (error?.status === 502) throw error;
     if (error instanceof SyntaxError)
-      throw Object.assign(new Error(`sports_${tag}_upstream_bad_json`), { status: 502 });
+      throw Object.assign(new Error(`sports_${tag}_upstream_bad_json`), {
+        status: 502,
+      });
     throw error;
   } finally {
     clearTimeout(timeout);
@@ -72,11 +79,15 @@ export function parseEspnGame(event, leagueKey) {
   if (!event || typeof event !== 'object') return null;
   const comp = Array.isArray(event.competitions) ? event.competitions[0] : null;
   const competitors = Array.isArray(comp?.competitors) ? comp.competitors : [];
-  const side = (homeAway) => competitors.find((c) => c?.homeAway === homeAway) ?? null;
+  const side = (homeAway) =>
+    competitors.find((c) => c?.homeAway === homeAway) ?? null;
   const home = side('home');
   const away = side('away');
-  const teamName = (c) => String(c?.team?.abbreviation ?? c?.team?.displayName ?? '').slice(0, 40);
-  const state = String(event?.status?.type?.state ?? comp?.status?.type?.state ?? 'pre');
+  const teamName = (c) =>
+    String(c?.team?.abbreviation ?? c?.team?.displayName ?? '').slice(0, 40);
+  const state = String(
+    event?.status?.type?.state ?? comp?.status?.type?.state ?? 'pre',
+  );
   const game = {
     league: leagueKey,
     id: String(event.id ?? ''),
@@ -85,9 +96,15 @@ export function parseEspnGame(event, leagueKey) {
     homeScore: scoreNum(home?.score),
     awayScore: scoreNum(away?.score),
     state: state === 'in' ? 'live' : state === 'post' ? 'final' : 'upcoming',
-    detail: String(event?.status?.type?.detail ?? comp?.status?.type?.detail ?? ''),
+    detail: String(
+      event?.status?.type?.detail ?? comp?.status?.type?.detail ?? '',
+    ),
     startTime: event?.date ? new Date(event.date).toISOString() : null,
-    link: String((event.links ?? []).find((l) => l?.rel?.includes('summary'))?.href ?? comp?.links?.[0]?.href ?? ''),
+    link: String(
+      (event.links ?? []).find((l) => l?.rel?.includes('summary'))?.href ??
+        comp?.links?.[0]?.href ??
+        '',
+    ),
   };
   if (!game.id || !game.home || !game.away) return null;
   return game;
@@ -109,7 +126,8 @@ function sortGames(games) {
   return [...games].sort((a, b) => {
     const r = rank(a) - rank(b);
     if (r !== 0) return r;
-    if (a.state === 'upcoming') return Date.parse(a.startTime ?? 0) - Date.parse(b.startTime ?? 0);
+    if (a.state === 'upcoming')
+      return Date.parse(a.startTime ?? 0) - Date.parse(b.startTime ?? 0);
     return Date.parse(b.startTime ?? 0) - Date.parse(a.startTime ?? 0);
   });
 }
@@ -121,9 +139,24 @@ async function fetchOneLeague(leagueKey) {
     const url = `${BASE}/${meta.sport}/scoreboard`;
     const upstream = await fetchJsonCapped(url, leagueKey);
     const games = parseEspnScoreboard(upstream, leagueKey);
-    return { key: leagueKey, ok: true, count: games.length, label: meta.label, latencyMs: Date.now() - started, games };
+    return {
+      key: leagueKey,
+      ok: true,
+      count: games.length,
+      label: meta.label,
+      latencyMs: Date.now() - started,
+      games,
+    };
   } catch (error) {
-    return { key: leagueKey, ok: false, count: 0, label: meta.label, latencyMs: Date.now() - started, error: error?.message ?? 'unknown', games: [] };
+    return {
+      key: leagueKey,
+      ok: false,
+      count: 0,
+      label: meta.label,
+      latencyMs: Date.now() - started,
+      error: error?.message ?? 'unknown',
+      games: [],
+    };
   }
 }
 
@@ -152,25 +185,34 @@ function buildSnapshot(results) {
 }
 
 async function getSnapshot(leagueParam) {
-  const wanted = leagueParam && LEAGUES[leagueParam.toLowerCase()]
-    ? [leagueParam.toLowerCase()]
-    : Object.keys(LEAGUES);
+  const wanted =
+    leagueParam && LEAGUES[leagueParam.toLowerCase()]
+      ? [leagueParam.toLowerCase()]
+      : Object.keys(LEAGUES);
   const key = wanted.join('+');
   const now = Date.now();
   const cached = cache.get(key);
   if (cached && now - cached.at < CACHE_TTL_MS) return cached.payload;
   if (!inflight.has(key)) {
-    inflight.set(key, Promise.all(wanted.map(fetchOneLeague))
-      .then((results) => {
-        if (!results.some((r) => r.ok)) {
-          const detail = results.map((r) => `${r.key}:${r.error}`).join('; ');
-          throw Object.assign(new Error(`sports_all_upstream_down: ${detail}`), { status: 502 });
-        }
-        const payload = buildSnapshot(results);
-        cache.set(key, { at: Date.now(), payload });
-        return payload;
-      })
-      .finally(() => { inflight.delete(key); }));
+    inflight.set(
+      key,
+      Promise.all(wanted.map(fetchOneLeague))
+        .then((results) => {
+          if (!results.some((r) => r.ok)) {
+            const detail = results.map((r) => `${r.key}:${r.error}`).join('; ');
+            throw Object.assign(
+              new Error(`sports_all_upstream_down: ${detail}`),
+              { status: 502 },
+            );
+          }
+          const payload = buildSnapshot(results);
+          cache.set(key, { at: Date.now(), payload });
+          return payload;
+        })
+        .finally(() => {
+          inflight.delete(key);
+        }),
+    );
   }
   return inflight.get(key);
 }
@@ -186,16 +228,25 @@ function sendJson(res, status, body, cacheControl = 'public, max-age=180') {
 /** Mount the sports ticker proxy. Mirrors the wave-5 quakes multi-source shape. */
 export function sportsProxy() {
   async function handler(req, res) {
-    if (req.method !== 'GET') return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
     try {
       const url = new URL(req.url ?? '/api/sports', 'http://localhost');
       sendJson(res, 200, await getSnapshot(url.searchParams.get('league')));
     } catch (error) {
-      const upstreamFail = error?.status === 502 || error?.name === 'AbortError' || /aborted?/i.test(error?.message ?? '');
-      sendJson(res, upstreamFail ? 502 : 500, {
-        error: 'sports_unavailable',
-        detail: error?.message ?? 'unknown',
-      }, 'no-store');
+      const upstreamFail =
+        error?.status === 502 ||
+        error?.name === 'AbortError' ||
+        /aborted?/i.test(error?.message ?? '');
+      sendJson(
+        res,
+        upstreamFail ? 502 : 500,
+        {
+          error: 'sports_unavailable',
+          detail: error?.message ?? 'unknown',
+        },
+        'no-store',
+      );
     }
   }
 
@@ -215,5 +266,8 @@ export const _sportsInternals = {
   parseEspnScoreboard,
   sortGames,
   buildSnapshot,
-  clearCaches: () => { cache = new Map(); inflight = new Map(); },
+  clearCaches: () => {
+    cache = new Map();
+    inflight = new Map();
+  },
 };

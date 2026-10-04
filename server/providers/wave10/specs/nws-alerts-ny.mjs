@@ -4,32 +4,31 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 2 (federal worker)).
  */
 export const SPEC = {
-  "attribution": "Data: NWS — keyless, UA-identified.",
-  "extract": {
-    "items": "$.features",
-    "limit": 20,
-    "map": {
-      "area": "$.properties.areaDesc",
-      "event": "$.properties.event",
-      "headline": "$.properties.headline",
-      "severity": "$.properties.severity"
+  attribution: 'Data: NWS — keyless, UA-identified.',
+  extract: {
+    items: '$.features',
+    limit: 20,
+    map: {
+      area: '$.properties.areaDesc',
+      event: '$.properties.event',
+      headline: '$.properties.headline',
+      severity: '$.properties.severity',
     },
-    "numbers": []
+    numbers: [],
   },
-  "headers": {
-    "User-Agent": "satwq-reality-os/1.0 (surge-500 probe)"
+  headers: {
+    'User-Agent': 'satwq-reality-os/1.0 (surge-500 probe)',
   },
-  "honesty": "Active alerts only; empty list means none in effect, not a data gap.",
-  "id": "nws-alerts-ny",
-  "required": [
-    "event"
-  ],
-  "source": "National Weather Service (api.weather.gov)",
-  "title": "NWS — active alerts, New York",
-  "ttlSeconds": 600,
-  "units": {},
-  "url": "https://api.weather.gov/alerts/active?area=NY",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 2 (federal worker)",
-  "honestEmpty": true
+  honesty:
+    'Active alerts only; empty list means none in effect, not a data gap.',
+  id: 'nws-alerts-ny',
+  required: ['event'],
+  source: 'National Weather Service (api.weather.gov)',
+  title: 'NWS — active alerts, New York',
+  ttlSeconds: 600,
+  units: {},
+  url: 'https://api.weather.gov/alerts/active?area=NY',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 2 (federal worker)',
+  honestEmpty: true,
 };

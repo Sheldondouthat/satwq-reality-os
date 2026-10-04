@@ -4,31 +4,30 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 4 (new socrata cities)).
  */
 export const SPEC = {
-  "attribution": "Data: City of Cincinnati — data.cincinnati-oh.gov (Socrata) — keyless Socrata API.",
-  "extract": {
-    "items": "$",
-    "limit": 50,
-    "map": {
-      "address": "$.address_x",
-      "description": "$.mannerofcrash",
-      "key": "$.localreportno",
-      "time": "$.crashdate",
-      "type": "$.crashseverity"
+  attribution:
+    'Data: City of Cincinnati — data.cincinnati-oh.gov (Socrata) — keyless Socrata API.',
+  extract: {
+    items: '$',
+    limit: 50,
+    map: {
+      address: '$.address_x',
+      description: '$.mannerofcrash',
+      key: '$.localreportno',
+      time: '$.crashdate',
+      type: '$.crashseverity',
     },
-    "numbers": []
+    numbers: [],
   },
-  "headers": {},
-  "honesty": "Cincinnati traffic crash reports (CPD), max crashdate 2026-08-24; crashseverity is a text code like '3 - PROPERTY DAMAGE ONLY (PDO)'; age/gender columns exist but are not mapped.",
-  "id": "socrata-cincinnati-crashes",
-  "required": [
-    "key",
-    "type"
-  ],
-  "source": "City of Cincinnati — data.cincinnati-oh.gov (Socrata)",
-  "title": "Cincinnati (data.cincinnati-oh.gov) — traffic crash reports",
-  "ttlSeconds": 1800,
-  "units": {},
-  "url": "https://data.cincinnati-oh.gov/resource/rvmt-pkmq.json?$limit=50&$order=crashdate%20DESC",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 4 (new socrata cities)"
+  headers: {},
+  honesty:
+    "Cincinnati traffic crash reports (CPD), max crashdate 2026-08-24; crashseverity is a text code like '3 - PROPERTY DAMAGE ONLY (PDO)'; age/gender columns exist but are not mapped.",
+  id: 'socrata-cincinnati-crashes',
+  required: ['key', 'type'],
+  source: 'City of Cincinnati — data.cincinnati-oh.gov (Socrata)',
+  title: 'Cincinnati (data.cincinnati-oh.gov) — traffic crash reports',
+  ttlSeconds: 1800,
+  units: {},
+  url: 'https://data.cincinnati-oh.gov/resource/rvmt-pkmq.json?$limit=50&$order=crashdate%20DESC',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 4 (new socrata cities)',
 };

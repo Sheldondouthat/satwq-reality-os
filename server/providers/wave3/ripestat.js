@@ -42,7 +42,8 @@ function invalid(message) {
  */
 export function parseBgpState(doc) {
   const data = doc?.data;
-  if (!data || !Array.isArray(data.bgp_state)) throw invalid('bgp_state_not_array');
+  if (!data || !Array.isArray(data.bgp_state))
+    throw invalid('bgp_state_not_array');
   const collectors = {}; // rrc -> { peers, pathLens: [], samplePaths: [] }
   const originVotes = {};
   for (const entry of data.bgp_state) {
@@ -63,14 +64,19 @@ export function parseBgpState(doc) {
   let originAsn = null;
   let best = 0;
   for (const [asn, votes] of Object.entries(originVotes)) {
-    if (votes > best) { best = votes; originAsn = Number(asn); }
+    if (votes > best) {
+      best = votes;
+      originAsn = Number(asn);
+    }
   }
   const collectorList = Object.entries(collectors)
     .map(([rrc, c]) => ({
       rrc,
       peers: c.peers,
       avgPathLen: c.pathLens.length
-        ? Math.round((c.pathLens.reduce((a, b) => a + b, 0) / c.pathLens.length) * 100) / 100
+        ? Math.round(
+            (c.pathLens.reduce((a, b) => a + b, 0) / c.pathLens.length) * 100,
+          ) / 100
         : null,
       samplePaths: c.samplePaths,
     }))
@@ -84,11 +90,14 @@ export function parseBgpState(doc) {
   };
 }
 
-export function ripestatProxy({ fetchImpl = fetch, now = () => Date.now(), route = '/api/ripestat' } = {}) {
+export function ripestatProxy({
+  fetchImpl = fetch,
+  now = () => Date.now(),
+  route = '/api/ripestat',
+} = {}) {
   async function fetchUpstream({ fetchImpl: f, signal }) {
     return mapLimit(PREFIXES, 4, async (prefix) => {
-      const url =
-        `https://stat.ripe.net/data/bgp-state/data.json?resource=${encodeURIComponent(prefix)}`;
+      const url = `https://stat.ripe.net/data/bgp-state/data.json?resource=${encodeURIComponent(prefix)}`;
       const text = await fetchUpstreamText(f, url, {
         signal,
         timeoutMs: UPSTREAM_TIMEOUT_MS,

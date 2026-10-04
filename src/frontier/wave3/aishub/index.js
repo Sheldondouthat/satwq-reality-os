@@ -34,7 +34,9 @@ export function init({ viewer, apiPath = '/api/aishub' } = {}) {
         const nowSec = Math.floor(Date.now() / 1000);
         for (const s of pickStations(data.stations, nowSec)) {
           const bucket = freshnessBucket(s.lastSeen, nowSec);
-          const color = Cesium.Color.fromCssColorString(freshnessColorCss(bucket));
+          const color = Cesium.Color.fromCssColorString(
+            freshnessColorCss(bucket),
+          );
           dataSource.entities.add({
             id: `aishub:${s.id}`,
             position: Cesium.Cartesian3.fromDegrees(s.lon, s.lat, 10000),

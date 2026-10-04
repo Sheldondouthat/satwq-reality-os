@@ -4,42 +4,39 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 6 (usgsx worker)).
  */
 export const SPEC = {
-  "id": "usgsx-volcano-avo",
-  "title": "USGS — Alaska Volcano Observatory: all volcanoes",
-  "url": "https://volcanoes.usgs.gov/vsc/api/volcanoApi/vhpstatus?obs=avo",
-  "headers": {
-    "User-Agent": "satwq-reality-os/1.0 (surge-500 probe)"
+  id: 'usgsx-volcano-avo',
+  title: 'USGS — Alaska Volcano Observatory: all volcanoes',
+  url: 'https://volcanoes.usgs.gov/vsc/api/volcanoApi/vhpstatus?obs=avo',
+  headers: {
+    'User-Agent': 'satwq-reality-os/1.0 (surge-500 probe)',
   },
-  "ttlSeconds": 3600,
-  "extract": {
-    "items": "$",
-    "limit": 40,
-    "map": {
-      "name": "$.vName",
-      "vnum": "$.vnum",
-      "code": "$.volcanoCd",
-      "region": "$.region",
-      "alert": "$.alertLevel",
-      "color": "$.colorCode",
-      "threat": "$.nvewsThreat",
-      "lat": "$.lat",
-      "lon": "$.long"
+  ttlSeconds: 3600,
+  extract: {
+    items: '$',
+    limit: 40,
+    map: {
+      name: '$.vName',
+      vnum: '$.vnum',
+      code: '$.volcanoCd',
+      region: '$.region',
+      alert: '$.alertLevel',
+      color: '$.colorCode',
+      threat: '$.nvewsThreat',
+      lat: '$.lat',
+      lon: '$.long',
     },
-    "numbers": [
-      "lat",
-      "lon"
-    ]
+    numbers: ['lat', 'lon'],
   },
-  "required": [
-    "name"
-  ],
-  "source": "U.S. Geological Survey — Alaska Volcano Observatory",
-  "attribution": "Data: U.S. Geological Survey, Alaska Volcano Observatory — keyless.",
-  "units": {
-    "lat": "deg",
-    "lon": "deg"
+  required: ['name'],
+  source: 'U.S. Geological Survey — Alaska Volcano Observatory',
+  attribution:
+    'Data: U.S. Geological Survey, Alaska Volcano Observatory — keyless.',
+  units: {
+    lat: 'deg',
+    lon: 'deg',
   },
-  "honesty": "All 86 volcanoes tracked by the Alaska Volcano Observatory (Aleutians, Alaska Peninsula, Cook Inlet) with current alert level and aviation color code; feed refreshes with each observatory update.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 6 (usgsx worker)"
+  honesty:
+    'All 86 volcanoes tracked by the Alaska Volcano Observatory (Aleutians, Alaska Peninsula, Cook Inlet) with current alert level and aviation color code; feed refreshes with each observatory update.',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 6 (usgsx worker)',
 };

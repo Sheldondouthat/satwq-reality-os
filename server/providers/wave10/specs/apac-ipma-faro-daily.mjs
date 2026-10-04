@@ -4,44 +4,39 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 6 (apac-weather worker)).
  */
 export const SPEC = {
-  "id": "apac-ipma-faro-daily",
-  "title": "IPMA Portugal — 5-day forecast, Faro",
-  "url": "https://api.ipma.pt/open-data/forecast/meteorology/cities/daily/1080500.json",
-  "headers": {
-    "User-Agent": "satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)"
+  id: 'apac-ipma-faro-daily',
+  title: 'IPMA Portugal — 5-day forecast, Faro',
+  url: 'https://api.ipma.pt/open-data/forecast/meteorology/cities/daily/1080500.json',
+  headers: {
+    'User-Agent':
+      'satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)',
   },
-  "ttlSeconds": 21600,
-  "extract": {
-    "items": "$.data",
-    "limit": 5,
-    "map": {
-      "date": "$.forecastDate",
-      "weatherTypeCode": "$.idWeatherType",
-      "tMinC": "$.tMin",
-      "tMaxC": "$.tMax",
-      "precipProb": "$.precipitaProb",
-      "windDir": "$.predWindDir",
-      "windClass": "$.classWindSpeed"
+  ttlSeconds: 21600,
+  extract: {
+    items: '$.data',
+    limit: 5,
+    map: {
+      date: '$.forecastDate',
+      weatherTypeCode: '$.idWeatherType',
+      tMinC: '$.tMin',
+      tMaxC: '$.tMax',
+      precipProb: '$.precipitaProb',
+      windDir: '$.predWindDir',
+      windClass: '$.classWindSpeed',
     },
-    "numbers": [
-      "weatherTypeCode",
-      "tMinC",
-      "tMaxC",
-      "precipProb",
-      "windClass"
-    ]
+    numbers: ['weatherTypeCode', 'tMinC', 'tMaxC', 'precipProb', 'windClass'],
   },
-  "required": [
-    "date"
-  ],
-  "source": "Instituto Português do Mar e da Atmosfera (IPMA)",
-  "attribution": "Data: IPMA (Instituto Português do Mar e da Atmosfera) — api.ipma.pt — keyless.",
-  "units": {
-    "tMinC": "C",
-    "tMaxC": "C",
-    "precipProb": "percent"
+  required: ['date'],
+  source: 'Instituto Português do Mar e da Atmosfera (IPMA)',
+  attribution:
+    'Data: IPMA (Instituto Português do Mar e da Atmosfera) — api.ipma.pt — keyless.',
+  units: {
+    tMinC: 'C',
+    tMaxC: 'C',
+    precipProb: 'percent',
   },
-  "honesty": "5-day daily forecast for the city (globalIdLocal verified live); idWeatherType is a numeric code — Portuguese legend at api.ipma.pt/open-data/weather-type-classe.json; numeric values arrive as strings and are coerced by numOrNull.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 6 (apac-weather worker)"
+  honesty:
+    '5-day daily forecast for the city (globalIdLocal verified live); idWeatherType is a numeric code — Portuguese legend at api.ipma.pt/open-data/weather-type-classe.json; numeric values arrive as strings and are coerced by numOrNull.',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 6 (apac-weather worker)',
 };

@@ -20,15 +20,15 @@ export const EMOJI = '🏚️';
 export const LABEL = 'Disaster declarations';
 
 export function valueLine(doc) {
-      if (isUnavailable(doc)) return null;
-      const n = pickNum(doc.count, doc.declarations?.length);
-      if (n == null) return null;
-      return withTags(`${EMOJI} ${n} disaster declarations`, doc);
-    }
+  if (isUnavailable(doc)) return null;
+  const n = pickNum(doc.count, doc.declarations?.length);
+  if (n == null) return null;
+  return withTags(`${EMOJI} ${n} disaster declarations`, doc);
+}
 
 export function detailLine(doc) {
-      if (isUnavailable(doc)) return '';
-      const d = pickArr(doc.declarations)[0];
-      if (!d) return '';
-      return `latest: ${pickStr(d.state, d.designatedArea, d.title, 'declaration')}`;
-    }
+  if (isUnavailable(doc)) return '';
+  const d = pickArr(doc.declarations)[0];
+  if (!d) return '';
+  return `latest: ${pickStr(d.state, d.designatedArea, d.title, 'declaration')}`;
+}

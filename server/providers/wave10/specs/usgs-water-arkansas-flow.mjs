@@ -4,37 +4,32 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 2 (usgs worker)).
  */
 export const SPEC = {
-  "attribution": "Data: U.S. Geological Survey, NWIS — keyless.",
-  "extract": {
-    "items": "$.value.timeSeries",
-    "limit": 10,
-    "map": {
-      "lat": "$.sourceInfo.geoLocation.geogLocation.latitude",
-      "lon": "$.sourceInfo.geoLocation.geogLocation.longitude",
-      "name": "$.sourceInfo.siteName",
-      "site": "$.sourceInfo.siteCode[0].value",
-      "time": "$.values[0].value[0].dateTime",
-      "value": "$.values[0].value[0].value"
+  attribution: 'Data: U.S. Geological Survey, NWIS — keyless.',
+  extract: {
+    items: '$.value.timeSeries',
+    limit: 10,
+    map: {
+      lat: '$.sourceInfo.geoLocation.geogLocation.latitude',
+      lon: '$.sourceInfo.geoLocation.geogLocation.longitude',
+      name: '$.sourceInfo.siteName',
+      site: '$.sourceInfo.siteCode[0].value',
+      time: '$.values[0].value[0].dateTime',
+      value: '$.values[0].value[0].value',
     },
-    "numbers": [
-      "value",
-      "lat",
-      "lon"
-    ]
+    numbers: ['value', 'lat', 'lon'],
   },
-  "headers": {},
-  "honesty": "Instantaneous streamflow at Arkansas City, KS, typically updated every 15-60 min; provisional data (qualifier P) possible. The Arkansas River at Little Rock gage (07263500) currently reports no instantaneous values, so it is excluded.",
-  "id": "usgs-water-arkansas-flow",
-  "required": [
-    "name"
-  ],
-  "source": "USGS Water Services (NWIS)",
-  "title": "USGS Water — Arkansas River streamflow (Arkansas City, KS)",
-  "ttlSeconds": 3600,
-  "units": {
-    "value": "ft3/s"
+  headers: {},
+  honesty:
+    'Instantaneous streamflow at Arkansas City, KS, typically updated every 15-60 min; provisional data (qualifier P) possible. The Arkansas River at Little Rock gage (07263500) currently reports no instantaneous values, so it is excluded.',
+  id: 'usgs-water-arkansas-flow',
+  required: ['name'],
+  source: 'USGS Water Services (NWIS)',
+  title: 'USGS Water — Arkansas River streamflow (Arkansas City, KS)',
+  ttlSeconds: 3600,
+  units: {
+    value: 'ft3/s',
   },
-  "url": "https://waterservices.usgs.gov/nwis/iv/?format=json&sites=07146500&parameterCd=00060",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 2 (usgs worker)"
+  url: 'https://waterservices.usgs.gov/nwis/iv/?format=json&sites=07146500&parameterCd=00060',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 2 (usgs worker)',
 };

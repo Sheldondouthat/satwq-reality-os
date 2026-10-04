@@ -29,26 +29,44 @@ export function normalizeEvent(raw, kind = 'event', source = 'unknown') {
     kind,
     source,
     label: String(
-      raw.label ?? raw.title ?? raw.event ?? raw.headline ?? raw.name ?? `${kind} event`,
+      raw.label ??
+        raw.title ??
+        raw.event ??
+        raw.headline ??
+        raw.name ??
+        `${kind} event`,
     ).slice(0, 160),
   };
 }
 
 function firmsEvents(fires) {
   return (fires ?? [])
-    .map((f) => normalizeEvent(
-      { lat: f.lat, lon: f.lon, label: `Fire hotspot${f.confidence ? ` (${f.confidence})` : ''}` },
-      'fire', 'FIRMS',
-    ))
+    .map((f) =>
+      normalizeEvent(
+        {
+          lat: f.lat,
+          lon: f.lon,
+          label: `Fire hotspot${f.confidence ? ` (${f.confidence})` : ''}`,
+        },
+        'fire',
+        'FIRMS',
+      ),
+    )
     .filter(Boolean);
 }
 
 function incidentsEvents(incidents) {
   return (incidents ?? [])
-    .map((i) => normalizeEvent(
-      { ...i, label: i.title ?? i.label ?? `Incident (${i.kind ?? 'unknown'})` },
-      'incident', 'event-synthesis',
-    ))
+    .map((i) =>
+      normalizeEvent(
+        {
+          ...i,
+          label: i.title ?? i.label ?? `Incident (${i.kind ?? 'unknown'})`,
+        },
+        'incident',
+        'event-synthesis',
+      ),
+    )
     .filter(Boolean);
 }
 
@@ -57,17 +75,24 @@ function alertsEvents(alerts) {
     .map((a) => {
       const center = alertCentroid(a);
       if (!center) return null;
-      return normalizeEvent({ ...center, label: `${a.event ?? 'Alert'} — ${a.severity ?? ''}` }, 'alert', 'NWS');
+      return normalizeEvent(
+        { ...center, label: `${a.event ?? 'Alert'} — ${a.severity ?? ''}` },
+        'alert',
+        'NWS',
+      );
     })
     .filter(Boolean);
 }
 
 function squawkEvents(alerts) {
   return (alerts ?? [])
-    .map((s) => normalizeEvent(
-      { ...s, label: `Squawk ${s.squawk ?? ''} ${s.callsign ?? ''}`.trim() },
-      'squawk', 'sky-alerts',
-    ))
+    .map((s) =>
+      normalizeEvent(
+        { ...s, label: `Squawk ${s.squawk ?? ''} ${s.callsign ?? ''}`.trim() },
+        'squawk',
+        'sky-alerts',
+      ),
+    )
     .filter(Boolean);
 }
 
@@ -119,17 +144,26 @@ export async function fetchBandEvents({ fetchImpl = fetch } = {}) {
     try {
       await job.run();
     } catch (error) {
-      degradedSources.push({ source: job.name, reason: error?.message ?? 'unknown' });
+      degradedSources.push({
+        source: job.name,
+        reason: error?.message ?? 'unknown',
+      });
     }
   }
   return { events, degradedSources };
 }
 
 /** Filter events to those on the terminator band at `date`, capped. */
-export function eventsOnBand(events, date, center = TERMINATOR_CENTER_ELEV, half = TERMINATOR_HALF_WIDTH) {
+export function eventsOnBand(
+  events,
+  date,
+  center = TERMINATOR_CENTER_ELEV,
+  half = TERMINATOR_HALF_WIDTH,
+) {
   const out = [];
   for (const event of events ?? []) {
-    if (!event || !Number.isFinite(event.lat) || !Number.isFinite(event.lon)) continue;
+    if (!event || !Number.isFinite(event.lat) || !Number.isFinite(event.lon))
+      continue;
     const elevation = solarElevation(event.lat, event.lon, date);
     if (onTerminatorBand(elevation, center, half)) {
       out.push({ ...event, solarElevation: elevation });

@@ -4,40 +4,35 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 1 (coops worker)).
  */
 export const SPEC = {
-  "headers": {
-    "User-Agent": "satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)"
+  headers: {
+    'User-Agent':
+      'satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)',
   },
-  "source": "NOAA Center for Operational Oceanography Products",
-  "attribution": "Data: NOAA CO-OPS — keyless.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 1 (coops worker)",
-  "id": "coops-wind-sf",
-  "title": "NOAA Tides — San Francisco wind",
-  "url": "https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?product=wind&station=9414290&date=recent&time_zone=gmt&units=english&format=json",
-  "ttlSeconds": 1800,
-  "extract": {
-    "items": "$.data",
-    "limit": 48,
-    "map": {
-      "time": "$.t",
-      "speedMph": "$.s",
-      "directionDeg": "$.d",
-      "directionText": "$.dr",
-      "gustMph": "$.g"
+  source: 'NOAA Center for Operational Oceanography Products',
+  attribution: 'Data: NOAA CO-OPS — keyless.',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 1 (coops worker)',
+  id: 'coops-wind-sf',
+  title: 'NOAA Tides — San Francisco wind',
+  url: 'https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?product=wind&station=9414290&date=recent&time_zone=gmt&units=english&format=json',
+  ttlSeconds: 1800,
+  extract: {
+    items: '$.data',
+    limit: 48,
+    map: {
+      time: '$.t',
+      speedMph: '$.s',
+      directionDeg: '$.d',
+      directionText: '$.dr',
+      gustMph: '$.g',
     },
-    "numbers": [
-      "speedMph",
-      "directionDeg",
-      "gustMph"
-    ]
+    numbers: ['speedMph', 'directionDeg', 'gustMph'],
   },
-  "required": [
-    "time"
-  ],
-  "units": {
-    "speedMph": "mph",
-    "directionDeg": "deg",
-    "gustMph": "mph"
+  required: ['time'],
+  units: {
+    speedMph: 'mph',
+    directionDeg: 'deg',
+    gustMph: 'mph',
   },
-  "honesty": "6-minute wind observations; most recent point typically <1h old."
+  honesty: '6-minute wind observations; most recent point typically <1h old.',
 };

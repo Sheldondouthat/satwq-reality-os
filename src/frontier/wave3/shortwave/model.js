@@ -19,14 +19,24 @@ export function fmtMhz(v, digits = 1) {
 /** Compact solar summary line for the dock header. */
 export function solarLine(solar) {
   if (!solar) return 'solar data unavailable';
-  const flux = Number.isFinite(solar.flux10cm) ? `F10.7 ${Math.round(solar.flux10cm)}` : 'F10.7 —';
+  const flux = Number.isFinite(solar.flux10cm)
+    ? `F10.7 ${Math.round(solar.flux10cm)}`
+    : 'F10.7 —';
   const kp = Number.isFinite(solar.kp) ? `Kp ${solar.kp}` : 'Kp —';
   return `${flux} · ${kp}`;
 }
 
 /** Escape HTML for station names rendered into the panel. */
 export function escapeHtml(s) {
-  return String(s ?? '').replace(/[&<>"']/g, (c) => ({
-    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
-  })[c]);
+  return String(s ?? '').replace(
+    /[&<>"']/g,
+    (c) =>
+      ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;',
+      })[c],
+  );
 }

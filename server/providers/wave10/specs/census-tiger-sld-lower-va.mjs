@@ -4,39 +4,35 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 3 (census worker)).
  */
 export const SPEC = {
-  "id": "census-tiger-sld-lower-va",
-  "title": "U.S. Census — Virginia House of Delegates districts (2026)",
-  "url": "https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/Legislative/MapServer/2/query?where=STATE%3D%2751%27&outFields=NAME%2CGEOID%2CSLDL%2CSTATE%2CCENTLAT%2CCENTLON&returnGeometry=false&f=json",
-  "headers": {},
-  "ttlSeconds": 86400,
-  "source": "U.S. Census Bureau",
-  "attribution": "Data: U.S. Census Bureau, TIGERweb REST — keyless.",
-  "honesty": "Vintage: current TIGERweb boundaries (queried 2026-10-02). 2026 state legislative lower-chamber districts",
-  "units": {
-    "lat": "deg",
-    "lon": "deg",
-    "land_m2": "m2",
-    "water_m2": "m2"
+  id: 'census-tiger-sld-lower-va',
+  title: 'U.S. Census — Virginia House of Delegates districts (2026)',
+  url: 'https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/Legislative/MapServer/2/query?where=STATE%3D%2751%27&outFields=NAME%2CGEOID%2CSLDL%2CSTATE%2CCENTLAT%2CCENTLON&returnGeometry=false&f=json',
+  headers: {},
+  ttlSeconds: 86400,
+  source: 'U.S. Census Bureau',
+  attribution: 'Data: U.S. Census Bureau, TIGERweb REST — keyless.',
+  honesty:
+    'Vintage: current TIGERweb boundaries (queried 2026-10-02). 2026 state legislative lower-chamber districts',
+  units: {
+    lat: 'deg',
+    lon: 'deg',
+    land_m2: 'm2',
+    water_m2: 'm2',
   },
-  "extract": {
-    "items": "$.features",
-    "limit": 110,
-    "map": {
-      "name": "$.attributes.NAME",
-      "geoid": "$.attributes.GEOID",
-      "district": "$.attributes.SLDL",
-      "state_fips": "$.attributes.STATE",
-      "lat": "$.attributes.CENTLAT",
-      "lon": "$.attributes.CENTLON"
+  extract: {
+    items: '$.features',
+    limit: 110,
+    map: {
+      name: '$.attributes.NAME',
+      geoid: '$.attributes.GEOID',
+      district: '$.attributes.SLDL',
+      state_fips: '$.attributes.STATE',
+      lat: '$.attributes.CENTLAT',
+      lon: '$.attributes.CENTLON',
     },
-    "numbers": [
-      "lat",
-      "lon"
-    ]
+    numbers: ['lat', 'lon'],
   },
-  "required": [
-    "name"
-  ],
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 3 (census worker)"
+  required: ['name'],
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 3 (census worker)',
 };

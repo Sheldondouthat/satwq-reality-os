@@ -10,11 +10,7 @@
  * full-disk GeoColor JPEGs are NESDIS STAR CDN renders — the detail line
  * says so, and the payload carries their URLs for a future image layer.
  */
-import {
-  isUnavailable,
-  withTags,
-  pickNum,
-} from '../../wave3/common/ticker.js';
+import { isUnavailable, withTags, pickNum } from '../../wave3/common/ticker.js';
 
 export const ROUTE = '/api/goes';
 export const EMOJI = '🛰️';
@@ -27,7 +23,10 @@ export function valueLine(doc) {
   const dark = pickNum(doc.summary?.dark);
   if (fresh == null || total == null) return null;
   const darkBit = dark != null && dark > 0 ? ` · ${dark} dark` : '';
-  return withTags(`${EMOJI} GOES ${fresh}/${total} sats fresh (full-disk ≤20m)${darkBit}`, doc);
+  return withTags(
+    `${EMOJI} GOES ${fresh}/${total} sats fresh (full-disk ≤20m)${darkBit}`,
+    doc,
+  );
 }
 
 export function detailLine(doc) {
@@ -38,6 +37,8 @@ export function detailLine(doc) {
     .map((s) => `${s.sat} ${s.latestScan.slice(11, 16)}Z`);
   const parts = [];
   if (live.length) parts.push(`Latest full-disk scans: ${live.join(' · ')}`);
-  parts.push('CMIPF = gridded radiances (NetCDF), not a rendered picture; live JPEGs are NOAA STAR CDN GeoColor renders.');
+  parts.push(
+    'CMIPF = gridded radiances (NetCDF), not a rendered picture; live JPEGs are NOAA STAR CDN GeoColor renders.',
+  );
   return parts.join(' ');
 }

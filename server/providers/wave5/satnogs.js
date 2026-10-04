@@ -25,8 +25,14 @@
 
 const DATASETS = {
   tle: { url: 'https://db.satnogs.org/api/tle/', host: 'db.satnogs.org' },
-  stations: { url: 'https://network.satnogs.org/api/stations/?format=json', host: 'network.satnogs.org' },
-  transmitters: { url: 'https://db.satnogs.org/api/transmitters/', host: 'db.satnogs.org' },
+  stations: {
+    url: 'https://network.satnogs.org/api/stations/?format=json',
+    host: 'network.satnogs.org',
+  },
+  transmitters: {
+    url: 'https://db.satnogs.org/api/transmitters/',
+    host: 'db.satnogs.org',
+  },
 };
 const UPSTREAM_TIMEOUT_MS = 20_000;
 const BODY_CAP_BYTES = 8 * 1024 * 1024; // TLE dump can be a few MB
@@ -38,9 +44,15 @@ const inflight = new Map(); // dataset -> Promise
 
 function pinHost(responseUrl, pinned) {
   let host = '';
-  try { host = new URL(responseUrl).hostname; } catch { /* opaque */ }
+  try {
+    host = new URL(responseUrl).hostname;
+  } catch {
+    /* opaque */
+  }
   if (host && host !== pinned)
-    throw Object.assign(new Error(`satnogs_redirect_off_host:${host}`), { status: 502 });
+    throw Object.assign(new Error(`satnogs_redirect_off_host:${host}`), {
+      status: 502,
+    });
 }
 
 async function fetchJsonCapped(dataset, signal) {
@@ -56,11 +68,15 @@ async function fetchJsonCapped(dataset, signal) {
       headers: { 'User-Agent': USER_AGENT, Accept: 'application/json' },
     });
     if (!response.ok)
-      throw Object.assign(new Error(`satnogs_upstream_${response.status}`), { status: 502 });
+      throw Object.assign(new Error(`satnogs_upstream_${response.status}`), {
+        status: 502,
+      });
     pinHost(response.url, host);
     const buffer = await response.arrayBuffer();
     if (buffer.byteLength > BODY_CAP_BYTES)
-      throw Object.assign(new Error('satnogs_upstream_too_large'), { status: 502 });
+      throw Object.assign(new Error('satnogs_upstream_too_large'), {
+        status: 502,
+      });
     return JSON.parse(new TextDecoder().decode(buffer));
   } finally {
     clearTimeout(timeout);
@@ -84,7 +100,9 @@ function roundNum(value, decimals) {
 export function trimTleRow(raw) {
   return {
     noradCatId: numOrNull(raw?.norad_cat_id),
-    name: String(raw?.tle0 ?? '').replace(/^0\s+/, '').trim(),
+    name: String(raw?.tle0 ?? '')
+      .replace(/^0\s+/, '')
+      .trim(),
     line1: String(raw?.tle1 ?? ''),
     line2: String(raw?.tle2 ?? ''),
     tleSource: String(raw?.tle_source ?? ''),
@@ -100,8 +118,12 @@ export function trimStation(raw) {
     .slice(0, 8)
     .map((a) => ({
       band: String(a.band ?? ''),
-      frequencyLowHz: Number.isFinite(Number(a.frequency)) ? Number(a.frequency) : null,
-      frequencyHighHz: Number.isFinite(Number(a.frequency_max)) ? Number(a.frequency_max) : null,
+      frequencyLowHz: Number.isFinite(Number(a.frequency))
+        ? Number(a.frequency)
+        : null,
+      frequencyHighHz: Number.isFinite(Number(a.frequency_max))
+        ? Number(a.frequency_max)
+        : null,
       antennaTypeName: String(a.antenna_type_name ?? ''),
     }));
   const observations = numOrNull(raw?.observations) ?? 0;
@@ -115,9 +137,14 @@ export function trimStation(raw) {
     observations,
     futureObservations: future,
     lastSeen: raw?.last_seen ? String(raw.last_seen) : null,
-    status: raw?.id == null
-      ? 'unknown'
-      : (observations > 0 ? 'observed' : (future > 0 ? 'scheduled' : 'idle')),
+    status:
+      raw?.id == null
+        ? 'unknown'
+        : observations > 0
+          ? 'observed'
+          : future > 0
+            ? 'scheduled'
+            : 'idle',
     antennas,
   };
 }
@@ -146,23 +173,29 @@ function buildPayload(dataset, upstream) {
     source: `SatNOGS ${dataset === 'stations' ? 'network' : 'DB'} (keyless)`,
   };
   if (dataset === 'tle') {
-    const trimmed = rows.map(trimTleRow).filter((r) => r.noradCatId && r.line1 && r.line2);
+    const trimmed = rows
+      .map(trimTleRow)
+      .filter((r) => r.noradCatId && r.line1 && r.line2);
     return {
       ...base,
       count: trimmed.length,
       rows: trimmed,
-      honesty: 'Latest community-catalogued TLEs; positions are computed, not measured. ' +
+      honesty:
+        'Latest community-catalogued TLEs; positions are computed, not measured. ' +
         'Complements /api/celestrak (general GP data).',
     };
   }
   if (dataset === 'stations') {
-    const trimmed = rows.map(trimStation).filter((s) => s.id && Number.isFinite(s.lat) && Number.isFinite(s.lng));
+    const trimmed = rows
+      .map(trimStation)
+      .filter((s) => s.id && Number.isFinite(s.lat) && Number.isFinite(s.lng));
     return {
       ...base,
       count: trimmed.length,
       withAntennas: trimmed.filter((s) => s.antennas.length).length,
       stations: trimmed,
-      honesty: 'Community ground stations; antenna ranges are the station-declared ' +
+      honesty:
+        'Community ground stations; antenna ranges are the station-declared ' +
         'capability, not a live measurement. Status is derived from observation counts.',
     };
   }
@@ -174,7 +207,8 @@ function buildPayload(dataset, upstream) {
     ...base,
     count: trimmed.length,
     transmitters: trimmed,
-    honesty: 'Community frequency-allocation records (alive only); treat as reference, ' +
+    honesty:
+      'Community frequency-allocation records (alive only); treat as reference, ' +
       'verify against the SatNOGS DB before transmitting.',
   };
 }
@@ -184,13 +218,18 @@ async function getSnapshot(dataset) {
   const hit = cache.get(dataset);
   if (hit && now - hit.at < CACHE_TTL_MS) return hit.payload;
   if (!inflight.has(dataset)) {
-    inflight.set(dataset, fetchJsonCapped(dataset, null)
-      .then((upstream) => {
-        const payload = buildPayload(dataset, upstream);
-        cache.set(dataset, { at: Date.now(), payload });
-        return payload;
-      })
-      .finally(() => { inflight.delete(dataset); }));
+    inflight.set(
+      dataset,
+      fetchJsonCapped(dataset, null)
+        .then((upstream) => {
+          const payload = buildPayload(dataset, upstream);
+          cache.set(dataset, { at: Date.now(), payload });
+          return payload;
+        })
+        .finally(() => {
+          inflight.delete(dataset);
+        }),
+    );
   }
   return inflight.get(dataset);
 }
@@ -204,29 +243,42 @@ function sendJson(res, status, body, cacheControl = 'public, max-age=300') {
 }
 
 function parseQuery(url) {
-  try { return new URL(url, 'http://x').searchParams; } catch { return new URLSearchParams(); }
+  try {
+    return new URL(url, 'http://x').searchParams;
+  } catch {
+    return new URLSearchParams();
+  }
 }
 
 /** Mount the SatNOGS proxy. Mirrors the nwsAlerts provider shape. */
 export function satnogsProxy() {
   async function handler(req, res) {
-    if (req.method !== 'GET') return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
     try {
       const params = parseQuery(req.url);
       const dataset = (params.get('dataset') ?? '').toLowerCase();
       if (!DATASETS[dataset]) {
-        return sendJson(res, 400, {
-          error: 'usage',
-          usage: 'GET /api/satnogs?dataset=tle|stations|transmitters',
-          limitNote: 'optional &limit=1..2000 (default 500)',
-        }, 'no-store');
+        return sendJson(
+          res,
+          400,
+          {
+            error: 'usage',
+            usage: 'GET /api/satnogs?dataset=tle|stations|transmitters',
+            limitNote: 'optional &limit=1..2000 (default 500)',
+          },
+          'no-store',
+        );
       }
-      const limit = Math.max(1, Math.min(
-        Number.isFinite(Number.parseInt(params.get('limit') ?? '', 10))
-          ? Number.parseInt(params.get('limit'), 10)
-          : 500,
-        2000,
-      ));
+      const limit = Math.max(
+        1,
+        Math.min(
+          Number.isFinite(Number.parseInt(params.get('limit') ?? '', 10))
+            ? Number.parseInt(params.get('limit'), 10)
+            : 500,
+          2000,
+        ),
+      );
       const payload = await getSnapshot(dataset);
       const key = dataset === 'tle' ? 'rows' : dataset;
       return sendJson(res, 200, {
@@ -235,10 +287,15 @@ export function satnogsProxy() {
         [key]: payload[key].slice(0, limit),
       });
     } catch (error) {
-      sendJson(res, error?.status === 502 ? 502 : 500, {
-        error: 'satnogs_unavailable',
-        detail: error?.message ?? 'unknown',
-      }, 'no-store');
+      sendJson(
+        res,
+        error?.status === 502 ? 502 : 500,
+        {
+          error: 'satnogs_unavailable',
+          detail: error?.message ?? 'unknown',
+        },
+        'no-store',
+      );
     }
   }
 
@@ -258,5 +315,8 @@ export const _satnogsInternals = {
   trimStation,
   trimTransmitter,
   buildPayload,
-  clearCaches: () => { cache.clear(); inflight.clear(); },
+  clearCaches: () => {
+    cache.clear();
+    inflight.clear();
+  },
 };

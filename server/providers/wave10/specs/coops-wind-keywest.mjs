@@ -4,40 +4,35 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 2 (coops worker)).
  */
 export const SPEC = {
-  "id": "coops-wind-keywest",
-  "title": "NOAA Tides — Key West wind",
-  "url": "https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?product=wind&station=8724580&date=recent&time_zone=gmt&units=english&format=json",
-  "headers": {
-    "User-Agent": "satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)"
+  id: 'coops-wind-keywest',
+  title: 'NOAA Tides — Key West wind',
+  url: 'https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?product=wind&station=8724580&date=recent&time_zone=gmt&units=english&format=json',
+  headers: {
+    'User-Agent':
+      'satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)',
   },
-  "ttlSeconds": 1800,
-  "extract": {
-    "items": "$.data",
-    "limit": 48,
-    "map": {
-      "time": "$.t",
-      "speedMph": "$.s",
-      "directionDeg": "$.d",
-      "directionText": "$.dr",
-      "gustMph": "$.g"
+  ttlSeconds: 1800,
+  extract: {
+    items: '$.data',
+    limit: 48,
+    map: {
+      time: '$.t',
+      speedMph: '$.s',
+      directionDeg: '$.d',
+      directionText: '$.dr',
+      gustMph: '$.g',
     },
-    "numbers": [
-      "speedMph",
-      "directionDeg",
-      "gustMph"
-    ]
+    numbers: ['speedMph', 'directionDeg', 'gustMph'],
   },
-  "required": [
-    "time"
-  ],
-  "source": "NOAA Center for Operational Oceanography Products",
-  "attribution": "Data: NOAA CO-OPS — keyless.",
-  "units": {
-    "speedMph": "mph",
-    "directionDeg": "deg",
-    "gustMph": "mph"
+  required: ['time'],
+  source: 'NOAA Center for Operational Oceanography Products',
+  attribution: 'Data: NOAA CO-OPS — keyless.',
+  units: {
+    speedMph: 'mph',
+    directionDeg: 'deg',
+    gustMph: 'mph',
   },
-  "honesty": "6-minute wind observations; most recent point typically <1h old.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 2 (coops worker)"
+  honesty: '6-minute wind observations; most recent point typically <1h old.',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 2 (coops worker)',
 };

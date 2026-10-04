@@ -58,7 +58,10 @@
  * capped reads; per-source timeouts; cache + inflight; no node: imports.
  */
 
-import { readResponseJsonCapped, readResponseTextCapped } from '../common/http.js';
+import {
+  readResponseJsonCapped,
+  readResponseTextCapped,
+} from '../common/http.js';
 
 const UA = 'GodsEyeView/1.0 (satwq-reality-os; public weather context)';
 
@@ -95,7 +98,8 @@ function row(source, fields) {
 /** Deterministic every-kth sample for globe spread. */
 function sampleEvery(arr, every, cap) {
   const out = [];
-  for (let i = 0; i < arr.length && out.length < cap; i += every) out.push(arr[i]);
+  for (let i = 0; i < arr.length && out.length < cap; i += every)
+    out.push(arr[i]);
   return out;
 }
 
@@ -103,9 +107,26 @@ function sampleEvery(arr, every, cap) {
 // https://api.weather.gov/stations/{id} (HTTP 200). Major US airports,
 // each with an ASOS station feeding api.weather.gov.
 const NWS_IDS = [
-  'KROA', 'KJFK', 'KSEA', 'KBOS', // original 4
-  'KDCA', 'KATL', 'KMIA', 'KORD', 'KDFW', 'KDEN', 'KLAX', 'KPHX', // added 2026-09-27
-  'KSFO', 'KLAS', 'KIAH', 'KMCO', 'KMSP', 'KSTL', 'KBWI', 'KRDU', // added 2026-09-27 (recur run) — all HTTP 200 on /stations/{id}
+  'KROA',
+  'KJFK',
+  'KSEA',
+  'KBOS', // original 4
+  'KDCA',
+  'KATL',
+  'KMIA',
+  'KORD',
+  'KDFW',
+  'KDEN',
+  'KLAX',
+  'KPHX', // added 2026-09-27
+  'KSFO',
+  'KLAS',
+  'KIAH',
+  'KMCO',
+  'KMSP',
+  'KSTL',
+  'KBWI',
+  'KRDU', // added 2026-09-27 (recur run) — all HTTP 200 on /stations/{id}
 ];
 
 // Met Éireann station slugs — each verified live 2026-09-27:
@@ -120,14 +141,14 @@ const EIRE_STATIONS = [
   { slug: 'athenry', name: 'Athenry', lat: 53.29, lon: -8.75 },
   { slug: 'dublin', name: 'Dublin Airport', lat: 53.43, lon: -6.26 },
   { slug: 'cork', name: 'Cork', lat: 51.85, lon: -8.49 },
-  { slug: 'casement', name: 'Casement', lat: 53.30, lon: -6.45 },
-  { slug: 'shannon', name: 'Shannon', lat: 52.70, lon: -8.92 },
+  { slug: 'casement', name: 'Casement', lat: 53.3, lon: -6.45 },
+  { slug: 'shannon', name: 'Shannon', lat: 52.7, lon: -8.92 },
   { slug: 'belmullet', name: 'Belmullet', lat: 54.22, lon: -9.99 },
   { slug: 'knock', name: 'Knock', lat: 53.79, lon: -8.81 },
   { slug: 'mullingar', name: 'Mullingar', lat: 53.52, lon: -7.36 },
   { slug: 'valentia', name: 'Valentia', lat: 51.94, lon: -10.24 },
   { slug: 'dunsany', name: 'Dunsany', lat: 53.47, lon: -6.62 }, // verified 2026-09-27 recur — rows named "Dunsany"
-  { slug: 'finner', name: 'Finner', lat: 54.50, lon: -8.23 }, // verified 2026-09-27 recur — rows named "Finner"
+  { slug: 'finner', name: 'Finner', lat: 54.5, lon: -8.23 }, // verified 2026-09-27 recur — rows named "Finner"
 ];
 
 // IMO (vedur.is) station IDs: only ids=1 (Reykjavík) verified. Probes of
@@ -143,10 +164,12 @@ function parseNwsObs(doc, stationId) {
   if (!p || typeof p !== 'object') return null;
   const coords = doc?.geometry?.coordinates;
   const qv = (o) => (o && typeof o === 'object' ? o.value : null);
-  const windMs = num(qv(p.windSpeed)) == null ? null : num(qv(p.windSpeed)) / 3.6; // km/h → m/s
-  const pressureHpa = num(qv(p.barometricPressure)) == null
-    ? null
-    : num(qv(p.barometricPressure)) / 100; // Pa → hPa
+  const windMs =
+    num(qv(p.windSpeed)) == null ? null : num(qv(p.windSpeed)) / 3.6; // km/h → m/s
+  const pressureHpa =
+    num(qv(p.barometricPressure)) == null
+      ? null
+      : num(qv(p.barometricPressure)) / 100; // Pa → hPa
   return row('nws', {
     id: stationId,
     name: `${stationId} · NWS`,
@@ -199,7 +222,9 @@ function parseSmhi(doc, { every = 12, cap = 20 } = {}) {
 }
 
 function parseHko(doc, { places, lat, lon, cap = 4 } = {}) {
-  const temps = Array.isArray(doc?.temperature?.data) ? doc.temperature.data : [];
+  const temps = Array.isArray(doc?.temperature?.data)
+    ? doc.temperature.data
+    : [];
   const hum = Array.isArray(doc?.humidity?.data) ? doc.humidity.data[0] : null;
   const humByPlace = hum?.place ? { [hum.place]: num(hum.value) } : {};
   const out = [];
@@ -275,7 +300,9 @@ function parseImgw(doc, { every = 3, cap = 20, lat, lon } = {}) {
       windDirDeg: num(s?.kierunek_wiatru),
       rhPct: num(s?.wilgotnosc_wzgledna),
       pressureHpa: num(s?.cisnienie),
-      timeMs: Date.parse(`${s?.data_pomiaru ?? ''}T${String(s?.godzina_pomiaru ?? '0').padStart(2, '0')}:00:00Z`),
+      timeMs: Date.parse(
+        `${s?.data_pomiaru ?? ''}T${String(s?.godzina_pomiaru ?? '0').padStart(2, '0')}:00:00Z`,
+      ),
       coordApprox: true,
     });
     if (r.tempC != null) out.push(r);
@@ -330,9 +357,18 @@ function parseImo(text, { id = 1, name = 'Reykjavík', lat, lon } = {}) {
 // HKO places — all 12 verified live 2026-09-27 against the rhrread place list
 // (27 live places returned; these 12 are a geographic spread across HK).
 const HKO_PLACES = [
-  'Hong Kong Observatory', "King's Park", 'Wong Chuk Hang', 'Ta Kwu Ling', // original 4
-  'Lau Fau Shan', 'Tai Po', 'Sha Tin', 'Tuen Mun', // added 2026-09-27
-  'Tseung Kwan O', 'Sai Kung', 'Cheung Chau', 'Chek Lap Kok',
+  'Hong Kong Observatory',
+  "King's Park",
+  'Wong Chuk Hang',
+  'Ta Kwu Ling', // original 4
+  'Lau Fau Shan',
+  'Tai Po',
+  'Sha Tin',
+  'Tuen Mun', // added 2026-09-27
+  'Tseung Kwan O',
+  'Sai Kung',
+  'Cheung Chau',
+  'Chek Lap Kok',
 ];
 const HK = { lat: 22.32, lon: 114.17 };
 const PL = { lat: 51.92, lon: 19.15 }; // Poland centroid — coordApprox
@@ -344,11 +380,19 @@ const SOURCES = [
     kind: 'obs',
     cap: 256 * 1024,
     fetch: async (doFetch, signal) => {
-      const docs = await Promise.all(NWS_IDS.map(async (sid) => {
-        const res = await doFetch(`https://api.weather.gov/stations/${sid}/observations/latest`, signal);
-        if (!res.ok) throw new Error(`nws_${sid}_http_${res.status}`);
-        return { sid, doc: await readResponseJsonCapped(res, 256 * 1024, signal) };
-      }));
+      const docs = await Promise.all(
+        NWS_IDS.map(async (sid) => {
+          const res = await doFetch(
+            `https://api.weather.gov/stations/${sid}/observations/latest`,
+            signal,
+          );
+          if (!res.ok) throw new Error(`nws_${sid}_http_${res.status}`);
+          return {
+            sid,
+            doc: await readResponseJsonCapped(res, 256 * 1024, signal),
+          };
+        }),
+      );
       return docs.map(({ sid, doc }) => parseNwsObs(doc, sid)).filter(Boolean);
     },
   },
@@ -361,18 +405,25 @@ const SOURCES = [
       { slug: 'oslo', name: 'Oslo', lat: 59.9, lon: 10.7 },
       { slug: 'bergen', name: 'Bergen', lat: 60.39, lon: 5.32 },
       { slug: 'tromso', name: 'Tromsø', lat: 69.65, lon: 18.96 },
-      { slug: 'trondheim', name: 'Trondheim', lat: 63.43, lon: 10.40 }, // added 2026-09-27
+      { slug: 'trondheim', name: 'Trondheim', lat: 63.43, lon: 10.4 }, // added 2026-09-27
       { slug: 'stavanger', name: 'Stavanger', lat: 58.97, lon: 5.73 }, // added 2026-09-27
       { slug: 'longyearbyen', name: 'Longyearbyen', lat: 78.22, lon: 15.63 }, // added 2026-09-27 (Svalbard)
     ],
     fetch: async (doFetch, signal, src) => {
-      const docs = await Promise.all(src.points.map(async (pt) => {
-        const url = `https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=${pt.lat}&lon=${pt.lon}`;
-        const res = await doFetch(url, signal);
-        if (!res.ok) throw new Error(`metno_${pt.slug}_http_${res.status}`);
-        return { pt, doc: await readResponseJsonCapped(res, 256 * 1024, signal) };
-      }));
-      return docs.map(({ pt, doc }) => parseMetnoPoint(doc, pt)).filter(Boolean);
+      const docs = await Promise.all(
+        src.points.map(async (pt) => {
+          const url = `https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=${pt.lat}&lon=${pt.lon}`;
+          const res = await doFetch(url, signal);
+          if (!res.ok) throw new Error(`metno_${pt.slug}_http_${res.status}`);
+          return {
+            pt,
+            doc: await readResponseJsonCapped(res, 256 * 1024, signal),
+          };
+        }),
+      );
+      return docs
+        .map(({ pt, doc }) => parseMetnoPoint(doc, pt))
+        .filter(Boolean);
     },
   },
   {
@@ -399,7 +450,9 @@ const SOURCES = [
       );
       if (!res.ok) throw new Error(`hko_http_${res.status}`);
       return parseHko(await readResponseJsonCapped(res, 256 * 1024, signal), {
-        places: HKO_PLACES, lat: HK.lat, lon: HK.lon,
+        places: HKO_PLACES,
+        lat: HK.lat,
+        lon: HK.lon,
       });
     },
   },
@@ -408,7 +461,10 @@ const SOURCES = [
     name: 'Singapore NEA',
     kind: 'obs',
     fetch: async (doFetch, signal) => {
-      const res = await doFetch('https://api.data.gov.sg/v1/environment/air-temperature', signal);
+      const res = await doFetch(
+        'https://api.data.gov.sg/v1/environment/air-temperature',
+        signal,
+      );
       if (!res.ok) throw new Error(`nea_http_${res.status}`);
       return parseNea(await readResponseJsonCapped(res, 256 * 1024, signal));
     },
@@ -431,10 +487,14 @@ const SOURCES = [
     name: 'IMGW Poland synop',
     kind: 'obs',
     fetch: async (doFetch, signal) => {
-      const res = await doFetch('https://danepubliczne.imgw.pl/api/data/synop', signal);
+      const res = await doFetch(
+        'https://danepubliczne.imgw.pl/api/data/synop',
+        signal,
+      );
       if (!res.ok) throw new Error(`imgw_http_${res.status}`);
       return parseImgw(await readResponseJsonCapped(res, 512 * 1024, signal), {
-        lat: PL.lat, lon: PL.lon,
+        lat: PL.lat,
+        lon: PL.lon,
       });
     },
   },
@@ -443,13 +503,19 @@ const SOURCES = [
     name: 'Met Éireann (9 stations)',
     kind: 'obs',
     fetch: async (doFetch, signal) => {
-      const docs = await Promise.all(EIRE_STATIONS.map(async (st) => {
-        const res = await doFetch(
-          `https://prodapi.metweb.ie/observations/${st.slug}/today`, signal,
-        );
-        if (!res.ok) throw new Error(`eireann_${st.slug}_http_${res.status}`);
-        return parseEire(await readResponseJsonCapped(res, 128 * 1024, signal), st);
-      }));
+      const docs = await Promise.all(
+        EIRE_STATIONS.map(async (st) => {
+          const res = await doFetch(
+            `https://prodapi.metweb.ie/observations/${st.slug}/today`,
+            signal,
+          );
+          if (!res.ok) throw new Error(`eireann_${st.slug}_http_${res.status}`);
+          return parseEire(
+            await readResponseJsonCapped(res, 128 * 1024, signal),
+            st,
+          );
+        }),
+      );
       return docs.filter(Boolean);
     },
   },
@@ -458,21 +524,28 @@ const SOURCES = [
     name: 'IMO Iceland (Reykjavík)',
     kind: 'obs',
     fetch: async (doFetch, signal) => {
-      const docs = await Promise.all(IMO_STATIONS.map(async (st) => {
-        const res = await doFetch(
-          `https://xmlweather.vedur.is/?op_w=xml&type=obs&lang=en&view=xml&ids=${st.id}`,
-          signal,
-        );
-        if (!res.ok) throw new Error(`imo_${st.id}_http_${res.status}`);
-        const text = await readResponseTextCapped(res, 64 * 1024); // returns the string (throws when too large)
-        return parseImo(text, st);
-      }));
+      const docs = await Promise.all(
+        IMO_STATIONS.map(async (st) => {
+          const res = await doFetch(
+            `https://xmlweather.vedur.is/?op_w=xml&type=obs&lang=en&view=xml&ids=${st.id}`,
+            signal,
+          );
+          if (!res.ok) throw new Error(`imo_${st.id}_http_${res.status}`);
+          const text = await readResponseTextCapped(res, 64 * 1024); // returns the string (throws when too large)
+          return parseImo(text, st);
+        }),
+      );
       return docs.filter(Boolean);
     },
   },
 ];
 
-async function fetchWithTimeout(fetchImpl, url, signal, timeoutMs = SOURCE_TIMEOUT_MS) {
+async function fetchWithTimeout(
+  fetchImpl,
+  url,
+  signal,
+  timeoutMs = SOURCE_TIMEOUT_MS,
+) {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), timeoutMs);
   const onAbort = () => controller.abort();
@@ -491,17 +564,31 @@ async function fetchWithTimeout(fetchImpl, url, signal, timeoutMs = SOURCE_TIMEO
 
 async function sweepAll({ fetchImpl = fetch, now = () => Date.now() } = {}) {
   const doFetch = (url, signal) => fetchWithTimeout(fetchImpl, url, signal);
-  const settled = await Promise.all(SOURCES.map(async (src) => {
-    try {
-      const stations = await src.fetch(doFetch, null, src);
-      return { id: src.id, name: src.name, kind: src.kind, status: 'ok', count: stations.length, stations };
-    } catch (error) {
-      return {
-        id: src.id, name: src.name, kind: src.kind, status: 'error',
-        count: 0, stations: [], error: error?.message ?? 'unknown',
-      };
-    }
-  }));
+  const settled = await Promise.all(
+    SOURCES.map(async (src) => {
+      try {
+        const stations = await src.fetch(doFetch, null, src);
+        return {
+          id: src.id,
+          name: src.name,
+          kind: src.kind,
+          status: 'ok',
+          count: stations.length,
+          stations,
+        };
+      } catch (error) {
+        return {
+          id: src.id,
+          name: src.name,
+          kind: src.kind,
+          status: 'error',
+          count: 0,
+          stations: [],
+          error: error?.message ?? 'unknown',
+        };
+      }
+    }),
+  );
   const stations = settled.flatMap((s) => s.stations);
   return {
     schemaVersion: 1,
@@ -511,7 +598,8 @@ async function sweepAll({ fetchImpl = fetch, now = () => Date.now() } = {}) {
     stations,
     stale: false,
     unavailable: stations.length === 0,
-    reason: stations.length === 0 ? 'All weather-station sources unreachable.' : null,
+    reason:
+      stations.length === 0 ? 'All weather-station sources unreachable.' : null,
     attribution:
       'Station obs: NWS (US PD), MET Norway (CC-BY 4.0), SMHI (open data), HKO (open data), ' +
       'NEA Singapore (via data.gov.sg), IPMA (station locations), IMGW-PIB, Met Éireann, IMO. ' +
@@ -519,7 +607,10 @@ async function sweepAll({ fetchImpl = fetch, now = () => Date.now() } = {}) {
   };
 }
 
-export function wxstationsProxy({ fetchImpl = fetch, now = () => Date.now() } = {}) {
+export function wxstationsProxy({
+  fetchImpl = fetch,
+  now = () => Date.now(),
+} = {}) {
   let cache = null; // { value, fetchedAt }
   let inflight = null;
   let attemptedAt = -Infinity;
@@ -530,14 +621,17 @@ export function wxstationsProxy({ fetchImpl = fetch, now = () => Date.now() } = 
     }
     signal?.throwIfAborted?.();
     if (!inflight) {
-      if (now() - attemptedAt < RETRY_COOLDOWN_MS) throw new Error('wxstations_retry_later');
+      if (now() - attemptedAt < RETRY_COOLDOWN_MS)
+        throw new Error('wxstations_retry_later');
       attemptedAt = now();
       inflight = sweepAll({ fetchImpl, now })
         .then((value) => {
           cache = { value, fetchedAt: now() };
           return { value, stale: false };
         })
-        .finally(() => { inflight = null; });
+        .finally(() => {
+          inflight = null;
+        });
     }
     if (!signal) return inflight;
     const cancelled = new Promise((_, reject) => {
@@ -563,11 +657,15 @@ export function wxstationsProxy({ fetchImpl = fetch, now = () => Date.now() } = 
     res.once?.('close', close);
     const json = (status, value) => {
       if (controller.signal.aborted) return;
-      res.writeHead(status, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
+      res.writeHead(status, {
+        'Content-Type': 'application/json',
+        'Cache-Control': 'no-store',
+      });
       res.end(JSON.stringify(value));
     };
     try {
-      if (req.method !== 'GET') return json(405, { error: 'method_not_allowed' });
+      if (req.method !== 'GET')
+        return json(405, { error: 'method_not_allowed' });
       try {
         const { value, stale } = await acquire(controller.signal);
         json(200, describe(value, { stale }));
@@ -576,17 +674,28 @@ export function wxstationsProxy({ fetchImpl = fetch, now = () => Date.now() } = 
         json(
           200,
           usable
-            ? describe(cache.value, { stale: true, reason: 'Upstream unreachable; showing last good sweep.' })
+            ? describe(cache.value, {
+                stale: true,
+                reason: 'Upstream unreachable; showing last good sweep.',
+              })
             : {
                 schemaVersion: 1,
                 generatedAt: new Date(now()).toISOString(),
                 count: 0,
-                sources: SOURCES.map((s) => ({ id: s.id, name: s.name, kind: s.kind, status: 'error', count: 0 })),
+                sources: SOURCES.map((s) => ({
+                  id: s.id,
+                  name: s.name,
+                  kind: s.kind,
+                  status: 'error',
+                  count: 0,
+                })),
                 stations: [],
                 stale: false,
                 unavailable: true,
-                reason: 'Weather-station sources unreachable and no cached sweep exists.',
-                attribution: 'Station obs: NWS, MET Norway, SMHI, HKO, NEA, IPMA, IMGW, Met Éireann, IMO.',
+                reason:
+                  'Weather-station sources unreachable and no cached sweep exists.',
+                attribution:
+                  'Station obs: NWS, MET Norway, SMHI, HKO, NEA, IPMA, IMGW, Met Éireann, IMO.',
               },
         );
       }

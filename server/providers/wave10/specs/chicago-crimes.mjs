@@ -4,51 +4,47 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 8 (bikeshare-chicago worker)).
  */
 export const SPEC = {
-  "id": "chicago-crimes",
-  "title": "Chicago — crimes (2026)",
-  "url": "https://data.cityofchicago.org/resource/ijzp-q8t2.json?$limit=50&$where=year%3D%272026%27&$order=%3Aid%20desc",
-  "headers": {
-    "User-Agent": "satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)"
+  id: 'chicago-crimes',
+  title: 'Chicago — crimes (2026)',
+  url: 'https://data.cityofchicago.org/resource/ijzp-q8t2.json?$limit=50&$where=year%3D%272026%27&$order=%3Aid%20desc',
+  headers: {
+    'User-Agent':
+      'satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)',
   },
-  "ttlSeconds": 3600,
-  "bodyCapBytes": 2097152,
-  "extract": {
-    "items": "$",
-    "limit": 50,
-    "map": {
-      "caseNumber": "$.case_number",
-      "primaryType": "$.primary_type",
-      "description": "$.description",
-      "date": "$.date",
-      "block": "$.block",
-      "district": "$.district",
-      "ward": "$.ward",
-      "communityArea": "$.community_area",
-      "arrest": "$.arrest"
+  ttlSeconds: 3600,
+  bodyCapBytes: 2097152,
+  extract: {
+    items: '$',
+    limit: 50,
+    map: {
+      caseNumber: '$.case_number',
+      primaryType: '$.primary_type',
+      description: '$.description',
+      date: '$.date',
+      block: '$.block',
+      district: '$.district',
+      ward: '$.ward',
+      communityArea: '$.community_area',
+      arrest: '$.arrest',
     },
-    "numbers": [
-      "ward",
-      "communityArea"
-    ]
+    numbers: ['ward', 'communityArea'],
   },
-  "required": [
-    "caseNumber",
-    "primaryType"
-  ],
-  "source": "City of Chicago",
-  "attribution": "Data: City of Chicago open data portal — keyless.",
-  "units": {
-    "caseNumber": "text",
-    "primaryType": "text",
-    "description": "text",
-    "date": "datetime",
-    "block": "text",
-    "district": "text",
-    "ward": "count",
-    "communityArea": "count",
-    "arrest": "bool"
+  required: ['caseNumber', 'primaryType'],
+  source: 'City of Chicago',
+  attribution: 'Data: City of Chicago open data portal — keyless.',
+  units: {
+    caseNumber: 'text',
+    primaryType: 'text',
+    description: 'text',
+    date: 'datetime',
+    block: 'text',
+    district: 'text',
+    ward: 'count',
+    communityArea: 'count',
+    arrest: 'bool',
   },
-  "honesty": "Newest-first 50 of 170177 crime records year=2026 via $order=:id desc (dataset id ijzp-q8t2 verified live; 1.32M rows 2001–present). Newest record at probe: 2026-08-28T11:00:00.000. district kept as text (zero-padded '016'). Geocoding note: latitude/longitude/x_coordinate are absent (null) on the newest 50 rows — recent records are published before geocoding — so this spec maps ward/community_area instead of lat/lon.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 8 (bikeshare-chicago worker)"
+  honesty:
+    "Newest-first 50 of 170177 crime records year=2026 via $order=:id desc (dataset id ijzp-q8t2 verified live; 1.32M rows 2001–present). Newest record at probe: 2026-08-28T11:00:00.000. district kept as text (zero-padded '016'). Geocoding note: latitude/longitude/x_coordinate are absent (null) on the newest 50 rows — recent records are published before geocoding — so this spec maps ward/community_area instead of lat/lon.",
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 8 (bikeshare-chicago worker)',
 };

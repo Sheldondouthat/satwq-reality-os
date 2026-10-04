@@ -9,7 +9,13 @@
  * the legend says it is not a measured magnetosphere.
  */
 import * as Cesium from 'cesium';
-import { glowAlpha, glowPulseMs, glowRadii, kpColor, kpLabel } from './model.js';
+import {
+  glowAlpha,
+  glowPulseMs,
+  glowRadii,
+  kpColor,
+  kpLabel,
+} from './model.js';
 
 const API = '/api/space-weather';
 const REFRESH_MS = 2 * 60_000;
@@ -64,7 +70,8 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
           radii: new Cesium.Cartesian3(radii.x, radii.y, radii.z),
           material: new Cesium.ColorMaterialProperty(
             new Cesium.CallbackProperty(() => {
-              const k = 1 + 0.45 * Math.sin((2 * Math.PI * Date.now()) / period);
+              const k =
+                1 + 0.45 * Math.sin((2 * Math.PI * Date.now()) / period);
               return color.withAlpha(Math.min(0.65, base * k));
             }, false),
           ),
@@ -80,8 +87,7 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
     let tickerEl = null;
     function updateStatus(doc) {
       if (statusEl) {
-        statusEl.textContent =
-          kpLabel(doc) + (doc.stale ? ' · stale' : '');
+        statusEl.textContent = kpLabel(doc) + (doc.stale ? ' · stale' : '');
       }
       if (tickerLineEl) {
         tickerLineEl.textContent = tickerLine(doc);
@@ -105,7 +111,8 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
     function tickerLine(doc) {
       const parts = [];
       const hq = doc?.hamqsl;
-      if (hq && Number.isFinite(hq.sfi)) parts.push(`☀ SFI ${hq.sfi} · A${hq.aIndex}/K${hq.kIndex}`);
+      if (hq && Number.isFinite(hq.sfi))
+        parts.push(`☀ SFI ${hq.sfi} · A${hq.aIndex}/K${hq.kIndex}`);
       const sw = doc?.solarWind;
       if (sw && Number.isFinite(sw.speed)) {
         const bz = Number.isFinite(sw.bz) ? ` Bz ${sw.bz} nT` : '';
@@ -124,9 +131,17 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
     }
 
     function escapeHtml(s) {
-      return String(s).replace(/[&<>"']/g, (c) => ({
-        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
-      })[c]);
+      return String(s).replace(
+        /[&<>"']/g,
+        (c) =>
+          ({
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#39;',
+          })[c],
+      );
     }
 
     function setEnabled(on) {
@@ -143,7 +158,8 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
     if (mount && typeof chip === 'function') {
       try {
         statusEl = document.createElement('div');
-        statusEl.style.cssText = 'font-size:10px;color:#8aa4d6;margin:2px 0 4px;';
+        statusEl.style.cssText =
+          'font-size:10px;color:#8aa4d6;margin:2px 0 4px;';
         statusEl.textContent = 'reading magnetometer…';
         mount.appendChild(statusEl);
         tickerLineEl = document.createElement('div');
@@ -162,14 +178,20 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
             disable: () => setEnabled(false),
           });
           mount.appendChild(
-            chip(T('feature.spaceWeather') || 'Space weather', (on) =>
-              on ? tracked.show() : tracked.hide(), false),
+            chip(
+              T('feature.spaceWeather') || 'Space weather',
+              (on) => (on ? tracked.show() : tracked.hide()),
+              false,
+            ),
           );
         } else {
-          mount.appendChild(chip(T('feature.spaceWeather') || 'Space weather', apply, false));
+          mount.appendChild(
+            chip(T('feature.spaceWeather') || 'Space weather', apply, false),
+          );
         }
         const legend = document.createElement('div');
-        legend.style.cssText = 'font-size:10px;color:#8aa4d6;margin-top:4px;line-height:1.5;';
+        legend.style.cssText =
+          'font-size:10px;color:#8aa4d6;margin-top:4px;line-height:1.5;';
         legend.innerHTML =
           '<span style="color:#3ddc84">●</span> Kp 0–3 calm · ' +
           '<span style="color:#ffe14d">●</span> Kp 4 unsettled · ' +

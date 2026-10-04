@@ -19,16 +19,25 @@ export const EMOJI = '🏟️';
 export const LABEL = 'Sports scores';
 
 export function valueLine(doc) {
-      if (isUnavailable(doc)) return null;
-      const games = pickArr(doc.games);
-      if (!games.length) return null;
-      const live = games.filter((g) => /live|in.?progress|q[1-4]|half|period/i.test(pickStr(g.state))).length;
-      return withTags(`${EMOJI} ${games.length} games${live ? ` · ${live} live` : ''}`, doc);
-    }
+  if (isUnavailable(doc)) return null;
+  const games = pickArr(doc.games);
+  if (!games.length) return null;
+  const live = games.filter((g) =>
+    /live|in.?progress|q[1-4]|half|period/i.test(pickStr(g.state)),
+  ).length;
+  return withTags(
+    `${EMOJI} ${games.length} games${live ? ` · ${live} live` : ''}`,
+    doc,
+  );
+}
 
 export function detailLine(doc) {
-      if (isUnavailable(doc)) return '';
-      return pickArr(doc.games).slice(0, 3).map((g) =>
+  if (isUnavailable(doc)) return '';
+  return pickArr(doc.games)
+    .slice(0, 3)
+    .map(
+      (g) =>
         `${pickStr(g.away, '?')} ${g.awayScore ?? '?'} @ ${pickStr(g.home, '?')} ${g.homeScore ?? '?'} (${pickStr(g.state, g.detail, 'n/a')})`,
-      ).join(' · ');
-    }
+    )
+    .join(' · ');
+}

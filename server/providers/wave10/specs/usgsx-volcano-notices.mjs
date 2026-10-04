@@ -4,35 +4,35 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 6 (usgsx worker)).
  */
 export const SPEC = {
-  "id": "usgsx-volcano-notices",
-  "title": "USGS — Volcano activity notices (latest, all observatories)",
-  "url": "https://volcanoes.usgs.gov/hans-public/api/notice/getRecentNotices",
-  "headers": {
-    "User-Agent": "satwq-reality-os/1.0 (surge-500 probe)"
+  id: 'usgsx-volcano-notices',
+  title: 'USGS — Volcano activity notices (latest, all observatories)',
+  url: 'https://volcanoes.usgs.gov/hans-public/api/notice/getRecentNotices',
+  headers: {
+    'User-Agent': 'satwq-reality-os/1.0 (surge-500 probe)',
   },
-  "ttlSeconds": 3600,
-  "extract": {
-    "items": "$",
-    "limit": 30,
-    "map": {
-      "id": "$.notice_identifier",
-      "title": "$.notice_type_title",
-      "volcanoes": "$.volcanoes",
-      "obs": "$.obs_abbr",
-      "sent": "$.sent_utc",
-      "url": "$.notice_url"
+  ttlSeconds: 3600,
+  extract: {
+    items: '$',
+    limit: 30,
+    map: {
+      id: '$.notice_identifier',
+      title: '$.notice_type_title',
+      volcanoes: '$.volcanoes',
+      obs: '$.obs_abbr',
+      sent: '$.sent_utc',
+      url: '$.notice_url',
     },
-    "numbers": []
+    numbers: [],
   },
-  "required": [
-    "id"
-  ],
-  "source": "U.S. Geological Survey — Volcano Hazards Program",
-  "attribution": "Data: U.S. Geological Survey, Volcano Hazards Program (HANS) — keyless.",
-  "units": {
-    "sent": "UTC timestamp"
+  required: ['id'],
+  source: 'U.S. Geological Survey — Volcano Hazards Program',
+  attribution:
+    'Data: U.S. Geological Survey, Volcano Hazards Program (HANS) — keyless.',
+  units: {
+    sent: 'UTC timestamp',
   },
-  "honesty": "Latest ~96 volcano observatory notices (weekly updates, activity statements) from all six US observatories, newest-first; covers roughly the last month.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 6 (usgsx worker)"
+  honesty:
+    'Latest ~96 volcano observatory notices (weekly updates, activity statements) from all six US observatories, newest-first; covers roughly the last month.',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 6 (usgsx worker)',
 };

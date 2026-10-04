@@ -24,7 +24,10 @@ export function pointInRing(lon, lat, ring) {
   for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) {
     const [xi, yi] = ring[i];
     const [xj, yj] = ring[j];
-    if (yi > lat !== yj > lat && lon < ((xj - xi) * (lat - yi)) / (yj - yi) + xi) {
+    if (
+      yi > lat !== yj > lat &&
+      lon < ((xj - xi) * (lat - yi)) / (yj - yi) + xi
+    ) {
       inside = !inside;
     }
   }
@@ -71,7 +74,9 @@ export function flagFlightsInsideTfrs(tfrs, aircraft) {
  * perimeters: [{bbox:[minLon,minLat,maxLon,maxLat]}] (from /api/fire-perimeters).
  */
 export function crossTfrsWithFires(tfrs, perimeters) {
-  const boxes = (perimeters ?? []).filter((p) => Array.isArray(p?.bbox) && p.bbox.length === 4);
+  const boxes = (perimeters ?? []).filter(
+    (p) => Array.isArray(p?.bbox) && p.bbox.length === 4,
+  );
   const ringBbox = (ring) => {
     let minLon = 180;
     let maxLon = -180;
@@ -85,7 +90,8 @@ export function crossTfrsWithFires(tfrs, perimeters) {
     }
     return [minLon, minLat, maxLon, maxLat];
   };
-  const overlaps = (a, b) => a[0] <= b[2] && a[2] >= b[0] && a[1] <= b[3] && a[3] >= b[1];
+  const overlaps = (a, b) =>
+    a[0] <= b[2] && a[2] >= b[0] && a[1] <= b[3] && a[3] >= b[1];
   const hits = [];
   for (const tfr of tfrs ?? []) {
     for (const ring of tfr.rings ?? []) {
@@ -127,4 +133,5 @@ export const TFR_TYPE_COLORS = {
   DISASTER: '#e71d36',
   SECURITY: '#ff4d6d',
 };
-export const tfrColorFor = (type) => TFR_TYPE_COLORS[String(type ?? '').toUpperCase()] ?? '#ff9f1c';
+export const tfrColorFor = (type) =>
+  TFR_TYPE_COLORS[String(type ?? '').toUpperCase()] ?? '#ff9f1c';

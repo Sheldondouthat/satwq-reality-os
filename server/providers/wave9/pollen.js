@@ -47,20 +47,40 @@ const BODY_CAP_BYTES = 256 * 1024; // observed ~526 B for 72h; generous headroom
 const CACHE_TTL_MS = 6 * 3600_000; // CAMS pollen runs ~2x daily; 6h is honest
 const STALE_MS = 7 * 24 * 3600_000;
 const RETRY_COOLDOWN_MS = 60_000;
-const USER_AGENT = 'satwq-reality-os/1.0 (gods-eye-view; pollen layer; keyless)';
+const USER_AGENT =
+  'satwq-reality-os/1.0 (gods-eye-view; pollen layer; keyless)';
 
-export const POLLEN_TYPES = ['alder', 'birch', 'grass', 'mugwort', 'olive', 'ragweed'];
+export const POLLEN_TYPES = [
+  'alder',
+  'birch',
+  'grass',
+  'mugwort',
+  'olive',
+  'ragweed',
+];
 
 /** Pinned locations — European cities inside the CAMS pollen domain. */
 export const LOCATIONS = [
   { id: 'berlin', name: 'Berlin', country: 'Germany', lat: 52.52, lon: 13.41 },
   { id: 'paris', name: 'Paris', country: 'France', lat: 48.85, lon: 2.35 },
-  { id: 'london', name: 'London', country: 'United Kingdom', lat: 51.51, lon: -0.13 },
+  {
+    id: 'london',
+    name: 'London',
+    country: 'United Kingdom',
+    lat: 51.51,
+    lon: -0.13,
+  },
   { id: 'madrid', name: 'Madrid', country: 'Spain', lat: 40.42, lon: -3.7 },
   { id: 'rome', name: 'Rome', country: 'Italy', lat: 41.9, lon: 12.5 },
   { id: 'warsaw', name: 'Warsaw', country: 'Poland', lat: 52.23, lon: 21.01 },
   { id: 'vienna', name: 'Vienna', country: 'Austria', lat: 48.21, lon: 16.37 },
-  { id: 'amsterdam', name: 'Amsterdam', country: 'Netherlands', lat: 52.37, lon: 4.9 },
+  {
+    id: 'amsterdam',
+    name: 'Amsterdam',
+    country: 'Netherlands',
+    lat: 52.37,
+    lon: 4.9,
+  },
 ];
 
 /** Number(null)===0 guard: null/NaN/empty upstream numerics become null, never 0. */
@@ -91,7 +111,8 @@ export function parseQuery(query) {
   const latRaw = query.get('lat');
   const lonRaw = query.get('lon');
   if (cityRaw != null && cityRaw !== '') {
-    if (!CITY_ID_RE.test(cityRaw)) throw Object.assign(new Error('pollen_bad_city'), { status: 400 });
+    if (!CITY_ID_RE.test(cityRaw))
+      throw Object.assign(new Error('pollen_bad_city'), { status: 400 });
     const found = LOCATIONS.find((l) => l.id === cityRaw);
     if (!found) return { mode: 'notfound', city: cityRaw };
     return { mode: 'city', city: found };
@@ -100,9 +121,15 @@ export function parseQuery(query) {
     // NOTE: Number(null)===0 — missing/empty params must be screened first.
     const lat = latRaw == null || latRaw === '' ? NaN : Number(latRaw);
     const lon = lonRaw == null || lonRaw === '' ? NaN : Number(lonRaw);
-    if (!Number.isFinite(lat) || Math.abs(lat) > 90) throw Object.assign(new Error('pollen_bad_lat'), { status: 400 });
-    if (!Number.isFinite(lon) || Math.abs(lon) > 180) throw Object.assign(new Error('pollen_bad_lon'), { status: 400 });
-    return { mode: 'point', lat: Math.round(lat * 1000) / 1000, lon: Math.round(lon * 1000) / 1000 };
+    if (!Number.isFinite(lat) || Math.abs(lat) > 90)
+      throw Object.assign(new Error('pollen_bad_lat'), { status: 400 });
+    if (!Number.isFinite(lon) || Math.abs(lon) > 180)
+      throw Object.assign(new Error('pollen_bad_lon'), { status: 400 });
+    return {
+      mode: 'point',
+      lat: Math.round(lat * 1000) / 1000,
+      lon: Math.round(lon * 1000) / 1000,
+    };
   }
   return { mode: 'all' };
 }
@@ -129,16 +156,25 @@ async function fetchJsonCapped(url) {
       headers: { 'User-Agent': USER_AGENT, Accept: 'application/json' },
     });
     if (!response.ok)
-      throw Object.assign(new Error(`pollen_upstream_${response.status}`), { status: 502 });
+      throw Object.assign(new Error(`pollen_upstream_${response.status}`), {
+        status: 502,
+      });
     const buffer = await response.arrayBuffer();
     if (buffer.byteLength > BODY_CAP_BYTES)
-      throw Object.assign(new Error('pollen_upstream_too_large'), { status: 502 });
+      throw Object.assign(new Error('pollen_upstream_too_large'), {
+        status: 502,
+      });
     return JSON.parse(new TextDecoder().decode(buffer));
   } catch (error) {
     if (error?.status === 502) throw error;
     if (error instanceof SyntaxError)
-      throw Object.assign(new Error('pollen_upstream_bad_json'), { status: 502 });
-    throw Object.assign(new Error(`pollen_fetch_failed: ${error?.message ?? 'unknown'}`), { status: 502 });
+      throw Object.assign(new Error('pollen_upstream_bad_json'), {
+        status: 502,
+      });
+    throw Object.assign(
+      new Error(`pollen_fetch_failed: ${error?.message ?? 'unknown'}`),
+      { status: 502 },
+    );
   } finally {
     clearTimeout(timeout);
   }
@@ -150,7 +186,8 @@ async function fetchJsonCapped(url) {
  * Throws {status:502} on bad shape (never returns fabricated pollen).
  */
 export function parseLocationPayload(upstream, place) {
-  const fail = (msg) => Object.assign(new Error(`pollen_invalid_payload: ${msg}`), { status: 502 });
+  const fail = (msg) =>
+    Object.assign(new Error(`pollen_invalid_payload: ${msg}`), { status: 502 });
   const hourly = upstream?.hourly;
   if (!hourly || !Array.isArray(hourly.time)) throw fail('missing hourly.time');
   const n = hourly.time.length;
@@ -158,7 +195,8 @@ export function parseLocationPayload(upstream, place) {
   const series = {};
   for (const t of POLLEN_TYPES) {
     const arr = hourly[`${t}_pollen`];
-    if (!Array.isArray(arr) || arr.length !== n) throw fail(`bad series ${t}_pollen`);
+    if (!Array.isArray(arr) || arr.length !== n)
+      throw fail(`bad series ${t}_pollen`);
     series[t] = arr.map((v) => numOrNull(v));
   }
   // current = first hour with any non-null reading (timestamps are local, timezone=auto)
@@ -191,8 +229,11 @@ export function parseLocationPayload(upstream, place) {
     return row;
   });
   const nonNullTotal = POLLEN_TYPES.reduce(
-    (acc, t) => acc + series[t].filter((v) => v != null).length, 0);
-  const coverage = nonNullTotal > 0 ? 'cams-europe' : 'outside-cams-pollen-domain';
+    (acc, t) => acc + series[t].filter((v) => v != null).length,
+    0,
+  );
+  const coverage =
+    nonNullTotal > 0 ? 'cams-europe' : 'outside-cams-pollen-domain';
   const tz = upstream?.timezone;
   return {
     id: place.id,
@@ -219,18 +260,23 @@ export function buildPayload(rows, stale) {
     generatedAt: new Date().toISOString(),
     stale: Boolean(stale),
     model: true,
-    modelName: 'CAMS (Copernicus Atmosphere Monitoring Service) pollen via Open-Meteo',
+    modelName:
+      'CAMS (Copernicus Atmosphere Monitoring Service) pollen via Open-Meteo',
     warning:
       'MODEL output — a chemistry-transport simulation, not sensor observations. ' +
       'CAMS pollen covers the European domain; outside it all types read null (no data, never zero).',
-    attribution: 'Pollen data by Open-Meteo.com (CC-BY 4.0); CAMS operated by ECMWF on behalf of the EU.',
+    attribution:
+      'Pollen data by Open-Meteo.com (CC-BY 4.0); CAMS operated by ECMWF on behalf of the EU.',
     types: POLLEN_TYPES,
     units: 'grains/m³',
     locations: rows,
     honesty: {
-      values: 'grains/m³ per CAMS model grid cell; null = no model value, never zero-filled (Number(\'\')===0 trap guarded).',
-      coverage: 'cams-europe = inside the CAMS pollen domain; outside-cams-pollen-domain = upstream returned only nulls (e.g. North America).',
-      current: 'first hourly row containing any non-null reading (local time via timezone=auto).',
+      values:
+        "grains/m³ per CAMS model grid cell; null = no model value, never zero-filled (Number('')===0 trap guarded).",
+      coverage:
+        'cams-europe = inside the CAMS pollen domain; outside-cams-pollen-domain = upstream returned only nulls (e.g. North America).',
+      current:
+        'first hourly row containing any non-null reading (local time via timezone=auto).',
       dailyMax: 'per-type maxima over local calendar days.',
     },
   };
@@ -244,14 +290,23 @@ const PAYLOAD_CACHE_MAX = 16;
 
 function queryKey(sel) {
   if (sel.mode === 'city') return `city:${sel.city.id}`;
-  if (sel.mode === 'point') return `pt:${sel.lat.toFixed(3)},${sel.lon.toFixed(3)}`;
+  if (sel.mode === 'point')
+    return `pt:${sel.lat.toFixed(3)},${sel.lon.toFixed(3)}`;
   return 'all';
 }
 
 export function selectionPlaces(sel) {
   if (sel.mode === 'city') return [sel.city];
   if (sel.mode === 'point')
-    return [{ id: `pt-${sel.lat}-${sel.lon}`, name: 'Custom point', country: null, lat: sel.lat, lon: sel.lon }];
+    return [
+      {
+        id: `pt-${sel.lat}-${sel.lon}`,
+        name: 'Custom point',
+        country: null,
+        lat: sel.lat,
+        lon: sel.lon,
+      },
+    ];
   return LOCATIONS;
 }
 
@@ -261,8 +316,14 @@ async function fetchOne(place) {
     return parseLocationPayload(upstream, place);
   } catch (error) {
     return {
-      id: place.id, name: place.name, country: place.country, lat: place.lat, lon: place.lon,
-      ok: false, error: error?.message ?? 'unknown', status: error?.status ?? 502,
+      id: place.id,
+      name: place.name,
+      country: place.country,
+      lat: place.lat,
+      lon: place.lon,
+      ok: false,
+      error: error?.message ?? 'unknown',
+      status: error?.status ?? 502,
     };
   }
 }
@@ -271,10 +332,15 @@ async function getPayload(sel) {
   const key = queryKey(sel);
   const now = Date.now();
   const hit = payloadCache.get(key);
-  if (hit && now - hit.at < CACHE_TTL_MS) return { payload: hit.payload, stale: false };
+  if (hit && now - hit.at < CACHE_TTL_MS)
+    return { payload: hit.payload, stale: false };
   let op = inflight.get(key);
   if (!op) {
-    if (now - docFailedAt < RETRY_COOLDOWN_MS && hit && now - hit.at < STALE_MS) {
+    if (
+      now - docFailedAt < RETRY_COOLDOWN_MS &&
+      hit &&
+      now - hit.at < STALE_MS
+    ) {
       return { payload: hit.payload, stale: true };
     }
     op = (async () => {
@@ -283,11 +349,15 @@ async function getPayload(sel) {
       const okRows = rows.filter((r) => r.ok);
       if (okRows.length === 0) {
         docFailedAt = Date.now();
-        if (hit && now - hit.at < STALE_MS) return { payload: hit.payload, stale: true };
-        throw Object.assign(new Error('pollen_all_upstreams_failed'), { status: 502 });
+        if (hit && now - hit.at < STALE_MS)
+          return { payload: hit.payload, stale: true };
+        throw Object.assign(new Error('pollen_all_upstreams_failed'), {
+          status: 502,
+        });
       }
       const payload = buildPayload(rows, false);
-      if (payloadCache.size >= PAYLOAD_CACHE_MAX) payloadCache.delete(payloadCache.keys().next().value);
+      if (payloadCache.size >= PAYLOAD_CACHE_MAX)
+        payloadCache.delete(payloadCache.keys().next().value);
       payloadCache.set(key, { at: Date.now(), payload });
       return { payload, stale: false };
     })().finally(() => inflight.delete(key));
@@ -307,25 +377,48 @@ function sendJson(res, status, body, cacheControl = 'public, max-age=21600') {
 /** Mount the wave-9 pollen proxy. */
 export function pollenProxy() {
   async function handler(req, res) {
-    if (req.method !== 'GET') return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
     let sel;
     try {
       sel = parseQuery(new URL(req.url, 'http://localhost').searchParams);
     } catch (error) {
-      return sendJson(res, error.status ?? 400, { error: error.message }, 'no-store');
+      return sendJson(
+        res,
+        error.status ?? 400,
+        { error: error.message },
+        'no-store',
+      );
     }
     if (sel.mode === 'notfound') {
-      return sendJson(res, 200, { generatedAt: new Date().toISOString(), requestedNotFound: true, city: sel.city }, 'no-store');
+      return sendJson(
+        res,
+        200,
+        {
+          generatedAt: new Date().toISOString(),
+          requestedNotFound: true,
+          city: sel.city,
+        },
+        'no-store',
+      );
     }
     try {
       const { payload, stale } = await getPayload(sel);
       sendJson(res, 200, stale ? { ...payload, stale: true } : payload);
     } catch (error) {
-      const upstreamFail = error?.status === 502 || error?.name === 'AbortError' || /aborted?/i.test(error?.message ?? '');
-      sendJson(res, upstreamFail ? 502 : 500, {
-        error: 'pollen_unavailable',
-        detail: error?.message ?? 'unknown',
-      }, 'no-store');
+      const upstreamFail =
+        error?.status === 502 ||
+        error?.name === 'AbortError' ||
+        /aborted?/i.test(error?.message ?? '');
+      sendJson(
+        res,
+        upstreamFail ? 502 : 500,
+        {
+          error: 'pollen_unavailable',
+          detail: error?.message ?? 'unknown',
+        },
+        'no-store',
+      );
     }
   }
 
@@ -346,5 +439,9 @@ export const _pollenInternals = {
   buildPayload,
   buildUpstreamUrl,
   selectionPlaces,
-  clearCaches: () => { payloadCache.clear(); inflight.clear(); docFailedAt = -Infinity; },
+  clearCaches: () => {
+    payloadCache.clear();
+    inflight.clear();
+    docFailedAt = -Infinity;
+  },
 };

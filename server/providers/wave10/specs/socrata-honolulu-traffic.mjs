@@ -4,32 +4,32 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 3 (socrata worker)).
  */
 export const SPEC = {
-  "id": "socrata-honolulu-traffic",
-  "title": "Honolulu Open Data — live traffic incidents",
-  "url": "https://data.honolulu.gov/resource/ykb6-n5th.json?$limit=50",
-  "headers": {},
-  "ttlSeconds": 900,
-  "source": "City & County of Honolulu Open Data (Socrata)",
-  "attribution": "Data: City & County of Honolulu Open Data (Socrata) — keyless Socrata API.",
-  "honesty": "Real-time HPD traffic incidents (MVC/Stall/TS), rows dated today (2026-10-02). No coordinates and no unique id — key falls back to incident time; dupes possible on refresh.",
-  "units": {},
-  "extract": {
-    "items": "$",
-    "limit": 50,
-    "map": {
-      "key": "$.time",
-      "date": "$.date",
-      "time": "$.time",
-      "type": "$.type",
-      "address": "$.address",
-      "area": "$.area",
-      "location": "$.location"
+  id: 'socrata-honolulu-traffic',
+  title: 'Honolulu Open Data — live traffic incidents',
+  url: 'https://data.honolulu.gov/resource/ykb6-n5th.json?$limit=50',
+  headers: {},
+  ttlSeconds: 900,
+  source: 'City & County of Honolulu Open Data (Socrata)',
+  attribution:
+    'Data: City & County of Honolulu Open Data (Socrata) — keyless Socrata API.',
+  honesty:
+    'Real-time HPD traffic incidents (MVC/Stall/TS), rows dated today (2026-10-02). No coordinates and no unique id — key falls back to incident time; dupes possible on refresh.',
+  units: {},
+  extract: {
+    items: '$',
+    limit: 50,
+    map: {
+      key: '$.time',
+      date: '$.date',
+      time: '$.time',
+      type: '$.type',
+      address: '$.address',
+      area: '$.area',
+      location: '$.location',
     },
-    "numbers": []
+    numbers: [],
   },
-  "required": [
-    "key"
-  ],
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 3 (socrata worker)"
+  required: ['key'],
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 3 (socrata worker)',
 };

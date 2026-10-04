@@ -35,7 +35,8 @@ const BODY_CAP_BYTES = 256 * 1024; // observed ~1 KB; storm days can be large
 const CACHE_TTL_MS = 10 * 60_000;
 const STALE_MS = 7 * 24 * 3600_000;
 const RETRY_COOLDOWN_MS = 60_000;
-const USER_AGENT = 'satwq-reality-os/1.0 (gods-eye-view; faa-delays layer; keyless)';
+const USER_AGENT =
+  'satwq-reality-os/1.0 (gods-eye-view; faa-delays layer; keyless)';
 const CACHE_CONTROL = 'public, max-age=600';
 
 const AIRPORT_RE = /^[A-Z0-9]{3,4}$/;
@@ -56,7 +57,9 @@ export function decodeEntities(s) {
 
 /** First <Tag>…</Tag> text in `text`, or null. Pure, exported for tests. */
 export function firstTag(text, tag) {
-  const m = String(text ?? '').match(new RegExp(`<${tag}>([\\s\\S]*?)<\\/${tag}>`));
+  const m = String(text ?? '').match(
+    new RegExp(`<${tag}>([\\s\\S]*?)<\\/${tag}>`),
+  );
   return m ? decodeEntities(m[1].trim()) : null;
 }
 
@@ -133,7 +136,8 @@ export function parseQuery(query) {
   const raw = query.get('airport');
   if (raw == null || raw === '') return { mode: 'all' };
   const airport = raw.trim().toUpperCase();
-  if (!AIRPORT_RE.test(airport)) throw Object.assign(new Error('faadelays_bad_airport'), { status: 400 });
+  if (!AIRPORT_RE.test(airport))
+    throw Object.assign(new Error('faadelays_bad_airport'), { status: 400 });
   return { mode: 'airport', airport };
 }
 
@@ -152,21 +156,29 @@ export function countItems(sections) {
 
 /** Build the payload envelope. Pure apart from generatedAt. */
 export function buildPayload(parsed, sel, stale, nowMs = Date.now()) {
-  const sections = sel.mode === 'airport' ? filterByAirport(parsed.sections, sel.airport) : parsed.sections;
+  const sections =
+    sel.mode === 'airport'
+      ? filterByAirport(parsed.sections, sel.airport)
+      : parsed.sections;
   const total = countItems(sections);
   const byType = {};
-  for (const s of sections) byType[s.name] = (byType[s.name] || 0) + s.items.length;
-  const airports = [...new Set(sections.flatMap((s) => s.items.map((it) => it.airport)))].sort();
+  for (const s of sections)
+    byType[s.name] = (byType[s.name] || 0) + s.items.length;
+  const airports = [
+    ...new Set(sections.flatMap((s) => s.items.map((it) => it.airport))),
+  ].sort();
   const ageMin = updateAgeMinutes(parsed.updateTime, nowMs);
   return {
     generatedAt: new Date(nowMs).toISOString(),
     stale: Boolean(stale),
-    source: 'FAA National Airspace System status — airport-status-information (keyless XML)',
+    source:
+      'FAA National Airspace System status — airport-status-information (keyless XML)',
     attribution: 'Data: Federal Aviation Administration (U.S. DOT).',
     units: { time: 'FAA as-published strings; updateTime verbatim from feed' },
     updateTime: parsed.updateTime,
     updateAgeMinutes: ageMin == null ? null : Math.round(ageMin * 10) / 10,
-    query: sel.mode === 'airport' ? { airport: sel.airport } : { airport: null },
+    query:
+      sel.mode === 'airport' ? { airport: sel.airport } : { airport: null },
     summary: {
       sections: sections.length,
       items: total,
@@ -175,10 +187,14 @@ export function buildPayload(parsed, sel, stale, nowMs = Date.now()) {
     },
     sections,
     honesty: {
-      activeOnly: 'The FAA document lists ONLY currently-active delay programs, stops and closures. An absent Delay_type section means zero active programs of that kind at update time — not missing data.',
-      verbatim: 'Delay durations and reasons (e.g. Avg "1 hour and 5 minutes") are the FAA\'s as-published strings, carried verbatim; no durations are derived or normalized.',
-      closureReasons: 'Airport-closure reasons are the FAA\'s raw NOTAM-style text (ICAO date-time groups like 2605271826 are day/hour/minute UTC ranges, not parsed dates).',
-      zeroIsReal: 'A document with zero active items returns 200 with empty sections — a quiet sky is real data, never a 502.',
+      activeOnly:
+        'The FAA document lists ONLY currently-active delay programs, stops and closures. An absent Delay_type section means zero active programs of that kind at update time — not missing data.',
+      verbatim:
+        'Delay durations and reasons (e.g. Avg "1 hour and 5 minutes") are the FAA\'s as-published strings, carried verbatim; no durations are derived or normalized.',
+      closureReasons:
+        "Airport-closure reasons are the FAA's raw NOTAM-style text (ICAO date-time groups like 2605271826 are day/hour/minute UTC ranges, not parsed dates).",
+      zeroIsReal:
+        'A document with zero active items returns 200 with empty sections — a quiet sky is real data, never a 502.',
     },
   };
 }
@@ -194,18 +210,28 @@ async function fetchTextCapped(url, capBytes) {
       // NOTE: redirect:'follow' — workerd supports only 'follow'/'manual';
       // 'error' throws at the edge (main 2ec4053).
       redirect: 'follow',
-      headers: { 'User-Agent': USER_AGENT, Accept: 'application/xml, text/xml, */*' },
+      headers: {
+        'User-Agent': USER_AGENT,
+        Accept: 'application/xml, text/xml, */*',
+      },
     });
     if (!response.ok) {
-      throw Object.assign(new Error(`faadelays_upstream_${response.status}`), { status: 502 });
+      throw Object.assign(new Error(`faadelays_upstream_${response.status}`), {
+        status: 502,
+      });
     }
     const buffer = await response.arrayBuffer();
     if (buffer.byteLength > capBytes)
-      throw Object.assign(new Error('faadelays_upstream_too_large'), { status: 502 });
+      throw Object.assign(new Error('faadelays_upstream_too_large'), {
+        status: 502,
+      });
     return new TextDecoder().decode(buffer);
   } catch (error) {
     if (error?.status === 502) throw error;
-    throw Object.assign(new Error(`faadelays_fetch_failed: ${error?.message ?? 'unknown'}`), { status: 502 });
+    throw Object.assign(
+      new Error(`faadelays_fetch_failed: ${error?.message ?? 'unknown'}`),
+      { status: 502 },
+    );
   } finally {
     clearTimeout(timeout);
   }
@@ -225,23 +251,32 @@ async function getPayload(sel) {
   const key = queryKey(sel);
   const now = Date.now();
   const hit = payloadCache.get(key);
-  if (hit && now - hit.at < CACHE_TTL_MS) return { payload: hit.payload, stale: false };
+  if (hit && now - hit.at < CACHE_TTL_MS)
+    return { payload: hit.payload, stale: false };
   let op = inflight.get(key);
   if (!op) {
-    if (now - docFailedAt < RETRY_COOLDOWN_MS && hit && now - hit.at < STALE_MS) {
+    if (
+      now - docFailedAt < RETRY_COOLDOWN_MS &&
+      hit &&
+      now - hit.at < STALE_MS
+    ) {
       return { payload: hit.payload, stale: true };
     }
     op = (async () => {
       const xml = await fetchTextCapped(UPSTREAM_URL, BODY_CAP_BYTES);
       const parsed = parseNasStatus(xml);
-      if (sel.mode === 'airport' && countItems(filterByAirport(parsed.sections, sel.airport)) === 0) {
+      if (
+        sel.mode === 'airport' &&
+        countItems(filterByAirport(parsed.sections, sel.airport)) === 0
+      ) {
         // NOT an upstream failure — this airport simply has no active NAS
         // programs right now (the feed lists active-only). Never a 404,
         // never synthesized rows (requestedNotFound pattern).
         return { notFound: true, airport: sel.airport };
       }
       const payload = buildPayload(parsed, sel, false);
-      if (payloadCache.size >= PAYLOAD_CACHE_MAX) payloadCache.delete(payloadCache.keys().next().value);
+      if (payloadCache.size >= PAYLOAD_CACHE_MAX)
+        payloadCache.delete(payloadCache.keys().next().value);
       payloadCache.set(key, { at: Date.now(), payload });
       return { payload, stale: false };
     })().finally(() => inflight.delete(key));
@@ -261,25 +296,48 @@ function sendJson(res, status, body, cacheControl = CACHE_CONTROL) {
 /** Mount the wave-9 FAA airport-delays (NAS status) proxy. */
 export function faaDelaysProxy() {
   async function handler(req, res) {
-    if (req.method !== 'GET') return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
     let sel;
     try {
       sel = parseQuery(new URL(req.url, 'http://localhost').searchParams);
     } catch (error) {
-      return sendJson(res, error.status ?? 400, { error: error.message }, 'no-store');
+      return sendJson(
+        res,
+        error.status ?? 400,
+        { error: error.message },
+        'no-store',
+      );
     }
     try {
       const { payload, stale, notFound, airport } = await getPayload(sel);
       if (notFound) {
-        return sendJson(res, 200, { generatedAt: new Date().toISOString(), requestedNotFound: true, airport }, 'no-store');
+        return sendJson(
+          res,
+          200,
+          {
+            generatedAt: new Date().toISOString(),
+            requestedNotFound: true,
+            airport,
+          },
+          'no-store',
+        );
       }
       sendJson(res, 200, stale ? { ...payload, stale: true } : payload);
     } catch (error) {
-      const upstreamFail = error?.status === 502 || error?.name === 'AbortError' || /aborted?/i.test(error?.message ?? '');
-      sendJson(res, upstreamFail ? 502 : 500, {
-        error: 'faadelays_unavailable',
-        detail: error?.message ?? 'unknown',
-      }, 'no-store');
+      const upstreamFail =
+        error?.status === 502 ||
+        error?.name === 'AbortError' ||
+        /aborted?/i.test(error?.message ?? '');
+      sendJson(
+        res,
+        upstreamFail ? 502 : 500,
+        {
+          error: 'faadelays_unavailable',
+          detail: error?.message ?? 'unknown',
+        },
+        'no-store',
+      );
     }
   }
 
@@ -305,5 +363,9 @@ export const _faaDelaysInternals = {
   firstTag,
   allBlocks,
   UPSTREAM_URL,
-  clearCaches: () => { payloadCache.clear(); inflight.clear(); docFailedAt = -Infinity; },
+  clearCaches: () => {
+    payloadCache.clear();
+    inflight.clear();
+    docFailedAt = -Infinity;
+  },
 };

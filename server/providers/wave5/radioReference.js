@@ -21,7 +21,8 @@
  * dataset — no node: imports, no WASM).
  */
 
-const CALLOOK_URL = (call) => `https://callook.info/${encodeURIComponent(call)}/json`;
+const CALLOOK_URL = (call) =>
+  `https://callook.info/${encodeURIComponent(call)}/json`;
 const AMSAT_URL = 'https://www.amsat.org/tle/current/nasa.all';
 const NUMBERS_URL = (q) =>
   `https://www.numbers-stations.com/wp-json/wp/v2/search?search=${encodeURIComponent(q)}&per_page=10`;
@@ -40,9 +41,16 @@ const inflight = new Map(); // key -> Promise
 
 function pinHost(responseUrl, pinned) {
   let host = '';
-  try { host = new URL(responseUrl).hostname; } catch { /* opaque */ }
+  try {
+    host = new URL(responseUrl).hostname;
+  } catch {
+    /* opaque */
+  }
   if (host && host !== pinned)
-    throw Object.assign(new Error(`radio_reference_redirect_off_host:${host}`), { status: 502 });
+    throw Object.assign(
+      new Error(`radio_reference_redirect_off_host:${host}`),
+      { status: 502 },
+    );
 }
 
 async function fetchCapped(url, pinned, signal, accept = 'application/json') {
@@ -57,11 +65,16 @@ async function fetchCapped(url, pinned, signal, accept = 'application/json') {
       headers: { 'User-Agent': USER_AGENT, Accept: accept },
     });
     if (!response.ok)
-      throw Object.assign(new Error(`radio_reference_upstream_${response.status}`), { status: 502 });
+      throw Object.assign(
+        new Error(`radio_reference_upstream_${response.status}`),
+        { status: 502 },
+      );
     pinHost(response.url, pinned);
     const buffer = await response.arrayBuffer();
     if (buffer.byteLength > BODY_CAP_BYTES)
-      throw Object.assign(new Error('radio_reference_upstream_too_large'), { status: 502 });
+      throw Object.assign(new Error('radio_reference_upstream_too_large'), {
+        status: 502,
+      });
     return new TextDecoder().decode(buffer);
   } finally {
     clearTimeout(timeout);
@@ -79,7 +92,9 @@ function trimCallsign(upstream) {
     callsign: String(upstream?.current?.callsign ?? ''),
     name: String(upstream?.name ?? ''),
     type: String(upstream?.type ?? ''),
-    licenseClass: String(upstream?.current?.operClass ?? upstream?.operClass ?? ''),
+    licenseClass: String(
+      upstream?.current?.operClass ?? upstream?.operClass ?? '',
+    ),
     trustee: String(upstream?.trustee?.callsign ?? ''),
     address: [addr.line1, addr.line2].filter(Boolean).map(String).join(', '),
     lat: Number.isFinite(lat) ? lat : null,
@@ -130,20 +145,33 @@ async function getCached(key, loader) {
   const hit = cache.get(key);
   if (hit && now - hit.at < CACHE_TTL_MS) return hit.payload;
   if (!inflight.has(key)) {
-    inflight.set(key, loader().then((payload) => {
-      cache.set(key, { at: Date.now(), payload });
-      return payload;
-    }).finally(() => { inflight.delete(key); }));
+    inflight.set(
+      key,
+      loader()
+        .then((payload) => {
+          cache.set(key, { at: Date.now(), payload });
+          return payload;
+        })
+        .finally(() => {
+          inflight.delete(key);
+        }),
+    );
   }
   return inflight.get(key);
 }
 
 async function callsignLookup(call) {
   return getCached(`call:${call.toUpperCase()}`, async () => {
-    const body = await fetchCapped(CALLOOK_URL(call), PINNED_HOSTS.callook, null);
+    const body = await fetchCapped(
+      CALLOOK_URL(call),
+      PINNED_HOSTS.callook,
+      null,
+    );
     const upstream = JSON.parse(body);
     if (String(upstream?.status ?? '').toUpperCase() !== 'VALID')
-      throw Object.assign(new Error(`callsign_not_found:${call}`), { status: 404 });
+      throw Object.assign(new Error(`callsign_not_found:${call}`), {
+        status: 404,
+      });
     return {
       generatedAt: new Date().toISOString(),
       ...trimCallsign(upstream),
@@ -154,14 +182,20 @@ async function callsignLookup(call) {
 
 async function amsatTle() {
   return getCached('amsat:tle', async () => {
-    const body = await fetchCapped(AMSAT_URL, PINNED_HOSTS.amsat, null, 'text/plain');
+    const body = await fetchCapped(
+      AMSAT_URL,
+      PINNED_HOSTS.amsat,
+      null,
+      'text/plain',
+    );
     const rows = parseAmsatTle(body);
     return {
       generatedAt: new Date().toISOString(),
       count: rows.length,
       rows,
       source: 'amsat.org — amateur-satellite element sets (keyless)',
-      honesty: 'TLEs for propagation; positions are computed from these, not measured. ' +
+      honesty:
+        'TLEs for propagation; positions are computed from these, not measured. ' +
         'Complements /api/celestrak (general GP); AMSAT carries amateur-radio sats.',
     };
   });
@@ -176,7 +210,8 @@ async function numbersSearch(q) {
       count: 0,
       results: [],
       source: 'numbers-stations.com — WordPress REST search (keyless)',
-      honesty: 'Reference database of numbers-station articles — NOT live telemetry. ' +
+      honesty:
+        'Reference database of numbers-station articles — NOT live telemetry. ' +
         'There is no public live API for numbers stations.',
       ...(function build() {
         const results = trimNumbersSearch(JSON.parse(body));
@@ -195,13 +230,18 @@ function sendJson(res, status, body, cacheControl = 'public, max-age=900') {
 }
 
 function parseQuery(url) {
-  try { return new URL(url, 'http://x').searchParams; } catch { return new URLSearchParams(); }
+  try {
+    return new URL(url, 'http://x').searchParams;
+  } catch {
+    return new URLSearchParams();
+  }
 }
 
 /** Mount the radio-reference proxy. Mirrors the nwsAlerts provider shape. */
 export function radioReferenceProxy() {
   async function handler(req, res) {
-    if (req.method !== 'GET') return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
     try {
       const params = parseQuery(req.url);
       const call = (params.get('call') ?? '').trim().toUpperCase();
@@ -214,21 +254,37 @@ export function radioReferenceProxy() {
           return sendJson(res, 200, await callsignLookup(call));
         } catch (error) {
           if (error?.status === 404)
-            return sendJson(res, 404, { error: 'callsign_not_found', call }, 'no-store');
+            return sendJson(
+              res,
+              404,
+              { error: 'callsign_not_found', call },
+              'no-store',
+            );
           throw error;
         }
       }
-      if (tle === '1' || tle === 'true') return sendJson(res, 200, await amsatTle());
+      if (tle === '1' || tle === 'true')
+        return sendJson(res, 200, await amsatTle());
       if (search) return sendJson(res, 200, await numbersSearch(search));
-      return sendJson(res, 400, {
-        error: 'usage',
-        usage: 'GET /api/radio-reference?call=W1AW | ?tle=1 | ?search=UVB-76',
-      }, 'no-store');
+      return sendJson(
+        res,
+        400,
+        {
+          error: 'usage',
+          usage: 'GET /api/radio-reference?call=W1AW | ?tle=1 | ?search=UVB-76',
+        },
+        'no-store',
+      );
     } catch (error) {
-      sendJson(res, error?.status === 502 ? 502 : 500, {
-        error: 'radio_reference_unavailable',
-        detail: error?.message ?? 'unknown',
-      }, 'no-store');
+      sendJson(
+        res,
+        error?.status === 502 ? 502 : 500,
+        {
+          error: 'radio_reference_unavailable',
+          detail: error?.message ?? 'unknown',
+        },
+        'no-store',
+      );
     }
   }
 
@@ -247,5 +303,8 @@ export const _radioReferenceInternals = {
   trimCallsign,
   parseAmsatTle,
   trimNumbersSearch,
-  clearCaches: () => { cache.clear(); inflight.clear(); },
+  clearCaches: () => {
+    cache.clear();
+    inflight.clear();
+  },
 };

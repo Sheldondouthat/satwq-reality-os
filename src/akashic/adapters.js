@@ -31,11 +31,16 @@ export function earthquakeRowsToEvents(rows) {
       lat: row.lat,
       lon: row.lon,
       magnitude: row.mag,
-      severity: row.mag == null ? 0.25 : Math.min(1, Math.max(0, (row.mag - 2.5) / 6.5)),
+      severity:
+        row.mag == null
+          ? 0.25
+          : Math.min(1, Math.max(0, (row.mag - 2.5) / 6.5)),
       source: 'USGS',
       url: row.usgsId ? `${USGS_QUAKE_URL}${row.usgsId}` : null,
       detail:
-        row.depthKm != null ? `${Number(row.depthKm).toFixed(1)} km deep` : null,
+        row.depthKm != null
+          ? `${Number(row.depthKm).toFixed(1)} km deep`
+          : null,
     });
     if (event) events.push(event);
   }
@@ -101,16 +106,20 @@ export function meteorRowsToEvents(rows, { now = () => Date.now() } = {}) {
   const events = [];
   for (const row of rows) {
     if (!row || typeof row !== 'object') continue;
-    const shower = row.shower && typeof row.shower === 'object' ? row.shower : row;
+    const shower =
+      row.shower && typeof row.shower === 'object' ? row.shower : row;
     const { name, peakMonth, peakDay, ra, dec, zhr } = shower;
-    if (!name || !Number.isFinite(peakMonth) || !Number.isFinite(peakDay)) continue;
+    if (!name || !Number.isFinite(peakMonth) || !Number.isFinite(peakDay))
+      continue;
     const peak = Date.UTC(current.getUTCFullYear(), peakMonth - 1, peakDay, 12);
     const sub =
       Number.isFinite(ra) && Number.isFinite(dec)
         ? radiantSubpoint(ra, dec, peak)
         : { lat: 0, lon: 0 };
     const event = normalizeAkashicEvent({
-      id: `meteor:${String(name).toLowerCase().replace(/[^a-z0-9]+/g, '-')}:${current.getUTCFullYear()}`,
+      id: `meteor:${String(name)
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')}:${current.getUTCFullYear()}`,
       time: peak,
       type: 'meteor',
       layer: 'meteors',
@@ -122,7 +131,8 @@ export function meteorRowsToEvents(rows, { now = () => Date.now() } = {}) {
         zhr == null ? 0.3 : Math.min(1, Math.max(0.1, Number(zhr) / 150)),
       source: 'IMO shower table (bundled)',
       url: 'https://www.imo.net/',
-      detail: zhr != null ? `ZHR ~${zhr} at radiant subpoint` : 'Radiant subpoint',
+      detail:
+        zhr != null ? `ZHR ~${zhr} at radiant subpoint` : 'Radiant subpoint',
     });
     if (event) events.push(event);
   }

@@ -27,7 +27,11 @@ function toHierarchy(coordinates) {
   const positions = [];
   const push = (ring) => {
     for (const pos of ring) {
-      if (Array.isArray(pos) && Number.isFinite(pos[0]) && Number.isFinite(pos[1])) {
+      if (
+        Array.isArray(pos) &&
+        Number.isFinite(pos[0]) &&
+        Number.isFinite(pos[1])
+      ) {
         positions.push(Cesium.Cartesian3.fromDegrees(pos[0], pos[1]));
       }
     }
@@ -38,7 +42,11 @@ function toHierarchy(coordinates) {
 export * from './model.js';
 export { createAlertDetailsPanel };
 
-export function createNwsAlertsLayer({ viewer, fetchImpl, pollMs = DEFAULT_POLL_MS } = {}) {
+export function createNwsAlertsLayer({
+  viewer,
+  fetchImpl,
+  pollMs = DEFAULT_POLL_MS,
+} = {}) {
   let _viewer = viewer || null;
   let _enabled = false;
   let _dataSource = null;
@@ -116,7 +124,8 @@ export function createNwsAlertsLayer({ viewer, fetchImpl, pollMs = DEFAULT_POLL_
     if (geometry.type === 'Polygon') {
       for (const ring of geometry.coordinates) push(ring);
     } else {
-      for (const poly of geometry.coordinates) for (const ring of poly) push(ring);
+      for (const poly of geometry.coordinates)
+        for (const ring of poly) push(ring);
     }
     return new Cesium.PolygonHierarchy(positions);
   }
@@ -136,13 +145,15 @@ export function createNwsAlertsLayer({ viewer, fetchImpl, pollMs = DEFAULT_POLL_
     updateInterval: pollMs,
 
     init(v) {
-      if (_viewer && _viewer !== v) throw new Error('NWS alerts layer is already initialized');
+      if (_viewer && _viewer !== v)
+        throw new Error('NWS alerts layer is already initialized');
       _viewer = v || _viewer;
       if (!_viewer) throw new Error('NWS alerts layer needs a viewer');
       _dataSource = new Cesium.CustomDataSource('nws-alerts');
       _viewer.dataSources.add(_dataSource);
       _panel = createAlertDetailsPanel({});
-      if (_selectHandler) _viewer.selectedEntityChanged.removeEventListener(_selectHandler);
+      if (_selectHandler)
+        _viewer.selectedEntityChanged.removeEventListener(_selectHandler);
       _selectHandler = (entity) => onSelected(entity);
       _viewer.selectedEntityChanged.addEventListener(_selectHandler);
       console.log('[nws-alerts] initialized');
@@ -153,13 +164,18 @@ export function createNwsAlertsLayer({ viewer, fetchImpl, pollMs = DEFAULT_POLL_
       if (_dataSource) _dataSource.show = true;
       void refresh();
       if (_timer) clearInterval(_timer);
-      _timer = setInterval(() => { if (_enabled) void refresh(); }, pollMs);
+      _timer = setInterval(() => {
+        if (_enabled) void refresh();
+      }, pollMs);
     },
 
     disable() {
       _enabled = false;
       if (_dataSource) _dataSource.show = false;
-      if (_timer) { clearInterval(_timer); _timer = null; }
+      if (_timer) {
+        clearInterval(_timer);
+        _timer = null;
+      }
       _panel?.hide();
     },
 
@@ -171,7 +187,11 @@ export function createNwsAlertsLayer({ viewer, fetchImpl, pollMs = DEFAULT_POLL_
       const center = alertCentroid(alert);
       if (!center || !_viewer) return false;
       _viewer.camera.flyTo({
-        destination: Cesium.Cartesian3.fromDegrees(center.lon, center.lat, 600_000),
+        destination: Cesium.Cartesian3.fromDegrees(
+          center.lon,
+          center.lat,
+          600_000,
+        ),
         orientation: { heading: 0, pitch: Cesium.Math.toRadians(-60), roll: 0 },
         duration: 2.2,
       });
@@ -188,7 +208,10 @@ export function createNwsAlertsLayer({ viewer, fetchImpl, pollMs = DEFAULT_POLL_
     },
 
     destroy() {
-      if (_timer) { clearInterval(_timer); _timer = null; }
+      if (_timer) {
+        clearInterval(_timer);
+        _timer = null;
+      }
       if (_selectHandler && _viewer?.selectedEntityChanged) {
         _viewer.selectedEntityChanged.removeEventListener(_selectHandler);
       }
@@ -209,9 +232,13 @@ export function createNwsAlertsLayer({ viewer, fetchImpl, pollMs = DEFAULT_POLL_
 export function mountNwsAlertsDock({ section, chip, el, t, layer } = {}) {
   if (!section || !chip || !el || !layer) return null;
   const host = section(t ? t('feature.nwsAlerts') : 'NWS ALERTS');
-  const statusLine = el('div', {
-    style: 'font-size:10px;color:#8aa4d6;margin:4px 0;min-height:14px;',
-  }, '—');
+  const statusLine = el(
+    'div',
+    {
+      style: 'font-size:10px;color:#8aa4d6;margin:4px 0;min-height:14px;',
+    },
+    '—',
+  );
   const setStatus = () => {
     const s = layer.getStatus();
     statusLine.textContent =
@@ -224,16 +251,22 @@ export function mountNwsAlertsDock({ section, chip, el, t, layer } = {}) {
             : 'off';
   };
   host.appendChild(
-    chip('⚠ NWS alerts', (on) => {
-      if (on) layer.enable();
-      else layer.disable();
-      setStatus();
-    }, false),
+    chip(
+      '⚠ NWS alerts',
+      (on) => {
+        if (on) layer.enable();
+        else layer.disable();
+        setStatus();
+      },
+      false,
+    ),
   );
   host.appendChild(statusLine);
   const poller = setInterval(setStatus, 30_000);
   return {
     element: host,
-    destroy() { clearInterval(poller); },
+    destroy() {
+      clearInterval(poller);
+    },
   };
 }

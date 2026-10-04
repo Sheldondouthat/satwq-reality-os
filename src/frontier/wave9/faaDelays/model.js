@@ -11,11 +11,7 @@
  * detail line names the affected airports so the ticker never implies a
  * national ground stop when only BOS has a program.
  */
-import {
-  isUnavailable,
-  withTags,
-  pickNum,
-} from '../../wave3/common/ticker.js';
+import { isUnavailable, withTags, pickNum } from '../../wave3/common/ticker.js';
 
 export const ROUTE = '/api/faa-delays';
 export const EMOJI = '🛫';
@@ -43,8 +39,10 @@ export function valueLine(doc) {
   const gdps = sectionCount(doc, 'ground delay');
   const closures = sectionCount(doc, 'closure');
   const bits = [];
-  if (gdps > 0) bits.push(`${gdps} ground-delay program${gdps === 1 ? '' : 's'}`);
-  if (closures > 0) bits.push(`${closures} closure${closures === 1 ? '' : 's'}`);
+  if (gdps > 0)
+    bits.push(`${gdps} ground-delay program${gdps === 1 ? '' : 's'}`);
+  if (closures > 0)
+    bits.push(`${closures} closure${closures === 1 ? '' : 's'}`);
   const what = bits.length ? bits.join(' · ') : 'no active programs';
   return withTags(`${EMOJI} FAA delays: ${what}`, doc);
 }
@@ -58,14 +56,21 @@ export function detailLine(doc) {
       const f = it.fields || {};
       const dur = f.Avg || f.Max || '';
       const when = f.Start && f.Reopen ? ` ${f.Start} → ${f.Reopen}` : '';
-      rows.push(`${it.airport} (${s.name}): ${f.Reason || 'no reason given'}${dur ? `, ${dur}` : ''}${when}`);
+      rows.push(
+        `${it.airport} (${s.name}): ${f.Reason || 'no reason given'}${dur ? `, ${dur}` : ''}${when}`,
+      );
       if (rows.length >= 4) break;
     }
     if (rows.length >= 4) break;
   }
   const parts = [];
   if (rows.length) parts.push(rows.join(' · '));
-  else parts.push('No active FAA delay programs, ground stops or closures at last update.');
-  parts.push('Lists active programs only — a quiet board is real data, not a gap.');
+  else
+    parts.push(
+      'No active FAA delay programs, ground stops or closures at last update.',
+    );
+  parts.push(
+    'Lists active programs only — a quiet board is real data, not a gap.',
+  );
   return parts.join(' ');
 }

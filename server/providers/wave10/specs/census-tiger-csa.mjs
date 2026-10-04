@@ -4,38 +4,34 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 3 (census worker)).
  */
 export const SPEC = {
-  "id": "census-tiger-csa",
-  "title": "U.S. Census — combined statistical areas (national)",
-  "url": "https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/CBSA/MapServer/0/query?where=1%3D1&outFields=NAME%2CGEOID%2CCSA%2CCENTLAT%2CCENTLON&returnGeometry=false&f=json",
-  "headers": {},
-  "ttlSeconds": 86400,
-  "source": "U.S. Census Bureau",
-  "attribution": "Data: U.S. Census Bureau, TIGERweb REST — keyless.",
-  "honesty": "Vintage: current TIGERweb boundaries (queried 2026-10-02). Current combined statistical areas, national; coordinates are polygon centroids.",
-  "units": {
-    "lat": "deg",
-    "lon": "deg",
-    "land_m2": "m2",
-    "water_m2": "m2"
+  id: 'census-tiger-csa',
+  title: 'U.S. Census — combined statistical areas (national)',
+  url: 'https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/CBSA/MapServer/0/query?where=1%3D1&outFields=NAME%2CGEOID%2CCSA%2CCENTLAT%2CCENTLON&returnGeometry=false&f=json',
+  headers: {},
+  ttlSeconds: 86400,
+  source: 'U.S. Census Bureau',
+  attribution: 'Data: U.S. Census Bureau, TIGERweb REST — keyless.',
+  honesty:
+    'Vintage: current TIGERweb boundaries (queried 2026-10-02). Current combined statistical areas, national; coordinates are polygon centroids.',
+  units: {
+    lat: 'deg',
+    lon: 'deg',
+    land_m2: 'm2',
+    water_m2: 'm2',
   },
-  "extract": {
-    "items": "$.features",
-    "limit": 200,
-    "map": {
-      "name": "$.attributes.NAME",
-      "geoid": "$.attributes.GEOID",
-      "csa_code": "$.attributes.CSA",
-      "lat": "$.attributes.CENTLAT",
-      "lon": "$.attributes.CENTLON"
+  extract: {
+    items: '$.features',
+    limit: 200,
+    map: {
+      name: '$.attributes.NAME',
+      geoid: '$.attributes.GEOID',
+      csa_code: '$.attributes.CSA',
+      lat: '$.attributes.CENTLAT',
+      lon: '$.attributes.CENTLON',
     },
-    "numbers": [
-      "lat",
-      "lon"
-    ]
+    numbers: ['lat', 'lon'],
   },
-  "required": [
-    "name"
-  ],
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 3 (census worker)"
+  required: ['name'],
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 3 (census worker)',
 };

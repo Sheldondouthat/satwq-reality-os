@@ -20,14 +20,17 @@ export const EMOJI = '⚠️';
 export const LABEL = 'Alerts (NWS + DWD)';
 
 export function valueLine(doc) {
-      if (isUnavailable(doc)) return null;
-      const n = pickNum(doc.count, doc.alerts?.length);
-      if (n == null) return null;
-      return withTags(`${EMOJI} ${n.toLocaleString('en-US')} active alerts`, doc);
-    }
+  if (isUnavailable(doc)) return null;
+  const n = pickNum(doc.count, doc.alerts?.length);
+  if (n == null) return null;
+  return withTags(`${EMOJI} ${n.toLocaleString('en-US')} active alerts`, doc);
+}
 
 export function detailLine(doc) {
-      if (isUnavailable(doc)) return '';
-      const heads = pickArr(doc.alerts).slice(0, 2).map((a) => pickStr(a.headline, a.event)).filter(Boolean);
-      return heads.length ? heads.join(' · ') : '';
-    }
+  if (isUnavailable(doc)) return '';
+  const heads = pickArr(doc.alerts)
+    .slice(0, 2)
+    .map((a) => pickStr(a.headline, a.event))
+    .filter(Boolean);
+  return heads.length ? heads.join(' · ') : '';
+}

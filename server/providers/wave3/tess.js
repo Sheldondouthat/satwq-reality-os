@@ -199,7 +199,8 @@ async function fetchToiCsv(fetchImpl, signal) {
     text += decoder.decode();
   } else {
     text = await res.text();
-    if (text.length > BODY_CAP_BYTES) throw new Error('TAP payload exceeds cap');
+    if (text.length > BODY_CAP_BYTES)
+      throw new Error('TAP payload exceeds cap');
   }
   if (/QUERY_STATUS.*"ERROR"|ORA-\d{5}/.test(text)) {
     throw new Error('TAP query error: ' + text.slice(0, 200));
@@ -253,8 +254,14 @@ export function tessProxy({
           return;
         }
         const url = new URL(req.url || '/', 'http://localhost');
-        const days = Math.max(1, Math.min(90, Number(url.searchParams.get('days')) || 7));
-        const limit = Math.max(1, Math.min(200, Number(url.searchParams.get('limit')) || 60));
+        const days = Math.max(
+          1,
+          Math.min(90, Number(url.searchParams.get('days')) || 7),
+        );
+        const limit = Math.max(
+          1,
+          Math.min(200, Number(url.searchParams.get('limit')) || 60),
+        );
         const now = Date.now();
         if (!mem || now - mem.at > ttlMs) {
           try {
@@ -273,7 +280,10 @@ export function tessProxy({
             const t = Date.parse(r.nextTransitUtc);
             return t >= now - 3600000 && t <= horizonMs;
           })
-          .sort((a, b) => Date.parse(a.nextTransitUtc) - Date.parse(b.nextTransitUtc))
+          .sort(
+            (a, b) =>
+              Date.parse(a.nextTransitUtc) - Date.parse(b.nextTransitUtc),
+          )
           .slice(0, limit)
           .map((r) => ({
             ...r,

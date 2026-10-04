@@ -4,36 +4,33 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 3 (socrata worker)).
  */
 export const SPEC = {
-  "id": "socrata-kcmo-311",
-  "title": "Kansas City (KCMO) Open Data — 311 service requests",
-  "url": "https://data.kcmo.org/resource/d4px-6rwg.json?$limit=50&$order=open_date_time%20DESC",
-  "headers": {},
-  "ttlSeconds": 1800,
-  "source": "City of Kansas City, Missouri — Open Data KC (Socrata)",
-  "attribution": "Data: City of Kansas City, Missouri — Open Data KC (Socrata) — keyless Socrata API.",
-  "honesty": "KCMO 311 call-center reported issues, ordered newest first (fresh ~2026-09-28). Geocoded lat/lon. Statuses change as cases close.",
-  "units": {},
-  "extract": {
-    "items": "$",
-    "limit": 50,
-    "map": {
-      "key": "$.reported_issue",
-      "time": "$.open_date_time",
-      "type": "$.issue_type",
-      "subtype": "$.issue_sub_type",
-      "status": "$.current_status",
-      "address": "$.incident_address",
-      "lat": "$.latitude",
-      "lon": "$.longitude"
+  id: 'socrata-kcmo-311',
+  title: 'Kansas City (KCMO) Open Data — 311 service requests',
+  url: 'https://data.kcmo.org/resource/d4px-6rwg.json?$limit=50&$order=open_date_time%20DESC',
+  headers: {},
+  ttlSeconds: 1800,
+  source: 'City of Kansas City, Missouri — Open Data KC (Socrata)',
+  attribution:
+    'Data: City of Kansas City, Missouri — Open Data KC (Socrata) — keyless Socrata API.',
+  honesty:
+    'KCMO 311 call-center reported issues, ordered newest first (fresh ~2026-09-28). Geocoded lat/lon. Statuses change as cases close.',
+  units: {},
+  extract: {
+    items: '$',
+    limit: 50,
+    map: {
+      key: '$.reported_issue',
+      time: '$.open_date_time',
+      type: '$.issue_type',
+      subtype: '$.issue_sub_type',
+      status: '$.current_status',
+      address: '$.incident_address',
+      lat: '$.latitude',
+      lon: '$.longitude',
     },
-    "numbers": [
-      "lat",
-      "lon"
-    ]
+    numbers: ['lat', 'lon'],
   },
-  "required": [
-    "key"
-  ],
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 3 (socrata worker)"
+  required: ['key'],
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 3 (socrata worker)',
 };

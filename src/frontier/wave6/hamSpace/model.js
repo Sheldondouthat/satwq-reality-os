@@ -19,14 +19,14 @@ export const EMOJI = '🛰️';
 export const LABEL = 'Ham radio space weather';
 
 export function valueLine(doc) {
-      if (isUnavailable(doc)) return null;
-      const health = sourceHealthLine(doc);
-      if (!health) return null;
-      return withTags(`${EMOJI} ham radio space wx · ${health}`, doc);
-    }
+  if (isUnavailable(doc)) return null;
+  const health = sourceHealthLine(doc);
+  if (!health) return null;
+  return withTags(`${EMOJI} ham radio space wx · ${health}`, doc);
+}
 
 export function detailLine(doc) {
-      if (isUnavailable(doc)) return '';
-      const ariss = pickStr(doc.ariss?.status, doc.ariss?.nextPass);
-      return ariss ? `ARISS: ${ariss}` : sourceHealthLine(doc);
-    }
+  if (isUnavailable(doc)) return '';
+  const ariss = pickStr(doc.ariss?.status, doc.ariss?.nextPass);
+  return ariss ? `ARISS: ${ariss}` : sourceHealthLine(doc);
+}

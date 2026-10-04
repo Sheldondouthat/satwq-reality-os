@@ -27,7 +27,8 @@ export function createMemoryBackend() {
  * memory backend instead — the store never throws on missing storage.
  */
 export function createLocalStorageBackend(storage) {
-  if (!storage || typeof storage.getItem !== 'function') return createMemoryBackend();
+  if (!storage || typeof storage.getItem !== 'function')
+    return createMemoryBackend();
   return {
     getItem: (k) => {
       try {
@@ -105,7 +106,8 @@ export function createAkashicStore({ backend, maxDays = 120 } = {}) {
   function days() {
     const seen = new Set();
     for (const k of store.keys()) {
-      if (k.startsWith(STORAGE_PREFIX) && k !== META_KEY) seen.add(k.slice(STORAGE_PREFIX.length));
+      if (k.startsWith(STORAGE_PREFIX) && k !== META_KEY)
+        seen.add(k.slice(STORAGE_PREFIX.length));
     }
     return [...seen].sort();
   }

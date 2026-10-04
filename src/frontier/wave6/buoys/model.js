@@ -20,14 +20,17 @@ export const EMOJI = '🛟';
 export const LABEL = 'Ocean buoys';
 
 export function valueLine(doc) {
-      if (isUnavailable(doc)) return null;
-      const n = pickNum(doc.count, doc.buoys?.length);
-      if (n == null) return null;
-      return withTags(`${EMOJI} ${n.toLocaleString('en-US')} buoys reporting`, doc);
-    }
+  if (isUnavailable(doc)) return null;
+  const n = pickNum(doc.count, doc.buoys?.length);
+  if (n == null) return null;
+  return withTags(`${EMOJI} ${n.toLocaleString('en-US')} buoys reporting`, doc);
+}
 
 export function detailLine(doc) {
-      if (isUnavailable(doc)) return '';
-      const ids = pickArr(doc.buoys).slice(0, 3).map((b) => pickStr(b.id, b.station)).filter(Boolean);
-      return ids.length ? `stations: ${ids.join(', ')}` : '';
-    }
+  if (isUnavailable(doc)) return '';
+  const ids = pickArr(doc.buoys)
+    .slice(0, 3)
+    .map((b) => pickStr(b.id, b.station))
+    .filter(Boolean);
+  return ids.length ? `stations: ${ids.join(', ')}` : '';
+}

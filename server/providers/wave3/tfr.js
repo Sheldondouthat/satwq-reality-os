@@ -54,7 +54,9 @@ async function fetchTextCapped(url, { timeoutMs, capBytes, accept }) {
       headers: { 'User-Agent': USER_AGENT, Accept: accept },
     });
     if (!response.ok)
-      throw Object.assign(new Error(`tfr_upstream_${response.status}`), { status: 502 });
+      throw Object.assign(new Error(`tfr_upstream_${response.status}`), {
+        status: 502,
+      });
     const buffer = await response.arrayBuffer();
     if (buffer.byteLength > capBytes)
       throw Object.assign(new Error('tfr_upstream_too_large'), { status: 502 });
@@ -71,7 +73,8 @@ export function parseDmsHemisphere(raw) {
   if (!m) return null;
   const value = Number(m[1]);
   if (!Number.isFinite(value)) return null;
-  const sign = m[2].toUpperCase() === 'S' || m[2].toUpperCase() === 'W' ? -1 : 1;
+  const sign =
+    m[2].toUpperCase() === 'S' || m[2].toUpperCase() === 'W' ? -1 : 1;
   return sign * value;
 }
 
@@ -104,12 +107,21 @@ export function extractTfrAreas(detailXml) {
   while ((m = areaRe.exec(detailXml))) {
     const block = m[1];
     const name = /<txtName>([^<]*)<\/txtName>/.exec(block)?.[1]?.trim() || null;
-    const upper = /<valDistVerUpper>([^<]*)<\/valDistVerUpper>/.exec(block)?.[1];
-    const lower = /<valDistVerLower>([^<]*)<\/valDistVerLower>/.exec(block)?.[1];
-    const upperUom = /<uomDistVerUpper>([^<]*)<\/uomDistVerUpper>/.exec(block)?.[1];
+    const upper = /<valDistVerUpper>([^<]*)<\/valDistVerUpper>/.exec(
+      block,
+    )?.[1];
+    const lower = /<valDistVerLower>([^<]*)<\/valDistVerLower>/.exec(
+      block,
+    )?.[1];
+    const upperUom = /<uomDistVerUpper>([^<]*)<\/uomDistVerUpper>/.exec(
+      block,
+    )?.[1];
     areas.push({
       name,
-      upperFt: upperUom === 'FT' && Number.isFinite(Number(upper)) ? Number(upper) : null,
+      upperFt:
+        upperUom === 'FT' && Number.isFinite(Number(upper))
+          ? Number(upper)
+          : null,
       lowerFt: Number.isFinite(Number(lower)) ? Number(lower) : null,
     });
   }
@@ -120,8 +132,11 @@ export function extractTfrAreas(detailXml) {
 export function buildTfrRecord(listEntry, detailXml) {
   const areas = detailXml ? extractTfrAreas(detailXml) : [];
   const rings = detailXml ? extractTfrPolygons(detailXml) : [];
-  const effective = /<dateEffective>([^<]+)<\/dateEffective>/.exec(detailXml ?? '')?.[1] ?? null;
-  const expires = /<dateExpire>([^<]+)<\/dateExpire>/.exec(detailXml ?? '')?.[1] ?? null;
+  const effective =
+    /<dateEffective>([^<]+)<\/dateEffective>/.exec(detailXml ?? '')?.[1] ??
+    null;
+  const expires =
+    /<dateExpire>([^<]+)<\/dateExpire>/.exec(detailXml ?? '')?.[1] ?? null;
   return {
     id: String(listEntry.notam_id ?? listEntry.gid ?? ''),
     type: String(listEntry.type ?? ''),
@@ -177,9 +192,13 @@ async function loadSnapshot() {
     throw Object.assign(new Error('tfr_list_unparseable'), { status: 502 });
   }
   if (!Array.isArray(list))
-    throw Object.assign(new Error('tfr_list_unexpected_shape'), { status: 502 });
+    throw Object.assign(new Error('tfr_list_unexpected_shape'), {
+      status: 502,
+    });
   const entries = list.filter((e) => e && (e.notam_id || e.gid)).slice(0, 400);
-  const detailIds = entries.slice(0, DETAIL_LIMIT).map((e) => e.notam_id ?? e.gid);
+  const detailIds = entries
+    .slice(0, DETAIL_LIMIT)
+    .map((e) => e.notam_id ?? e.gid);
   const details = await fetchDetails(detailIds);
   const tfrs = entries.map((entry, i) =>
     buildTfrRecord(entry, i < details.length ? details[i] : null),
@@ -222,11 +241,17 @@ function sendJson(res, status, body, cacheControl) {
 /** Mount the TFR proxy. Mirrors the nws-alerts/vaac provider shape. */
 export function tfrProxy() {
   async function handler(req, res) {
-    if (req.method !== 'GET') return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
     req.on?.('close', () => {});
     try {
       const payload = await getSnapshot();
-      sendJson(res, 200, payload, `public, max-age=${Math.floor(CACHE_TTL_MS / 2000)}`);
+      sendJson(
+        res,
+        200,
+        payload,
+        `public, max-age=${Math.floor(CACHE_TTL_MS / 2000)}`,
+      );
     } catch (error) {
       sendJson(
         res,

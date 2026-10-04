@@ -4,40 +4,37 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 3 (usgs quake/volcano worker)).
  */
 export const SPEC = {
-  "id": "usgs-quakes-pacific-nw",
-  "title": "USGS — Pacific Northwest earthquakes (latest)",
-  "url": "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&minmagnitude=2&minlatitude=42&maxlatitude=49&minlongitude=-125&maxlongitude=-116&orderby=time&limit=20",
-  "headers": {
-    "User-Agent": "satwq-reality-os/1.0 (surge-500 probe)"
+  id: 'usgs-quakes-pacific-nw',
+  title: 'USGS — Pacific Northwest earthquakes (latest)',
+  url: 'https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&minmagnitude=2&minlatitude=42&maxlatitude=49&minlongitude=-125&maxlongitude=-116&orderby=time&limit=20',
+  headers: {
+    'User-Agent': 'satwq-reality-os/1.0 (surge-500 probe)',
   },
-  "ttlSeconds": 600,
-  "source": "U.S. Geological Survey",
-  "attribution": "Data: U.S. Geological Survey — keyless API.",
-  "honesty": "Live fdsnws catalog query: latest 20 M2+ events in Washington/Oregon (newest-first); Cascadia subduction + volcanic arc coverage.",
-  "units": {
-    "mag": "magnitude",
-    "timeMs": "ms epoch",
-    "coords": "lon,lat,depth(km)"
+  ttlSeconds: 600,
+  source: 'U.S. Geological Survey',
+  attribution: 'Data: U.S. Geological Survey — keyless API.',
+  honesty:
+    'Live fdsnws catalog query: latest 20 M2+ events in Washington/Oregon (newest-first); Cascadia subduction + volcanic arc coverage.',
+  units: {
+    mag: 'magnitude',
+    timeMs: 'ms epoch',
+    coords: 'lon,lat,depth(km)',
   },
-  "extract": {
-    "items": "$.features",
-    "limit": 20,
-    "map": {
-      "mag": "$.properties.mag",
-      "place": "$.properties.place",
-      "title": "$.properties.title",
-      "timeMs": "$.properties.time",
-      "type": "$.properties.type",
-      "url": "$.properties.url",
-      "coords": "$.geometry.coordinates"
+  extract: {
+    items: '$.features',
+    limit: 20,
+    map: {
+      mag: '$.properties.mag',
+      place: '$.properties.place',
+      title: '$.properties.title',
+      timeMs: '$.properties.time',
+      type: '$.properties.type',
+      url: '$.properties.url',
+      coords: '$.geometry.coordinates',
     },
-    "numbers": [
-      "mag"
-    ]
+    numbers: ['mag'],
   },
-  "required": [
-    "place"
-  ],
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 3 (usgs quake/volcano worker)"
+  required: ['place'],
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 3 (usgs quake/volcano worker)',
 };

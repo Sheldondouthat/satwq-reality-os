@@ -4,37 +4,35 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 6 (musicbrainz worker)).
  */
 export const SPEC = {
-  "id": "mb-artist-michael-jackson",
-  "title": "MusicBrainz — artist search: Michael Jackson",
-  "url": "https://musicbrainz.org/ws/2/artist/?query=artist:%22michael%20jackson%22&fmt=json&limit=10",
-  "headers": {
-    "User-Agent": "SATWQ-RealityOS/1.0 (https://satwq-reality-os.pages.dev)"
+  id: 'mb-artist-michael-jackson',
+  title: 'MusicBrainz — artist search: Michael Jackson',
+  url: 'https://musicbrainz.org/ws/2/artist/?query=artist:%22michael%20jackson%22&fmt=json&limit=10',
+  headers: {
+    'User-Agent': 'SATWQ-RealityOS/1.0 (https://satwq-reality-os.pages.dev)',
   },
-  "ttlSeconds": 86400,
-  "extract": {
-    "items": "$.artists",
-    "limit": 10,
-    "map": {
-      "name": "$.name",
-      "key": "$.id",
-      "type": "$.type",
-      "gender": "$.gender",
-      "area": "$.area.name",
-      "disambiguation": "$.disambiguation",
-      "activeFrom": "$.life-span.begin",
-      "score": "$.score"
+  ttlSeconds: 86400,
+  extract: {
+    items: '$.artists',
+    limit: 10,
+    map: {
+      name: '$.name',
+      key: '$.id',
+      type: '$.type',
+      gender: '$.gender',
+      area: '$.area.name',
+      disambiguation: '$.disambiguation',
+      activeFrom: '$.life-span.begin',
+      score: '$.score',
     },
-    "numbers": [
-      "score"
-    ]
+    numbers: ['score'],
   },
-  "required": [
-    "name"
-  ],
-  "source": "MusicBrainz",
-  "attribution": "Data: MusicBrainz (MetaBrainz Foundation) — keyless, CC0 metadata.",
-  "units": {},
-  "honesty": "Ranked by MusicBrainz relevance score (0-100); top hit may share a name with a different act. Community-curated CC0 metadata; artist is stable, not real-time.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 6 (musicbrainz worker)"
+  required: ['name'],
+  source: 'MusicBrainz',
+  attribution:
+    'Data: MusicBrainz (MetaBrainz Foundation) — keyless, CC0 metadata.',
+  units: {},
+  honesty:
+    'Ranked by MusicBrainz relevance score (0-100); top hit may share a name with a different act. Community-curated CC0 metadata; artist is stable, not real-time.',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 6 (musicbrainz worker)',
 };

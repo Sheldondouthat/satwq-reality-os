@@ -4,35 +4,35 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 6 (usgsx worker)).
  */
 export const SPEC = {
-  "id": "usgsx-volcano-monitored",
-  "title": "USGS — Monitored US volcanoes with alert levels",
-  "url": "https://volcanoes.usgs.gov/hans-public/api/volcano/getMonitoredVolcanoes",
-  "headers": {
-    "User-Agent": "satwq-reality-os/1.0 (surge-500 probe)"
+  id: 'usgsx-volcano-monitored',
+  title: 'USGS — Monitored US volcanoes with alert levels',
+  url: 'https://volcanoes.usgs.gov/hans-public/api/volcano/getMonitoredVolcanoes',
+  headers: {
+    'User-Agent': 'satwq-reality-os/1.0 (surge-500 probe)',
   },
-  "ttlSeconds": 3600,
-  "extract": {
-    "items": "$",
-    "limit": 40,
-    "map": {
-      "name": "$.volcano_name",
-      "vnum": "$.vnum",
-      "alert": "$.alert_level",
-      "color": "$.color_code",
-      "obs": "$.obs_abbr",
-      "updated": "$.sent_utc"
+  ttlSeconds: 3600,
+  extract: {
+    items: '$',
+    limit: 40,
+    map: {
+      name: '$.volcano_name',
+      vnum: '$.vnum',
+      alert: '$.alert_level',
+      color: '$.color_code',
+      obs: '$.obs_abbr',
+      updated: '$.sent_utc',
     },
-    "numbers": []
+    numbers: [],
   },
-  "required": [
-    "name"
-  ],
-  "source": "U.S. Geological Survey — Volcano Hazards Program",
-  "attribution": "Data: U.S. Geological Survey, Volcano Hazards Program (HANS) — keyless.",
-  "units": {
-    "updated": "UTC timestamp"
+  required: ['name'],
+  source: 'U.S. Geological Survey — Volcano Hazards Program',
+  attribution:
+    'Data: U.S. Geological Survey, Volcano Hazards Program (HANS) — keyless.',
+  units: {
+    updated: 'UTC timestamp',
   },
-  "honesty": "All 69 US volcanoes under active USGS monitoring with current alert level and aviation color code; most sit at NORMAL/GREEN. Alert levels change only when activity changes.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 6 (usgsx worker)"
+  honesty:
+    'All 69 US volcanoes under active USGS monitoring with current alert level and aviation color code; most sit at NORMAL/GREEN. Alert levels change only when activity changes.',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 6 (usgsx worker)',
 };

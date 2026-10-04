@@ -37,7 +37,14 @@ export function bandColor(band) {
   return BAND_COLORS[band] ?? '#8a93a6';
 }
 
-const BAND_ORDER = ['unknown', 'normal', 'action', 'minor-flood', 'moderate-flood', 'major-flood'];
+const BAND_ORDER = [
+  'unknown',
+  'normal',
+  'action',
+  'minor-flood',
+  'moderate-flood',
+  'major-flood',
+];
 export function bandRank(band) {
   const i = BAND_ORDER.indexOf(band);
   return i === -1 ? 0 : i;
@@ -54,21 +61,31 @@ export function reservoirBand(pctFull) {
 
 export function reservoirBandColor(band) {
   switch (band) {
-    case 'critical': return '#ff3b3b';
-    case 'low': return '#ff9d1a';
-    case 'moderate': return '#ffd21a';
-    case 'healthy': return '#4dd07a';
-    default: return '#8a93a6';
+    case 'critical':
+      return '#ff3b3b';
+    case 'low':
+      return '#ff9d1a';
+    case 'moderate':
+      return '#ffd21a';
+    case 'healthy':
+      return '#4dd07a';
+    default:
+      return '#8a93a6';
   }
 }
 
 export function reservoirBandLabel(band) {
   switch (band) {
-    case 'critical': return 'Critically low';
-    case 'low': return 'Low';
-    case 'moderate': return 'Moderate';
-    case 'healthy': return 'Healthy';
-    default: return 'No reading';
+    case 'critical':
+      return 'Critically low';
+    case 'low':
+      return 'Low';
+    case 'moderate':
+      return 'Moderate';
+    case 'healthy':
+      return 'Healthy';
+    default:
+      return 'No reading';
   }
 }
 
@@ -79,12 +96,14 @@ export function summarizeTwin(payload) {
   const liveV = rivers.filter((r) => r.status === 'live');
   let worstRiver = null;
   for (const r of liveV) {
-    if (!worstRiver || bandRank(r.band) > bandRank(worstRiver.band)) worstRiver = r;
+    if (!worstRiver || bandRank(r.band) > bandRank(worstRiver.band))
+      worstRiver = r;
   }
   let driestReservoir = null;
   for (const r of liveR) {
     if (!Number.isFinite(r.pctFull)) continue;
-    if (!driestReservoir || r.pctFull < driestReservoir.pctFull) driestReservoir = r;
+    if (!driestReservoir || r.pctFull < driestReservoir.pctFull)
+      driestReservoir = r;
   }
   return {
     reservoirsLive: liveR.length,

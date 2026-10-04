@@ -23,7 +23,10 @@ export function julianDay(date) {
 function gammaOf(date) {
   const start = Date.UTC(date.getUTCFullYear(), 0, 0);
   const dayOfYear = Math.floor((date.getTime() - start) / 86_400_000);
-  const hour = date.getUTCHours() + date.getUTCMinutes() / 60 + date.getUTCSeconds() / 3600;
+  const hour =
+    date.getUTCHours() +
+    date.getUTCMinutes() / 60 +
+    date.getUTCSeconds() / 3600;
   return ((2 * Math.PI) / 365) * (dayOfYear - 1 + (hour - 12) / 24);
 }
 
@@ -107,8 +110,15 @@ function refineCrossing(lon, target, latA, latB, date) {
  * crosses it twice, so we collect every crossing and order the set by
  * polar angle around the antisolar point. Bisection-refined to ~0.01°.
  */
-export function terminatorLine(date, targetElev = TERMINATOR_CENTER_ELEV, steps = 180) {
-  const antisolar = { lat: -subsolarPoint(date).lat, lon: subsolarPoint(date).lon + 180 };
+export function terminatorLine(
+  date,
+  targetElev = TERMINATOR_CENTER_ELEV,
+  steps = 180,
+) {
+  const antisolar = {
+    lat: -subsolarPoint(date).lat,
+    lon: subsolarPoint(date).lon + 180,
+  };
   const crossings = [];
   const sampleStep = 0.5;
   for (let i = 0; i < steps; i += 1) {
@@ -120,7 +130,10 @@ export function terminatorLine(date, targetElev = TERMINATOR_CENTER_ELEV, steps 
       if (prevVal === 0) {
         crossings.push({ lon, lat: prevLat });
       } else if (val * prevVal < 0) {
-        crossings.push({ lon, lat: refineCrossing(lon, targetElev, prevLat, lat, date) });
+        crossings.push({
+          lon,
+          lat: refineCrossing(lon, targetElev, prevLat, lat, date),
+        });
       }
       prevLat = lat;
       prevVal = val;
@@ -129,14 +142,16 @@ export function terminatorLine(date, targetElev = TERMINATOR_CENTER_ELEV, steps 
   // Order into a closed loop by polar angle around the antisolar point.
   const toRad = Math.PI / 180;
   const aLat = antisolar.lat * toRad;
-  const aLon = ((antisolar.lon + 540) % 360 - 180) * toRad;
+  const aLon = (((antisolar.lon + 540) % 360) - 180) * toRad;
   const angled = crossings.map((p) => {
     const pLat = p.lat * toRad;
     const pLon = p.lon * toRad;
     const dLon = pLon - aLon;
     // Initial bearing from antisolar point to p.
     const y = Math.sin(dLon) * Math.cos(pLat);
-    const x = Math.cos(aLat) * Math.sin(pLat) - Math.sin(aLat) * Math.cos(pLat) * Math.cos(dLon);
+    const x =
+      Math.cos(aLat) * Math.sin(pLat) -
+      Math.sin(aLat) * Math.cos(pLat) * Math.cos(dLon);
     return { ...p, angle: Math.atan2(y, x) };
   });
   angled.sort((p, q) => p.angle - q.angle);
@@ -144,12 +159,22 @@ export function terminatorLine(date, targetElev = TERMINATOR_CENTER_ELEV, steps 
 }
 
 /** True when elevation lies within center ± half degrees. */
-export function onTerminatorBand(elevationDeg, center = TERMINATOR_CENTER_ELEV, half = TERMINATOR_HALF_WIDTH) {
+export function onTerminatorBand(
+  elevationDeg,
+  center = TERMINATOR_CENTER_ELEV,
+  half = TERMINATOR_HALF_WIDTH,
+) {
   return Math.abs(elevationDeg - center) <= half;
 }
 
 /** {elevation, onBand} for a point at an instant. */
-export function bandMembership(lat, lon, date, center = TERMINATOR_CENTER_ELEV, half = TERMINATOR_HALF_WIDTH) {
+export function bandMembership(
+  lat,
+  lon,
+  date,
+  center = TERMINATOR_CENTER_ELEV,
+  half = TERMINATOR_HALF_WIDTH,
+) {
   const elevation = solarElevation(lat, lon, date);
   return { elevation, onBand: onTerminatorBand(elevation, center, half) };
 }

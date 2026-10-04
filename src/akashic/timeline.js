@@ -51,7 +51,9 @@ export function filterEventsUpTo(events, cutoffMs) {
   if (!Number.isFinite(cutoffMs)) return [];
   return (events ?? [])
     .filter((e) => e && Number.isFinite(e.time) && e.time <= cutoffMs)
-    .sort((a, b) => a.time - b.time || String(a.id).localeCompare(String(b.id)));
+    .sort(
+      (a, b) => a.time - b.time || String(a.id).localeCompare(String(b.id)),
+    );
 }
 
 /** Format a cutoff timestamp for the timeline readout. */

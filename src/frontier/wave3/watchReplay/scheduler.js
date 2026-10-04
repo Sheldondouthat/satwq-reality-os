@@ -18,7 +18,9 @@ export const WATCHES_KEY = 'satwq.watches.v1';
  * hard failure, never a silent mis-schedule).
  */
 export function parseCron(expr) {
-  const parts = String(expr ?? '').trim().split(/\s+/);
+  const parts = String(expr ?? '')
+    .trim()
+    .split(/\s+/);
   if (parts.length !== 5) return null;
   const [minute, hour, dom, month, dow] = parts;
   if (dom !== '*' || month !== '*' || dow !== '*') return null;
@@ -59,7 +61,11 @@ export function nextRun(expr, fromMs) {
   let t = fromMs - (fromMs % 60000) + 60000;
   while (t <= limit) {
     const d = new Date(t);
-    if (matches(cron.minute, d.getUTCMinutes()) && matches(cron.hour, d.getUTCHours())) return t;
+    if (
+      matches(cron.minute, d.getUTCMinutes()) &&
+      matches(cron.hour, d.getUTCHours())
+    )
+      return t;
     t += 60000;
   }
   return null;
@@ -68,8 +74,14 @@ export function nextRun(expr, fromMs) {
 export function describeCron(expr) {
   const cron = parseCron(expr);
   if (!cron) return `invalid schedule "${expr}"`;
-  const min = cron.minute.every != null ? `every ${cron.minute.every} min` : `at minute ${cron.minute.at}`;
-  const hr = cron.hour.every != null ? `every ${cron.hour.every} h` : `at hour ${cron.hour.at} UTC`;
+  const min =
+    cron.minute.every != null
+      ? `every ${cron.minute.every} min`
+      : `at minute ${cron.minute.at}`;
+  const hr =
+    cron.hour.every != null
+      ? `every ${cron.hour.every} h`
+      : `at hour ${cron.hour.at} UTC`;
   return `${min}, ${hr}`;
 }
 
@@ -87,8 +99,17 @@ function writeAll(storage, watches) {
   storage.set(WATCHES_KEY, JSON.stringify(watches));
 }
 
-export function createScheduler({ storage, evaluate, now = () => Date.now(), id = () => `w${Math.random().toString(36).slice(2, 10)}` } = {}) {
-  if (!storage || typeof storage.get !== 'function' || typeof storage.set !== 'function') {
+export function createScheduler({
+  storage,
+  evaluate,
+  now = () => Date.now(),
+  id = () => `w${Math.random().toString(36).slice(2, 10)}`,
+} = {}) {
+  if (
+    !storage ||
+    typeof storage.get !== 'function' ||
+    typeof storage.set !== 'function'
+  ) {
     throw new Error('scheduler needs a {get,set} storage');
   }
 
@@ -108,7 +129,8 @@ export function createScheduler({ storage, evaluate, now = () => Date.now(), id 
       firings: [],
       ...watch,
     };
-    if (!parseCron(entry.schedule)) throw new Error(`unsupported schedule "${entry.schedule}"`);
+    if (!parseCron(entry.schedule))
+      throw new Error(`unsupported schedule "${entry.schedule}"`);
     entry.nextDue = nextRun(entry.schedule, now());
     watches.push(entry);
     writeAll(storage, watches);
@@ -116,13 +138,19 @@ export function createScheduler({ storage, evaluate, now = () => Date.now(), id 
   }
 
   function remove(watchId) {
-    writeAll(storage, readAll(storage).filter((w) => w.id !== watchId));
+    writeAll(
+      storage,
+      readAll(storage).filter((w) => w.id !== watchId),
+    );
   }
 
   function setEnabled(watchId, enabled) {
     const watches = readAll(storage);
     const w = watches.find((x) => x.id === watchId);
-    if (w) { w.enabled = enabled; writeAll(storage, watches); }
+    if (w) {
+      w.enabled = enabled;
+      writeAll(storage, watches);
+    }
   }
 
   /**
@@ -140,15 +168,28 @@ export function createScheduler({ storage, evaluate, now = () => Date.now(), id 
       w.lastRun = t;
       dirty = true;
       try {
-        const outcome = (await evaluate?.(w, t)) ?? { fired: false, detail: null };
+        const outcome = (await evaluate?.(w, t)) ?? {
+          fired: false,
+          detail: null,
+        };
         if (outcome.fired) {
           w.lastFired = t;
           w.firings.push({ t, detail: outcome.detail ?? null });
           if (w.firings.length > 50) w.firings = w.firings.slice(-50);
         }
-        results.push({ watchId: w.id, ok: true, fired: outcome.fired, detail: outcome.detail ?? null });
+        results.push({
+          watchId: w.id,
+          ok: true,
+          fired: outcome.fired,
+          detail: outcome.detail ?? null,
+        });
       } catch (error) {
-        results.push({ watchId: w.id, ok: false, fired: false, detail: error?.message ?? 'evaluate failed' });
+        results.push({
+          watchId: w.id,
+          ok: false,
+          fired: false,
+          detail: error?.message ?? 'evaluate failed',
+        });
       }
       w.nextDue = nextRun(w.schedule, t);
     }
@@ -159,11 +200,16 @@ export function createScheduler({ storage, evaluate, now = () => Date.now(), id 
   let timer = null;
   function start(intervalMs = 60_000) {
     stop();
-    timer = setInterval(() => { tick().catch(() => {}); }, intervalMs);
+    timer = setInterval(() => {
+      tick().catch(() => {});
+    }, intervalMs);
     return () => stop();
   }
   function stop() {
-    if (timer) { clearInterval(timer); timer = null; }
+    if (timer) {
+      clearInterval(timer);
+      timer = null;
+    }
   }
 
   return { list, add, remove, setEnabled, tick, start, stop };

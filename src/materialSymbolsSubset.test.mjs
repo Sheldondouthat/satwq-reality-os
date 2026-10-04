@@ -9,13 +9,21 @@ const SRC_ROOT = fileURLToPath(new URL('.', import.meta.url));
 const REPO_ROOT = path.resolve(SRC_ROOT, '..');
 const INDEX_HTML = path.join(REPO_ROOT, 'index.html');
 const CODEPOINTS_TXT = path.join(
-  REPO_ROOT, 'scripts', 'material-symbols-codepoints.txt',
+  REPO_ROOT,
+  'scripts',
+  'material-symbols-codepoints.txt',
 );
 const FONT_FILE = path.join(
-  REPO_ROOT, 'public', 'fonts', 'material-symbols-outlined-subset.woff2',
+  REPO_ROOT,
+  'public',
+  'fonts',
+  'material-symbols-outlined-subset.woff2',
 );
 const FONT_MANIFEST = path.join(
-  REPO_ROOT, 'public', 'fonts', 'material-symbols-outlined-subset.manifest.json',
+  REPO_ROOT,
+  'public',
+  'fonts',
+  'material-symbols-outlined-subset.manifest.json',
 );
 
 /** The glyph written as element text: `<span class="material-symbols-outlined">radar</span>`. */

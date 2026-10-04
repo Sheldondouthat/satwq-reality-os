@@ -4,33 +4,30 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 8 (scholarly worker)).
  */
 export const SPEC = {
-  "id": "scholar-crossref-recent-2026",
-  "title": "Crossref — works published 2026+",
-  "url": "https://api.crossref.org/works?filter=from-pub-date:2026-01-01&rows=20&mailto=sheldondouthat@gmail.com",
-  "headers": {},
-  "ttlSeconds": 86400,
-  "extract": {
-    "items": "$.message.items",
-    "limit": 20,
-    "map": {
-      "title": "$.title[0]",
-      "doi": "$.DOI",
-      "publisher": "$.publisher",
-      "type": "$.type",
-      "first_author_family": "$.author[0].family",
-      "pub_year": "$.published.date-parts[0][0]"
+  id: 'scholar-crossref-recent-2026',
+  title: 'Crossref — works published 2026+',
+  url: 'https://api.crossref.org/works?filter=from-pub-date:2026-01-01&rows=20&mailto=sheldondouthat@gmail.com',
+  headers: {},
+  ttlSeconds: 86400,
+  extract: {
+    items: '$.message.items',
+    limit: 20,
+    map: {
+      title: '$.title[0]',
+      doi: '$.DOI',
+      publisher: '$.publisher',
+      type: '$.type',
+      first_author_family: '$.author[0].family',
+      pub_year: '$.published.date-parts[0][0]',
     },
-    "numbers": [
-      "pub_year"
-    ]
+    numbers: ['pub_year'],
   },
-  "required": [
-    "title"
-  ],
-  "source": "Crossref",
-  "attribution": "Data: Crossref — keyless.",
-  "units": {},
-  "honesty": "Crossref relevance-ranked works. API reports 7,388,946 total matching works; fixture: 20 rows, all with title. Coverage: first_author_family 20/20. Crossref title is an array; spec takes title[0]. Verified 200 OK from this VM.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 8 (scholarly worker)"
+  required: ['title'],
+  source: 'Crossref',
+  attribution: 'Data: Crossref — keyless.',
+  units: {},
+  honesty:
+    'Crossref relevance-ranked works. API reports 7,388,946 total matching works; fixture: 20 rows, all with title. Coverage: first_author_family 20/20. Crossref title is an array; spec takes title[0]. Verified 200 OK from this VM.',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 8 (scholarly worker)',
 };

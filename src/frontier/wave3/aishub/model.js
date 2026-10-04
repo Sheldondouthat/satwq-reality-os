@@ -7,7 +7,10 @@
  */
 
 /** Freshness bucket from lastSeen unix seconds. */
-export function freshnessBucket(lastSeen, nowSec = Math.floor(Date.now() / 1000)) {
+export function freshnessBucket(
+  lastSeen,
+  nowSec = Math.floor(Date.now() / 1000),
+) {
   if (!Number.isFinite(lastSeen)) return 'unknown';
   const age = nowSec - lastSeen;
   if (age < 0) return 'unknown';
@@ -18,10 +21,14 @@ export function freshnessBucket(lastSeen, nowSec = Math.floor(Date.now() / 1000)
 
 export function freshnessColorCss(bucket) {
   switch (bucket) {
-    case 'live': return '#4dd0a6';
-    case 'day': return '#ffd54f';
-    case 'stale': return '#8aa4d6';
-    default: return '#9e9e9e';
+    case 'live':
+      return '#4dd0a6';
+    case 'day':
+      return '#ffd54f';
+    case 'stale':
+      return '#8aa4d6';
+    default:
+      return '#9e9e9e';
   }
 }
 
@@ -31,7 +38,8 @@ export function pickStations(stations, nowSec, cap = 1500) {
   return [...(stations ?? [])]
     .sort(
       (a, b) =>
-        rank[freshnessBucket(a.lastSeen, nowSec)] - rank[freshnessBucket(b.lastSeen, nowSec)],
+        rank[freshnessBucket(a.lastSeen, nowSec)] -
+        rank[freshnessBucket(b.lastSeen, nowSec)],
     )
     .slice(0, cap);
 }

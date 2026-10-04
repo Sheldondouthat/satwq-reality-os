@@ -4,31 +4,29 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 1 (federal worker)).
  */
 export const SPEC = {
-  "id": "fda-drug-shortages",
-  "title": "openFDA — current drug shortages",
-  "url": "https://api.fda.gov/drug/shortages.json?limit=10",
-  "headers": {
-    "User-Agent": "satwq-reality-os/1.0 (surge-500 probe)"
+  id: 'fda-drug-shortages',
+  title: 'openFDA — current drug shortages',
+  url: 'https://api.fda.gov/drug/shortages.json?limit=10',
+  headers: {
+    'User-Agent': 'satwq-reality-os/1.0 (surge-500 probe)',
   },
-  "ttlSeconds": 86400,
-  "extract": {
-    "items": "$.results",
-    "limit": 10,
-    "map": {
-      "name": "$.generic_name",
-      "status": "$.status",
-      "updateType": "$.update_type",
-      "firstPosted": "$.initial_posting_date"
+  ttlSeconds: 86400,
+  extract: {
+    items: '$.results',
+    limit: 10,
+    map: {
+      name: '$.generic_name',
+      status: '$.status',
+      updateType: '$.update_type',
+      firstPosted: '$.initial_posting_date',
     },
-    "numbers": []
+    numbers: [],
   },
-  "required": [
-    "name"
-  ],
-  "source": "FDA / openFDA",
-  "attribution": "Data: openFDA — keyless.",
-  "units": {},
-  "honesty": "Shortage listings as reported to FDA; not medical advice.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 1 (federal worker)"
+  required: ['name'],
+  source: 'FDA / openFDA',
+  attribution: 'Data: openFDA — keyless.',
+  units: {},
+  honesty: 'Shortage listings as reported to FDA; not medical advice.',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 1 (federal worker)',
 };

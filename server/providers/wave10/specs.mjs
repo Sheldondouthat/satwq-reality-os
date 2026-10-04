@@ -16,7 +16,8 @@ export const SPECS = {
   'scholar-crossref-carbon-capture': _scholar_crossref_carbon_capture,
   'scholar-crossref-deep-learning': _scholar_crossref_deep_learning,
   'scholar-crossref-longevity': _scholar_crossref_longevity,
-  'scholar-crossref-quantum-error-correction': _scholar_crossref_quantum_error_correction,
+  'scholar-crossref-quantum-error-correction':
+    _scholar_crossref_quantum_error_correction,
 };
 
 export const SPEC_IDS = Object.keys(SPECS);

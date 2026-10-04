@@ -96,7 +96,11 @@ export function tsunamiArrivalRings(hours = [1, 2, 4, 8, 12]) {
 }
 
 /** Full asteroid scenario → all displayable outputs. */
-export function simulateAsteroid({ diameterM, densityKgM3 = 3000, velocityKmS = 20 }) {
+export function simulateAsteroid({
+  diameterM,
+  densityKgM3 = 3000,
+  velocityKmS = 20,
+}) {
   const energyMt = impactEnergyMt({ diameterM, densityKgM3, velocityKmS });
   const yieldKt = energyMt * 1000;
   return {
@@ -124,7 +128,10 @@ export function simulateBurst({ yieldKt }) {
 }
 
 /** Tsunami source scenario. */
-export function simulateTsunami({ depthM = 4000, hours = [1, 2, 4, 8, 12] } = {}) {
+export function simulateTsunami({
+  depthM = 4000,
+  hours = [1, 2, 4, 8, 12],
+} = {}) {
   const rings = tsunamiArrivalRings(hours);
   return {
     scenario: 'tsunami',
@@ -141,7 +148,9 @@ export function simulateTsunami({ depthM = 4000, hours = [1, 2, 4, 8, 12] } = {}
 /** Great-circle destination point (spherical Earth) — for ring rendering. */
 export function destinationPoint(latDeg, lonDeg, bearingDeg, distanceKm) {
   const R = 6371;
-  const [la1, lo1, br] = [latDeg, lonDeg, bearingDeg].map((d) => (d * Math.PI) / 180);
+  const [la1, lo1, br] = [latDeg, lonDeg, bearingDeg].map(
+    (d) => (d * Math.PI) / 180,
+  );
   const ad = distanceKm / R;
   const la2 = Math.asin(
     Math.sin(la1) * Math.cos(ad) + Math.cos(la1) * Math.sin(ad) * Math.cos(br),
@@ -154,7 +163,7 @@ export function destinationPoint(latDeg, lonDeg, bearingDeg, distanceKm) {
     );
   return {
     lat: (la2 * 180) / Math.PI,
-    lon: ((((lo2 * 180) / Math.PI + 540) % 360) - 180),
+    lon: (((lo2 * 180) / Math.PI + 540) % 360) - 180,
   };
 }
 

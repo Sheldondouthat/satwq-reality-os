@@ -9,7 +9,11 @@ export function createLaunchSource({
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       const payload = await response.json();
       signal?.throwIfAborted();
-      if (!Array.isArray(payload) && !Array.isArray(payload?.results) && !Array.isArray(payload?.launches))
+      if (
+        !Array.isArray(payload) &&
+        !Array.isArray(payload?.results) &&
+        !Array.isArray(payload?.launches)
+      )
         throw new Error('Malformed launch snapshot');
       return payload;
     },

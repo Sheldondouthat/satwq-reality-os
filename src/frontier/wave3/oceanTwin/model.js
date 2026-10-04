@@ -30,7 +30,11 @@ export function validatePoints(points) {
   }
   for (let i = 0; i < points.length; i += 1) {
     const p = points[i];
-    if (!Array.isArray(p) || p.length !== 4 || p.some((v) => !Number.isFinite(v))) {
+    if (
+      !Array.isArray(p) ||
+      p.length !== 4 ||
+      p.some((v) => !Number.isFinite(v))
+    ) {
       return { ok: false, reason: `point ${i} malformed` };
     }
     const [lat, lon] = p;
@@ -79,7 +83,9 @@ function nearbyIndices(spatial, lat, lon, points) {
  */
 export function sampleCurrent(spatial, points, lat, lon, maxDistDeg = 8) {
   const ids = nearbyIndices(spatial, lat, lon, points);
-  let su = 0, sv = 0, sw = 0;
+  let su = 0,
+    sv = 0,
+    sw = 0;
   for (const i of ids) {
     const p = points[i];
     const dLat = p[0] - lat;
@@ -88,7 +94,9 @@ export function sampleCurrent(spatial, points, lat, lon, maxDistDeg = 8) {
     const d = Math.hypot(dLat, dLon);
     if (d > maxDistDeg) continue;
     const w = 1 / (d * d + 0.04);
-    su += p[2] * w; sv += p[3] * w; sw += w;
+    su += p[2] * w;
+    sv += p[3] * w;
+    sw += w;
   }
   if (sw === 0) return null;
   return { u: su / sw, v: sv / sw };
@@ -116,7 +124,13 @@ export function respawn(particle, points, rng = Math.random) {
  * Advect particles dtHours through the field. Returns count respawned.
  * Spherical update: dlat from v, dlon from u / cos(lat).
  */
-export function advectParticles(particles, spatial, points, dtHours, rng = Math.random) {
+export function advectParticles(
+  particles,
+  spatial,
+  points,
+  dtHours,
+  rng = Math.random,
+) {
   const dtS = dtHours * 3600;
   let respawned = 0;
   for (const pt of particles) {
@@ -130,8 +144,10 @@ export function advectParticles(particles, spatial, points, dtHours, rng = Math.
     const speed = Math.hypot(c.u, c.v);
     // Near-stagnant water: let the particle age out in place.
     if (speed < 0.005) continue;
-    const dLat = ((c.v * dtS) / 111320);
-    const dLon = (c.u * dtS) / (111320 * Math.max(0.2, Math.cos((pt.lat * Math.PI) / 180)));
+    const dLat = (c.v * dtS) / 111320;
+    const dLon =
+      (c.u * dtS) /
+      (111320 * Math.max(0.2, Math.cos((pt.lat * Math.PI) / 180)));
     pt.lat += dLat;
     pt.lon += dLon;
     if (pt.lon > 180) pt.lon -= 360;
@@ -146,7 +162,8 @@ export function advectParticles(particles, spatial, points, dtHours, rng = Math.
 
 /** Validate the snapshot document shape. */
 export function validateSnapshot(doc) {
-  if (!doc || typeof doc !== 'object') return { ok: false, reason: 'not an object' };
+  if (!doc || typeof doc !== 'object')
+    return { ok: false, reason: 'not an object' };
   const check = validatePoints(doc.points);
   if (!check.ok) return check;
   if (typeof doc.validTime !== 'string' || typeof doc.units !== 'string') {

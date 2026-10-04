@@ -4,52 +4,48 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 9 (cities2 worker)).
  */
 export const SPEC = {
-  "id": "philadelphia-crime-incidents",
-  "title": "Philadelphia — police crime incidents (Part 1 & 2)",
-  "url": "https://phl.carto.com/api/v2/sql?q=SELECT%20dc_dist%2Cpsa%2Cdispatch_date_time%2Cdispatch_date%2Cdispatch_time%2Chour%2Cdc_key%2Cucr_general%2Ctext_general_code%20FROM%20incidents_part1_part2%20WHERE%20dispatch_date_time%20IS%20NOT%20NULL%20ORDER%20BY%20dispatch_date_time%20DESC%20LIMIT%2050",
-  "headers": {
-    "User-Agent": "satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)"
+  id: 'philadelphia-crime-incidents',
+  title: 'Philadelphia — police crime incidents (Part 1 & 2)',
+  url: 'https://phl.carto.com/api/v2/sql?q=SELECT%20dc_dist%2Cpsa%2Cdispatch_date_time%2Cdispatch_date%2Cdispatch_time%2Chour%2Cdc_key%2Cucr_general%2Ctext_general_code%20FROM%20incidents_part1_part2%20WHERE%20dispatch_date_time%20IS%20NOT%20NULL%20ORDER%20BY%20dispatch_date_time%20DESC%20LIMIT%2050',
+  headers: {
+    'User-Agent':
+      'satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)',
   },
-  "ttlSeconds": 3600,
-  "bodyCapBytes": 2097152,
-  "extract": {
-    "items": "$.rows",
-    "limit": 50,
-    "map": {
-      "dcKey": "$.dc_key",
-      "district": "$.dc_dist",
-      "psa": "$.psa",
-      "dispatchAt": "$.dispatch_date_time",
-      "dispatchDate": "$.dispatch_date",
-      "dispatchTime": "$.dispatch_time",
-      "hour": "$.hour",
-      "ucr": "$.ucr_general",
-      "offense": "$.text_general_code"
+  ttlSeconds: 3600,
+  bodyCapBytes: 2097152,
+  extract: {
+    items: '$.rows',
+    limit: 50,
+    map: {
+      dcKey: '$.dc_key',
+      district: '$.dc_dist',
+      psa: '$.psa',
+      dispatchAt: '$.dispatch_date_time',
+      dispatchDate: '$.dispatch_date',
+      dispatchTime: '$.dispatch_time',
+      hour: '$.hour',
+      ucr: '$.ucr_general',
+      offense: '$.text_general_code',
     },
-    "numbers": [
-      "dcKey",
-      "hour"
-    ]
+    numbers: ['dcKey', 'hour'],
   },
-  "required": [
-    "dcKey",
-    "offense",
-    "dispatchAt"
-  ],
-  "source": "City of Philadelphia",
-  "attribution": "Data: OpenDataPhilly (CARTO SQL API, City of Philadelphia) — keyless.",
-  "units": {
-    "dcKey": "text",
-    "district": "text",
-    "psa": "text",
-    "dispatchAt": "datetime",
-    "dispatchDate": "date",
-    "dispatchTime": "text",
-    "hour": "int",
-    "ucr": "text",
-    "offense": "text"
+  required: ['dcKey', 'offense', 'dispatchAt'],
+  source: 'City of Philadelphia',
+  attribution:
+    'Data: OpenDataPhilly (CARTO SQL API, City of Philadelphia) — keyless.',
+  units: {
+    dcKey: 'text',
+    district: 'text',
+    psa: 'text',
+    dispatchAt: 'datetime',
+    dispatchDate: 'date',
+    dispatchTime: 'text',
+    hour: 'int',
+    ucr: 'text',
+    offense: 'text',
   },
-  "honesty": "Newest-first 50 via ORDER BY dispatch_date_time DESC with NULL guard on the official PPD incidents_part1_part2 table. Newest incident at probe 2026-10-01T23:29Z — near-current. Block-level location column excluded by design (privacy rule).",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 9 (cities2 worker)"
+  honesty:
+    'Newest-first 50 via ORDER BY dispatch_date_time DESC with NULL guard on the official PPD incidents_part1_part2 table. Newest incident at probe 2026-10-01T23:29Z — near-current. Block-level location column excluded by design (privacy rule).',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 9 (cities2 worker)',
 };

@@ -43,8 +43,10 @@ export function coerceFireball(raw) {
 
 /** Energy class for styling. Thresholds in kilotons of TNT. */
 export function energyClass(kt) {
-  if (kt < 0.1) return { key: 'fizzle', label: 'sub-kiloton pop', color: '#9fd8ff' };
-  if (kt < 1) return { key: 'boom', label: 'sub-kiloton blast', color: '#ffd166' };
+  if (kt < 0.1)
+    return { key: 'fizzle', label: 'sub-kiloton pop', color: '#9fd8ff' };
+  if (kt < 1)
+    return { key: 'boom', label: 'sub-kiloton blast', color: '#ffd166' };
   if (kt < 10) return { key: 'city', label: 'kiloton-class', color: '#ff9f5a' };
   return { key: 'monster', label: 'multi-kiloton impactor', color: '#ff5a5a' };
 }

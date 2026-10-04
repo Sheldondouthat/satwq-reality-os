@@ -48,11 +48,16 @@ const SOURCES = [
     parse: parseDigitraffic,
     attribution: 'Fintraffic Digitraffic Marine AIS (CC BY 4.0)',
     // Digitraffic requires a Digitraffic-User header and prefers gzip.
-    headers: { 'Digitraffic-User': DIGITRAFFIC_USER, 'Accept-Encoding': 'gzip' },
+    headers: {
+      'Digitraffic-User': DIGITRAFFIC_USER,
+      'Accept-Encoding': 'gzip',
+    },
   },
   {
     key: 'euris',
-    urls: ['https://eurisportal.eu/api/v3/tracks/bounding-box?minX=-15&minY=35&maxX=40&maxY=72'],
+    urls: [
+      'https://eurisportal.eu/api/v3/tracks/bounding-box?minX=-15&minY=35&maxX=40&maxY=72',
+    ],
     parse: parseEuRis,
     attribution: 'EuRIS inland waterway tracks (attribution string required)',
     headers: {},
@@ -92,8 +97,20 @@ function normalizeMmsi(value) {
 }
 
 function normalizeShip({
-  mmsi, imo, name, lat, lon, speedKts, courseDeg, headingDeg,
-  navStatus, shipType, draughtM, destination, lastUpdate, source,
+  mmsi,
+  imo,
+  name,
+  lat,
+  lon,
+  speedKts,
+  courseDeg,
+  headingDeg,
+  navStatus,
+  shipType,
+  draughtM,
+  destination,
+  lastUpdate,
+  source,
 }) {
   const id = normalizeMmsi(mmsi);
   // NOTE: Number(null) === 0 — nulls must be screened before coercion,
@@ -101,16 +118,23 @@ function normalizeShip({
   if (lat == null || lon == null || lat === '' || lon === '') return null;
   const ll = clampLatLon(Number(lat), Number(lon));
   if (!id || !ll) return null;
-  const timeMs = lastUpdate instanceof Date
-    ? lastUpdate.getTime()
-    : typeof lastUpdate === 'number'
-      ? lastUpdate
-      : Date.parse(lastUpdate);
-  const imoDigits = String(imo ?? '').replace(/\D/g, '').slice(0, 10) || null;
+  const timeMs =
+    lastUpdate instanceof Date
+      ? lastUpdate.getTime()
+      : typeof lastUpdate === 'number'
+        ? lastUpdate
+        : Date.parse(lastUpdate);
+  const imoDigits =
+    String(imo ?? '')
+      .replace(/\D/g, '')
+      .slice(0, 10) || null;
   return {
     mmsi: id,
     imo: imoDigits,
-    name: String(name ?? '').trim().slice(0, 80) || null,
+    name:
+      String(name ?? '')
+        .trim()
+        .slice(0, 80) || null,
     lat: roundNum(ll.lat),
     lon: roundNum(ll.lon),
     speedKts: finiteOrNull(speedKts, 1),
@@ -119,7 +143,10 @@ function normalizeShip({
     navStatus: String(navStatus ?? '').slice(0, 60) || null,
     shipType: String(shipType ?? '').slice(0, 60) || null,
     draughtM: finiteOrNull(draughtM, 1),
-    destination: String(destination ?? '').trim().slice(0, 80) || null,
+    destination:
+      String(destination ?? '')
+        .trim()
+        .slice(0, 80) || null,
     lastUpdate: Number.isFinite(timeMs) ? new Date(timeMs).toISOString() : null,
     sources: [source],
   };
@@ -239,19 +266,32 @@ function dedupeShips(records) {
       byMmsi.set(r.mmsi, { ...r, sources: [...r.sources] });
       continue;
     }
-    for (const s of r.sources) if (!prior.sources.includes(s)) prior.sources.push(s);
+    for (const s of r.sources)
+      if (!prior.sources.includes(s)) prior.sources.push(s);
     const rTime = Date.parse(r.lastUpdate ?? '');
     const pTime = Date.parse(prior.lastUpdate ?? '');
-    const rNewer = Number.isFinite(rTime) && (!Number.isFinite(pTime) || rTime > pTime);
+    const rNewer =
+      Number.isFinite(rTime) && (!Number.isFinite(pTime) || rTime > pTime);
     if (rNewer) {
       const keep = {
-        imo: prior.imo, name: prior.name, shipType: prior.shipType,
-        destination: prior.destination, draughtM: prior.draughtM,
+        imo: prior.imo,
+        name: prior.name,
+        shipType: prior.shipType,
+        destination: prior.destination,
+        draughtM: prior.draughtM,
       };
       Object.assign(prior, r, { sources: prior.sources });
-      for (const [k, v] of Object.entries(keep)) if (prior[k] == null) prior[k] = v;
+      for (const [k, v] of Object.entries(keep))
+        if (prior[k] == null) prior[k] = v;
     } else {
-      for (const k of ['imo', 'name', 'shipType', 'destination', 'draughtM', 'navStatus']) {
+      for (const k of [
+        'imo',
+        'name',
+        'shipType',
+        'destination',
+        'draughtM',
+        'navStatus',
+      ]) {
         if (prior[k] == null && r[k] != null) prior[k] = r[k];
       }
     }
@@ -272,13 +312,22 @@ async function fetchJsonCapped(sourceKey, url, extraHeaders = {}) {
       // was NOT verified from this VM (curl 000, 2026-09-27) — flagged
       // VM-throttled, needs Worker-side probe.
       redirect: 'follow',
-      headers: { 'User-Agent': USER_AGENT, Accept: 'application/json', ...extraHeaders },
+      headers: {
+        'User-Agent': USER_AGENT,
+        Accept: 'application/json',
+        ...extraHeaders,
+      },
     });
     if (!response.ok)
-      throw Object.assign(new Error(`ships_${sourceKey}_upstream_${response.status}`), { status: 502 });
+      throw Object.assign(
+        new Error(`ships_${sourceKey}_upstream_${response.status}`),
+        { status: 502 },
+      );
     const buffer = await response.arrayBuffer();
     if (buffer.byteLength > BODY_CAP_BYTES)
-      throw Object.assign(new Error(`ships_${sourceKey}_upstream_too_large`), { status: 502 });
+      throw Object.assign(new Error(`ships_${sourceKey}_upstream_too_large`), {
+        status: 502,
+      });
     return JSON.parse(new TextDecoder().decode(buffer));
   } finally {
     clearTimeout(timeout);
@@ -346,7 +395,9 @@ async function getSnapshot() {
         const ok = results.some((r) => r.ok);
         if (!ok) {
           const detail = results.map((r) => `${r.key}:${r.error}`).join('; ');
-          throw Object.assign(new Error(`ships_all_upstream_down: ${detail}`), { status: 502 });
+          throw Object.assign(new Error(`ships_all_upstream_down: ${detail}`), {
+            status: 502,
+          });
         }
         const payload = buildSnapshot(results);
         cache = { at: Date.now(), payload };
@@ -370,15 +421,24 @@ function sendJson(res, status, body, cacheControl = 'public, max-age=120') {
 /** Mount the wave-6 ships aggregation proxy. Mirrors the wave-5 quakes shape. */
 export function shipsProxy() {
   async function handler(req, res) {
-    if (req.method !== 'GET') return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
     try {
       sendJson(res, 200, await getSnapshot());
     } catch (error) {
-      const upstreamFail = error?.status === 502 || error?.name === 'AbortError' || /aborted?/i.test(error?.message ?? '');
-      sendJson(res, upstreamFail ? 502 : 500, {
-        error: 'ships_unavailable',
-        detail: error?.message ?? 'unknown',
-      }, 'no-store');
+      const upstreamFail =
+        error?.status === 502 ||
+        error?.name === 'AbortError' ||
+        /aborted?/i.test(error?.message ?? '');
+      sendJson(
+        res,
+        upstreamFail ? 502 : 500,
+        {
+          error: 'ships_unavailable',
+          detail: error?.message ?? 'unknown',
+        },
+        'no-store',
+      );
     }
   }
 
@@ -401,5 +461,8 @@ export const _shipsInternals = {
   normalizeMmsi,
   dedupeShips,
   buildSnapshot,
-  clearCaches: () => { cache = null; inflight = null; },
+  clearCaches: () => {
+    cache = null;
+    inflight = null;
+  },
 };

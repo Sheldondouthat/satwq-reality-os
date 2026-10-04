@@ -9,13 +9,25 @@
  * Public surface:
  *   initWatchReplay({ viewer, mount, fetchImpl, geocode, sonify, dvr }) -> { destroy }
  */
-import { parseWatchQuery, resolveWatchCenter, evaluateWatch } from './watches.js';
+import {
+  parseWatchQuery,
+  resolveWatchCenter,
+  evaluateWatch,
+} from './watches.js';
 import { createScheduler, describeCron } from './scheduler.js';
-import { appendEvents, readDay, listDayKeys, quakeRowsToEvents, pruneDays, dayKey } from './eventLog.js';
+import {
+  appendEvents,
+  readDay,
+  listDayKeys,
+  quakeRowsToEvents,
+  pruneDays,
+  dayKey,
+} from './eventLog.js';
 import { createReplay } from './replay.js';
 import { geocodeKeyless } from '../../../keylessGeocoder.js';
 
-const USGS_FEED = 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_day.geojson';
+const USGS_FEED =
+  'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_day.geojson';
 const WATER_TWIN_API = '/api/water-twin';
 const SAMPLE_MS = 60 * 60_000; // sample the quake feed into the day log hourly
 
@@ -31,7 +43,9 @@ const SAMPLE_MS = 60 * 60_000; // sample the quake feed into the day log hourly
  */
 export async function evaluateWatchEntry(entry, { geocode, fetchLiveData }) {
   const condition = entry?.condition ?? entry;
-  const resolved = await resolveWatchCenter(condition, { geocode }).catch(() => null);
+  const resolved = await resolveWatchCenter(condition, { geocode }).catch(
+    () => null,
+  );
   if (!resolved) return { fired: false, detail: 'place could not be geocoded' };
   return evaluateWatch(resolved, await fetchLiveData());
 }
@@ -40,8 +54,12 @@ function memStorage() {
   const map = new Map();
   return {
     get: (k) => (map.has(k) ? map.get(k) : null),
-    set: (k, v) => { map.set(k, v); },
-    remove: (k) => { map.delete(k); },
+    set: (k, v) => {
+      map.set(k, v);
+    },
+    remove: (k) => {
+      map.delete(k);
+    },
     keys: () => [...map.keys()],
   };
 }
@@ -88,13 +106,15 @@ export function initWatchReplay({
       const res = await fetchImpl(USGS_FEED);
       if (res.ok) {
         const payload = await res.json();
-        data.quakes = (payload.features ?? []).map((f) => ({
-          mag: Number(f?.properties?.mag),
-          lat: Number(f?.geometry?.coordinates?.[1]),
-          lon: Number(f?.geometry?.coordinates?.[0]),
-          place: f?.properties?.place,
-          timeMs: Number(f?.properties?.time),
-        })).filter((q) => Number.isFinite(q.mag) && Number.isFinite(q.lat));
+        data.quakes = (payload.features ?? [])
+          .map((f) => ({
+            mag: Number(f?.properties?.mag),
+            lat: Number(f?.geometry?.coordinates?.[1]),
+            lon: Number(f?.geometry?.coordinates?.[0]),
+            place: f?.properties?.place,
+            timeMs: Number(f?.properties?.time),
+          }))
+          .filter((q) => Number.isFinite(q.mag) && Number.isFinite(q.lat));
       }
     } catch {}
     try {
@@ -135,24 +155,53 @@ export function initWatchReplay({
     type: 'text',
     placeholder: 'e.g. alert me when M7+ within 500 km of Tokyo',
     'aria-label': 'New watch query',
-    style: 'width:100%;box-sizing:border-box;padding:6px 9px;border-radius:7px;border:1px solid rgba(120,180,255,.35);background:rgba(10,18,32,.9);color:#dfe9ff;font-size:11px;',
+    style:
+      'width:100%;box-sizing:border-box;padding:6px 9px;border-radius:7px;border:1px solid rgba(120,180,255,.35);background:rgba(10,18,32,.9);color:#dfe9ff;font-size:11px;',
   });
   const list = el('div', {});
   root.append(input, list, status);
 
-  function say(text) { status.textContent = text; }
+  function say(text) {
+    status.textContent = text;
+  }
 
   async function refreshList() {
     list.textContent = '';
     for (const w of scheduler.list()) {
-      const row = el('div', { style: 'margin:5px 0;font-size:11px;display:flex;gap:6px;align-items:center;' });
-      row.appendChild(el('span', { style: 'flex:1;' }, `${w.condition?.raw ?? w.raw ?? '?'} · ${describeCron(w.schedule)}${w.lastFired ? ` · last fired ${new Date(w.lastFired).toLocaleString()}` : ''}`));
-      const del = el('button', { style: 'cursor:pointer;background:none;border:1px solid rgba(120,180,255,.35);color:#dfe9ff;border-radius:6px;font-size:10px;padding:2px 7px;' }, '✕');
-      del.addEventListener('click', () => { scheduler.remove(w.id); refreshList(); });
+      const row = el('div', {
+        style:
+          'margin:5px 0;font-size:11px;display:flex;gap:6px;align-items:center;',
+      });
+      row.appendChild(
+        el(
+          'span',
+          { style: 'flex:1;' },
+          `${w.condition?.raw ?? w.raw ?? '?'} · ${describeCron(w.schedule)}${w.lastFired ? ` · last fired ${new Date(w.lastFired).toLocaleString()}` : ''}`,
+        ),
+      );
+      const del = el(
+        'button',
+        {
+          style:
+            'cursor:pointer;background:none;border:1px solid rgba(120,180,255,.35);color:#dfe9ff;border-radius:6px;font-size:10px;padding:2px 7px;',
+        },
+        '✕',
+      );
+      del.addEventListener('click', () => {
+        scheduler.remove(w.id);
+        refreshList();
+      });
       row.appendChild(del);
       list.appendChild(row);
     }
-    if (!scheduler.list().length) list.appendChild(el('div', { style: 'font-size:11px;color:#7d8fb3;' }, 'No watches yet.'));
+    if (!scheduler.list().length)
+      list.appendChild(
+        el(
+          'div',
+          { style: 'font-size:11px;color:#7d8fb3;' },
+          'No watches yet.',
+        ),
+      );
   }
 
   input.addEventListener('keydown', async (event) => {
@@ -162,7 +211,10 @@ export function initWatchReplay({
     try {
       const condition = parseWatchQuery(text, { riverRegistry: [] });
       const resolved = await resolveWatchCenter(condition, { geocode });
-      if (!resolved) { say(`Couldn't geocode "${condition.placeQuery ?? text}".`); return; }
+      if (!resolved) {
+        say(`Couldn't geocode "${condition.placeQuery ?? text}".`);
+        return;
+      }
       scheduler.add({ raw: text, condition: resolved });
       say(`Watching: ${text}`);
       refreshList();
@@ -171,25 +223,42 @@ export function initWatchReplay({
     }
   });
 
-  const runNow = el('button', {
-    style: 'margin-top:6px;cursor:pointer;background:rgba(30,45,70,.6);border:1px solid rgba(120,180,255,.35);color:#dfe9ff;border-radius:7px;font-size:11px;padding:5px 10px;',
-  }, '▶ Run watches now');
+  const runNow = el(
+    'button',
+    {
+      style:
+        'margin-top:6px;cursor:pointer;background:rgba(30,45,70,.6);border:1px solid rgba(120,180,255,.35);color:#dfe9ff;border-radius:7px;font-size:11px;padding:5px 10px;',
+    },
+    '▶ Run watches now',
+  );
   runNow.addEventListener('click', async () => {
     say('Evaluating watches…');
     const results = await scheduler.tick(Date.now());
     const fired = results.filter((r) => r.fired);
-    say(fired.length ? `🔔 ${fired.map((r) => r.detail).join(' | ')}` : 'No watches fired.');
+    say(
+      fired.length
+        ? `🔔 ${fired.map((r) => r.detail).join(' | ')}`
+        : 'No watches fired.',
+    );
     refreshList();
   });
   root.appendChild(runNow);
 
-  const replayBtn = el('button', {
-    style: 'margin:6px 0 0 6px;cursor:pointer;background:rgba(30,45,70,.6);border:1px solid rgba(120,180,255,.35);color:#dfe9ff;border-radius:7px;font-size:11px;padding:5px 10px;',
-  }, '🎬 Replay yesterday');
+  const replayBtn = el(
+    'button',
+    {
+      style:
+        'margin:6px 0 0 6px;cursor:pointer;background:rgba(30,45,70,.6);border:1px solid rgba(120,180,255,.35);color:#dfe9ff;border-radius:7px;font-size:11px;padding:5px 10px;',
+    },
+    '🎬 Replay yesterday',
+  );
   replayBtn.addEventListener('click', async () => {
     const y = new Date(Date.now() - 24 * 3600_000).toISOString().slice(0, 10);
     const events = readDay(storage, y);
-    if (!events.length) { say(`No archived events for ${y} yet — the day log fills hourly.`); return; }
+    if (!events.length) {
+      say(`No archived events for ${y} yet — the day log fills hourly.`);
+      return;
+    }
     say(`Replaying ${events.length} events from ${y}…`);
     const ctl = replay.playDay({
       day: y,
@@ -197,7 +266,9 @@ export function initWatchReplay({
       speed: 2,
       onStep: (e, i, n) => say(`[${i + 1}/${n}] ${e.label}`),
     });
-    ctl.done.then((r) => { if (!stopped) say(`Replay finished — ${r.played} events.`); });
+    ctl.done.then((r) => {
+      if (!stopped) say(`Replay finished — ${r.played} events.`);
+    });
   });
   root.appendChild(replayBtn);
 

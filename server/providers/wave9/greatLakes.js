@@ -58,32 +58,48 @@ const STALE_MS = 90 * 24 * 3600_000;
 const RETRY_COOLDOWN_MS = 60_000;
 const FRESH_LAG_MONTHS = 14; // annual update cadence: latest month must be ≤14 mo old
 const M_TO_FT = 3.28084;
-const USER_AGENT = 'satwq-reality-os/1.0 (gods-eye-view; great-lakes layer; keyless)';
+const USER_AGENT =
+  'satwq-reality-os/1.0 (gods-eye-view; great-lakes layer; keyless)';
 
 /** Pinned lake roster — file-key fragment + gauge network from live CSV metadata. */
 export const LAKES = [
   {
-    id: 'superior', key: 'Superior', name: 'Lake Superior',
+    id: 'superior',
+    key: 'Superior',
+    name: 'Lake Superior',
     noaaGauges: ['Duluth MN', 'Marquette G.C. MI', 'Point Iroquois MI'],
     chsGauges: ['Thunder Bay', 'Michipicoten'],
   },
   {
-    id: 'michigan-huron', key: 'Michigan-Huron', name: 'Lakes Michigan–Huron',
-    noaaGauges: ['Harbor Beach MI', 'Mackinaw City MI', 'Ludington MI', 'Milwaukee WI'],
+    id: 'michigan-huron',
+    key: 'Michigan-Huron',
+    name: 'Lakes Michigan–Huron',
+    noaaGauges: [
+      'Harbor Beach MI',
+      'Mackinaw City MI',
+      'Ludington MI',
+      'Milwaukee WI',
+    ],
     chsGauges: ['Thessalon', 'Tobermory'],
   },
   {
-    id: 'stclair', key: 'StClair', name: 'Lake St. Clair',
+    id: 'stclair',
+    key: 'StClair',
+    name: 'Lake St. Clair',
     noaaGauges: ['St. Clair Shores MI'],
     chsGauges: ['Belle River ON'],
   },
   {
-    id: 'erie', key: 'Erie', name: 'Lake Erie',
+    id: 'erie',
+    key: 'Erie',
+    name: 'Lake Erie',
     noaaGauges: ['Cleveland OH', 'Toledo OH'],
     chsGauges: ['Port Colborne', 'Port Stanley'],
   },
   {
-    id: 'ontario', key: 'Ontario', name: 'Lake Ontario',
+    id: 'ontario',
+    key: 'Ontario',
+    name: 'Lake Ontario',
     noaaGauges: ['Rochester NY', 'Oswego NY'],
     chsGauges: ['Toronto', 'Kingston', 'Cobourg', 'Port Weller'],
   },
@@ -107,7 +123,8 @@ const LAKE_ID_RE = /^[a-z][a-z0-9-]{0,39}$/;
 export function parseQuery(query) {
   const raw = query.get('lake');
   if (raw != null && raw !== '') {
-    if (!LAKE_ID_RE.test(raw)) throw Object.assign(new Error('greatlakes_bad_lake'), { status: 400 });
+    if (!LAKE_ID_RE.test(raw))
+      throw Object.assign(new Error('greatlakes_bad_lake'), { status: 400 });
     const found = LAKES.find((l) => l.id === raw);
     if (!found) return { mode: 'notfound', lake: raw };
     return { mode: 'lake', lake: found };
@@ -133,15 +150,22 @@ async function fetchTextCapped(url, capBytes) {
       headers: { 'User-Agent': USER_AGENT, Accept: '*/*' },
     });
     if (!response.ok) {
-      throw Object.assign(new Error(`greatlakes_upstream_${response.status}`), { status: 502 });
+      throw Object.assign(new Error(`greatlakes_upstream_${response.status}`), {
+        status: 502,
+      });
     }
     const buffer = await response.arrayBuffer();
     if (buffer.byteLength > capBytes)
-      throw Object.assign(new Error('greatlakes_upstream_too_large'), { status: 502 });
+      throw Object.assign(new Error('greatlakes_upstream_too_large'), {
+        status: 502,
+      });
     return new TextDecoder().decode(buffer);
   } catch (error) {
     if (error?.status === 502) throw error;
-    throw Object.assign(new Error(`greatlakes_fetch_failed: ${error?.message ?? 'unknown'}`), { status: 502 });
+    throw Object.assign(
+      new Error(`greatlakes_fetch_failed: ${error?.message ?? 'unknown'}`),
+      { status: 502 },
+    );
   } finally {
     clearTimeout(timeout);
   }
@@ -153,7 +177,10 @@ async function fetchTextCapped(url, capBytes) {
  * Throws {status:502} when the shape is unusable. Pure, exported for tests.
  */
 export function parseRecordApi(recordJson) {
-  const fail = (msg) => Object.assign(new Error(`greatlakes_invalid_record: ${msg}`), { status: 502 });
+  const fail = (msg) =>
+    Object.assign(new Error(`greatlakes_invalid_record: ${msg}`), {
+      status: 502,
+    });
   const files = recordJson?.files;
   if (!Array.isArray(files) || files.length === 0) throw fail('no files array');
   const out = [];
@@ -161,7 +188,9 @@ export function parseRecordApi(recordJson) {
     const match = files.find(
       (f) =>
         typeof f?.key === 'string' &&
-        new RegExp(`^Monthly_mean_water_levels_Lake_${lake.key}_1918-\\d{4}\\.csv$`).test(f.key) &&
+        new RegExp(
+          `^Monthly_mean_water_levels_Lake_${lake.key}_1918-\\d{4}\\.csv$`,
+        ).test(f.key) &&
         typeof f?.links?.self === 'string',
     );
     if (!match) throw fail(`missing CSV for lake ${lake.id}`);
@@ -187,7 +216,10 @@ export function parseLakeCsv(text) {
     const levelM = numOrNull(cells[3]);
     if (levelM == null) continue;
     const [m, , y] = cells[0].split('/');
-    months.push({ month: `${y}-${String(Number(m)).padStart(2, '0')}`, levelM });
+    months.push({
+      month: `${y}-${String(Number(m)).padStart(2, '0')}`,
+      levelM,
+    });
   }
   return months;
 }
@@ -206,7 +238,10 @@ export function monthsSince(yyyyMm, nowMs = Date.now()) {
  */
 export function buildLakeRow(lake, months, nowMs = Date.now()) {
   if (!Array.isArray(months) || months.length === 0)
-    throw Object.assign(new Error('greatlakes_invalid_payload: no usable rows'), { status: 502 });
+    throw Object.assign(
+      new Error('greatlakes_invalid_payload: no usable rows'),
+      { status: 502 },
+    );
   const latest = months[months.length - 1];
   const sum = months.reduce((a, r) => a + r.levelM, 0);
   const meanM = sum / months.length;
@@ -226,7 +261,12 @@ export function buildLakeRow(lake, months, nowMs = Date.now()) {
     datum: 'IGLD 1985',
     gauges: { noaa: lake.noaaGauges, chs: lake.chsGauges },
     months: months.length,
-    latest: { month: latest.month, levelM: latest.levelM, levelFt: ft(latest.levelM), lagMonths },
+    latest: {
+      month: latest.month,
+      levelM: latest.levelM,
+      levelFt: ft(latest.levelM),
+      lagMonths,
+    },
     mean: { levelM: Math.round(meanM * 1000) / 1000, levelFt: ft(meanM) },
     anomaly: {
       levelM: Math.round((latest.levelM - meanM) * 1000) / 1000,
@@ -235,7 +275,9 @@ export function buildLakeRow(lake, months, nowMs = Date.now()) {
     },
     recordHigh: { month: hi.month, levelM: hi.levelM, levelFt: ft(hi.levelM) },
     recordLow: { month: lo.month, levelM: lo.levelM, levelFt: ft(lo.levelM) },
-    recent: months.slice(-12).map((r) => ({ month: r.month, levelM: r.levelM })),
+    recent: months
+      .slice(-12)
+      .map((r) => ({ month: r.month, levelM: r.levelM })),
     fresh: lagMonths <= FRESH_LAG_MONTHS,
   };
 }
@@ -246,8 +288,10 @@ export function buildPayload(rows, recordDoi, stale) {
   return {
     generatedAt: new Date().toISOString(),
     stale: Boolean(stale),
-    source: 'Coordinating Committee on Great Lakes Basic Hydraulic and Hydrologic Data — lake-wide average monthly mean water levels, via Zenodo (keyless, concept DOI always latest version)',
-    attribution: 'Data: The Coordinating Committee on Great Lakes Basic Hydraulic and Hydrologic Data (ECCC + USACE, from CHS + NOAA gauge observations), via Zenodo.',
+    source:
+      'Coordinating Committee on Great Lakes Basic Hydraulic and Hydrologic Data — lake-wide average monthly mean water levels, via Zenodo (keyless, concept DOI always latest version)',
+    attribution:
+      'Data: The Coordinating Committee on Great Lakes Basic Hydraulic and Hydrologic Data (ECCC + USACE, from CHS + NOAA gauge observations), via Zenodo.',
     recordDoi,
     units: { level: 'm (native, IGLD 1985); ft converted ×3.28084' },
     summary: {
@@ -258,11 +302,16 @@ export function buildPayload(rows, recordDoi, stale) {
     },
     lakes: rows,
     honesty: {
-      monthlyMeans: 'Each value is the lake-wide AVERAGE monthly mean: daily lake-wide means (mean of the coordinated US+Canadian gauge network around each lake, subset when a gauge is dark) averaged over the month — not a single gauge reading, not real-time.',
-      michiganHuron: 'Lakes Michigan and Huron are one hydrologic unit (same surface elevation) and are published as a single coordinated series — this is upstream convention, not a merge on our side.',
-      updateLag: 'The Zenodo record is updated ~annually (the 2026-08-12 version carries data through 2025-12); the latest month therefore trails real time by up to ~14 months. "fresh" means the latest month is within that annual cadence window.',
-      datum: 'Levels are meters above IGLD 1985; feet are converted ×3.28084 and rounded to 2 dp.',
-      anomaly: 'Anomaly = latest month minus the full-record mean (1918–latest); a descriptive anomaly, never a forecast.',
+      monthlyMeans:
+        'Each value is the lake-wide AVERAGE monthly mean: daily lake-wide means (mean of the coordinated US+Canadian gauge network around each lake, subset when a gauge is dark) averaged over the month — not a single gauge reading, not real-time.',
+      michiganHuron:
+        'Lakes Michigan and Huron are one hydrologic unit (same surface elevation) and are published as a single coordinated series — this is upstream convention, not a merge on our side.',
+      updateLag:
+        'The Zenodo record is updated ~annually (the 2026-08-12 version carries data through 2025-12); the latest month therefore trails real time by up to ~14 months. "fresh" means the latest month is within that annual cadence window.',
+      datum:
+        'Levels are meters above IGLD 1985; feet are converted ×3.28084 and rounded to 2 dp.',
+      anomaly:
+        'Anomaly = latest month minus the full-record mean (1918–latest); a descriptive anomaly, never a forecast.',
     },
   };
 }
@@ -284,7 +333,9 @@ async function fetchRecordApi() {
   try {
     json = JSON.parse(text);
   } catch {
-    throw Object.assign(new Error('greatlakes_upstream_bad_json'), { status: 502 });
+    throw Object.assign(new Error('greatlakes_upstream_bad_json'), {
+      status: 502,
+    });
   }
   return { recordDoi: json?.doi ?? null, files: parseRecordApi(json) };
 }
@@ -296,8 +347,12 @@ async function fetchOneLake(entry) {
     return buildLakeRow(entry.lake, months);
   } catch (error) {
     return {
-      id: entry.lake.id, key: entry.lake.key, name: entry.lake.name,
-      ok: false, error: error?.message ?? 'unknown', status: error?.status ?? 502,
+      id: entry.lake.id,
+      key: entry.lake.key,
+      name: entry.lake.name,
+      ok: false,
+      error: error?.message ?? 'unknown',
+      status: error?.status ?? 502,
     };
   }
 }
@@ -306,24 +361,35 @@ async function getPayload(sel) {
   const key = queryKey(sel);
   const now = Date.now();
   const hit = payloadCache.get(key);
-  if (hit && now - hit.at < CACHE_TTL_MS) return { payload: hit.payload, stale: false };
+  if (hit && now - hit.at < CACHE_TTL_MS)
+    return { payload: hit.payload, stale: false };
   let op = inflight.get(key);
   if (!op) {
-    if (now - docFailedAt < RETRY_COOLDOWN_MS && hit && now - hit.at < STALE_MS) {
+    if (
+      now - docFailedAt < RETRY_COOLDOWN_MS &&
+      hit &&
+      now - hit.at < STALE_MS
+    ) {
       return { payload: hit.payload, stale: true };
     }
     op = (async () => {
       const { recordDoi, files } = await fetchRecordApi();
       const wanted = new Set(selectionLakes(sel).map((l) => l.id));
-      const rows = await Promise.all(files.filter((f) => wanted.has(f.lake.id)).map(fetchOneLake));
+      const rows = await Promise.all(
+        files.filter((f) => wanted.has(f.lake.id)).map(fetchOneLake),
+      );
       const okRows = rows.filter((r) => r.ok);
       if (okRows.length === 0) {
         docFailedAt = Date.now();
-        if (hit && now - hit.at < STALE_MS) return { payload: hit.payload, stale: true };
-        throw Object.assign(new Error('greatlakes_all_upstreams_failed'), { status: 502 });
+        if (hit && now - hit.at < STALE_MS)
+          return { payload: hit.payload, stale: true };
+        throw Object.assign(new Error('greatlakes_all_upstreams_failed'), {
+          status: 502,
+        });
       }
       const payload = buildPayload(rows, recordDoi, false);
-      if (payloadCache.size >= PAYLOAD_CACHE_MAX) payloadCache.delete(payloadCache.keys().next().value);
+      if (payloadCache.size >= PAYLOAD_CACHE_MAX)
+        payloadCache.delete(payloadCache.keys().next().value);
       payloadCache.set(key, { at: Date.now(), payload });
       return { payload, stale: false };
     })().finally(() => inflight.delete(key));
@@ -343,25 +409,48 @@ function sendJson(res, status, body, cacheControl = 'public, max-age=86400') {
 /** Mount the wave-9 Great Lakes water-level proxy. */
 export function greatLakesProxy() {
   async function handler(req, res) {
-    if (req.method !== 'GET') return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
     let sel;
     try {
       sel = parseQuery(new URL(req.url, 'http://localhost').searchParams);
     } catch (error) {
-      return sendJson(res, error.status ?? 400, { error: error.message }, 'no-store');
+      return sendJson(
+        res,
+        error.status ?? 400,
+        { error: error.message },
+        'no-store',
+      );
     }
     if (sel.mode === 'notfound') {
-      return sendJson(res, 200, { generatedAt: new Date().toISOString(), requestedNotFound: true, lake: sel.lake }, 'no-store');
+      return sendJson(
+        res,
+        200,
+        {
+          generatedAt: new Date().toISOString(),
+          requestedNotFound: true,
+          lake: sel.lake,
+        },
+        'no-store',
+      );
     }
     try {
       const { payload, stale } = await getPayload(sel);
       sendJson(res, 200, stale ? { ...payload, stale: true } : payload);
     } catch (error) {
-      const upstreamFail = error?.status === 502 || error?.name === 'AbortError' || /aborted?/i.test(error?.message ?? '');
-      sendJson(res, upstreamFail ? 502 : 500, {
-        error: 'greatlakes_unavailable',
-        detail: error?.message ?? 'unknown',
-      }, 'no-store');
+      const upstreamFail =
+        error?.status === 502 ||
+        error?.name === 'AbortError' ||
+        /aborted?/i.test(error?.message ?? '');
+      sendJson(
+        res,
+        upstreamFail ? 502 : 500,
+        {
+          error: 'greatlakes_unavailable',
+          detail: error?.message ?? 'unknown',
+        },
+        'no-store',
+      );
     }
   }
 
@@ -385,5 +474,9 @@ export const _greatLakesInternals = {
   buildPayload,
   selectionLakes,
   RECORD_API_URL,
-  clearCaches: () => { payloadCache.clear(); inflight.clear(); docFailedAt = -Infinity; },
+  clearCaches: () => {
+    payloadCache.clear();
+    inflight.clear();
+    docFailedAt = -Infinity;
+  },
 };

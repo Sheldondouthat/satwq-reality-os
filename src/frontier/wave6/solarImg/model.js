@@ -20,19 +20,22 @@ export const EMOJI = '☀️';
 export const LABEL = 'Solar imagery';
 
 export function valueLine(doc) {
-      if (isUnavailable(doc)) return null;
-      const n = pickNum(doc.count, doc.images?.length);
-      if (n == null) return null;
-      return withTags(`${EMOJI} ${n} solar images`, doc);
-    }
+  if (isUnavailable(doc)) return null;
+  const n = pickNum(doc.count, doc.images?.length);
+  if (n == null) return null;
+  return withTags(`${EMOJI} ${n} solar images`, doc);
+}
 
 export function detailLine(doc) {
-      if (isUnavailable(doc)) return '';
-      return pickStr(doc.attribution);
-    }
+  if (isUnavailable(doc)) return '';
+  return pickStr(doc.attribution);
+}
 export function thumbUrls(doc) {
-      return pickArr(doc.images).slice(0, 4).map((i) => ({
-        url: pickStr(i.url),
-        caption: pickStr(i.name, i.title),
-      })).filter((t) => t.url);
-    }
+  return pickArr(doc.images)
+    .slice(0, 4)
+    .map((i) => ({
+      url: pickStr(i.url),
+      caption: pickStr(i.name, i.title),
+    }))
+    .filter((t) => t.url);
+}

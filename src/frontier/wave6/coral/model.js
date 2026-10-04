@@ -20,19 +20,22 @@ export const EMOJI = '🪸';
 export const LABEL = 'Coral bleaching';
 
 export function valueLine(doc) {
-      if (isUnavailable(doc)) return null;
-      const n = pickNum(doc.count, doc.animations?.length);
-      if (n == null) return null;
-      return withTags(`${EMOJI} ${n} coral-bleaching animations`, doc);
-    }
+  if (isUnavailable(doc)) return null;
+  const n = pickNum(doc.count, doc.animations?.length);
+  if (n == null) return null;
+  return withTags(`${EMOJI} ${n} coral-bleaching animations`, doc);
+}
 
 export function detailLine(doc) {
-      if (isUnavailable(doc)) return '';
-      return pickStr(doc.attribution);
-    }
+  if (isUnavailable(doc)) return '';
+  return pickStr(doc.attribution);
+}
 export function thumbUrls(doc) {
-      return pickArr(doc.animations).slice(0, 4).map((a) => ({
-        url: pickStr(a.url),
-        caption: pickStr(a.name, a.region),
-      })).filter((t) => t.url);
-    }
+  return pickArr(doc.animations)
+    .slice(0, 4)
+    .map((a) => ({
+      url: pickStr(a.url),
+      caption: pickStr(a.name, a.region),
+    }))
+    .filter((t) => t.url);
+}

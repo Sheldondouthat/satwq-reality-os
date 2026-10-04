@@ -42,7 +42,8 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
         if (destroyed || !enabled) return;
         render(json);
       } catch {
-        if (statusEl) statusEl.textContent = 'hydrophones unavailable — retrying';
+        if (statusEl)
+          statusEl.textContent = 'hydrophones unavailable — retrying';
       }
     }
 
@@ -55,7 +56,9 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
           audioEl.removeAttribute('src');
           audioEl.load();
         }
-      } catch { /* noop */ }
+      } catch {
+        /* noop */
+      }
       playingNode = null;
       for (const b of playBtns) b.textContent = '▶ listen';
     }
@@ -102,7 +105,9 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
           destination: Cesium.Cartesian3.fromDegrees(feed.lon, feed.lat, 50000),
           duration: 2,
         });
-      } catch { /* camera gesture optional */ }
+      } catch {
+        /* camera gesture optional */
+      }
     }
 
     function render(doc) {
@@ -120,7 +125,8 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
         row.style.cssText =
           'display:flex;align-items:center;gap:6px;font-size:10px;color:#c8d6f5;margin:3px 0;';
         const dot = `<span style="color:${f.online ? '#4dd0a6' : '#55607a'}">${
-          f.online ? '●' : '○'}</span>`;
+          f.online ? '●' : '○'
+        }</span>`;
         const info =
           `<span style="flex:1;cursor:pointer" data-fly="1" title="fly camera here">` +
           `<b>${escapeHtml(f.name)}</b><br>` +
@@ -156,7 +162,8 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
     if (mount && typeof chip === 'function') {
       try {
         statusEl = document.createElement('div');
-        statusEl.style.cssText = 'font-size:10px;color:#8aa4d6;margin:2px 0 4px;';
+        statusEl.style.cssText =
+          'font-size:10px;color:#8aa4d6;margin:2px 0 4px;';
         statusEl.textContent = 'listening for whales…';
         mount.appendChild(statusEl);
         panelEl = document.createElement('div');
@@ -173,14 +180,20 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
             disable: () => setEnabled(false),
           });
           mount.appendChild(
-            chip(T('feature.orcasound') || 'Hydrophones', (on) =>
-              on ? tracked.show() : tracked.hide(), false),
+            chip(
+              T('feature.orcasound') || 'Hydrophones',
+              (on) => (on ? tracked.show() : tracked.hide()),
+              false,
+            ),
           );
         } else {
-          mount.appendChild(chip(T('feature.orcasound') || 'Hydrophones', apply, false));
+          mount.appendChild(
+            chip(T('feature.orcasound') || 'Hydrophones', apply, false),
+          );
         }
         const legend = document.createElement('div');
-        legend.style.cssText = 'font-size:10px;color:#8aa4d6;margin-top:4px;line-height:1.5;';
+        legend.style.cssText =
+          'font-size:10px;color:#8aa4d6;margin-top:4px;line-height:1.5;';
         legend.innerHTML =
           'Live hydrophone audio, unmodified. <b>No call detection</b> — ' +
           'what you hear is what the ocean says. Click a name to fly there.';

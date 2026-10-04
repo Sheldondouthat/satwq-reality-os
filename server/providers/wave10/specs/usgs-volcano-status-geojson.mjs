@@ -4,33 +4,33 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 4 (usgs water+volcano worker)).
  */
 export const SPEC = {
-  "headers": {},
-  "ttlSeconds": 900,
-  "extract": {
-    "items": "$.features",
-    "limit": 50,
-    "map": {
-      "name": "$.properties.volcanoName",
-      "alertLevel": "$.properties.alertLevel",
-      "colorCode": "$.properties.colorCode",
-      "observatory": "$.properties.obs",
-      "region": "$.properties.region",
-      "coords": "$.geometry.coordinates"
+  headers: {},
+  ttlSeconds: 900,
+  extract: {
+    items: '$.features',
+    limit: 50,
+    map: {
+      name: '$.properties.volcanoName',
+      alertLevel: '$.properties.alertLevel',
+      colorCode: '$.properties.colorCode',
+      observatory: '$.properties.obs',
+      region: '$.properties.region',
+      coords: '$.geometry.coordinates',
     },
-    "numbers": []
+    numbers: [],
   },
-  "required": [
-    "name"
-  ],
-  "source": "USGS Volcano Hazards Program (VHP)",
-  "attribution": "Data: U.S. Geological Survey, Volcano Hazards Program — keyless API.",
-  "units": {
-    "colorCode": "GREEN|YELLOW|ORANGE|RED"
+  required: ['name'],
+  source: 'USGS Volcano Hazards Program (VHP)',
+  attribution:
+    'Data: U.S. Geological Survey, Volcano Hazards Program — keyless API.',
+  units: {
+    colorCode: 'GREEN|YELLOW|ORANGE|RED',
   },
-  "honesty": "Same alert-level/color-code data as the VHP status feed, in GeoJSON (one feature per volcano). Updated as observatories issue notices.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 4 (usgs water+volcano worker)",
-  "id": "usgs-volcano-status-geojson",
-  "title": "USGS Volcano — U.S. volcano alert status (GeoJSON)",
-  "url": "https://volcanoes.usgs.gov/vsc/api/volcanoApi/geojson"
+  honesty:
+    'Same alert-level/color-code data as the VHP status feed, in GeoJSON (one feature per volcano). Updated as observatories issue notices.',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 4 (usgs water+volcano worker)',
+  id: 'usgs-volcano-status-geojson',
+  title: 'USGS Volcano — U.S. volcano alert status (GeoJSON)',
+  url: 'https://volcanoes.usgs.gov/vsc/api/volcanoApi/geojson',
 };

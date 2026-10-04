@@ -4,37 +4,34 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 3 (socrata recovery)).
  */
 export const SPEC = {
-  "id": "socrata-sonoma-events",
-  "title": "Sonoma County, CA Open Data — Sheriff's Office dispatch events",
-  "url": "https://data.sonomacounty.ca.gov/resource/bpq8-s7gr.json?$limit=50&$order=date_time%20DESC",
-  "headers": {},
-  "ttlSeconds": 1800,
-  "source": "Sonoma County, California — Sonoma County Open Data (Socrata)",
-  "attribution": "Data: Sonoma County, California — Sonoma County Open Data (Socrata) — keyless Socrata API.",
-  "honesty": "Sheriff dispatch and deputy-initiated events, ordered newest first (live through Oct 1, 2026 at probe time); keyed on event number; some PC 220/236.1 events omitted by the source per California Public Records Act; coordinates from the Socrata location point.",
-  "units": {},
-  "extract": {
-    "items": "$",
-    "limit": 50,
-    "map": {
-      "key": "$.event_num",
-      "time": "$.date_time",
-      "type": "$.nature_code",
-      "description": "$.nature_description",
-      "address": "$.address",
-      "city": "$.agency_name",
-      "beat": "$.beat_zone",
-      "lat": "$.location.latitude",
-      "lon": "$.location.longitude"
+  id: 'socrata-sonoma-events',
+  title: "Sonoma County, CA Open Data — Sheriff's Office dispatch events",
+  url: 'https://data.sonomacounty.ca.gov/resource/bpq8-s7gr.json?$limit=50&$order=date_time%20DESC',
+  headers: {},
+  ttlSeconds: 1800,
+  source: 'Sonoma County, California — Sonoma County Open Data (Socrata)',
+  attribution:
+    'Data: Sonoma County, California — Sonoma County Open Data (Socrata) — keyless Socrata API.',
+  honesty:
+    'Sheriff dispatch and deputy-initiated events, ordered newest first (live through Oct 1, 2026 at probe time); keyed on event number; some PC 220/236.1 events omitted by the source per California Public Records Act; coordinates from the Socrata location point.',
+  units: {},
+  extract: {
+    items: '$',
+    limit: 50,
+    map: {
+      key: '$.event_num',
+      time: '$.date_time',
+      type: '$.nature_code',
+      description: '$.nature_description',
+      address: '$.address',
+      city: '$.agency_name',
+      beat: '$.beat_zone',
+      lat: '$.location.latitude',
+      lon: '$.location.longitude',
     },
-    "numbers": [
-      "lat",
-      "lon"
-    ]
+    numbers: ['lat', 'lon'],
   },
-  "required": [
-    "key"
-  ],
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 3 (socrata recovery)"
+  required: ['key'],
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 3 (socrata recovery)',
 };

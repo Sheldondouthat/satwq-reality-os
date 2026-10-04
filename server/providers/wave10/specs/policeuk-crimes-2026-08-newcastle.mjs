@@ -4,27 +4,26 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 9 (policeuk2 worker)).
  */
 export const SPEC = {
-  "id": "policeuk-crimes-2026-08-newcastle",
-  "title": "UK street crime — Newcastle upon Tyne city centre (Aug 2026)",
-  "url": "https://data.police.uk/api/crimes-street/all-crime?lat=54.9783&lng=-1.6178&date=2026-08",
-  "headers": {},
-  "ttlSeconds": 86400,
-  "extract": {
-    "items": "$",
-    "limit": 50,
-    "map": {
-      "category": "$.category",
-      "street": "$.location.street.name",
-      "month": "$.month",
-      "outcome": "$.outcome_status.category"
-    }
+  id: 'policeuk-crimes-2026-08-newcastle',
+  title: 'UK street crime — Newcastle upon Tyne city centre (Aug 2026)',
+  url: 'https://data.police.uk/api/crimes-street/all-crime?lat=54.9783&lng=-1.6178&date=2026-08',
+  headers: {},
+  ttlSeconds: 86400,
+  extract: {
+    items: '$',
+    limit: 50,
+    map: {
+      category: '$.category',
+      street: '$.location.street.name',
+      month: '$.month',
+      outcome: '$.outcome_status.category',
+    },
   },
-  "required": [
-    "category"
-  ],
-  "source": "UK Police",
-  "attribution": "Data: data.police.uk — keyless, Open Government Licence.",
-  "honesty": "Street-level crimes within ~1 mile of Newcastle upon Tyne city centre, data month 2026-08 (latest available per /crime-last-updated 2026-10-02; data lags ~2 months). Verified 1210 rows in fixture (2026-10-02). Locations are anonymized street-level aggregates by police.uk design; lat/lng excluded from the map. Public aggregate police data; no personal identifiers.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 9 (policeuk2 worker)"
+  required: ['category'],
+  source: 'UK Police',
+  attribution: 'Data: data.police.uk — keyless, Open Government Licence.',
+  honesty:
+    'Street-level crimes within ~1 mile of Newcastle upon Tyne city centre, data month 2026-08 (latest available per /crime-last-updated 2026-10-02; data lags ~2 months). Verified 1210 rows in fixture (2026-10-02). Locations are anonymized street-level aggregates by police.uk design; lat/lng excluded from the map. Public aggregate police data; no personal identifiers.',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 9 (policeuk2 worker)',
 };

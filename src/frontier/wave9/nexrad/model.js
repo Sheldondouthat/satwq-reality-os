@@ -9,11 +9,7 @@
  * carries no usable station counts; withTags() appends
  * (stale)/(partial) from the envelope.
  */
-import {
-  isUnavailable,
-  withTags,
-  pickNum,
-} from '../../wave3/common/ticker.js';
+import { isUnavailable, withTags, pickNum } from '../../wave3/common/ticker.js';
 
 export const ROUTE = '/api/nexrad';
 export const EMOJI = '📡';
@@ -26,12 +22,17 @@ export function valueLine(doc) {
   const dark = pickNum(doc.summary?.dark);
   if (fresh == null || total == null) return null;
   const darkBit = dark != null && dark > 0 ? ` · ${dark} dark` : '';
-  return withTags(`${EMOJI} NEXRAD ${fresh}/${total} radars fresh (Lvl-II ≤15m)${darkBit}`, doc);
+  return withTags(
+    `${EMOJI} NEXRAD ${fresh}/${total} radars fresh (Lvl-II ≤15m)${darkBit}`,
+    doc,
+  );
 }
 
 export function detailLine(doc) {
   if (isUnavailable(doc)) return '';
   const byType = doc.summary?.byType ?? {};
   const parts = Object.entries(byType).map(([t, n]) => `${n} ${t}`);
-  return parts.length ? `Site liveness — ${parts.join(' · ')}. lastScan = last Level-II receipt by NWS, not imagery.` : '';
+  return parts.length
+    ? `Site liveness — ${parts.join(' · ')}. lastScan = last Level-II receipt by NWS, not imagery.`
+    : '';
 }

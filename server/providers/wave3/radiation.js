@@ -31,7 +31,8 @@ import { doseBand } from '../../../shared/radiationBands.js';
 export { doseBand };
 
 const UPSTREAM_BASE = 'https://api.safecast.org/en-US/measurements';
-const USER_AGENT = 'SATWQ Reality OS (public Safecast volunteer radiation context)';
+const USER_AGENT =
+  'SATWQ Reality OS (public Safecast volunteer radiation context)';
 const UPSTREAM_TIMEOUT_MS = 15_000;
 const BODY_CAP_BYTES = 2 * 1024 * 1024;
 const CACHE_TTL_MS = 10 * 60_000;
@@ -44,7 +45,8 @@ export function normalizeMeasurement(m) {
   const lat = m?.latitude == null ? NaN : Number(m.latitude);
   const lon = m?.longitude == null ? NaN : Number(m.longitude);
   const value = m?.value == null ? NaN : Number(m.value);
-  if (!Number.isFinite(lat) || !Number.isFinite(lon) || !Number.isFinite(value)) return null;
+  if (!Number.isFinite(lat) || !Number.isFinite(lon) || !Number.isFinite(value))
+    return null;
   if (Math.abs(lat) > 90 || Math.abs(lon) > 180) return null;
   if (value < 0 || value > 1000) return null; // sanity: µSv/h outside this is instrument error
   const unit = String(m.unit ?? 'usv').toLowerCase();
@@ -104,7 +106,11 @@ export function radiationProxy({
       headers: { Accept: 'application/json', 'User-Agent': USER_AGENT },
     });
     if (!response.ok) {
-      try { await response.body?.cancel(); } catch { /* best effort */ }
+      try {
+        await response.body?.cancel();
+      } catch {
+        /* best effort */
+      }
       throw new Error(`radiation_upstream_http_${response.status}`);
     }
     const text = await readResponseTextCapped(response, BODY_CAP_BYTES, signal);
@@ -146,7 +152,10 @@ export function radiationProxy({
       return sendJson(
         res,
         staleOk ? 200 : 503,
-        describe(cache, staleOk ? { stale: true } : { reason: 'radiation_upstream_cooldown' }),
+        describe(
+          cache,
+          staleOk ? { stale: true } : { reason: 'radiation_upstream_cooldown' },
+        ),
       );
     }
     attemptedAt = now();
@@ -156,7 +165,10 @@ export function radiationProxy({
       const value = await refresh(controller.signal);
       return sendJson(res, 200, describe(value));
     } catch (error) {
-      const reason = error?.name === 'AbortError' ? 'radiation_upstream_timeout' : String(error?.message ?? error);
+      const reason =
+        error?.name === 'AbortError'
+          ? 'radiation_upstream_timeout'
+          : String(error?.message ?? error);
       return sendJson(
         res,
         staleOk ? 200 : 503,

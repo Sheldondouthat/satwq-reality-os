@@ -4,37 +4,32 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 4 (usgs water+volcano worker)).
  */
 export const SPEC = {
-  "headers": {},
-  "ttlSeconds": 3600,
-  "extract": {
-    "items": "$.value.timeSeries",
-    "limit": 30,
-    "map": {
-      "name": "$.sourceInfo.siteName",
-      "site": "$.sourceInfo.siteCode[0].value",
-      "value": "$.values[0].value[0].value",
-      "time": "$.values[0].value[0].dateTime",
-      "lat": "$.sourceInfo.geoLocation.geogLocation.latitude",
-      "lon": "$.sourceInfo.geoLocation.geogLocation.longitude"
+  headers: {},
+  ttlSeconds: 3600,
+  extract: {
+    items: '$.value.timeSeries',
+    limit: 30,
+    map: {
+      name: '$.sourceInfo.siteName',
+      site: '$.sourceInfo.siteCode[0].value',
+      value: '$.values[0].value[0].value',
+      time: '$.values[0].value[0].dateTime',
+      lat: '$.sourceInfo.geoLocation.geogLocation.latitude',
+      lon: '$.sourceInfo.geoLocation.geogLocation.longitude',
     },
-    "numbers": [
-      "value",
-      "lat",
-      "lon"
-    ]
+    numbers: ['value', 'lat', 'lon'],
   },
-  "required": [
-    "name"
-  ],
-  "source": "USGS Water Services (NWIS)",
-  "attribution": "Data: U.S. Geological Survey, NWIS — keyless.",
-  "units": {
-    "value": "mg/L"
+  required: ['name'],
+  source: 'USGS Water Services (NWIS)',
+  attribution: 'Data: U.S. Geological Survey, NWIS — keyless.',
+  units: {
+    value: 'mg/L',
   },
-  "honesty": "Instantaneous dissolved oxygen at Susquehanna (Conowingo, MD), Potomac (Washington, DC), and Delaware (Trenton, NJ), typically updated every 15-60 min; provisional values possible (qualifier P). Any gage can go dark.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 4 (usgs water+volcano worker)",
-  "id": "usgs-water-quality-do-midatlantic",
-  "title": "USGS Water — Dissolved oxygen, mid-Atlantic rivers",
-  "url": "https://waterservices.usgs.gov/nwis/iv/?format=json&sites=01578310,01646500,01463500&parameterCd=00300"
+  honesty:
+    'Instantaneous dissolved oxygen at Susquehanna (Conowingo, MD), Potomac (Washington, DC), and Delaware (Trenton, NJ), typically updated every 15-60 min; provisional values possible (qualifier P). Any gage can go dark.',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 4 (usgs water+volcano worker)',
+  id: 'usgs-water-quality-do-midatlantic',
+  title: 'USGS Water — Dissolved oxygen, mid-Atlantic rivers',
+  url: 'https://waterservices.usgs.gov/nwis/iv/?format=json&sites=01578310,01646500,01463500&parameterCd=00300',
 };

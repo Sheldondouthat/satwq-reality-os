@@ -33,7 +33,8 @@
  *   read null, never 0.
  */
 
-export const USER_AGENT = 'satyq-reality-os/1.0 (+https://satwq-reality-os.pages.dev)';
+export const USER_AGENT =
+  'satyq-reality-os/1.0 (+https://satwq-reality-os.pages.dev)';
 const UPSTREAM_TIMEOUT_MS = 20000;
 const RETRY_COOLDOWN_MS = 60 * 1000;
 
@@ -57,15 +58,22 @@ async function fetchCapped(url, capBytes, accept = '*/*') {
       headers: { 'User-Agent': USER_AGENT, Accept: accept },
     });
     if (!response.ok) {
-      throw Object.assign(new Error(`vitals_upstream_${response.status}`), { status: 502 });
+      throw Object.assign(new Error(`vitals_upstream_${response.status}`), {
+        status: 502,
+      });
     }
     const buffer = await response.arrayBuffer();
     if (buffer.byteLength > capBytes)
-      throw Object.assign(new Error('vitals_upstream_too_large'), { status: 502 });
+      throw Object.assign(new Error('vitals_upstream_too_large'), {
+        status: 502,
+      });
     return new TextDecoder().decode(buffer);
   } catch (error) {
     if (error?.status === 502) throw error;
-    throw Object.assign(new Error(`vitals_fetch_failed: ${error?.message ?? 'unknown'}`), { status: 502 });
+    throw Object.assign(
+      new Error(`vitals_fetch_failed: ${error?.message ?? 'unknown'}`),
+      { status: 502 },
+    );
   } finally {
     clearTimeout(timeout);
   }
@@ -75,16 +83,30 @@ function makeCache() {
   const payloadCache = new Map();
   const inflight = new Map();
   let failedAt = -Infinity;
-  return { payloadCache, inflight, get failedAt() { return failedAt; }, set failedAt(v) { failedAt = v; } };
+  return {
+    payloadCache,
+    inflight,
+    get failedAt() {
+      return failedAt;
+    },
+    set failedAt(v) {
+      failedAt = v;
+    },
+  };
 }
 
 async function cachedGet(cache, key, ttlMs, staleMs, loader) {
   const now = Date.now();
   const hit = cache.payloadCache.get(key);
-  if (hit && now - hit.at < ttlMs) return { payload: hit.payload, stale: false };
+  if (hit && now - hit.at < ttlMs)
+    return { payload: hit.payload, stale: false };
   let op = cache.inflight.get(key);
   if (!op) {
-    if (now - cache.failedAt < RETRY_COOLDOWN_MS && hit && now - hit.at < staleMs) {
+    if (
+      now - cache.failedAt < RETRY_COOLDOWN_MS &&
+      hit &&
+      now - hit.at < staleMs
+    ) {
       return { payload: hit.payload, stale: true };
     }
     op = (async () => {
@@ -94,7 +116,8 @@ async function cachedGet(cache, key, ttlMs, staleMs, loader) {
         return { payload, stale: false };
       } catch (error) {
         cache.failedAt = Date.now();
-        if (hit && Date.now() - hit.at < staleMs) return { payload: hit.payload, stale: true };
+        if (hit && Date.now() - hit.at < staleMs)
+          return { payload: hit.payload, stale: true };
         throw error;
       }
     })().finally(() => cache.inflight.delete(key));
@@ -130,18 +153,22 @@ const SEAICE_HONESTY = {
     'The day-of-year anomaly is computed against THIS FILE\u2019s full-record day-of-year mean. It is NOT the official 1981-2010 baseline NSIDC uses in its plots.',
   units: 'Extent in millions of square kilometres (10^6 km^2).',
   nullsNeverZero: 'Missing values read null, never 0.',
-  attribution: 'Data: NSIDC Sea Ice Index G02135 v4.0 (NOAA@NSIDC), keyless public CSVs.',
+  attribution:
+    'Data: NSIDC Sea Ice Index G02135 v4.0 (NOAA@NSIDC), keyless public CSVs.',
 };
 
 const SEAICE_URLS = {
-  north: 'https://noaadata.apps.nsidc.org/NOAA/G02135/north/daily/data/N_seaice_extent_daily_v4.0.csv',
-  south: 'https://noaadata.apps.nsidc.org/NOAA/G02135/south/daily/data/S_seaice_extent_daily_v4.0.csv',
+  north:
+    'https://noaadata.apps.nsidc.org/NOAA/G02135/north/daily/data/N_seaice_extent_daily_v4.0.csv',
+  south:
+    'https://noaadata.apps.nsidc.org/NOAA/G02135/south/daily/data/S_seaice_extent_daily_v4.0.csv',
 };
 const SEAICE_TTL_MS = 24 * 3600 * 1000;
 const SEAICE_STALE_MS = 14 * 24 * 3600 * 1000;
 const SEAICE_BODY_CAP = 2_500_000; // ~1.9MB live; headroom for growth
 
-const SEAICE_ROW_RE = /^\s*(\d{4})\s*,\s*(\d{1,2})\s*,\s*(\d{1,2})\s*,\s*([0-9.eE+-]+)\s*,\s*([0-9.eE+-]+)\s*,/;
+const SEAICE_ROW_RE =
+  /^\s*(\d{4})\s*,\s*(\d{1,2})\s*,\s*(\d{1,2})\s*,\s*([0-9.eE+-]+)\s*,\s*([0-9.eE+-]+)\s*,/;
 
 /** Parse one hemisphere's CSV text into [{y,m,d,extent,missing}] (skips the 2 header rows). */
 export function parseSeaIceCsv(text) {
@@ -166,7 +193,8 @@ export function parseSeaIceCsv(text) {
   return rows;
 }
 
-const isoDate = (r) => `${r.y}-${String(r.m).padStart(2, '0')}-${String(r.d).padStart(2, '0')}`;
+const isoDate = (r) =>
+  `${r.y}-${String(r.m).padStart(2, '0')}-${String(r.d).padStart(2, '0')}`;
 const doyKey = (r) => r.m * 100 + r.d;
 
 /** Build the per-hemisphere payload section from parsed rows. */
@@ -183,11 +211,17 @@ export function buildSeaIceSection(hemi, rows) {
     if (r.extent < min.extent) min = r;
     if (r.extent > max.extent) max = r;
   }
-  const series = rows.slice(-365).map((r) => ({ date: isoDate(r), extent: r.extent }));
+  const series = rows
+    .slice(-365)
+    .map((r) => ({ date: isoDate(r), extent: r.extent }));
   return {
     hemi,
     ok: true,
-    latest: { date: isoDate(latest), extentMkm2: latest.extent, missingMkm2: latest.missing },
+    latest: {
+      date: isoDate(latest),
+      extentMkm2: latest.extent,
+      missingMkm2: latest.missing,
+    },
     dayOfYear: {
       month: latest.m,
       day: latest.d,
@@ -204,27 +238,49 @@ export function buildSeaIceSection(hemi, rows) {
 const seaIceCache = makeCache();
 
 async function getSeaIce(hemi) {
-  return cachedGet(seaIceCache, hemi, SEAICE_TTL_MS, SEAICE_STALE_MS, async () => {
-    const text = await fetchCapped(SEAICE_URLS[hemi], SEAICE_BODY_CAP, 'text/csv, text/plain, */*');
-    const rows = parseSeaIceCsv(text);
-    if (!rows.length) throw Object.assign(new Error('seaice_empty_parse'), { status: 502 });
-    return buildSeaIceSection(hemi, rows);
-  });
+  return cachedGet(
+    seaIceCache,
+    hemi,
+    SEAICE_TTL_MS,
+    SEAICE_STALE_MS,
+    async () => {
+      const text = await fetchCapped(
+        SEAICE_URLS[hemi],
+        SEAICE_BODY_CAP,
+        'text/csv, text/plain, */*',
+      );
+      const rows = parseSeaIceCsv(text);
+      if (!rows.length)
+        throw Object.assign(new Error('seaice_empty_parse'), { status: 502 });
+      return buildSeaIceSection(hemi, rows);
+    },
+  );
 }
 
 /** Mount GET /api/sea-ice — NSIDC daily sea-ice extent, Arctic + Antarctic. */
 export function seaIceProxy() {
   async function handler(req, res) {
-    if (req.method !== 'GET') return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
     const q = queryParams(req);
     const hemi = (q.get('hemi') || 'both').toLowerCase();
     if (!['north', 'south', 'both', 'arctic', 'antarctic'].includes(hemi)) {
-      return sendJson(res, 400, { error: 'seaice_bad_hemi', honesty: SEAICE_HONESTY }, 'no-store');
+      return sendJson(
+        res,
+        400,
+        { error: 'seaice_bad_hemi', honesty: SEAICE_HONESTY },
+        'no-store',
+      );
     }
     try {
-      const hemis = hemi === 'both' ? ['north', 'south']
-        : hemi === 'arctic' ? ['north']
-        : hemi === 'antarctic' ? ['south'] : [hemi];
+      const hemis =
+        hemi === 'both'
+          ? ['north', 'south']
+          : hemi === 'arctic'
+            ? ['north']
+            : hemi === 'antarctic'
+              ? ['south']
+              : [hemi];
       const sections = [];
       let anyStale = false;
       for (const h of hemis) {
@@ -232,26 +288,43 @@ export function seaIceProxy() {
         anyStale = anyStale || stale;
         sections.push(payload);
       }
-      sendJson(res, 200, {
-        generatedAt: new Date().toISOString(),
-        upstream: Object.values(SEAICE_URLS),
-        stale: anyStale,
-        hemispheres: sections,
-        honesty: SEAICE_HONESTY,
-      }, 'public, max-age=3600');
+      sendJson(
+        res,
+        200,
+        {
+          generatedAt: new Date().toISOString(),
+          upstream: Object.values(SEAICE_URLS),
+          stale: anyStale,
+          hemispheres: sections,
+          honesty: SEAICE_HONESTY,
+        },
+        'public, max-age=3600',
+      );
     } catch (error) {
-      const upstreamFail = error?.status === 502 || error?.name === 'AbortError' || /aborted?/i.test(error?.message ?? '');
-      sendJson(res, upstreamFail ? 502 : 500, {
-        error: 'seaice_unavailable',
-        detail: error?.message ?? 'unknown',
-        honesty: SEAICE_HONESTY,
-      }, 'no-store');
+      const upstreamFail =
+        error?.status === 502 ||
+        error?.name === 'AbortError' ||
+        /aborted?/i.test(error?.message ?? '');
+      sendJson(
+        res,
+        upstreamFail ? 502 : 500,
+        {
+          error: 'seaice_unavailable',
+          detail: error?.message ?? 'unknown',
+          honesty: SEAICE_HONESTY,
+        },
+        'no-store',
+      );
     }
   }
   return {
     name: 'sea-ice',
-    configureServer({ middlewares }) { middlewares.use('/api/sea-ice', handler); },
-    configurePreviewServer({ middlewares }) { middlewares.use('/api/sea-ice', handler); },
+    configureServer({ middlewares }) {
+      middlewares.use('/api/sea-ice', handler);
+    },
+    configurePreviewServer({ middlewares }) {
+      middlewares.use('/api/sea-ice', handler);
+    },
   };
 }
 
@@ -266,18 +339,19 @@ const OZONE_HONESTY = {
     'The upstream column header says "(YYMM)" but the values are MMDD (e.g. 0921 = September 21). Parsed as MMDD.',
   sources:
     'TOMS, OMI, and OMPS data; missing data filled from NASA GMAO MERRA, MERRA-2, and GEOS FP. Southern Hemisphere.',
-  row1995:
-    '1995 has no row in the upstream file (absent, never synthesized).',
+  row1995: '1995 has no row in the upstream file (absent, never synthesized).',
   license: 'NASA Ozone Watch, CC-BY (https://science.data.nasa.gov/license/).',
   nullsNeverZero: 'Missing values read null, never 0.',
-  attribution: 'Data: NASA Ozone Watch (Goddard Space Flight Center), keyless public text.',
+  attribution:
+    'Data: NASA Ozone Watch (Goddard Space Flight Center), keyless public text.',
 };
 
 const OZONE_URL = 'https://ozonewatch.gsfc.nasa.gov/statistics/ytd_data.txt';
 const OZONE_TTL_MS = 24 * 3600 * 1000;
 const OZONE_STALE_MS = 90 * 24 * 3600 * 1000;
 
-const OZONE_ROW_RE = /^\s*(\d{4})\s+(\d{4})\s+([0-9.]+)\s+(\d{4})\s+([0-9.]+)\s*$/;
+const OZONE_ROW_RE =
+  /^\s*(\d{4})\s+(\d{4})\s+([0-9.]+)\s+(\d{4})\s+([0-9.]+)\s*$/;
 
 function formatMmdd(y, mmdd) {
   const s = String(mmdd).padStart(4, '0');
@@ -309,17 +383,24 @@ export function buildOzonePayload(rows, stale) {
   let recordArea = null;
   let recordOzone = null;
   for (const r of rows) {
-    if (r.areaMkm2 != null && (!recordArea || r.areaMkm2 > recordArea.areaMkm2)) recordArea = r;
-    if (r.ozoneDU != null && (!recordOzone || r.ozoneDU < recordOzone.ozoneDU)) recordOzone = r;
+    if (r.areaMkm2 != null && (!recordArea || r.areaMkm2 > recordArea.areaMkm2))
+      recordArea = r;
+    if (r.ozoneDU != null && (!recordOzone || r.ozoneDU < recordOzone.ozoneDU))
+      recordOzone = r;
   }
   const decadeMeans = [];
   for (let start = 1980; start <= 2020; start += 10) {
-    const inDec = rows.filter((r) => r.year >= start && r.year < start + 10 && r.areaMkm2 != null);
+    const inDec = rows.filter(
+      (r) => r.year >= start && r.year < start + 10 && r.areaMkm2 != null,
+    );
     if (inDec.length) {
       decadeMeans.push({
         decade: `${start}s`,
         n: inDec.length,
-        meanAreaMkm2: Math.round((inDec.reduce((a, r) => a + r.areaMkm2, 0) / inDec.length) * 10) / 10,
+        meanAreaMkm2:
+          Math.round(
+            (inDec.reduce((a, r) => a + r.areaMkm2, 0) / inDec.length) * 10,
+          ) / 10,
       });
     }
   }
@@ -327,14 +408,28 @@ export function buildOzonePayload(rows, stale) {
     generatedAt: new Date().toISOString(),
     upstream: [OZONE_URL],
     stale: !!stale,
-    latest: latest ? {
-      year: latest.year,
-      maxHoleArea: { valueMkm2: latest.areaMkm2, date: latest.areaDate },
-      minOzone: { valueDU: latest.ozoneDU, date: latest.ozoneDate },
-    } : null,
+    latest: latest
+      ? {
+          year: latest.year,
+          maxHoleArea: { valueMkm2: latest.areaMkm2, date: latest.areaDate },
+          minOzone: { valueDU: latest.ozoneDU, date: latest.ozoneDate },
+        }
+      : null,
     records: {
-      largestHole: recordArea ? { valueMkm2: recordArea.areaMkm2, date: recordArea.areaDate, year: recordArea.year } : null,
-      lowestOzone: recordOzone ? { valueDU: recordOzone.ozoneDU, date: recordOzone.ozoneDate, year: recordOzone.year } : null,
+      largestHole: recordArea
+        ? {
+            valueMkm2: recordArea.areaMkm2,
+            date: recordArea.areaDate,
+            year: recordArea.year,
+          }
+        : null,
+      lowestOzone: recordOzone
+        ? {
+            valueDU: recordOzone.ozoneDU,
+            date: recordOzone.ozoneDate,
+            year: recordOzone.year,
+          }
+        : null,
     },
     decadeMeans,
     history: rows,
@@ -347,46 +442,80 @@ const ozoneCache = makeCache();
 /** Mount GET /api/ozone — NASA Ozone Watch annual ozone-hole maxima. */
 export function ozoneProxy() {
   async function handler(req, res) {
-    if (req.method !== 'GET') return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
     const q = queryParams(req);
     const yearParam = q.get('year');
     if (yearParam != null && !/^\d{4}$/.test(yearParam)) {
-      return sendJson(res, 400, { error: 'ozone_bad_year', honesty: OZONE_HONESTY }, 'no-store');
+      return sendJson(
+        res,
+        400,
+        { error: 'ozone_bad_year', honesty: OZONE_HONESTY },
+        'no-store',
+      );
     }
     try {
-      const { payload, stale } = await cachedGet(ozoneCache, 'all', OZONE_TTL_MS, OZONE_STALE_MS, async () => {
-        const text = await fetchCapped(OZONE_URL, 100_000, 'text/plain, */*');
-        const rows = parseOzoneYtd(text);
-        if (!rows.length) throw Object.assign(new Error('ozone_empty_parse'), { status: 502 });
-        return buildOzonePayload(rows, false);
-      });
+      const { payload, stale } = await cachedGet(
+        ozoneCache,
+        'all',
+        OZONE_TTL_MS,
+        OZONE_STALE_MS,
+        async () => {
+          const text = await fetchCapped(OZONE_URL, 100_000, 'text/plain, */*');
+          const rows = parseOzoneYtd(text);
+          if (!rows.length)
+            throw Object.assign(new Error('ozone_empty_parse'), {
+              status: 502,
+            });
+          return buildOzonePayload(rows, false);
+        },
+      );
       const out = stale ? { ...payload, stale: true } : payload;
       if (yearParam != null) {
         const row = out.history.find((r) => r.year === Number(yearParam));
         if (!row) {
           return sendJson(res, 200, {
-            generatedAt: out.generatedAt, stale: out.stale, requestedNotFound: true,
-            year: Number(yearParam), latest: out.latest, honesty: OZONE_HONESTY,
+            generatedAt: out.generatedAt,
+            stale: out.stale,
+            requestedNotFound: true,
+            year: Number(yearParam),
+            latest: out.latest,
+            honesty: OZONE_HONESTY,
           });
         }
         return sendJson(res, 200, {
-          generatedAt: out.generatedAt, stale: out.stale, year: row, honesty: OZONE_HONESTY,
+          generatedAt: out.generatedAt,
+          stale: out.stale,
+          year: row,
+          honesty: OZONE_HONESTY,
         });
       }
       sendJson(res, 200, out, 'public, max-age=3600');
     } catch (error) {
-      const upstreamFail = error?.status === 502 || error?.name === 'AbortError' || /aborted?/i.test(error?.message ?? '');
-      sendJson(res, upstreamFail ? 502 : 500, {
-        error: 'ozone_unavailable',
-        detail: error?.message ?? 'unknown',
-        honesty: OZONE_HONESTY,
-      }, 'no-store');
+      const upstreamFail =
+        error?.status === 502 ||
+        error?.name === 'AbortError' ||
+        /aborted?/i.test(error?.message ?? '');
+      sendJson(
+        res,
+        upstreamFail ? 502 : 500,
+        {
+          error: 'ozone_unavailable',
+          detail: error?.message ?? 'unknown',
+          honesty: OZONE_HONESTY,
+        },
+        'no-store',
+      );
     }
   }
   return {
     name: 'ozone',
-    configureServer({ middlewares }) { middlewares.use('/api/ozone', handler); },
-    configurePreviewServer({ middlewares }) { middlewares.use('/api/ozone', handler); },
+    configureServer({ middlewares }) {
+      middlewares.use('/api/ozone', handler);
+    },
+    configurePreviewServer({ middlewares }) {
+      middlewares.use('/api/ozone', handler);
+    },
   };
 }
 
@@ -404,7 +533,8 @@ const PHENO_HONESTY = {
   season:
     'Anomaly layers describe the current spring season; values freeze once the season completes.',
   nullsNeverZero: 'Missing values read null, never 0.',
-  attribution: 'Data: USA National Phenology Network (USA-NPN), keyless GeoServer WMS.',
+  attribution:
+    'Data: USA National Phenology Network (USA-NPN), keyless GeoServer WMS.',
 };
 
 const PHENO_WMS = 'https://geoserver.usanpn.org/geoserver/wms';
@@ -467,38 +597,63 @@ export function parsePhenoFeature(text, key) {
 const phenoCache = makeCache();
 
 async function getPhenoPoint(point) {
-  return cachedGet(phenoCache, point.id, PHENO_TTL_MS, PHENO_STALE_MS, async () => {
-    const { x, y } = lonLatToPixel(point.lon, point.lat);
-    const leafText = await fetchCapped(phenoFeatureUrl('si-x:leaf_anomaly', x, y), 50_000, 'application/json');
-    const bloomText = await fetchCapped(phenoFeatureUrl('si-x:bloom_anomaly', x, y), 50_000, 'application/json');
-    const leafAnomalyDays = parsePhenoFeature(leafText, 'LEAF_OUT_DAY_DIFF');
-    const bloomAnomalyDays = parsePhenoFeature(bloomText, 'BLOOM_DAY_DIFF');
-    if (leafAnomalyDays == null && bloomAnomalyDays == null) {
-      throw Object.assign(new Error('pheno_no_data_at_point'), { status: 502 });
-    }
-    return {
-      id: point.id,
-      label: point.label,
-      lat: point.lat,
-      lon: point.lon,
-      ok: true,
-      leafAnomalyDays,
-      bloomAnomalyDays,
-    };
-  });
+  return cachedGet(
+    phenoCache,
+    point.id,
+    PHENO_TTL_MS,
+    PHENO_STALE_MS,
+    async () => {
+      const { x, y } = lonLatToPixel(point.lon, point.lat);
+      const leafText = await fetchCapped(
+        phenoFeatureUrl('si-x:leaf_anomaly', x, y),
+        50_000,
+        'application/json',
+      );
+      const bloomText = await fetchCapped(
+        phenoFeatureUrl('si-x:bloom_anomaly', x, y),
+        50_000,
+        'application/json',
+      );
+      const leafAnomalyDays = parsePhenoFeature(leafText, 'LEAF_OUT_DAY_DIFF');
+      const bloomAnomalyDays = parsePhenoFeature(bloomText, 'BLOOM_DAY_DIFF');
+      if (leafAnomalyDays == null && bloomAnomalyDays == null) {
+        throw Object.assign(new Error('pheno_no_data_at_point'), {
+          status: 502,
+        });
+      }
+      return {
+        id: point.id,
+        label: point.label,
+        lat: point.lat,
+        lon: point.lon,
+        ok: true,
+        leafAnomalyDays,
+        bloomAnomalyDays,
+      };
+    },
+  );
 }
 
 /** Mount GET /api/phenology — USA-NPN spring leaf/bloom anomaly at pinned points. */
 export function phenoProxy() {
   async function handler(req, res) {
-    if (req.method !== 'GET') return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
     const q = queryParams(req);
     const pointParam = (q.get('point') || 'all').toLowerCase();
     try {
-      const points = pointParam === 'all' ? PHENO_POINTS : PHENO_POINTS.filter((p) => p.id === pointParam);
+      const points =
+        pointParam === 'all'
+          ? PHENO_POINTS
+          : PHENO_POINTS.filter((p) => p.id === pointParam);
       if (pointParam !== 'all' && !points.length) {
         if (!/^[a-z0-9-]{1,40}$/.test(pointParam)) {
-          return sendJson(res, 400, { error: 'pheno_bad_point', honesty: PHENO_HONESTY }, 'no-store');
+          return sendJson(
+            res,
+            400,
+            { error: 'pheno_bad_point', honesty: PHENO_HONESTY },
+            'no-store',
+          );
         }
         return sendJson(res, 200, {
           generatedAt: new Date().toISOString(),
@@ -518,32 +673,61 @@ export function phenoProxy() {
           anyOk = true;
           rows.push(payload);
         } catch (pointError) {
-          rows.push({ id: p.id, label: p.label, lat: p.lat, lon: p.lon, ok: false, error: pointError?.message ?? 'point_failed' });
+          rows.push({
+            id: p.id,
+            label: p.label,
+            lat: p.lat,
+            lon: p.lon,
+            ok: false,
+            error: pointError?.message ?? 'point_failed',
+          });
         }
       }
       if (!anyOk) {
-        return sendJson(res, 502, { error: 'pheno_unavailable', points: rows, honesty: PHENO_HONESTY }, 'no-store');
+        return sendJson(
+          res,
+          502,
+          { error: 'pheno_unavailable', points: rows, honesty: PHENO_HONESTY },
+          'no-store',
+        );
       }
-      sendJson(res, 200, {
-        generatedAt: new Date().toISOString(),
-        upstream: [PHENO_WMS],
-        stale: anyStale,
-        points: rows,
-        honesty: PHENO_HONESTY,
-      }, 'public, max-age=3600');
+      sendJson(
+        res,
+        200,
+        {
+          generatedAt: new Date().toISOString(),
+          upstream: [PHENO_WMS],
+          stale: anyStale,
+          points: rows,
+          honesty: PHENO_HONESTY,
+        },
+        'public, max-age=3600',
+      );
     } catch (error) {
-      const upstreamFail = error?.status === 502 || error?.name === 'AbortError' || /aborted?/i.test(error?.message ?? '');
-      sendJson(res, upstreamFail ? 502 : 500, {
-        error: 'pheno_unavailable',
-        detail: error?.message ?? 'unknown',
-        honesty: PHENO_HONESTY,
-      }, 'no-store');
+      const upstreamFail =
+        error?.status === 502 ||
+        error?.name === 'AbortError' ||
+        /aborted?/i.test(error?.message ?? '');
+      sendJson(
+        res,
+        upstreamFail ? 502 : 500,
+        {
+          error: 'pheno_unavailable',
+          detail: error?.message ?? 'unknown',
+          honesty: PHENO_HONESTY,
+        },
+        'no-store',
+      );
     }
   }
   return {
     name: 'phenology',
-    configureServer({ middlewares }) { middlewares.use('/api/phenology', handler); },
-    configurePreviewServer({ middlewares }) { middlewares.use('/api/phenology', handler); },
+    configureServer({ middlewares }) {
+      middlewares.use('/api/phenology', handler);
+    },
+    configurePreviewServer({ middlewares }) {
+      middlewares.use('/api/phenology', handler);
+    },
   };
 }
 

@@ -48,13 +48,25 @@ import {
 /** Default coarse tiles (z=3) covering the radar-rich regions RainViewer actually paints. */
 export const DEFAULT_RADAR_TILES = Object.freeze([
   // CONUS
-  [1, 2], [2, 2], [1, 3], [2, 3],
+  [1, 2],
+  [2, 2],
+  [1, 3],
+  [2, 3],
   // Europe
-  [3, 2], [4, 2], [3, 3], [4, 3],
+  [3, 2],
+  [4, 2],
+  [3, 3],
+  [4, 3],
   // East Asia / Japan
-  [6, 2], [7, 2], [6, 3], [7, 3],
+  [6, 2],
+  [7, 2],
+  [6, 3],
+  [7, 3],
   // SE Asia / Australia
-  [6, 4], [7, 4], [6, 5], [7, 5],
+  [6, 4],
+  [7, 4],
+  [6, 5],
+  [7, 5],
 ]);
 
 export const DEFAULT_STRIKES_PER_BATCH = 24;
@@ -87,8 +99,7 @@ const clamp01 = (v) => Math.min(1, Math.max(0, v));
 export function cellsFromTileImage(imageData, tileX, tileY, z = RADAR_TILE_Z) {
   if (!imageData) return [];
   const { width, height, data } = imageData;
-  if (!width || !height || !data || data.length < width * height * 4)
-    return [];
+  if (!width || !height || !data || data.length < width * height * 4) return [];
   const cellPxX = width / CELL_GRID;
   const cellPxY = height / CELL_GRID;
   const cells = [];
@@ -216,10 +227,14 @@ export function createRadarModeledLightningSource({
 
       const settled = await Promise.allSettled(
         tileSet.map(async ([x, y]) => {
-          const response = await fetchImpl(tileUrl(template, RADAR_TILE_Z, x, y), {
-            signal,
-          });
-          if (!response.ok) throw new Error(`radar tile HTTP ${response.status}`);
+          const response = await fetchImpl(
+            tileUrl(template, RADAR_TILE_Z, x, y),
+            {
+              signal,
+            },
+          );
+          if (!response.ok)
+            throw new Error(`radar tile HTTP ${response.status}`);
           const bytes = await response.arrayBuffer();
           signal?.throwIfAborted();
           const image = await decode(bytes);
@@ -260,7 +275,10 @@ export function createRadarModeledLightningSource({
           }
         } catch (e) {
           // Cyclone assist is best-effort: radar cells still stand alone.
-          console.warn('[Data:Lightning] Cyclone assist failed:', e?.message ?? e);
+          console.warn(
+            '[Data:Lightning] Cyclone assist failed:',
+            e?.message ?? e,
+          );
         }
       }
 
@@ -317,7 +335,11 @@ export function createRadarModeledLightningSource({
  * it attempts the documented session-gated fetch pattern and surfaces the
  * upstream error honestly — it never fabricates strikes.
  */
-export function createBlitzortungSource({ username = null, password = null, sessionCookie = null } = {}) {
+export function createBlitzortungSource({
+  username = null,
+  password = null,
+  sessionCookie = null,
+} = {}) {
   const hasCreds = Boolean((username && password) || sessionCookie);
   return {
     kind: 'blitzortung',

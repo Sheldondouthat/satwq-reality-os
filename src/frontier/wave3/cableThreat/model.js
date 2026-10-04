@@ -50,8 +50,16 @@ export function buildCableIndex(geojson) {
     const maxLon = Math.max(a[0], b[0]);
     const minLat = Math.min(a[1], b[1]);
     const maxLat = Math.max(a[1], b[1]);
-    for (let cx = Math.floor(minLon / GRID_DEG); cx <= Math.floor(maxLon / GRID_DEG); cx += 1) {
-      for (let cy = Math.floor(minLat / GRID_DEG); cy <= Math.floor(maxLat / GRID_DEG); cy += 1) {
+    for (
+      let cx = Math.floor(minLon / GRID_DEG);
+      cx <= Math.floor(maxLon / GRID_DEG);
+      cx += 1
+    ) {
+      for (
+        let cy = Math.floor(minLat / GRID_DEG);
+        cy <= Math.floor(maxLat / GRID_DEG);
+        cy += 1
+      ) {
         const key = `${cx}:${cy}`;
         if (!grid.has(key)) grid.set(key, []);
         grid.get(key).push(idx);
@@ -69,7 +77,8 @@ export function buildCableIndex(geojson) {
       for (let i = 0; i + 1 < line.length; i += 1) {
         const a = line[i];
         const b = line[i + 1];
-        if (Array.isArray(a) && Array.isArray(b)) addSegment(a, b, cableId, cableName);
+        if (Array.isArray(a) && Array.isArray(b))
+          addSegment(a, b, cableId, cableName);
       }
     }
   }
@@ -92,7 +101,10 @@ export function pointToSegmentMeters(lat, lon, seg) {
   const dx = bx - ax;
   const dy = by - ay;
   const len2 = dx * dx + dy * dy;
-  const t = len2 === 0 ? 0 : Math.min(1, Math.max(0, ((px - ax) * dx + (py - ay) * dy) / len2));
+  const t =
+    len2 === 0
+      ? 0
+      : Math.min(1, Math.max(0, ((px - ax) * dx + (py - ay) * dy) / len2));
   const cx = ax + t * dx;
   const cy = ay + t * dy;
   return Math.hypot(px - cx, py - cy);
@@ -179,7 +191,12 @@ export class SightingTracker {
     sighting.count += 1;
     sighting.maxDispM = Math.max(
       sighting.maxDispM,
-      haversineMeters(sighting.firstLat, sighting.firstLon, vessel.lat, vessel.lon),
+      haversineMeters(
+        sighting.firstLat,
+        sighting.firstLon,
+        vessel.lat,
+        vessel.lon,
+      ),
     );
     if (nearest) {
       sighting.nearestCableId = nearest.segment.cableId;

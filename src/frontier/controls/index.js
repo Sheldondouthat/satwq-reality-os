@@ -50,7 +50,9 @@ function handleVoice(text, RB, say) {
   } else if (has('time', 'clock')) {
     say(sayTime());
   } else if (has('date', 'today')) {
-    say(`Today is ${new Date().toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric' })}.`);
+    say(
+      `Today is ${new Date().toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric' })}.`,
+    );
   } else {
     say('Did not catch that. Try torch on, what time is it, or open monolith.');
   }
@@ -59,7 +61,12 @@ function handleVoice(text, RB, say) {
 export function init({ mount, chip } = {}) {
   try {
     const RB = typeof window !== 'undefined' ? window.RealityBridge : null;
-    if (!RB || typeof document === 'undefined' || !mount || typeof chip !== 'function') {
+    if (
+      !RB ||
+      typeof document === 'undefined' ||
+      !mount ||
+      typeof chip !== 'function'
+    ) {
       return null; // not the app — stay invisible
     }
 
@@ -68,7 +75,8 @@ export function init({ mount, chip } = {}) {
 
     const statusEl = document.createElement('div');
     statusEl.style.cssText = 'font-size:10px;color:#8aa4d6;margin:2px 0 6px;';
-    statusEl.textContent = '📱 device bridge live — these buttons drive your phone.';
+    statusEl.textContent =
+      '📱 device bridge live — these buttons drive your phone.';
     wrap.appendChild(statusEl);
 
     const say = (text) => {
@@ -100,32 +108,40 @@ export function init({ mount, chip } = {}) {
         try {
           RB.torch(on);
           statusEl.textContent = on ? '🔦 torch on' : '🔦 torch off';
-        } catch { statusEl.textContent = '🔦 torch failed'; }
+        } catch {
+          statusEl.textContent = '🔦 torch failed';
+        }
       }),
     );
     row.appendChild(
       chip('📳 buzz', () => {
-        try { RB.vibrate(300); statusEl.textContent = '📳 buzzed'; }
-        catch { statusEl.textContent = '📳 buzz failed'; }
+        try {
+          RB.vibrate(300);
+          statusEl.textContent = '📳 buzzed';
+        } catch {
+          statusEl.textContent = '📳 buzz failed';
+        }
       }),
     );
-    row.appendChild(
-      chip('🔊 time', () => say(sayTime())),
-    );
+    row.appendChild(chip('🔊 time', () => say(sayTime())));
     row.appendChild(
       chip('🔋 battery', () => {
         try {
           const pct = RB.battery();
           statusEl.textContent = `🔋 battery ${pct}%`;
           say(`Battery is at ${pct} percent.`);
-        } catch { statusEl.textContent = '🔋 battery failed'; }
+        } catch {
+          statusEl.textContent = '🔋 battery failed';
+        }
       }),
     );
     const micBtn = chip('🎤 talk', () => {
       try {
         statusEl.textContent = '🎤 listening… speak now';
         RB.listen();
-      } catch { statusEl.textContent = '🎤 mic failed'; }
+      } catch {
+        statusEl.textContent = '🎤 mic failed';
+      }
     });
     row.appendChild(micBtn);
     row.appendChild(
@@ -133,7 +149,9 @@ export function init({ mount, chip } = {}) {
         try {
           RB.launchApp(MONOLITH_PKG);
           statusEl.textContent = '📺 opening Monolith remote…';
-        } catch { statusEl.textContent = '📺 remote failed'; }
+        } catch {
+          statusEl.textContent = '📺 remote failed';
+        }
       }),
     );
 
@@ -142,7 +160,9 @@ export function init({ mount, chip } = {}) {
       try {
         wrap.remove();
         delete window.__rbListenResult;
-      } catch { /* already gone */ }
+      } catch {
+        /* already gone */
+      }
     };
   } catch {
     return null;

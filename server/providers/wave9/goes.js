@@ -47,9 +47,10 @@
  * under the Workers subrequest headroom rule.
  */
 
-import { readResponseTextCapped } from "../common/http.js";
+import { readResponseTextCapped } from '../common/http.js';
 
-const USER_AGENT = "satwq-reality-os/1.0 (gods-eye-view; GOES Earth-imagery layer; keyless)";
+const USER_AGENT =
+  'satwq-reality-os/1.0 (gods-eye-view; GOES Earth-imagery layer; keyless)';
 const UPSTREAM_TIMEOUT_MS = 25_000;
 const BODY_CAP_BYTES = 256 * 1024; // observed ~31 KB/hr; generous headroom
 const CACHE_TTL_MS = 300_000; // CMIPF files land every ~10 min
@@ -58,13 +59,17 @@ const STALE_MS = 10 * 60_000;
 const FRESH_SEC = 1200; // ≤20 min since latest scan start
 const DARK_SEC = 3600; // >60 min (or no files) reads dark
 const MAX_KEYS = 120; // an hour holds ≤96 CMIPF files (6 scans × 16 ch)
-const PRODUCT = "ABI-L2-CMIPF";
+const PRODUCT = 'ABI-L2-CMIPF';
 
 const SATELLITES = [
-  { sat: "G16", bucket: "noaa-goes16", role: "GOES East (predecessor) — on-orbit storage" },
-  { sat: "G17", bucket: "noaa-goes17", role: "On-orbit storage (standby)" },
-  { sat: "G18", bucket: "noaa-goes18", role: "GOES West — operational" },
-  { sat: "G19", bucket: "noaa-goes19", role: "GOES East — operational" },
+  {
+    sat: 'G16',
+    bucket: 'noaa-goes16',
+    role: 'GOES East (predecessor) — on-orbit storage',
+  },
+  { sat: 'G17', bucket: 'noaa-goes17', role: 'On-orbit storage (standby)' },
+  { sat: 'G18', bucket: 'noaa-goes18', role: 'GOES West — operational' },
+  { sat: 'G19', bucket: 'noaa-goes19', role: 'GOES East — operational' },
 ];
 
 const SAT_RE = /^G\d{2}$/;
@@ -78,7 +83,7 @@ const PAYLOAD_CACHE_MAX = 32;
 /** Number(null)===0 guard: null/NaN upstream numerics become null, never 0. */
 function numOrNull(v) {
   if (v == null) return null;
-  if (typeof v === "string" && v.trim() === "") return null; // Number('')===0 trap
+  if (typeof v === 'string' && v.trim() === '') return null; // Number('')===0 trap
   const n = Number(v);
   return Number.isFinite(n) ? n : null;
 }
@@ -88,8 +93,11 @@ export function hourPrefix(ms) {
   const d = new Date(ms);
   const yyyy = d.getUTCFullYear();
   const startOfYear = Date.UTC(yyyy, 0, 1);
-  const doy = String(Math.floor((ms - startOfYear) / 86_400_000) + 1).padStart(3, "0");
-  const hh = String(d.getUTCHours()).padStart(2, "0");
+  const doy = String(Math.floor((ms - startOfYear) / 86_400_000) + 1).padStart(
+    3,
+    '0',
+  );
+  const hh = String(d.getUTCHours()).padStart(2, '0');
   return `${PRODUCT}/${yyyy}/${doy}/${hh}/`;
 }
 
@@ -100,12 +108,13 @@ export function hourPrefix(ms) {
  * Pure. Range-checked — Date.UTC overflow must never silently pass.
  */
 export function parseGoesKey(key) {
-  if (typeof key !== "string") return null;
+  if (typeof key !== 'string') return null;
   // S3 keys carry the listing prefix (ABI-L2-CMIPF/2026/273/07/OR_ABI-...);
   // anchor on the OR_ filename, not the string start.
-  const m = /(?:^|\/)OR_ABI-L2-CMIPF-M6C(\d{2})_G(\d{2})_s(\d{4})(\d{3})(\d{2})(\d{2})(\d{2})\d_e(\d{14})_c(\d{14})\.nc$/.exec(
-    key.trim(),
-  );
+  const m =
+    /(?:^|\/)OR_ABI-L2-CMIPF-M6C(\d{2})_G(\d{2})_s(\d{4})(\d{3})(\d{2})(\d{2})(\d{2})\d_e(\d{14})_c(\d{14})\.nc$/.exec(
+      key.trim(),
+    );
   if (!m) return null;
   const [, ch, sat, yyyy, doy, hh, mm, ss] = m;
   const Y = +yyyy;
@@ -113,8 +122,14 @@ export function parseGoesKey(key) {
   const H = +hh;
   const M = +mm;
   const S = +ss;
-  if (Y < 2020 || Y > 2035 || D < 1 || D > 366 || H > 23 || M > 59 || S > 60) return null;
-  const scanStartMs = Date.UTC(Y, 0, 1) + (D - 1) * 86_400_000 + H * 3_600_000 + M * 60_000 + S * 1_000;
+  if (Y < 2020 || Y > 2035 || D < 1 || D > 366 || H > 23 || M > 59 || S > 60)
+    return null;
+  const scanStartMs =
+    Date.UTC(Y, 0, 1) +
+    (D - 1) * 86_400_000 +
+    H * 3_600_000 +
+    M * 60_000 +
+    S * 1_000;
   if (!Number.isFinite(scanStartMs)) return null;
   return { channel: +ch, sat: `G${sat}`, scanStartMs };
 }
@@ -126,16 +141,21 @@ export function parseGoesKey(key) {
  * the doc is not a ListBucketResult at all.
  */
 export function parseListBucketXml(text) {
-  const fail = (msg) => Object.assign(new Error(`goes_invalid_list: ${msg}`), { status: 502 });
-  if (typeof text !== "string" || !text.includes("<ListBucketResult")) throw fail("not a ListBucketResult");
+  const fail = (msg) =>
+    Object.assign(new Error(`goes_invalid_list: ${msg}`), { status: 502 });
+  if (typeof text !== 'string' || !text.includes('<ListBucketResult'))
+    throw fail('not a ListBucketResult');
   const entries = [];
   const blockRe = /<Contents>([\s\S]*?)<\/Contents>/g;
   let block;
   while ((block = blockRe.exec(text)) !== null) {
     const body = block[1];
     const key = /<Key>([^<]*)<\/Key>/.exec(body)?.[1] ?? null;
-    const lastModified = /<LastModified>([^<]*)<\/LastModified>/.exec(body)?.[1] ?? null;
-    const sizeBytes = numOrNull(/<Size>([^<]*)<\/Size>/.exec(body)?.[1] ?? null);
+    const lastModified =
+      /<LastModified>([^<]*)<\/LastModified>/.exec(body)?.[1] ?? null;
+    const sizeBytes = numOrNull(
+      /<Size>([^<]*)<\/Size>/.exec(body)?.[1] ?? null,
+    );
     if (key == null) continue;
     entries.push({ key, lastModified, sizeBytes });
   }
@@ -165,17 +185,24 @@ export function selectLatest(entries) {
 }
 
 function parseQuery(url) {
-  const params = new URL(url, "http://localhost").searchParams;
-  const satRaw = params.get("sat");
+  const params = new URL(url, 'http://localhost').searchParams;
+  const satRaw = params.get('sat');
   let sat = null;
   if (satRaw != null) {
     sat = satRaw.trim().toUpperCase();
-    if (!SAT_RE.test(sat)) throw Object.assign(new Error(`goes_bad_sat: ${satRaw}`), { status: 400 });
+    if (!SAT_RE.test(sat))
+      throw Object.assign(new Error(`goes_bad_sat: ${satRaw}`), {
+        status: 400,
+      });
   }
-  return { sat, key: sat ?? "" };
+  return { sat, key: sat ?? '' };
 }
 
-async function fetchWithTimeout(fetchImpl, url, { method = "GET", accept } = {}) {
+async function fetchWithTimeout(
+  fetchImpl,
+  url,
+  { method = 'GET', accept } = {},
+) {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), UPSTREAM_TIMEOUT_MS);
   try {
@@ -185,8 +212,11 @@ async function fetchWithTimeout(fetchImpl, url, { method = "GET", accept } = {})
       // NOTE: redirect:'follow' — workerd supports only 'follow'/'manual';
       // 'error' throws at the edge (main 2ec4053). S3 virtual-hosted style
       // can 301 to a regional endpoint; STAR CDN 301s GOES16→GOES19.
-      redirect: "follow",
-      headers: { "User-Agent": USER_AGENT, ...(accept ? { Accept: accept } : {}) },
+      redirect: 'follow',
+      headers: {
+        'User-Agent': USER_AGENT,
+        ...(accept ? { Accept: accept } : {}),
+      },
     });
     return res;
   } finally {
@@ -212,7 +242,7 @@ async function fetchSatellite(fetchImpl, spec, nowMs) {
     let res;
     try {
       res = await fetchWithTimeout(fetchImpl, listUrl(spec.bucket, prefix), {
-        accept: "application/xml",
+        accept: 'application/xml',
       });
     } catch {
       break; // network failure — keep whatever we have (likely nothing)
@@ -242,7 +272,9 @@ async function fetchSatellite(fetchImpl, spec, nowMs) {
   const { entry, parsed, skipped, channels } = selectLatest(entries);
   const latestScan = parsed ? new Date(parsed.scanStartMs).toISOString() : null;
   const ageSec =
-    parsed != null ? Math.max(0, Math.round((nowMs - parsed.scanStartMs) / 1000)) : null;
+    parsed != null
+      ? Math.max(0, Math.round((nowMs - parsed.scanStartMs) / 1000))
+      : null;
   const dark = !listOk || entry == null || ageSec == null || ageSec > DARK_SEC;
   const fresh = !dark && ageSec != null && ageSec <= FRESH_SEC;
 
@@ -250,7 +282,9 @@ async function fetchSatellite(fetchImpl, spec, nowMs) {
   let imageryOk = false;
   let imageryStatus = null;
   try {
-    const head = await fetchWithTimeout(fetchImpl, imageryUrl(spec.sat), { method: "HEAD" });
+    const head = await fetchWithTimeout(fetchImpl, imageryUrl(spec.sat), {
+      method: 'HEAD',
+    });
     imageryStatus = head.status;
     imageryOk = head.ok;
   } catch {
@@ -275,30 +309,38 @@ async function fetchSatellite(fetchImpl, spec, nowMs) {
     dark,
     darkReason: dark
       ? !listOk
-        ? "list_unreachable"
+        ? 'list_unreachable'
         : entry == null
-          ? "no files in current+previous UTC hour"
-          : "latest scan older than 60 min"
+          ? 'no files in current+previous UTC hour'
+          : 'latest scan older than 60 min'
       : null,
     imageryUrl: imageryUrl(spec.sat),
     imageryOk,
     imageryStatus,
     honesty:
-      "CMIPF = Cloud and Moisture Imagery Product, Level-2, full disk — gridded " +
-      "radiances in NetCDF, not a rendered picture. latestScan = scan-start " +
-      "timestamp parsed from the S3 object key. Imagery URL = NESDIS STAR CDN " +
-      "full-disk GeoColor JPEG rendered by NOAA; never re-hosted or fabricated " +
-      "here; S3 NetCDF binaries (~3–5 MB) are never fetched at the edge.",
+      'CMIPF = Cloud and Moisture Imagery Product, Level-2, full disk — gridded ' +
+      'radiances in NetCDF, not a rendered picture. latestScan = scan-start ' +
+      'timestamp parsed from the S3 object key. Imagery URL = NESDIS STAR CDN ' +
+      'full-disk GeoColor JPEG rendered by NOAA; never re-hosted or fabricated ' +
+      'here; S3 NetCDF binaries (~3–5 MB) are never fetched at the edge.',
   };
 }
 
 async function fetchAll(fetchImpl, nowMs) {
-  const rows = await Promise.all(SATELLITES.map((spec) => fetchSatellite(fetchImpl, spec, nowMs)));
+  const rows = await Promise.all(
+    SATELLITES.map((spec) => fetchSatellite(fetchImpl, spec, nowMs)),
+  );
   // Total upstream outage (every LIST unreachable) is a provider-level
   // failure → honest 502, matching the d99a470 precedent. Partial
   // degradation stays a 200 with per-satellite dark rows.
-  if (rows.length > 0 && rows.every((r) => r.darkReason === "list_unreachable")) {
-    throw Object.assign(new Error("goes_upstream_down: all S3 LISTs unreachable"), { status: 502 });
+  if (
+    rows.length > 0 &&
+    rows.every((r) => r.darkReason === 'list_unreachable')
+  ) {
+    throw Object.assign(
+      new Error('goes_upstream_down: all S3 LISTs unreachable'),
+      { status: 502 },
+    );
   }
   return rows;
 }
@@ -327,20 +369,20 @@ export function buildGoesPayload(rows, { nowMs, query }) {
     },
     satellites,
     attribution:
-      "GOES Earth full-disk imagery availability: NOAA public S3 buckets " +
-      "noaa-goes16/17/18/19, ABI-L2-CMIPF ListObjectsV2 (keyless). " +
-      "latestScan = scan-start parsed from the object key (sYYYYDOYHHMMSS). " +
-      "Imagery URLs = NESDIS STAR CDN full-disk GeoColor JPEGs rendered by " +
-      "NOAA. fresh ≤20 min; dark = no files in the current+previous UTC hour " +
-      "or scan older than 60 min (GOES-16/17 on-orbit storage read dark — " +
-      "correctly, from live listings).",
+      'GOES Earth full-disk imagery availability: NOAA public S3 buckets ' +
+      'noaa-goes16/17/18/19, ABI-L2-CMIPF ListObjectsV2 (keyless). ' +
+      'latestScan = scan-start parsed from the object key (sYYYYDOYHHMMSS). ' +
+      'Imagery URLs = NESDIS STAR CDN full-disk GeoColor JPEGs rendered by ' +
+      'NOAA. fresh ≤20 min; dark = no files in the current+previous UTC hour ' +
+      'or scan older than 60 min (GOES-16/17 on-orbit storage read dark — ' +
+      'correctly, from live listings).',
   };
 }
 
-function sendJson(res, status, body, cacheControl = "public, max-age=300") {
+function sendJson(res, status, body, cacheControl = 'public, max-age=300') {
   res.writeHead(status, {
-    "Content-Type": "application/json; charset=utf-8",
-    "Cache-Control": cacheControl,
+    'Content-Type': 'application/json; charset=utf-8',
+    'Cache-Control': cacheControl,
   });
   res.end(JSON.stringify(body));
 }
@@ -351,7 +393,8 @@ async function getDoc(fetchImpl, nowMs, signal) {
   if (!docInflight) {
     // Retry gate fires only after a FAILED refresh — a success on one
     // query key must never block a different key (one refresh serves all).
-    if (nowMs - docFailedAt < RETRY_COOLDOWN_MS) throw new Error("goes_retry_later");
+    if (nowMs - docFailedAt < RETRY_COOLDOWN_MS)
+      throw new Error('goes_retry_later');
     docInflight = fetchAll(fetchImpl, nowMs)
       .then((rows) => {
         docCache = { at: nowMs, rows };
@@ -369,9 +412,9 @@ async function getDoc(fetchImpl, nowMs, signal) {
   const wait = docInflight;
   if (!signal) return wait;
   const cancelled = new Promise((_, reject) => {
-    const abort = () => reject(signal.reason ?? new Error("cancelled"));
-    signal.addEventListener("abort", abort, { once: true });
-    const detach = () => signal.removeEventListener("abort", abort);
+    const abort = () => reject(signal.reason ?? new Error('cancelled'));
+    signal.addEventListener('abort', abort, { once: true });
+    const detach = () => signal.removeEventListener('abort', abort);
     wait.then(detach, detach);
   });
   return Promise.race([wait, cancelled]);
@@ -395,52 +438,66 @@ async function getPayload(fetchImpl, query, nowMs, signal) {
     // Stale fallback is key-scoped: only serve a payload captured for THIS query.
     const hit = payloadCache.get(query.key);
     if (hit && nowMs - hit.at <= STALE_MS)
-      return { ...hit.payload, generatedAt: new Date(nowMs).toISOString(), stale: true };
+      return {
+        ...hit.payload,
+        generatedAt: new Date(nowMs).toISOString(),
+        stale: true,
+      };
     throw error;
   }
 }
 
 export function goesProxy({ fetchImpl = fetch, now = () => Date.now() } = {}) {
   async function handler(req, res) {
-    if (req.method !== "GET")
-      return sendJson(res, 405, { error: "method_not_allowed" }, "no-store");
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
     const controller = new AbortController();
     const close = () => controller.abort();
-    res.once?.("close", close);
+    res.once?.('close', close);
     try {
       let query;
       try {
         query = parseQuery(req.url);
       } catch (error) {
-        return sendJson(res, 400, { error: "goes_bad_request", detail: error.message }, "no-store");
+        return sendJson(
+          res,
+          400,
+          { error: 'goes_bad_request', detail: error.message },
+          'no-store',
+        );
       }
       try {
-        const payload = await getPayload(fetchImpl, query, now(), controller.signal);
+        const payload = await getPayload(
+          fetchImpl,
+          query,
+          now(),
+          controller.signal,
+        );
         sendJson(res, 200, payload);
       } catch (error) {
         const upstreamFail =
           error?.status === 502 ||
-          error?.name === "AbortError" ||
-          /aborted?|fetch failed/i.test(error?.message ?? "");
+          error?.name === 'AbortError' ||
+          /aborted?|fetch failed/i.test(error?.message ?? '');
         sendJson(
           res,
           upstreamFail ? 502 : 500,
-          { error: "goes_unavailable", detail: error?.message ?? "unknown" },
-          "no-store",
+          { error: 'goes_unavailable', detail: error?.message ?? 'unknown' },
+          'no-store',
         );
       }
     } finally {
-      res.removeListener?.("close", close);
+      res.removeListener?.('close', close);
     }
   }
 
   return {
-    name: "goes",
+    name: 'goes',
     configureServer({ middlewares }) {
-      middlewares.use("/api/goes", handler);
+      middlewares.use('/api/goes', handler);
     },
     configurePreviewServer({ middlewares }) {
-      middlewares.use("/api/goes", handler);
+      middlewares.use('/api/goes', handler);
     },
   };
 }

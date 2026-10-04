@@ -36,9 +36,10 @@ function sigmetDescription(sigmet) {
   const altText = topFt
     ? `FL${String(Math.round(baseFt / 100)).padStart(3, '0')}–FL${String(Math.round(topFt / 100)).padStart(3, '0')}`
     : 'top unknown';
-  const valid = sigmet.validFrom && sigmet.validTo
-    ? `${new Date(sigmet.validFrom * 1000).toISOString()} → ${new Date(sigmet.validTo * 1000).toISOString()}`
-    : 'validity unknown';
+  const valid =
+    sigmet.validFrom && sigmet.validTo
+      ? `${new Date(sigmet.validFrom * 1000).toISOString()} → ${new Date(sigmet.validTo * 1000).toISOString()}`
+      : 'validity unknown';
   return (
     `<b>${hazardLabel(sigmet.hazard)}${sigmet.qualifier ? ` (${sigmet.qualifier})` : ''}</b><br>` +
     `${sigmet.firName || sigmet.firId} · ${sigmet.icaoId} series ${sigmet.seriesId ?? '?'}<br>` +
@@ -48,7 +49,11 @@ function sigmetDescription(sigmet) {
   );
 }
 
-export function createSigmetsLayer({ viewer, fetchImpl, pollMs = DEFAULT_POLL_MS } = {}) {
+export function createSigmetsLayer({
+  viewer,
+  fetchImpl,
+  pollMs = DEFAULT_POLL_MS,
+} = {}) {
   let _viewer = viewer || null;
   let _enabled = false;
   let _sigmetSource = null;
@@ -100,7 +105,8 @@ export function createSigmetsLayer({ viewer, fetchImpl, pollMs = DEFAULT_POLL_MS
     });
     _airportSource.entities.removeAll();
     for (const report of payload.reports ?? []) {
-      if (!Number.isFinite(report.lat) || !Number.isFinite(report.lon)) continue;
+      if (!Number.isFinite(report.lat) || !Number.isFinite(report.lon))
+        continue;
       const color = colorForFlightCategory(report.fltcat);
       _airportSource.entities.add({
         name: `${report.icaoId} — ${report.name || ''} (${report.fltcat || 'unknown'})`,
@@ -145,7 +151,8 @@ export function createSigmetsLayer({ viewer, fetchImpl, pollMs = DEFAULT_POLL_MS
     updateInterval: pollMs,
 
     init(v) {
-      if (_viewer && _viewer !== v) throw new Error('SIGMET layer is already initialized');
+      if (_viewer && _viewer !== v)
+        throw new Error('SIGMET layer is already initialized');
       _viewer = v || _viewer;
       if (!_viewer) throw new Error('SIGMET layer needs a viewer');
       _sigmetSource = new Cesium.CustomDataSource('sigmets');
@@ -161,14 +168,19 @@ export function createSigmetsLayer({ viewer, fetchImpl, pollMs = DEFAULT_POLL_MS
       if (_sigmetSource) _sigmetSource.show = true;
       void refresh();
       if (_timer) clearInterval(_timer);
-      _timer = setInterval(() => { if (_enabled) void refresh(); }, pollMs);
+      _timer = setInterval(() => {
+        if (_enabled) void refresh();
+      }, pollMs);
     },
 
     disable() {
       _enabled = false;
       if (_sigmetSource) _sigmetSource.show = false;
       if (_airportSource) _airportSource.show = false;
-      if (_timer) { clearInterval(_timer); _timer = null; }
+      if (_timer) {
+        clearInterval(_timer);
+        _timer = null;
+      }
     },
 
     setAirportDots(on) {
@@ -182,11 +194,19 @@ export function createSigmetsLayer({ viewer, fetchImpl, pollMs = DEFAULT_POLL_MS
     },
 
     getStatus() {
-      return { status: _status, summary: _summary, lastError: _lastError, enabled: _enabled };
+      return {
+        status: _status,
+        summary: _summary,
+        lastError: _lastError,
+        enabled: _enabled,
+      };
     },
 
     destroy() {
-      if (_timer) { clearInterval(_timer); _timer = null; }
+      if (_timer) {
+        clearInterval(_timer);
+        _timer = null;
+      }
       if (_viewer) {
         if (_sigmetSource) _viewer.dataSources.remove(_sigmetSource, true);
         if (_airportSource) _viewer.dataSources.remove(_airportSource, true);
@@ -203,13 +223,18 @@ export function createSigmetsLayer({ viewer, fetchImpl, pollMs = DEFAULT_POLL_MS
 export function mountSigmetsDock({ section, chip, el, t, layer } = {}) {
   if (!section || !chip || !el || !layer) return null;
   const host = section(t ? t('feature.sigmets') : 'AVIATION SIGMETS');
-  const statusLine = el('div', {
-    style: 'font-size:10px;color:#8aa4d6;margin:4px 0;min-height:14px;',
-  }, '—');
+  const statusLine = el(
+    'div',
+    {
+      style: 'font-size:10px;color:#8aa4d6;margin:4px 0;min-height:14px;',
+    },
+    '—',
+  );
   const setStatus = () => {
     const s = layer.getStatus();
     const hazardBits = Object.entries(s.summary.hazards ?? {})
-      .map(([h, n]) => `${h}:${n}`).join(' ');
+      .map(([h, n]) => `${h}:${n}`)
+      .join(' ');
     statusLine.textContent =
       s.status === 'live'
         ? `${s.summary.count} active SIGMETs${hazardBits ? ` · ${hazardBits}` : ''}`
@@ -220,16 +245,31 @@ export function mountSigmetsDock({ section, chip, el, t, layer } = {}) {
             : 'off';
   };
   host.appendChild(
-    chip('✈ SIGMETs', (on) => {
-      if (on) layer.enable();
-      else layer.disable();
-      setStatus();
-    }, false),
+    chip(
+      '✈ SIGMETs',
+      (on) => {
+        if (on) layer.enable();
+        else layer.disable();
+        setStatus();
+      },
+      false,
+    ),
   );
   host.appendChild(
-    chip('🛬 Airport dots', (on) => { layer.setAirportDots(on); }, false),
+    chip(
+      '🛬 Airport dots',
+      (on) => {
+        layer.setAirportDots(on);
+      },
+      false,
+    ),
   );
   host.appendChild(statusLine);
   const poller = setInterval(setStatus, 30_000);
-  return { element: host, destroy() { clearInterval(poller); } };
+  return {
+    element: host,
+    destroy() {
+      clearInterval(poller);
+    },
+  };
 }

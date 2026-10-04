@@ -31,7 +31,9 @@ export function shortTime(iso) {
 export function tickerSummary(payload) {
   if (!payload || !Number.isFinite(payload.uvIndex)) return null;
   const band = uvBand(payload.uvIndex);
-  const max = Number.isFinite(payload.today?.uvIndexMax) ? payload.today.uvIndexMax : null;
+  const max = Number.isFinite(payload.today?.uvIndexMax)
+    ? payload.today.uvIndexMax
+    : null;
   return {
     value: `UV ${formatUv(payload.uvIndex)}`,
     band: band.label,

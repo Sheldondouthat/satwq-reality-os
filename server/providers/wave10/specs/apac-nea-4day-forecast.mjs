@@ -4,51 +4,44 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 6 (apac-weather worker)).
  */
 export const SPEC = {
-  "id": "apac-nea-4day-forecast",
-  "title": "NEA Singapore — 4-day outlook",
-  "url": "https://api.data.gov.sg/v1/environment/4-day-weather-forecast",
-  "headers": {
-    "User-Agent": "satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)"
+  id: 'apac-nea-4day-forecast',
+  title: 'NEA Singapore — 4-day outlook',
+  url: 'https://api.data.gov.sg/v1/environment/4-day-weather-forecast',
+  headers: {
+    'User-Agent':
+      'satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)',
   },
-  "ttlSeconds": 21600,
-  "extract": {
-    "items": "$.items[0].forecasts",
-    "limit": 4,
-    "map": {
-      "date": "$.date",
-      "forecast": "$.forecast",
-      "highC": "$.temperature.high",
-      "lowC": "$.temperature.low",
-      "rhHigh": "$.relative_humidity.high",
-      "rhLow": "$.relative_humidity.low",
-      "windDir": "$.wind.direction",
-      "windLowKmh": "$.wind.speed.low",
-      "windHighKmh": "$.wind.speed.high"
+  ttlSeconds: 21600,
+  extract: {
+    items: '$.items[0].forecasts',
+    limit: 4,
+    map: {
+      date: '$.date',
+      forecast: '$.forecast',
+      highC: '$.temperature.high',
+      lowC: '$.temperature.low',
+      rhHigh: '$.relative_humidity.high',
+      rhLow: '$.relative_humidity.low',
+      windDir: '$.wind.direction',
+      windLowKmh: '$.wind.speed.low',
+      windHighKmh: '$.wind.speed.high',
     },
-    "numbers": [
-      "highC",
-      "lowC",
-      "rhHigh",
-      "rhLow",
-      "windLowKmh",
-      "windHighKmh"
-    ]
+    numbers: ['highC', 'lowC', 'rhHigh', 'rhLow', 'windLowKmh', 'windHighKmh'],
   },
-  "required": [
-    "date",
-    "forecast"
-  ],
-  "source": "National Environment Agency (NEA), Singapore",
-  "attribution": "Data: NEA Singapore — api.data.gov.sg (v1 environment API) — keyless.",
-  "units": {
-    "highC": "C",
-    "lowC": "C",
-    "rhHigh": "percent",
-    "rhLow": "percent",
-    "windLowKmh": "km/h",
-    "windHighKmh": "km/h"
+  required: ['date', 'forecast'],
+  source: 'National Environment Agency (NEA), Singapore',
+  attribution:
+    'Data: NEA Singapore — api.data.gov.sg (v1 environment API) — keyless.',
+  units: {
+    highC: 'C',
+    lowC: 'C',
+    rhHigh: 'percent',
+    rhLow: 'percent',
+    windLowKmh: 'km/h',
+    windHighKmh: 'km/h',
   },
-  "honesty": "4-day Singapore outlook; timestamps are SGT (ISO-8601); humidity and wind are low/high ranges; forecast text is short prose.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 6 (apac-weather worker)"
+  honesty:
+    '4-day Singapore outlook; timestamps are SGT (ISO-8601); humidity and wind are low/high ranges; forecast text is short prose.',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 6 (apac-weather worker)',
 };

@@ -62,7 +62,9 @@ export function initSatOracle({ viewer, fetchImpl } = {}) {
       TLE_GROUPS.map((g) => fetchTleGroup(g, fetchImpl).catch(() => [])),
     );
     tleCache = { stations, visual, starlink };
-    setTimeout(() => { tleCache = null; }, 30 * 60_000); // TLEs refresh
+    setTimeout(() => {
+      tleCache = null;
+    }, 30 * 60_000); // TLEs refresh
     return tleCache;
   }
 
@@ -93,42 +95,83 @@ export function initSatOracle({ viewer, fetchImpl } = {}) {
             color: Cesium.Color.fromCssColorString('#7fd4ff').withAlpha(0.9),
           }),
         },
-        description: `${pass.name}<br>peak ${new Date(pass.peakMs).toUTCString()}<br>` +
+        description:
+          `${pass.name}<br>peak ${new Date(pass.peakMs).toUTCString()}<br>` +
           `max elev ${pass.maxElevDeg.toFixed(1)}° · Sun ${pass.sunElevAtPeakDeg.toFixed(1)}°`,
       });
     }
     viewer.dataSources.add(dataSource);
   }
 
-  function renderPanel(host, { lat, lon, nowVisible, passes, sunElev, tleCounts }) {
+  function renderPanel(
+    host,
+    { lat, lon, nowVisible, passes, sunElev, tleCounts },
+  ) {
     host.innerHTML = '';
-    host.appendChild(el('div', { style: 'font-weight:700;color:#9fc2ff;margin-bottom:6px;' },
-      `🛰 LOOK UP NOW — ${lat.toFixed(2)}°, ${lon.toFixed(2)}°`));
-    host.appendChild(el('div', { style: 'color:#8aa4d6;font-size:11px;margin-bottom:8px;' },
-      `Sun ${sunElev.toFixed(1)}° · ${tleCounts} TLEs (SGP4 model; cylindrical shadow)`));
-    host.appendChild(el('div', { style: 'font-weight:600;margin:6px 0 4px;' },
-      `Visible now (${nowVisible.length})`));
+    host.appendChild(
+      el(
+        'div',
+        { style: 'font-weight:700;color:#9fc2ff;margin-bottom:6px;' },
+        `🛰 LOOK UP NOW — ${lat.toFixed(2)}°, ${lon.toFixed(2)}°`,
+      ),
+    );
+    host.appendChild(
+      el(
+        'div',
+        { style: 'color:#8aa4d6;font-size:11px;margin-bottom:8px;' },
+        `Sun ${sunElev.toFixed(1)}° · ${tleCounts} TLEs (SGP4 model; cylindrical shadow)`,
+      ),
+    );
+    host.appendChild(
+      el(
+        'div',
+        { style: 'font-weight:600;margin:6px 0 4px;' },
+        `Visible now (${nowVisible.length})`,
+      ),
+    );
     if (nowVisible.length === 0) {
-      host.appendChild(el('div', { style: 'color:#8aa4d6;' },
-        'Nothing sunlit above the horizon right now.'));
+      host.appendChild(
+        el(
+          'div',
+          { style: 'color:#8aa4d6;' },
+          'Nothing sunlit above the horizon right now.',
+        ),
+      );
     } else {
       const list = el('div', {});
       for (const s of nowVisible.slice(0, 25)) {
-        list.appendChild(el('div', {},
-          `${s.name} — elev ${s.elevDeg.toFixed(1)}°, az ${s.azDeg.toFixed(0)}°`));
+        list.appendChild(
+          el(
+            'div',
+            {},
+            `${s.name} — elev ${s.elevDeg.toFixed(1)}°, az ${s.azDeg.toFixed(0)}°`,
+          ),
+        );
       }
       host.appendChild(list);
     }
-    host.appendChild(el('div', { style: 'font-weight:600;margin:8px 0 4px;' },
-      `Tonight's twilight passes (${passes.length})`));
+    host.appendChild(
+      el(
+        'div',
+        { style: 'font-weight:600;margin:8px 0 4px;' },
+        `Tonight's twilight passes (${passes.length})`,
+      ),
+    );
     if (passes.length === 0) {
-      host.appendChild(el('div', { style: 'color:#8aa4d6;' }, 'No twilight passes found.'));
+      host.appendChild(
+        el('div', { style: 'color:#8aa4d6;' }, 'No twilight passes found.'),
+      );
     } else {
       const list = el('div', {});
       for (const p of passes.slice(0, 25)) {
-        list.appendChild(el('div', {},
-          `${p.name} — ${new Date(p.peakMs).toISOString().slice(11, 16)}Z, ` +
-          `peak ${p.maxElevDeg.toFixed(0)}°, Sun ${p.sunElevAtPeakDeg.toFixed(1)}°`));
+        list.appendChild(
+          el(
+            'div',
+            {},
+            `${p.name} — ${new Date(p.peakMs).toISOString().slice(11, 16)}Z, ` +
+              `peak ${p.maxElevDeg.toFixed(0)}°, Sun ${p.sunElevAtPeakDeg.toFixed(1)}°`,
+          ),
+        );
       }
       host.appendChild(list);
     }
@@ -138,7 +181,12 @@ export function initSatOracle({ viewer, fetchImpl } = {}) {
     const nowMs = Date.now();
     const { stations, visual, starlink } = await loadTles();
     const small = [...stations, ...visual];
-    const candidates = prefilterCandidates(starlink.slice(0, 8000), lat, lon, nowMs);
+    const candidates = prefilterCandidates(
+      starlink.slice(0, 8000),
+      lat,
+      lon,
+      nowMs,
+    );
     const evalSet = [...small, ...candidates.slice(0, MAX_STARLINK_EVAL)];
     const satByName = new Map(evalSet.map((s) => [s.name, s]));
     const nowVisible = currentlyVisible(evalSet, lat, lon, nowMs);
@@ -146,18 +194,30 @@ export function initSatOracle({ viewer, fetchImpl } = {}) {
     const sunElev = observerSolarElevation(lat, lon, nowMs);
     drawPassArcs(passes, satByName);
     renderPanel(panel, {
-      lat, lon, nowVisible, passes, sunElev, tleCounts: evalSet.length,
+      lat,
+      lon,
+      nowVisible,
+      passes,
+      sunElev,
+      tleCounts: evalSet.length,
     });
   }
 
   function onGlobeClick(movement) {
-    const cartesian = viewer.camera.pickEllipsoid(movement.position, viewer.scene.globe.ellipsoid);
+    const cartesian = viewer.camera.pickEllipsoid(
+      movement.position,
+      viewer.scene.globe.ellipsoid,
+    );
     if (!cartesian) return;
     const carto = Cesium.Cartographic.fromCartesian(cartesian);
     const lat = (carto.latitude * 180) / Math.PI;
     const lon = (carto.longitude * 180) / Math.PI;
     panel.querySelector('[data-status]')?.remove();
-    const status = el('div', { 'data-status': '1', style: 'color:#8aa4d6;' }, 'Computing…');
+    const status = el(
+      'div',
+      { 'data-status': '1', style: 'color:#8aa4d6;' },
+      'Computing…',
+    );
     panel.appendChild(status);
     evaluateAt(lat, lon).catch((error) => {
       status.textContent = `Oracle failed: ${error?.message ?? error}`;
@@ -168,11 +228,19 @@ export function initSatOracle({ viewer, fetchImpl } = {}) {
     if (enabled) return;
     enabled = true;
     panel = el('div', { id: 'satwq-sat-oracle', style: PANEL_STYLE });
-    panel.appendChild(el('div', { style: 'color:#8aa4d6;' },
-      '🛰 Click anywhere on the globe to set your observer point.'));
+    panel.appendChild(
+      el(
+        'div',
+        { style: 'color:#8aa4d6;' },
+        '🛰 Click anywhere on the globe to set your observer point.',
+      ),
+    );
     document.body.appendChild(panel);
     clickHandler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
-    clickHandler.setInputAction(onGlobeClick, Cesium.ScreenSpaceEventType.LEFT_CLICK);
+    clickHandler.setInputAction(
+      onGlobeClick,
+      Cesium.ScreenSpaceEventType.LEFT_CLICK,
+    );
   }
 
   function disable() {

@@ -14,7 +14,8 @@
  * per the 2026-09-27 edge incident — no node: imports, no WASM).
  */
 
-const UPSTREAM_URL = 'https://www.emsc-csem.org/Tools/api/felt/felt_quakes.geojson.php';
+const UPSTREAM_URL =
+  'https://www.emsc-csem.org/Tools/api/felt/felt_quakes.geojson.php';
 const UPSTREAM_TIMEOUT_MS = 20_000;
 const BODY_CAP_BYTES = 2 * 1024 * 1024;
 const CACHE_TTL_MS = 10 * 60_000;
@@ -36,10 +37,14 @@ async function fetchJsonCapped(url, signal) {
       headers: { 'User-Agent': USER_AGENT, Accept: 'application/geo+json' },
     });
     if (!response.ok)
-      throw Object.assign(new Error(`emsc_upstream_${response.status}`), { status: 502 });
+      throw Object.assign(new Error(`emsc_upstream_${response.status}`), {
+        status: 502,
+      });
     const buffer = await response.arrayBuffer();
     if (buffer.byteLength > BODY_CAP_BYTES)
-      throw Object.assign(new Error('emsc_upstream_too_large'), { status: 502 });
+      throw Object.assign(new Error('emsc_upstream_too_large'), {
+        status: 502,
+      });
     return JSON.parse(new TextDecoder().decode(buffer));
   } finally {
     clearTimeout(timeout);
@@ -59,9 +64,8 @@ function num(value) {
 
 export function trimFeltEvent(feature) {
   const props = feature?.properties ?? {};
-  const coords = feature?.geometry?.type === 'Point'
-    ? feature.geometry.coordinates
-    : [];
+  const coords =
+    feature?.geometry?.type === 'Point' ? feature.geometry.coordinates : [];
   const timeMs = Date.parse(props.time ?? '');
   return {
     id: String(props.evid ?? ''),
@@ -72,8 +76,12 @@ export function trimFeltEvent(feature) {
     lat: roundNum(num(coords[1]) ?? NaN) ?? null,
     timeMs: Number.isFinite(timeMs) ? timeMs : null,
     timeISO: String(props.time ?? ''),
-    testimonyCount: Number.isFinite(props.testimonyCount) ? props.testimonyCount : 0,
-    feltReportCount: Number.isFinite(props.feltReportCount) ? props.feltReportCount : 0,
+    testimonyCount: Number.isFinite(props.testimonyCount)
+      ? props.testimonyCount
+      : 0,
+    feltReportCount: Number.isFinite(props.feltReportCount)
+      ? props.feltReportCount
+      : 0,
     mediaCount: Number.isFinite(props.mediaCount) ? props.mediaCount : 0,
     url: String(props.url ?? ''),
   };
@@ -123,16 +131,25 @@ function sendJson(res, status, body, cacheControl = 'public, max-age=600') {
 /** Mount the EMSC felt-earthquake proxy. Mirrors the nwsAlerts provider shape. */
 export function feltProxy() {
   async function handler(req, res) {
-    if (req.method !== 'GET') return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
     req.on?.('close', () => {});
     try {
       sendJson(res, 200, await getSnapshot());
     } catch (error) {
-      const upstreamFail = error?.status === 502 || error?.name === 'AbortError' || /aborted?/i.test(error?.message ?? '');
-      sendJson(res, upstreamFail ? 502 : 500, {
-        error: 'felt_unavailable',
-        detail: error?.message ?? 'unknown',
-      }, 'no-store');
+      const upstreamFail =
+        error?.status === 502 ||
+        error?.name === 'AbortError' ||
+        /aborted?/i.test(error?.message ?? '');
+      sendJson(
+        res,
+        upstreamFail ? 502 : 500,
+        {
+          error: 'felt_unavailable',
+          detail: error?.message ?? 'unknown',
+        },
+        'no-store',
+      );
     } finally {
       req.removeListener?.('close', () => {});
     }
@@ -152,5 +169,8 @@ export function feltProxy() {
 export const _feltInternals = {
   trimFeltEvent,
   trimFeltPayload,
-  clearCaches: () => { cache = null; inflight = null; },
+  clearCaches: () => {
+    cache = null;
+    inflight = null;
+  },
 };

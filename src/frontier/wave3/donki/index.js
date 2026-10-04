@@ -83,7 +83,11 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
         });
         // impact marker on the day side
         ds.entities.add({
-          position: Cesium.Cartesian3.fromDegrees(impact.lon, impact.lat, impact.h),
+          position: Cesium.Cartesian3.fromDegrees(
+            impact.lon,
+            impact.lat,
+            impact.h,
+          ),
           point: new Cesium.PointGraphics({
             pixelSize: 12,
             color,
@@ -115,9 +119,17 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
     }
 
     function escapeHtml(s) {
-      return String(s).replace(/[&<>"']/g, (c) => ({
-        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
-      })[c]);
+      return String(s).replace(
+        /[&<>"']/g,
+        (c) =>
+          ({
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#39;',
+          })[c],
+      );
     }
 
     let statusEl = null;
@@ -137,7 +149,9 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
               .map(
                 (f) =>
                   `<div>☀️ ${escapeHtml(f.class)}-class flare` +
-                  (f.sourceLocation ? ` @ ${escapeHtml(f.sourceLocation)}` : '') +
+                  (f.sourceLocation
+                    ? ` @ ${escapeHtml(f.sourceLocation)}`
+                    : '') +
                   `</div>`,
               )
               .join('')
@@ -163,7 +177,8 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
     if (mount && typeof chip === 'function') {
       try {
         statusEl = document.createElement('div');
-        statusEl.style.cssText = 'font-size:10px;color:#8aa4d6;margin:2px 0 4px;';
+        statusEl.style.cssText =
+          'font-size:10px;color:#8aa4d6;margin:2px 0 4px;';
         statusEl.textContent = 'tracking CMEs…';
         mount.appendChild(statusEl);
         flareEl = document.createElement('div');
@@ -177,14 +192,20 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
             disable: () => setEnabled(false),
           });
           mount.appendChild(
-            chip(T('feature.donki') || 'Solar storms', (on) =>
-              on ? tracked.show() : tracked.hide(), false),
+            chip(
+              T('feature.donki') || 'Solar storms',
+              (on) => (on ? tracked.show() : tracked.hide()),
+              false,
+            ),
           );
         } else {
-          mount.appendChild(chip(T('feature.donki') || 'Solar storms', apply, false));
+          mount.appendChild(
+            chip(T('feature.donki') || 'Solar storms', apply, false),
+          );
         }
         const legend = document.createElement('div');
-        legend.style.cssText = 'font-size:10px;color:#8aa4d6;margin-top:4px;line-height:1.5;';
+        legend.style.cssText =
+          'font-size:10px;color:#8aa4d6;margin-top:4px;line-height:1.5;';
         legend.innerHTML =
           '<span style="color:#ffb454">●</span> &lt;500 km/s · ' +
           '<span style="color:#ff7a3d">●</span> 500–1000 · ' +

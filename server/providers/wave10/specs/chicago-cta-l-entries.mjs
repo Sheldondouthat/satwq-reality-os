@@ -4,43 +4,39 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 8 (bikeshare-chicago worker)).
  */
 export const SPEC = {
-  "id": "chicago-cta-l-entries",
-  "title": "Chicago — CTA L station entries",
-  "url": "https://data.cityofchicago.org/resource/5neh-572f.json?$limit=50&$order=date%20desc",
-  "headers": {
-    "User-Agent": "satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)"
+  id: 'chicago-cta-l-entries',
+  title: 'Chicago — CTA L station entries',
+  url: 'https://data.cityofchicago.org/resource/5neh-572f.json?$limit=50&$order=date%20desc',
+  headers: {
+    'User-Agent':
+      'satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)',
   },
-  "ttlSeconds": 3600,
-  "bodyCapBytes": 2097152,
-  "extract": {
-    "items": "$",
-    "limit": 50,
-    "map": {
-      "stationId": "$.station_id",
-      "stationName": "$.stationname",
-      "date": "$.date",
-      "dayType": "$.daytype",
-      "rides": "$.rides"
+  ttlSeconds: 3600,
+  bodyCapBytes: 2097152,
+  extract: {
+    items: '$',
+    limit: 50,
+    map: {
+      stationId: '$.station_id',
+      stationName: '$.stationname',
+      date: '$.date',
+      dayType: '$.daytype',
+      rides: '$.rides',
     },
-    "numbers": [
-      "stationId",
-      "rides"
-    ]
+    numbers: ['stationId', 'rides'],
   },
-  "required": [
-    "stationName",
-    "rides"
-  ],
-  "source": "City of Chicago",
-  "attribution": "Data: City of Chicago open data portal — keyless.",
-  "units": {
-    "stationId": "count",
-    "stationName": "text",
-    "date": "date",
-    "dayType": "text",
-    "rides": "count"
+  required: ['stationName', 'rides'],
+  source: 'City of Chicago',
+  attribution: 'Data: City of Chicago open data portal — keyless.',
+  units: {
+    stationId: 'count',
+    stationName: 'text',
+    date: 'date',
+    dayType: 'text',
+    rides: 'count',
   },
-  "honesty": "Daily L-station entry totals ordered date desc (dataset id 5neh-572f verified live). Most recent published date at probe: 2026-07-31T00:00:00.000 — CTA publishes with a multi-week lag. dayType W=weekday/A=Saturday/U=Sunday-holiday.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 8 (bikeshare-chicago worker)"
+  honesty:
+    'Daily L-station entry totals ordered date desc (dataset id 5neh-572f verified live). Most recent published date at probe: 2026-07-31T00:00:00.000 — CTA publishes with a multi-week lag. dayType W=weekday/A=Saturday/U=Sunday-holiday.',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 8 (bikeshare-chicago worker)',
 };

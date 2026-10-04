@@ -4,40 +4,37 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 3 (usgs quake/volcano worker)).
  */
 export const SPEC = {
-  "id": "usgs-quakes-puerto-rico",
-  "title": "USGS — Puerto Rico earthquakes (latest)",
-  "url": "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&minmagnitude=2&minlatitude=17&maxlatitude=20&minlongitude=-68&maxlongitude=-65&orderby=time&limit=20",
-  "headers": {
-    "User-Agent": "satwq-reality-os/1.0 (surge-500 probe)"
+  id: 'usgs-quakes-puerto-rico',
+  title: 'USGS — Puerto Rico earthquakes (latest)',
+  url: 'https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&minmagnitude=2&minlatitude=17&maxlatitude=20&minlongitude=-68&maxlongitude=-65&orderby=time&limit=20',
+  headers: {
+    'User-Agent': 'satwq-reality-os/1.0 (surge-500 probe)',
   },
-  "ttlSeconds": 600,
-  "source": "U.S. Geological Survey",
-  "attribution": "Data: U.S. Geological Survey — keyless API.",
-  "honesty": "Live fdsnws catalog query: latest 20 M2+ events in the Puerto Rico/Virgin Islands region (newest-first); post-2020 swarm region with ongoing aftershock activity.",
-  "units": {
-    "mag": "magnitude",
-    "timeMs": "ms epoch",
-    "coords": "lon,lat,depth(km)"
+  ttlSeconds: 600,
+  source: 'U.S. Geological Survey',
+  attribution: 'Data: U.S. Geological Survey — keyless API.',
+  honesty:
+    'Live fdsnws catalog query: latest 20 M2+ events in the Puerto Rico/Virgin Islands region (newest-first); post-2020 swarm region with ongoing aftershock activity.',
+  units: {
+    mag: 'magnitude',
+    timeMs: 'ms epoch',
+    coords: 'lon,lat,depth(km)',
   },
-  "extract": {
-    "items": "$.features",
-    "limit": 20,
-    "map": {
-      "mag": "$.properties.mag",
-      "place": "$.properties.place",
-      "title": "$.properties.title",
-      "timeMs": "$.properties.time",
-      "type": "$.properties.type",
-      "url": "$.properties.url",
-      "coords": "$.geometry.coordinates"
+  extract: {
+    items: '$.features',
+    limit: 20,
+    map: {
+      mag: '$.properties.mag',
+      place: '$.properties.place',
+      title: '$.properties.title',
+      timeMs: '$.properties.time',
+      type: '$.properties.type',
+      url: '$.properties.url',
+      coords: '$.geometry.coordinates',
     },
-    "numbers": [
-      "mag"
-    ]
+    numbers: ['mag'],
   },
-  "required": [
-    "place"
-  ],
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 3 (usgs quake/volcano worker)"
+  required: ['place'],
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 3 (usgs quake/volcano worker)',
 };

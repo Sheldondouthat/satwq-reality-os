@@ -31,9 +31,15 @@ function el(tag, attrs = {}, text = '') {
 }
 
 const kindColor = (kind) =>
-  Cesium.Color.fromCssColorString(kind === 'observation' ? '#ff4d4d' : '#ffb020');
+  Cesium.Color.fromCssColorString(
+    kind === 'observation' ? '#ff4d4d' : '#ffb020',
+  );
 
-export function createVaacAshLayer({ viewer, fetchImpl, pollMs = POLL_MS } = {}) {
+export function createVaacAshLayer({
+  viewer,
+  fetchImpl,
+  pollMs = POLL_MS,
+} = {}) {
   let _enabled = false;
   let _dataSource = null;
   let _timer = null;
@@ -64,7 +70,9 @@ export function createVaacAshLayer({ viewer, fetchImpl, pollMs = POLL_MS } = {})
         /* mil feed optional */
       }
       const hits = crossAshWithAircraft(volumes, aircraft);
-      const hitKeys = new Set(hits.map((h) => `${h.volume.volcano}|${h.volume.time}`));
+      const hitKeys = new Set(
+        hits.map((h) => `${h.volume.volcano}|${h.volume.time}`),
+      );
       const ds = ensureDataSource();
       ds.entities.removeAll();
       for (const vol of volumes) {
@@ -77,7 +85,9 @@ export function createVaacAshLayer({ viewer, fetchImpl, pollMs = POLL_MS } = {})
             name: `${vol.volcano} ash (${vol.kind})`,
             polygon: {
               hierarchy: new Cesium.PolygonHierarchy(
-                ring.map(([lon, lat]) => Cesium.Cartesian3.fromDegrees(lon, lat)),
+                ring.map(([lon, lat]) =>
+                  Cesium.Cartesian3.fromDegrees(lon, lat),
+                ),
               ),
               height: lowerM,
               extrudedHeight: upperM,
@@ -89,11 +99,17 @@ export function createVaacAshLayer({ viewer, fetchImpl, pollMs = POLL_MS } = {})
               `<b>${vol.volcano}</b> — ${vol.kind}<br>Advisory ${vol.advisoryNumber ?? '?'}<br>` +
               `Valid ${vol.time ?? '?'} · ${vol.lowerFt ?? '?'}–${vol.upperFt ?? '?'} ft<br>` +
               (vol.status ? `Status: ${vol.status}<br>` : '') +
-              (flagged ? '<b style="color:#ff4d4d">⚠ aircraft inside ash volume</b>' : ''),
+              (flagged
+                ? '<b style="color:#ff4d4d">⚠ aircraft inside ash volume</b>'
+                : ''),
           });
         }
       }
-      _snapshot = { advisories: body.count, volumes: volumes.length, hits: hits.length };
+      _snapshot = {
+        advisories: body.count,
+        volumes: volumes.length,
+        hits: hits.length,
+      };
       _status = 'live';
       _lastError = null;
     } catch (error) {
@@ -139,7 +155,11 @@ export function createVaacAshLayer({ viewer, fetchImpl, pollMs = POLL_MS } = {})
     destroy() {
       this.disable();
     },
-    getStatus: () => ({ status: _status, summary: _snapshot, lastError: _lastError }),
+    getStatus: () => ({
+      status: _status,
+      summary: _snapshot,
+      lastError: _lastError,
+    }),
     isEnabled: () => _enabled,
     attachStatus(host) {
       _statusHost = host;
@@ -152,13 +172,21 @@ export function createVaacAshLayer({ viewer, fetchImpl, pollMs = POLL_MS } = {})
 export function mountVaacAshDock({ section, chip, el: elFn, t, layer } = {}) {
   if (!section || !chip || !layer) return null;
   const host = section(t ? t('feature.vaacAsh') : 'VOLCANIC ASH');
-  const statusLine = elFn('div', { style: 'font-size:10px;color:#8aa4d6;margin:4px 0;min-height:14px;' }, '—');
+  const statusLine = elFn(
+    'div',
+    { style: 'font-size:10px;color:#8aa4d6;margin:4px 0;min-height:14px;' },
+    '—',
+  );
   layer.attachStatus(statusLine);
   host.appendChild(
-    chip('🌋 Ash volumes', (on) => {
-      if (on) layer.enable();
-      else layer.disable();
-    }, false),
+    chip(
+      '🌋 Ash volumes',
+      (on) => {
+        if (on) layer.enable();
+        else layer.disable();
+      },
+      false,
+    ),
   );
   host.appendChild(statusLine);
   return { element: host, destroy() {} };

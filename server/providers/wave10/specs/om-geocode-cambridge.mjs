@@ -4,46 +4,41 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 4 (open-meteo worker)).
  */
 export const SPEC = {
-  "id": "om-geocode-cambridge",
-  "title": "Open-Meteo place search — 'Cambridge' disambiguation",
-  "url": "https://geocoding-api.open-meteo.com/v1/search?name=Cambridge&count=15&language=en&format=json",
-  "headers": {
-    "User-Agent": "satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)"
+  id: 'om-geocode-cambridge',
+  title: "Open-Meteo place search — 'Cambridge' disambiguation",
+  url: 'https://geocoding-api.open-meteo.com/v1/search?name=Cambridge&count=15&language=en&format=json',
+  headers: {
+    'User-Agent':
+      'satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)',
   },
-  "ttlSeconds": 604800,
-  "extract": {
-    "items": "$.results",
-    "limit": 50,
-    "map": {
-      "name": "$.name",
-      "country": "$.country",
-      "admin1": "$.admin1",
-      "lat": "$.latitude",
-      "lon": "$.longitude",
-      "elevationM": "$.elevation",
-      "population": "$.population",
-      "timezone": "$.timezone",
-      "featureCode": "$.feature_code",
-      "countryCode": "$.country_code"
+  ttlSeconds: 604800,
+  extract: {
+    items: '$.results',
+    limit: 50,
+    map: {
+      name: '$.name',
+      country: '$.country',
+      admin1: '$.admin1',
+      lat: '$.latitude',
+      lon: '$.longitude',
+      elevationM: '$.elevation',
+      population: '$.population',
+      timezone: '$.timezone',
+      featureCode: '$.feature_code',
+      countryCode: '$.country_code',
     },
-    "numbers": [
-      "lat",
-      "lon",
-      "elevationM",
-      "population"
-    ]
+    numbers: ['lat', 'lon', 'elevationM', 'population'],
   },
-  "required": [
-    "name"
-  ],
-  "source": "Open-Meteo Geocoding API",
-  "attribution": "Weather data by Open-Meteo.com (CC-BY 4.0) — keyless API.",
-  "units": {
-    "lat": "deg",
-    "lon": "deg",
-    "elevationM": "m"
+  required: ['name'],
+  source: 'Open-Meteo Geocoding API',
+  attribution: 'Weather data by Open-Meteo.com (CC-BY 4.0) — keyless API.',
+  units: {
+    lat: 'deg',
+    lon: 'deg',
+    elevationM: 'm',
   },
-  "honesty": "Place-name search for 'Cambridge' (GeoNames-derived reference data, static — not live conditions). Rows ranked by match relevance.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 4 (open-meteo worker)"
+  honesty:
+    "Place-name search for 'Cambridge' (GeoNames-derived reference data, static — not live conditions). Rows ranked by match relevance.",
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 4 (open-meteo worker)',
 };

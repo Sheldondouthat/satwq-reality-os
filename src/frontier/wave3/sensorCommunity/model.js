@@ -6,8 +6,22 @@
  * official AQI. The legend states this.
  */
 
-export const AQI_COLORS = ['#3ddc84', '#ffe14d', '#ff9f43', '#ff5a5a', '#b366ff', '#8b1a3d'];
-export const AQI_NAMES = ['Good', 'Moderate', 'USG', 'Unhealthy', 'Very unhealthy', 'Hazardous'];
+export const AQI_COLORS = [
+  '#3ddc84',
+  '#ffe14d',
+  '#ff9f43',
+  '#ff5a5a',
+  '#b366ff',
+  '#8b1a3d',
+];
+export const AQI_NAMES = [
+  'Good',
+  'Moderate',
+  'USG',
+  'Unhealthy',
+  'Very unhealthy',
+  'Hazardous',
+];
 
 export function aqiColor(aqi) {
   if (!Number.isFinite(aqi) || aqi < 1 || aqi > 6) return '#8a93a6';

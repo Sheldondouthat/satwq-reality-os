@@ -4,36 +4,33 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 7 (euro worker)).
  */
 export const SPEC = {
-  "attribution": "Data: Ville de Paris — opendata.paris.fr (Opendatasoft API) — keyless.",
-  "extract": {
-    "items": "$.results",
-    "limit": 50,
-    "map": {
-      "capacity": "$.capacity",
-      "geo": "$.coordonnees_geo",
-      "name": "$.name",
-      "opening_hours": "$.station_opening_hours",
-      "station_code": "$.stationcode"
+  attribution:
+    'Data: Ville de Paris — opendata.paris.fr (Opendatasoft API) — keyless.',
+  extract: {
+    items: '$.results',
+    limit: 50,
+    map: {
+      capacity: '$.capacity',
+      geo: '$.coordonnees_geo',
+      name: '$.name',
+      opening_hours: '$.station_opening_hours',
+      station_code: '$.stationcode',
     },
-    "numbers": [
-      "capacity"
-    ]
+    numbers: ['capacity'],
   },
-  "headers": {},
-  "honesty": "Static Vélib' station directory (location + capacity). Civic infrastructure; no personal identifiers. Verified 50 rows in fixture (8981 bytes); 1519 stations total. Pair with euro-paris-velib-realtime for live availability.",
-  "id": "euro-paris-velib-stations",
-  "required": [
-    "station_code",
-    "name"
-  ],
-  "source": "Ville de Paris — opendata.paris.fr (Opendatasoft)",
-  "title": "Paris — Vélib' station directory (locations)",
-  "ttlSeconds": 3600,
-  "units": {
-    "capacity": "docks",
-    "geo": "lon,lat"
+  headers: {},
+  honesty:
+    "Static Vélib' station directory (location + capacity). Civic infrastructure; no personal identifiers. Verified 50 rows in fixture (8981 bytes); 1519 stations total. Pair with euro-paris-velib-realtime for live availability.",
+  id: 'euro-paris-velib-stations',
+  required: ['station_code', 'name'],
+  source: 'Ville de Paris — opendata.paris.fr (Opendatasoft)',
+  title: "Paris — Vélib' station directory (locations)",
+  ttlSeconds: 3600,
+  units: {
+    capacity: 'docks',
+    geo: 'lon,lat',
   },
-  "url": "https://opendata.paris.fr/api/explore/v2.1/catalog/datasets/velib-emplacement-des-stations/records?limit=50",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 7 (euro worker)"
+  url: 'https://opendata.paris.fr/api/explore/v2.1/catalog/datasets/velib-emplacement-des-stations/records?limit=50',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 7 (euro worker)',
 };

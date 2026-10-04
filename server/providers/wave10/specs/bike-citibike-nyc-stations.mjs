@@ -4,45 +4,39 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 8 (bikeshare-chicago worker)).
  */
 export const SPEC = {
-  "id": "bike-citibike-nyc-stations",
-  "title": "Citi Bike (NYC) — stations",
-  "url": "https://gbfs.citibikenyc.com/gbfs/en/station_information.json",
-  "headers": {
-    "User-Agent": "satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)"
+  id: 'bike-citibike-nyc-stations',
+  title: 'Citi Bike (NYC) — stations',
+  url: 'https://gbfs.citibikenyc.com/gbfs/en/station_information.json',
+  headers: {
+    'User-Agent':
+      'satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)',
   },
-  "ttlSeconds": 3600,
-  "bodyCapBytes": 2097152,
-  "extract": {
-    "items": "$.data.stations",
-    "limit": 50,
-    "map": {
-      "stationId": "$.station_id",
-      "name": "$.name",
-      "lat": "$.lat",
-      "lon": "$.lon",
-      "capacity": "$.capacity"
+  ttlSeconds: 3600,
+  bodyCapBytes: 2097152,
+  extract: {
+    items: '$.data.stations',
+    limit: 50,
+    map: {
+      stationId: '$.station_id',
+      name: '$.name',
+      lat: '$.lat',
+      lon: '$.lon',
+      capacity: '$.capacity',
     },
-    "numbers": [
-      "lat",
-      "lon",
-      "capacity"
-    ]
+    numbers: ['lat', 'lon', 'capacity'],
   },
-  "required": [
-    "stationId",
-    "lat",
-    "lon"
-  ],
-  "source": "GBFS",
-  "attribution": "Data: Citi Bike GBFS feed — keyless.",
-  "units": {
-    "stationId": "text",
-    "name": "text",
-    "lat": "deg",
-    "lon": "deg",
-    "capacity": "count"
+  required: ['stationId', 'lat', 'lon'],
+  source: 'GBFS',
+  attribution: 'Data: Citi Bike GBFS feed — keyless.',
+  units: {
+    stationId: 'text',
+    name: 'text',
+    lat: 'deg',
+    lon: 'deg',
+    capacity: 'count',
   },
-  "honesty": "Static station inventory: 2520 stations at probe (1362059 bytes, under the 1.8MB size rule). capacity may be 0 for dockless/virtual stations. Feed last_updated epoch 1790989147.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 8 (bikeshare-chicago worker)"
+  honesty:
+    'Static station inventory: 2520 stations at probe (1362059 bytes, under the 1.8MB size rule). capacity may be 0 for dockless/virtual stations. Feed last_updated epoch 1790989147.',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 8 (bikeshare-chicago worker)',
 };

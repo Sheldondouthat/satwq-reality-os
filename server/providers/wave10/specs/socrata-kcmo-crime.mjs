@@ -4,33 +4,33 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 3 (socrata worker)).
  */
 export const SPEC = {
-  "id": "socrata-kcmo-crime",
-  "title": "Kansas City (KCMO) Open Data — KCPD crime reports 2025",
-  "url": "https://data.kcmo.org/resource/dmnp-9ajg.json?$limit=50&$order=report_date%20DESC",
-  "headers": {},
-  "ttlSeconds": 1800,
-  "source": "City of Kansas City, Missouri — Open Data KC (Socrata)",
-  "attribution": "Data: City of Kansas City, Missouri — Open Data KC (Socrata) — keyless Socrata API.",
-  "honesty": "KCPD crime reports for 2025, ordered newest first; live through late 2025. No coordinates — address/zip only. Historical 2020-2024 live as separate datasets.",
-  "units": {},
-  "extract": {
-    "items": "$",
-    "limit": 50,
-    "map": {
-      "key": "$.report",
-      "time": "$.report_date",
-      "type": "$.offense",
-      "description": "$.description",
-      "address": "$.address",
-      "city": "$.city",
-      "zip": "$.zipcode",
-      "beat": "$.beat"
+  id: 'socrata-kcmo-crime',
+  title: 'Kansas City (KCMO) Open Data — KCPD crime reports 2025',
+  url: 'https://data.kcmo.org/resource/dmnp-9ajg.json?$limit=50&$order=report_date%20DESC',
+  headers: {},
+  ttlSeconds: 1800,
+  source: 'City of Kansas City, Missouri — Open Data KC (Socrata)',
+  attribution:
+    'Data: City of Kansas City, Missouri — Open Data KC (Socrata) — keyless Socrata API.',
+  honesty:
+    'KCPD crime reports for 2025, ordered newest first; live through late 2025. No coordinates — address/zip only. Historical 2020-2024 live as separate datasets.',
+  units: {},
+  extract: {
+    items: '$',
+    limit: 50,
+    map: {
+      key: '$.report',
+      time: '$.report_date',
+      type: '$.offense',
+      description: '$.description',
+      address: '$.address',
+      city: '$.city',
+      zip: '$.zipcode',
+      beat: '$.beat',
     },
-    "numbers": []
+    numbers: [],
   },
-  "required": [
-    "key"
-  ],
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 3 (socrata worker)"
+  required: ['key'],
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 3 (socrata worker)',
 };

@@ -25,7 +25,8 @@ export function createSpaceWeatherLayer({ source } = {}) {
     updateInterval: 300000,
 
     init(viewer) {
-      if (_viewer) throw new Error('Space weather layer is already initialized');
+      if (_viewer)
+        throw new Error('Space weather layer is already initialized');
       _viewer = viewer;
       _dataSource = new Cesium.CustomDataSource('space-weather');
       _dataSource.show = false;

@@ -19,16 +19,22 @@ export const EMOJI = '🔭';
 export const LABEL = 'Deep Space Network';
 
 export function valueLine(doc) {
-      if (isUnavailable(doc)) return null;
-      const dishes = pickArr(doc.dishes);
-      const tracking = dishes.filter((d) => d.tracking).length;
-      const sc = pickArr(doc.activeSpacecraft).length;
-      if (!dishes.length && !sc) return null;
-      return withTags(`${EMOJI} DSN ${tracking}/${dishes.length} dishes tracking · ${sc} spacecraft`, doc);
-    }
+  if (isUnavailable(doc)) return null;
+  const dishes = pickArr(doc.dishes);
+  const tracking = dishes.filter((d) => d.tracking).length;
+  const sc = pickArr(doc.activeSpacecraft).length;
+  if (!dishes.length && !sc) return null;
+  return withTags(
+    `${EMOJI} DSN ${tracking}/${dishes.length} dishes tracking · ${sc} spacecraft`,
+    doc,
+  );
+}
 
 export function detailLine(doc) {
-      if (isUnavailable(doc)) return '';
-      const names = pickArr(doc.activeSpacecraft).slice(0, 3).map((s) => pickStr(s.spacecraft, s.name)).filter(Boolean);
-      return names.length ? `in contact: ${names.join(', ')}` : '';
-    }
+  if (isUnavailable(doc)) return '';
+  const names = pickArr(doc.activeSpacecraft)
+    .slice(0, 3)
+    .map((s) => pickStr(s.spacecraft, s.name))
+    .filter(Boolean);
+  return names.length ? `in contact: ${names.join(', ')}` : '';
+}

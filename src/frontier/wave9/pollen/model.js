@@ -9,11 +9,7 @@
  * withTags() appends (stale) from the envelope. All values are grains/m³;
  * null = no model value (never zero-filled upstream).
  */
-import {
-  isUnavailable,
-  withTags,
-  pickNum,
-} from '../../wave3/common/ticker.js';
+import { isUnavailable, withTags, pickNum } from '../../wave3/common/ticker.js';
 
 export const ROUTE = '/api/pollen';
 export const EMOJI = '🌾';
@@ -49,8 +45,13 @@ export function valueLine(doc) {
   if (!ok.length) return null;
   const best = headline(ok);
   const units = typeof doc.units === 'string' ? doc.units : 'grains/m³';
-  const bestBit = best ? ` · ${TYPE_LABELS[best.type] ?? best.type} ${best.value} ${units} (${best.city})` : '';
-  return withTags(`${EMOJI} Pollen ${ok.length} EU cities${bestBit} — CAMS model`, doc);
+  const bestBit = best
+    ? ` · ${TYPE_LABELS[best.type] ?? best.type} ${best.value} ${units} (${best.city})`
+    : '';
+  return withTags(
+    `${EMOJI} Pollen ${ok.length} EU cities${bestBit} — CAMS model`,
+    doc,
+  );
 }
 
 function fmtLoc(loc) {
@@ -58,7 +59,8 @@ function fmtLoc(loc) {
   const bits = Object.entries(loc.current)
     .map(([t, v]) => (pickNum(v) != null ? `${t} ${pickNum(v)}` : null))
     .filter(Boolean);
-  const cov = loc.coverage === 'outside-cams-pollen-domain' ? ' (no CAMS coverage)' : '';
+  const cov =
+    loc.coverage === 'outside-cams-pollen-domain' ? ' (no CAMS coverage)' : '';
   return `${loc.name}: ${bits.join(', ') || 'no data'}${cov}`;
 }
 
@@ -68,6 +70,8 @@ export function detailLine(doc) {
   const rows = locations.map(fmtLoc).filter(Boolean);
   const parts = [];
   if (rows.length) parts.push(rows.join(' · ') + ' grains/m³.');
-  parts.push('CAMS model output — simulation, not sensor observations; null = no model value.');
+  parts.push(
+    'CAMS model output — simulation, not sensor observations; null = no model value.',
+  );
   return parts.join(' ');
 }

@@ -43,13 +43,20 @@ async function fetchCapped(url, signal) {
     const response = await fetch(url, {
       signal: controller.signal,
       redirect: 'follow',
-      headers: { 'User-Agent': USER_AGENT, Accept: 'application/geo+json, text/html' },
+      headers: {
+        'User-Agent': USER_AGENT,
+        Accept: 'application/geo+json, text/html',
+      },
     });
     if (!response.ok)
-      throw Object.assign(new Error(`volcano_upstream_${response.status}`), { status: 502 });
+      throw Object.assign(new Error(`volcano_upstream_${response.status}`), {
+        status: 502,
+      });
     const buffer = await response.arrayBuffer();
     if (buffer.byteLength > BODY_CAP_BYTES)
-      throw Object.assign(new Error('volcano_upstream_too_large'), { status: 502 });
+      throw Object.assign(new Error('volcano_upstream_too_large'), {
+        status: 502,
+      });
     return new TextDecoder().decode(buffer);
   } finally {
     clearTimeout(timeout);
@@ -87,9 +94,8 @@ function str(value) {
 
 export function trimGeonetVolcano(feature) {
   const props = feature?.properties ?? {};
-  const coords = feature?.geometry?.type === 'Point'
-    ? feature.geometry.coordinates
-    : [];
+  const coords =
+    feature?.geometry?.type === 'Point' ? feature.geometry.coordinates : [];
   return {
     id: str(props.volcanoID),
     name: str(props.volcanoTitle),
@@ -112,7 +118,8 @@ export function trimGeonetVolcano(feature) {
  */
 export function parseAvoCards(html) {
   const text = str(html);
-  const pattern = /Alert Level:\s*([A-Za-z]+)\s*<\/h3>[\s\S]*?Color Code:\s*([A-Za-z]+)\s*<\/h3>[\s\S]*?data-point="([\d.\-]+),([\d.\-]+)"[\s\S]*?\/volcano\/([\w\-]+)\/activity[\s\S]*?<h3>([^<]+)<\/h3>/g;
+  const pattern =
+    /Alert Level:\s*([A-Za-z]+)\s*<\/h3>[\s\S]*?Color Code:\s*([A-Za-z]+)\s*<\/h3>[\s\S]*?data-point="([\d.\-]+),([\d.\-]+)"[\s\S]*?\/volcano\/([\w\-]+)\/activity[\s\S]*?<h3>([^<]+)<\/h3>/g;
   const out = [];
   const seen = new Set();
   for (const m of text.matchAll(pattern)) {
@@ -141,7 +148,8 @@ function buildActive(geonetVolcanoes, avoVolcanoes) {
   const active = [];
   for (const v of geonetVolcanoes) {
     if (!v.id) continue;
-    const elevated = (v.level ?? 0) > 0 || !['GREEN', ''].includes(geonetActiveColor(v));
+    const elevated =
+      (v.level ?? 0) > 0 || !['GREEN', ''].includes(geonetActiveColor(v));
     if (!elevated) continue;
     active.push({
       id: `geonet:${v.id}`,
@@ -177,13 +185,22 @@ async function getGeonet() {
     try {
       const text = await fetchCapped(GEONET_URL, null);
       const upstream = JSON.parse(text);
-      const features = Array.isArray(upstream?.features) ? upstream.features : [];
+      const features = Array.isArray(upstream?.features)
+        ? upstream.features
+        : [];
       const volcanoes = features
         .map(trimGeonetVolcano)
-        .filter((v) => v.id && Number.isFinite(v.lon) && Number.isFinite(v.lat));
+        .filter(
+          (v) => v.id && Number.isFinite(v.lon) && Number.isFinite(v.lat),
+        );
       return { status: 'ok', count: volcanoes.length, volcanoes };
     } catch (error) {
-      return { status: 'error', error: error?.message ?? 'unknown', count: 0, volcanoes: [] };
+      return {
+        status: 'error',
+        error: error?.message ?? 'unknown',
+        count: 0,
+        volcanoes: [],
+      };
     }
   });
 }
@@ -197,10 +214,17 @@ async function getAvo() {
         status: 'ok',
         count: volcanoes.length,
         volcanoes,
-        coverageNote: 'AVO front page lists elevated-alert volcanoes only; normal-status Alaska volcanoes are not captured.',
+        coverageNote:
+          'AVO front page lists elevated-alert volcanoes only; normal-status Alaska volcanoes are not captured.',
       };
     } catch (error) {
-      return { status: 'error', error: error?.message ?? 'unknown', count: 0, volcanoes: [], coverageNote: '' };
+      return {
+        status: 'error',
+        error: error?.message ?? 'unknown',
+        count: 0,
+        volcanoes: [],
+        coverageNote: '',
+      };
     }
   });
 }
@@ -208,7 +232,8 @@ async function getAvo() {
 export async function trimVolcanoPayload(geonet, avo) {
   const active = buildActive(geonet.volcanoes, avo.volcanoes);
   const warnings = [];
-  if (geonet.status === 'error') warnings.push(`geonet_unavailable: ${geonet.error}`);
+  if (geonet.status === 'error')
+    warnings.push(`geonet_unavailable: ${geonet.error}`);
   if (avo.status === 'error') warnings.push(`avo_unavailable: ${avo.error}`);
   return {
     generatedAt: new Date().toISOString(),
@@ -218,7 +243,8 @@ export async function trimVolcanoPayload(geonet, avo) {
     active,
     warnings,
     sources: { geonet: geonet.status, avo: avo.status },
-    source: 'GeoNet VAL (GNS Science, NZ) + AVO front page (USGS/UAF, Alaska) — keyless',
+    source:
+      'GeoNet VAL (GNS Science, NZ) + AVO front page (USGS/UAF, Alaska) — keyless',
   };
 }
 
@@ -238,17 +264,23 @@ function sendJson(res, status, body, cacheControl = 'public, max-age=600') {
 /** Mount the volcano alert-ticker proxy. Mirrors the nwsAlerts provider shape. */
 export function volcanoProxy() {
   async function handler(req, res) {
-    if (req.method !== 'GET') return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
     req.on?.('close', () => {});
     try {
       // Per-source degradation lives inside the payload; only an unexpected
       // internal failure reaches 500 — data itself is never fabricated.
       sendJson(res, 200, await getSnapshot());
     } catch (error) {
-      sendJson(res, 500, {
-        error: 'volcano_unavailable',
-        detail: error?.message ?? 'unknown',
-      }, 'no-store');
+      sendJson(
+        res,
+        500,
+        {
+          error: 'volcano_unavailable',
+          detail: error?.message ?? 'unknown',
+        },
+        'no-store',
+      );
     } finally {
       req.removeListener?.('close', () => {});
     }
@@ -270,5 +302,8 @@ export const _volcanoInternals = {
   parseAvoCards,
   buildActive,
   trimVolcanoPayload,
-  clearCaches: () => { caches.clear(); inflight.clear(); },
+  clearCaches: () => {
+    caches.clear();
+    inflight.clear();
+  },
 };

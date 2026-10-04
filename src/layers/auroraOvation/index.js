@@ -83,7 +83,8 @@ export function createAuroraOvationLayer({ source, overlayHost } = {}) {
     updateInterval: UPDATE_INTERVAL_MS,
 
     init(viewer) {
-      if (_viewer) throw new Error('AuroraOvation layer is already initialized');
+      if (_viewer)
+        throw new Error('AuroraOvation layer is already initialized');
       _viewer = viewer;
       _enabled = false;
       _lastGrid = null;
@@ -114,7 +115,9 @@ export function createAuroraOvationLayer({ source, overlayHost } = {}) {
       const request = new AbortController();
       _request = request;
       try {
-        const grid = await ovationSource.getSnapshot({ signal: request.signal });
+        const grid = await ovationSource.getSnapshot({
+          signal: request.signal,
+        });
         if (request.signal.aborted || _request !== request || !_enabled)
           return false;
         attachTexture(grid);
@@ -232,9 +235,7 @@ export function createOvationLegend(layer, { mount = document.body } = {}) {
   const labels = document.createElement('div');
   labels.style.cssText =
     'display:flex;justify-content:space-between;color:#9fb4d8;';
-  labels.innerHTML = stops
-    .map((s) => `<span>${s.label}</span>`)
-    .join('');
+  labels.innerHTML = stops.map((s) => `<span>${s.label}</span>`).join('');
 
   const caption = document.createElement('div');
   caption.style.cssText = 'color:#9fb4d8;margin-top:2px;';

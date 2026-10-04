@@ -41,7 +41,9 @@ async function fetchJsonCapped(url, signal) {
       headers: { 'User-Agent': USER_AGENT, Accept: 'application/json' },
     });
     if (!response.ok)
-      throw Object.assign(new Error(`awc_upstream_${response.status}`), { status: 502 });
+      throw Object.assign(new Error(`awc_upstream_${response.status}`), {
+        status: 502,
+      });
     const buffer = await response.arrayBuffer();
     if (buffer.byteLength > BODY_CAP_BYTES)
       throw Object.assign(new Error('awc_upstream_too_large'), { status: 502 });
@@ -108,7 +110,9 @@ export function trimSigmet(item) {
 
 export function trimSigmetsPayload(upstream) {
   const items = Array.isArray(upstream) ? upstream : [];
-  const sigmets = items.map(trimSigmet).filter((s) => s.icaoId && s.coords.length >= 3);
+  const sigmets = items
+    .map(trimSigmet)
+    .filter((s) => s.icaoId && s.coords.length >= 3);
   return {
     generatedAt: new Date().toISOString(),
     count: sigmets.length,
@@ -170,20 +174,32 @@ function sendJson(res, status, body, cacheControl = 'public, max-age=300') {
 }
 
 async function sigmetHandler(req, res) {
-  if (req.method !== 'GET') return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
+  if (req.method !== 'GET')
+    return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
   try {
-    sendJson(res, 200, await cached('sigmets', () =>
-      fetchJsonCapped(SIGMET_URL, null).then(trimSigmetsPayload)));
+    sendJson(
+      res,
+      200,
+      await cached('sigmets', () =>
+        fetchJsonCapped(SIGMET_URL, null).then(trimSigmetsPayload),
+      ),
+    );
   } catch (error) {
-    sendJson(res, error?.status === 502 ? 502 : 500, {
-      error: 'sigmets_unavailable',
-      detail: error?.message ?? 'unknown',
-    }, 'no-store');
+    sendJson(
+      res,
+      error?.status === 502 ? 502 : 500,
+      {
+        error: 'sigmets_unavailable',
+        detail: error?.message ?? 'unknown',
+      },
+      'no-store',
+    );
   }
 }
 
 async function airportHandler(kind, req, res) {
-  if (req.method !== 'GET') return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
+  if (req.method !== 'GET')
+    return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
   const { stations } = parseStations(req);
   if (!stations.length)
     return sendJson(res, 400, { error: 'station_ids_required' }, 'no-store');
@@ -191,21 +207,29 @@ async function airportHandler(kind, req, res) {
   const key = `${kind}:${stations.join(',')}`;
   try {
     const payload = await cached(key, () =>
-      fetchJsonCapped(`${base}&ids=${stations.join(',')}`, null).then((upstream) => {
-        const items = Array.isArray(upstream) ? upstream : [];
-        const trim = kind === 'metar' ? trimMetar : trimTaf;
-        return {
-          generatedAt: new Date().toISOString(),
-          reports: items.map(trim).filter((r) => r.icaoId),
-          source: 'aviationweather.gov (NOAA AWC, keyless)',
-        };
-      }));
+      fetchJsonCapped(`${base}&ids=${stations.join(',')}`, null).then(
+        (upstream) => {
+          const items = Array.isArray(upstream) ? upstream : [];
+          const trim = kind === 'metar' ? trimMetar : trimTaf;
+          return {
+            generatedAt: new Date().toISOString(),
+            reports: items.map(trim).filter((r) => r.icaoId),
+            source: 'aviationweather.gov (NOAA AWC, keyless)',
+          };
+        },
+      ),
+    );
     sendJson(res, 200, payload);
   } catch (error) {
-    sendJson(res, error?.status === 502 ? 502 : 500, {
-      error: `${kind}_unavailable`,
-      detail: error?.message ?? 'unknown',
-    }, 'no-store');
+    sendJson(
+      res,
+      error?.status === 502 ? 502 : 500,
+      {
+        error: `${kind}_unavailable`,
+        detail: error?.message ?? 'unknown',
+      },
+      'no-store',
+    );
   }
 }
 
@@ -235,5 +259,8 @@ export function sigmetsProxy() {
 export const _sigmetsInternals = {
   parseStations,
   STATION_RE,
-  clearCaches: () => { caches.clear(); inflight.clear(); },
+  clearCaches: () => {
+    caches.clear();
+    inflight.clear();
+  },
 };

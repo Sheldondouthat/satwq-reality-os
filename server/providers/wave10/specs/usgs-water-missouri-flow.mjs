@@ -4,37 +4,32 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 1 (usgs worker)).
  */
 export const SPEC = {
-  "headers": {},
-  "ttlSeconds": 3600,
-  "extract": {
-    "items": "$.value.timeSeries",
-    "limit": 40,
-    "map": {
-      "name": "$.sourceInfo.siteName",
-      "site": "$.sourceInfo.siteCode[0].value",
-      "value": "$.values[0].value[0].value",
-      "time": "$.values[0].value[0].dateTime",
-      "lat": "$.sourceInfo.geoLocation.geogLocation.latitude",
-      "lon": "$.sourceInfo.geoLocation.geogLocation.longitude"
+  headers: {},
+  ttlSeconds: 3600,
+  extract: {
+    items: '$.value.timeSeries',
+    limit: 40,
+    map: {
+      name: '$.sourceInfo.siteName',
+      site: '$.sourceInfo.siteCode[0].value',
+      value: '$.values[0].value[0].value',
+      time: '$.values[0].value[0].dateTime',
+      lat: '$.sourceInfo.geoLocation.geogLocation.latitude',
+      lon: '$.sourceInfo.geoLocation.geogLocation.longitude',
     },
-    "numbers": [
-      "value",
-      "lat",
-      "lon"
-    ]
+    numbers: ['value', 'lat', 'lon'],
   },
-  "required": [
-    "name"
-  ],
-  "source": "USGS Water Services (NWIS)",
-  "attribution": "Data: U.S. Geological Survey, NWIS — keyless.",
-  "units": {
-    "value": "ft3/s"
+  required: ['name'],
+  source: 'USGS Water Services (NWIS)',
+  attribution: 'Data: U.S. Geological Survey, NWIS — keyless.',
+  units: {
+    value: 'ft3/s',
   },
-  "honesty": "Instantaneous values, typically updated every 15-60 min; some sites go dark seasonally. Values may be flagged provisional (qualifier P).",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 1 (usgs worker)",
-  "id": "usgs-water-missouri-flow",
-  "title": "USGS Water — Missouri River streamflow (Hermann, MO)",
-  "url": "https://waterservices.usgs.gov/nwis/iv/?format=json&sites=06934500&parameterCd=00060"
+  honesty:
+    'Instantaneous values, typically updated every 15-60 min; some sites go dark seasonally. Values may be flagged provisional (qualifier P).',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 1 (usgs worker)',
+  id: 'usgs-water-missouri-flow',
+  title: 'USGS Water — Missouri River streamflow (Hermann, MO)',
+  url: 'https://waterservices.usgs.gov/nwis/iv/?format=json&sites=06934500&parameterCd=00060',
 };

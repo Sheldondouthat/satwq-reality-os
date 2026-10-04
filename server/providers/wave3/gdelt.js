@@ -14,8 +14,10 @@
 import { createKeylessProxy, fetchUpstreamText } from './lib/proxy.js';
 
 const BASE = 'https://api.gdeltproject.org/api/v1/gkg_geojson';
-const USER_AGENT = 'SATWQ-RealityOS/1.0 (GDELT public API; keyless; contact via repo)';
-const DEFAULT_QUERY = '(earthquake OR protest OR election OR flood OR wildfire OR summit)';
+const USER_AGENT =
+  'SATWQ-RealityOS/1.0 (GDELT public API; keyless; contact via repo)';
+const DEFAULT_QUERY =
+  '(earthquake OR protest OR election OR flood OR wildfire OR summit)';
 const DEFAULT_TIMESPAN = 60;
 const MAX_TIMESPAN = 1440;
 const MAX_FEATURES = 800;
@@ -65,10 +67,13 @@ export function gdeltProxy({ fetchImpl = fetch, now = () => Date.now() } = {}) {
     const q = (query.get('q') || DEFAULT_QUERY).slice(0, 300);
     const timespan = Math.min(
       MAX_TIMESPAN,
-      Math.max(1, parseInt(query.get('timespan') || String(DEFAULT_TIMESPAN), 10) || DEFAULT_TIMESPAN),
+      Math.max(
+        1,
+        parseInt(query.get('timespan') || String(DEFAULT_TIMESPAN), 10) ||
+          DEFAULT_TIMESPAN,
+      ),
     );
-    const url =
-      `${BASE}?query=${encodeURIComponent(q)}&timespan=${timespan}`;
+    const url = `${BASE}?query=${encodeURIComponent(q)}&timespan=${timespan}`;
     const text = await fetchUpstreamText(f, url, {
       signal,
       timeoutMs: UPSTREAM_TIMEOUT_MS,
@@ -76,7 +81,12 @@ export function gdeltProxy({ fetchImpl = fetch, now = () => Date.now() } = {}) {
       userAgent: USER_AGENT,
       accept: 'application/json',
     });
-    return { fetchedAt: n(), query: q, timespan, mentions: parseGdeltGeojson(text) };
+    return {
+      fetchedAt: n(),
+      query: q,
+      timespan,
+      mentions: parseGdeltGeojson(text),
+    };
   }
 
   function describe(payload, { stale = false, reason = null } = {}) {

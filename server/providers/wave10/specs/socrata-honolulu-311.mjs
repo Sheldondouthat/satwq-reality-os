@@ -4,31 +4,30 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 3 (socrata recovery)).
  */
 export const SPEC = {
-  "attribution": "Data: City and County of Honolulu — data.honolulu.gov (Socrata) — keyless Socrata API.",
-  "extract": {
-    "items": "$",
-    "limit": 50,
-    "map": {
-      "address": "$.street",
-      "description": "$.description",
-      "key": "$.id",
-      "time": "$.date_created",
-      "type": "$.request_type"
+  attribution:
+    'Data: City and County of Honolulu — data.honolulu.gov (Socrata) — keyless Socrata API.',
+  extract: {
+    items: '$',
+    limit: 50,
+    map: {
+      address: '$.street',
+      description: '$.description',
+      key: '$.id',
+      time: '$.date_created',
+      type: '$.request_type',
     },
-    "numbers": []
+    numbers: [],
   },
-  "headers": {},
-  "honesty": "HNL 311 service requests, current through 2026-10-01; date_created is human-readable text (not ISO), so ordering uses the sequential request id DESC instead; street address missing on ~1 of 50 rows and there are no lat/lon columns.",
-  "id": "socrata-honolulu-311",
-  "required": [
-    "key",
-    "type"
-  ],
-  "source": "City and County of Honolulu — data.honolulu.gov (Socrata)",
-  "title": "Honolulu (data.honolulu.gov) — HNL 311 service requests",
-  "ttlSeconds": 1800,
-  "units": {},
-  "url": "https://data.honolulu.gov/resource/jdy7-ftwe.json?$limit=50&$order=id%20DESC",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 3 (socrata recovery)"
+  headers: {},
+  honesty:
+    'HNL 311 service requests, current through 2026-10-01; date_created is human-readable text (not ISO), so ordering uses the sequential request id DESC instead; street address missing on ~1 of 50 rows and there are no lat/lon columns.',
+  id: 'socrata-honolulu-311',
+  required: ['key', 'type'],
+  source: 'City and County of Honolulu — data.honolulu.gov (Socrata)',
+  title: 'Honolulu (data.honolulu.gov) — HNL 311 service requests',
+  ttlSeconds: 1800,
+  units: {},
+  url: 'https://data.honolulu.gov/resource/jdy7-ftwe.json?$limit=50&$order=id%20DESC',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 3 (socrata recovery)',
 };

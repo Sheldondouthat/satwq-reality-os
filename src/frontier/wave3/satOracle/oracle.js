@@ -48,7 +48,11 @@ export function subSatellitePoint(satrec, dateMs) {
     return null;
   }
   const pos = pv && pv.position;
-  if (!pos || typeof pos === 'boolean' || ![pos.x, pos.y, pos.z].every(Number.isFinite))
+  if (
+    !pos ||
+    typeof pos === 'boolean' ||
+    ![pos.x, pos.y, pos.z].every(Number.isFinite)
+  )
     return null;
   const geo = eciToGeodetic(pos, gstime(new Date(dateMs)));
   return {
@@ -62,7 +66,13 @@ export function subSatellitePoint(satrec, dateMs) {
  * Satellites above the horizon AND sunlit right now — the "look up now" answer.
  * @returns {[{name, elevDeg, azDeg, sunlit:boolean, sunElevDeg}]} sorted by elevation desc
  */
-export function currentlyVisible(satellites, latDeg, lonDeg, dateMs, { minElevDeg = 10 } = {}) {
+export function currentlyVisible(
+  satellites,
+  latDeg,
+  lonDeg,
+  dateMs,
+  { minElevDeg = 10 } = {},
+) {
   const sunElevDeg = observerSolarElevation(latDeg, lonDeg, dateMs);
   const visible = [];
   for (const sat of satellites) {
@@ -75,7 +85,13 @@ export function currentlyVisible(satellites, latDeg, lonDeg, dateMs, { minElevDe
     if (!look || look.elevDeg < minElevDeg) continue;
     const sunlit = isSatelliteSunlit(look.satECI, dateMs);
     if (!sunlit) continue;
-    visible.push({ name: sat.name, elevDeg: look.elevDeg, azDeg: look.azDeg, sunElevDeg, sunlit: true });
+    visible.push({
+      name: sat.name,
+      elevDeg: look.elevDeg,
+      azDeg: look.azDeg,
+      sunElevDeg,
+      sunlit: true,
+    });
   }
   visible.sort((a, b) => b.elevDeg - a.elevDeg);
   return visible;
@@ -87,11 +103,13 @@ export function currentlyVisible(satellites, latDeg, lonDeg, dateMs, { minElevDe
  * at any of the sampled instants. Final passes are still computed exactly
  * by findNextSatellitePass — this only narrows the candidate set.
  */
-export function prefilterCandidates(satellites, latDeg, lonDeg, fromMs, {
-  hours = 12,
-  samples = 24,
-  maxGroundDeg = 25,
-} = {}) {
+export function prefilterCandidates(
+  satellites,
+  latDeg,
+  lonDeg,
+  fromMs,
+  { hours = 12, samples = 24, maxGroundDeg = 25 } = {},
+) {
   const phi = latDeg * D2R;
   const kept = [];
   for (const sat of satellites) {
@@ -119,11 +137,13 @@ export function prefilterCandidates(satellites, latDeg, lonDeg, fromMs, {
  * sky dark enough to see the sat, sat still sunlit above the shadow).
  * Returns passes sorted by peak time.
  */
-export function tonightsVisiblePasses(satellites, latDeg, lonDeg, fromMs, {
-  horizonHours = 14,
-  minElevDeg = 10,
-  maxResults = 40,
-} = {}) {
+export function tonightsVisiblePasses(
+  satellites,
+  latDeg,
+  lonDeg,
+  fromMs,
+  { horizonHours = 14, minElevDeg = 10, maxResults = 40 } = {},
+) {
   const passes = [];
   for (const sat of satellites) {
     let pass;
@@ -142,7 +162,11 @@ export function tonightsVisiblePasses(satellites, latDeg, lonDeg, fromMs, {
       continue;
     }
     if (!pass) continue;
-    const sunElevAtPeak = observerSolarElevation(latDeg, lonDeg, pass.maxElevMs);
+    const sunElevAtPeak = observerSolarElevation(
+      latDeg,
+      lonDeg,
+      pass.maxElevMs,
+    );
     if (sunElevAtPeak < -18 || sunElevAtPeak > -6) continue; // twilight window only
     passes.push({
       name: sat.name,

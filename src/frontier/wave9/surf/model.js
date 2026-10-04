@@ -9,11 +9,7 @@
  * usable summary — the ticker stays silent rather than guessing. Feet are
  * derived from the provider's native meters (m × 3.28084).
  */
-import {
-  isUnavailable,
-  withTags,
-  pickNum,
-} from '../../wave3/common/ticker.js';
+import { isUnavailable, withTags, pickNum } from '../../wave3/common/ticker.js';
 
 export const ROUTE = '/api/surf';
 export const EMOJI = '🏄';

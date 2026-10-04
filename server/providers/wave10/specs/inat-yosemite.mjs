@@ -4,35 +4,35 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 8 (inaturalist worker)).
  */
 export const SPEC = {
-  "id": "inat-yosemite",
-  "title": "Wildlife observations — Yosemite National Park (iNaturalist, place_id=68542)",
-  "url": "https://api.inaturalist.org/v1/observations?per_page=20&order_by=observed_on&order=desc&place_id=68542",
-  "extract": {
-    "items": "$.results",
-    "limit": 20,
-    "map": {
-      "observation_id": "$.id",
-      "species_guess": "$.species_guess",
-      "scientific_name": "$.taxon.name",
-      "common_name": "$.taxon.preferred_common_name",
-      "iconic_taxon": "$.taxon.iconic_taxon_name",
-      "observed_on": "$.observed_on",
-      "location": "$.location",
-      "quality_grade": "$.quality_grade",
-      "observer": "$.user.login",
-      "observation_url": "$.uri"
+  id: 'inat-yosemite',
+  title:
+    'Wildlife observations — Yosemite National Park (iNaturalist, place_id=68542)',
+  url: 'https://api.inaturalist.org/v1/observations?per_page=20&order_by=observed_on&order=desc&place_id=68542',
+  extract: {
+    items: '$.results',
+    limit: 20,
+    map: {
+      observation_id: '$.id',
+      species_guess: '$.species_guess',
+      scientific_name: '$.taxon.name',
+      common_name: '$.taxon.preferred_common_name',
+      iconic_taxon: '$.taxon.iconic_taxon_name',
+      observed_on: '$.observed_on',
+      location: '$.location',
+      quality_grade: '$.quality_grade',
+      observer: '$.user.login',
+      observation_url: '$.uri',
     },
-    "numbers": []
+    numbers: [],
   },
-  "required": [
-    "observation_id"
-  ],
-  "honesty": "Wildlife observations; API reports 179005 total matching records. Fixture: 20 rows (609553 bytes), 20/20 rows carry observation_id, 20/20 carry scientific_name, 9/20 carry species_guess, 20/20 carry coordinates, 20/20 carry observed_on, 20/20 carry observer. Coordinates absent on some rows. Verified 200 OK from this VM.",
-  "headers": {},
-  "ttlSeconds": 86400,
-  "source": "iNaturalist",
-  "attribution": "Data: iNaturalist.org — keyless, CC0/CC-BY.",
-  "units": {},
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 8 (inaturalist worker)"
+  required: ['observation_id'],
+  honesty:
+    'Wildlife observations; API reports 179005 total matching records. Fixture: 20 rows (609553 bytes), 20/20 rows carry observation_id, 20/20 carry scientific_name, 9/20 carry species_guess, 20/20 carry coordinates, 20/20 carry observed_on, 20/20 carry observer. Coordinates absent on some rows. Verified 200 OK from this VM.',
+  headers: {},
+  ttlSeconds: 86400,
+  source: 'iNaturalist',
+  attribution: 'Data: iNaturalist.org — keyless, CC0/CC-BY.',
+  units: {},
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 8 (inaturalist worker)',
 };

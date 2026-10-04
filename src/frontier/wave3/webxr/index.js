@@ -49,7 +49,10 @@ export function initWebXR() {
 
     const btn = document.createElement('button');
     btn.textContent = '◉ step inside the planet (v1)';
-    btn.setAttribute('aria-label', 'Enter the immersive inside-the-planet viewer');
+    btn.setAttribute(
+      'aria-label',
+      'Enter the immersive inside-the-planet viewer',
+    );
     btn.title =
       'v1: immersive 360 diorama with live data sprites — not the full Cesium globe in XR';
     btn.style.cssText =
@@ -69,7 +72,10 @@ export function initWebXR() {
           });
         } catch (xrError) {
           // Honest fallback: plain-tab 360 viewer.
-          console.info('[webxr] immersive-vr unavailable, using 360 fallback:', xrError?.message);
+          console.info(
+            '[webxr] immersive-vr unavailable, using 360 fallback:',
+            xrError?.message,
+          );
           fallback = createFallbackViewer(() => panoramaCanvas);
         }
       } catch (error) {

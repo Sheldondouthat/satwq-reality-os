@@ -20,16 +20,21 @@ export const EMOJI = '🐋';
 export const LABEL = 'Whale detections';
 
 export function valueLine(doc) {
-      if (isUnavailable(doc)) return null;
-      const n = pickNum(doc.count, doc.detections?.length);
-      if (n == null) return null;
-      return withTags(`${EMOJI} ${n.toLocaleString('en-US')} whale detections`, doc);
-    }
+  if (isUnavailable(doc)) return null;
+  const n = pickNum(doc.count, doc.detections?.length);
+  if (n == null) return null;
+  return withTags(
+    `${EMOJI} ${n.toLocaleString('en-US')} whale detections`,
+    doc,
+  );
+}
 
 export function detailLine(doc) {
-      if (isUnavailable(doc)) return '';
-      const d = pickArr(doc.detections)[0];
-      const what = d ? pickStr(d.species, d.commonName, 'whale') : '';
-      const plats = pickArr(doc.platforms).length;
-      return [what && `e.g. ${what}`, plats ? `${plats} platforms` : ''].filter(Boolean).join(' · ');
-    }
+  if (isUnavailable(doc)) return '';
+  const d = pickArr(doc.detections)[0];
+  const what = d ? pickStr(d.species, d.commonName, 'whale') : '';
+  const plats = pickArr(doc.platforms).length;
+  return [what && `e.g. ${what}`, plats ? `${plats} platforms` : '']
+    .filter(Boolean)
+    .join(' · ');
+}

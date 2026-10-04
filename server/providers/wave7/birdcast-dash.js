@@ -69,14 +69,26 @@ export async function probeDashboard(fetchImpl, url = EMBED_URL) {
       // NOTE: redirect:'follow' — workerd supports only 'follow'/'manual';
       // 'error' throws at the edge (main 2ec4053).
       redirect: 'follow',
-      headers: { 'User-Agent': USER_AGENT, Accept: 'text/html,application/xhtml+xml' },
+      headers: {
+        'User-Agent': USER_AGENT,
+        Accept: 'text/html,application/xhtml+xml',
+      },
     });
     const contentType = response.headers?.get?.('content-type') ?? null;
     if (!response.ok) {
-      return { ok: false, status: response.status, contentType, pageTitle: null, checkedAt, error: `dashboard_http_${response.status}` };
+      return {
+        ok: false,
+        status: response.status,
+        contentType,
+        pageTitle: null,
+        checkedAt,
+        error: `dashboard_http_${response.status}`,
+      };
     }
     const buffer = await response.arrayBuffer();
-    const html = new TextDecoder().decode(buffer.slice(0, Math.min(buffer.byteLength, PROBE_CAP_BYTES)));
+    const html = new TextDecoder().decode(
+      buffer.slice(0, Math.min(buffer.byteLength, PROBE_CAP_BYTES)),
+    );
     return {
       ok: true,
       status: response.status,
@@ -147,7 +159,8 @@ function sendJson(res, status, body, cacheControl = 'public, max-age=600') {
 /** Mount the BirdCast dashboard embed-metadata endpoint. */
 export function birdcastDashProxy({ fetchImpl = fetch } = {}) {
   async function handler(req, res) {
-    if (req.method !== 'GET') return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
     try {
       sendJson(res, 200, await getSnapshot(fetchImpl));
     } catch (error) {
@@ -160,7 +173,10 @@ export function birdcastDashProxy({ fetchImpl = fetch } = {}) {
       sendJson(
         res,
         upstreamFail ? 502 : 500,
-        { error: 'birdcast_dash_unavailable', detail: error?.message ?? 'unknown' },
+        {
+          error: 'birdcast_dash_unavailable',
+          detail: error?.message ?? 'unknown',
+        },
         'no-store',
       );
     }

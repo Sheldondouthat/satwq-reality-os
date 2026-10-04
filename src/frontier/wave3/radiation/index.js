@@ -27,7 +27,11 @@ export function init(viewer, { mount = null, fetchImpl = fetch } = {}) {
 
   function clear() {
     for (const e of owned.splice(0)) {
-      try { entities.remove(e); } catch { /* best effort */ }
+      try {
+        entities.remove(e);
+      } catch {
+        /* best effort */
+      }
     }
   }
 
@@ -54,7 +58,9 @@ export function init(viewer, { mount = null, fetchImpl = fetch } = {}) {
               position: Cesium.Cartesian3.fromDegrees(p.lon, p.lat, 6000),
               point: {
                 pixelSize: band === 'high' ? 7 : 4,
-                color: Cesium.Color.fromCssColorString(BAND_COLORS[band]).withAlpha(0.85),
+                color: Cesium.Color.fromCssColorString(
+                  BAND_COLORS[band],
+                ).withAlpha(0.85),
                 outlineColor: Cesium.Color.BLACK.withAlpha(0.5),
                 outlineWidth: 1,
               },
@@ -63,12 +69,16 @@ export function init(viewer, { mount = null, fetchImpl = fetch } = {}) {
                 (p.capturedAt ? ` — captured ${p.capturedAt}` : ''),
             }),
           );
-        } catch { /* skip bad point */ }
+        } catch {
+          /* skip bad point */
+        }
       }
-      const when = payload.generatedAt ? new Date(payload.generatedAt).toISOString() : 'unknown';
+      const when = payload.generatedAt
+        ? new Date(payload.generatedAt).toISOString()
+        : 'unknown';
       note(
         `${dots.length} sensors${payload.stale ? ' (stale cache)' : ''} — ` +
-        `fetched ${when}. gmcmap volunteer stations.`,
+          `fetched ${when}. gmcmap volunteer stations.`,
       );
     } catch (error) {
       console.warn('[radiation]', error);
@@ -82,7 +92,8 @@ export function init(viewer, { mount = null, fetchImpl = fetch } = {}) {
     'margin-top:8px;padding:8px;border-radius:8px;background:rgba(10,18,32,.7);' +
     'border:1px solid rgba(120,180,255,.2);font:12px/1.5 system-ui,sans-serif;color:#dfe9ff;';
   const title = document.createElement('div');
-  title.style.cssText = 'font-size:10px;letter-spacing:.12em;color:#8aa4d6;font-weight:600;';
+  title.style.cssText =
+    'font-size:10px;letter-spacing:.12em;color:#8aa4d6;font-weight:600;';
   title.textContent = '☢️ RADIATION';
   const toggle = document.createElement('button');
   toggle.textContent = '☢️ radiation dots';
@@ -91,20 +102,25 @@ export function init(viewer, { mount = null, fetchImpl = fetch } = {}) {
     'margin:2px;padding:5px 9px;border-radius:20px;border:1px solid rgba(120,180,255,.35);' +
     'background:rgba(30,45,70,.6);color:#dfe9ff;cursor:pointer;font-size:11px;';
   const noteEl = document.createElement('div');
-  noteEl.style.cssText = 'color:#9fb4dd;font-size:10px;margin-top:4px;min-height:16px;';
+  noteEl.style.cssText =
+    'color:#9fb4dd;font-size:10px;margin-top:4px;min-height:16px;';
   const legend = document.createElement('div');
-  legend.style.cssText = 'color:#7d8fb5;font-size:9px;margin-top:4px;line-height:1.6;';
+  legend.style.cssText =
+    'color:#7d8fb5;font-size:9px;margin-top:4px;line-height:1.6;';
   legend.innerHTML = Object.entries(BAND_LABELS)
     .map(([k, v]) => `<span style="color:${BAND_COLORS[k]}">●</span> ${v}`)
     .join('<br>');
   const honesty = document.createElement('div');
-  honesty.style.cssText = 'color:#7d8fb5;font-size:9px;margin-top:4px;line-height:1.4;';
+  honesty.style.cssText =
+    'color:#7d8fb5;font-size:9px;margin-top:4px;line-height:1.4;';
   honesty.textContent =
     'Volunteer sensor readings, not a calibrated monitoring network. ' +
     'gmcmap stations via server proxy; CPM-only stations are skipped ' +
     '(CPM→µSv/h conversion is tube-specific and never faked).';
 
-  function note(text) { noteEl.textContent = text; }
+  function note(text) {
+    noteEl.textContent = text;
+  }
 
   toggle.addEventListener('click', () => {
     on = toggle.getAttribute('aria-pressed') !== 'true';
@@ -114,7 +130,10 @@ export function init(viewer, { mount = null, fetchImpl = fetch } = {}) {
       refresh();
       timer = setInterval(refresh, REFRESH_MS);
     } else {
-      if (timer) { clearInterval(timer); timer = null; }
+      if (timer) {
+        clearInterval(timer);
+        timer = null;
+      }
       clear();
       noteEl.textContent = '';
     }

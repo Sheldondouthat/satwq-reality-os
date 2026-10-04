@@ -120,7 +120,9 @@ export async function fetchBriefingEvents({
       }
       if (Array.isArray(data.fires)) events.fires = data.fires;
       else if (num(data.fireCount) !== null) {
-        events.fires = [{ count: num(data.fireCount), region: 'monitored regions' }];
+        events.fires = [
+          { count: num(data.fireCount), region: 'monitored regions' },
+        ];
       }
       events.sources.events = true;
       return events;
@@ -133,7 +135,11 @@ export async function fetchBriefingEvents({
   const [usgs, cyclones] = await Promise.all([
     (async () => {
       try {
-        const data = await fetchJson(USGS_SIGNIFICANT_MONTH, fetchImpl, timeoutMs);
+        const data = await fetchJson(
+          USGS_SIGNIFICANT_MONTH,
+          fetchImpl,
+          timeoutMs,
+        );
         const features = Array.isArray(data?.features) ? data.features : [];
         events.sources.usgs = true;
         return features.map(normalizeQuakeFeature).filter(Boolean);
@@ -313,7 +319,9 @@ export function buildBriefing(events = {}) {
 
 /** Rough narration duration fallback when speech events never fire. */
 function estimateMs(text) {
-  const words = String(text ?? '').split(/\s+/).filter(Boolean).length;
+  const words = String(text ?? '')
+    .split(/\s+/)
+    .filter(Boolean).length;
   return Math.min(30_000, 2500 + words * 450);
 }
 
@@ -331,7 +339,7 @@ export function createSpeechSynthesisSpeaker({
   let current = null;
 
   const synthOf = () =>
-    typeof window !== 'undefined' ? window.speechSynthesis ?? null : null;
+    typeof window !== 'undefined' ? (window.speechSynthesis ?? null) : null;
 
   function speak(text) {
     const synth = synthOf();
@@ -342,7 +350,10 @@ export function createSpeechSynthesisSpeaker({
         return;
       }
       if (!synth) {
-        const id = setTimeout(() => resolve({ ok: true, estimated: true }), estimate(content));
+        const id = setTimeout(
+          () => resolve({ ok: true, estimated: true }),
+          estimate(content),
+        );
         current = { cancel: () => clearTimeout(id) };
         return;
       }

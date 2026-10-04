@@ -34,13 +34,20 @@ async function fetchTextCapped(url) {
     const response = await fetch(url, {
       signal: controller.signal,
       redirect: 'follow',
-      headers: { 'User-Agent': USER_AGENT, Accept: 'application/xml, text/xml' },
+      headers: {
+        'User-Agent': USER_AGENT,
+        Accept: 'application/xml, text/xml',
+      },
     });
     if (!response.ok)
-      throw Object.assign(new Error(`gliders_upstream_${response.status}`), { status: 502 });
+      throw Object.assign(new Error(`gliders_upstream_${response.status}`), {
+        status: 502,
+      });
     const buffer = await response.arrayBuffer();
     if (buffer.byteLength > BODY_CAP_BYTES)
-      throw Object.assign(new Error('gliders_upstream_too_large'), { status: 502 });
+      throw Object.assign(new Error('gliders_upstream_too_large'), {
+        status: 502,
+      });
     return new TextDecoder().decode(buffer);
   } finally {
     clearTimeout(timeout);
@@ -81,7 +88,9 @@ export function parseOgnMarkers(xml) {
     const lon = numOrNull(a.lng ?? a.lon ?? a.long ?? a.longitude, 5);
     if (lat == null || lon == null) continue;
     if (lat < -90 || lat > 90 || lon < -180 || lon > 180) continue;
-    const id = String(a.id ?? a.flarm ?? a.device ?? a.callsign ?? '').slice(0, 32) || null;
+    const id =
+      String(a.id ?? a.flarm ?? a.device ?? a.callsign ?? '').slice(0, 32) ||
+      null;
     markers.push({
       id,
       lat,
@@ -138,15 +147,24 @@ function sendJson(res, status, body, cacheControl = 'public, max-age=300') {
 /** Mount the OGN live-marker proxy. Mirrors the felt provider shape. */
 export function glidersProxy() {
   async function handler(req, res) {
-    if (req.method !== 'GET') return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
     try {
       sendJson(res, 200, await getSnapshot());
     } catch (error) {
-      const upstreamFail = error?.status === 502 || error?.name === 'AbortError' || /aborted?/i.test(error?.message ?? '');
-      sendJson(res, upstreamFail ? 502 : 500, {
-        error: 'gliders_unavailable',
-        detail: error?.message ?? 'unknown',
-      }, 'no-store');
+      const upstreamFail =
+        error?.status === 502 ||
+        error?.name === 'AbortError' ||
+        /aborted?/i.test(error?.message ?? '');
+      sendJson(
+        res,
+        upstreamFail ? 502 : 500,
+        {
+          error: 'gliders_unavailable',
+          detail: error?.message ?? 'unknown',
+        },
+        'no-store',
+      );
     }
   }
 
@@ -164,5 +182,8 @@ export function glidersProxy() {
 export const _glidersInternals = {
   parseOgnMarkers,
   trimGlidersPayload,
-  clearCaches: () => { cache = null; inflight = null; },
+  clearCaches: () => {
+    cache = null;
+    inflight = null;
+  },
 };

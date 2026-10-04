@@ -24,27 +24,27 @@
  * written against the observed ListBucketResult shape.
  */
 
-const S3_BASE = "https://is-birdcast-observed-prod.s3.us-east-1.amazonaws.com";
+const S3_BASE = 'https://is-birdcast-observed-prod.s3.us-east-1.amazonaws.com';
 const UPSTREAM_TIMEOUT_MS = 25_000;
 const BODY_CAP_BYTES = 256 * 1024;
 const CACHE_TTL_MS = 10 * 60_000; // mosaics refresh every 10 min
-const USER_AGENT = "Gods Eye View (BirdCast mosaic index)";
+const USER_AGENT = 'Gods Eye View (BirdCast mosaic index)';
 
 let cache = null; // {at, payload}
 let inflight = null;
 
 function listingUrl(date) {
   const yyyy = String(date.getUTCFullYear());
-  const mm = String(date.getUTCMonth() + 1).padStart(2, "0");
-  const dd = String(date.getUTCDate()).padStart(2, "0");
+  const mm = String(date.getUTCMonth() + 1).padStart(2, '0');
+  const dd = String(date.getUTCDate()).padStart(2, '0');
   return `${S3_BASE}/?list-type=2&prefix=mosaic/${yyyy}/${mm}/${dd}/&max-keys=50`;
 }
 
 /** Parse an S3 ListBucketResult XML into [{key, lastModified}] — regex only, no DOMParser at the edge. */
 export function parseS3Listing(xml) {
-  const text = String(xml ?? "");
+  const text = String(xml ?? '');
   if (!/<ListBucketResult[\s>]/.test(text))
-    throw new Error("birdcast_unexpected_listing");
+    throw new Error('birdcast_unexpected_listing');
   const out = [];
   const re = /<Contents>([\s\S]*?)<\/Contents>/g;
   let m;
@@ -82,10 +82,10 @@ async function fetchTextCapped(fetchImpl, url) {
       signal: controller.signal,
       // NOTE: redirect:'follow' — workerd supports only 'follow'/'manual';
       // 'error' throws at the edge (main 2ec4053).
-      redirect: "follow",
+      redirect: 'follow',
       headers: {
-        "User-Agent": USER_AGENT,
-        Accept: "application/xml, text/xml, */*",
+        'User-Agent': USER_AGENT,
+        Accept: 'application/xml, text/xml, */*',
       },
     });
     if (!response.ok)
@@ -94,7 +94,7 @@ async function fetchTextCapped(fetchImpl, url) {
       });
     const buffer = await response.arrayBuffer();
     if (buffer.byteLength > BODY_CAP_BYTES)
-      throw Object.assign(new Error("birdcast_upstream_too_large"), {
+      throw Object.assign(new Error('birdcast_upstream_too_large'), {
         status: 502,
       });
     return new TextDecoder().decode(buffer);
@@ -120,7 +120,7 @@ async function getSnapshot(fetchImpl, nowMs) {
       }
       const latest = pickLatest(entries);
       if (!latest)
-        throw Object.assign(new Error("birdcast_no_mosaics"), { status: 502 });
+        throw Object.assign(new Error('birdcast_no_mosaics'), { status: 502 });
       const payload = {
         generatedAt: new Date().toISOString(),
         date: date.toISOString().slice(0, 10),
@@ -128,8 +128,8 @@ async function getSnapshot(fetchImpl, nowMs) {
         listingUrl: listingUrl(date),
         latest,
         attribution:
-          "Migration mosaics: BirdCast, Cornell Lab of Ornithology. " +
-          "Manifest only — image bytes are loaded client-side from the origin bucket.",
+          'Migration mosaics: BirdCast, Cornell Lab of Ornithology. ' +
+          'Manifest only — image bytes are loaded client-side from the origin bucket.',
       };
       cache = { at: Date.now(), payload };
       return payload;
@@ -140,10 +140,10 @@ async function getSnapshot(fetchImpl, nowMs) {
   return inflight;
 }
 
-function sendJson(res, status, body, cacheControl = "public, max-age=600") {
+function sendJson(res, status, body, cacheControl = 'public, max-age=600') {
   res.writeHead(status, {
-    "Content-Type": "application/json; charset=utf-8",
-    "Cache-Control": cacheControl,
+    'Content-Type': 'application/json; charset=utf-8',
+    'Cache-Control': cacheControl,
   });
   res.end(JSON.stringify(body));
 }
@@ -153,34 +153,34 @@ export function birdcastProxy({
   now = () => Date.now(),
 } = {}) {
   async function handler(req, res) {
-    if (req.method !== "GET")
-      return sendJson(res, 405, { error: "method_not_allowed" }, "no-store");
+    if (req.method !== 'GET')
+      return sendJson(res, 405, { error: 'method_not_allowed' }, 'no-store');
     try {
       sendJson(res, 200, await getSnapshot(fetchImpl, now()));
     } catch (error) {
       const upstreamFail =
         error?.status === 502 ||
-        error?.name === "AbortError" ||
-        /aborted?/i.test(error?.message ?? "");
+        error?.name === 'AbortError' ||
+        /aborted?/i.test(error?.message ?? '');
       sendJson(
         res,
         upstreamFail ? 502 : 500,
         {
-          error: "birdcast_unavailable",
-          detail: error?.message ?? "unknown",
+          error: 'birdcast_unavailable',
+          detail: error?.message ?? 'unknown',
         },
-        "no-store",
+        'no-store',
       );
     }
   }
 
   return {
-    name: "birdcast",
+    name: 'birdcast',
     configureServer({ middlewares }) {
-      middlewares.use("/api/birdcast", handler);
+      middlewares.use('/api/birdcast', handler);
     },
     configurePreviewServer({ middlewares }) {
-      middlewares.use("/api/birdcast", handler);
+      middlewares.use('/api/birdcast', handler);
     },
   };
 }

@@ -35,7 +35,8 @@
 import { decodeMiniseed, rmsPeak } from './miniseed.js';
 
 const STATION_URL = 'https://service.earthscope.org/fdsnws/station/1/query';
-const DATASELECT_URL = 'https://service.earthscope.org/fdsnws/dataselect/1/query';
+const DATASELECT_URL =
+  'https://service.earthscope.org/fdsnws/dataselect/1/query';
 
 export const INFRASOUND_ROUTE = '/api/infrasound';
 
@@ -213,7 +214,11 @@ export function infrasoundProxy({
         try {
           const meta = await stationMeta(entry, controller.signal);
           if (!meta) {
-            stations.push({ net: entry.net, sta: entry.sta, state: 'no_station' });
+            stations.push({
+              net: entry.net,
+              sta: entry.sta,
+              state: 'no_station',
+            });
             continue;
           }
           const win = await stationWindow(entry, meta, controller.signal);
@@ -266,7 +271,10 @@ export function infrasoundProxy({
           try {
             mem = await refreshSingleFlight();
           } catch (err) {
-            console.warn('[infrasound-proxy] upstream failed:', err?.message || err);
+            console.warn(
+              '[infrasound-proxy] upstream failed:',
+              err?.message || err,
+            );
             if (!mem) {
               sendJson(503, { error: 'infrasound_unavailable' });
               return;

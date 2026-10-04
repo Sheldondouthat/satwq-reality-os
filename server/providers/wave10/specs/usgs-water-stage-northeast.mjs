@@ -4,37 +4,32 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 2 (usgs worker)).
  */
 export const SPEC = {
-  "attribution": "Data: U.S. Geological Survey, NWIS — keyless.",
-  "extract": {
-    "items": "$.value.timeSeries",
-    "limit": 10,
-    "map": {
-      "lat": "$.sourceInfo.geoLocation.geogLocation.latitude",
-      "lon": "$.sourceInfo.geoLocation.geogLocation.longitude",
-      "name": "$.sourceInfo.siteName",
-      "site": "$.sourceInfo.siteCode[0].value",
-      "time": "$.values[0].value[0].dateTime",
-      "value": "$.values[0].value[0].value"
+  attribution: 'Data: U.S. Geological Survey, NWIS — keyless.',
+  extract: {
+    items: '$.value.timeSeries',
+    limit: 10,
+    map: {
+      lat: '$.sourceInfo.geoLocation.geogLocation.latitude',
+      lon: '$.sourceInfo.geoLocation.geogLocation.longitude',
+      name: '$.sourceInfo.siteName',
+      site: '$.sourceInfo.siteCode[0].value',
+      time: '$.values[0].value[0].dateTime',
+      value: '$.values[0].value[0].value',
     },
-    "numbers": [
-      "value",
-      "lat",
-      "lon"
-    ]
+    numbers: ['value', 'lat', 'lon'],
   },
-  "headers": {},
-  "honesty": "Instantaneous gage height (water level above local datum, not depth) on the Connecticut, Hudson and Delaware rivers, typically updated every 15-60 min; provisional data (qualifier P) possible. The Hudson gage at Green Island can see tidal influence.",
-  "id": "usgs-water-stage-northeast",
-  "required": [
-    "name"
-  ],
-  "source": "USGS Water Services (NWIS)",
-  "title": "USGS Water — Gage height, three northeastern rivers",
-  "ttlSeconds": 3600,
-  "units": {
-    "value": "ft"
+  headers: {},
+  honesty:
+    'Instantaneous gage height (water level above local datum, not depth) on the Connecticut, Hudson and Delaware rivers, typically updated every 15-60 min; provisional data (qualifier P) possible. The Hudson gage at Green Island can see tidal influence.',
+  id: 'usgs-water-stage-northeast',
+  required: ['name'],
+  source: 'USGS Water Services (NWIS)',
+  title: 'USGS Water — Gage height, three northeastern rivers',
+  ttlSeconds: 3600,
+  units: {
+    value: 'ft',
   },
-  "url": "https://waterservices.usgs.gov/nwis/iv/?format=json&sites=01463500,01358000,01184000&parameterCd=00065",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 2 (usgs worker)"
+  url: 'https://waterservices.usgs.gov/nwis/iv/?format=json&sites=01463500,01358000,01184000&parameterCd=00065',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 2 (usgs worker)',
 };

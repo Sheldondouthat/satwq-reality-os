@@ -12,14 +12,23 @@ const API = '/api/certs';
 const REFRESH_MS = 60 * 60_000; // provider caches 1h
 
 function escapeHtml(s) {
-  return String(s).replace(/[&<>"']/g, (c) => ({
-    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
-  })[c]);
+  return String(s).replace(
+    /[&<>"']/g,
+    (c) =>
+      ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;',
+      })[c],
+  );
 }
 
 export function init({ viewer, mount, chip, trackLayer, t } = {}) {
   try {
-    if (typeof document === 'undefined' || !mount || typeof chip !== 'function') return null;
+    if (typeof document === 'undefined' || !mount || typeof chip !== 'function')
+      return null;
     const T = typeof t === 'function' ? t : (k) => k;
 
     let enabled = false;
@@ -31,10 +40,12 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
     statusEl.textContent = 'cert ticker off — enable to load.';
 
     const valueEl = document.createElement('div');
-    valueEl.style.cssText = 'font-size:22px;color:#cfe3ff;font-weight:600;letter-spacing:.5px;';
+    valueEl.style.cssText =
+      'font-size:22px;color:#cfe3ff;font-weight:600;letter-spacing:.5px;';
 
     const listEl = document.createElement('div');
-    listEl.style.cssText = 'font-size:10px;color:#c8d6f5;margin:2px 0;line-height:1.7;';
+    listEl.style.cssText =
+      'font-size:10px;color:#c8d6f5;margin:2px 0;line-height:1.7;';
 
     async function load() {
       if (destroyed || !enabled) return;
@@ -85,7 +96,8 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
       chip(T('feature.certs') || 'Certificate transparency', setEnabled, false),
     );
     const legend = document.createElement('div');
-    legend.style.cssText = 'font-size:10px;color:#8aa4d6;margin-top:4px;line-height:1.5;';
+    legend.style.cssText =
+      'font-size:10px;color:#8aa4d6;margin-top:4px;line-height:1.5;';
     legend.textContent =
       'Publicly logged certificates for the queried domain (crt.sh). Rows capped at 50; /api/certs?q= accepts other domains.';
     mount.appendChild(legend);

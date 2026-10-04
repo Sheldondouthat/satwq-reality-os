@@ -4,32 +4,30 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 7 (nasa worker)).
  */
 export const SPEC = {
-  "attribution": "Data: NASA open APIs — keyless (DEMO_KEY).",
-  "extract": {
-    "items": "$",
-    "limit": 10,
-    "map": {
-      "copyright": "$.copyright",
-      "date": "$.date",
-      "explanation": "$.explanation",
-      "media_type": "$.media_type",
-      "title": "$.title",
-      "url": "$.url"
+  attribution: 'Data: NASA open APIs — keyless (DEMO_KEY).',
+  extract: {
+    items: '$',
+    limit: 10,
+    map: {
+      copyright: '$.copyright',
+      date: '$.date',
+      explanation: '$.explanation',
+      media_type: '$.media_type',
+      title: '$.title',
+      url: '$.url',
     },
-    "numbers": []
+    numbers: [],
   },
-  "headers": {},
-  "honesty": "Random 10 items per call; date range spans 2006–2023. Media may be image or video; copyright may be absent. Verified 10/10 rows in fixture (4816 bytes).",
-  "id": "nasa-apod-random-10",
-  "required": [
-    "title",
-    "date"
-  ],
-  "source": "NASA APOD — api.nasa.gov/planetary/apod (DEMO_KEY)",
-  "title": "NASA APOD — 10 random astronomy pictures",
-  "ttlSeconds": 43200,
-  "units": {},
-  "url": "https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&count=10",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 7 (nasa worker)"
+  headers: {},
+  honesty:
+    'Random 10 items per call; date range spans 2006–2023. Media may be image or video; copyright may be absent. Verified 10/10 rows in fixture (4816 bytes).',
+  id: 'nasa-apod-random-10',
+  required: ['title', 'date'],
+  source: 'NASA APOD — api.nasa.gov/planetary/apod (DEMO_KEY)',
+  title: 'NASA APOD — 10 random astronomy pictures',
+  ttlSeconds: 43200,
+  units: {},
+  url: 'https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&count=10',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 7 (nasa worker)',
 };

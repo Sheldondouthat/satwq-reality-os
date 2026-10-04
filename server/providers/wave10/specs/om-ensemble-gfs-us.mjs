@@ -4,61 +4,61 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 4 (open-meteo worker)).
  */
 export const SPEC = {
-  "id": "om-ensemble-gfs-us",
-  "title": "Open-Meteo GFS ensemble nowcast — 8 US cities",
-  "url": "https://ensemble-api.open-meteo.com/v1/ensemble?latitude=40.71,34.05,41.88,29.76,39.74,47.61,25.76,32.78&longitude=-74.01,-118.24,-87.63,-95.37,-104.99,-122.33,-80.19,-96.80&current=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,weather_code,pressure_msl,wind_speed_10m,wind_direction_10m&models=gfs_seamless&timezone=auto",
-  "headers": {
-    "User-Agent": "satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)"
+  id: 'om-ensemble-gfs-us',
+  title: 'Open-Meteo GFS ensemble nowcast — 8 US cities',
+  url: 'https://ensemble-api.open-meteo.com/v1/ensemble?latitude=40.71,34.05,41.88,29.76,39.74,47.61,25.76,32.78&longitude=-74.01,-118.24,-87.63,-95.37,-104.99,-122.33,-80.19,-96.80&current=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,weather_code,pressure_msl,wind_speed_10m,wind_direction_10m&models=gfs_seamless&timezone=auto',
+  headers: {
+    'User-Agent':
+      'satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)',
   },
-  "ttlSeconds": 3600,
-  "extract": {
-    "items": "$",
-    "limit": 50,
-    "map": {
-      "time": "$.current.time",
-      "lat": "$.latitude",
-      "lon": "$.longitude",
-      "tz": "$.timezone",
-      "tempC": "$.current.temperature_2m",
-      "humidityPct": "$.current.relative_humidity_2m",
-      "feelsLikeC": "$.current.apparent_temperature",
-      "precipMm": "$.current.precipitation",
-      "weatherCode": "$.current.weather_code",
-      "pressureHpa": "$.current.pressure_msl",
-      "windKmh": "$.current.wind_speed_10m",
-      "windDirDeg": "$.current.wind_direction_10m"
+  ttlSeconds: 3600,
+  extract: {
+    items: '$',
+    limit: 50,
+    map: {
+      time: '$.current.time',
+      lat: '$.latitude',
+      lon: '$.longitude',
+      tz: '$.timezone',
+      tempC: '$.current.temperature_2m',
+      humidityPct: '$.current.relative_humidity_2m',
+      feelsLikeC: '$.current.apparent_temperature',
+      precipMm: '$.current.precipitation',
+      weatherCode: '$.current.weather_code',
+      pressureHpa: '$.current.pressure_msl',
+      windKmh: '$.current.wind_speed_10m',
+      windDirDeg: '$.current.wind_direction_10m',
     },
-    "numbers": [
-      "lat",
-      "lon",
-      "tempC",
-      "humidityPct",
-      "feelsLikeC",
-      "precipMm",
-      "weatherCode",
-      "pressureHpa",
-      "windKmh",
-      "windDirDeg"
-    ]
+    numbers: [
+      'lat',
+      'lon',
+      'tempC',
+      'humidityPct',
+      'feelsLikeC',
+      'precipMm',
+      'weatherCode',
+      'pressureHpa',
+      'windKmh',
+      'windDirDeg',
+    ],
   },
-  "required": [
-    "tempC"
-  ],
-  "source": "Open-Meteo Ensemble API (gfs_seamless)",
-  "attribution": "Weather data by Open-Meteo.com (CC-BY 4.0) — keyless API.",
-  "units": {
-    "lat": "deg",
-    "lon": "deg",
-    "tempC": "C",
-    "humidityPct": "%",
-    "feelsLikeC": "C",
-    "precipMm": "mm",
-    "weatherCode": "WMO code",
-    "pressureHpa": "hPa",
-    "windKmh": "km/h",
-    "windDirDeg": "deg"
+  required: ['tempC'],
+  source: 'Open-Meteo Ensemble API (gfs_seamless)',
+  attribution: 'Weather data by Open-Meteo.com (CC-BY 4.0) — keyless API.',
+  units: {
+    lat: 'deg',
+    lon: 'deg',
+    tempC: 'C',
+    humidityPct: '%',
+    feelsLikeC: 'C',
+    precipMm: 'mm',
+    weatherCode: 'WMO code',
+    pressureHpa: 'hPa',
+    windKmh: 'km/h',
+    windDirDeg: 'deg',
   },
-  "honesty": "gfs_seamless ensemble nowcast, not observations. Rows in request order: New York, Los Angeles, Chicago, Houston, Denver, Seattle, Miami, Dallas.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 4 (open-meteo worker)"
+  honesty:
+    'gfs_seamless ensemble nowcast, not observations. Rows in request order: New York, Los Angeles, Chicago, Houston, Denver, Seattle, Miami, Dallas.',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 4 (open-meteo worker)',
 };

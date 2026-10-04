@@ -19,15 +19,18 @@ export const EMOJI = '🌊';
 export const LABEL = 'HF-radar currents';
 
 export function valueLine(doc) {
-      if (isUnavailable(doc)) return null;
-      if (!doc.snapshot) return `${EMOJI} HF-radar currents snapshot pending`;
-      const r = pickArr(doc.regions);
-      return withTags(`${EMOJI} HF-radar currents · ${r.length} regions`, doc);
-    }
+  if (isUnavailable(doc)) return null;
+  if (!doc.snapshot) return `${EMOJI} HF-radar currents snapshot pending`;
+  const r = pickArr(doc.regions);
+  return withTags(`${EMOJI} HF-radar currents · ${r.length} regions`, doc);
+}
 
 export function detailLine(doc) {
-      if (isUnavailable(doc)) return '';
-      if (!doc.snapshot) return 'no snapshot yet — pipeline pending';
-      const names = pickArr(doc.regions).slice(0, 3).map((x) => pickStr(x.name, x.id)).filter(Boolean);
-      return `snapshot ${pickStr(doc.snapshot.fetchedAt, 'n/a')}${names.length ? ` · ${names.join(', ')}` : ''}`;
-    }
+  if (isUnavailable(doc)) return '';
+  if (!doc.snapshot) return 'no snapshot yet — pipeline pending';
+  const names = pickArr(doc.regions)
+    .slice(0, 3)
+    .map((x) => pickStr(x.name, x.id))
+    .filter(Boolean);
+  return `snapshot ${pickStr(doc.snapshot.fetchedAt, 'n/a')}${names.length ? ` · ${names.join(', ')}` : ''}`;
+}

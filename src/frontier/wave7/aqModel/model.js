@@ -19,28 +19,33 @@ export const EMOJI = '🏭';
 export const LABEL = 'Air quality (model)';
 
 export function valueLine(doc) {
-      if (isUnavailable(doc)) return null;
-      const cur = doc.current ?? {};
-      const aqi = pickNum(cur.usAqi);
-      const pm = pickNum(cur.pm2_5);
-      if (aqi == null && pm == null) return null;
-      return withTags(`${EMOJI} AQI ${aqi ?? 'n/a'} · PM2.5 ${pm ?? 'n/a'} µg/m³`, doc);
-    }
+  if (isUnavailable(doc)) return null;
+  const cur = doc.current ?? {};
+  const aqi = pickNum(cur.usAqi);
+  const pm = pickNum(cur.pm2_5);
+  if (aqi == null && pm == null) return null;
+  return withTags(
+    `${EMOJI} AQI ${aqi ?? 'n/a'} · PM2.5 ${pm ?? 'n/a'} µg/m³`,
+    doc,
+  );
+}
 
 export function detailLine(doc) {
-      if (isUnavailable(doc)) return '';
-      const loc = doc.location?.requested ?? {};
-      return `MODEL @ ${loc.lat ?? '?'}, ${loc.lon ?? '?'} · ${pickStr(doc.modelName, 'CAMS')}`;
-    }
+  if (isUnavailable(doc)) return '';
+  const loc = doc.location?.requested ?? {};
+  return `MODEL @ ${loc.lat ?? '?'}, ${loc.lon ?? '?'} · ${pickStr(doc.modelName, 'CAMS')}`;
+}
 export function locationQuery({ viewer } = {}) {
-      let lat = 37.267;
-      let lon = -80.727;
-      try {
-        const c = viewer?.camera?.positionCartographic;
-        if (c && Number.isFinite(c.latitude) && Number.isFinite(c.longitude)) {
-          lat = Math.round((c.latitude * 180) / Math.PI * 1000) / 1000;
-          lon = Math.round((c.longitude * 180) / Math.PI * 1000) / 1000;
-        }
-      } catch { /* default stands */ }
-      return `?lat=${lat}&lon=${lon}`;
+  let lat = 37.267;
+  let lon = -80.727;
+  try {
+    const c = viewer?.camera?.positionCartographic;
+    if (c && Number.isFinite(c.latitude) && Number.isFinite(c.longitude)) {
+      lat = Math.round(((c.latitude * 180) / Math.PI) * 1000) / 1000;
+      lon = Math.round(((c.longitude * 180) / Math.PI) * 1000) / 1000;
     }
+  } catch {
+    /* default stands */
+  }
+  return `?lat=${lat}&lon=${lon}`;
+}

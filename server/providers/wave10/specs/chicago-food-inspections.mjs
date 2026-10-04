@@ -4,55 +4,51 @@
  * and re-run the generator. Verified 2026-10-02 (surge-500 batch 8 (bikeshare-chicago worker)).
  */
 export const SPEC = {
-  "id": "chicago-food-inspections",
-  "title": "Chicago — food inspections (2026)",
-  "url": "https://data.cityofchicago.org/resource/4ijn-s7e5.json?$limit=50&$where=inspection_date%20%3E%3D%20%272026-01-01T00%3A00%3A00%27&$order=%3Aid%20desc",
-  "headers": {
-    "User-Agent": "satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)"
+  id: 'chicago-food-inspections',
+  title: 'Chicago — food inspections (2026)',
+  url: 'https://data.cityofchicago.org/resource/4ijn-s7e5.json?$limit=50&$where=inspection_date%20%3E%3D%20%272026-01-01T00%3A00%3A00%27&$order=%3Aid%20desc',
+  headers: {
+    'User-Agent':
+      'satwq-reality-os/1.0 (gods-eye-view; surge-500 layer; keyless)',
   },
-  "ttlSeconds": 3600,
-  "bodyCapBytes": 2097152,
-  "extract": {
-    "items": "$",
-    "limit": 50,
-    "map": {
-      "inspectionId": "$.inspection_id",
-      "dbaName": "$.dba_name",
-      "facilityType": "$.facility_type",
-      "risk": "$.risk",
-      "address": "$.address",
-      "inspectionDate": "$.inspection_date",
-      "inspectionType": "$.inspection_type",
-      "results": "$.results",
-      "violations": "$.violations",
-      "lat": "$.latitude",
-      "lon": "$.longitude"
+  ttlSeconds: 3600,
+  bodyCapBytes: 2097152,
+  extract: {
+    items: '$',
+    limit: 50,
+    map: {
+      inspectionId: '$.inspection_id',
+      dbaName: '$.dba_name',
+      facilityType: '$.facility_type',
+      risk: '$.risk',
+      address: '$.address',
+      inspectionDate: '$.inspection_date',
+      inspectionType: '$.inspection_type',
+      results: '$.results',
+      violations: '$.violations',
+      lat: '$.latitude',
+      lon: '$.longitude',
     },
-    "numbers": [
-      "lat",
-      "lon"
-    ]
+    numbers: ['lat', 'lon'],
   },
-  "required": [
-    "inspectionId",
-    "results"
-  ],
-  "source": "City of Chicago",
-  "attribution": "Data: City of Chicago open data portal — keyless.",
-  "units": {
-    "inspectionId": "text",
-    "dbaName": "text",
-    "facilityType": "text",
-    "risk": "text",
-    "address": "text",
-    "inspectionDate": "datetime",
-    "inspectionType": "text",
-    "results": "text",
-    "violations": "text",
-    "lat": "deg",
-    "lon": "deg"
+  required: ['inspectionId', 'results'],
+  source: 'City of Chicago',
+  attribution: 'Data: City of Chicago open data portal — keyless.',
+  units: {
+    inspectionId: 'text',
+    dbaName: 'text',
+    facilityType: 'text',
+    risk: 'text',
+    address: 'text',
+    inspectionDate: 'datetime',
+    inspectionType: 'text',
+    results: 'text',
+    violations: 'text',
+    lat: 'deg',
+    lon: 'deg',
   },
-  "honesty": "Newest-first 50 of 12231 inspections since 2026-01-01 via $order=:id desc (dataset id 4ijn-s7e5 verified live, updated daily). inspection_date is a real timestamp type — range filter used instead of LIKE. Newest inspection_date at probe: 2026-10-01T00:00:00.000. results values like Pass/Fail/Out of Business.",
-  "verifiedAt": "2026-10-02",
-  "verifiedBy": "surge-500 batch 8 (bikeshare-chicago worker)"
+  honesty:
+    'Newest-first 50 of 12231 inspections since 2026-01-01 via $order=:id desc (dataset id 4ijn-s7e5 verified live, updated daily). inspection_date is a real timestamp type — range filter used instead of LIKE. Newest inspection_date at probe: 2026-10-01T00:00:00.000. results values like Pass/Fail/Out of Business.',
+  verifiedAt: '2026-10-02',
+  verifiedBy: 'surge-500 batch 8 (bikeshare-chicago worker)',
 };

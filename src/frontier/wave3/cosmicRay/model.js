@@ -52,7 +52,8 @@ export function coerceStation(raw) {
     deviationMAD: numOrNull(raw.deviationMAD),
     samples: Number.isFinite(Number(raw.samples)) ? Number(raw.samples) : 0,
     status: raw.status === 'ok' ? 'ok' : 'nodata',
-    latestT: raw.latest && typeof raw.latest.t === 'string' ? raw.latest.t : null,
+    latestT:
+      raw.latest && typeof raw.latest.t === 'string' ? raw.latest.t : null,
   };
 }
 
@@ -105,9 +106,11 @@ export function detectForbush(stations) {
     .filter((s) => s.deviationMAD <= FORBUSH_THRESHOLD_MAD)
     .sort((a, b) => a.deviationMAD - b.deviationMAD);
   const level =
-    drops.length >= FORBUSH_MIN_STATIONS ? 'alert'
-    : drops.length >= 2 ? 'watch'
-    : 'quiet';
+    drops.length >= FORBUSH_MIN_STATIONS
+      ? 'alert'
+      : drops.length >= 2
+        ? 'watch'
+        : 'quiet';
   return {
     level,
     drops,
@@ -121,11 +124,15 @@ export function detectForbush(stations) {
 
 /** Global mood line from the median station deviationMAD. */
 export function globalMood(stations) {
-  const mads = stations.filter(isLive).map((s) => s.deviationMAD).sort((a, b) => a - b);
+  const mads = stations
+    .filter(isLive)
+    .map((s) => s.deviationMAD)
+    .sort((a, b) => a - b);
   if (!mads.length) return { label: 'NO DATA', color: '#8a93a6', median: null };
   const mid = Math.floor(mads.length / 2);
   const median = mads.length % 2 ? mads[mid] : (mads[mid - 1] + mads[mid]) / 2;
-  if (median <= FORBUSH_THRESHOLD_MAD) return { label: 'SUPPRESSED', color: '#ff3b3b', median };
+  if (median <= FORBUSH_THRESHOLD_MAD)
+    return { label: 'SUPPRESSED', color: '#ff3b3b', median };
   if (median < -1) return { label: 'DIPPING', color: '#ff9f5a', median };
   if (median <= 1) return { label: 'QUIET', color: '#7ee2a8', median };
   return { label: 'ELEVATED', color: '#59c2ff', median };

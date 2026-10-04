@@ -13,7 +13,8 @@ export function countryMarkers(byCountry, entries, cap = 60) {
   const malwareByCountry = {};
   for (const e of entries ?? []) {
     if (!e?.country) continue;
-    if (e.status === 'online') onlineByCountry[e.country] = (onlineByCountry[e.country] ?? 0) + 1;
+    if (e.status === 'online')
+      onlineByCountry[e.country] = (onlineByCountry[e.country] ?? 0) + 1;
     if (e.malware) {
       const m = (malwareByCountry[e.country] ??= {});
       m[e.malware] = (m[e.malware] ?? 0) + 1;
@@ -26,7 +27,14 @@ export function countryMarkers(byCountry, entries, cap = 60) {
     const malware = Object.entries(malwareByCountry[iso] ?? {})
       .sort((a, b) => b[1] - a[1])
       .slice(0, 5);
-    out.push({ iso, lon: ll[0], lat: ll[1], count, online: onlineByCountry[iso] ?? 0, malware });
+    out.push({
+      iso,
+      lon: ll[0],
+      lat: ll[1],
+      count,
+      online: onlineByCountry[iso] ?? 0,
+      malware,
+    });
   }
   out.sort((a, b) => b.count - a.count);
   return out.slice(0, cap);
