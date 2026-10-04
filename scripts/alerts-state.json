@@ -11,8 +11,14 @@
     "faa:closure:LAX": "2026-10-04T18:35:10.564Z",
     "faa:closure:SAN": "2026-10-04T18:35:10.564Z",
     "faa:closure:PHL": "2026-10-04T18:35:10.564Z",
-    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.3a593f1da8539f1dc8d31764b447ae844803c034.001.1": "2026-10-04T19:48:44.615Z"
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.3a593f1da8539f1dc8d31764b447ae844803c034.001.1": "2026-10-04T19:48:44.615Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.258bd68c06f3e5f73874cfa5b0da3134094832ee.001.1": "2026-10-04T22:12:05.090Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.3ffd6829aa9c304c08f251b03dca92f3b01a2332.001.1": "2026-10-04T22:12:05.090Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.15019699bdc72f6b3e940dcadd1ddb476924d826.001.1": "2026-10-04T22:12:05.090Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.4432c5b4ead96f1226456cd5e3959576ef4c05d5.001.1": "2026-10-04T22:12:05.090Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.bcda20b11017ce841cb495b3fda76d28d2ffa84a.001.1": "2026-10-04T22:12:05.090Z",
+    "faa:ground-stop:TEB": "2026-10-04T22:12:05.090Z"
   },
-  "updatedAt": "2026-10-04T19:48:44.615Z",
+  "updatedAt": "2026-10-04T22:12:05.090Z",
   "topic": "satwq-alerts"
 }
