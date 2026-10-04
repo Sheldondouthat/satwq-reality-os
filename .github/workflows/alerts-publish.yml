@@ -2,7 +2,7 @@ name: Alert rules → ntfy publish
 
 on:
   schedule:
-    - cron: '*/15 * * * *' # re-register 2026-10-04 17:35 EDT
+    - cron: '*/15 * * * *' # re-register 2026-10-04 18:35 EDT
   workflow_dispatch:
 
 permissions:
