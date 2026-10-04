@@ -19,6 +19,6 @@
     "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.bcda20b11017ce841cb495b3fda76d28d2ffa84a.001.1": "2026-10-04T22:12:05.090Z",
     "faa:ground-stop:TEB": "2026-10-04T22:12:05.090Z"
   },
-  "updatedAt": "2026-10-04T22:12:05.090Z",
+  "updatedAt": "2026-10-04T22:53:30.949Z",
   "topic": "satwq-alerts"
 }
