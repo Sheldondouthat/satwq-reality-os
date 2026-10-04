@@ -4737,6 +4737,11 @@ const REGISTRY = [
     routes: ['/api/phenology'],
     load: () => import('../providers/wave9/earthVitals.js').then((m) => m.phenoProxy()),
   },
+  {
+    name: 'self-probe',
+    routes: ['/api/self-probe'],
+    load: () => import('../providers/wave9/selfProbe.js').then((m) => m.selfProbeProxy()),
+  },
 ];
 
 export { REGISTRY };
