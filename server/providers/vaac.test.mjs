@@ -68,3 +68,25 @@ test('vaacProxy rejects non-GET with 405', async () => {
   await handler(req, res);
   assert.equal(res.statusCode, 405);
 });
+
+test('vaacProxy 200 carries X-Upstream-Fetched-At (staleness signal for the HTML passthrough)', async () => {
+  const realFetch = globalThis.fetch;
+  const html = '<html><body>VAAC list</body></html>';
+  globalThis.fetch = async () => ({
+    ok: true,
+    status: 200,
+    arrayBuffer: async () => new TextEncoder().encode(html).buffer,
+  });
+  try {
+    const res = await callProvider('/api/vaac');
+    assert.equal(res.statusCode, 200);
+    assert.equal(res.body, html);
+    const ts = res.headers['X-Upstream-Fetched-At'];
+    assert.ok(ts, 'header present');
+    const d = new Date(ts);
+    assert.ok(!Number.isNaN(d.getTime()), 'header is a valid ISO timestamp');
+    assert.ok(Date.now() - d.getTime() < 60_000, 'timestamp is serve-time fresh');
+  } finally {
+    globalThis.fetch = realFetch;
+  }
+});

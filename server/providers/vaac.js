@@ -42,9 +42,13 @@ async function fetchTextCapped(url, signal) {
 }
 
 function sendText(res, text) {
+  // Raw upstream HTML passthrough: the staleness signal lives in a header,
+  // not a JSON body (there is no JSON envelope to carry a stale flag).
+  // The timestamp is when WE finished fetching the upstream bytes.
   res.writeHead(200, {
     'Content-Type': 'text/html; charset=utf-8',
     'Cache-Control': 'public, max-age=300',
+    'X-Upstream-Fetched-At': new Date().toISOString(),
   });
   res.end(text);
 }

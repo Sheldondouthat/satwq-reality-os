@@ -33,6 +33,11 @@ export function trackBackfillProxies() {
       res.statusCode = cached.status;
       res.setHeader('Content-Type', 'application/json; charset=utf-8');
       res.setHeader('Cache-Control', 'no-store');
+      // The replayed body is the ORIGINAL upstream payload (≤60s old);
+      // the header marks it as a replay so consumers never mistake it
+      // for a fresh upstream contact.
+      res.setHeader('X-Cache', 'HIT');
+      res.setHeader('X-Cache-Age-Ms', String(Date.now() - cached.at));
       res.end(cached.body);
       return;
     }
@@ -61,6 +66,7 @@ export function trackBackfillProxies() {
     res.statusCode = status;
     res.setHeader('Content-Type', 'application/json; charset=utf-8');
     res.setHeader('Cache-Control', 'no-store');
+    res.setHeader('X-Cache', 'MISS');
     res.end(body);
   }
 
