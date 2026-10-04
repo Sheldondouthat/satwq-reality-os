@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>SATWQ // God's Eye — Reality OS</title>
   <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+  <link rel="manifest" href="/manifest.webmanifest" />
+  <meta name="theme-color" content="#0a0a0f" />
+  <link rel="apple-touch-icon" href="/icons/icon-192.png" />
   <link rel="stylesheet" href="/style.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -42,5 +45,16 @@
   <!-- gev:template hud-loading -->
 
   <script type="module" src="/src/main.js"></script>
+  <!-- PWA: installable manifest + offline shell service worker.
+       The worker caches the app shell and static assets only; /api/*
+       live-data requests always bypass it (network-only), so offline
+       the UI shows its normal honest error states, never stale bytes. -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('/sw.js').catch(function () {});
+      });
+    }
+  </script>
 </body>
 </html>
