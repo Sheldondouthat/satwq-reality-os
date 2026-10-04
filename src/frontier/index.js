@@ -168,6 +168,7 @@ import { init as initSeaIce } from './wave9/seaIce/index.js';
 import { init as initOzone } from './wave9/ozone/index.js';
 import { init as initPhenology } from './wave9/phenology/index.js';
 import { init as initSelfProbe } from './wave9/selfProbe/index.js';
+import { init as initAlertRules } from './wave9/alertRules/index.js';
 
 const DOCK_ID = 'satwq-frontier-dock';
 
@@ -1132,6 +1133,7 @@ export function initFrontier({ viewer } = {}) {
     attempt('ozone', () => initOzone({ viewer, mount: s, chip, trackLayer, t }));
     attempt('phenology', () => initPhenology({ viewer, mount: s, chip, trackLayer, t }));
     attempt('selfProbe', () => initSelfProbe({ viewer, mount: s, chip, trackLayer, t }));
+    attempt('alertRules', () => initAlertRules({ viewer, mount: s, chip, trackLayer, t }));
   }
 
   return {

@@ -4742,6 +4742,11 @@ const REGISTRY = [
     routes: ['/api/self-probe'],
     load: () => import('../providers/wave9/selfProbe.js').then((m) => m.selfProbeProxy()),
   },
+  {
+    name: 'alert-rules',
+    routes: ['/api/alert-rules'],
+    load: () => import('../providers/wave9/alertRules.js').then((m) => m.alertRulesProxy()),
+  },
 ];
 
 export { REGISTRY };
