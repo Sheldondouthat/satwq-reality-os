@@ -1,1 +1,17 @@
-{"seen":{}}
+{
+  "seen": {
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.2e4bd12c93b121de0539d3fe4da9cdb94ef3208c.001.1": "2026-10-04T18:35:10.564Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.05726ea3fff9f329176acb371c439b13c3ee8a01.001.1": "2026-10-04T18:35:10.564Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.b8c59f0f5c4cedebbe1984126b29da349c9bf519.001.1": "2026-10-04T18:35:10.564Z",
+    "faa:gdp:SNA": "2026-10-04T18:35:10.564Z",
+    "faa:gdp:AUS": "2026-10-04T18:35:10.564Z",
+    "faa:gdp:PHL": "2026-10-04T18:35:10.564Z",
+    "faa:gdp:BOS": "2026-10-04T18:35:10.564Z",
+    "faa:gdp:SAN": "2026-10-04T18:35:10.564Z",
+    "faa:closure:LAX": "2026-10-04T18:35:10.564Z",
+    "faa:closure:SAN": "2026-10-04T18:35:10.564Z",
+    "faa:closure:PHL": "2026-10-04T18:35:10.564Z"
+  },
+  "updatedAt": "2026-10-04T18:35:10.564Z",
+  "topic": "satwq-alerts"
+}
