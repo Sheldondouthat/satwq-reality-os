@@ -1,0 +1,31 @@
+name: Alert rules → ntfy publish
+
+on:
+  schedule:
+    - cron: '*/15 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Publish new alert firings to ntfy
+        run: node scripts/alerts-publish.mjs
+        env:
+          NTFY_TOPIC: satwq-alerts
+      - name: Commit seen-state on change
+        run: |
+          git config user.name "satwq-alerts-bot"
+          git config user.email "satwq-alerts-bot@users.noreply.github.com"
+          git add scripts/alerts-state.json
+          git diff --cached --quiet || (git commit -m "chore: alerts-publish seen-state" && git push)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
