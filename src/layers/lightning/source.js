@@ -137,11 +137,31 @@ export function cellsFromTileImage(imageData, tileX, tileY, z = RADAR_TILE_Z) {
 }
 
 /**
+ * Legacy-browser canvas path for {@link decodeTileImageBrowser}.
+ * OffscreenCanvas has been universal since ~2021; where it is missing, the
+ * browser wiring injects a DOM canvas factory. No DOM globals here by design.
+ */
+function createLegacyCanvas(createCanvas, width, height) {
+  if (typeof createCanvas !== 'function') {
+    throw new Error(
+      'decodeTileImageBrowser: OffscreenCanvas unavailable — pass { createCanvas } (a DOM canvas factory) for legacy browsers',
+    );
+  }
+  const canvas = createCanvas(width, height);
+  canvas.width = width;
+  canvas.height = height;
+  return canvas;
+}
+
+/**
  * Default tile-image decoder (browser): bytes → {width, height, data}.
  * Uses createImageBitmap + an offscreen canvas; never touches the DOM when
- * OffscreenCanvas is available. Replaceable for tests via `decodeTileImage`.
+ * OffscreenCanvas is available. On legacy browsers without OffscreenCanvas,
+ * pass `{ createCanvas }` — e.g. `(w, h) => { const c = document.createElement('canvas'); c.width = w; c.height = h; return c; }` —
+ * so the DOM touch lives in rendering code, never in this portable source.
+ * Replaceable for tests via the options bag.
  */
-export async function decodeTileImageBrowser(bytes) {
+export async function decodeTileImageBrowser(bytes, { createCanvas } = {}) {
   const blob =
     bytes instanceof Blob ? bytes : new Blob([bytes], { type: 'image/png' });
   const bitmap = await createImageBitmap(blob);
@@ -149,10 +169,7 @@ export async function decodeTileImageBrowser(bytes) {
     const canvas =
       typeof OffscreenCanvas !== 'undefined'
         ? new OffscreenCanvas(bitmap.width, bitmap.height)
-        : Object.assign(document.createElement('canvas'), {
-            width: bitmap.width,
-            height: bitmap.height,
-          });
+        : createLegacyCanvas(createCanvas, bitmap.width, bitmap.height);
     const g = canvas.getContext('2d', { willReadFrequently: true });
     if (!g) throw new Error('2d canvas context unavailable');
     g.drawImage(bitmap, 0, 0);
