@@ -84,16 +84,23 @@ const ROUTES = [
   ['/api/phenology', 'wave9/phenology', 'phenology'],
   ['/api/self-probe', 'wave9/selfProbe', 'selfProbe'],
   ['/api/alert-rules', 'wave9/alertRules', 'alertRules'],
+  ['/api/morning-briefing', 'wave9/morningBriefing', 'morningBriefing'],
 ];
 
-const indexSrc = readFileSync(join(ROOT, 'src', 'frontier', 'index.js'), 'utf8');
+const indexSrc = readFileSync(
+  join(ROOT, 'src', 'frontier', 'index.js'),
+  'utf8',
+);
 const themeKeys = JSON.parse(
   readFileSync(join(ROOT, 'scripts', 'theme-keys-wave5.json'), 'utf8'),
 ).map((entry) => entry.key);
-const indexImports = readFileSync(join(ROOT, 'src', 'frontier', 'index.js'), 'utf8');
+const indexImports = readFileSync(
+  join(ROOT, 'src', 'frontier', 'index.js'),
+  'utf8',
+);
 
 test('all 49 audited routes have a model with the exact registry ROUTE', async () => {
-  assert.equal(ROUTES.length, 65);
+  assert.equal(ROUTES.length, 66);
   const seen = new Set();
   for (const [route, waveDir] of ROUTES) {
     const mod = await import(`./${waveDir}/model.js`);
@@ -119,7 +126,10 @@ test('every layer is mounted via attempt() and imported in frontier/index.js', (
 test('every layer has a theme key registered', () => {
   for (const [, waveDir] of ROUTES) {
     // index.js keeps themeKey in the createTickerInit spec; verify it is registered
-    const idx = readFileSync(join(ROOT, 'src', 'frontier', waveDir, 'index.js'), 'utf8');
+    const idx = readFileSync(
+      join(ROOT, 'src', 'frontier', waveDir, 'index.js'),
+      'utf8',
+    );
     const m = idx.match(/themeKey:\s*'([^']+)'/);
     assert.ok(m, `no themeKey in ${waveDir}/index.js`);
     assert.ok(

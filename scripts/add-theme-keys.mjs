@@ -40,7 +40,9 @@ let failures = 0;
   let text = readFileSync(ENGINE, 'utf8');
   const occurrences = text.split(anchor).length - 1;
   if (occurrences !== 1) {
-    console.error(`add-theme-keys: engine.js key-list anchor found ${occurrences}x (expected 1)`);
+    console.error(
+      `add-theme-keys: engine.js key-list anchor found ${occurrences}x (expected 1)`,
+    );
     failures++;
   } else {
     const additions = pairs
@@ -50,7 +52,9 @@ let failures = 0;
     if (additions) {
       text = text.replace(anchor, anchor + additions);
       writeFileSync(ENGINE, text);
-      console.log(`engine.js key list: +${pairs.length - (pairs.length - additions.split('\n').filter(Boolean).length)} (skipped existing)`);
+      console.log(
+        `engine.js key list: +${pairs.length - (pairs.length - additions.split('\n').filter(Boolean).length)} (skipped existing)`,
+      );
     } else {
       console.log('engine.js key list: all keys already present');
     }
@@ -63,7 +67,9 @@ let failures = 0;
   let text = readFileSync(ENGINE, 'utf8');
   const occurrences = text.split(anchor).length - 1;
   if (occurrences !== 1) {
-    console.error(`add-theme-keys: engine.js BASE_STRINGS anchor found ${occurrences}x (expected 1)`);
+    console.error(
+      `add-theme-keys: engine.js BASE_STRINGS anchor found ${occurrences}x (expected 1)`,
+    );
     failures++;
   } else {
     const additions = pairs
@@ -81,28 +87,34 @@ let failures = 0;
 }
 
 // --- themes.js: all 14 dictionaries ---
+// NOTE (2026-10-04): prettier normalized themes.js labels to single quotes;
+// the anchor and the generated lines use single-quote style to match.
 {
-  const anchor = `      'feature.sigmets': "Aviation SIGMETs",\n`;
+  const anchor = `      'feature.sigmets': 'Aviation SIGMETs',\n`;
   let text = readFileSync(THEMES, 'utf8');
   const occurrences = text.split(anchor).length - 1;
   if (occurrences !== 14) {
-    console.error(`add-theme-keys: themes.js anchor found ${occurrences}x (expected 14)`);
+    console.error(
+      `add-theme-keys: themes.js anchor found ${occurrences}x (expected 14)`,
+    );
     failures++;
   } else {
-    const additions = pairs
-      .map((p) => `      '${p.key}': "${escLabel(p.label)}",\n`)
-      .join('');
+    const sqLabel = (label) =>
+      String(label).replace(/\\/g, '\\\\').replace(/'/g, "\\'");
     // Only add keys not already present anywhere
     const missing = pairs.filter((p) => !text.includes(`'${p.key}':`));
     if (missing.length > 0) {
-      const addText = missing.map((p) => `      '${p.key}': "${escLabel(p.label)}",\n`).join('');
+      const addText = missing
+        .map((p) => `      '${p.key}': '${sqLabel(p.label)}',\n`)
+        .join('');
       text = text.split(anchor).join(anchor + addText);
       writeFileSync(THEMES, text);
-      console.log(`themes.js: +${missing.length} keys × 14 themes = +${missing.length * 14} additions`);
+      console.log(
+        `themes.js: +${missing.length} keys × 14 themes = +${missing.length * 14} additions`,
+      );
     } else {
       console.log('themes.js: all keys already present');
     }
-    void additions;
   }
 }
 

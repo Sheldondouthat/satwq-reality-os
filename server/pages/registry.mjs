@@ -6302,6 +6302,14 @@ const REGISTRY = [
         m.alertRulesProxy(),
       ),
   },
+  {
+    name: 'morning-briefing',
+    routes: ['/api/morning-briefing'],
+    load: () =>
+      import('../providers/wave9/morningBriefing.js').then((m) =>
+        m.morningBriefingProxy(),
+      ),
+  },
 ];
 
 export { REGISTRY };
