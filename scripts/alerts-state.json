@@ -22,8 +22,10 @@
     "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.48260962a27e0b33db705a662277137d319face4.001.1": "2026-10-05T01:44:52.711Z",
     "mirova:257040:04-Oct-2026 21:15:00": "2026-10-05T01:44:52.711Z",
     "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.dae85eb57de5a9d406c320f415971b3f8d730eea.001.1": "2026-10-05T07:43:58.950Z",
-    "faa:closure:ASE": "2026-10-05T07:43:58.950Z"
+    "faa:closure:ASE": "2026-10-05T07:43:58.950Z",
+    "faa:gdp:YVR": "2026-10-05T16:26:25.777Z",
+    "mirova:223020:05-Oct-2026 13:25:00": "2026-10-05T16:26:25.777Z"
   },
-  "updatedAt": "2026-10-05T07:43:58.950Z",
+  "updatedAt": "2026-10-05T16:26:25.777Z",
   "topic": "satwq-alerts"
 }
