@@ -1465,9 +1465,7 @@ export function initFrontier({ viewer } = {}) {
     attempt('morningBriefing', () =>
       initMorningBriefing({ viewer, mount: s, chip, trackLayer, t }),
     );
-    attempt('home', () =>
-      initHome({ viewer, mount: s, chip, trackLayer, t }),
-    );
+    attempt('home', () => initHome({ viewer, mount: s, chip, trackLayer, t }));
   }
 
   return {
