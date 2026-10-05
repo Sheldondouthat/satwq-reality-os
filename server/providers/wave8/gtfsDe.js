@@ -230,7 +230,7 @@ export function validateGtfsDeSnapshot(snap) {
     !Number.isInteger(counts.alerts) ||
     !Number.isInteger(counts.deleted) ||
     counts.entities < 0 ||
-    counts.entities > 200000 ||
+    counts.entities > 300000 || // upstream measured ~214k on 2026-10-05; keep in sync with scripts/gtfs-de-snapshot.mjs MAX_ENTITIES
     counts.tripUpdates < 0 ||
     counts.alerts < 0 ||
     counts.deleted < 0 ||
