@@ -85,6 +85,7 @@ const ROUTES = [
   ['/api/self-probe', 'wave9/selfProbe', 'selfProbe'],
   ['/api/alert-rules', 'wave9/alertRules', 'alertRules'],
   ['/api/morning-briefing', 'wave9/morningBriefing', 'morningBriefing'],
+  ['/api/home', 'wave9/home', 'home'],
 ];
 
 const indexSrc = readFileSync(
@@ -100,7 +101,7 @@ const indexImports = readFileSync(
 );
 
 test('all 49 audited routes have a model with the exact registry ROUTE', async () => {
-  assert.equal(ROUTES.length, 66);
+  assert.equal(ROUTES.length, 67);
   const seen = new Set();
   for (const [route, waveDir] of ROUTES) {
     const mod = await import(`./${waveDir}/model.js`);

@@ -6310,6 +6310,12 @@ const REGISTRY = [
         m.morningBriefingProxy(),
       ),
   },
+  {
+    name: 'home',
+    routes: ['/api/home'],
+    load: () =>
+      import('../providers/wave9/home.js').then((m) => m.homeProxy()),
+  },
 ];
 
 export { REGISTRY };

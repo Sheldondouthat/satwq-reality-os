@@ -109,5 +109,6 @@
   { "key": "feature.phenology", "label": "Spring phenology" },
   { "key": "feature.selfProbe", "label": "Edge self-probe" },
   { "key": "feature.alertRules", "label": "Alert rules (ntfy push)" },
-  { "key": "feature.morningBriefing", "label": "Morning briefing (audio)" }
+  { "key": "feature.morningBriefing", "label": "Morning briefing (audio)" },
+  { "key": "feature.home", "label": "Home — Pembroke VA" }
 ]

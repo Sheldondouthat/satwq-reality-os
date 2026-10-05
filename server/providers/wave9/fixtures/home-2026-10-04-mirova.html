@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MIROVA Dashboard - MIROVA</title>
+  
+  <!--
+  <link rel="stylesheet" href="https://www.mirovaweb.it/css2/leaflet.css" />
+  <link rel="stylesheet" href="https://www.mirovaweb.it/css2/jquery.dataTables.min.css" />
+  <link rel="stylesheet" href="https://www.mirovaweb.it/css2/all.min.css" />
+  
+  
+   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  -->
+  
+    <!-- Replace external CSS with local versions -->
+  <link rel="stylesheet" href="../assets/css/leaflet.css" />
+  <link rel="stylesheet" href="../assets/css/jquery.dataTables.min.css" />
+  <link rel="stylesheet" href="../assets/css/all.min.css" />
+  
+  <style>
+    /* Base styles */
+    html, body { 
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    body { 
+      font-family: Arial, sans-serif; 
+      background: #f4f4f4; 
+      color: #333;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    /* Single line header with nav merged */
+    header { 
+      background: #2c2c54; 
+      color: white; 
+      padding: 0 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 60px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    
+    /* Logo and title in compact format */
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .logo-container {
+      height: 45px;
+    }
+    .logo-container img {
+      height: 100%;
+      width: auto;
+    }
+    .title-container {
+      display: flex;
+      flex-direction: column;
+    }
+    .title-container h1 {
+      margin: 0;
+      font-size: 1.5rem;
+      line-height: 1.1;
+    }
+    .title-container p {
+      margin: 0;
+      font-size: 0.7rem;
+      opacity: 0.9;
+    }
+    
+    /* Header logo and title link styling */
+    .brand-link {
+      text-decoration: none;
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand-link:hover {
+      opacity: 0.9;
+    }
+    
+    /* Combined navigation and clock */
+    .header-center {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+    }
+    
+    /* Navigation integrated in header */
+    .main-nav {
+      display: flex;
+      justify-content: center;
+    }
+    .nav-menu {
+      display: flex;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-menu li {
+      position: relative;
+    }
+    .nav-menu a {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      color: white;
+      text-decoration: none;
+      padding: 0 15px;
+      height: 60px;
+      font-size: 0.9rem;
+      transition: background-color 0.2s;
+    }
+    .nav-menu a:hover {
+      background-color: #3a3a68;
+    }
+    .nav-menu a.active {
+      background-color: #f1c40f;
+      color: #1d1d38;
+      font-weight: bold;
+    }
+    
+    /* Clock positioned at the right */
+    .header-right {
+      display: flex;
+      align-items: center;
+    }
+    .utc-clock {
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      white-space: nowrap;
+    }
+    
+    /* Mobile menu button */
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: 0 15px;
+    }
+    
+    /* Content container for page-specific content */
+    .content-wrapper {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    /* Footer styling */
+    footer {
+      background: #2c2c54;
+      color: white;
+      padding: 9px 18px;
+      text-align: center;
+      font-size: 0.8rem;
+    }
+    footer a {
+      color: #f1c40f;
+      text-decoration: none;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+    
+    /* Mobile Navigation */
+    @media (max-width: 992px) {
+      header {
+        height: auto;
+        padding: 8px 18px;
+        flex-wrap: wrap;
+      }
+      .header-left {
+        width: 100%;
+        justify-content: space-between;
+      }
+      .header-center {
+        width: 100%;
+        order: 3;
+      }
+      .header-right {
+        order: 2;
+      }
+      .nav-menu {
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background: #2c2c54;
+        z-index: 100;
+        box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+        display: none;
+      }
+      .nav-menu.active {
+        display: flex;
+      }
+      .nav-menu a {
+        height: 45px;
+      }
+      .menu-toggle {
+        display: block;
+      }
+      
+      /* Adjust footer for mobile */
+      .footer-container {
+        flex-direction: column-reverse;
+        align-items: center;
+      }
+      .footer-text {
+        text-align: center;
+        margin-top: 10px;
+      }
+    }
+    
+    @media (max-width: 600px) {
+      .utc-clock {
+        font-size: 0.75rem;
+      }
+    }
+    
+    
+.dashboard { display: flex; flex-direction: column; padding: 15px; gap: 15px; flex: 1; overflow: hidden; }
+.content-container { display: flex; flex-direction: column; height: 100%; flex: 1; overflow: hidden; }
+.dashboard-title { text-align: center; margin-bottom: 5px; background: white; color: black; padding: 10px; border-radius: 7px; font-size: 1.2rem; font-weight: bold; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+.alert-notification { background: #2c2c54; color: white; padding: 8px 12px; border-radius: 7px 7px 0 0; font-size: 0.9rem; font-weight: bold; margin-bottom: -7px; z-index: 10; }
+.map-container { position: relative; width: 100%; height: 320px; border-radius: 7px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-bottom: 15px; }
+#map { width: 100%; height: 100%; background: #f2f2f2; }
+.map-controls { position: absolute; bottom: 9px; right: 9px; z-index: 1000; display: flex; gap: 4px; flex-direction: column; }
+.map-controls button { background: white; border: 1px solid #ccc; border-radius: 4px; padding: 4px 9px; cursor: pointer; font-size: 0.8rem; box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
+.map-controls button:hover { background: #f0f0f0; }
+.map-layer-controls { position: absolute; top: 9px; right: 9px; z-index: 1000; display: flex; flex-direction: column; gap: 4px; }
+.map-layer-controls select { background: white; border: 1px solid #ccc; border-radius: 4px; padding: 4px; font-size: 0.8rem; box-shadow: 0 1px 3px rgba(0,0,0,0.2); width: 108px; }
+.stats-container { display: flex; gap: 9px; flex-wrap: wrap; margin-top: 9px; }
+.top-stats { display: grid; grid-template-columns: repeat(2, 1fr); width: 100%; gap: 9px; }
+.bottom-stats { display: flex; width: 100%; margin-top: 9px; }
+.stats-box { flex: 1; min-width: 70px; background: white; border-radius: 7px; padding: 4px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1); height: 54px; display: flex; flex-direction: column; justify-content: center; }
+.total-stats-box { width: 100%; background: white; border-radius: 7px; padding: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); height: 54px; display: flex; flex-direction: column; justify-content: center; text-align: center; }
+.total-box { border-top: 4px solid #3498db; } .extreme-box { border-top: 4px solid #8E44AD; } .very-high-box { border-top: 4px solid #E74C3C; } .high-box { border-top: 4px solid #E67E22; } .moderate-box { border-top: 4px solid #F1C40F; } .low-box { border-top: 4px solid #2ECC71; }
+.stats-value { font-size: 1.35rem; font-weight: bold; margin: 1px 0; }
+.stats-label { font-size: 0.75rem; color: #666; text-transform: uppercase; margin: 0; }
+.stats-range { font-size: 0.65rem; color: #888; margin: 1px 0; font-weight: normal; }
+.table-container { width: 100%; border-radius: 7px; overflow: auto; background: white; box-shadow: 0 2px 4px rgba(0,0,0,0.1); padding: 10px; flex: 1; display: flex; flex-direction: column; min-height: 300px; }
+table { width: 100%; border-collapse: collapse; }
+th, td { padding: 7px; font-size: 14px; }
+th { background: #f4f6f7; cursor: pointer; }
+tbody tr.extreme { background-color: rgba(255, 0, 255, 0.5) !important; }
+tbody tr.very-high { background-color: rgba(255, 0, 0, 0.5) !important; }
+tbody tr.high { background-color: rgba(255, 165, 0, 0.5) !important; }
+tbody tr.moderate { background-color: rgba(255, 255, 0, 0.5) !important; }
+tbody tr.low { background-color: rgba(0, 128, 0, 0.5) !important; }
+tbody tr.zero { background-color: rgba(128, 128, 128, 0.5) !important; }
+.volcano-link { color: #2c3e50; font-weight: bold; text-decoration: none; }
+.volcano-link:hover { text-decoration: underline; }
+.dataTables_wrapper { flex: 1; display: flex; flex-direction: column; }
+.dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter { font-size: 0.8rem; margin-bottom: 10px; }
+.dataTables_wrapper .dataTables_length { float: left; height: 30px; display: flex; align-items: center; }
+.dataTables_wrapper .dataTables_filter { float: right; height: 30px; display: flex; align-items: center; }
+.dataTables_wrapper .dataTables_filter input { margin-left: 5px; height: 25px; }
+.dataTables_wrapper .dataTables_length select { height: 25px; padding: 2px; margin: 0 5px; }
+.dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_paginate { font-size: 0.8rem; padding-top: 0.5em; }
+.dataTables_wrapper .dataTables_paginate .paginate_button { padding: 0.2em 0.6em; }
+.dataTables_wrapper .dataTables_scroll { flex: 1; display: flex; flex-direction: column; }
+.dataTables_wrapper .dataTables_scrollBody { flex: 1; }
+.map-loading { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(255,255,255,0.7); padding: 10px; border-radius: 5px; z-index: 500; font-size: 14px; }
+.hidden-countdown { display: none; }
+@media (min-width: 768px) { .top-stats { grid-template-columns: repeat(3, 1fr); } .map-container { height: 370px; } }
+@media (min-width: 992px) { .content-container { flex-direction: row; gap: 18px; } .map-and-stats { width: 45%; display: flex; flex-direction: column; } .table-container { width: 55%; display: flex; flex-direction: column; } .top-stats { display: flex; } .map-container { height: 370px; } }
+  </style>
+</head>
+<body>
+<header>
+  <div class="header-left">
+    <a href="index.php" class="brand-link">
+      <div class="logo-container">
+        <img src="https://www.mirovaweb.it/images/LogoMIROVA_trasparent.png" alt="MIROVA Logo">
+      </div>
+      <div class="title-container">
+        <h1>MIROVA</h1>
+        <p>Middle Infrared Observations of Volcanic Activity</p>
+      </div>
+    </a>
+    <button class="menu-toggle"><i class="fas fa-bars"></i></button>
+  </div>
+    <i class="fas fa-analytics"></i>
+  
+  <div class="header-center">
+    <nav class="main-nav">
+      <ul class="nav-menu">
+        <li><a href="index.php" class="active"><i class="fas fa-home"></i> Home</a></li>
+        <li><a href="volcanoes.php" ><i class="fas fa-mountain"></i> Volcanoes</a></li>
+        <li><a href="latest.php" ><i class="fas fa-clock"></i> Latest Measurements</a></li>
+		
+		<!--
+		<li><a href="zscoretrend.php" ><i class="fas fa-chart-line"></i> Trend Analysis</a></li>
+        <li><a href="../ARCHIVE/Explore_Archive.php" ><i class="fa fa-bar-chart"></i> Explore Archive</a></li>
+		-->
+		
+		<li><a href="../ARCHIVE/Explore_Archive.php" target="_blank" rel="noopener noreferrer" ><i class="fa fa-bar-chart"></i> Explore Archive</a></li>
+        <li><a href="about.php" ><i class="fas fa-info-circle"></i> About</a></li>
+        <li><a href="credits.php" ><i class="fas fa-award"></i> Credits</a></li>
+      </ul>
+    </nav>
+  </div>
+  
+  <div class="header-right">
+    <div class="utc-clock">
+      <i class="fas fa-clock"></i> <span id="utcClock"></span>
+    </div>
+  </div>
+</header>
+
+<!-- Content wrapper for page-specific content -->
+<div class="content-wrapper">
+  
+<div class="dashboard">
+  <div class="content-container">
+    <div class="map-and-stats">
+      <div class="dashboard-title">
+        <i class="fas fa-fires"></i> Near Real Time Volcanic Hot Spot Detection System
+      </div>
+      
+      <div class="alert-notification">
+        <i class="fas fa-exclamation-circle"></i> Last Alert: 05-Oct-2026 01:05:00 UTC      </div>
+      
+      <div class="map-container">
+        <div id="map"></div>
+        <div class="map-layer-controls">
+          <select id="mapLayerSelector">
+            <option value="osm">Default Map</option>
+            <option value="satellite">Satellite</option>
+            <option value="topo">Topographic</option>
+          </select>
+        </div>
+        <div class="map-controls">
+          <button id="resetMapView"><i class="fas fa-home"></i> Reset View</button>
+        </div>
+      </div>
+      
+      <div class="stats-container">
+        <div class="top-stats">
+                    <div class="stats-box extreme-box">
+            <div class="stats-value">0</div>
+            <div class="stats-label">Extreme</div>
+            <div class="stats-range">>10,000 MW</div>
+          </div>
+                    <div class="stats-box very-high-box">
+            <div class="stats-value">1</div>
+            <div class="stats-label">Very High</div>
+            <div class="stats-range">1,000-10,000 MW</div>
+          </div>
+                    <div class="stats-box high-box">
+            <div class="stats-value">3</div>
+            <div class="stats-label">High</div>
+            <div class="stats-range">100-1,000 MW</div>
+          </div>
+                    <div class="stats-box moderate-box">
+            <div class="stats-value">8</div>
+            <div class="stats-label">Moderate</div>
+            <div class="stats-range">10-100 MW</div>
+          </div>
+                    <div class="stats-box low-box">
+            <div class="stats-value">26</div>
+            <div class="stats-label">Low</div>
+            <div class="stats-range"><10 MW</div>
+          </div>
+                  </div>
+        <div class="bottom-stats">
+          <div class="total-stats-box total-box">
+            <div class="stats-value">38</div>
+            <div class="stats-label">Total Alerts</div>
+          </div>
+        </div>
+      </div>	    
+    </div>
+    
+    <div class="table-container">
+      <table id="volcanoTable">
+        <thead>
+          <tr>
+            <th>Time (UTC)</th><th>ID Volc</th><th>Volcano</th><th>VRP MW</th><th>Distance km</th><th>Sensor</th>
+          </tr>
+        </thead>
+        <tbody>
+                  <tr class="low">
+            <td>05-Oct-2026 00:30:00</td>
+            <td>263280</td>
+            <td><a class="volcano-link" href="../NRT/volcanoDetails_MOD.php?volcano_id=263280" target="_self">Kelut</a></td>
+            <td>3.75</td>
+            <td>31.83</td>
+            <td>MODIS</td>
+          </tr>
+                  <tr class="moderate">
+            <td>05-Oct-2026 00:30:00</td>
+            <td>264230</td>
+            <td><a class="volcano-link" href="../NRT/volcanoDetails_MOD.php?volcano_id=264230" target="_self">Lewotolo</a></td>
+            <td>20.77</td>
+            <td>1.00</td>
+            <td>MODIS</td>
+          </tr>
+                  <tr class="high">
+            <td>05-Oct-2026 00:25:00</td>
+            <td>268010</td>
+            <td><a class="volcano-link" href="../NRT/volcanoDetails_MOD.php?volcano_id=268010" target="_self">Dukono</a></td>
+            <td>302.66</td>
+            <td>15.30</td>
+            <td>MODIS</td>
+          </tr>
+                  <tr class="moderate">
+            <td>05-Oct-2026 00:24:02</td>
+            <td>211040</td>
+            <td><a class="volcano-link" href="../NRT/volcanoDetails_VIR.php?volcano_id=211040" target="_self">Stromboli</a></td>
+            <td>12.95</td>
+            <td>1.06</td>
+            <td>VIIRS</td>
+          </tr>
+                  <tr class="low">
+            <td>05-Oct-2026 00:24:02</td>
+            <td>211060</td>
+            <td><a class="volcano-link" href="../NRT/volcanoDetails_VIR.php?volcano_id=211060" target="_self">Etna</a></td>
+            <td>3.36</td>
+            <td>2.70</td>
+            <td>VIIRS</td>
+          </tr>
+                  <tr class="low">
+            <td>05-Oct-2026 00:24:02</td>
+            <td>211040</td>
+            <td><a class="volcano-link" href="../NRT/volcanoDetails_VIR375.php?volcano_id=211040" target="_self">Stromboli</a></td>
+            <td>6.73</td>
+            <td>1.19</td>
+            <td>VIIRS375</td>
+          </tr>
+                  <tr class="high">
+            <td>04-Oct-2026 23:48:01</td>
+            <td>223020</td>
+            <td><a class="volcano-link" href="../NRT/volcanoDetails_VIR375.php?volcano_id=223020" target="_self">Nyamuragira</a></td>
+            <td>158.45</td>
+            <td>3.77</td>
+            <td>VIIRS375</td>
+          </tr>
+                  <tr class="moderate">
+            <td>04-Oct-2026 23:48:01</td>
+            <td>223030</td>
+            <td><a class="volcano-link" href="../NRT/volcanoDetails_VIR375.php?volcano_id=223030" target="_self">Nyiragongo</a></td>
+            <td>12.57</td>
+            <td>0.84</td>
+            <td>VIIRS375</td>
+          </tr>
+                  <tr class="low">
+            <td>04-Oct-2026 23:48:01</td>
+            <td>222120</td>
+            <td><a class="volcano-link" href="../NRT/volcanoDetails_VIR375.php?volcano_id=222120" target="_self">LengaiOlDoinyo</a></td>
+            <td>1.96</td>
+            <td>2.73</td>
+            <td>VIIRS375</td>
+          </tr>
+                  <tr class="low">
+            <td>04-Oct-2026 23:48:01</td>
+            <td>223030</td>
+            <td><a class="volcano-link" href="../NRT/volcanoDetails_VIR.php?volcano_id=223030" target="_self">Nyiragongo</a></td>
+            <td>8.64</td>
+            <td>1.06</td>
+            <td>VIIRS</td>
+          </tr>
+                  <tr class="high">
+            <td>04-Oct-2026 23:48:01</td>
+            <td>223020</td>
+            <td><a class="volcano-link" href="../NRT/volcanoDetails_VIR.php?volcano_id=223020" target="_self">Nyamuragira</a></td>
+            <td>188.92</td>
+            <td>3.75</td>
+            <td>VIIRS</td>
+          </tr>
+                  <tr class="low">
+            <td>04-Oct-2026 23:48:01</td>
+            <td>221190</td>
+            <td><a class="volcano-link" href="../NRT/volcanoDetails_VIR375.php?volcano_id=221190" target="_self">Fentale</a></td>
+            <td>0.49</td>
+            <td>1.68</td>
+            <td>VIIRS375</td>
+          </tr>
+                  <tr class="low">
+            <td>04-Oct-2026 22:30:00</td>
+            <td>300260</td>
+            <td><a class="volcano-link" href="../NRT/volcanoDetails_MOD.php?volcano_id=300260" target="_self">Kliuchevskoi</a></td>
+            <td>1.07</td>
+            <td>1.41</td>
+            <td>MODIS</td>
+          </tr>
+                  <tr class="very-high">
+            <td>04-Oct-2026 21:15:00</td>
+            <td>257040</td>
+            <td><a class="volcano-link" href="../NRT/volcanoDetails_MOD.php?volcano_id=257040" target="_self">Ambrym</a></td>
+            <td>1,707.22</td>
+            <td>3.00</td>
+            <td>MODIS</td>
+          </tr>
+                  <tr class="moderate">
+            <td>04-Oct-2026 20:55:00</td>
+            <td>352090</td>
+            <td><a class="volcano-link" href="../NRT/volcanoDetails_MOD.php?volcano_id=352090" target="_self">Sangay</a></td>
+            <td>47.99</td>
+            <td>1.00</td>
+            <td>MODIS</td>
+          </tr>
+                  <tr class="low">
+            <td>04-Oct-2026 20:10:00</td>
+            <td>262000</td>
+            <td><a class="volcano-link" href="../NRT/volcanoDetails_MOD.php?volcano_id=262000" target="_self">Krakatau</a></td>
+            <td>0.90</td>
+            <td>0.00</td>
+            <td>MODIS</td>
+          </tr>
+                  <tr class="moderate">
+            <td>04-Oct-2026 18:50:00</td>
+            <td>211040</td>
+            <td><a class="volcano-link" href="../NRT/volcanoDetails_MOD.php?volcano_id=211040" target="_self">Stromboli</a></td>
+            <td>12.67</td>
+            <td>1.41</td>
+            <td>MODIS</td>
+          </tr>
+                  <tr class="low">
+            <td>04-Oct-2026 18:50:00</td>
+            <td>211060</td>
+            <td><a class="volcano-link" href="../NRT/volcanoDetails_MOD.php?volcano_id=211060" target="_self">Etna</a></td>
+            <td>1.27</td>
+            <td>2.24</td>
+            <td>MODIS</td>
+          </tr>
+                  <tr class="low">
+            <td>04-Oct-2026 18:48:01</td>
+            <td>263180</td>
+            <td><a class="volcano-link" href="../NRT/volcanoDetails_VIR375.php?volcano_id=263180" target="_self">Slamet</a></td>
+            <td>0.09</td>
+            <td>1.19</td>
+            <td>VIIRS375</td>
+          </tr>
+                  <tr class="low">
+            <td>04-Oct-2026 18:48:01</td>
+            <td>263250</td>
+            <td><a class="volcano-link" href="../NRT/volcanoDetails_VIR375.php?volcano_id=263250" target="_self">Merapi</a></td>
+            <td>0.60</td>
+            <td>2.19</td>
+            <td>VIIRS375</td>
+          </tr>
+                  <tr class="low">
+            <td>04-Oct-2026 18:24:00</td>
+            <td>264030</td>
+            <td><a class="volcano-link" href="../NRT/volcanoDetails_VIR375.php?volcano_id=264030" target="_self">Rinjani</a></td>
+            <td>0.05</td>
+            <td>2.37</td>
+            <td>VIIRS375</td>
+          </tr>
+                  <tr class="low">
+            <td>04-Oct-2026 18:24:00</td>
+            <td>263350</td>
+            <td><a class="volcano-link" href="../NRT/volcanoDetails_VIR375.php?volcano_id=263350" target="_self">Ijen</a></td>
+            <td>2.73</td>
+            <td>5.37</td>
+            <td>VIIRS375</td>
+          </tr>
+                  <tr class="low">
+            <td>04-Oct-2026 18:24:00</td>
+            <td>263340</td>
+            <td><a class="volcano-link" href="../NRT/volcanoDetails_VIR375.php?volcano_id=263340" target="_self">Raung</a></td>
+            <td>1.22</td>
+            <td>7.95</td>
+            <td>VIIRS375</td>
+          </tr>
+                  <tr class="low">
+            <td>04-Oct-2026 18:24:00</td>
+            <td>263350</td>
+            <td><a class="volcano-link" href="../NRT/volcanoDetails_VIR.php?volcano_id=263350" target="_self">Ijen</a></td>
+            <td>1.12</td>
+            <td>0.75</td>
+            <td>VIIRS</td>
+          </tr>
+                  <tr class="low">
+            <td>04-Oct-2026 18:18:00</td>
+            <td>273083</td>
+            <td><a class="volcano-link" href="../NRT/volcanoDetails_VIR375.php?volcano_id=273083" target="_self">Pinatubo</a></td>
+            <td>0.08</td>
+            <td>1.55</td>
+            <td>VIIRS375</td>
+          </tr>
+                  <tr class="low">
+            <td>04-Oct-2026 18:18:00</td>
+            <td>273070</td>
+            <td><a class="volcano-link" href="../NRT/volcanoDetails_VIR375.php?volcano_id=273070" target="_self">Taal</a></td>
+            <td>3.84</td>
+            <td>2.12</td>
+            <td>VIIRS375</td>
+          </tr>
+                  <tr class="moderate">
+            <td>04-Oct-2026 18:15:00</td>
+            <td>300190</td>
+            <td><a class="volcano-link" href="../NRT/volcanoDetails_MOD.php?volcano_id=300190" target="_self">Krasheninnikov</a></td>
+            <td>30.87</td>
+            <td>4.47</td>
+            <td>MODIS</td>
+          </tr>
+                  <tr class="low">
+            <td>04-Oct-2026 17:48:02</td>
+            <td>266030</td>
+            <td><a class="volcano-link" href="../NRT/volcanoDetails_VIR375.php?volcano_id=266030" target="_self">Soputan</a></td>
+            <td>1.02</td>
+            <td>18.45</td>
+            <td>VIIRS375</td>
+          </tr>
+                  <tr class="low">
+            <td>04-Oct-2026 17:48:02</td>
+            <td>267020</td>
+            <td><a class="volcano-link" href="../NRT/volcanoDetails_VIR375.php?volcano_id=267020" target="_self">Karangetang</a></td>
+            <td>8.20</td>
+            <td>2.73</td>
+            <td>VIIRS375</td>
+          </tr>
+                  <tr class="moderate">
+            <td>04-Oct-2026 17:48:02</td>
+            <td>264230</td>
+            <td><a class="volcano-link" href="../NRT/volcanoDetails_VIR375.php?volcano_id=264230" target="_self">Lewotolo</a></td>
+            <td>13.53</td>
+            <td>3.02</td>
+            <td>VIIRS375</td>
+          </tr>
+                  <tr class="low">
+            <td>04-Oct-2026 17:48:02</td>
+            <td>267020</td>
+            <td><a class="volcano-link" href="../NRT/volcanoDetails_VIR.php?volcano_id=267020" target="_self">Karangetang</a></td>
+            <td>1.23</td>
+            <td>2.37</td>
+            <td>VIIRS</td>
+          </tr>
+                  <tr class="low">
+            <td>04-Oct-2026 17:48:02</td>
+            <td>264230</td>
+            <td><a class="volcano-link" href="../NRT/volcanoDetails_VIR.php?volcano_id=264230" target="_self">Lewotolo</a></td>
+            <td>1.61</td>
+            <td>2.70</td>
+            <td>VIIRS</td>
+          </tr>
+                  <tr class="moderate">
+            <td>04-Oct-2026 16:48:01</td>
+            <td>300190</td>
+            <td><a class="volcano-link" href="../NRT/volcanoDetails_VIR375.php?volcano_id=300190" target="_self">Krasheninnikov</a></td>
+            <td>11.95</td>
+            <td>3.99</td>
+            <td>VIIRS375</td>
+          </tr>
+                  <tr class="low">
+            <td>04-Oct-2026 16:48:01</td>
+            <td>300190</td>
+            <td><a class="volcano-link" href="../NRT/volcanoDetails_VIR.php?volcano_id=300190" target="_self">Krasheninnikov</a></td>
+            <td>6.61</td>
+            <td>3.75</td>
+            <td>VIIRS</td>
+          </tr>
+                  <tr class="low">
+            <td>04-Oct-2026 16:06:02</td>
+            <td>252010</td>
+            <td><a class="volcano-link" href="../NRT/volcanoDetails_VIR375.php?volcano_id=252010" target="_self">Langila</a></td>
+            <td>3.06</td>
+            <td>25.98</td>
+            <td>VIIRS375</td>
+          </tr>
+                  <tr class="low">
+            <td>04-Oct-2026 15:24:01</td>
+            <td>255020</td>
+            <td><a class="volcano-link" href="../NRT/volcanoDetails_VIR375.php?volcano_id=255020" target="_self">Bagana</a></td>
+            <td>0.89</td>
+            <td>1.06</td>
+            <td>VIIRS375</td>
+          </tr>
+                  <tr class="low">
+            <td>04-Oct-2026 13:54:01</td>
+            <td>241100</td>
+            <td><a class="volcano-link" href="../NRT/volcanoDetails_VIR375.php?volcano_id=241100" target="_self">Ruapehu</a></td>
+            <td>0.78</td>
+            <td>0.84</td>
+            <td>VIIRS375</td>
+          </tr>
+                  <tr class="low">
+            <td>04-Oct-2026 13:54:01</td>
+            <td>241100</td>
+            <td><a class="volcano-link" href="../NRT/volcanoDetails_VIR.php?volcano_id=241100" target="_self">Ruapehu</a></td>
+            <td>0.30</td>
+            <td>0.75</td>
+            <td>VIIRS</td>
+          </tr>
+                </tbody>
+      </table>  
+    </div>
+
+    <div class="hidden-countdown"><span id="countdown">60</span></div>
+  </div>
+</div>
+
+</div>
+
+<footer>
+  <div class="footer-container" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 15px; text-align: right;">
+    <div class="footer-text" style="flex: 1; font-size: 0.8rem;">
+      <p style="margin: 0;">&copy; 2026 MIROVA - Middle Infrared Observations of Volcanic Activity |
+        <a href="credits.php">Credits</a>
+      </p>
+      <p style="margin: 5px 0 0;">University of Turin, Italy | Department of Earth Science | Contact: <a href="mailto:diego.coppola@unito.it">diego.coppola@unito.it</a></p>
+    </div>
+    <div style="flex-shrink: 0;">
+      <img src="https://www.mirovaweb.it/images/Logo_DST.jpg" alt="DST Logo" style="height: 50px;">
+    </div>
+  </div>
+</footer>
+
+<!-- Replace external JS with local versions -->
+<script src="../assets/js/jquery-3.6.0.min.js"></script>
+<script src="../assets/js/jquery.dataTables.min.js"></script>
+<script src="../assets/js/leaflet.js"></script>
+
+<!-- Essential scripts 
+<script src="https://www.mirovaweb.it/js2/jquery-3.6.0.min.js"></script>
+<script src="https://www.mirovaweb.it/js2/jquery.dataTables.min.js"></script>
+<script src="https://www.mirovaweb.it/js2/leaflet.js"></script>
+-->
+
+<!--
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+ --> 
+<script>
+// Initialize mobile menu toggle
+$(document).ready(function() {
+  $('.menu-toggle').on('click', function() {
+    $('.nav-menu').toggleClass('active');
+  });
+  
+  // Initialize dynamic UTC clock
+  updateUTCClock();
+  setInterval(updateUTCClock, 1000);
+});
+
+/**
+ * Update the UTC clock display
+ */
+function updateUTCClock() {
+  const now = new Date();
+  const clockEl = document.getElementById('utcClock');
+  
+  // Format the date as "11 April 2025 13:06:42 UTC"
+  const options = { 
+    day: 'numeric', 
+    month: 'long', 
+    year: 'numeric',
+    hour: '2-digit', 
+    minute: '2-digit', 
+    second: '2-digit',
+    hour12: false,
+    timeZone: 'UTC'
+  };
+  
+  clockEl.textContent = now.toLocaleString('en-US', options) + ' UTC';
+}
+
+
+const DEFAULT_LAT = 0, DEFAULT_LON = 0, DEFAULT_ZOOM = 1;
+let map, baseLayers = {}, activeLayer, mapInitialized = false, timeLeft = 60;
+
+document.addEventListener("DOMContentLoaded", function() {
+  startCountdown();
+  const mapContainer = document.getElementById("map");
+  const loadingIndicator = document.createElement("div");
+  loadingIndicator.className = "map-loading";
+  loadingIndicator.innerHTML = "<i class=\"fas fa-spinner fa-spin\"></i> Loading map...";
+  mapContainer.appendChild(loadingIndicator);
+  setTimeout(() => { initializeMap(); if (loadingIndicator) loadingIndicator.remove(); }, 300);
+  initializeDataTable();
+});
+
+function initializeDataTable() {
+  const dataTable = $("#volcanoTable").DataTable({
+    paging: true, info: true, searching: true, order: [[0, "desc"]], pageLength: 15,
+    lengthMenu: [[15, 25, 50, -1], [15, 25, 50, "All"]], scrollY: "70vh", scrollCollapse: true,
+    responsive: true, dom: "<\"top\"lf>rt<\"bottom\"ip>",
+    rowCallback: function(row, data, index) {
+      const vrpText = data[3].replace(/,/g, ""), vrp = parseFloat(vrpText);
+      $(row).removeClass().addClass(getRowColorClass(vrp));
+    }
+  });
+  
+  function adjustTableHeight() {
+    const containerHeight = $(".table-container").height();
+    const controlsHeight = $(".dataTables_length").outerHeight(true) + $(".dataTables_info").outerHeight(true) + 30;
+    const scrollBodyHeight = Math.max(200, containerHeight - controlsHeight);
+    $(".dataTables_scrollBody").css("height", scrollBodyHeight + "px");
+    dataTable.columns.adjust().draw();
+  }
+  
+  $(window).on("resize", () => { adjustTableHeight(); if (window.innerWidth < 992 && map) map.invalidateSize(); });
+  setTimeout(adjustTableHeight, 300);
+}
+
+function getRowColorClass(vrp) {
+  if (vrp > 10000) return "extreme";
+  if (vrp > 1000) return "very-high";
+  if (vrp > 100) return "high";
+  if (vrp > 10) return "moderate";
+  return "low";
+}
+
+function startCountdown() {
+  const countdownEl = document.getElementById("countdown");
+  if (!countdownEl) return;
+  const interval = setInterval(() => {
+    timeLeft--;
+    countdownEl.textContent = timeLeft;
+    if (timeLeft <= 0) { clearInterval(interval); location.reload(); }
+  }, 1000);
+}
+
+function initializeMap() {
+  if (!document.getElementById("map") || mapInitialized) return;
+  
+  try {
+    map = L.map("map", { worldCopyJump: true, minZoom: 1, maxZoom: 19, zoomControl: true, attributionControl: true })
+      .setView([DEFAULT_LAT, DEFAULT_LON], DEFAULT_ZOOM);
+    
+    baseLayers = {
+      osm: L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", { attribution: "&copy; OpenStreetMap contributors" }),
+      satellite: L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}", { attribution: "Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community" }),
+      topo: L.tileLayer("https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png", { attribution: "Map data: &copy; OpenStreetMap contributors, SRTM | Map style: &copy; OpenTopoMap (CC-BY-SA)" })
+    };
+    
+    activeLayer = "osm";
+    baseLayers[activeLayer].addTo(map);
+    
+    const layerSelector = document.getElementById("mapLayerSelector");
+    if (layerSelector) {
+      layerSelector.addEventListener("change", e => {
+        const newLayer = e.target.value;
+        if (newLayer !== activeLayer && baseLayers[newLayer]) {
+          map.removeLayer(baseLayers[activeLayer]);
+          map.addLayer(baseLayers[newLayer]);
+          activeLayer = newLayer;
+        }
+      });
+    }
+    
+    var mapData = [{"lat":56.653,"lon":161.36,"name":"Shiveluch","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"300270","time":"05-Oct-2026 01:00:01"},{"lat":50.858,"lon":155.55,"name":"Alaid","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"290390","time":"05-Oct-2026 00:54:01"},{"lat":53.255,"lon":158.83,"name":"Avachinsky","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"300100","time":"05-Oct-2026 00:54:01"},{"lat":53.93,"lon":-168.03,"name":"Bogoslof","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"311300","time":"05-Oct-2026 00:54:01"},{"lat":52.825,"lon":-169.944,"name":"Cleveland","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"311240","time":"05-Oct-2026 00:54:01"},{"lat":50.68,"lon":156.02,"name":"Ebeko","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"290380","time":"05-Oct-2026 00:54:01"},{"lat":52.558,"lon":158.03,"name":"Gorely","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"300070","time":"05-Oct-2026 00:54:01"},{"lat":52.076,"lon":-176.13,"name":"GreatSitkin","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"311120","time":"05-Oct-2026 00:54:01"},{"lat":54.05,"lon":159.45,"name":"Karymsky","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"300130","time":"05-Oct-2026 00:54:01"},{"lat":55.42,"lon":-161.887,"name":"Pavlof","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"312030","time":"05-Oct-2026 00:54:01"},{"lat":51.93,"lon":179.58,"name":"Semisopochnoi","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"311060","time":"05-Oct-2026 00:54:01"},{"lat":54.756,"lon":-163.97,"name":"Shishaldin","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"311360","time":"05-Oct-2026 00:54:01"},{"lat":-18.992,"lon":-174.775,"name":"HomeReef","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"243080","time":"05-Oct-2026 00:36:01"},{"lat":-20.57,"lon":-175.38,"name":"HungaTonga","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"243040","time":"05-Oct-2026 00:36:01"},{"lat":-19.75,"lon":-175.07,"name":"Tofua","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"243060","time":"05-Oct-2026 00:36:01"},{"lat":4.203,"lon":9.17,"name":"Cameroon","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"224010","time":"05-Oct-2026 00:30:02"},{"lat":40.827,"lon":14.139,"name":"CampiFlegrei","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"211010","time":"05-Oct-2026 00:24:02"},{"lat":37.734,"lon":15.004,"name":"Etna","vrp":3.36402173377172,"color":"rgba(0, 128, 0, 1)","size":4,"sensor":"VIIRS","id_volc":"211060","time":"05-Oct-2026 00:24:02"},{"lat":36.404,"lon":25.396,"name":"Santorini","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"212040","time":"05-Oct-2026 00:24:02"},{"lat":38.789,"lon":15.213,"name":"Stromboli","vrp":12.9532673930487,"color":"rgba(255, 255, 0, 1)","size":6,"sensor":"VIIRS","id_volc":"211040","time":"05-Oct-2026 00:24:02"},{"lat":40.821,"lon":14.426,"name":"Vesuvius","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"211020","time":"05-Oct-2026 00:24:02"},{"lat":38.404,"lon":14.962,"name":"Vulcano","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"211050","time":"05-Oct-2026 00:24:02"},{"lat":-59.063,"lon":-26.587,"name":"BristolIsland","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"390080","time":"05-Oct-2026 00:06:01"},{"lat":-58.42,"lon":-26.33,"name":"MontaguIsland","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"390081","time":"05-Oct-2026 00:06:01"},{"lat":59.363,"lon":-153.43,"name":"Augustine","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"313010","time":"05-Oct-2026 00:00:02"},{"lat":55.978,"lon":160.587,"name":"Bezymianny","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"300250","time":"05-Oct-2026 00:00:02"},{"lat":55.13,"lon":160.32,"name":"Kizimen","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"300230","time":"05-Oct-2026 00:00:02"},{"lat":56.057,"lon":160.638,"name":"Kliuchevskoi","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"300260","time":"05-Oct-2026 00:00:02"},{"lat":60.485,"lon":-152.742,"name":"Redoubt","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"313030","time":"05-Oct-2026 00:00:02"},{"lat":61.299,"lon":-152.251,"name":"Spurr","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"313040","time":"05-Oct-2026 00:00:02"},{"lat":55.83,"lon":160.33,"name":"Tolbachik","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"300240","time":"05-Oct-2026 00:00:02"},{"lat":56.17,"lon":-159.38,"name":"Veniaminof","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"312070","time":"05-Oct-2026 00:00:02"},{"lat":19.4211,"lon":-155.1867,"name":"Kilauea","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"332010","time":"04-Oct-2026 23:48:02"},{"lat":19.475,"lon":-155.608,"name":"MaunaLoa","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"332020","time":"04-Oct-2026 23:48:02"},{"lat":9.35,"lon":40.13,"name":"Dofen","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"221180","time":"04-Oct-2026 23:48:01"},{"lat":8.975,"lon":39.93,"name":"Fentale","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"221190","time":"04-Oct-2026 23:48:01"},{"lat":-2.764,"lon":35.914,"name":"LengaiOlDoinyo","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"222120","time":"04-Oct-2026 23:48:01"},{"lat":-1.408,"lon":29.2,"name":"Nyamuragira","vrp":188.920646965704,"color":"rgba(255, 165, 0, 1)","size":8,"sensor":"VIIRS","id_volc":"223020","time":"04-Oct-2026 23:48:01"},{"lat":-1.52,"lon":29.25,"name":"Nyiragongo","vrp":8.63775629691047,"color":"rgba(0, 128, 0, 1)","size":4,"sensor":"VIIRS","id_volc":"223030","time":"04-Oct-2026 23:48:01"},{"lat":14.242,"lon":40.3,"name":"Dallol","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"221041","time":"04-Oct-2026 23:42:01"},{"lat":13.6,"lon":40.67,"name":"ErtaAle","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"221080","time":"04-Oct-2026 23:42:01"},{"lat":13.37,"lon":41.7,"name":"Nabro","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"221101","time":"04-Oct-2026 23:42:01"},{"lat":-11.75,"lon":43.38,"name":"Karthala","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"233010","time":"04-Oct-2026 22:54:02"},{"lat":-12.83,"lon":45.17,"name":"MayotteIsland","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"233005","time":"04-Oct-2026 22:54:02"},{"lat":-21.244,"lon":55.708,"name":"FournaisePitondela","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"233020","time":"04-Oct-2026 22:12:01"},{"lat":46.2,"lon":-122.18,"name":"StHelens","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"321050","time":"04-Oct-2026 21:30:01"},{"lat":19.514,"lon":-103.62,"name":"Colima","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"341040","time":"04-Oct-2026 21:00:00"},{"lat":-53.106,"lon":73.513,"name":"Heard","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"234010","time":"04-Oct-2026 20:42:01"},{"lat":19.023,"lon":-98.622,"name":"Popocatepetl","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"341090","time":"04-Oct-2026 20:24:02"},{"lat":-0.37,"lon":-91.55,"name":"Fernandina","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"353010","time":"04-Oct-2026 20:18:02"},{"lat":-0.83,"lon":-91.17,"name":"NegraSierra","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"353050","time":"04-Oct-2026 20:18:02"},{"lat":0.02,"lon":-91.35,"name":"Wolf","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"353020","time":"04-Oct-2026 20:18:02"},{"lat":-42.833,"lon":-72.646,"name":"Chaiten","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"358041","time":"04-Oct-2026 20:06:02"},{"lat":12.278,"lon":93.858,"name":"BarrenIsland","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"260010","time":"04-Oct-2026 20:00:00"},{"lat":17.36,"lon":-93.228,"name":"ChichonEl","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"341120","time":"04-Oct-2026 19:42:01"},{"lat":14.473,"lon":-90.88,"name":"Fuego","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"342090","time":"04-Oct-2026 19:42:01"},{"lat":14.381,"lon":-90.601,"name":"Pacaya","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"342110","time":"04-Oct-2026 19:42:01"},{"lat":13.434,"lon":-88.269,"name":"SanMiguel","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"343100","time":"04-Oct-2026 19:42:01"},{"lat":13.853,"lon":-89.63,"name":"SantaAna","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"343020","time":"04-Oct-2026 19:42:01"},{"lat":14.756,"lon":-91.552,"name":"SantaMaria","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"342030","time":"04-Oct-2026 19:42:01"},{"lat":10.463,"lon":-84.703,"name":"Arenal","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"345033","time":"04-Oct-2026 19:36:01"},{"lat":11.538,"lon":-85.622,"name":"Concepcion","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"344120","time":"04-Oct-2026 19:36:01"},{"lat":-0.677,"lon":-78.436,"name":"Cotopaxi","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"352050","time":"04-Oct-2026 19:36:01"},{"lat":-0.171,"lon":-78.598,"name":"GuaguaPichincha","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"352020","time":"04-Oct-2026 19:36:01"},{"lat":11.984,"lon":-86.161,"name":"Masaya","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"344100","time":"04-Oct-2026 19:36:01"},{"lat":11.826,"lon":-85.968,"name":"Mombacho","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"344110","time":"04-Oct-2026 19:36:01"},{"lat":12.422,"lon":-86.54,"name":"Momotombo","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"344090","time":"04-Oct-2026 19:36:01"},{"lat":0.828,"lon":-77.964,"name":"NegrodeMayasquerCerro","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"351110","time":"04-Oct-2026 19:36:01"},{"lat":10.2,"lon":-84.233,"name":"Poas","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"345040","time":"04-Oct-2026 19:36:01"},{"lat":-0.077,"lon":-77.656,"name":"Reventador","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"352010","time":"04-Oct-2026 19:36:01"},{"lat":10.83,"lon":-85.324,"name":"RincondelaVieja","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"345020","time":"04-Oct-2026 19:36:01"},{"lat":12.702,"lon":-87.004,"name":"SanCristobal","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"344020","time":"04-Oct-2026 19:36:01"},{"lat":-2.002,"lon":-78.341,"name":"Sangay","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"352090","time":"04-Oct-2026 19:36:01"},{"lat":12.602,"lon":-86.845,"name":"Telica","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"344040","time":"04-Oct-2026 19:36:01"},{"lat":-1.467,"lon":-78.442,"name":"Tungurahua","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"352080","time":"04-Oct-2026 19:36:01"},{"lat":10.025,"lon":-83.767,"name":"Turrialba","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"345070","time":"04-Oct-2026 19:36:01"},{"lat":-1.697,"lon":101.264,"name":"Kerinci","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"261170","time":"04-Oct-2026 19:30:02"},{"lat":-0.381,"lon":100.473,"name":"Marapi","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"261140","time":"04-Oct-2026 19:30:02"},{"lat":3.17,"lon":98.392,"name":"Sinabung","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"261080","time":"04-Oct-2026 19:30:02"},{"lat":-36.863,"lon":-71.377,"name":"ChillanNevadosde","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"357070","time":"04-Oct-2026 19:24:01"},{"lat":-37.856,"lon":-71.183,"name":"Copahue","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"357090","time":"04-Oct-2026 19:24:01"},{"lat":-38.692,"lon":-71.729,"name":"Llaima","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"357110","time":"04-Oct-2026 19:24:01"},{"lat":-35.223,"lon":-70.568,"name":"PlanchonPeteroa","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"357040","time":"04-Oct-2026 19:24:01"},{"lat":-40.59,"lon":-72.117,"name":"PuyehueCordonCaulle","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"357150","time":"04-Oct-2026 19:24:01"},{"lat":-33.425,"lon":-69.797,"name":"Tupungatito","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"357010","time":"04-Oct-2026 19:24:01"},{"lat":-39.42,"lon":-71.93,"name":"Villarrica","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"357120","time":"04-Oct-2026 19:24:01"},{"lat":1.22,"lon":-77.37,"name":"Galeras","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"351080","time":"04-Oct-2026 19:18:00"},{"lat":2.93,"lon":-76.03,"name":"HuilaNevadodel","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"351050","time":"04-Oct-2026 19:18:00"},{"lat":2.32,"lon":-76.4,"name":"Purace","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"351060","time":"04-Oct-2026 19:18:00"},{"lat":4.895,"lon":-75.322,"name":"RuizNevadodel","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"351020","time":"04-Oct-2026 19:18:00"},{"lat":-19.15,"lon":-68.83,"name":"Isluga","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"355030","time":"04-Oct-2026 19:12:00"},{"lat":-16.294,"lon":-71.409,"name":"MistiEl","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"354010","time":"04-Oct-2026 19:12:00"},{"lat":-15.78,"lon":-71.85,"name":"Sabancaya","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"354006","time":"04-Oct-2026 19:12:00"},{"lat":-16.355,"lon":-70.903,"name":"Ubinas","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"354020","time":"04-Oct-2026 19:12:00"},{"lat":-25.168,"lon":-68.507,"name":"Lastarria","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"355120","time":"04-Oct-2026 19:06:00"},{"lat":-23.37,"lon":-67.73,"name":"Lascar","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"355100","time":"04-Oct-2026 19:06:00"},{"lat":-7.93,"lon":112.308,"name":"Kelut","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"263280","time":"04-Oct-2026 18:48:01"},{"lat":-6.102,"lon":105.423,"name":"Krakatau","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"262000","time":"04-Oct-2026 18:48:01"},{"lat":-7.542,"lon":110.442,"name":"Merapi","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"263250","time":"04-Oct-2026 18:48:01"},{"lat":-8.108,"lon":112.92,"name":"Semeru","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"263300","time":"04-Oct-2026 18:48:01"},{"lat":-7.242,"lon":109.208,"name":"Slamet","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"263180","time":"04-Oct-2026 18:48:01"},{"lat":-7.942,"lon":112.95,"name":"TenggerCaldera","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"263310","time":"04-Oct-2026 18:48:01"},{"lat":-8.342,"lon":115.508,"name":"Agung","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"264020","time":"04-Oct-2026 18:24:00"},{"lat":-8.058,"lon":114.242,"name":"Ijen","vrp":1.11862637555989,"color":"rgba(0, 128, 0, 1)","size":4,"sensor":"VIIRS","id_volc":"263350","time":"04-Oct-2026 18:24:00"},{"lat":10.412,"lon":123.132,"name":"Kanlaon","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"272020","time":"04-Oct-2026 18:24:00"},{"lat":-8.125,"lon":114.042,"name":"Raung","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"263340","time":"04-Oct-2026 18:24:00"},{"lat":-8.42,"lon":116.47,"name":"Rinjani","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"264030","time":"04-Oct-2026 18:24:00"},{"lat":-8.2,"lon":119.07,"name":"SangeangApi","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"264050","time":"04-Oct-2026 18:24:00"},{"lat":30.789,"lon":130.308,"name":"Kikai","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"282060","time":"04-Oct-2026 18:18:00"},{"lat":13.257,"lon":123.685,"name":"Mayon","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"273030","time":"04-Oct-2026 18:18:00"},{"lat":15.13,"lon":120.35,"name":"Pinatubo","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"273083","time":"04-Oct-2026 18:18:00"},{"lat":29.638,"lon":129.714,"name":"Suwanosejima","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"282030","time":"04-Oct-2026 18:18:00"},{"lat":14.002,"lon":120.993,"name":"Taal","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"273070","time":"04-Oct-2026 18:18:00"},{"lat":31.593,"lon":130.657,"name":"Aira","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"282080","time":"04-Oct-2026 18:12:00"},{"lat":32.884,"lon":131.104,"name":"Asosan","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"282110","time":"04-Oct-2026 18:12:00"},{"lat":31.934,"lon":130.862,"name":"Kirishimayama","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"282090","time":"04-Oct-2026 18:12:00"},{"lat":32.761,"lon":130.299,"name":"Unzendake","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"282100","time":"04-Oct-2026 18:12:00"},{"lat":17.63,"lon":-63.23,"name":"Saba","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"360010","time":"04-Oct-2026 18:00:01"},{"lat":16.044,"lon":-61.664,"name":"SoufriereGuadeloupe","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"360060","time":"04-Oct-2026 18:00:01"},{"lat":16.72,"lon":-62.18,"name":"SoufriereHills","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"360050","time":"04-Oct-2026 18:00:01"},{"lat":13.33,"lon":-61.18,"name":"SoufriereStVincent","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"360150","time":"04-Oct-2026 18:00:01"},{"lat":3.67,"lon":125.5,"name":"Awu","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"267040","time":"04-Oct-2026 17:48:02"},{"lat":1.68,"lon":127.88,"name":"Dukono","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"268010","time":"04-Oct-2026 17:48:02"},{"lat":1.488,"lon":127.63,"name":"Ibu","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"268030","time":"04-Oct-2026 17:48:02"},{"lat":2.78,"lon":125.4,"name":"Karangetang","vrp":1.23222319269376,"color":"rgba(0, 128, 0, 1)","size":4,"sensor":"VIIRS","id_volc":"267020","time":"04-Oct-2026 17:48:02"},{"lat":-8.542,"lon":122.775,"name":"Lewotobi","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"264180","time":"04-Oct-2026 17:48:02"},{"lat":-8.272,"lon":123.505,"name":"Lewotolo","vrp":1.60872107383778,"color":"rgba(0, 128, 0, 1)","size":4,"sensor":"VIIRS","id_volc":"264230","time":"04-Oct-2026 17:48:02"},{"lat":-8.32,"lon":121.708,"name":"Paluweh","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"264150","time":"04-Oct-2026 17:48:02"},{"lat":2.3,"lon":125.37,"name":"Ruang","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"267010","time":"04-Oct-2026 17:48:02"},{"lat":1.108,"lon":124.73,"name":"Soputan","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"266030","time":"04-Oct-2026 17:48:02"},{"lat":-7.792,"lon":123.579,"name":"TaraBatu","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"264260","time":"04-Oct-2026 17:48:02"},{"lat":36.406,"lon":138.523,"name":"Asamayama","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"283110","time":"04-Oct-2026 17:36:02"},{"lat":-57.787,"lon":-26.46,"name":"Michael","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"390090","time":"04-Oct-2026 17:36:01"},{"lat":-56.3,"lon":-27.57,"name":"Zavodovski","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"390130","time":"04-Oct-2026 17:36:01"},{"lat":27.247,"lon":140.874,"name":"Nishinoshima","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"284096","time":"04-Oct-2026 16:54:01"},{"lat":48.98,"lon":153.48,"name":"Chirinkotan","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"290260","time":"04-Oct-2026 16:48:01"},{"lat":46.525,"lon":150.875,"name":"Chirpoi","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"290150","time":"04-Oct-2026 16:48:01"},{"lat":54.593,"lon":160.273,"name":"Krasheninnikov","vrp":6.61216469205891,"color":"rgba(0, 128, 0, 1)","size":4,"sensor":"VIIRS","id_volc":"300190","time":"04-Oct-2026 16:48:01"},{"lat":48.092,"lon":153.2,"name":"SarychevPeak","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"290240","time":"04-Oct-2026 16:48:01"},{"lat":-3.63,"lon":144.631,"name":"Kadovar","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"251002","time":"04-Oct-2026 16:42:00"},{"lat":-4.08,"lon":145.037,"name":"Manam","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"251020","time":"04-Oct-2026 16:42:00"},{"lat":16.35,"lon":145.67,"name":"Anatahan","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"284200","time":"04-Oct-2026 16:36:00"},{"lat":18.13,"lon":145.8,"name":"Pagan","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"284170","time":"04-Oct-2026 16:36:00"},{"lat":-3.03,"lon":147.78,"name":"CentralBismarckSea","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"250030","time":"04-Oct-2026 16:06:02"},{"lat":-8.95,"lon":148.15,"name":"Lamington","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"253010","time":"04-Oct-2026 16:06:02"},{"lat":-5.525,"lon":148.42,"name":"Langila","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"252010","time":"04-Oct-2026 16:06:02"},{"lat":-5.358,"lon":147.12,"name":"LongIsland","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"251050","time":"04-Oct-2026 16:06:02"},{"lat":-5.58,"lon":150.52,"name":"Pago","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"252080","time":"04-Oct-2026 16:06:02"},{"lat":-5.05,"lon":151.33,"name":"Ulawun","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"252120","time":"04-Oct-2026 16:06:02"},{"lat":38.65,"lon":-28.08,"name":"SanJorge","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"382030","time":"04-Oct-2026 16:06:00"},{"lat":14.95,"lon":-24.35,"name":"Fogo","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"384010","time":"04-Oct-2026 15:54:00"},{"lat":63.63,"lon":-19.62,"name":"Eyjafjallajokull","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"372020","time":"04-Oct-2026 15:36:02"},{"lat":63.98,"lon":-19.7,"name":"Hekla","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"372070","time":"04-Oct-2026 15:36:02"},{"lat":63.93,"lon":-22.1,"name":"Krisuvik","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"371030","time":"04-Oct-2026 15:36:02"},{"lat":63.88,"lon":-22.5,"name":"Reykjanes","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"371020","time":"04-Oct-2026 15:36:02"},{"lat":-6.14,"lon":155.195,"name":"Bagana","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"255020","time":"04-Oct-2026 15:24:01"},{"lat":-4.271,"lon":152.203,"name":"Rabaul","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"252140","time":"04-Oct-2026 15:24:01"},{"lat":-9.13,"lon":159.82,"name":"Savo","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"255070","time":"04-Oct-2026 15:24:01"},{"lat":-16.25,"lon":168.12,"name":"Ambrym","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"257040","time":"04-Oct-2026 15:06:00"},{"lat":-15.4,"lon":167.83,"name":"Aoba","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"257030","time":"04-Oct-2026 15:06:00"},{"lat":-14.27,"lon":167.5,"name":"Gaua","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"257020","time":"04-Oct-2026 15:06:00"},{"lat":-16.507,"lon":168.346,"name":"Lopevi","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"257050","time":"04-Oct-2026 15:06:00"},{"lat":-10.38,"lon":165.8,"name":"Tinakula","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"256010","time":"04-Oct-2026 15:06:00"},{"lat":65.03,"lon":-16.75,"name":"Askja","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"373060","time":"04-Oct-2026 14:48:01"},{"lat":64.63,"lon":-17.53,"name":"Bardarbunga","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"373030","time":"04-Oct-2026 14:48:01"},{"lat":64.42,"lon":-17.33,"name":"Grimsvotn","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"373010","time":"04-Oct-2026 14:48:01"},{"lat":63.63,"lon":-19.05,"name":"Katla","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"372030","time":"04-Oct-2026 14:48:01"},{"lat":65.73,"lon":-16.78,"name":"Krafla","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"373080","time":"04-Oct-2026 14:48:01"},{"lat":64,"lon":-16.65,"name":"Oraefajokull","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"374010","time":"04-Oct-2026 14:48:01"},{"lat":28.57,"lon":-17.83,"name":"LaPalma","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"383010","time":"04-Oct-2026 14:42:01"},{"lat":27.73,"lon":-18.03,"name":"Hierro","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"383020","time":"04-Oct-2026 14:36:01"},{"lat":-19.53,"lon":169.442,"name":"Yasur","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"257100","time":"04-Oct-2026 14:30:02"},{"lat":28.271,"lon":-16.641,"name":"Tenerife","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"383030","time":"04-Oct-2026 14:18:00"},{"lat":-39.28,"lon":175.57,"name":"Ruapehu","vrp":0.299984649845181,"color":"rgba(0, 128, 0, 1)","size":4,"sensor":"VIIRS","id_volc":"241100","time":"04-Oct-2026 13:54:01"},{"lat":-39.157,"lon":175.632,"name":"Tongariro","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"241080","time":"04-Oct-2026 13:54:01"},{"lat":-37.52,"lon":177.18,"name":"WhiteIsland","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS","id_volc":"241040","time":"04-Oct-2026 13:48:01"},{"lat":-42.833,"lon":-72.646,"name":"Chaiten","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"358041","time":"05-Oct-2026 01:05:00"},{"lat":-36.863,"lon":-71.377,"name":"ChillanNevadosde","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"357070","time":"05-Oct-2026 01:05:00"},{"lat":-37.856,"lon":-71.183,"name":"Copahue","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"357090","time":"05-Oct-2026 01:05:00"},{"lat":-11.75,"lon":43.38,"name":"Karthala","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"233010","time":"05-Oct-2026 01:05:00"},{"lat":-2.764,"lon":35.914,"name":"LengaiOlDoinyo","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"222120","time":"05-Oct-2026 01:05:00"},{"lat":-38.692,"lon":-71.729,"name":"Llaima","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"357110","time":"05-Oct-2026 01:05:00"},{"lat":-12.83,"lon":45.17,"name":"MayotteIsland","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"233005","time":"05-Oct-2026 01:05:00"},{"lat":-1.408,"lon":29.2,"name":"Nyamuragira","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"223020","time":"05-Oct-2026 01:05:00"},{"lat":-1.52,"lon":29.25,"name":"Nyiragongo","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"223030","time":"05-Oct-2026 01:05:00"},{"lat":-35.223,"lon":-70.568,"name":"PlanchonPeteroa","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"357040","time":"05-Oct-2026 01:05:00"},{"lat":-40.59,"lon":-72.117,"name":"PuyehueCordonCaulle","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"357150","time":"05-Oct-2026 01:05:00"},{"lat":-33.425,"lon":-69.797,"name":"Tupungatito","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"357010","time":"05-Oct-2026 01:05:00"},{"lat":-39.42,"lon":-71.93,"name":"Villarrica","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"357120","time":"05-Oct-2026 01:05:00"},{"lat":14.242,"lon":40.3,"name":"Dallol","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"221041","time":"05-Oct-2026 01:00:00"},{"lat":9.35,"lon":40.13,"name":"Dofen","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"221180","time":"05-Oct-2026 01:00:00"},{"lat":13.6,"lon":40.67,"name":"ErtaAle","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"221080","time":"05-Oct-2026 01:00:00"},{"lat":8.975,"lon":39.93,"name":"Fentale","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"221190","time":"05-Oct-2026 01:00:00"},{"lat":13.37,"lon":41.7,"name":"Nabro","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"221101","time":"05-Oct-2026 01:00:00"},{"lat":-8.342,"lon":115.508,"name":"Agung","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"264020","time":"05-Oct-2026 00:30:00"},{"lat":59.363,"lon":-153.43,"name":"Augustine","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"313010","time":"05-Oct-2026 00:30:00"},{"lat":-8.058,"lon":114.242,"name":"Ijen","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"263350","time":"05-Oct-2026 00:30:00"},{"lat":-7.93,"lon":112.308,"name":"Kelut","vrp":3.74735475360792,"color":"rgba(0, 128, 0, 1)","size":4,"sensor":"MODIS","id_volc":"263280","time":"05-Oct-2026 00:30:00"},{"lat":-8.542,"lon":122.775,"name":"Lewotobi","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"264180","time":"05-Oct-2026 00:30:00"},{"lat":-8.272,"lon":123.505,"name":"Lewotolo","vrp":20.7694027874365,"color":"rgba(255, 255, 0, 1)","size":6,"sensor":"MODIS","id_volc":"264230","time":"05-Oct-2026 00:30:00"},{"lat":-7.542,"lon":110.442,"name":"Merapi","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"263250","time":"05-Oct-2026 00:30:00"},{"lat":-8.32,"lon":121.708,"name":"Paluweh","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"264150","time":"05-Oct-2026 00:30:00"},{"lat":55.42,"lon":-161.887,"name":"Pavlof","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"312030","time":"05-Oct-2026 00:30:00"},{"lat":-8.125,"lon":114.042,"name":"Raung","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"263340","time":"05-Oct-2026 00:30:00"},{"lat":60.485,"lon":-152.742,"name":"Redoubt","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"313030","time":"05-Oct-2026 00:30:00"},{"lat":-8.42,"lon":116.47,"name":"Rinjani","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"264030","time":"05-Oct-2026 00:30:00"},{"lat":-8.2,"lon":119.07,"name":"SangeangApi","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"264050","time":"05-Oct-2026 00:30:00"},{"lat":-8.108,"lon":112.92,"name":"Semeru","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"263300","time":"05-Oct-2026 00:30:00"},{"lat":54.756,"lon":-163.97,"name":"Shishaldin","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"311360","time":"05-Oct-2026 00:30:00"},{"lat":-7.792,"lon":123.579,"name":"TaraBatu","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"264260","time":"05-Oct-2026 00:30:00"},{"lat":-7.942,"lon":112.95,"name":"TenggerCaldera","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"263310","time":"05-Oct-2026 00:30:00"},{"lat":56.17,"lon":-159.38,"name":"Veniaminof","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"312070","time":"05-Oct-2026 00:30:00"},{"lat":3.67,"lon":125.5,"name":"Awu","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"267040","time":"05-Oct-2026 00:25:00"},{"lat":1.68,"lon":127.88,"name":"Dukono","vrp":302.657790662071,"color":"rgba(255, 165, 0, 1)","size":8,"sensor":"MODIS","id_volc":"268010","time":"05-Oct-2026 00:25:00"},{"lat":1.488,"lon":127.63,"name":"Ibu","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"268030","time":"05-Oct-2026 00:25:00"},{"lat":10.412,"lon":123.132,"name":"Kanlaon","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"272020","time":"05-Oct-2026 00:25:00"},{"lat":2.78,"lon":125.4,"name":"Karangetang","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"267020","time":"05-Oct-2026 00:25:00"},{"lat":13.257,"lon":123.685,"name":"Mayon","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"273030","time":"05-Oct-2026 00:25:00"},{"lat":2.3,"lon":125.37,"name":"Ruang","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"267010","time":"05-Oct-2026 00:25:00"},{"lat":1.108,"lon":124.73,"name":"Soputan","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"266030","time":"05-Oct-2026 00:25:00"},{"lat":14.002,"lon":120.993,"name":"Taal","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"273070","time":"05-Oct-2026 00:25:00"},{"lat":31.593,"lon":130.657,"name":"Aira","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"282080","time":"05-Oct-2026 00:20:00"},{"lat":30.789,"lon":130.308,"name":"Kikai","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"282060","time":"05-Oct-2026 00:20:00"},{"lat":15.13,"lon":120.35,"name":"Pinatubo","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"273083","time":"05-Oct-2026 00:20:00"},{"lat":29.638,"lon":129.714,"name":"Suwanosejima","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"282030","time":"05-Oct-2026 00:20:00"},{"lat":36.406,"lon":138.523,"name":"Asamayama","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"283110","time":"05-Oct-2026 00:15:00"},{"lat":32.884,"lon":131.104,"name":"Asosan","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"282110","time":"05-Oct-2026 00:15:00"},{"lat":32.761,"lon":130.299,"name":"Unzendake","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"282100","time":"05-Oct-2026 00:15:00"},{"lat":-21.244,"lon":55.708,"name":"FournaisePitondela","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"233020","time":"04-Oct-2026 23:30:00"},{"lat":-59.063,"lon":-26.587,"name":"BristolIsland","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"390080","time":"04-Oct-2026 23:20:00"},{"lat":-57.787,"lon":-26.46,"name":"Michael","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"390090","time":"04-Oct-2026 23:20:00"},{"lat":-58.42,"lon":-26.33,"name":"MontaguIsland","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"390081","time":"04-Oct-2026 23:20:00"},{"lat":-56.3,"lon":-27.57,"name":"Zavodovski","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"390130","time":"04-Oct-2026 23:20:00"},{"lat":-6.14,"lon":155.195,"name":"Bagana","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"255020","time":"04-Oct-2026 22:50:00"},{"lat":-3.03,"lon":147.78,"name":"CentralBismarckSea","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"250030","time":"04-Oct-2026 22:50:00"},{"lat":-3.63,"lon":144.631,"name":"Kadovar","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"251002","time":"04-Oct-2026 22:50:00"},{"lat":-8.95,"lon":148.15,"name":"Lamington","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"253010","time":"04-Oct-2026 22:50:00"},{"lat":-5.525,"lon":148.42,"name":"Langila","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"252010","time":"04-Oct-2026 22:50:00"},{"lat":-5.358,"lon":147.12,"name":"LongIsland","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"251050","time":"04-Oct-2026 22:50:00"},{"lat":-4.08,"lon":145.037,"name":"Manam","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"251020","time":"04-Oct-2026 22:50:00"},{"lat":-5.58,"lon":150.52,"name":"Pago","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"252080","time":"04-Oct-2026 22:50:00"},{"lat":-4.271,"lon":152.203,"name":"Rabaul","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"252140","time":"04-Oct-2026 22:50:00"},{"lat":46.2,"lon":-122.18,"name":"StHelens","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"321050","time":"04-Oct-2026 22:50:00"},{"lat":-5.05,"lon":151.33,"name":"Ulawun","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"252120","time":"04-Oct-2026 22:50:00"},{"lat":16.35,"lon":145.67,"name":"Anatahan","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"284200","time":"04-Oct-2026 22:45:00"},{"lat":18.13,"lon":145.8,"name":"Pagan","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"284170","time":"04-Oct-2026 22:45:00"},{"lat":19.514,"lon":-103.62,"name":"Colima","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"341040","time":"04-Oct-2026 22:40:00"},{"lat":19.023,"lon":-98.622,"name":"Popocatepetl","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"341090","time":"04-Oct-2026 22:40:00"},{"lat":50.858,"lon":155.55,"name":"Alaid","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"290390","time":"04-Oct-2026 22:35:00"},{"lat":53.255,"lon":158.83,"name":"Avachinsky","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"300100","time":"04-Oct-2026 22:35:00"},{"lat":48.98,"lon":153.48,"name":"Chirinkotan","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"290260","time":"04-Oct-2026 22:35:00"},{"lat":46.525,"lon":150.875,"name":"Chirpoi","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"290150","time":"04-Oct-2026 22:35:00"},{"lat":50.68,"lon":156.02,"name":"Ebeko","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"290380","time":"04-Oct-2026 22:35:00"},{"lat":52.558,"lon":158.03,"name":"Gorely","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"300070","time":"04-Oct-2026 22:35:00"},{"lat":54.05,"lon":159.45,"name":"Karymsky","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"300130","time":"04-Oct-2026 22:35:00"},{"lat":48.092,"lon":153.2,"name":"SarychevPeak","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"290240","time":"04-Oct-2026 22:35:00"},{"lat":55.978,"lon":160.587,"name":"Bezymianny","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"300250","time":"04-Oct-2026 22:30:00"},{"lat":56.057,"lon":160.638,"name":"Kliuchevskoi","vrp":1.07011796945865,"color":"rgba(0, 128, 0, 1)","size":4,"sensor":"MODIS","id_volc":"300260","time":"04-Oct-2026 22:30:00"},{"lat":56.653,"lon":161.36,"name":"Shiveluch","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"300270","time":"04-Oct-2026 22:30:00"},{"lat":55.83,"lon":160.33,"name":"Tolbachik","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"300240","time":"04-Oct-2026 22:30:00"},{"lat":64.63,"lon":-17.53,"name":"Bardarbunga","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"373030","time":"04-Oct-2026 22:15:00"},{"lat":63.63,"lon":-19.62,"name":"Eyjafjallajokull","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"372020","time":"04-Oct-2026 22:15:00"},{"lat":64.42,"lon":-17.33,"name":"Grimsvotn","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"373010","time":"04-Oct-2026 22:15:00"},{"lat":63.98,"lon":-19.7,"name":"Hekla","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"372070","time":"04-Oct-2026 22:15:00"},{"lat":63.63,"lon":-19.05,"name":"Katla","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"372030","time":"04-Oct-2026 22:15:00"},{"lat":63.93,"lon":-22.1,"name":"Krisuvik","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"371030","time":"04-Oct-2026 22:15:00"},{"lat":63.88,"lon":-22.5,"name":"Reykjanes","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"371020","time":"04-Oct-2026 22:15:00"},{"lat":38.65,"lon":-28.08,"name":"SanJorge","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"382030","time":"04-Oct-2026 22:10:00"},{"lat":14.95,"lon":-24.35,"name":"Fogo","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"384010","time":"04-Oct-2026 22:05:00"},{"lat":27.73,"lon":-18.03,"name":"Hierro","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"383020","time":"04-Oct-2026 22:05:00"},{"lat":28.57,"lon":-17.83,"name":"LaPalma","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"383010","time":"04-Oct-2026 22:05:00"},{"lat":28.271,"lon":-16.641,"name":"Tenerife","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"383030","time":"04-Oct-2026 22:05:00"},{"lat":-53.106,"lon":73.513,"name":"Heard","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"234010","time":"04-Oct-2026 22:00:00"},{"lat":12.278,"lon":93.858,"name":"BarrenIsland","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"260010","time":"04-Oct-2026 21:45:00"},{"lat":3.17,"lon":98.392,"name":"Sinabung","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"261080","time":"04-Oct-2026 21:45:00"},{"lat":-39.28,"lon":175.57,"name":"Ruapehu","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"241100","time":"04-Oct-2026 21:20:00"},{"lat":-39.157,"lon":175.632,"name":"Tongariro","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"241080","time":"04-Oct-2026 21:20:00"},{"lat":-16.25,"lon":168.12,"name":"Ambrym","vrp":1707.22060404251,"color":"rgba(255, 0, 0, 1)","size":10,"sensor":"MODIS","id_volc":"257040","time":"04-Oct-2026 21:15:00"},{"lat":-15.4,"lon":167.83,"name":"Aoba","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"257030","time":"04-Oct-2026 21:15:00"},{"lat":-14.27,"lon":167.5,"name":"Gaua","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"257020","time":"04-Oct-2026 21:15:00"},{"lat":-16.507,"lon":168.346,"name":"Lopevi","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"257050","time":"04-Oct-2026 21:15:00"},{"lat":-19.53,"lon":169.442,"name":"Yasur","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"257100","time":"04-Oct-2026 21:15:00"},{"lat":-9.13,"lon":159.82,"name":"Savo","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"255070","time":"04-Oct-2026 21:10:00"},{"lat":-10.38,"lon":165.8,"name":"Tinakula","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"256010","time":"04-Oct-2026 21:10:00"},{"lat":17.36,"lon":-93.228,"name":"ChichonEl","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"341120","time":"04-Oct-2026 21:05:00"},{"lat":10.463,"lon":-84.703,"name":"Arenal","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"345033","time":"04-Oct-2026 21:00:00"},{"lat":11.538,"lon":-85.622,"name":"Concepcion","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"344120","time":"04-Oct-2026 21:00:00"},{"lat":-0.677,"lon":-78.436,"name":"Cotopaxi","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"352050","time":"04-Oct-2026 21:00:00"},{"lat":14.473,"lon":-90.88,"name":"Fuego","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"342090","time":"04-Oct-2026 21:00:00"},{"lat":1.22,"lon":-77.37,"name":"Galeras","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"351080","time":"04-Oct-2026 21:00:00"},{"lat":-0.171,"lon":-78.598,"name":"GuaguaPichincha","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"352020","time":"04-Oct-2026 21:00:00"},{"lat":2.93,"lon":-76.03,"name":"HuilaNevadodel","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"351050","time":"04-Oct-2026 21:00:00"},{"lat":11.984,"lon":-86.161,"name":"Masaya","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"344100","time":"04-Oct-2026 21:00:00"},{"lat":11.826,"lon":-85.968,"name":"Mombacho","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"344110","time":"04-Oct-2026 21:00:00"},{"lat":12.422,"lon":-86.54,"name":"Momotombo","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"344090","time":"04-Oct-2026 21:00:00"},{"lat":0.828,"lon":-77.964,"name":"NegrodeMayasquerCerro","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"351110","time":"04-Oct-2026 21:00:00"},{"lat":14.381,"lon":-90.601,"name":"Pacaya","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"342110","time":"04-Oct-2026 21:00:00"},{"lat":10.2,"lon":-84.233,"name":"Poas","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"345040","time":"04-Oct-2026 21:00:00"},{"lat":2.32,"lon":-76.4,"name":"Purace","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"351060","time":"04-Oct-2026 21:00:00"},{"lat":-0.077,"lon":-77.656,"name":"Reventador","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"352010","time":"04-Oct-2026 21:00:00"},{"lat":10.83,"lon":-85.324,"name":"RincondelaVieja","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"345020","time":"04-Oct-2026 21:00:00"},{"lat":4.895,"lon":-75.322,"name":"RuizNevadodel","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"351020","time":"04-Oct-2026 21:00:00"},{"lat":13.434,"lon":-88.269,"name":"SanMiguel","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"343100","time":"04-Oct-2026 21:00:00"},{"lat":12.702,"lon":-87.004,"name":"SanCristobal","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"344020","time":"04-Oct-2026 21:00:00"},{"lat":13.853,"lon":-89.63,"name":"SantaAna","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"343020","time":"04-Oct-2026 21:00:00"},{"lat":14.756,"lon":-91.552,"name":"SantaMaria","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"342030","time":"04-Oct-2026 21:00:00"},{"lat":12.602,"lon":-86.845,"name":"Telica","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"344040","time":"04-Oct-2026 21:00:00"},{"lat":10.025,"lon":-83.767,"name":"Turrialba","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"345070","time":"04-Oct-2026 21:00:00"},{"lat":53.93,"lon":-168.03,"name":"Bogoslof","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"311300","time":"04-Oct-2026 20:55:00"},{"lat":52.825,"lon":-169.944,"name":"Cleveland","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"311240","time":"04-Oct-2026 20:55:00"},{"lat":52.076,"lon":-176.13,"name":"GreatSitkin","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"311120","time":"04-Oct-2026 20:55:00"},{"lat":-16.294,"lon":-71.409,"name":"MistiEl","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"354010","time":"04-Oct-2026 20:55:00"},{"lat":-15.78,"lon":-71.85,"name":"Sabancaya","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"354006","time":"04-Oct-2026 20:55:00"},{"lat":-2.002,"lon":-78.341,"name":"Sangay","vrp":47.9917723428398,"color":"rgba(255, 255, 0, 1)","size":6,"sensor":"MODIS","id_volc":"352090","time":"04-Oct-2026 20:55:00"},{"lat":51.93,"lon":179.58,"name":"Semisopochnoi","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"311060","time":"04-Oct-2026 20:55:00"},{"lat":-1.467,"lon":-78.442,"name":"Tungurahua","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"352080","time":"04-Oct-2026 20:55:00"},{"lat":-16.355,"lon":-70.903,"name":"Ubinas","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"354020","time":"04-Oct-2026 20:55:00"},{"lat":-19.15,"lon":-68.83,"name":"Isluga","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"355030","time":"04-Oct-2026 20:50:00"},{"lat":-25.168,"lon":-68.507,"name":"Lastarria","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"355120","time":"04-Oct-2026 20:50:00"},{"lat":-23.37,"lon":-67.73,"name":"Lascar","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"355100","time":"04-Oct-2026 20:50:00"},{"lat":61.299,"lon":-152.251,"name":"Spurr","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"313040","time":"04-Oct-2026 20:50:00"},{"lat":65.03,"lon":-16.75,"name":"Askja","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"373060","time":"04-Oct-2026 20:40:00"},{"lat":65.73,"lon":-16.78,"name":"Krafla","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"373080","time":"04-Oct-2026 20:40:00"},{"lat":64,"lon":-16.65,"name":"Oraefajokull","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"374010","time":"04-Oct-2026 20:40:00"},{"lat":4.203,"lon":9.17,"name":"Cameroon","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"224010","time":"04-Oct-2026 20:20:00"},{"lat":-6.102,"lon":105.423,"name":"Krakatau","vrp":0.901750774585876,"color":"rgba(0, 128, 0, 1)","size":4,"sensor":"MODIS","id_volc":"262000","time":"04-Oct-2026 20:10:00"},{"lat":-7.242,"lon":109.208,"name":"Slamet","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"263180","time":"04-Oct-2026 20:10:00"},{"lat":31.934,"lon":130.862,"name":"Kirishimayama","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"282090","time":"04-Oct-2026 20:00:00"},{"lat":-37.52,"lon":177.18,"name":"WhiteIsland","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"241040","time":"04-Oct-2026 19:40:00"},{"lat":-18.992,"lon":-174.775,"name":"HomeReef","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"243080","time":"04-Oct-2026 19:35:00"},{"lat":-20.57,"lon":-175.38,"name":"HungaTonga","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"243040","time":"04-Oct-2026 19:35:00"},{"lat":-19.75,"lon":-175.07,"name":"Tofua","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"243060","time":"04-Oct-2026 19:35:00"},{"lat":19.4211,"lon":-155.1867,"name":"Kilauea","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"332010","time":"04-Oct-2026 19:25:00"},{"lat":19.475,"lon":-155.608,"name":"MaunaLoa","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"332020","time":"04-Oct-2026 19:25:00"},{"lat":17.63,"lon":-63.23,"name":"Saba","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"360010","time":"04-Oct-2026 19:25:00"},{"lat":16.044,"lon":-61.664,"name":"SoufriereGuadeloupe","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"360060","time":"04-Oct-2026 19:25:00"},{"lat":16.72,"lon":-62.18,"name":"SoufriereHills","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"360050","time":"04-Oct-2026 19:25:00"},{"lat":13.33,"lon":-61.18,"name":"SoufriereStVincent","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"360150","time":"04-Oct-2026 19:25:00"},{"lat":40.827,"lon":14.139,"name":"CampiFlegrei","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"211010","time":"04-Oct-2026 18:55:00"},{"lat":40.821,"lon":14.426,"name":"Vesuvius","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"211020","time":"04-Oct-2026 18:55:00"},{"lat":37.734,"lon":15.004,"name":"Etna","vrp":1.27468572878323,"color":"rgba(0, 128, 0, 1)","size":4,"sensor":"MODIS","id_volc":"211060","time":"04-Oct-2026 18:50:00"},{"lat":36.404,"lon":25.396,"name":"Santorini","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"212040","time":"04-Oct-2026 18:50:00"},{"lat":38.789,"lon":15.213,"name":"Stromboli","vrp":12.6737826553121,"color":"rgba(255, 255, 0, 1)","size":6,"sensor":"MODIS","id_volc":"211040","time":"04-Oct-2026 18:50:00"},{"lat":38.404,"lon":14.962,"name":"Vulcano","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"211050","time":"04-Oct-2026 18:50:00"},{"lat":55.13,"lon":160.32,"name":"Kizimen","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"300230","time":"04-Oct-2026 18:15:00"},{"lat":54.593,"lon":160.273,"name":"Krasheninnikov","vrp":30.8650752288172,"color":"rgba(255, 255, 0, 1)","size":6,"sensor":"MODIS","id_volc":"300190","time":"04-Oct-2026 18:15:00"},{"lat":-0.37,"lon":-91.55,"name":"Fernandina","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"353010","time":"04-Oct-2026 14:35:00"},{"lat":-0.83,"lon":-91.17,"name":"NegraSierra","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"353050","time":"04-Oct-2026 14:35:00"},{"lat":0.02,"lon":-91.35,"name":"Wolf","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"353020","time":"04-Oct-2026 14:35:00"},{"lat":-1.697,"lon":101.264,"name":"Kerinci","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"261170","time":"04-Oct-2026 13:45:00"},{"lat":-0.381,"lon":100.473,"name":"Marapi","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"261140","time":"04-Oct-2026 13:45:00"},{"lat":27.247,"lon":140.874,"name":"Nishinoshima","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"MODIS","id_volc":"284096","time":"04-Oct-2026 10:35:00"},{"lat":56.653,"lon":161.36,"name":"Shiveluch","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"300270","time":"05-Oct-2026 01:00:01"},{"lat":50.858,"lon":155.55,"name":"Alaid","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"290390","time":"05-Oct-2026 00:54:01"},{"lat":53.255,"lon":158.83,"name":"Avachinsky","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"300100","time":"05-Oct-2026 00:54:01"},{"lat":53.93,"lon":-168.03,"name":"Bogoslof","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"311300","time":"05-Oct-2026 00:54:01"},{"lat":52.825,"lon":-169.944,"name":"Cleveland","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"311240","time":"05-Oct-2026 00:54:01"},{"lat":50.68,"lon":156.02,"name":"Ebeko","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"290380","time":"05-Oct-2026 00:54:01"},{"lat":52.558,"lon":158.03,"name":"Gorely","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"300070","time":"05-Oct-2026 00:54:01"},{"lat":52.076,"lon":-176.13,"name":"GreatSitkin","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"311120","time":"05-Oct-2026 00:54:01"},{"lat":54.05,"lon":159.45,"name":"Karymsky","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"300130","time":"05-Oct-2026 00:54:01"},{"lat":55.42,"lon":-161.887,"name":"Pavlof","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"312030","time":"05-Oct-2026 00:54:01"},{"lat":51.93,"lon":179.58,"name":"Semisopochnoi","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"311060","time":"05-Oct-2026 00:54:01"},{"lat":54.756,"lon":-163.97,"name":"Shishaldin","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"311360","time":"05-Oct-2026 00:54:01"},{"lat":-18.992,"lon":-174.775,"name":"HomeReef","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"243080","time":"05-Oct-2026 00:36:01"},{"lat":-20.57,"lon":-175.38,"name":"HungaTonga","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"243040","time":"05-Oct-2026 00:36:01"},{"lat":-19.75,"lon":-175.07,"name":"Tofua","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"243060","time":"05-Oct-2026 00:36:01"},{"lat":4.203,"lon":9.17,"name":"Cameroon","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"224010","time":"05-Oct-2026 00:30:02"},{"lat":40.827,"lon":14.139,"name":"CampiFlegrei","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"211010","time":"05-Oct-2026 00:24:02"},{"lat":38.789,"lon":15.213,"name":"Stromboli","vrp":6.7272938499957,"color":"rgba(0, 128, 0, 1)","size":4,"sensor":"VIIRS375","id_volc":"211040","time":"05-Oct-2026 00:24:02"},{"lat":40.821,"lon":14.426,"name":"Vesuvius","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"211020","time":"05-Oct-2026 00:24:02"},{"lat":38.404,"lon":14.962,"name":"Vulcano","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"211050","time":"05-Oct-2026 00:24:02"},{"lat":-59.063,"lon":-26.587,"name":"BristolIsland","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"390080","time":"05-Oct-2026 00:06:01"},{"lat":-58.42,"lon":-26.33,"name":"MontaguIsland","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"390081","time":"05-Oct-2026 00:06:01"},{"lat":59.363,"lon":-153.43,"name":"Augustine","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"313010","time":"05-Oct-2026 00:00:02"},{"lat":55.978,"lon":160.587,"name":"Bezymianny","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"300250","time":"05-Oct-2026 00:00:02"},{"lat":55.13,"lon":160.32,"name":"Kizimen","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"300230","time":"05-Oct-2026 00:00:02"},{"lat":56.057,"lon":160.638,"name":"Kliuchevskoi","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"300260","time":"05-Oct-2026 00:00:02"},{"lat":60.485,"lon":-152.742,"name":"Redoubt","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"313030","time":"05-Oct-2026 00:00:02"},{"lat":61.299,"lon":-152.251,"name":"Spurr","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"313040","time":"05-Oct-2026 00:00:02"},{"lat":55.83,"lon":160.33,"name":"Tolbachik","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"300240","time":"05-Oct-2026 00:00:02"},{"lat":56.17,"lon":-159.38,"name":"Veniaminof","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"312070","time":"05-Oct-2026 00:00:02"},{"lat":19.4211,"lon":-155.1867,"name":"Kilauea","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"332010","time":"04-Oct-2026 23:48:02"},{"lat":19.475,"lon":-155.608,"name":"MaunaLoa","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"332020","time":"04-Oct-2026 23:48:02"},{"lat":9.35,"lon":40.13,"name":"Dofen","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"221180","time":"04-Oct-2026 23:48:01"},{"lat":8.975,"lon":39.93,"name":"Fentale","vrp":0.489873839837722,"color":"rgba(0, 128, 0, 1)","size":4,"sensor":"VIIRS375","id_volc":"221190","time":"04-Oct-2026 23:48:01"},{"lat":-2.764,"lon":35.914,"name":"LengaiOlDoinyo","vrp":1.96444734958987,"color":"rgba(0, 128, 0, 1)","size":4,"sensor":"VIIRS375","id_volc":"222120","time":"04-Oct-2026 23:48:01"},{"lat":-1.408,"lon":29.2,"name":"Nyamuragira","vrp":158.44590043235,"color":"rgba(255, 165, 0, 1)","size":8,"sensor":"VIIRS375","id_volc":"223020","time":"04-Oct-2026 23:48:01"},{"lat":-1.52,"lon":29.25,"name":"Nyiragongo","vrp":12.5710072302685,"color":"rgba(255, 255, 0, 1)","size":6,"sensor":"VIIRS375","id_volc":"223030","time":"04-Oct-2026 23:48:01"},{"lat":14.242,"lon":40.3,"name":"Dallol","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"221041","time":"04-Oct-2026 23:42:01"},{"lat":13.6,"lon":40.67,"name":"ErtaAle","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"221080","time":"04-Oct-2026 23:42:01"},{"lat":13.37,"lon":41.7,"name":"Nabro","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"221101","time":"04-Oct-2026 23:42:01"},{"lat":36.404,"lon":25.396,"name":"Santorini","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"212040","time":"04-Oct-2026 23:18:00"},{"lat":-21.244,"lon":55.708,"name":"FournaisePitondela","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"233020","time":"04-Oct-2026 22:12:01"},{"lat":-11.75,"lon":43.38,"name":"Karthala","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"233010","time":"04-Oct-2026 22:12:01"},{"lat":-12.83,"lon":45.17,"name":"MayotteIsland","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"233005","time":"04-Oct-2026 22:12:01"},{"lat":46.2,"lon":-122.18,"name":"StHelens","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"321050","time":"04-Oct-2026 21:30:01"},{"lat":19.514,"lon":-103.62,"name":"Colima","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"341040","time":"04-Oct-2026 21:00:00"},{"lat":-53.106,"lon":73.513,"name":"Heard","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"234010","time":"04-Oct-2026 20:42:01"},{"lat":19.023,"lon":-98.622,"name":"Popocatepetl","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"341090","time":"04-Oct-2026 20:24:02"},{"lat":-0.37,"lon":-91.55,"name":"Fernandina","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"353010","time":"04-Oct-2026 20:18:02"},{"lat":-0.83,"lon":-91.17,"name":"NegraSierra","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"353050","time":"04-Oct-2026 20:18:02"},{"lat":0.02,"lon":-91.35,"name":"Wolf","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"353020","time":"04-Oct-2026 20:18:02"},{"lat":-42.833,"lon":-72.646,"name":"Chaiten","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"358041","time":"04-Oct-2026 20:06:02"},{"lat":12.278,"lon":93.858,"name":"BarrenIsland","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"260010","time":"04-Oct-2026 20:00:00"},{"lat":17.36,"lon":-93.228,"name":"ChichonEl","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"341120","time":"04-Oct-2026 19:42:01"},{"lat":14.473,"lon":-90.88,"name":"Fuego","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"342090","time":"04-Oct-2026 19:42:01"},{"lat":14.381,"lon":-90.601,"name":"Pacaya","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"342110","time":"04-Oct-2026 19:42:01"},{"lat":13.434,"lon":-88.269,"name":"SanMiguel","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"343100","time":"04-Oct-2026 19:42:01"},{"lat":13.853,"lon":-89.63,"name":"SantaAna","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"343020","time":"04-Oct-2026 19:42:01"},{"lat":14.756,"lon":-91.552,"name":"SantaMaria","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"342030","time":"04-Oct-2026 19:42:01"},{"lat":10.463,"lon":-84.703,"name":"Arenal","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"345033","time":"04-Oct-2026 19:36:01"},{"lat":11.538,"lon":-85.622,"name":"Concepcion","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"344120","time":"04-Oct-2026 19:36:01"},{"lat":-0.677,"lon":-78.436,"name":"Cotopaxi","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"352050","time":"04-Oct-2026 19:36:01"},{"lat":-0.171,"lon":-78.598,"name":"GuaguaPichincha","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"352020","time":"04-Oct-2026 19:36:01"},{"lat":11.984,"lon":-86.161,"name":"Masaya","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"344100","time":"04-Oct-2026 19:36:01"},{"lat":11.826,"lon":-85.968,"name":"Mombacho","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"344110","time":"04-Oct-2026 19:36:01"},{"lat":12.422,"lon":-86.54,"name":"Momotombo","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"344090","time":"04-Oct-2026 19:36:01"},{"lat":0.828,"lon":-77.964,"name":"NegrodeMayasquerCerro","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"351110","time":"04-Oct-2026 19:36:01"},{"lat":10.2,"lon":-84.233,"name":"Poas","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"345040","time":"04-Oct-2026 19:36:01"},{"lat":-0.077,"lon":-77.656,"name":"Reventador","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"352010","time":"04-Oct-2026 19:36:01"},{"lat":10.83,"lon":-85.324,"name":"RincondelaVieja","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"345020","time":"04-Oct-2026 19:36:01"},{"lat":12.702,"lon":-87.004,"name":"SanCristobal","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"344020","time":"04-Oct-2026 19:36:01"},{"lat":-2.002,"lon":-78.341,"name":"Sangay","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"352090","time":"04-Oct-2026 19:36:01"},{"lat":12.602,"lon":-86.845,"name":"Telica","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"344040","time":"04-Oct-2026 19:36:01"},{"lat":-1.467,"lon":-78.442,"name":"Tungurahua","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"352080","time":"04-Oct-2026 19:36:01"},{"lat":10.025,"lon":-83.767,"name":"Turrialba","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"345070","time":"04-Oct-2026 19:36:01"},{"lat":-1.697,"lon":101.264,"name":"Kerinci","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"261170","time":"04-Oct-2026 19:30:02"},{"lat":-0.381,"lon":100.473,"name":"Marapi","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"261140","time":"04-Oct-2026 19:30:02"},{"lat":3.17,"lon":98.392,"name":"Sinabung","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"261080","time":"04-Oct-2026 19:30:02"},{"lat":-36.863,"lon":-71.377,"name":"ChillanNevadosde","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"357070","time":"04-Oct-2026 19:24:01"},{"lat":-37.856,"lon":-71.183,"name":"Copahue","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"357090","time":"04-Oct-2026 19:24:01"},{"lat":-38.692,"lon":-71.729,"name":"Llaima","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"357110","time":"04-Oct-2026 19:24:01"},{"lat":-35.223,"lon":-70.568,"name":"PlanchonPeteroa","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"357040","time":"04-Oct-2026 19:24:01"},{"lat":-40.59,"lon":-72.117,"name":"PuyehueCordonCaulle","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"357150","time":"04-Oct-2026 19:24:01"},{"lat":-33.425,"lon":-69.797,"name":"Tupungatito","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"357010","time":"04-Oct-2026 19:24:01"},{"lat":-39.42,"lon":-71.93,"name":"Villarrica","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"357120","time":"04-Oct-2026 19:24:01"},{"lat":1.22,"lon":-77.37,"name":"Galeras","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"351080","time":"04-Oct-2026 19:18:00"},{"lat":2.93,"lon":-76.03,"name":"HuilaNevadodel","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"351050","time":"04-Oct-2026 19:18:00"},{"lat":2.32,"lon":-76.4,"name":"Purace","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"351060","time":"04-Oct-2026 19:18:00"},{"lat":4.895,"lon":-75.322,"name":"RuizNevadodel","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"351020","time":"04-Oct-2026 19:18:00"},{"lat":-19.15,"lon":-68.83,"name":"Isluga","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"355030","time":"04-Oct-2026 19:12:00"},{"lat":-16.294,"lon":-71.409,"name":"MistiEl","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"354010","time":"04-Oct-2026 19:12:00"},{"lat":-15.78,"lon":-71.85,"name":"Sabancaya","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"354006","time":"04-Oct-2026 19:12:00"},{"lat":-16.355,"lon":-70.903,"name":"Ubinas","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"354020","time":"04-Oct-2026 19:12:00"},{"lat":-25.168,"lon":-68.507,"name":"Lastarria","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"355120","time":"04-Oct-2026 19:06:00"},{"lat":-23.37,"lon":-67.73,"name":"Lascar","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"355100","time":"04-Oct-2026 19:06:00"},{"lat":-7.93,"lon":112.308,"name":"Kelut","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"263280","time":"04-Oct-2026 18:48:01"},{"lat":-6.102,"lon":105.423,"name":"Krakatau","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"262000","time":"04-Oct-2026 18:48:01"},{"lat":-7.542,"lon":110.442,"name":"Merapi","vrp":0.595180410074681,"color":"rgba(0, 128, 0, 1)","size":4,"sensor":"VIIRS375","id_volc":"263250","time":"04-Oct-2026 18:48:01"},{"lat":-8.108,"lon":112.92,"name":"Semeru","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"263300","time":"04-Oct-2026 18:48:01"},{"lat":-7.242,"lon":109.208,"name":"Slamet","vrp":0.089682944555926,"color":"rgba(0, 128, 0, 1)","size":4,"sensor":"VIIRS375","id_volc":"263180","time":"04-Oct-2026 18:48:01"},{"lat":-7.942,"lon":112.95,"name":"TenggerCaldera","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"263310","time":"04-Oct-2026 18:48:01"},{"lat":-8.342,"lon":115.508,"name":"Agung","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"264020","time":"04-Oct-2026 18:24:00"},{"lat":-8.058,"lon":114.242,"name":"Ijen","vrp":2.73459111801896,"color":"rgba(0, 128, 0, 1)","size":4,"sensor":"VIIRS375","id_volc":"263350","time":"04-Oct-2026 18:24:00"},{"lat":10.412,"lon":123.132,"name":"Kanlaon","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"272020","time":"04-Oct-2026 18:24:00"},{"lat":-8.125,"lon":114.042,"name":"Raung","vrp":1.21990775118401,"color":"rgba(0, 128, 0, 1)","size":4,"sensor":"VIIRS375","id_volc":"263340","time":"04-Oct-2026 18:24:00"},{"lat":-8.42,"lon":116.47,"name":"Rinjani","vrp":0.0540433644240337,"color":"rgba(0, 128, 0, 1)","size":4,"sensor":"VIIRS375","id_volc":"264030","time":"04-Oct-2026 18:24:00"},{"lat":-8.2,"lon":119.07,"name":"SangeangApi","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"264050","time":"04-Oct-2026 18:24:00"},{"lat":30.789,"lon":130.308,"name":"Kikai","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"282060","time":"04-Oct-2026 18:18:00"},{"lat":13.257,"lon":123.685,"name":"Mayon","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"273030","time":"04-Oct-2026 18:18:00"},{"lat":15.13,"lon":120.35,"name":"Pinatubo","vrp":0.0822040095070201,"color":"rgba(0, 128, 0, 1)","size":4,"sensor":"VIIRS375","id_volc":"273083","time":"04-Oct-2026 18:18:00"},{"lat":29.638,"lon":129.714,"name":"Suwanosejima","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"282030","time":"04-Oct-2026 18:18:00"},{"lat":14.002,"lon":120.993,"name":"Taal","vrp":3.84331149389626,"color":"rgba(0, 128, 0, 1)","size":4,"sensor":"VIIRS375","id_volc":"273070","time":"04-Oct-2026 18:18:00"},{"lat":31.593,"lon":130.657,"name":"Aira","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"282080","time":"04-Oct-2026 18:12:00"},{"lat":32.884,"lon":131.104,"name":"Asosan","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"282110","time":"04-Oct-2026 18:12:00"},{"lat":31.934,"lon":130.862,"name":"Kirishimayama","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"282090","time":"04-Oct-2026 18:12:00"},{"lat":32.761,"lon":130.299,"name":"Unzendake","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"282100","time":"04-Oct-2026 18:12:00"},{"lat":17.63,"lon":-63.23,"name":"Saba","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"360010","time":"04-Oct-2026 18:00:01"},{"lat":16.044,"lon":-61.664,"name":"SoufriereGuadeloupe","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"360060","time":"04-Oct-2026 18:00:01"},{"lat":16.72,"lon":-62.18,"name":"SoufriereHills","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"360050","time":"04-Oct-2026 18:00:01"},{"lat":13.33,"lon":-61.18,"name":"SoufriereStVincent","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"360150","time":"04-Oct-2026 18:00:01"},{"lat":3.67,"lon":125.5,"name":"Awu","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"267040","time":"04-Oct-2026 17:48:02"},{"lat":1.68,"lon":127.88,"name":"Dukono","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"268010","time":"04-Oct-2026 17:48:02"},{"lat":1.488,"lon":127.63,"name":"Ibu","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"268030","time":"04-Oct-2026 17:48:02"},{"lat":2.78,"lon":125.4,"name":"Karangetang","vrp":8.20180813952005,"color":"rgba(0, 128, 0, 1)","size":4,"sensor":"VIIRS375","id_volc":"267020","time":"04-Oct-2026 17:48:02"},{"lat":-8.542,"lon":122.775,"name":"Lewotobi","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"264180","time":"04-Oct-2026 17:48:02"},{"lat":-8.272,"lon":123.505,"name":"Lewotolo","vrp":13.5267790546996,"color":"rgba(255, 255, 0, 1)","size":6,"sensor":"VIIRS375","id_volc":"264230","time":"04-Oct-2026 17:48:02"},{"lat":-8.32,"lon":121.708,"name":"Paluweh","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"264150","time":"04-Oct-2026 17:48:02"},{"lat":2.3,"lon":125.37,"name":"Ruang","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"267010","time":"04-Oct-2026 17:48:02"},{"lat":1.108,"lon":124.73,"name":"Soputan","vrp":1.02419177700616,"color":"rgba(0, 128, 0, 1)","size":4,"sensor":"VIIRS375","id_volc":"266030","time":"04-Oct-2026 17:48:02"},{"lat":-7.792,"lon":123.579,"name":"TaraBatu","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"264260","time":"04-Oct-2026 17:48:02"},{"lat":36.406,"lon":138.523,"name":"Asamayama","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"283110","time":"04-Oct-2026 17:36:02"},{"lat":-57.787,"lon":-26.46,"name":"Michael","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"390090","time":"04-Oct-2026 17:36:01"},{"lat":-56.3,"lon":-27.57,"name":"Zavodovski","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"390130","time":"04-Oct-2026 17:36:01"},{"lat":27.247,"lon":140.874,"name":"Nishinoshima","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"284096","time":"04-Oct-2026 16:54:01"},{"lat":48.98,"lon":153.48,"name":"Chirinkotan","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"290260","time":"04-Oct-2026 16:48:01"},{"lat":46.525,"lon":150.875,"name":"Chirpoi","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"290150","time":"04-Oct-2026 16:48:01"},{"lat":54.593,"lon":160.273,"name":"Krasheninnikov","vrp":11.9459023955906,"color":"rgba(255, 255, 0, 1)","size":6,"sensor":"VIIRS375","id_volc":"300190","time":"04-Oct-2026 16:48:01"},{"lat":48.092,"lon":153.2,"name":"SarychevPeak","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"290240","time":"04-Oct-2026 16:48:01"},{"lat":-3.63,"lon":144.631,"name":"Kadovar","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"251002","time":"04-Oct-2026 16:42:00"},{"lat":-4.08,"lon":145.037,"name":"Manam","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"251020","time":"04-Oct-2026 16:42:00"},{"lat":16.35,"lon":145.67,"name":"Anatahan","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"284200","time":"04-Oct-2026 16:36:00"},{"lat":18.13,"lon":145.8,"name":"Pagan","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"284170","time":"04-Oct-2026 16:36:00"},{"lat":-3.03,"lon":147.78,"name":"CentralBismarckSea","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"250030","time":"04-Oct-2026 16:06:02"},{"lat":-8.95,"lon":148.15,"name":"Lamington","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"253010","time":"04-Oct-2026 16:06:02"},{"lat":-5.525,"lon":148.42,"name":"Langila","vrp":3.06237325865503,"color":"rgba(0, 128, 0, 1)","size":4,"sensor":"VIIRS375","id_volc":"252010","time":"04-Oct-2026 16:06:02"},{"lat":-5.358,"lon":147.12,"name":"LongIsland","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"251050","time":"04-Oct-2026 16:06:02"},{"lat":-5.58,"lon":150.52,"name":"Pago","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"252080","time":"04-Oct-2026 16:06:02"},{"lat":-5.05,"lon":151.33,"name":"Ulawun","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"252120","time":"04-Oct-2026 16:06:02"},{"lat":38.65,"lon":-28.08,"name":"SanJorge","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"382030","time":"04-Oct-2026 16:06:00"},{"lat":14.95,"lon":-24.35,"name":"Fogo","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"384010","time":"04-Oct-2026 15:54:00"},{"lat":63.63,"lon":-19.62,"name":"Eyjafjallajokull","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"372020","time":"04-Oct-2026 15:36:02"},{"lat":63.98,"lon":-19.7,"name":"Hekla","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"372070","time":"04-Oct-2026 15:36:02"},{"lat":63.63,"lon":-19.05,"name":"Katla","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"372030","time":"04-Oct-2026 15:36:02"},{"lat":63.93,"lon":-22.1,"name":"Krisuvik","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"371030","time":"04-Oct-2026 15:36:02"},{"lat":63.88,"lon":-22.5,"name":"Reykjanes","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"371020","time":"04-Oct-2026 15:36:02"},{"lat":-6.14,"lon":155.195,"name":"Bagana","vrp":0.887236202724112,"color":"rgba(0, 128, 0, 1)","size":4,"sensor":"VIIRS375","id_volc":"255020","time":"04-Oct-2026 15:24:01"},{"lat":-4.271,"lon":152.203,"name":"Rabaul","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"252140","time":"04-Oct-2026 15:24:01"},{"lat":-9.13,"lon":159.82,"name":"Savo","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"255070","time":"04-Oct-2026 15:24:01"},{"lat":-16.25,"lon":168.12,"name":"Ambrym","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"257040","time":"04-Oct-2026 15:06:00"},{"lat":-15.4,"lon":167.83,"name":"Aoba","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"257030","time":"04-Oct-2026 15:06:00"},{"lat":-14.27,"lon":167.5,"name":"Gaua","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"257020","time":"04-Oct-2026 15:06:00"},{"lat":-16.507,"lon":168.346,"name":"Lopevi","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"257050","time":"04-Oct-2026 15:06:00"},{"lat":-10.38,"lon":165.8,"name":"Tinakula","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"256010","time":"04-Oct-2026 15:06:00"},{"lat":65.03,"lon":-16.75,"name":"Askja","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"373060","time":"04-Oct-2026 14:48:01"},{"lat":64.63,"lon":-17.53,"name":"Bardarbunga","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"373030","time":"04-Oct-2026 14:48:01"},{"lat":64.42,"lon":-17.33,"name":"Grimsvotn","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"373010","time":"04-Oct-2026 14:48:01"},{"lat":65.73,"lon":-16.78,"name":"Krafla","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"373080","time":"04-Oct-2026 14:48:01"},{"lat":64,"lon":-16.65,"name":"Oraefajokull","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"374010","time":"04-Oct-2026 14:48:01"},{"lat":28.57,"lon":-17.83,"name":"LaPalma","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"383010","time":"04-Oct-2026 14:42:01"},{"lat":27.73,"lon":-18.03,"name":"Hierro","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"383020","time":"04-Oct-2026 14:36:01"},{"lat":-19.53,"lon":169.442,"name":"Yasur","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"257100","time":"04-Oct-2026 14:30:02"},{"lat":28.271,"lon":-16.641,"name":"Tenerife","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"383030","time":"04-Oct-2026 14:18:00"},{"lat":-39.28,"lon":175.57,"name":"Ruapehu","vrp":0.77998788592487,"color":"rgba(0, 128, 0, 1)","size":4,"sensor":"VIIRS375","id_volc":"241100","time":"04-Oct-2026 13:54:01"},{"lat":-39.157,"lon":175.632,"name":"Tongariro","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"241080","time":"04-Oct-2026 13:54:01"},{"lat":-37.52,"lon":177.18,"name":"WhiteIsland","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"241040","time":"04-Oct-2026 13:48:01"},{"lat":37.734,"lon":15.004,"name":"Etna","vrp":0,"color":"rgba(198, 198, 198, 1)","size":1,"sensor":"VIIRS375","id_volc":"211060","time":"04-Oct-2026 13:00:01"}];
+    if (mapData?.length > 0) {
+      mapData.forEach(point => {
+        if (typeof point.lat === "number" && typeof point.lon === "number") {
+          var marker = L.circleMarker([point.lat, point.lon], {
+            radius: point.size || 5, fillColor: point.color || "#ff0000", color: "#000",
+            weight: 1, opacity: 1, fillOpacity: 0.85
+          });
+          
+          var sensorAbbr = point.sensor === "VIIRS" ? "VIR" : (point.sensor === "VIIRS375" ? "VIR375" : "MOD");
+          var volcanoLink = "../NRT/volcanoDetails_" + sensorAbbr + ".php?volcano_id=" + point.id_volc;
+          var popupContent = "<strong><a href=\"" + volcanoLink + "\" class=\"volcano-link\">" + (point.name || "Unknown") + "</a></strong><br>" +
+            "VRP: " + (typeof point.vrp === "number" ? point.vrp.toFixed(2) : "0") + " MW<br>" +
+            "Time: " + (point.time || "Unknown") + "<br>Sensor: " + (point.sensor || "Unknown");
+          
+          marker.bindPopup(popupContent).addTo(map);
+        }
+      });
+    }
+    
+    const resetButton = document.getElementById("resetMapView");
+    if (resetButton) resetButton.addEventListener("click", () => map.setView([DEFAULT_LAT, DEFAULT_LON], DEFAULT_ZOOM));
+    
+    setTimeout(() => map.invalidateSize(), 500);
+    mapInitialized = true;
+  } catch (error) {
+    console.error("Error initializing map:", error);
+    const mapContainer = document.getElementById("map");
+    if (mapContainer) mapContainer.innerHTML = "<div class=\"map-error\"><i class=\"fas fa-exclamation-triangle\"></i> Error loading map. Please refresh the page.</div>";
+  }
+}
+
+document.addEventListener("visibilitychange", () => { if (!document.hidden && map) setTimeout(() => map.invalidateSize(), 200); });
+window.addEventListener("resize", () => { if (map) map.invalidateSize(); });
+</script>
+</body>
+</html>
+

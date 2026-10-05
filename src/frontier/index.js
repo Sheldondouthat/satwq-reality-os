@@ -194,6 +194,7 @@ import { init as initPhenology } from './wave9/phenology/index.js';
 import { init as initSelfProbe } from './wave9/selfProbe/index.js';
 import { init as initAlertRules } from './wave9/alertRules/index.js';
 import { init as initMorningBriefing } from './wave9/morningBriefing/index.js';
+import { init as initHome } from './wave9/home/index.js';
 
 const DOCK_ID = 'satwq-frontier-dock';
 
@@ -1463,6 +1464,9 @@ export function initFrontier({ viewer } = {}) {
     );
     attempt('morningBriefing', () =>
       initMorningBriefing({ viewer, mount: s, chip, trackLayer, t }),
+    );
+    attempt('home', () =>
+      initHome({ viewer, mount: s, chip, trackLayer, t }),
     );
   }
 
