@@ -39,8 +39,9 @@
     "mirova:223020:08-Oct-2026 11:12:00": "2026-10-08T13:53:04.521Z",
     "faa:ground-stop:AUS": "2026-10-08T19:43:30.690Z",
     "faa:ground-stop:YUL": "2026-10-08T19:43:30.690Z",
-    "faa:gdp:JFK": "2026-10-08T19:43:30.690Z"
+    "faa:gdp:JFK": "2026-10-08T19:43:30.690Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.6a9d9a19607c4caa2a03ea1c4458c06bfe4b3296.001.1": "2026-10-08T23:58:52.911Z"
   },
-  "updatedAt": "2026-10-08T19:43:30.690Z",
+  "updatedAt": "2026-10-08T23:58:52.911Z",
   "topic": "satwq-alerts"
 }
