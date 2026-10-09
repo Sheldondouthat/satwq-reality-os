@@ -43,8 +43,23 @@
     "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.6a9d9a19607c4caa2a03ea1c4458c06bfe4b3296.001.1": "2026-10-08T23:58:52.911Z",
     "faa:gdp:SFO": "2026-10-09T13:04:26.764Z",
     "faa:closure:FAY": "2026-10-09T13:04:26.764Z",
-    "quake:us6000u18k": "2026-10-09T18:49:46.599Z"
+    "quake:us6000u18k": "2026-10-09T18:49:46.599Z",
+    "quake:us6000u19w": "2026-10-09T23:05:51.967Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.608a5556f7eb6e3e5f10dd114e4b6014963c1890.001.1": "2026-10-09T23:05:51.967Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.a64d1fa011a7754fd672f21519811561b3f46f70.001.1": "2026-10-09T23:05:51.967Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.6be024977d10b6d3828614d886439cca30c12a2d.001.1": "2026-10-09T23:05:51.967Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.0976ddafbd59adf25c6827f3b677bbc34234b187.001.1": "2026-10-09T23:05:51.967Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.7f6057704cc81009e6ee6309718ad1dd73cbc63b.001.1": "2026-10-09T23:05:51.967Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.9d45c3903ebc17971888ae2057e03830bba7325f.001.1": "2026-10-09T23:05:51.967Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.3b79f00567218bfc09f496ea5170c3db429357b0.001.1": "2026-10-09T23:05:51.967Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.68c97062064dbecd5c2000e0be838047d0c5167c.001.1": "2026-10-09T23:05:51.967Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.54c1bb169cf8bc7bba27857f49f3bfe1358e95d3.001.1": "2026-10-09T23:05:51.967Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.7152eb1379b434ccb5cc42c79401c1678befbec9.001.1": "2026-10-09T23:05:51.967Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.40518fdfee3417fc9347cf8c6b6e7709401dfbfa.001.1": "2026-10-09T23:05:51.967Z",
+    "faa:gdp:ORD": "2026-10-09T23:05:51.967Z",
+    "faa:closure:PNS": "2026-10-09T23:05:51.967Z",
+    "mirova:223020:09-Oct-2026 18:40:00": "2026-10-09T23:05:51.967Z"
   },
-  "updatedAt": "2026-10-09T18:49:46.599Z",
+  "updatedAt": "2026-10-09T23:05:51.967Z",
   "topic": "satwq-alerts"
 }
