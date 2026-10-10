@@ -79,8 +79,9 @@
     "mirova:223020:09-Oct-2026 23:54:01": "2026-10-10T08:50:11.414Z",
     "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.5736fb75c23293905827a8f44e76e46ac54fd256.001.1": "2026-10-10T15:07:03.679Z",
     "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.193d221b4c4017ba2f48e523b87dda7d5940d278.001.1": "2026-10-10T19:17:37.796Z",
-    "faa:ground-stop:MCO": "2026-10-10T19:17:37.796Z"
+    "faa:ground-stop:MCO": "2026-10-10T19:17:37.796Z",
+    "faa:gdp:PHX": "2026-10-10T22:50:38.095Z"
   },
-  "updatedAt": "2026-10-10T19:17:37.796Z",
+  "updatedAt": "2026-10-10T22:50:38.095Z",
   "topic": "satwq-alerts"
 }
