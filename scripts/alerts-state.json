@@ -73,8 +73,11 @@
     "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.fc280df92756489e91bfa43b63d2c1b5bca9a12c.001.1": "2026-10-10T02:21:31.913Z",
     "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.cad6970d6da9be16b8ba74fb679eae35ec28d473.001.1": "2026-10-10T02:21:31.913Z",
     "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.fcb321bc15755199c0cf18b8286111fb3e44ef38.001.1": "2026-10-10T02:21:31.913Z",
-    "mirova:223020:09-Oct-2026 23:00:02": "2026-10-10T02:21:31.913Z"
+    "mirova:223020:09-Oct-2026 23:00:02": "2026-10-10T02:21:31.913Z",
+    "quake:us6000u1cf": "2026-10-10T08:50:11.414Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.0879403ad31fe6b9454e4d77d8ef0465f6d75790.001.1": "2026-10-10T08:50:11.414Z",
+    "mirova:223020:09-Oct-2026 23:54:01": "2026-10-10T08:50:11.414Z"
   },
-  "updatedAt": "2026-10-10T02:21:31.913Z",
+  "updatedAt": "2026-10-10T08:50:11.414Z",
   "topic": "satwq-alerts"
 }
