@@ -58,8 +58,23 @@
     "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.40518fdfee3417fc9347cf8c6b6e7709401dfbfa.001.1": "2026-10-09T23:05:51.967Z",
     "faa:gdp:ORD": "2026-10-09T23:05:51.967Z",
     "faa:closure:PNS": "2026-10-09T23:05:51.967Z",
-    "mirova:223020:09-Oct-2026 18:40:00": "2026-10-09T23:05:51.967Z"
+    "mirova:223020:09-Oct-2026 18:40:00": "2026-10-09T23:05:51.967Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.138e8241aadb12cdf907415e6bdf80c97fd40105.001.1": "2026-10-10T02:21:31.913Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.58f7ca5cc0781e2d1656b4fe6e851d8a4ee85fff.001.1": "2026-10-10T02:21:31.913Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.957e642be7e4e301cf5977d7477b3d7a23356d6d.001.1": "2026-10-10T02:21:31.913Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.a23223aa548494570139ad83e10b5a9798d50568.001.1": "2026-10-10T02:21:31.913Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.16c047e3a913036eae71cafc4337ef88b1ac0f4a.001.1": "2026-10-10T02:21:31.913Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.8dcb915bc24e66944ea5a9519476616de353cc17.001.1": "2026-10-10T02:21:31.913Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.af665ec0b26d5b2e0cfcefb43baf988f53859477.001.1": "2026-10-10T02:21:31.913Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.5b58593961158b84a163cd81f0ce1ed82cc327af.001.1": "2026-10-10T02:21:31.913Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.894b4a3f278162f5ae85eea3bf84f080b2495f49.001.1": "2026-10-10T02:21:31.913Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.61689c9db0d5137fe51ef3004598a256e04d09c5.001.1": "2026-10-10T02:21:31.913Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.c00dfd93a1a0cfa9a95373fb96ba12c1aea785c9.001.1": "2026-10-10T02:21:31.913Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.fc280df92756489e91bfa43b63d2c1b5bca9a12c.001.1": "2026-10-10T02:21:31.913Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.cad6970d6da9be16b8ba74fb679eae35ec28d473.001.1": "2026-10-10T02:21:31.913Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.fcb321bc15755199c0cf18b8286111fb3e44ef38.001.1": "2026-10-10T02:21:31.913Z",
+    "mirova:223020:09-Oct-2026 23:00:02": "2026-10-10T02:21:31.913Z"
   },
-  "updatedAt": "2026-10-09T23:05:51.967Z",
+  "updatedAt": "2026-10-10T02:21:31.913Z",
   "topic": "satwq-alerts"
 }
