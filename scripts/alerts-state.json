@@ -106,8 +106,14 @@
     "faa:ground-stop:LAS": "2026-10-11T14:46:03.351Z",
     "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.51dbf6cf206b922ef5311ea5960674d2e0b73ca7.001.1": "2026-10-11T19:24:20.337Z",
     "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.ddcb8e3a878f051934ed2c7b88b40225177e2036.001.1": "2026-10-11T19:24:20.337Z",
-    "faa:gdp:DCA": "2026-10-11T19:24:20.337Z"
+    "faa:gdp:DCA": "2026-10-11T19:24:20.337Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.d6ce31c712ff0ed5c3f5f98777da84ce46c65946.001.1": "2026-10-11T23:05:00.854Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.8e2944d3ea8e200b6030a23df48716b466be4d81.001.1": "2026-10-11T23:05:00.854Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.7e330d317f63a3a8d29d129dcef237a779db01b4.001.1": "2026-10-11T23:05:00.854Z",
+    "faa:ground-stop:LGA": "2026-10-11T23:05:00.854Z",
+    "faa:ground-stop:EWR": "2026-10-11T23:05:00.854Z",
+    "faa:gdp:DEN": "2026-10-11T23:05:00.854Z"
   },
-  "updatedAt": "2026-10-11T19:24:20.337Z",
+  "updatedAt": "2026-10-11T23:05:00.854Z",
   "topic": "satwq-alerts"
 }
