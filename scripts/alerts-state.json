@@ -103,8 +103,11 @@
     "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.f14e686801cffd1d426cdd35fe71b1afb6b1da1b.001.1": "2026-10-11T14:46:03.351Z",
     "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.a9dc96b88b7d2e0b2b26a09681d1e2df0e1cf3f8.001.1": "2026-10-11T14:46:03.351Z",
     "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.6d0dda2169beea06afd775471fbe884083d4890b.001.1": "2026-10-11T14:46:03.351Z",
-    "faa:ground-stop:LAS": "2026-10-11T14:46:03.351Z"
+    "faa:ground-stop:LAS": "2026-10-11T14:46:03.351Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.51dbf6cf206b922ef5311ea5960674d2e0b73ca7.001.1": "2026-10-11T19:24:20.337Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.ddcb8e3a878f051934ed2c7b88b40225177e2036.001.1": "2026-10-11T19:24:20.337Z",
+    "faa:gdp:DCA": "2026-10-11T19:24:20.337Z"
   },
-  "updatedAt": "2026-10-11T14:46:03.351Z",
+  "updatedAt": "2026-10-11T19:24:20.337Z",
   "topic": "satwq-alerts"
 }
