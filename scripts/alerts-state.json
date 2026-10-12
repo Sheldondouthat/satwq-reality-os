@@ -112,8 +112,11 @@
     "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.7e330d317f63a3a8d29d129dcef237a779db01b4.001.1": "2026-10-11T23:05:00.854Z",
     "faa:ground-stop:LGA": "2026-10-11T23:05:00.854Z",
     "faa:ground-stop:EWR": "2026-10-11T23:05:00.854Z",
-    "faa:gdp:DEN": "2026-10-11T23:05:00.854Z"
+    "faa:gdp:DEN": "2026-10-11T23:05:00.854Z",
+    "faa:ground-stop:SAN": "2026-10-12T02:25:38.208Z",
+    "faa:gdp:EWR": "2026-10-12T02:25:38.208Z",
+    "mirova:352080:11-Oct-2026 20:30:00": "2026-10-12T02:25:38.208Z"
   },
-  "updatedAt": "2026-10-11T23:05:00.854Z",
+  "updatedAt": "2026-10-12T02:25:38.208Z",
   "topic": "satwq-alerts"
 }
