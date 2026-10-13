@@ -252,6 +252,45 @@ test('composeBriefing assembles a digit-free script with gap lines', () => {
   assert.ok(!/\d/.test(out.dateLine));
 });
 
+test('composeBriefing sanitizes digit-bearing titles in gap lines (2026-10-13)', () => {
+  // Regression: 'Earthquakes (USGS, 24h)' leaked digits into the spoken
+  // script when the quakes section failed upstream, tripping the
+  // assertNoDigits guard and 502ing the whole route. Gap titles are
+  // display strings, not upstream leaks — they must be sanitized.
+  const sections = [
+    {
+      id: 'spacewx',
+      title: 'Space weather (SWPC planetary K)',
+      ok: true,
+      stale: false,
+      spoken: 'Space weather: all quiet.',
+    },
+    {
+      id: 'quakes',
+      title: 'Earthquakes (USGS, 24h)',
+      ok: false,
+      stale: false,
+      spoken: null,
+      error: 'quakes_fetch_failed: boom',
+    },
+    {
+      id: 'co2',
+      title: 'CO2 (NOAA GML Mauna Loa)',
+      ok: false,
+      stale: false,
+      spoken: null,
+      error: 'co2_fetch_failed: boom',
+    },
+  ];
+  const out = composeBriefing(sections, NOW);
+  assert.ok(!/\d/.test(out.script)); // composer never throws on its own titles
+  assert.ok(
+    out.script.includes(
+      'Earthquakes (USGS, twenty-four h), CO two (NOAA GML Mauna Loa) sections are unavailable right now',
+    ),
+  );
+});
+
 test('composeBriefing handles total outage honestly', () => {
   const sections = SECTION_IDS.map((id) => ({
     id,

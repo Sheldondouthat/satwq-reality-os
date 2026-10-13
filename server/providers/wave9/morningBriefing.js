@@ -502,8 +502,11 @@ export function composeBriefing(sectionResults, nowMs = Date.now()) {
   const greeting = `Good morning. It is ${dateLine}. Here is your Earth and sky briefing, generated from live public data as of ${timeLine}.`;
   const body = live.map((s) => s.spoken).join(' ');
   const gaps = sectionResults.filter((s) => !s.ok);
+  // Section titles are display strings — some carry digits (e.g.
+  // 'Earthquakes (USGS, 24h)') — so sanitize them before they enter the
+  // spoken script, or a failed section trips the digit-leak guard (2026-10-13).
   const gapLine = gaps.length
-    ? ` ${gaps.length === live.length + gaps.length ? 'Every data source failed this run' : `The ${gaps.map((g) => g.title).join(', ')} ${gaps.length === 1 ? 'section is' : 'sections are'} unavailable right now`} — those parts are skipped, not guessed.`
+    ? ` ${gaps.length === live.length + gaps.length ? 'Every data source failed this run' : `The ${gaps.map((g) => sanitizeDigits(g.title)).join(', ')} ${gaps.length === 1 ? 'section is' : 'sections are'} unavailable right now`} — those parts are skipped, not guessed.`
     : '';
   const outro =
     ' That is the briefing. Sources and links travel with the text version. This narration was composed by machine from public data feeds, and is not an official alert product.';
