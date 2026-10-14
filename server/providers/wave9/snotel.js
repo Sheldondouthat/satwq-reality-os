@@ -612,7 +612,7 @@ export function snotelProxy({
         const upstreamFail =
           error?.status === 502 ||
           error?.name === 'AbortError' ||
-          /aborted?|fetch failed/i.test(error?.message ?? '');
+          /aborted?|fetch failed|network connection lost/i.test(error?.message ?? '');
         sendJson(
           res,
           upstreamFail ? 502 : 500,

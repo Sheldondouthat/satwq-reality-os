@@ -245,6 +245,18 @@ test('nexradProxy 502s (not 500) on network-level fetch failure', async () => {
   assert.equal(JSON.parse(res.body).error, 'nexrad_unavailable');
 });
 
+test('nexradProxy 502s (not 500) on undici "Network connection lost."', async () => {
+  clearCaches();
+  const calls = mount(
+    nexradProxy({ fetchImpl: async () => { throw new Error('Network connection lost.'); }, now: () => NOW_FRESH }),
+  );
+  const { handler } = calls[0];
+  const res = fakeRes();
+  await handler(fakeReq('/api/nexrad'), res);
+  assert.equal(res.statusCode, 502);
+  assert.equal(JSON.parse(res.body).error, 'nexrad_unavailable');
+});
+
 test('nexradProxy 502s on upstream failure with no cache', async () => {
   clearCaches();
   const failing = async () => ({ ok: false, status: 503, headers: new Map(), body: null, text: async () => '' });

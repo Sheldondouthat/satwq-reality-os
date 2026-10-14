@@ -193,6 +193,18 @@ test('handler: upstream 500 → honest 502, never 200 with fake data', async () 
   assert.equal(JSON.parse(res.body).error, 'usdm_unavailable');
 });
 
+test('handler: undici "Network connection lost." → honest 502, never 500', async () => {
+  const provider = usdmProxy({
+    fetchImpl: async () => { throw new Error('Network connection lost.'); },
+    now: () => NOW,
+  });
+  const [{ handler }] = mount(provider);
+  const res = fakeRes();
+  await handler(fakeReq('/api/usdm'), res);
+  assert.equal(res.statusCode, 502);
+  assert.equal(JSON.parse(res.body).error, 'usdm_unavailable');
+});
+
 test('handler: malformed CSV → 502 (parse throws, not empty 200)', async () => {
   const provider = usdmProxy({ fetchImpl: fakeFetchOk('garbage,not,csv\n'), now: () => NOW });
   const [{ handler }] = mount(provider);

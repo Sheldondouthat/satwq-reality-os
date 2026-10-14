@@ -205,6 +205,15 @@ describe("exoplanetsProxy", () => {
     }
   });
 
+  it('maps undici "Network connection lost." to honest 502, never 500', async () => {
+    const dead = async () => { throw new Error("Network connection lost."); };
+    const [{ handler }] = mount(exoplanetsProxy({ fetchImpl: dead, now: () => 0 }));
+    const res = fakeRes();
+    await handler(fakeReq("/api/exoplanets"), res);
+    assert.equal(res.status, 502);
+    assert.equal(JSON.parse(res.body).error, "exoplanets_unavailable");
+  });
+
   it("serves key-scoped stale payload after an upstream failure", async () => {
     const p1 = exoplanetsProxy({ fetchImpl: okFetchFor(), now: () => 0 });
     const res1 = fakeRes();

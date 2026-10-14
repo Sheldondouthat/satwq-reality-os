@@ -241,6 +241,17 @@ test('handler: stale fallback is key-scoped', async () => {
   assert.equal(JSON.parse(res.body).stale, true);
 });
 
+test('handler: undici "Network connection lost." → honest 502, never 500', async () => {
+  clearCaches();
+  const dead = () => Promise.reject(new Error('Network connection lost.'));
+  const provider = goesProxy({ fetchImpl: dead, now: () => NOW_FRESH });
+  const [{ handler }] = mount(provider);
+  const res = fakeRes();
+  await handler(fakeReq('/api/goes'), res);
+  assert.equal(res.statusCode, 502);
+  assert.equal(JSON.parse(res.body).error, 'goes_unavailable');
+});
+
 test('buildGoesPayload: pure summary math', () => {
   const rows = [
     { sat: 'G18', fresh: true, dark: false },

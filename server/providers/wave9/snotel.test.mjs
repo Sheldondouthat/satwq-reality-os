@@ -275,6 +275,19 @@ test("handler: both elements down -> honest 502", async () => {
   assert.ok(r.json().error === "snotel_unavailable");
 });
 
+test("handler: undici 'Network connection lost.' -> honest 502, never 500", async () => {
+  clearCaches();
+  const dead = async () => { throw new Error("Network connection lost."); };
+  const proxy = snotelProxy({ fetchImpl: dead });
+  const r = res();
+  let handler;
+  const middlewares = { use: (route, h) => { handler = h; } };
+  proxy.configureServer({ middlewares });
+  await handler(req("/api/snotel"), r);
+  assert.equal(r.statusCode, 502);
+  assert.ok(r.json().error === "snotel_unavailable");
+});
+
 test("handler: one element down -> 200 with *_unavailable flags", async () => {
   clearCaches();
   const proxy = snotelProxy({ fetchImpl: makeFetch({ WTEQ: WTEQ_LIVE }) });
