@@ -126,8 +126,12 @@
     "quake:us6000u214": "2026-10-13T16:21:49.112Z",
     "quake:us6000u24c": "2026-10-13T21:26:44.569Z",
     "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.f16f3ecbc94d6df9be6c11f98953572edf8318f5.001.1": "2026-10-14T00:32:34.500Z",
-    "faa:ground-stop:IAH": "2026-10-14T00:32:34.500Z"
+    "faa:ground-stop:IAH": "2026-10-14T00:32:34.500Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.2536af181b117a5547edd69a4a9ba0d9917b41c0.001.1": "2026-10-14T05:26:40.187Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.f018a89abe840b691eb9d21d1eddd37b7d933276.001.1": "2026-10-14T05:26:40.187Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.9c8f1d1daf898f2c6d14dc32a1df4f59e1698bc2.001.1": "2026-10-14T05:26:40.187Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.fbaf80fe414094b1b3c16a9f69b458e49dbcdf31.001.1": "2026-10-14T05:26:40.187Z"
   },
-  "updatedAt": "2026-10-14T00:32:34.500Z",
+  "updatedAt": "2026-10-14T05:26:40.187Z",
   "topic": "satwq-alerts"
 }
