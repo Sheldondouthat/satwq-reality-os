@@ -150,8 +150,9 @@
     "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.798e65f1879957f432fd963e15e63195b112886c.001.1": "2026-10-15T15:36:16.591Z",
     "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.afc40b83bf4bf54ff0e0ecf1ece53e4f1c3fc4f2.001.1": "2026-10-15T15:36:16.591Z",
     "faa:ground-stop:SEA": "2026-10-15T15:36:16.591Z",
-    "mirova:223030:15-Oct-2026 07:00:00": "2026-10-15T15:36:16.591Z"
+    "mirova:223030:15-Oct-2026 07:00:00": "2026-10-15T15:36:16.591Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.41af30073aa8c9f36041f742716bd026d4d5bc73.001.1": "2026-10-15T19:24:38.184Z"
   },
-  "updatedAt": "2026-10-15T15:36:16.591Z",
+  "updatedAt": "2026-10-15T19:24:38.184Z",
   "topic": "satwq-alerts"
 }
