@@ -142,8 +142,12 @@
     "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.fcfadbc953bc5c7acb3dd4546c82cae84e3e1c5e.001.1": "2026-10-14T22:41:30.742Z",
     "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.f042a64f2325f7773a9119f0a66027ea86103fa8.001.1": "2026-10-14T22:41:30.742Z",
     "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.8d0a3383134eba0d456899c18681d5d84f091691.001.1": "2026-10-15T00:56:39.869Z",
-    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.7e0509bde43ac4b42380c7843efbf43b2066899e.001.1": "2026-10-15T00:56:39.869Z"
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.7e0509bde43ac4b42380c7843efbf43b2066899e.001.1": "2026-10-15T00:56:39.869Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.27ffce4264998702523935644b512a8396eb1ecf.001.1": "2026-10-15T11:04:49.046Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.b877df3219fa3f88c3f91c21d9b9b30c3bbc115c.001.1": "2026-10-15T11:04:49.046Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.b8c0525bf5cf6ced4fe1203fa6b3be14438217d4.001.1": "2026-10-15T11:04:49.046Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.b5a9cb44143a4c367cc73013f8ecf3ecd9c42574.001.1": "2026-10-15T11:04:49.046Z"
   },
-  "updatedAt": "2026-10-15T05:46:04.495Z",
+  "updatedAt": "2026-10-15T11:04:49.046Z",
   "topic": "satwq-alerts"
 }
