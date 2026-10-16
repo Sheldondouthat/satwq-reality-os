@@ -154,8 +154,12 @@
     "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.41af30073aa8c9f36041f742716bd026d4d5bc73.001.1": "2026-10-15T19:24:38.184Z",
     "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.a002ea6fcbe0438402cc08621cf77b717f5856a7.001.1": "2026-10-15T22:35:57.654Z",
     "faa:ground-stop:DFW": "2026-10-15T22:35:57.654Z",
-    "faa:gdp:DFW": "2026-10-16T00:47:15.971Z"
+    "faa:gdp:DFW": "2026-10-16T00:47:15.971Z",
+    "quake:us6000u2mq": "2026-10-16T05:36:29.921Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.6a908c03a1a3e12794de6cfa367d851205fa148d.001.1": "2026-10-16T05:36:29.921Z",
+    "mirova:223020:16-Oct-2026 01:30:00": "2026-10-16T05:36:29.921Z",
+    "mirova:223020:15-Oct-2026 23:42:01": "2026-10-16T05:36:29.921Z"
   },
-  "updatedAt": "2026-10-16T00:47:15.971Z",
+  "updatedAt": "2026-10-16T05:36:29.921Z",
   "topic": "satwq-alerts"
 }
