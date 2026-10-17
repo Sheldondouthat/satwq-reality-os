@@ -165,8 +165,10 @@
     "faa:ground-stop:DCA": "2026-10-16T23:57:26.357Z",
     "faa:ground-stop:BWI": "2026-10-16T23:57:26.357Z",
     "faa:closure:JAC": "2026-10-17T04:09:34.113Z",
-    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.8468c9e23c65373970e3f8d8cf2cb7ea132e662b.001.1": "2026-10-17T18:17:19.942Z"
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.8468c9e23c65373970e3f8d8cf2cb7ea132e662b.001.1": "2026-10-17T18:17:19.942Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.5cf4d0181a5bd1914d1136971fc3fc2977fb5a25.001.1": "2026-10-17T20:50:51.284Z",
+    "faa:ground-stop:JFK": "2026-10-17T20:50:51.284Z"
   },
-  "updatedAt": "2026-10-17T18:17:19.942Z",
+  "updatedAt": "2026-10-17T20:50:51.284Z",
   "topic": "satwq-alerts"
 }
