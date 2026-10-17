@@ -163,8 +163,9 @@
     "faa:ground-stop:PHL": "2026-10-16T21:44:38.945Z",
     "faa:ground-stop:YVR": "2026-10-16T23:57:26.357Z",
     "faa:ground-stop:DCA": "2026-10-16T23:57:26.357Z",
-    "faa:ground-stop:BWI": "2026-10-16T23:57:26.357Z"
+    "faa:ground-stop:BWI": "2026-10-16T23:57:26.357Z",
+    "faa:closure:JAC": "2026-10-17T04:09:34.113Z"
   },
-  "updatedAt": "2026-10-16T23:57:26.357Z",
+  "updatedAt": "2026-10-17T04:09:34.113Z",
   "topic": "satwq-alerts"
 }
