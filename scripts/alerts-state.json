@@ -193,8 +193,10 @@
     "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.2f6f6351fd569d37712374a388a02cdb807e2fed.001.1": "2026-10-21T22:47:21.052Z",
     "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.fff07b71e707e318cde36ee324ee467a208f90ca.001.1": "2026-10-21T22:47:21.052Z",
     "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.e815cf8c27a4e0a9d69aad2257e9472a17424a0e.001.1": "2026-10-22T01:21:36.019Z",
-    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.4655ebc05d1fbe56499070e70657112252d9d3cf.001.1": "2026-10-22T01:21:36.019Z"
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.4655ebc05d1fbe56499070e70657112252d9d3cf.001.1": "2026-10-22T01:21:36.019Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.aa8da717453b9bb58fa64b658f4f0e82c5aafaf5.001.1": "2026-10-22T06:27:36.618Z",
+    "faa:closure:AUS": "2026-10-22T06:27:36.618Z"
   },
-  "updatedAt": "2026-10-22T01:21:36.019Z",
+  "updatedAt": "2026-10-22T06:27:36.618Z",
   "topic": "satwq-alerts"
 }
