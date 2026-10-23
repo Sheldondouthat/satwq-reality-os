@@ -226,8 +226,10 @@
     "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.68ebb5835d196b44ed826500f76e84144c1eefa7.001.1": "2026-10-23T03:59:33.205Z",
     "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.7dd890e9fb5d8a69adb30db9aea46d8c1d518d7c.001.1": "2026-10-23T03:59:33.205Z",
     "faa:ground-stop:YYC": "2026-10-23T14:21:12.991Z",
-    "faa:ground-stop:DEN": "2026-10-23T14:21:12.991Z"
+    "faa:ground-stop:DEN": "2026-10-23T14:21:12.991Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.841bd51a54138f05be04333e05b36ce052957a13.001.1": "2026-10-23T21:42:00.765Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.f089173f61f581a5bdb2a73525dace2c4ae11585.001.1": "2026-10-23T21:42:00.765Z"
   },
-  "updatedAt": "2026-10-23T18:37:38.281Z",
+  "updatedAt": "2026-10-23T21:42:00.765Z",
   "topic": "satwq-alerts"
 }
