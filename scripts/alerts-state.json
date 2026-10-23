@@ -218,8 +218,14 @@
     "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.3dd9c08320d35ba2fc568e688bbf2f6848223279.001.1": "2026-10-22T23:55:05.513Z",
     "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.b998043109611b38dc3c7efd82e5b2d084cb53b8.001.1": "2026-10-22T23:55:05.513Z",
     "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.b6dfc23fec9ae5f9fad76a7ace3cacdc4186be86.001.1": "2026-10-22T23:55:05.513Z",
-    "faa:closure:ALO": "2026-10-22T23:55:05.513Z"
+    "faa:closure:ALO": "2026-10-22T23:55:05.513Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.fa1add376346ce6657c692801950d4c4943279c8.001.1": "2026-10-23T03:59:33.205Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.857a5b6b5ddd74a8f94134765bef89de9b2b0a63.001.1": "2026-10-23T03:59:33.205Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.77679c0b40a61b7df6b1a23a024c3bd07fcba733.001.1": "2026-10-23T03:59:33.205Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.1c9e28dd2db210d54eacbffec3a3034d63ba2d86.001.1": "2026-10-23T03:59:33.205Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.68ebb5835d196b44ed826500f76e84144c1eefa7.001.1": "2026-10-23T03:59:33.205Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.7dd890e9fb5d8a69adb30db9aea46d8c1d518d7c.001.1": "2026-10-23T03:59:33.205Z"
   },
-  "updatedAt": "2026-10-22T23:55:05.513Z",
+  "updatedAt": "2026-10-23T03:59:33.205Z",
   "topic": "satwq-alerts"
 }
