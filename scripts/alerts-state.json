@@ -228,8 +228,11 @@
     "faa:ground-stop:YYC": "2026-10-23T14:21:12.991Z",
     "faa:ground-stop:DEN": "2026-10-23T14:21:12.991Z",
     "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.841bd51a54138f05be04333e05b36ce052957a13.001.1": "2026-10-23T21:42:00.765Z",
-    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.f089173f61f581a5bdb2a73525dace2c4ae11585.001.1": "2026-10-23T21:42:00.765Z"
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.f089173f61f581a5bdb2a73525dace2c4ae11585.001.1": "2026-10-23T21:42:00.765Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.e6951407f826e7f235ce6ca4c4bb67bac9836dac.001.1": "2026-10-24T00:04:08.971Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.3f34da29861fa10e2f5a833861f075bc9a1cd7e1.001.1": "2026-10-24T00:04:08.971Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.34462ceb071155af69580ce7108ac8f975b6bd3c.001.1": "2026-10-24T00:04:08.971Z"
   },
-  "updatedAt": "2026-10-23T21:42:00.765Z",
+  "updatedAt": "2026-10-24T00:04:08.971Z",
   "topic": "satwq-alerts"
 }
