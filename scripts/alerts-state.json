@@ -237,8 +237,9 @@
     "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.780cad14d36faaa480c57904803fd1e1a5faa01e.001.1": "2026-10-24T04:39:34.008Z",
     "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.1e6d40032f691c2ee61773a18f21a0ba336f6bad.001.1": "2026-10-24T04:39:34.008Z",
     "mirova:223020:24-Oct-2026 06:15:00": "2026-10-24T09:08:52.011Z",
-    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.c4b8da70be65518d4db0b66253133a6e36448992.001.1": "2026-10-24T19:19:17.859Z"
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.c4b8da70be65518d4db0b66253133a6e36448992.001.1": "2026-10-24T19:19:17.859Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.d27485afab15a57e2b0b520f8a2d05b8c2a62b1b.001.1": "2026-10-24T21:46:37.487Z"
   },
-  "updatedAt": "2026-10-24T19:19:17.859Z",
+  "updatedAt": "2026-10-24T21:46:37.487Z",
   "topic": "satwq-alerts"
 }
