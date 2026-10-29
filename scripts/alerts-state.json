@@ -263,8 +263,10 @@
     "faa:closure:SAF": "2026-10-29T05:18:58.637Z",
     "quake:us7000ttxz": "2026-10-29T11:40:18.151Z",
     "faa:ground-stop:YYZ": "2026-10-29T11:40:18.151Z",
-    "mirova:223020:29-Oct-2026 06:15:00": "2026-10-29T11:40:18.151Z"
+    "mirova:223020:29-Oct-2026 06:15:00": "2026-10-29T11:40:18.151Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.1e19ce9106e6824a727425fbe02d4010f3a6215f.001.1": "2026-10-29T22:01:47.682Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.4eac765243d3565a8eeee75c6227a68a10914f78.001.1": "2026-10-29T22:01:47.682Z"
   },
-  "updatedAt": "2026-10-29T17:33:14.600Z",
+  "updatedAt": "2026-10-29T22:01:47.682Z",
   "topic": "satwq-alerts"
 }
