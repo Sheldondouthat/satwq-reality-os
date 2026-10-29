@@ -260,8 +260,11 @@
     "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.831a9e7a993c99fb175245f72d2cf25b54269778.001.1": "2026-10-28T23:56:07.790Z",
     "faa:gdp:TEB": "2026-10-28T23:56:07.790Z",
     "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.c6a55f3ff54f5e696b2a6911e14526a0b20ac18a.001.1": "2026-10-29T05:18:58.637Z",
-    "faa:closure:SAF": "2026-10-29T05:18:58.637Z"
+    "faa:closure:SAF": "2026-10-29T05:18:58.637Z",
+    "quake:us7000ttxz": "2026-10-29T11:40:18.151Z",
+    "faa:ground-stop:YYZ": "2026-10-29T11:40:18.151Z",
+    "mirova:223020:29-Oct-2026 06:15:00": "2026-10-29T11:40:18.151Z"
   },
-  "updatedAt": "2026-10-29T05:18:58.637Z",
+  "updatedAt": "2026-10-29T11:40:18.151Z",
   "topic": "satwq-alerts"
 }
