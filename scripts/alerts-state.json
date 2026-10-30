@@ -265,8 +265,15 @@
     "faa:ground-stop:YYZ": "2026-10-29T11:40:18.151Z",
     "mirova:223020:29-Oct-2026 06:15:00": "2026-10-29T11:40:18.151Z",
     "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.1e19ce9106e6824a727425fbe02d4010f3a6215f.001.1": "2026-10-29T22:01:47.682Z",
-    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.4eac765243d3565a8eeee75c6227a68a10914f78.001.1": "2026-10-29T22:01:47.682Z"
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.4eac765243d3565a8eeee75c6227a68a10914f78.001.1": "2026-10-29T22:01:47.682Z",
+    "quake:us7000tu4f": "2026-10-30T01:58:07.429Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.126cd5f597fc35ee57c85177f4f45a0171dee5e2.001.1": "2026-10-30T01:58:07.429Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.de3fa51aaac5b41f74f5d237030e191818631efc.001.1": "2026-10-30T01:58:07.429Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.797aaf80b2accf3e93a35b15ae64e43029a7177b.001.1": "2026-10-30T01:58:07.429Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.08672d175d68ba9741016c3c2f07563076738de0.001.1": "2026-10-30T01:58:07.429Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.61f49c752f1a6def92fa29051d0fb80034b847b5.001.1": "2026-10-30T01:58:07.429Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.5f9a157ebb7e95c253134aca031ce6e414d04a17.001.1": "2026-10-30T01:58:07.429Z"
   },
-  "updatedAt": "2026-10-29T22:01:47.682Z",
+  "updatedAt": "2026-10-30T01:58:07.429Z",
   "topic": "satwq-alerts"
 }
