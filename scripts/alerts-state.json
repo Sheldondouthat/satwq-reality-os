@@ -285,8 +285,13 @@
     "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.81886b77b63d8196ec5e404839e4c185db5a1a27.001.1": "2026-10-30T20:00:32.048Z",
     "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.d2a301a9570301ddd7a6d27c3c2dc31dbc1b5ece.001.1": "2026-10-30T20:00:32.048Z",
     "faa:closure:SBY": "2026-10-31T04:45:55.517Z",
-    "mirova:223020:31-Oct-2026 13:25:00": "2026-10-31T15:58:44.608Z"
+    "mirova:223020:31-Oct-2026 13:25:00": "2026-10-31T15:58:44.608Z",
+    "quake:us7000tuku": "2026-10-31T23:11:38.066Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.ef935cce1c25dc70a44ab5b35b717d67b5adf568.001.1": "2026-10-31T23:11:38.066Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.0e6c51bb0b3f4d425acd8646ff96541623d1c288.001.1": "2026-10-31T23:11:38.066Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.7ed2b34c4407a3fd56e528108c0237e50edd86bc.001.1": "2026-10-31T23:11:38.066Z",
+    "mirova:223020:31-Oct-2026 18:15:00": "2026-10-31T23:11:38.066Z"
   },
-  "updatedAt": "2026-10-31T19:53:13.680Z",
+  "updatedAt": "2026-10-31T23:11:38.066Z",
   "topic": "satwq-alerts"
 }
