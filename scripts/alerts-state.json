@@ -284,8 +284,9 @@
     "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.cd5857420ef04d6cb6ce1d09f1446dc1f1ae7f23.001.1": "2026-10-30T15:16:55.592Z",
     "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.81886b77b63d8196ec5e404839e4c185db5a1a27.001.1": "2026-10-30T20:00:32.048Z",
     "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.d2a301a9570301ddd7a6d27c3c2dc31dbc1b5ece.001.1": "2026-10-30T20:00:32.048Z",
-    "faa:closure:SBY": "2026-10-31T04:45:55.517Z"
+    "faa:closure:SBY": "2026-10-31T04:45:55.517Z",
+    "mirova:223020:31-Oct-2026 13:25:00": "2026-10-31T15:58:44.608Z"
   },
-  "updatedAt": "2026-10-31T10:46:35.189Z",
+  "updatedAt": "2026-10-31T15:58:44.608Z",
   "topic": "satwq-alerts"
 }
