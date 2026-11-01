@@ -308,8 +308,20 @@
     "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.22c7f7b56a6a070da1df5b9e2a76eb82cc7bc0c0.001.1": "2026-11-01T16:25:44.963Z",
     "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.a5d85e626ef1c3fdd1f7698962ada47def49f4a1.001.1": "2026-11-01T16:25:44.963Z",
     "faa:ground-stop:FLL": "2026-11-01T16:25:44.963Z",
-    "mirova:223020:01-Nov-2026 06:35:00": "2026-11-01T16:25:44.963Z"
+    "mirova:223020:01-Nov-2026 06:35:00": "2026-11-01T16:25:44.963Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.40b3460ec08fe22930e4f240a8c9784ec3ade0b4.001.1": "2026-11-01T20:43:47.418Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.3ca68b12bfbe20ce75ff7968742ea22c22fb9e64.001.1": "2026-11-01T20:43:47.418Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.f159a538ed96148d6d72acf524c5358e2044aff4.001.1": "2026-11-01T20:43:47.418Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.7f95cfc0cdaa76d93ecd83ac43c7ed3e9c212aba.001.1": "2026-11-01T20:43:47.418Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.4daadc264b2355e8c240ceae51403cb5fd7b537c.001.1": "2026-11-01T20:43:47.418Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.dc77cf090fa22bb4760d820f52503cd77d090a04.001.1": "2026-11-01T20:43:47.418Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.6d4172fa5b374ed151f944f9a3521d349d3e63f8.001.1": "2026-11-01T20:43:47.418Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.73978100b00b0d85a074ba23330de40236092e79.001.1": "2026-11-01T20:43:47.418Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.ef631b023224712705943a9f0730653e2d51ab02.001.1": "2026-11-01T20:43:47.418Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.36476fac17e62271b7947033aa02ead89e864741.001.1": "2026-11-01T20:43:47.418Z",
+    "faa:gdp:FLL": "2026-11-01T20:43:47.418Z",
+    "faa:closure:SLN": "2026-11-01T20:43:47.418Z"
   },
-  "updatedAt": "2026-11-01T16:25:44.963Z",
+  "updatedAt": "2026-11-01T20:43:47.418Z",
   "topic": "satwq-alerts"
 }
