@@ -320,8 +320,12 @@
     "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.ef631b023224712705943a9f0730653e2d51ab02.001.1": "2026-11-01T20:43:47.418Z",
     "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.36476fac17e62271b7947033aa02ead89e864741.001.1": "2026-11-01T20:43:47.418Z",
     "faa:gdp:FLL": "2026-11-01T20:43:47.418Z",
-    "faa:closure:SLN": "2026-11-01T20:43:47.418Z"
+    "faa:closure:SLN": "2026-11-01T20:43:47.418Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.c3a3438f5e8f25ab7ea9125e246a7abf195caf29.001.1": "2026-11-01T23:56:09.426Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.6fd5b7c3251de2b2d4889e88d7960648ed405f32.001.1": "2026-11-01T23:56:09.426Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.36564cf550fecc016bef15473e64763072f4d690.001.1": "2026-11-01T23:56:09.426Z",
+    "faa:ground-stop:YEG": "2026-11-01T23:56:09.426Z"
   },
-  "updatedAt": "2026-11-01T20:43:47.418Z",
+  "updatedAt": "2026-11-01T23:56:09.426Z",
   "topic": "satwq-alerts"
 }
