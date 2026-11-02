@@ -324,8 +324,13 @@
     "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.c3a3438f5e8f25ab7ea9125e246a7abf195caf29.001.1": "2026-11-01T23:56:09.426Z",
     "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.6fd5b7c3251de2b2d4889e88d7960648ed405f32.001.1": "2026-11-01T23:56:09.426Z",
     "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.36564cf550fecc016bef15473e64763072f4d690.001.1": "2026-11-01T23:56:09.426Z",
-    "faa:ground-stop:YEG": "2026-11-01T23:56:09.426Z"
+    "faa:ground-stop:YEG": "2026-11-01T23:56:09.426Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.6c943ad36d324844cbd0ebea4a25e0970b64b900.001.1": "2026-11-02T05:31:26.432Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.c8f7ce4c22a0ed336717ab7ad42683731f6b667f.001.1": "2026-11-02T05:31:26.432Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.0aaf60868030b98288e0fa8a6b81ce1d06ea37f6.001.1": "2026-11-02T05:31:26.432Z",
+    "faa:closure:PVD": "2026-11-02T05:31:26.432Z",
+    "mirova:223020:02-Nov-2026 02:25:00": "2026-11-02T05:31:26.432Z"
   },
-  "updatedAt": "2026-11-01T23:56:09.426Z",
+  "updatedAt": "2026-11-02T05:31:26.432Z",
   "topic": "satwq-alerts"
 }
