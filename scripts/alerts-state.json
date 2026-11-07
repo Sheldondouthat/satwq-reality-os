@@ -362,8 +362,9 @@
     "quake:us7000twg9": "2026-11-06T16:46:50.331Z",
     "faa:ground-stop:BOS": "2026-11-06T16:46:50.331Z",
     "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.43030a40a0a16316036f0c137fb06af41a226bf0.001.1": "2026-11-07T01:47:26.247Z",
-    "faa:gdp:SEA": "2026-11-07T01:47:26.247Z"
+    "faa:gdp:SEA": "2026-11-07T01:47:26.247Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.08a1c9a486fb3d19598c156303df2da3c3321e14.001.1": "2026-11-07T19:27:26.993Z"
   },
-  "updatedAt": "2026-11-07T15:11:25.417Z",
+  "updatedAt": "2026-11-07T19:27:26.993Z",
   "topic": "satwq-alerts"
 }
