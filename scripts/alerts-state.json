@@ -364,6 +364,6 @@
     "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.43030a40a0a16316036f0c137fb06af41a226bf0.001.1": "2026-11-07T01:47:26.247Z",
     "faa:gdp:SEA": "2026-11-07T01:47:26.247Z"
   },
-  "updatedAt": "2026-11-07T01:47:26.247Z",
+  "updatedAt": "2026-11-07T08:30:39.261Z",
   "topic": "satwq-alerts"
 }
