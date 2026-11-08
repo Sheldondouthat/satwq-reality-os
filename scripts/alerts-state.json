@@ -366,6 +366,6 @@
     "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.08a1c9a486fb3d19598c156303df2da3c3321e14.001.1": "2026-11-07T19:27:26.993Z",
     "faa:closure:SBN": "2026-11-08T02:14:28.125Z"
   },
-  "updatedAt": "2026-11-08T02:14:28.125Z",
+  "updatedAt": "2026-11-08T09:09:44.952Z",
   "topic": "satwq-alerts"
 }
