@@ -371,6 +371,6 @@
     "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.961086c8f17634cb563618d728129578bb78d567.001.1": "2026-11-08T20:23:31.181Z",
     "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.516b2a9713fbc415dc708e4cda499218d4dc6780.001.1": "2026-11-08T20:23:31.181Z"
   },
-  "updatedAt": "2026-11-08T20:23:31.181Z",
+  "updatedAt": "2026-11-08T23:55:20.004Z",
   "topic": "satwq-alerts"
 }
