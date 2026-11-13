@@ -377,8 +377,11 @@
     "mirova:223020:11-Nov-2026 01:35:00": "2026-11-11T07:35:57.284Z",
     "faa:closure:BWI": "2026-11-13T00:27:58.175Z",
     "faa:closure:BDL": "2026-11-13T00:27:58.175Z",
-    "faa:ground-stop:SFO": "2026-11-13T15:24:34.096Z"
+    "faa:ground-stop:SFO": "2026-11-13T15:24:34.096Z",
+    "faa:ground-stop:MDW": "2026-11-13T21:30:34.244Z",
+    "faa:ground-stop:ORD": "2026-11-13T21:30:34.244Z",
+    "faa:closure:SUA": "2026-11-13T21:30:34.244Z"
   },
-  "updatedAt": "2026-11-13T15:24:34.096Z",
+  "updatedAt": "2026-11-13T21:30:34.244Z",
   "topic": "satwq-alerts"
 }
