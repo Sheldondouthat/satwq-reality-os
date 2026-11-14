@@ -380,8 +380,10 @@
     "faa:ground-stop:SFO": "2026-11-13T15:24:34.096Z",
     "faa:ground-stop:MDW": "2026-11-13T21:30:34.244Z",
     "faa:ground-stop:ORD": "2026-11-13T21:30:34.244Z",
-    "faa:closure:SUA": "2026-11-13T21:30:34.244Z"
+    "faa:closure:SUA": "2026-11-13T21:30:34.244Z",
+    "faa:closure:FLL": "2026-11-14T01:50:17.562Z",
+    "faa:closure:DCA": "2026-11-14T01:50:17.562Z"
   },
-  "updatedAt": "2026-11-13T21:30:34.244Z",
+  "updatedAt": "2026-11-14T01:50:17.562Z",
   "topic": "satwq-alerts"
 }
