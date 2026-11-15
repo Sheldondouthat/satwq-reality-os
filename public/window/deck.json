@@ -2,12 +2,12 @@
   "format": "gev-window-frame/1",
   "room": "deck",
   "frame_file": "deck.png",
-  "data_ts": "2026-11-15T14:47:22.000Z",
-  "data_epoch": 1794754042,
-  "data_ts_label": "14:47 UTC \u00b7 NOV 15, 2026",
-  "rendered_ts": "2026-11-15T15:02:33.000Z",
-  "rendered_epoch": 1794754953,
-  "age_at_render_seconds": 911,
+  "data_ts": "2026-11-15T15:47:25.000Z",
+  "data_epoch": 1794757645,
+  "data_ts_label": "15:47 UTC \u00b7 NOV 15, 2026",
+  "rendered_ts": "2026-11-15T15:48:03.000Z",
+  "rendered_epoch": 1794757683,
+  "age_at_render_seconds": 38,
   "max_age_seconds": 3600,
   "freshness": {
     "verdict": "CURRENT",
@@ -21,9 +21,9 @@
   },
   "values": {
     "chain_ok": true,
-    "journal_records": 13,
-    "journal_last_journaled_at": "2026-11-15T14:42:21Z",
-    "last_evaluation_id": "evt-000008",
+    "journal_records": 14,
+    "journal_last_journaled_at": "2026-11-15T15:42:27Z",
+    "last_evaluation_id": "evt-000009",
     "last_evaluation_band": "NORMAL",
     "tasks_open": 0,
     "witness_wspr_ok": true,
@@ -32,15 +32,15 @@
     "lines": [
       {
         "label": "JOURNAL CHAIN",
-        "value": "UNBROKEN \u2014 CLOSING 38960551b8d3\u2026"
+        "value": "UNBROKEN \u2014 CLOSING e3f57a0fb09f\u2026"
       },
       {
         "label": "JOURNAL",
-        "value": "13 RECORDS (10 FEED) \u00b7 LAST JOURNALED 14:42 UTC"
+        "value": "14 RECORDS (11 FEED) \u00b7 LAST JOURNALED 15:42 UTC"
       },
       {
         "label": "EVALUATOR",
-        "value": "EVT-000008 \u00b7 BAND NORMAL \u00b7 NO-CROSSING \u00b7 14:47 UTC"
+        "value": "EVT-000009 \u00b7 BAND NORMAL \u00b7 NO-CROSSING \u00b7 15:47 UTC"
       },
       {
         "label": "HELM TASKS",
