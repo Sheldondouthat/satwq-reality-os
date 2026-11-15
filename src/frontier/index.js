@@ -128,6 +128,24 @@ import {
   createCosmicRayPanel,
 } from './wave3/cosmicRay/index.js';
 import { createNmdbSource } from './wave3/nmdb/index.js';
+import { init as initSchumann } from './wave3/schumann/index.js';
+import { init as initEclipse } from './wave3/eclipse/index.js';
+import { init as initOrcasound } from './wave3/orcasound/index.js';
+import { init as initSargassum } from './wave3/sargassum/index.js';
+import { init as initShortwave } from './wave3/shortwave/index.js';
+import { init as initTess } from './wave3/tess/index.js';
+import { init as initWave3Eonet } from './wave3/eonet/index.js';
+import { init as initWave3Geomag } from './wave3/intermagnet/index.js';
+import { init as initWave3Sealevel } from './wave3/ioc-sealevel/index.js';
+import {
+  createDotCamsLayer,
+  mountDotCamsDock,
+} from './wave3/dotCams/index.js';
+import { createTfrLayer, mountTfrDock } from './wave3/tfr/index.js';
+import {
+  createVaacAshLayer,
+  mountVaacAshDock,
+} from './wave3/vaacAsh/index.js';
 import { init as initPskreporter } from './wave6/pskreporter/index.js';
 import { init as initWspr } from './wave6/wspr/index.js';
 import { init as initSondes } from './wave6/sondes/index.js';
@@ -1225,6 +1243,104 @@ export function initFrontier({ viewer } = {}) {
     ctl.show();
     return () => {
       panel.destroy();
+      layer.destroy();
+    };
+  });
+
+  // — WAVE 3 · WIRING COMPLETION (Delta Sweep II build #3, 2026-11-15) —
+  // The eleven wave-3 providers below shipped with panels + INTEGRATION.md
+  // wiring recipes, but neither registry mounted their routes and this
+  // integrator never imported their panels — the Schumann defect class.
+  // Schumann's own panel is item zero: its route went live in the GEV Fix
+  // (D-5) but the panel was never mounted, so it polled a live route
+  // nobody displayed. Recipes adapted to the current integrator shape:
+  // one coherent block here instead of the recipes' scattered anchors
+  // (several anchor blocks they name no longer exist in this file).
+  attempt('schumann', () => {
+    const s = section(t('feature.schumann'));
+    dock.appendChild(s);
+    return initSchumann({ viewer, mount: s, chip, trackLayer, t });
+  });
+
+  attempt('eclipse', () => {
+    const s = section(t('feature.eclipse'));
+    dock.appendChild(s);
+    return initEclipse({ viewer, mount: s, chip, trackLayer, t });
+  });
+
+  attempt('orcasound', () => {
+    const s = section(t('feature.orcasound'));
+    dock.appendChild(s);
+    return initOrcasound({ viewer, mount: s, chip, trackLayer, t });
+  });
+
+  attempt('sargassum', () => {
+    const s = section(t('feature.sargassum'));
+    dock.appendChild(s);
+    return initSargassum({ viewer, mount: s, chip, trackLayer, t });
+  });
+
+  attempt('shortwave', () => {
+    const s = section(t('feature.shortwave'));
+    dock.appendChild(s);
+    return initShortwave({ viewer, mount: s, chip, trackLayer, t });
+  });
+
+  attempt('tess', () => {
+    const s = section(t('feature.tess'));
+    dock.appendChild(s);
+    return initTess({ viewer, mount: s, chip, trackLayer, t });
+  });
+
+  // Data-layer panels (no dock UI of their own; fail-soft sources whose
+  // snapshots feed sibling UX, per their INTEGRATION.md contracts).
+  attempt('wave3-eonet', () => {
+    const handle = initWave3Eonet();
+    return () => handle.stop();
+  });
+
+  attempt('wave3-geomag', () => {
+    const handle = initWave3Geomag();
+    return () => handle.stop();
+  });
+
+  attempt('wave3-sealevel', () => {
+    const handle = initWave3Sealevel();
+    return () => handle.stop();
+  });
+
+  attempt('dot-cams', () => {
+    const layer = createDotCamsLayer({ viewer });
+    layer.init(viewer);
+    trackLayer('dotCams', layer);
+    const dockCtl = mountDotCamsDock({ section, chip, el, t, layer });
+    if (dockCtl) dock.appendChild(dockCtl.element);
+    return () => {
+      dockCtl?.destroy();
+      layer.destroy();
+    };
+  });
+
+  attempt('tfr', () => {
+    const layer = createTfrLayer({ viewer });
+    layer.init(viewer);
+    trackLayer('tfr', layer);
+    const dockCtl = mountTfrDock({ section, chip, el, t, layer });
+    if (dockCtl) dock.appendChild(dockCtl.element);
+    return () => {
+      dockCtl?.destroy();
+      layer.destroy();
+    };
+  });
+
+  attempt('vaac-ash', () => {
+    const layer = createVaacAshLayer({ viewer });
+    layer.init(viewer);
+    trackLayer('vaacAsh', layer);
+    const dockCtl = mountVaacAshDock({ section, chip, el, t, layer });
+    if (dockCtl) dock.appendChild(dockCtl.element);
+    return () => {
+      dockCtl?.destroy();
       layer.destroy();
     };
   });
