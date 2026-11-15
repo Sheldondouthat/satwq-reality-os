@@ -194,12 +194,12 @@ function encode(state) {
 
 test('production registry is exact, canonical, and rejects incomplete contracts', async () => {
   assert.equal(validateLayerStateRegistry(), true);
-  // 28 upstream ids + 16 SATWQ additions: aurora, buoys, meteors,
+  // 28 upstream ids + 17 SATWQ additions: aurora, buoys, meteors,
   // osm-buildings-3d, tides, volcanoes, gibs-chlorophyll, gibs-nightlights,
   // gibs-sst, gibs-truecolor, hms-smoke, moon, rainviewer-radar,
-  // rainviewer-satellite, space-weather, terminator.
-  assert.equal(REGISTERED_LAYER_IDS.length, 44);
-  assert.equal(new Set(REGISTERED_LAYER_IDS).size, 44);
+  // rainviewer-satellite, space-weather, terminator, wspr.
+  assert.equal(REGISTERED_LAYER_IDS.length, 45);
+  assert.equal(new Set(REGISTERED_LAYER_IDS).size, 45);
   assert.ok(REGISTERED_LAYER_IDS.includes('transit'));
   assert.deepEqual(REGISTERED_LAYER_IDS, [...REGISTERED_LAYER_IDS].sort());
   assert.throws(

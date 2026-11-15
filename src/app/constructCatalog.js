@@ -41,6 +41,7 @@ import { createApplicationRainviewerRadar } from './layers/rainviewerRadar.js';
 import { createApplicationRainviewerSatellite } from './layers/rainviewerSatellite.js';
 import { createApplicationFirePerimeters } from './layers/perimeters.js';
 import { createApplicationCables } from './layers/submarineCables.js';
+import { createApplicationWspr } from './layers/wspr.js';
 import { createInfrastructureLayers } from '../data/infrastructure.js';
 import { localGeoJsonServices } from './localGeojsonServices.js';
 import { createBhoteKoshiEventLayer } from '../data/bhoteKoshiEvent.js';
@@ -85,6 +86,7 @@ const SOURCE_METHODS = Object.freeze({
   rainviewerSatellite: ['getSnapshot'],
   'fire-perimeters': ['getSnapshot'],
   cables: ['fetch'],
+  wspr: ['getSnapshot'],
 });
 
 /**
@@ -182,6 +184,7 @@ export function createApplicationCatalog({
         createApplicationHmsSmoke({ source: sources['hms-smoke'] }),
         createApplicationSpaceWeather({ source: sources['space-weather'] }),
         createApplicationTerminator({ source: sources.terminator }),
+        createApplicationWspr({ source: sources.wspr }),
         createApplicationMoon(),
         createApplicationGibsTruecolor({ source: sources.gibsTruecolor }),
         createApplicationGibsNightlights({ source: sources.gibsNightlights }),

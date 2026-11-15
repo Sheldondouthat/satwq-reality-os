@@ -24,6 +24,7 @@ import { createMeteorSource } from '../layers/meteors/source.js';
 import { createHmsSmokeSource } from '../layers/hmsSmoke/source.js';
 import { createSpaceWeatherSource } from '../layers/spaceWeather/source.js';
 import { createTerminatorSource } from '../layers/terminator/source.js';
+import { createWsprSource } from '../layers/wspr/source.js';
 import { createGibsTruecolorSource } from '../layers/gibsTruecolor/index.js';
 import { createGibsNightlightsSource } from '../layers/gibsNightlights/index.js';
 import { createGibsChlorophyllSource } from '../layers/gibsChlorophyll/index.js';
@@ -63,6 +64,7 @@ export function createStandaloneLayerSources() {
     'hms-smoke': createHmsSmokeSource(),
     'space-weather': createSpaceWeatherSource(),
     terminator: createTerminatorSource(),
+    wspr: createWsprSource(),
     gibsTruecolor: createGibsTruecolorSource(),
     gibsNightlights: createGibsNightlightsSource(),
     gibsChlorophyll: createGibsChlorophyllSource(),

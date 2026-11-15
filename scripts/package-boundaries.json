@@ -1978,6 +1978,7 @@
       "src/app/layers/terminator.js",
       "src/app/layers/tides.js",
       "src/app/layers/volcanoes.js",
+      "src/app/layers/wspr.js",
       "src/layers/aurora/index.js",
       "src/layers/aurora/model.js",
       "src/layers/aurora/records.js",
@@ -2014,7 +2015,11 @@
       "src/layers/tides/records.js",
       "src/layers/tides/source.js",
       "src/layers/volcanoes/index.js",
-      "src/layers/volcanoes/model.js"
+      "src/layers/volcanoes/model.js",
+      "src/layers/wspr/index.js",
+      "src/layers/wspr/model.js",
+      "src/layers/wspr/records.js",
+      "src/layers/wspr/source.js"
     ],
     "external": [
       "hls.js",
@@ -2491,6 +2496,7 @@
       "src/app/layers/terminator.js",
       "src/app/layers/tides.js",
       "src/app/layers/volcanoes.js",
+      "src/app/layers/wspr.js",
       "src/layers/aurora/index.js",
       "src/layers/aurora/model.js",
       "src/layers/aurora/records.js",
@@ -2532,7 +2538,11 @@
       "src/layers/volcanoes/index.js",
       "src/layers/volcanoes/model.js",
       "src/layers/volcanoes/records.js",
-      "src/layers/volcanoes/source.js"
+      "src/layers/volcanoes/source.js",
+      "src/layers/wspr/index.js",
+      "src/layers/wspr/model.js",
+      "src/layers/wspr/records.js",
+      "src/layers/wspr/source.js"
     ],
     "external": [
       "hls.js",

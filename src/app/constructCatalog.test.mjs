@@ -39,12 +39,12 @@ test('catalogs construct distinct layers and classification from their supplied 
     signal: b.signal,
     surface: fixtureSurface(b.signal),
   });
-  // 29 upstream layers + 16 SATWQ additions: volcanoes, tides, aurora,
+  // 29 upstream layers + 17 SATWQ additions: volcanoes, tides, aurora,
   // buoys, meteors, osm-buildings-3d, gibs-chlorophyll, gibs-nightlights,
   // gibs-sst, gibs-truecolor, hms-smoke, moon, rainviewer-radar,
-  // rainviewer-satellite, space-weather, terminator — plus the local-only
-  // Local ADS-B layer, which is never serialized into links.
-  assert.equal(first.layers.length, 45);
+  // rainviewer-satellite, space-weather, terminator, wspr — plus the
+  // local-only Local ADS-B layer, which is never serialized into links.
+  assert.equal(first.layers.length, 46);
   assert.ok(first.get('local-adsb'), 'Local ADS-B is registered');
   assert.deepEqual(
     first.metadata.find(({ id }) => id === 'local-adsb'),
