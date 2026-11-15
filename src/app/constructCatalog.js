@@ -43,6 +43,7 @@ import { createApplicationFirePerimeters } from './layers/perimeters.js';
 import { createApplicationCables } from './layers/submarineCables.js';
 import { createApplicationWspr } from './layers/wspr.js';
 import { createApplicationSovereignMesh } from './layers/sovereignMesh.js';
+import { createApplicationSovereignMeshCoverage } from './layers/sovereignMeshCoverage.js';
 import { createInfrastructureLayers } from '../data/infrastructure.js';
 import { localGeoJsonServices } from './localGeojsonServices.js';
 import { createBhoteKoshiEventLayer } from '../data/bhoteKoshiEvent.js';
@@ -89,6 +90,7 @@ const SOURCE_METHODS = Object.freeze({
   cables: ['fetch'],
   wspr: ['getSnapshot'],
   'sovereign-mesh': ['getSnapshot'],
+  'sovereign-mesh-coverage': ['getSnapshot'],
 });
 
 /**
@@ -109,6 +111,11 @@ export const LOCAL_ONLY_LAYER_METADATA = Object.freeze([
 export const PERSONAL_LAYER_METADATA = Object.freeze([
   Object.freeze({
     id: 'sovereign-mesh-nodes',
+    disposition: 'local-only',
+    class: 'PERSONAL',
+  }),
+  Object.freeze({
+    id: 'sovereign-mesh-coverage',
     disposition: 'local-only',
     class: 'PERSONAL',
   }),
@@ -205,6 +212,9 @@ export function createApplicationCatalog({
         createApplicationWspr({ source: sources.wspr }),
         createApplicationSovereignMesh({
           source: sources['sovereign-mesh'],
+        }),
+        createApplicationSovereignMeshCoverage({
+          source: sources['sovereign-mesh-coverage'],
         }),
         createApplicationMoon(),
         createApplicationGibsTruecolor({ source: sources.gibsTruecolor }),

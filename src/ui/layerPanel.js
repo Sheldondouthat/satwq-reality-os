@@ -78,7 +78,7 @@ const PANEL_GROUPS = [
     // property, private by default — its own group, never folded
     // into a public category.
     label: 'Personal',
-    ids: ['sovereign-mesh-nodes'],
+    ids: ['sovereign-mesh-nodes', 'sovereign-mesh-coverage'],
   },
 ];
 const PANEL_ORDER = PANEL_GROUPS.flatMap(({ label, ids }) =>

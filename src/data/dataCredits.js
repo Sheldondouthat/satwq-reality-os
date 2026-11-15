@@ -402,8 +402,10 @@ export const SOVEREIGN_MESH_NODES_CREDIT = {
   html: "Sovereign Mesh — the operator's own LoRa mesh network (Part 15, 902-928 MHz). Node positions and telemetry reported by the operator's own nodes; served locally, not redistributed.",
 };
 
-/** Registered with the nodes credit: coverage is registered as a
- * source (BM3 §4) whose web-face render is a follow-on layer task. */
+/** Registered with the nodes credit (BM3 §4) and again by the
+ * coverage layer itself on its first render: coverage is a source
+ * whose web-face render — computed locally from this same node set —
+ * landed as the BM3 §5 follow-on layer. */
 export const SOVEREIGN_MESH_COVERAGE_CREDIT = {
   key: 'sovereign-mesh-coverage',
   html: "Sovereign Mesh coverage — computed locally from SRTM terrain (OpenTopoData) and the operator's own node set. Modeled, not measured.",

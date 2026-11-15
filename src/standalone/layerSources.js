@@ -67,6 +67,7 @@ export function createStandaloneLayerSources() {
     terminator: createTerminatorSource(),
     wspr: createWsprSource(),
     'sovereign-mesh': createSovereignMeshSource(),
+    'sovereign-mesh-coverage': createSovereignMeshSource(),
     gibsTruecolor: createGibsTruecolorSource(),
     gibsNightlights: createGibsNightlightsSource(),
     gibsChlorophyll: createGibsChlorophyllSource(),
