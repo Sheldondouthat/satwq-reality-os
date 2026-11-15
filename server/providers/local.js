@@ -119,6 +119,17 @@ import { nmdbProxy } from './wave3/nmdb.js';
 import { argoProxy } from './wave3/argo.js';
 import { reentriesProxy } from './wave3/reentries.js';
 import { schumannProxy } from './wave3/schumann.js';
+import { dotCamsProxy } from './wave3/dotCams.js';
+import { eclipseProxy } from './wave3/eclipse.js';
+import { eonetProxy } from './wave3/eonet.js';
+import { intermagnetProxy } from './wave3/intermagnet.js';
+import { iocSealevelProxy } from './wave3/iocSealevel.js';
+import { orcasoundProxy } from './wave3/orcasound.js';
+import { sargassumProxy } from './wave3/sargassum.js';
+import { shortwaveOracleProxy } from './wave3/shortwave.js';
+import { tessProxy } from './wave3/tess.js';
+import { tfrProxy } from './wave3/tfr.js';
+import { vaacPolyProxy } from './wave3/vaacPoly.js';
 
 /** Construct the local provider plugins in their established order. */
 function localProviderPlugins() {
@@ -180,6 +191,17 @@ function localProviderPlugins() {
     argoProxy(),
     reentriesProxy(),
     schumannProxy(),
+    dotCamsProxy(),
+    eclipseProxy(),
+    eonetProxy(),
+    intermagnetProxy(),
+    iocSealevelProxy(),
+    orcasoundProxy(),
+    sargassumProxy(),
+    shortwaveOracleProxy(),
+    tessProxy(),
+    tfrProxy(),
+    vaacPolyProxy(),
     wxstationsProxy(),
     phoneSensorsProxy(),
     timeProxy(),

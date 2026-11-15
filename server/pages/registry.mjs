@@ -283,6 +283,81 @@ const REGISTRY = [
       import('../providers/wave3/schumann.js').then((m) => m.schumannProxy()),
   },
   {
+    // Wired 2026-11-15 (Wave-3 Wiring Completion, Delta Sweep II build #3):
+    // the wave-3 eleven below shipped as providers + panels with their
+    // wiring recipes filed in their own INTEGRATION.md documents, but no
+    // registry ever mounted their routes — the Schumann defect class
+    // (provider exists, registered nowhere) at eleven-member scale.
+    name: 'dot-cams',
+    routes: ['/api/dot-cams', '/api/dot-cams/image'],
+    load: () =>
+      import('../providers/wave3/dotCams.js').then((m) => m.dotCamsProxy()),
+  },
+  {
+    name: 'eclipse',
+    routes: ['/api/eclipse'],
+    load: () =>
+      import('../providers/wave3/eclipse.js').then((m) => m.eclipseProxy()),
+  },
+  {
+    name: 'eonet',
+    routes: ['/api/eonet'],
+    load: () =>
+      import('../providers/wave3/eonet.js').then((m) => m.eonetProxy()),
+  },
+  {
+    name: 'intermagnet',
+    routes: ['/api/geomag'],
+    load: () =>
+      import('../providers/wave3/intermagnet.js').then((m) =>
+        m.intermagnetProxy(),
+      ),
+  },
+  {
+    name: 'ioc-sealevel',
+    routes: ['/api/sealevel'],
+    load: () =>
+      import('../providers/wave3/iocSealevel.js').then((m) =>
+        m.iocSealevelProxy(),
+      ),
+  },
+  {
+    name: 'orcasound',
+    routes: ['/api/orcasound'],
+    load: () =>
+      import('../providers/wave3/orcasound.js').then((m) => m.orcasoundProxy()),
+  },
+  {
+    name: 'sargassum',
+    routes: ['/api/sargassum', '/api/sargassum/image'],
+    load: () =>
+      import('../providers/wave3/sargassum.js').then((m) => m.sargassumProxy()),
+  },
+  {
+    name: 'shortwave-oracle',
+    routes: ['/api/shortwave-oracle'],
+    load: () =>
+      import('../providers/wave3/shortwave.js').then((m) =>
+        m.shortwaveOracleProxy(),
+      ),
+  },
+  {
+    name: 'tess-transits',
+    routes: ['/api/transits'],
+    load: () => import('../providers/wave3/tess.js').then((m) => m.tessProxy()),
+  },
+  {
+    name: 'tfr',
+    routes: ['/api/tfrs'],
+    load: () => import('../providers/wave3/tfr.js').then((m) => m.tfrProxy()),
+  },
+  {
+    name: 'vaac-polygons',
+    routes: ['/api/vaac-polygons'],
+    load: () =>
+      import('../providers/wave3/vaacPoly.js').then((m) => m.vaacPolyProxy()),
+  },
+  {
     name: 'reentries',
     routes: ['/api/reentries'],
     load: () =>
