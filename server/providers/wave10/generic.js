@@ -41,7 +41,10 @@
  * }
  *
  * Path grammar (resolvePath): '$' root, '.name' object keys,
- * '[N]' array indices. No wildcards, no filters, no eval.
+ * '[N]' array indices, and one '[]' projection per path
+ * ('$.lines[].name' — every element's value, in source order, with
+ * elements missing the key skipped; see resolvePath). No wildcards,
+ * no filters, no eval.
  */
 
 const DEFAULT_UA =
@@ -72,29 +75,76 @@ export function numOrNull(v) {
 }
 
 /**
- * Resolve a simple path ('$.a.b[0].c') against a JSON value.
- * Returns undefined when any segment is missing. Pure.
+ * Segment marker for a '[]' projection. Never a real key: the key
+ * grammar ([A-Za-z0-9_-]+) excludes brackets.
  */
-export function resolvePath(root, path) {
-  if (typeof path !== 'string' || !path.startsWith('$')) return undefined;
+const PROJECT = '[]';
+
+/**
+ * Tokenize a path into segments: strings for '.name' keys, numbers for
+ * '[N]' indices, PROJECT for a '[]' projection. Returns null when the
+ * path does not fully tokenize under the grammar. Pure.
+ */
+function tokenizePath(path) {
+  if (typeof path !== 'string' || !path.startsWith('$')) return null;
   const rest = path.slice(1);
-  if (rest === '') return root;
+  if (rest === '') return [];
   const segments = [];
-  const re = /(?:\.([A-Za-z0-9_-]+))|(?:\[(\d+)\])/g;
+  const re = /(?:\.([A-Za-z0-9_-]+))|(?:\[(\d+)\])|(?:\[\])/g;
   let m;
   let consumed = 0;
   while ((m = re.exec(rest)) !== null) {
-    if (m.index !== consumed) return undefined; // gap = unsupported syntax
+    if (m.index !== consumed) return null; // gap = unsupported syntax
     consumed = m.index + m[0].length;
-    segments.push(m[1] !== undefined ? m[1] : Number(m[2]));
+    if (m[1] !== undefined) segments.push(m[1]);
+    else if (m[2] !== undefined) segments.push(Number(m[2]));
+    else segments.push(PROJECT);
   }
-  if (consumed !== rest.length) return undefined;
-  let cur = root;
+  if (consumed !== rest.length) return null;
+  return segments;
+}
+
+/** Walk plain (projection-free) segments; undefined when any misses. */
+function walkSegments(cur, segments) {
   for (const seg of segments) {
     if (cur == null) return undefined;
     cur = cur[seg];
   }
   return cur;
+}
+
+/**
+ * Resolve a path ('$.a.b[0].c', or with one '[]' projection:
+ * '$.lines[].name') against a JSON value. Returns undefined when any
+ * segment is missing. Pure.
+ *
+ * Projection semantics: '[]' requires the value at that point to be
+ * an array — anything else resolves undefined (the field's extraction
+ * is refused, never silently coerced: an object is NOT wrapped into
+ * a one-element array). The remainder of the path is applied to every
+ * element in source order; elements whose remainder resolves to
+ * null/undefined are SKIPPED, not null-padded (no phantom entries —
+ * a station's line list contains exactly the lines upstream named).
+ * The result is an array, possibly empty; a trailing '[]' with no
+ * remainder projects the elements themselves. At most one projection
+ * per path: a second '[]' resolves undefined here and is rejected by
+ * name in validateSpec.
+ */
+export function resolvePath(root, path) {
+  const segments = tokenizePath(path);
+  if (segments === null) return undefined;
+  const at = segments.indexOf(PROJECT);
+  if (at === -1) return walkSegments(root, segments);
+  if (segments.indexOf(PROJECT, at + 1) !== -1) return undefined;
+  const base = walkSegments(root, segments.slice(0, at));
+  if (!Array.isArray(base)) return undefined;
+  const rest = segments.slice(at + 1);
+  const out = [];
+  for (const el of base) {
+    const v = walkSegments(el, rest);
+    if (v !== undefined && v !== null) out.push(v);
+  }
+  return out;
 }
 
 /** Validate a spec object. Throws on the first violation. Pure. */
@@ -125,6 +175,24 @@ export function validateSpec(spec) {
     if (typeof p !== 'string' || !p.startsWith('$'))
       fail(`map field '${k}' must be a $-path`);
   }
+  // Projection form ('$.lines[].name'): a path using '[]' must
+  // tokenize and carry at most one projection — a malformed or
+  // nested projection is rejected by name here, not silently
+  // misresolved at extraction time. Paths without '[]' keep the
+  // legacy contract untouched.
+  const checkProjection = (p, where) => {
+    if (typeof p !== 'string' || !p.includes('[]')) return;
+    const segs = tokenizePath(p);
+    if (segs === null) fail(`${where} path '${p}': malformed '[]' projection`);
+    if (segs.filter((s) => s === PROJECT).length > 1)
+      fail(
+        `${where} path '${p}': nested projection not supported ` +
+          `(at most one '[]' per path)`,
+      );
+  };
+  checkProjection(ex.items, 'extract.items');
+  for (const [k, p] of Object.entries(ex.map))
+    checkProjection(p, `map field '${k}'`);
   if (ex.numbers != null && !Array.isArray(ex.numbers))
     fail('extract.numbers must be an array');
   if (

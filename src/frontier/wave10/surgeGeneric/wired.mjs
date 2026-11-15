@@ -11,12 +11,17 @@
  * whose non-scalar-field refusal was remedied by a spec revision were
  * re-audited through the same two gates and wired; the other 492
  * specs' U-1b verdicts stand as recorded above.
+ *
+ * Scoped re-audit 2026-11-15 (AUDIT_META.projectionExtension): the
+ * one spec whose non-scalar-field refusal was remedied by the path
+ * grammar's new '[]' projection form was re-audited through the same
+ * two gates and wired; the other 501 specs' verdicts stand.
  */
 export const AUDIT_META = {
   "generatedAt": "2026-11-15T09:57:34.491Z",
   "totalSpecs": 502,
-  "wiredCount": 475,
-  "unwiredCount": 27,
+  "wiredCount": 476,
+  "unwiredCount": 26,
   "reprobe": {
     "at": "2026-11-15T10:00:08.313Z",
     "flipped": [
@@ -41,6 +46,13 @@ export const AUDIT_META = {
       "euro-paris-velib-realtime",
       "euro-paris-velib-stations",
       "socrata-austin-traffic"
+    ]
+  },
+  "projectionExtension": {
+    "at": "2026-11-15T10:47:15.281Z",
+    "audit": "SPEC-PROJECTION-EXTENSION-2026-11-15",
+    "wired": [
+      "tfl-central-line-stations"
     ]
   }
 };
@@ -2836,6 +2848,15 @@ export const WIRED_SPECS = [
     "ttlSeconds": 300
   },
   {
+    "id": "tfl-central-line-stations",
+    "title": "TfL — Central line stations",
+    "ttlSeconds": 86400,
+    "units": {
+      "lat": "deg",
+      "lon": "deg"
+    }
+  },
+  {
     "id": "tfl-dlr-status",
     "title": "TfL — DLR status",
     "ttlSeconds": 300
@@ -4146,10 +4167,6 @@ export const UNWIRED_SPECS = [
   {
     "id": "socrata-sonoma-events",
     "reason": "live-no-rows"
-  },
-  {
-    "id": "tfl-central-line-stations",
-    "reason": "non-scalar-field"
   },
   {
     "id": "usgs-volcano-elevated",

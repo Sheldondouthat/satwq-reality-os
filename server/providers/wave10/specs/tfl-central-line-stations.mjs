@@ -23,7 +23,7 @@ export const SPEC = {
       lon: '$.lon',
       stopType: '$.stopType',
       mode: '$.modes[0]',
-      lines: '$.lines',
+      lines: '$.lines[].name',
     },
     numbers: ['lat', 'lon'],
   },

@@ -65,6 +65,91 @@ test('resolvePath handles dots and indices, rejects garbage', () => {
   assert.equal(resolvePath(null, '$.a'), undefined);
 });
 
+test('resolvePath projection: every element, source order preserved', () => {
+  // Buckhurst-Hill-shaped data: bus routes listed BEFORE the tube line.
+  // The projection must keep upstream order verbatim — reordering or
+  // picking [0] would misrepresent the station's lines.
+  const item = {
+    lines: [
+      { id: '167', name: '167' },
+      { id: '677', name: '677' },
+      { id: 'central', name: 'Central' },
+      { id: 'w14', name: 'W14' },
+    ],
+  };
+  assert.deepEqual(resolvePath(item, '$.lines[].name'), [
+    '167',
+    '677',
+    'Central',
+    'W14',
+  ]);
+  assert.deepEqual(resolvePath(item, '$.lines[].id'), [
+    '167',
+    '677',
+    'central',
+    'w14',
+  ]);
+});
+
+test('resolvePath projection: missing/null elements skipped, never padded', () => {
+  const item = {
+    lines: [{ name: 'Central' }, { id: 'x' }, { name: null }, null, { name: 'Jubilee' }],
+  };
+  // No phantom nulls: the list contains exactly the names upstream gave.
+  assert.deepEqual(resolvePath(item, '$.lines[].name'), ['Central', 'Jubilee']);
+  assert.deepEqual(resolvePath({ lines: [] }, '$.lines[].name'), []);
+  assert.equal(resolvePath({}, '$.lines[].name'), undefined); // key absent
+});
+
+test('resolvePath projection: non-array is refused, never coerced', () => {
+  // An object at the projection point is NOT wrapped into [object].
+  assert.equal(resolvePath({ lines: { name: 'Central' } }, '$.lines[].name'), undefined);
+  assert.equal(resolvePath({ lines: 'Central' }, '$.lines[].name'), undefined);
+  assert.equal(resolvePath({ lines: 3 }, '$.lines[].name'), undefined);
+  assert.equal(resolvePath({ lines: null }, '$.lines[].name'), undefined);
+});
+
+test('resolvePath projection: remainder paths, indices, identity, nesting', () => {
+  const root = { a: [{ b: [10, 20] }, { b: [30] }, {}] };
+  assert.deepEqual(resolvePath(root, '$.a[].b[0]'), [10, 30]);
+  assert.deepEqual(resolvePath(root, '$.a[]'), [{ b: [10, 20] }, { b: [30] }, {}]);
+  // Nested projection is unsupported: refused (undefined), not misresolved.
+  assert.equal(resolvePath(root, '$.a[].b[]'), undefined);
+  assert.equal(resolvePath(root, '$.a[][]'), undefined);
+  // '[*]' stays rejected — the projection form is '[]', nothing else.
+  assert.equal(resolvePath(root, '$.a[*].b'), undefined);
+});
+
+test('validateSpec: projection paths named-checked, legacy untouched', () => {
+  const proj = goodSpec();
+  proj.extract.map.lines = '$.lines[].name';
+  assert.equal(validateSpec(proj), true);
+  const nested = goodSpec();
+  nested.extract.map.lines = '$.lines[][0]';
+  assert.equal(validateSpec(nested), true); // index after projection is fine
+  const badNested = goodSpec();
+  badNested.extract.map.lines = '$.lines[][].name';
+  assert.throws(() => validateSpec(badNested), /surge_spec_invalid.*nested projection/);
+  const badItems = goodSpec();
+  badItems.extract.items = '$.data[].widgets[]';
+  assert.throws(() => validateSpec(badItems), /surge_spec_invalid.*nested projection/);
+  const malformed = goodSpec();
+  malformed.extract.map.lines = '$.lines[]x';
+  assert.throws(() => validateSpec(malformed), /surge_spec_invalid.*malformed '\[\]' projection/);
+});
+
+test('applyMap surfaces a projection as an array of scalars', () => {
+  const spec = goodSpec();
+  spec.extract.map = { name: '$.label', lines: '$.lines[].name' };
+  const row = applyMap(spec, {
+    label: 'Buckhurst Hill',
+    lines: [{ name: '167' }, { name: 'Central' }, {}],
+  });
+  assert.deepEqual(row.lines, ['167', 'Central']);
+  const noLines = applyMap(spec, { label: 'Nowhere', lines: { name: 'X' } });
+  assert.equal(noLines.lines, null); // non-array refused → null, not ['X']
+});
+
 test('validateSpec accepts a good spec and rejects bad ones', () => {
   assert.equal(validateSpec(goodSpec()), true);
   const bad = (mut) => {
