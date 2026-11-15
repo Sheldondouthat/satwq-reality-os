@@ -316,6 +316,12 @@ const REGISTRY = [
       ),
   },
   {
+    name: 'glen-lyn',
+    routes: ['/api/usgs-water-glen-lyn'],
+    load: () =>
+      import('../providers/wave3/glenLyn.js').then((m) => m.glenLynProxy()),
+  },
+  {
     name: 'nwps',
     routes: ['/api/nwps'],
     load: () => import('../providers/wave3/nwps.js').then((m) => m.nwpsProxy()),

@@ -4,6 +4,13 @@
  *  - App shell (/, /index.html, logo, manifest, icon font): precached at
  *    install; navigations are network-first with fallback to the cached
  *    shell, so the UI opens offline.
+ *  - Floor fragments (V5-0: /river.html + /river-floor.js): precached
+ *    with the shell, and an offline navigation tries the exact cached
+ *    page before the app-shell fallback. The fragment's DATA is never
+ *    held here — the river record-cache is page-managed storage
+ *    (localStorage, versioned floor-package keys), holding records as
+ *    records with their own timestamps; this worker still never
+ *    caches or serves /api/* (Packaging Matrix row 3, §2).
  *  - Same-origin static assets (/assets/*, /fonts/*, /models/*, …):
  *    stale-while-revalidate — fast from cache, refreshed in background, so a
  *    new deploy's hashed bundle never strands on an old copy.
@@ -16,7 +23,7 @@
  *
  * Bump CACHE_VERSION whenever the precached shell list changes.
  */
-const CACHE_VERSION = 'satwq-reality-os-v1';
+const CACHE_VERSION = 'satwq-reality-os-v2';
 const SHELL_CACHE = `satwq-shell-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `satwq-runtime-${CACHE_VERSION}`;
 const RUNTIME_MAX_ENTRIES = 150;
@@ -27,6 +34,9 @@ const SHELL_URLS = [
   '/logo.svg',
   '/manifest.webmanifest',
   '/fonts/material-symbols-outlined-subset.woff2',
+  // V5-0 floor fragment: the Glen Lyn river page + its pure logic module.
+  '/river.html',
+  '/river-floor.js',
 ];
 
 const isApiRequest = (url) => url.pathname.startsWith('/api/');
@@ -97,12 +107,14 @@ self.addEventListener('fetch', (event) => {
   // Live data: always the network, never the cache (honesty rule above).
   if (isApiRequest(url)) return;
 
-  // Navigations: network first, cached shell when offline.
+  // Navigations: network first; offline, the exact cached page when
+  // one exists (floor fragments), else the cached app shell.
   if (request.mode === 'navigate') {
     event.respondWith(
       fetch(request).catch(() =>
         caches
-          .match('/index.html')
+          .match(url.pathname)
+          .then((hit) => hit || caches.match('/index.html'))
           .then((hit) => hit || caches.match('/'))
       )
     );

@@ -87,6 +87,14 @@ test('service worker NEVER caches /api/* (network-only passthrough)', () => {
   );
 });
 
+test('service worker precaches the V5-0 river floor fragment with the shell', () => {
+  assert.ok(swSource.includes("'/river.html'"), 'river floor page missing from the shell precache');
+  assert.ok(swSource.includes("'/river-floor.js'"), 'river floor logic missing from the shell precache');
+  // The record-cache is page-managed storage, never the worker: the
+  // worker must not hold floor records or cache the river API.
+  assert.ok(!swSource.includes('floor-record'), 'service worker references the record-cache — records belong to the page');
+});
+
 test('service worker falls back to the cached shell for offline navigations', () => {
   assert.ok(swSource.includes("request.mode === 'navigate'"), 'no navigation handling');
   assert.ok(swSource.includes(".match('/index.html')"), 'no cached-shell fallback for offline navigations');
