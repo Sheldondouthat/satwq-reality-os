@@ -1,0 +1,40 @@
+{
+  "package": "gods-eye-floor-home-region",
+  "format": "Ghost Tiles floor package (Packaging Matrix row 3)",
+  "region": "Pembroke / Giles County, VA \u2014 Slice 1 home bbox",
+  "bbox_wsen": [
+    -80.71,
+    37.28,
+    -80.57,
+    37.37
+  ],
+  "floor_built_at_utc": "2026-11-15T08:22:57.369746+00:00",
+  "source_package": "sky-map-quest data-pipeline v4",
+  "source_built_at_utc": "2026-11-15T07:36:18.177051+00:00",
+  "source_counts": {
+    "buildings": 2495,
+    "roads": 1035,
+    "parcels": 3383
+  },
+  "layers": [
+    "buildings",
+    "roads",
+    "parcels"
+  ],
+  "zoom_range": [
+    0,
+    16
+  ],
+  "full_fidelity_min_zoom_measured": 11,
+  "files": {
+    "home-region.pmtiles": {
+      "sha256": "f219e877606decd84460ea5e7c3ca4afaba8be61b43a8de507e1b33bf6b00006",
+      "bytes": 3647868
+    },
+    "build/home-region.mbtiles": {
+      "sha256": "126180b4a10c549685e94ea6e23ce41e511d907581d4aa993428de2663d803b0",
+      "bytes": 4321280
+    }
+  },
+  "verify": "src/verify_archive.py -> build/verification-report.json; src/serve_test.py (HTTP Range protocol round-trip)"
+}

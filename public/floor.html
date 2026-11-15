@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0a0a0f">
+<link rel="manifest" href="/manifest.webmanifest">
+<title>Home Region Floor Tiles — God's Eye Floor</title>
+<link rel="stylesheet" href="/floor/vendor/maplibre-gl.css">
+<style>
+  html, body { height:100%; }
+  body { background:#0b0f14; color:#e8eef4; font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+         margin:0; line-height:1.5; display:flex; flex-direction:column; }
+  header { padding:20px 16px 12px; max-width:960px; width:100%; margin:0 auto; box-sizing:border-box; }
+  h1 { font-size:24px; margin:0 0 2px; letter-spacing:.01em; }
+  .sub { color:#9fb4c7; font-size:14px; }
+  .banner { border-radius:8px; padding:10px 14px; font-weight:600; margin:14px 0 10px;
+            border:1px solid #274b63; background:#12202e; }
+  .banner.floor { border-color:#8a6d2f; background:#241c0d; color:#ffd97a; }
+  .banner.refused { border-color:#8a3b2f; background:#260f0d; color:#ff9d8a; }
+  .banner.unknown { border-color:#274b63; background:#12202e; color:#9fb4c7; }
+  .age { font-size:15px; margin:4px 0 2px; }
+  .meta { color:#9fb4c7; font-size:13px; word-break:break-all; }
+  #mapwrap { position:relative; flex:1; min-height:420px; }
+  #map { position:absolute; inset:0; }
+  .legend { position:absolute; left:10px; bottom:10px; z-index:2; background:rgba(10,14,18,.88);
+            border:1px solid #2c3a46; border-radius:8px; padding:8px 12px; font-size:13px; }
+  .legend span { display:inline-block; width:10px; height:10px; margin-right:5px; }
+  footer { padding:14px 16px 28px; max-width:960px; width:100%; margin:0 auto; box-sizing:border-box;
+           color:#7d93a8; font-size:13px; }
+  a { color:#8ecbff; }
+  .maplibregl-popup-content { background:#10161d; color:#e8eef4; border:1px solid #22303d;
+                              font-size:13px; line-height:1.45; }
+  .maplibregl-popup-anchor-bottom .maplibregl-popup-tip { border-top-color:#22303d; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Home Region — Pembroke / Giles County, VA</h1>
+  <div class="sub">God's Eye floor tiles (Ghost Tiles) — the offline home-region record:
+    buildings, roads, and parcels in one hash-verified PMTiles archive, read by range
+    requests on this device. There is no tile server and no live feed on this page.</div>
+
+  <div id="banner" class="banner unknown">Loading the floor…</div>
+  <div class="age" id="ageLine">Floor age: —</div>
+  <div class="meta" id="metaLine">—</div>
+</header>
+
+<div id="mapwrap">
+  <div id="map"></div>
+  <div class="legend">
+    <span style="background:#2ea88a"></span>building — height Modeled (lidar-derived)
+    <span style="background:#e0a32e"></span>building — height ESTIMATED (reason in its attributes)<br>
+    Click a building: its honesty fields ride inside the tiles.
+  </div>
+</div>
+
+<footer>
+  Floor package <span id="floorPkg">gev-floor-tiles-home-region v1</span> ·
+  Archive: home-region.pmtiles, SHA-256-verified against its Ghost Tiles manifest
+  by the service worker before it is cached or served; a mismatch is a refusal,
+  never a warning. Ages are computed from the floor's build timestamp, never
+  from fetch time — and a built record is never shown as live.<br>
+  Data: Buildings + parcels: VGIN (Virginia Geographic Information Network),
+  Commonwealth of Virginia. Roads + cross-ref buildings: © OpenStreetMap
+  contributors, ODbL. Elevation: USGS OPR lidar DEM, project
+  VA_FEMA_R3_SW_Lidar_2016 (public domain, USGS/FEMA). ·
+  <a href="/river">River floor</a> · <a href="/">Back to the globe</a>
+</footer>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function () {
+      navigator.serviceWorker.register('/sw.js').catch(function () {});
+    });
+  }
+</script>
+<script src="/floor/vendor/maplibre-gl.js"></script>
+<script src="/floor/vendor/pmtiles.js"></script>
+<script type="module">
+  import {
+    FLOOR_TILES_PACKAGE, FLOOR_MANIFEST_URL, FLOOR_ARCHIVE_URL, FLOOR_STATUS_URL,
+    parseManifest, classifyFloor, formatFloorAge,
+  } from '/floor-tiles.js';
+
+  const el = (id) => document.getElementById(id);
+  const banner = el('banner'), ageLine = el('ageLine'), metaLine = el('metaLine');
+  el('floorPkg').textContent = `${FLOOR_TILES_PACKAGE.id} v${FLOOR_TILES_PACKAGE.version}`;
+
+  const localFmt = new Intl.DateTimeFormat('en-US', {
+    timeZone: 'America/New_York', dateStyle: 'medium', timeStyle: 'short',
+  });
+
+  let manifest = null;   // parsed Ghost Tiles manifest (null → age UNKNOWN)
+  let floorStatus = null; // the worker's verification record
+
+  function renderBanner() {
+    const c = classifyFloor(manifest, Date.now());
+    if (floorStatus && floorStatus.state === 'refused') {
+      banner.className = 'banner refused';
+      banner.textContent =
+        'FLOOR REFUSED — the tile archive failed SHA-256 verification against ' +
+        'its manifest and was NOT loaded. Nothing on this page comes from ' +
+        'unverified bytes.';
+      ageLine.textContent = 'Floor age: UNKNOWN (archive refused)';
+      metaLine.textContent =
+        `Refusal recorded by the service worker: ${floorStatus.reason || 'mismatch'} · ` +
+        `expected sha256 ${floorStatus.expectedSha256 || '—'} · actual ${floorStatus.actualSha256 || '—'}`;
+      return;
+    }
+    if (c.state === 'floor') {
+      banner.className = 'banner floor';
+      banner.textContent =
+        'FLOOR RECORD — offline home-region tiles, hash-verified on this device. ' +
+        'This is a built record with its age printed below — not a live feed.';
+      ageLine.textContent = `Floor age: ${formatFloorAge(c.ageSeconds)}`;
+      const builtLocal = localFmt.format(new Date(manifest.builtAt));
+      const src = manifest.sourceBuiltAt
+        ? ` · source data built ${localFmt.format(new Date(manifest.sourceBuiltAt))} (America/New_York)`
+        : '';
+      const verified = floorStatus && floorStatus.state === 'verified'
+        ? ` · verified ${localFmt.format(new Date(floorStatus.verifiedAt))}`
+        : '';
+      metaLine.textContent =
+        `Floor built ${builtLocal} (America/New_York) · ${manifest.builtAt} UTC${src}${verified} · ` +
+        `sha256 ${manifest.archive.sha256.slice(0, 16)}… · ${manifest.archive.bytes.toLocaleString('en-US')} bytes`;
+    } else {
+      banner.className = 'banner unknown';
+      banner.textContent =
+        'FLOOR RECORD — offline home-region tiles. The manifest could not be ' +
+        'read, so this floor\'s age is UNKNOWN — it is shown without an age ' +
+        'rather than with an invented one.';
+      ageLine.textContent = 'Floor age: UNKNOWN (manifest unreachable)';
+      metaLine.textContent = 'Tiles below are read from the on-device archive by range requests.';
+    }
+  }
+
+  async function loadFloorState() {
+    try {
+      const res = await fetch(FLOOR_MANIFEST_URL, { cache: 'no-store' });
+      if (res.ok) manifest = parseManifest(await res.json());
+    } catch { manifest = null; }
+    try {
+      const res = await fetch(FLOOR_STATUS_URL, { cache: 'no-store' });
+      if (res.ok) floorStatus = await res.json();
+    } catch { floorStatus = null; }
+    renderBanner();
+  }
+
+  loadFloorState();
+  setInterval(renderBanner, 30_000);
+
+  // The map: tiles come from the single on-device archive via the
+  // PMTiles protocol (range requests, answered by the service worker
+  // out of the verified floor cache). Buildings are colored BY their
+  // in-tile height_class — Modeled vs ESTIMATED can never blur.
+  const protocol = new pmtiles.Protocol();
+  maplibregl.addProtocol('pmtiles', protocol.tile);
+
+  const map = new maplibregl.Map({
+    container: 'map',
+    center: [-80.64, 37.325],
+    zoom: 13,
+    style: {
+      version: 8,
+      sources: {
+        floor: { type: 'vector', url: `pmtiles://${FLOOR_ARCHIVE_URL}` },
+      },
+      layers: [
+        { id: 'bg', type: 'background', paint: { 'background-color': '#0b0f14' } },
+        { id: 'parcels', type: 'line', source: 'floor', 'source-layer': 'parcels',
+          minzoom: 12, paint: { 'line-color': '#3d4a57', 'line-width': 0.6 } },
+        { id: 'roads', type: 'line', source: 'floor', 'source-layer': 'roads',
+          paint: {
+            'line-color': ['match', ['get', 'class'],
+              ['motorway', 'trunk'], '#c65b4e',
+              ['primary', 'secondary', 'tertiary'], '#8fa3b8',
+              '#5b6b7a'],
+            'line-width': ['interpolate', ['linear'], ['zoom'], 11, 0.6, 16, 2.4],
+          } },
+        { id: 'buildings', type: 'fill', source: 'floor', 'source-layer': 'buildings',
+          paint: {
+            'fill-color': ['match', ['get', 'height_class'],
+              'Modeled', '#2ea88a',
+              'ESTIMATED', '#e0a32e',
+              '#888888'],
+            'fill-opacity': 0.75,
+            'fill-outline-color': '#0b0f14',
+          } },
+      ],
+    },
+  });
+  map.addControl(new maplibregl.NavigationControl());
+
+  map.on('click', 'buildings', (e) => {
+    const p = e.features[0].properties;
+    let html = `<b>${p.id}</b><br>height: ${p.height_m} m<br>` +
+      `class: <b>${p.height_class}</b><br>source: ${p.height_source}`;
+    if (p.height_method) html += `<br>method: ${p.height_method}`;
+    if (p.height_points) html += `<br>lidar points: ${p.height_points}`;
+    if (p.height_uncovered_reason) html += `<br><i>${p.height_uncovered_reason}</i>`;
+    new maplibregl.Popup().setLngLat(e.lngLat).setHTML(html).addTo(map);
+  });
+  map.on('mouseenter', 'buildings', () => { map.getCanvas().style.cursor = 'pointer'; });
+  map.on('mouseleave', 'buildings', () => { map.getCanvas().style.cursor = ''; });
+</script>
+</body>
+</html>
