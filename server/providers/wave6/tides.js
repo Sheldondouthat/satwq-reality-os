@@ -426,7 +426,12 @@ export function parseWaterLevel(upstream) {
       quality: String(r.q ?? '') || null,
     });
   }
-  return readings.slice(0, MAX_READINGS);
+  // Keep the NEWEST MAX_READINGS: the upstream returns oldest-first and
+  // date=recent yields ~719 rows, so slice(0, MAX) silently discarded the
+  // freshest ~22 h and `current` presented a day-old level as live
+  // (the storm-surge parser below documented this on 2026-10-03; the
+  // 2026-11-15 smoke test caught this parser still doing it — D-1).
+  return readings.slice(-MAX_READINGS);
 }
 
 export function parsePredictions(upstream) {
@@ -484,6 +489,13 @@ async function fetchProduct(product, station) {
   }
 }
 
+// CO-OPS water level is class NRT in the canon (doctrine freshness
+// classes: NRT ≤ 15 min; Liveness Ledger keeps CO-OPS at NRT with its
+// ~22 min observed pipeline lag recorded as borderline). Past this
+// max-age the payload must label itself stale — a fresh generatedAt
+// must never wrap an old observation (smoke-test defect D-1).
+const WATER_LEVEL_MAX_AGE_MS = 15 * 60_000;
+
 function buildSnapshot(results, station) {
   const sources = {};
   let waterLevel = null;
@@ -502,8 +514,12 @@ function buildSnapshot(results, station) {
   }
   const latest =
     waterLevel && waterLevel.length ? waterLevel[waterLevel.length - 1] : null;
+  const now = Date.now();
+  const latestMs = latest ? Date.parse(latest.time) : NaN;
+  const ageMs = Number.isFinite(latestMs) ? Math.max(0, now - latestMs) : null;
+  const stale = ageMs != null ? ageMs > WATER_LEVEL_MAX_AGE_MS : false;
   return {
-    generatedAt: new Date().toISOString(),
+    generatedAt: new Date(now).toISOString(),
     station: {
       id: String(station),
       name: meta?.name ? String(meta.name) : null,
@@ -511,7 +527,18 @@ function buildSnapshot(results, station) {
       lon: numOrNull(meta?.lon),
     },
     sources,
-    current: latest ? { ...latest, asOf: latest.time } : null,
+    stale,
+    observedAt: latest ? latest.time : null,
+    ageSeconds: ageMs != null ? Math.round(ageMs / 1000) : null,
+    maxAgeSeconds: Math.round(WATER_LEVEL_MAX_AGE_MS / 1000),
+    current: latest
+      ? {
+          ...latest,
+          asOf: latest.time,
+          ageSeconds: ageMs != null ? Math.round(ageMs / 1000) : null,
+          stale,
+        }
+      : null,
     waterLevel,
     predictions,
     units: 'feet MLLW',

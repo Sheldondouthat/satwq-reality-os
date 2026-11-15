@@ -10,8 +10,10 @@
  *   GET /api/radiation → {generatedAt, sources:{...}, stations:[...],
  *                         radonStations:[...]}
  *
- * A 502 is returned only when EVERY source fails; partial results are
- * reported honestly per source.
+ * When EVERY source fails, the endpoint serves its honest degraded
+ * state (last good labeled stale, or an explicitly degraded empty
+ * payload) rather than a bare 502; partial results are reported
+ * honestly per source.
  *
  * Keyless, no new dependencies, Pages-safe (global fetch only, capped
  * reads, redirect:'follow' — workerd supports only 'follow'/'manual'; 'error'
@@ -272,11 +274,26 @@ async function getSnapshot() {
     inflight = Promise.all(sources.map(fetchOneSource))
       .then((results) => {
         if (!results.some((r) => r.ok)) {
+          // Every upstream down (e.g. gmcmap serving non-JSON, as in
+          // the 2026-11-15 smoke test): serve the honest degraded
+          // state — last good labeled stale when one exists, else an
+          // explicitly degraded empty payload — never a bare 502
+          // (Website Ladder, doctrine Addendum R-2).
           const detail = results.map((r) => `${r.key}:${r.error}`).join('; ');
-          throw Object.assign(
-            new Error(`radiation_all_upstream_down: ${detail}`),
-            { status: 502 },
-          );
+          if (cache)
+            return {
+              ...cache.payload,
+              stale: true,
+              degraded: true,
+              degradedReason: `radiation_all_upstream_down: ${detail}`,
+            };
+          return {
+            ...buildSnapshot(results),
+            stale: true,
+            degraded: true,
+            degradedReason: `radiation_all_upstream_down: ${detail}`,
+            error: 'radiation_all_upstream_down',
+          };
         }
         const payload = buildSnapshot(results);
         cache = { at: Date.now(), payload };

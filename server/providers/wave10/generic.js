@@ -147,6 +147,13 @@ export function validateSpec(spec) {
     fail('verifiedBy required');
   if (spec.honestEmpty != null && typeof spec.honestEmpty !== 'boolean')
     fail('honestEmpty must be a boolean');
+  if (spec.itemTimeField != null && typeof spec.itemTimeField !== 'string')
+    fail('itemTimeField must be a string');
+  if (
+    spec.itemMaxAgeSeconds != null &&
+    (!Number.isFinite(spec.itemMaxAgeSeconds) || spec.itemMaxAgeSeconds <= 0)
+  )
+    fail('itemMaxAgeSeconds must be a positive number');
   const blob = JSON.stringify(spec).toLowerCase();
   for (const marker of FAKE_MARKERS) {
     if (blob.includes(marker)) fail(`fake-data marker '${marker}'`);
@@ -195,6 +202,32 @@ export function filterRequired(spec, rows) {
     else kept.push(row);
   }
   return { rows: kept, dropped };
+}
+
+/**
+ * Annotate rows with per-item staleness when the spec opts in
+ * (itemTimeField + itemMaxAgeSeconds). Each annotated row gains
+ * ageSeconds and stale, computed from the row's OWN timestamp — a
+ * payload-level stale:false describes the fetch, and must never paper
+ * over items whose own readings are long dead (e.g. discontinued
+ * NWIS gages in a bbox sweep still carrying 1990s final readings;
+ * 2026-11-15 smoke test, D-4). Returns the stale-row count. Pure
+ * apart from the injectable `now`.
+ */
+export function annotateItemStaleness(spec, rows, now = Date.now()) {
+  const field = spec.itemTimeField;
+  const maxAgeSeconds = spec.itemMaxAgeSeconds;
+  if (!field || !Number.isFinite(maxAgeSeconds)) return 0;
+  let staleCount = 0;
+  for (const row of rows) {
+    const t = Date.parse(row?.[field] ?? '');
+    if (!Number.isFinite(t)) continue;
+    const ageSeconds = Math.max(0, Math.round((now - t) / 1000));
+    row.ageSeconds = ageSeconds;
+    row.stale = ageSeconds > maxAgeSeconds;
+    if (row.stale) staleCount++;
+  }
+  return staleCount;
 }
 
 /** Build the public payload envelope. Pure apart from generatedAt. */
@@ -298,6 +331,11 @@ async function getPayload(spec) {
         );
       }
       const payload = buildPayload(spec, rows, false);
+      const staleItems = annotateItemStaleness(spec, payload.items);
+      if (staleItems > 0) {
+        payload.staleItemCount = staleItems;
+        payload.stale = true;
+      }
       if (payloadCache.size >= PAYLOAD_CACHE_MAX)
         payloadCache.delete(payloadCache.keys().next().value);
       payloadCache.set(key, { at: Date.now(), payload });
@@ -378,6 +416,7 @@ export const _surgeInternals = {
   extractItems,
   applyMap,
   filterRequired,
+  annotateItemStaleness,
   buildPayload,
   numOrNull,
   SPEC_ID_RE,

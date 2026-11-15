@@ -209,7 +209,10 @@ test('handler returns 200 on live-shaped fixture bodies', async () => {
   }
 });
 
-test('handler returns 502 JSON when both sources are down', async () => {
+test('handler serves the honest degraded state when both sources are down', async () => {
+  // Contract changed 2026-11-15 (smoke-test D-6, Website Ladder): an
+  // all-upstreams-down radiation layer serves a labeled degraded
+  // payload, never a bare 502.
   const realFetch = globalThis.fetch;
   globalThis.fetch = async () => new Response('down', { status: 503 });
   try {
@@ -217,9 +220,14 @@ test('handler returns 502 JSON when both sources are down', async () => {
     const { handler } = mount(radiationProxy())[0];
     const res = fakeRes();
     await handler(fakeReq('/api/radiation'), res);
-    assert.equal(res.statusCode, 502);
-    assert.equal(JSON.parse(res.body).error, 'radiation_unavailable');
-    assert.ok(res.headers['Cache-Control'].includes('no-store'));
+    assert.equal(res.statusCode, 200);
+    const parsed = JSON.parse(res.body);
+    assert.equal(parsed.error, 'radiation_all_upstream_down');
+    assert.equal(parsed.degraded, true);
+    assert.equal(parsed.stale, true);
+    assert.equal(parsed.count, 0);
+    assert.equal(parsed.sources.cpm.ok, false);
+    assert.equal(parsed.sources.radon.ok, false);
   } finally {
     globalThis.fetch = realFetch;
     clearCaches();

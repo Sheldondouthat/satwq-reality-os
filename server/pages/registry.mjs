@@ -271,6 +271,18 @@ const REGISTRY = [
     load: () => import('../providers/wave3/argo.js').then((m) => m.argoProxy()),
   },
   {
+    // Wired 2026-11-15 (smoke-test D-5): the provider existed and the
+    // frontier panel shipped, but no registry ever mounted the route,
+    // so /api/schumann 404'd while the panel retried forever. Audit
+    // verdict (SUSPECT-PROVIDER-AUDIT-2026-11-15): KEEP-conditional,
+    // image-only — chart images, no numerical telemetry; the
+    // provider's own shape already enforces that.
+    name: 'schumann',
+    routes: ['/api/schumann', '/api/schumann/image'],
+    load: () =>
+      import('../providers/wave3/schumann.js').then((m) => m.schumannProxy()),
+  },
+  {
     name: 'reentries',
     routes: ['/api/reentries'],
     load: () =>

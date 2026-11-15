@@ -84,6 +84,13 @@ export function trimTransmitter(raw) {
     const satName = typeof satRaw === 'object' ? satRaw.name : satRaw;
     satellite = satName != null ? String(satName).slice(0, 80) : null;
   }
+  // Current DB shape (verified live 2026-11-15) carries no embedded
+  // satellite object — only sat_id / norad_cat_id. Fall back to those
+  // rather than dropping the satellite identity entirely.
+  if (!satellite && raw?.sat_id != null && String(raw.sat_id).trim() !== '')
+    satellite = String(raw.sat_id).slice(0, 80);
+  if (!satellite && raw?.norad_cat_id != null)
+    satellite = `NORAD ${raw.norad_cat_id}`;
   return {
     id,
     satellite,
@@ -106,16 +113,37 @@ async function fetchAllTransmitters() {
   while (url && pages < MAX_PAGES) {
     pages += 1;
     const data = await fetchJsonCapped(url);
-    if (pages === 1 && data && typeof data === 'object') {
-      total = Number.isFinite(Number(data.count)) ? Number(data.count) : null;
+    // Two upstream shapes exist: the legacy DRF envelope
+    // ({count, next, results}) and the current bare array (verified
+    // live 2026-11-15 — the DB now returns the full set as one JSON
+    // array and ignores page_size). Reading only the envelope shape
+    // turned the bare array into total:null / shown:0 with HTTP 200 —
+    // a silent empty success (smoke-test defect D-2).
+    const bareArray = Array.isArray(data);
+    if (pages === 1) {
+      if (bareArray) total = data.length;
+      else if (data && typeof data === 'object')
+        total = Number.isFinite(Number(data.count)) ? Number(data.count) : null;
     }
-    const results = Array.isArray(data?.results) ? data.results : [];
+    const results = bareArray
+      ? data
+      : Array.isArray(data?.results)
+        ? data.results
+        : [];
     for (const raw of results) {
       const t = trimTransmitter(raw);
       if (t) transmitters.push(t);
     }
-    url = typeof data?.next === 'string' ? data.next : null;
+    url = !bareArray && typeof data?.next === 'string' ? data.next : null;
   }
+  // An empty result against a database verified to hold thousands of
+  // records is an upstream failure, never a finding. Per the Website
+  // Ladder (doctrine Addendum R-2) breakage degrades to an error or
+  // STALE — never to a plausible-looking empty set.
+  if (transmitters.length === 0)
+    throw Object.assign(new Error('frequencies_upstream_empty'), {
+      status: 502,
+    });
   // Live transmitters first, then by downlink frequency ascending.
   transmitters.sort((a, b) => {
     if (a.alive !== b.alive) return a.alive ? -1 : 1;
@@ -129,7 +157,7 @@ async function fetchAllTransmitters() {
     shown: transmitters.length,
     truncated: url != null,
     transmitters,
-    note: 'SatNOGS DB transmitter database (Libre Space, open): who transmits on what frequency. Daily cache; full DB is multi-MB, served paginated.',
+    note: 'SatNOGS DB transmitter database (Libre Space, open): who transmits on what frequency. Daily cache; full DB is multi-MB.',
     source: 'SatNOGS DB (Libre Space open data)',
   };
 }
@@ -142,6 +170,12 @@ async function getSnapshot() {
       .then((payload) => {
         cache = { at: Date.now(), payload };
         return payload;
+      })
+      .catch((error) => {
+        // Serve the last good snapshot labeled stale rather than
+        // failing (or worse, emptying) the layer — Website Ladder.
+        if (cache) return { ...cache.payload, stale: true };
+        throw error;
       })
       .finally(() => {
         inflight = null;

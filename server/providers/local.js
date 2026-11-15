@@ -115,6 +115,7 @@ import { socratesProxy } from './wave3/socrates.js';
 import { nmdbProxy } from './wave3/nmdb.js';
 import { argoProxy } from './wave3/argo.js';
 import { reentriesProxy } from './wave3/reentries.js';
+import { schumannProxy } from './wave3/schumann.js';
 
 /** Construct the local provider plugins in their established order. */
 function localProviderPlugins() {
@@ -173,6 +174,7 @@ function localProviderPlugins() {
     nmdbProxy(),
     argoProxy(),
     reentriesProxy(),
+    schumannProxy(),
     wxstationsProxy(),
     phoneSensorsProxy(),
     timeProxy(),

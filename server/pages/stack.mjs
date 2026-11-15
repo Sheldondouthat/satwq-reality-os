@@ -37,7 +37,11 @@ export async function buildPagesStack(log = () => {}) {
     } catch (err) {
       const reason = summarizeError(err);
       log(`[pages-api] provider degraded: ${entry.name}: ${reason}`);
-      useDegraded(stack, entry.routes, entry.name, reason);
+      // The full reason stays server-side (log + status above). Clients
+      // get a generic code only — a raw internal error (e.g. a Node
+      // TypeError from a provider's module load) must never be served
+      // as the response body (2026-11-15 smoke test, D-3).
+      useDegraded(stack, entry.routes, entry.name, 'provider_load_failed');
       status.push({
         provider: entry.name,
         state: 'degraded',

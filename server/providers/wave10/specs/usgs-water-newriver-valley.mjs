@@ -22,6 +22,14 @@ export const SPEC = {
   honesty:
     'bBox query over the New River Valley, VA: the set of gages returned can change as sites go dark or come back online. Instantaneous values, typically updated every 15-60 min; some values flagged provisional (qualifier P).',
   id: 'usgs-water-newriver-valley',
+  // Per-gage staleness (added 2026-11-15, smoke-test D-4): the bbox
+  // sweep includes discontinued gages whose final readings are years
+  // old; each item is now labeled from its own timestamp. The surge-500
+  // source JSON for this spec was not present in the workspace at fix
+  // time, so the fields are carried here and in generic.js's schema —
+  // mirror them into the spec JSON before the next generator run.
+  itemMaxAgeSeconds: 86400,
+  itemTimeField: 'time',
   required: ['name'],
   source: 'USGS Water Services (NWIS)',
   title: 'USGS Water — Streamflow, New River Valley VA (all gages in bbox)',

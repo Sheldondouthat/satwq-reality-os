@@ -355,9 +355,19 @@ function buildSnapshot(results) {
     all.push(...r.aircraft);
   }
   const aircraft = dedupeAircraft(all);
+  // Top-level provenance: which legs actually served this payload, and
+  // whether the layer is running degraded on a subset of them (the
+  // per-source detail stays in `sources`, per-aircraft in each item's
+  // `sources`). Added 2026-11-15 after a night when the OpenSky leg
+  // failed with an upstream 522 and only the adsb.lol fallback carried
+  // the layer — that fact should be readable from the payload's face,
+  // not only by diffing the sources map.
+  const servedBy = results.filter((r) => r.ok).map((r) => r.key);
   return {
     generatedAt: new Date().toISOString(),
     sources,
+    servedBy,
+    degraded: servedBy.length > 0 && servedBy.length < results.length,
     count: aircraft.length,
     merged: all.length - aircraft.length,
     aircraft,
