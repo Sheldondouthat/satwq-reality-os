@@ -9,6 +9,7 @@ import test from 'node:test';
 import {
   intermagnetProxy,
   hapiOk,
+  isFillerF,
   normalizeObservatory,
 } from '../../../../server/providers/wave3/intermagnet.js';
 import { createGeomagSource } from './source.js';
@@ -126,6 +127,94 @@ test('normalizeObservatory skips non-finite rows, nodata when empty', () => {
   const row = normalizeObservatory(OTT, [['2026-09-26T05:55Z', null], ['x']]);
   assert.equal(row.status, 'nodata');
   assert.equal(row.latest, null);
+});
+
+// — no-data filler (catalog fill = 99999.0; live HON/MBO captures
+//   2026-11-15: filler appears as the newest sample's F, and as the
+//   whole dead tail of MBO's final window) ----------------------------
+
+test('isFillerF matches only the catalog-declared 99999 fill', () => {
+  assert.equal(isFillerF(99999), true);
+  assert.equal(isFillerF(99999.0), true);
+  assert.equal(isFillerF(99998.99), false);
+  assert.equal(isFillerF(-99999), false);
+  assert.equal(isFillerF(88888), false);
+  assert.equal(isFillerF(null), false);
+});
+
+test('normalizeObservatory flags a filler latest as no-data, stats untouched', () => {
+  // HON-shaped: real samples, newest sample is the filler.
+  const rows = [
+    ['2026-11-15T10:14Z', 100],
+    ['2026-11-15T10:15Z', 102],
+    ['2026-11-15T10:16Z', 104],
+    ['2026-11-15T10:17Z', 106],
+    ['2026-11-15T10:18Z', 99999],
+  ];
+  const row = normalizeObservatory(OTT, rows);
+  assert.equal(row.status, 'ok'); // the station's window is real
+  assert.deepEqual(row.latest, { t: '2026-11-15T10:18Z', f: null });
+  assert.equal(row.anomalyNT, null); // derived from latest — cannot stand
+  // Regression pin: window stats are computed over ALL finite rows,
+  // filler included, exactly as before the flag existed. Sorted
+  // [100,102,104,106,99999] → median 104 (excluding the filler would
+  // give (102+104)/2 = 103).
+  assert.equal(row.medianF, 104);
+  assert.equal(row.samples, 5);
+});
+
+test('normalizeObservatory leaves a real latest untouched despite filler mid-window', () => {
+  const rows = [
+    ['2026-11-15T10:14Z', 100],
+    ['2026-11-15T10:15Z', 99999],
+    ['2026-11-15T10:16Z', 104],
+    ['2026-11-15T10:17Z', 106],
+    ['2026-11-15T10:18Z', 108],
+  ];
+  const row = normalizeObservatory(OTT, rows);
+  assert.equal(row.status, 'ok');
+  assert.deepEqual(row.latest, { t: '2026-11-15T10:18Z', f: 108 });
+  // sorted [100,104,106,108,99999] → median 106; anomaly = 108 − 106
+  assert.equal(row.medianF, 106);
+  assert.equal(row.anomalyNT, 2);
+  assert.equal(row.samples, 5);
+});
+
+test('normalizeObservatory degrades an all-filler window to the nodata shape', () => {
+  const rows = [
+    ['2020-03-05T10:27Z', 99999],
+    ['2020-03-05T10:28Z', 99999],
+    ['2020-03-05T10:29Z', 99999],
+  ];
+  const row = normalizeObservatory(OTT, rows);
+  assert.deepEqual(row, {
+    code: 'OTT',
+    name: 'Ottawa',
+    lat: 45.403,
+    lon: -75.552,
+    dataset: 'ott/best-avail/PT1M/xyzf',
+    latest: null,
+    medianF: null,
+    anomalyNT: null,
+    samples: 0,
+    status: 'nodata',
+  });
+});
+
+test('handler serves filler latest flagged, not as a 99999 reading', async () => {
+  const data = {
+    ...DATA_OK,
+    data: [...DATA_OK.data.slice(0, -1), ['2026-09-26T05:55Z', 99999]],
+  };
+  const provider = intermagnetProxy({ fetchImpl: stubHapi({ data }) });
+  const res = await callHandler(provider, '/api/geomag');
+  assert.equal(res.statusCode, 200);
+  const body = JSON.parse(res.body);
+  const ott = body.observatories.find((o) => o.code === 'OTT');
+  assert.equal(ott.status, 'ok');
+  assert.deepEqual(ott.latest, { t: '2026-09-26T05:55Z', f: null });
+  assert.equal(ott.anomalyNT, null);
+  assert.ok(ott.medianF !== null && ott.medianF < 99999);
 });
 
 // — handler end-to-end (stubbed HAPI) ---------------------------------------

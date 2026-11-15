@@ -17,11 +17,20 @@
  *     fetchedAt, windowMin: 120, ttlMs, stale,
  *     observatories: [{
  *       code, name, lat, lon, dataset,
- *       latest: { t, f } | null,   // f in nT
+ *       latest: { t, f } | null,   // f in nT; f is null when the newest
+ *                                  // sample is the upstream no-data
+ *                                  // filler (its t is kept; see
+ *                                  // FILLER_F_NT). anomalyNT is null
+ *                                  // then too — it derives from latest.
  *       medianF, anomalyNT, samples, status: 'ok'|'nodata'|'error'
  *     }],
  *     unavailable, reason
  *   }
+ *
+ * A window whose samples are ALL filler degrades to the plain 'nodata'
+ * shape (latest/medianF/anomalyNT null, samples 0). A window with real
+ * samples keeps status 'ok', its median and sample count exactly as
+ * computed over all finite rows — only the filler latest is flagged.
  *
  * Keyless, no new dependencies, Pages-safe (global fetch only, capped
  * reads, no node: imports, no WASM).
@@ -88,6 +97,23 @@ export function hapiOk(envelope) {
 }
 
 /**
+ * INTERMAGNET no-data fill for this dataset family: the HAPI catalog
+ * declares `fill: 99999.0` for BOTH Field_Magnitude and Field_Vector
+ * (`/info` responses for hon and mbo `best-avail/PT1M/xyzf`, verified
+ * 2026-11-15; in live windows the value appears as the F of trailing
+ * samples whose vector components are real — HON 2026-11-15T10:18Z — or
+ * of a station's dead tail — MBO's final 30 samples). A sample carrying
+ * it is a timestamp with NO measurement, not a 99,999 nT reading.
+ * Exact equality only: no other sentinel is catalog-declared, and none
+ * is flagged.
+ */
+export const FILLER_F_NT = 99999;
+
+export function isFillerF(f) {
+  return f === FILLER_F_NT;
+}
+
+/**
  * Normalize one observatory's HAPI /data rows ([time, F]) into the
  * consumer-contract row. Pure function — unit-tested with fixtures.
  */
@@ -99,27 +125,39 @@ export function normalizeObservatory(obs, rows) {
     lon: obs.lon,
     dataset: `${obs.code}/best-avail/PT1M/xyzf`,
   };
+  const nodata = {
+    ...base,
+    latest: null,
+    medianF: null,
+    anomalyNT: null,
+    samples: 0,
+    status: 'nodata',
+  };
   const clean = (rows || [])
     .filter((r) => Array.isArray(r) && r.length >= 2 && Number.isFinite(r[1]))
     .map((r) => ({ t: String(r[0]), f: r[1] }));
-  if (!clean.length)
-    return {
-      ...base,
-      latest: null,
-      medianF: null,
-      anomalyNT: null,
-      samples: 0,
-      status: 'nodata',
-    };
+  if (!clean.length) return nodata;
+  // A window of nothing but filler holds no measurement at all —
+  // degrade through the same no-data shape as an empty window.
+  if (!clean.some((r) => !isFillerF(r.f))) return nodata;
   const fs = clean.map((r) => r.f).sort((a, b) => a - b);
   const mid = Math.floor(fs.length / 2);
   const medianF = fs.length % 2 ? fs[mid] : (fs[mid - 1] + fs[mid]) / 2;
   const latest = clean[clean.length - 1];
+  const latestIsFiller = isFillerF(latest.f);
   return {
     ...base,
-    latest: { t: latest.t, f: Math.round(latest.f * 100) / 100 },
+    // Flag the filler latest at the reading level (f: null, the
+    // envelope's absent-value vocabulary; t kept). The station stays
+    // 'ok' — its window median and count are real and unchanged.
+    latest: {
+      t: latest.t,
+      f: latestIsFiller ? null : Math.round(latest.f * 100) / 100,
+    },
     medianF: Math.round(medianF * 100) / 100,
-    anomalyNT: Math.round((latest.f - medianF) * 100) / 100,
+    anomalyNT: latestIsFiller
+      ? null
+      : Math.round((latest.f - medianF) * 100) / 100,
     samples: clean.length,
     status: 'ok',
   };
