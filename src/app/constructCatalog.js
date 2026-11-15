@@ -42,6 +42,7 @@ import { createApplicationRainviewerSatellite } from './layers/rainviewerSatelli
 import { createApplicationFirePerimeters } from './layers/perimeters.js';
 import { createApplicationCables } from './layers/submarineCables.js';
 import { createApplicationWspr } from './layers/wspr.js';
+import { createApplicationSovereignMesh } from './layers/sovereignMesh.js';
 import { createInfrastructureLayers } from '../data/infrastructure.js';
 import { localGeoJsonServices } from './localGeojsonServices.js';
 import { createBhoteKoshiEventLayer } from '../data/bhoteKoshiEvent.js';
@@ -87,6 +88,7 @@ const SOURCE_METHODS = Object.freeze({
   'fire-perimeters': ['getSnapshot'],
   cables: ['fetch'],
   wspr: ['getSnapshot'],
+  'sovereign-mesh': ['getSnapshot'],
 });
 
 /**
@@ -97,10 +99,26 @@ export const LOCAL_ONLY_LAYER_METADATA = Object.freeze([
   Object.freeze({ id: 'local-adsb', disposition: 'local-only' }),
 ]);
 
+/**
+ * PERSONAL-class layers (Blend Amendment A-2): the operator's own
+ * property — private by default, never mixed into public feeds,
+ * never rendered on a shared/ambient face without his explicit
+ * per-scene grant. They carry the local-only disposition (no share
+ * links, no stored layer state) with their class named on the entry.
+ */
+export const PERSONAL_LAYER_METADATA = Object.freeze([
+  Object.freeze({
+    id: 'sovereign-mesh-nodes',
+    disposition: 'local-only',
+    class: 'PERSONAL',
+  }),
+]);
+
 /** Serialization metadata for every layer the application catalog constructs. */
 export const APPLICATION_LAYER_METADATA = Object.freeze([
   ...LAYER_STATE_REGISTRY,
   ...LOCAL_ONLY_LAYER_METADATA,
+  ...PERSONAL_LAYER_METADATA,
 ]);
 
 /** Construct the current catalog without choosing any source provider.
@@ -185,6 +203,9 @@ export function createApplicationCatalog({
         createApplicationSpaceWeather({ source: sources['space-weather'] }),
         createApplicationTerminator({ source: sources.terminator }),
         createApplicationWspr({ source: sources.wspr }),
+        createApplicationSovereignMesh({
+          source: sources['sovereign-mesh'],
+        }),
         createApplicationMoon(),
         createApplicationGibsTruecolor({ source: sources.gibsTruecolor }),
         createApplicationGibsNightlights({ source: sources.gibsNightlights }),

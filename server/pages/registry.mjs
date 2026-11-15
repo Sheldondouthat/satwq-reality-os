@@ -418,6 +418,21 @@ const REGISTRY = [
       import('../providers/helmTasks.js').then((m) => m.helmTasksProxy()),
   },
   {
+    // Sovereign Mesh (nodes) — BM3: the operator's own LoRa mesh,
+    // PERSONAL class. The provider serves the bridge's
+    // feed_records.json verbatim from the Home Node's disk (lazy
+    // node:fs, workerd-safe graph). On the public edge the bridge
+    // file does not exist, so the endpoint answers its honest
+    // { unavailable: true } envelope — never fabricated nodes,
+    // never the demo replay presented as live. Read-only.
+    name: 'sovereign-mesh-nodes',
+    routes: ['/api/sovereign-mesh-nodes'],
+    load: () =>
+      import('../providers/local/sovereignMesh.js').then((m) =>
+        m.sovereignMeshProxy(),
+      ),
+  },
+  {
     name: 'nwps',
     routes: ['/api/nwps'],
     load: () => import('../providers/wave3/nwps.js').then((m) => m.nwpsProxy()),

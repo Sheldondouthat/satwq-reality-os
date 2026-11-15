@@ -43,13 +43,24 @@ test('catalogs construct distinct layers and classification from their supplied 
   // buoys, meteors, osm-buildings-3d, gibs-chlorophyll, gibs-nightlights,
   // gibs-sst, gibs-truecolor, hms-smoke, moon, rainviewer-radar,
   // rainviewer-satellite, space-weather, terminator, wspr — plus the
-  // local-only Local ADS-B layer, which is never serialized into links.
-  assert.equal(first.layers.length, 46);
+  // local-only Local ADS-B layer, which is never serialized into links,
+  // plus the PERSONAL-class Sovereign Mesh (nodes) layer (BM3), which
+  // carries the same local-only disposition.
+  assert.equal(first.layers.length, 47);
   assert.ok(first.get('local-adsb'), 'Local ADS-B is registered');
   assert.deepEqual(
     first.metadata.find(({ id }) => id === 'local-adsb'),
     { id: 'local-adsb', disposition: 'local-only' },
     'the hardware-local layer is never serialized into links',
+  );
+  assert.ok(
+    first.get('sovereign-mesh-nodes'),
+    'Sovereign Mesh (nodes) is registered',
+  );
+  assert.deepEqual(
+    first.metadata.find(({ id }) => id === 'sovereign-mesh-nodes'),
+    { id: 'sovereign-mesh-nodes', disposition: 'local-only', class: 'PERSONAL' },
+    'the PERSONAL-class layer is never serialized into links',
   );
   assert.notEqual(first.weatherClock, second.weatherClock);
   await first.weatherClock.setTarget('2026-09-21T12:00:00.000Z');

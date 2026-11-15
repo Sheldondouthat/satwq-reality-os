@@ -394,6 +394,21 @@ export const WSPR_CREDIT = {
     '(mirrors wsprnet.org; non-commercial use only)',
 };
 
+/** Registered when the Sovereign Mesh nodes layer first renders data
+ * (BM3). PERSONAL class: the attribution strings are the FeedSpec's
+ * own, carried verbatim (no links — there is no public URL to link). */
+export const SOVEREIGN_MESH_NODES_CREDIT = {
+  key: 'sovereign-mesh-nodes',
+  html: "Sovereign Mesh — the operator's own LoRa mesh network (Part 15, 902-928 MHz). Node positions and telemetry reported by the operator's own nodes; served locally, not redistributed.",
+};
+
+/** Registered with the nodes credit: coverage is registered as a
+ * source (BM3 §4) whose web-face render is a follow-on layer task. */
+export const SOVEREIGN_MESH_COVERAGE_CREDIT = {
+  key: 'sovereign-mesh-coverage',
+  html: "Sovereign Mesh coverage — computed locally from SRTM terrain (OpenTopoData) and the operator's own node set. Modeled, not measured.",
+};
+
 /** Registered when a face first renders the S6 RIVER fused verdict. */
 export const FUSION_RIVER_CREDIT = {
   key: 'fusion-river',

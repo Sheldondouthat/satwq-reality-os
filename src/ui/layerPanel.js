@@ -73,6 +73,13 @@ const PANEL_GROUPS = [
     label: 'Utilities',
     ids: ['directions', 'radio', 'wspr'],
   },
+  {
+    // PERSONAL class (Blend Amendment A-2): the operator's own
+    // property, private by default — its own group, never folded
+    // into a public category.
+    label: 'Personal',
+    ids: ['sovereign-mesh-nodes'],
+  },
 ];
 const PANEL_ORDER = PANEL_GROUPS.flatMap(({ label, ids }) =>
   ids.map((id) => ({ id, label })),
