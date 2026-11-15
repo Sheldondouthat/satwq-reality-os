@@ -62,6 +62,7 @@
   { "key": "feature.orcasound", "label": "Hydrophones" },
   { "key": "feature.pota", "label": "Who's on the air (POTA)" },
   { "key": "feature.pskreporter", "label": "PSKReporter (HF reception)" },
+  { "key": "feature.wspr", "label": "WSPR (live propagation spots)" },
   { "key": "feature.quakes", "label": "Global quakes (5-catalog)" },
   { "key": "feature.radioRef", "label": "Radio reference" },
   { "key": "feature.research", "label": "Research ticker" },

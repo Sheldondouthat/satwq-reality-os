@@ -129,6 +129,7 @@ import {
 } from './wave3/cosmicRay/index.js';
 import { createNmdbSource } from './wave3/nmdb/index.js';
 import { init as initPskreporter } from './wave6/pskreporter/index.js';
+import { init as initWspr } from './wave6/wspr/index.js';
 import { init as initSondes } from './wave6/sondes/index.js';
 import { init as initGliders } from './wave6/gliders/index.js';
 import { init as initFrequencies } from './wave6/frequencies/index.js';
@@ -1235,6 +1236,7 @@ export function initFrontier({ viewer } = {}) {
     attempt('pskreporter', () =>
       initPskreporter({ viewer, mount: s, chip, trackLayer, t }),
     );
+    attempt('wspr', () => initWspr({ viewer, mount: s, chip, trackLayer, t }));
     attempt('hamSpace', () =>
       initHamSpace({ viewer, mount: s, chip, trackLayer, t }),
     );

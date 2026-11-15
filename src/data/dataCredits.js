@@ -385,6 +385,15 @@ export const PSKREPORTER_CREDIT = {
     '(amateur-use service by Philip Gladstone)',
 };
 
+/** Registered when the WSPR dock ticker first renders data. */
+export const WSPR_CREDIT = {
+  key: 'wspr-live',
+  html:
+    'WSPR spots via ' +
+    '<a href="https://wspr.live" target="_blank" rel="noopener">wspr.live</a> ' +
+    '(mirrors wsprnet.org; non-commercial use only)',
+};
+
 /** Registered when the first Natural Earth region outline resolves (public
  * domain — no attribution required; credited as a courtesy). */
 export const NATURAL_EARTH_CREDIT = {

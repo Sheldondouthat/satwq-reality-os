@@ -59,6 +59,7 @@ import { civicProxy } from './wave5/civic.js';
 import { researchProxy } from './wave5/research.js';
 import { biosphereProxy } from './wave5/biosphere.js';
 import { pskreporterProxy } from './wave6/pskreporter.js';
+import { wsprProxy } from './wave6/wspr.js';
 import { sondesProxy } from './wave6/sondes.js';
 import { glidersProxy } from './wave6/gliders.js';
 import { frequenciesProxy } from './wave6/frequencies.js';
@@ -195,6 +196,7 @@ function localProviderPlugins() {
     researchProxy(),
     biosphereProxy(),
     pskreporterProxy(),
+    wsprProxy(),
     sondesProxy(),
     glidersProxy(),
     frequenciesProxy(),

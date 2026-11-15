@@ -502,6 +502,12 @@ const REGISTRY = [
       ),
   },
   {
+    name: 'wspr',
+    routes: ['/api/wspr-live'],
+    load: () =>
+      import('../providers/wave6/wspr.js').then((m) => m.wsprProxy()),
+  },
+  {
     name: 'sondes',
     routes: ['/api/sondes'],
     load: () =>

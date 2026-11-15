@@ -20,6 +20,7 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const ROUTES = [
   // [route, waveDir, attemptId]
   ['/api/pskreporter', 'wave6/pskreporter', 'pskreporter'],
+  ['/api/wspr-live', 'wave6/wspr', 'wspr'],
   ['/api/sondes', 'wave6/sondes', 'sondes'],
   ['/api/gliders', 'wave6/gliders', 'gliders'],
   ['/api/frequencies', 'wave6/frequencies', 'frequencies'],
@@ -101,7 +102,7 @@ const indexImports = readFileSync(
 );
 
 test('all 49 audited routes have a model with the exact registry ROUTE', async () => {
-  assert.equal(ROUTES.length, 67);
+  assert.equal(ROUTES.length, 68);
   const seen = new Set();
   for (const [route, waveDir] of ROUTES) {
     const mod = await import(`./${waveDir}/model.js`);
