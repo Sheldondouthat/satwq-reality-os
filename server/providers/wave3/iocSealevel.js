@@ -193,8 +193,18 @@ export function iocSealevelProxy({
       throw Object.assign(new Error('sealevel_list_malformed'), {
         status: 502,
       });
-    listCache = { at: now, stations: list };
-    return list;
+    // Shape drift found at wiring time (2026-11-15, Wave-3 Wiring
+    // Completion): the live station list keys the code as `Code`, while
+    // this provider (and its test fixtures) read `code` — against the
+    // real upstream every station's code was undefined, its data query
+    // fetched code=undefined, and the route could only ever answer 502.
+    // Normalize once at ingestion; accept both shapes.
+    const stations = list.map((s) => ({
+      ...s,
+      code: String(s?.code ?? s?.Code ?? '').toLowerCase(),
+    }));
+    listCache = { at: now, stations };
+    return stations;
   }
 
   async function fetchStationData(station) {
@@ -226,7 +236,15 @@ export function iocSealevelProxy({
     let selection;
     if (customCodes) {
       const wanted = new Set(customCodes);
-      selected = list.filter((s) => wanted.has(String(s.code).toLowerCase()));
+      // The live list carries duplicate codes (one entry per instrument);
+      // custom selection is one row per requested code — first entry wins.
+      const seen = new Set();
+      selected = list.filter((s) => {
+        const code = String(s.code).toLowerCase();
+        if (!wanted.has(code) || seen.has(code)) return false;
+        seen.add(code);
+        return true;
+      });
       selection = 'custom';
     } else {
       selected = stratifyStations(list);
