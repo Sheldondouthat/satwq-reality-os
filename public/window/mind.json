@@ -1,0 +1,60 @@
+{
+  "format": "gev-window-frame/1",
+  "room": "mind",
+  "frame_file": "mind.png",
+  "data_ts": "2026-11-15T13:30:00.000Z",
+  "data_epoch": 1794749400,
+  "data_ts_label": "13:30 UTC \u00b7 NOV 15, 2026",
+  "rendered_ts": "2026-11-15T14:32:38.000Z",
+  "rendered_epoch": 1794753158,
+  "age_at_render_seconds": 3758,
+  "max_age_seconds": 3600,
+  "freshness": {
+    "verdict": "STALE",
+    "basis": "age at render crossed the room record's 3600 s max-age"
+  },
+  "renderer_epoch": "2026-11-15",
+  "min_channel_format": 1,
+  "source": {
+    "record": "home-node journal compiled output (segments + reader verify)",
+    "detail": "sky-map-quest/home-node/journal, read on this node"
+  },
+  "values": {
+    "records_total": 11,
+    "feed_records": 9,
+    "verdict_records": 1,
+    "coverage_from": "2026-11-15T07:30:00+00:00",
+    "coverage_to": "2026-11-15T13:30:00+00:00",
+    "chain_ok": true,
+    "closing_hash": "c01c606947512dee45676f40da4d785fe1a4cf036a49a9e041bcab60fb709d1b",
+    "latest_kind": "feed-record",
+    "drill_verdict": "FAIL",
+    "headline": "THE JOURNAL \u2014 CHAIN UNBROKEN",
+    "lines": [
+      {
+        "label": "RECORDS",
+        "value": "11 ON CHAIN \u2014 9 FEED \u00b7 1 REGISTRY-CHANGE \u00b7 1 VERDICT (+1 SEGMENT HEADER)"
+      },
+      {
+        "label": "COVERAGE",
+        "value": "DATA 07:30 UTC \u2192 13:30 UTC \u00b7 2026-11-15"
+      },
+      {
+        "label": "CHAIN",
+        "value": "UNBROKEN \u2014 CLOSING HASH c01c60694751\u2026"
+      },
+      {
+        "label": "LATEST",
+        "value": "FEED-RECORD \u00b7 DATA 13:30 UTC \u00b7 JOURNALED 13:57 UTC"
+      },
+      {
+        "label": "DEATH DRILL",
+        "value": "VERDICT FAIL \u00b7 09:41 UTC \u2014 RECONSTRUCTION NOT PROVEN"
+      },
+      {
+        "label": "GRADE",
+        "value": "RECORDED-UNVERIFIED \u2014 NO PASS VERDICT HAS EXAMINED THIS JOURNAL"
+      }
+    ]
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "format": "gev-window-frame/1",
+  "room": "deck",
+  "frame_file": "deck.png",
+  "data_ts": "2026-11-15T14:02:20.000Z",
+  "data_epoch": 1794751340,
+  "data_ts_label": "14:02 UTC \u00b7 NOV 15, 2026",
+  "rendered_ts": "2026-11-15T14:32:37.000Z",
+  "rendered_epoch": 1794753157,
+  "age_at_render_seconds": 1817,
+  "max_age_seconds": 3600,
+  "freshness": {
+    "verdict": "CURRENT",
+    "basis": "record fresh at render: age inside the room record's 3600 s max-age"
+  },
+  "renderer_epoch": "2026-11-15",
+  "min_channel_format": 1,
+  "source": {
+    "record": "home-node compiled health (journal + events + tasks + witness stores)",
+    "detail": "sky-map-quest/home-node + witness-collector, read on this node"
+  },
+  "values": {
+    "chain_ok": true,
+    "journal_records": 12,
+    "journal_last_journaled_at": "2026-11-15T13:57:25Z",
+    "last_evaluation_id": "evt-000007",
+    "last_evaluation_band": "NORMAL",
+    "tasks_open": 0,
+    "witness_wspr_ok": true,
+    "witness_ionosonde_ok": false,
+    "headline": "HOME NODE \u2014 ANSWERING",
+    "lines": [
+      {
+        "label": "JOURNAL CHAIN",
+        "value": "UNBROKEN \u2014 CLOSING c01c60694751\u2026"
+      },
+      {
+        "label": "JOURNAL",
+        "value": "12 RECORDS (9 FEED) \u00b7 LAST JOURNALED 13:57 UTC"
+      },
+      {
+        "label": "EVALUATOR",
+        "value": "EVT-000007 \u00b7 BAND NORMAL \u00b7 NO-CROSSING \u00b7 14:02 UTC"
+      },
+      {
+        "label": "HELM TASKS",
+        "value": "0 OPEN \u2014 NO TASKS BORN YET; THE RIVER IS QUIET"
+      },
+      {
+        "label": "WITNESS \u00b7 WSPR",
+        "value": "OK \u00b7 1,500 SPOTS \u00b7 13:56 UTC"
+      },
+      {
+        "label": "WITNESS \u00b7 WP937",
+        "value": "NO READING \u2014 OPERATOR ENDPOINTS FAILING \u00b7 LAST ATTEMPT 13:56 UTC"
+      }
+    ]
+  }
+}
