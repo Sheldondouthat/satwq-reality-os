@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "posts": [],
+  "meta": {
+    "refreshed": "2026-11-15",
+    "composer": "form-door-v1 (mailto) — posts appear on the refresh cycle, not in real time",
+    "types": [
+      "Discussion",
+      "Sighting",
+      "Place",
+      "Field Note"
+    ],
+    "house_rules": "Chosen display names only. No dollars, no personal identifiers, no court content. Sightings get auto-tagged with the day’s instrument data when the board backend lands."
+  }
+}

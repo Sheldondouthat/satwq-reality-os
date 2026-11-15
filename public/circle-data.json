@@ -1,0 +1,2644 @@
+{
+  "generated_at": "2026-11-15T18:30:43.442Z",
+  "date_et": "2026-11-15",
+  "config": {
+    "version": "1.0.0",
+    "changelog": [
+      {
+        "v": "1.0.0",
+        "date": "2026-11-15",
+        "note": "Framework first: config-driven layout, 181-item registry incl. Bane Dome §IX, three tickers, Wire Reader, radio bar (build-verified streams), video rail (build-verified embeds), Board v1 (form door), Sky Camera AR, PWA shell, ambient TV mode."
+      }
+    ],
+    "features": {
+      "radio": true,
+      "video": true,
+      "board": "v1-form-door",
+      "skyCameraAR": true,
+      "ambient": true,
+      "pwa": true,
+      "voiceNotes": "v1-local",
+      "liveChat": false,
+      "porch": "jitsi-embed"
+    },
+    "rooms": [
+      {
+        "id": "porch",
+        "name": "The Porch",
+        "blurb": "The main hangout — pull up a chair, no agenda.",
+        "room": "satwq-circle-porch-zhbzky"
+      },
+      {
+        "id": "sky-watch",
+        "name": "Sky Watch",
+        "blurb": "Watch parties for the sky: launches, eclipses, meteor peaks, ISS passes.",
+        "room": "satwq-circle-skywatch-g2uqnv"
+      },
+      {
+        "id": "field-reports",
+        "name": "Field Reports",
+        "blurb": "Show what you are seeing — point the camera at the sky, the river, the dome country.",
+        "room": "satwq-circle-field-9yppne"
+      }
+    ],
+    "sections": [
+      {
+        "id": "findings",
+        "title": "Findings",
+        "enabled": true
+      },
+      {
+        "id": "bane",
+        "title": "Bane Dome",
+        "enabled": true
+      },
+      {
+        "id": "globe",
+        "title": "Living Globe",
+        "enabled": true
+      },
+      {
+        "id": "wire",
+        "title": "Today's Wire",
+        "enabled": true
+      },
+      {
+        "id": "reader",
+        "title": "Wire Reader",
+        "enabled": true
+      },
+      {
+        "id": "video",
+        "title": "Live Video",
+        "enabled": true
+      },
+      {
+        "id": "charts",
+        "title": "Charts",
+        "enabled": true
+      },
+      {
+        "id": "anomalies",
+        "title": "Anomaly Log",
+        "enabled": true
+      },
+      {
+        "id": "your-sky",
+        "title": "Your Sky",
+        "enabled": true
+      },
+      {
+        "id": "board",
+        "title": "The Board",
+        "enabled": true
+      },
+      {
+        "id": "porch",
+        "title": "The Porch — Live Video",
+        "enabled": true
+      },
+      {
+        "id": "registry",
+        "title": "Master Registry",
+        "enabled": true
+      }
+    ],
+    "cards": [
+      {
+        "id": "weather",
+        "title": "Weather",
+        "section": "wire",
+        "size": "M",
+        "source": "NWS api.weather.gov",
+        "enabled": true
+      },
+      {
+        "id": "local_news",
+        "title": "Local News",
+        "section": "wire",
+        "size": "L",
+        "source": "RSS: WVVA · WDBJ7 · Roanoke Times · Virginia Mercury",
+        "enabled": true
+      },
+      {
+        "id": "world_news",
+        "title": "World Headlines",
+        "section": "wire",
+        "size": "M",
+        "source": "RSS: NPR (AP/Reuters routes dead keyless)",
+        "enabled": true
+      },
+      {
+        "id": "traffic",
+        "title": "Traffic",
+        "section": "wire",
+        "size": "S",
+        "source": "VA-511 link-out (no keyless feed)",
+        "enabled": true
+      },
+      {
+        "id": "quakes",
+        "title": "Earthquakes",
+        "section": "wire",
+        "size": "L",
+        "source": "USGS GeoJSON",
+        "enabled": true
+      },
+      {
+        "id": "earth2",
+        "title": "Earth Body II",
+        "section": "wire",
+        "size": "M",
+        "source": "USGS Water · PTWC · USDM · CPC · NOAA · SPC · NHC",
+        "enabled": true
+      },
+      {
+        "id": "schumann",
+        "title": "Schumann Resonance",
+        "section": "wire",
+        "size": "M",
+        "source": "Tomsk SOSRFF (hotlinked)",
+        "enabled": true
+      },
+      {
+        "id": "space_weather",
+        "title": "Space Weather",
+        "section": "wire",
+        "size": "M",
+        "source": "NOAA SWPC",
+        "enabled": true
+      },
+      {
+        "id": "deep2",
+        "title": "Deep Field II",
+        "section": "wire",
+        "size": "M",
+        "source": "SWPC · DONKI · JPL Sentry/CNEOS · DSN",
+        "enabled": true
+      },
+      {
+        "id": "gw",
+        "title": "Gravitational Waves",
+        "section": "wire",
+        "size": "S",
+        "source": "GraceDB public API",
+        "enabled": true
+      },
+      {
+        "id": "moon_sky",
+        "title": "Moon & Sky",
+        "section": "wire",
+        "size": "L",
+        "source": "Computed (builder astro) + CelesTrak TLE",
+        "enabled": true
+      },
+      {
+        "id": "sky_tonight",
+        "title": "Tonight's Sky",
+        "section": "wire",
+        "size": "M",
+        "source": "Computed (builder astro)",
+        "enabled": true
+      },
+      {
+        "id": "cycles_full",
+        "title": "Cycles & Signs",
+        "section": "wire",
+        "size": "L",
+        "source": "Computed by each system’s own rules",
+        "enabled": true
+      },
+      {
+        "id": "earth_extras",
+        "title": "Earth Extras",
+        "section": "wire",
+        "size": "M",
+        "source": "SWPC OVATION · Open-Meteo · NOAA Tides · NASA NEO",
+        "enabled": true
+      },
+      {
+        "id": "space_news",
+        "title": "Space News + APOD",
+        "section": "wire",
+        "size": "M",
+        "source": "Spaceflight News API · NASA APOD DEMO_KEY",
+        "enabled": true
+      },
+      {
+        "id": "human_world",
+        "title": "Human World",
+        "section": "wire",
+        "size": "M",
+        "source": "CoinGecko · Wikimedia · VA Lottery link-out",
+        "enabled": true
+      },
+      {
+        "id": "human2",
+        "title": "Human World II",
+        "section": "wire",
+        "size": "S",
+        "source": "CoinGecko · data.ny.gov · FEMA · openFDA",
+        "enabled": true
+      },
+      {
+        "id": "facebook",
+        "title": "Facebook (link-out)",
+        "section": "wire",
+        "size": "S",
+        "source": "Static link-out — no scraping",
+        "enabled": true
+      }
+    ]
+  },
+  "weather": {
+    "ok": true,
+    "fetched_at": "2026-11-15T18:30:59.161Z",
+    "source": "National Weather Service (api.weather.gov)",
+    "place": "Pembroke, VA 24136",
+    "periods": [
+      {
+        "name": "This Afternoon",
+        "temperature": 47,
+        "unit": "F",
+        "wind": "8 mph",
+        "short": "Mostly Cloudy",
+        "detailed": "Mostly cloudy, with a high near 47. Northwest wind around 8 mph."
+      },
+      {
+        "name": "Tonight",
+        "temperature": 29,
+        "unit": "F",
+        "wind": "2 to 7 mph",
+        "short": "Partly Cloudy",
+        "detailed": "Partly cloudy, with a low around 29. Northwest wind 2 to 7 mph."
+      },
+      {
+        "name": "Monday",
+        "temperature": 53,
+        "unit": "F",
+        "wind": "3 mph",
+        "short": "Sunny",
+        "detailed": "Sunny, with a high near 53. Northwest wind around 3 mph."
+      },
+      {
+        "name": "Monday Night",
+        "temperature": 28,
+        "unit": "F",
+        "wind": "0 to 3 mph",
+        "short": "Mostly Clear",
+        "detailed": "Mostly clear, with a low around 28. Southwest wind 0 to 3 mph."
+      },
+      {
+        "name": "Tuesday",
+        "temperature": 60,
+        "unit": "F",
+        "wind": "0 mph",
+        "short": "Sunny",
+        "detailed": "Sunny, with a high near 60. Wind around 0 mph."
+      },
+      {
+        "name": "Tuesday Night",
+        "temperature": 31,
+        "unit": "F",
+        "wind": "0 mph",
+        "short": "Clear",
+        "detailed": "Clear, with a low around 31."
+      }
+    ],
+    "alerts": []
+  },
+  "local_news": {
+    "ok": true,
+    "fetched_at": "2026-11-15T18:31:05.533Z",
+    "source": "Local news RSS (WVVA / WDBJ7 / Roanoke Times / Virginia Mercury)",
+    "outlets": [
+      {
+        "name": "WVVA (Bluefield)",
+        "ok": false,
+        "error": "no items parsed from https://www.wvva.com/arc/outboundfeeds/rss/category/news/?outputType=xml"
+      },
+      {
+        "name": "WDBJ7 (Roanoke)",
+        "ok": false,
+        "error": "no items parsed from https://www.wdbj7.com/arc/outboundfeeds/rss/category/news/?outputType=xml"
+      },
+      {
+        "name": "Roanoke Times",
+        "ok": false,
+        "error": "HTTP 429"
+      },
+      {
+        "name": "Virginia Mercury",
+        "ok": true,
+        "items": [
+          {
+            "title": "States have 6 more months to implement Medicaid work requirement, administration says",
+            "link": "https://virginiamercury.com/2026/11/14/repub/states-have-6-more-months-to-implement-medicaid-work-requirement-administration-says/",
+            "date": "Sun, 15 Nov 2026 01:14:38 +0000"
+          },
+          {
+            "title": "FAA grounds all US flights due to air traffic control issue",
+            "link": "https://virginiamercury.com/2026/11/13/repub/faa-grounds-all-us-flights-due-to-air-traffic-control-issue/",
+            "date": "Fri, 13 Nov 2026 23:46:22 +0000"
+          },
+          {
+            "title": "Virginia runs $394 million ahead of revenue forecast through October",
+            "link": "https://virginiamercury.com/2026/11/13/virginia-runs-394-million-ahead-of-revenue-forecast-through-october/",
+            "date": "Fri, 13 Nov 2026 21:27:22 +0000"
+          },
+          {
+            "title": "Five Virginia members of Congress demand state regulators deny Dominion-NextEra merger",
+            "link": "https://virginiamercury.com/2026/11/13/five-virginia-members-of-congress-demand-state-regulators-deny-dominion-nextera-merger/",
+            "date": "Fri, 13 Nov 2026 17:32:53 +0000"
+          }
+        ]
+      }
+    ]
+  },
+  "world_news": {
+    "ok": true,
+    "fetched_at": "2026-11-15T18:31:00.299Z",
+    "source": "NPR News RSS",
+    "outlet": "NPR News",
+    "items": [
+      {
+        "title": "New Orleans port sues owners of tanker involved in Mississippi crash",
+        "link": "https://www.npr.org/2026/11/15/nx-s1-6041677/new-orleans-port-sues-miracle-mississippi-cruise-ship",
+        "date": "Sun, 15 Nov 2026 12:45:27 -0500"
+      },
+      {
+        "title": "PREVENTING BLACK LUNG DISEASE",
+        "link": "https://www.npr.org/2026/11/15/nx-s1-6039311/laws-limiting-coal-miners-exposure-to-toxic-dust-are-in-danger-of-being-rolled-back",
+        "date": "Sun, 15 Nov 2026 08:11:30 -0500"
+      },
+      {
+        "title": "New Mexico wanted free childcare for all. This is what's worked — and what hasn't",
+        "link": "https://www.npr.org/2026/11/15/nx-s1-6040194/new-mexico-free-universal-childcare-families",
+        "date": "Sun, 15 Nov 2026 05:00:00 -0500"
+      },
+      {
+        "title": "Midterm voters ended the long-running GOP dominance in state legislatures",
+        "link": "https://www.npr.org/2026/11/15/nx-s1-6039175/midterms-legislatures-states-democrats-gop",
+        "date": "Sun, 15 Nov 2026 05:00:00 -0500"
+      },
+      {
+        "title": "A new generation of disability rights activists carry on Judy Heumann's legacy",
+        "link": "https://www.npr.org/2026/11/15/nx-s1-6002935/being-heumann-new-generation-disability-rights",
+        "date": "Sun, 15 Nov 2026 05:00:00 -0500"
+      },
+      {
+        "title": "Trump blasts judge for halting his Washington golf project and says he will appeal",
+        "link": "https://www.npr.org/2026/11/14/nx-s1-6041152/judge-trump-golf-course-blocks",
+        "date": "Sat, 14 Nov 2026 23:28:45 -0500"
+      }
+    ]
+  },
+  "traffic": {
+    "ok": true,
+    "fetched_at": "2026-11-15T18:30:51.474Z",
+    "source": "Virginia 511 (VDOT)",
+    "link": "https://511virginia.org",
+    "note": "Live incident map for Giles County and the New River Valley. No keyless public incident feed is published, so this card links out instead of showing numbers we did not measure.",
+    "linkOnly": true
+  },
+  "quakes": {
+    "ok": true,
+    "fetched_at": "2026-11-15T18:30:56.050Z",
+    "source": "USGS Earthquake Hazards Program",
+    "global": [
+      {
+        "mag": 5,
+        "place": "74 km N of Pārūn, Afghanistan",
+        "time": "2026-11-15T17:48:36.959Z",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000tyfh",
+        "depth_km": 100.728,
+        "lon": 70.9503,
+        "lat": 36.0947
+      },
+      {
+        "mag": 5.1,
+        "place": "169 km NW of Gorontalo, Indonesia",
+        "time": "2026-11-15T15:41:14.978Z",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000tyf4",
+        "depth_km": 487.384,
+        "lon": 122.1345,
+        "lat": 1.7527
+      },
+      {
+        "mag": 5.5,
+        "place": "9 km E of Union, Philippines",
+        "time": "2026-11-15T13:41:35.701Z",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000tyek",
+        "depth_km": 9.971,
+        "lon": 126.2,
+        "lat": 9.7595
+      },
+      {
+        "mag": 4.7,
+        "place": "92 km NW of Houma, Tonga",
+        "time": "2026-11-15T07:36:37.211Z",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000tyd3",
+        "depth_km": 177.524,
+        "lon": -175.9354,
+        "lat": -20.589
+      },
+      {
+        "mag": 5.5,
+        "place": "Fiji region",
+        "time": "2026-11-15T05:15:02.697Z",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000tyca",
+        "depth_km": 469.881,
+        "lon": -177.8215,
+        "lat": -19.5554
+      },
+      {
+        "mag": 4.8,
+        "place": "19 km NW of Albardón, Argentina",
+        "time": "2026-11-15T03:59:59.682Z",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000tybx",
+        "depth_km": 108.94,
+        "lon": -68.6822,
+        "lat": -31.3221
+      },
+      {
+        "mag": 4.7,
+        "place": "east central Pacific Ocean",
+        "time": "2026-11-14T22:23:46.411Z",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000tyay",
+        "depth_km": 10,
+        "lon": -99.113,
+        "lat": 3.7323
+      },
+      {
+        "mag": 4.5,
+        "place": "25 km N of Ruteng, Indonesia",
+        "time": "2026-11-14T21:24:20.159Z",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000tyan",
+        "depth_km": 10,
+        "lon": 120.443,
+        "lat": -8.3823
+      }
+    ],
+    "local": [
+      {
+        "mag": 2.08,
+        "place": "7 km WNW of Pigeon Forge, Tennessee",
+        "time": "2026-11-09T00:03:05.950Z",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/se60628966",
+        "depth_km": 21.93,
+        "lon": -83.6358333333333,
+        "lat": 35.8153333333333
+      }
+    ],
+    "localNote": "M1.0+ within 500 km of Pembroke, past 7 days",
+    "ring_of_fire_count": 6,
+    "deepest_km": 487.384,
+    "swarm_flags": []
+  },
+  "schumann": {
+    "ok": true,
+    "fetched_at": "2026-11-15T18:30:50.332Z",
+    "source": "Tomsk State University — Space Observing System (sosrff.tsu.ru)",
+    "image": "https://sosrff.tsu.ru/new/shm.jpg",
+    "page": "http://sosrff.tsu.ru/?page_id=7",
+    "note": "Live Schumann resonance spectrogram from the Tomsk observatory. The chart updates at the source; the fundamental sits near 7.83 Hz."
+  },
+  "space_weather": {
+    "ok": true,
+    "fetched_at": "2026-11-15T18:30:56.359Z",
+    "source": "NOAA Space Weather Prediction Center",
+    "kp_latest": {
+      "t": "2026-11-15T15:00:00",
+      "kp": 1
+    },
+    "kp_max_today": 2,
+    "solar_wind": null,
+    "flares": [
+      {
+        "begin": "2026-11-15T17:59:00Z",
+        "max": "2026-11-15T18:06:00Z",
+        "cls": "B8.6",
+        "region": null
+      },
+      {
+        "begin": "2026-11-15T17:14:00Z",
+        "max": "2026-11-15T17:20:00Z",
+        "cls": "B8.5",
+        "region": null
+      },
+      {
+        "begin": "2026-11-15T13:07:00Z",
+        "max": "2026-11-15T13:15:00Z",
+        "cls": "B8.0",
+        "region": null
+      },
+      {
+        "begin": "2026-11-15T11:55:00Z",
+        "max": "2026-11-15T12:01:00Z",
+        "cls": "B8.1",
+        "region": null
+      },
+      {
+        "begin": "2026-11-15T09:09:00Z",
+        "max": "2026-11-15T09:23:00Z",
+        "cls": "C1.0",
+        "region": null
+      },
+      {
+        "begin": "2026-11-15T01:15:00Z",
+        "max": "2026-11-15T01:23:00Z",
+        "cls": "C1.0",
+        "region": null
+      },
+      {
+        "begin": "2026-11-14T21:16:00Z",
+        "max": "2026-11-14T21:27:00Z",
+        "cls": "C2.8",
+        "region": null
+      },
+      {
+        "begin": "2026-11-14T18:34:00Z",
+        "max": "2026-11-14T18:45:00Z",
+        "cls": "C2.2",
+        "region": null
+      }
+    ],
+    "kp_series": [
+      {
+        "t": "2026-11-12T18:00:00",
+        "kp": 1.33
+      },
+      {
+        "t": "2026-11-12T21:00:00",
+        "kp": 1.67
+      },
+      {
+        "t": "2026-11-13T00:00:00",
+        "kp": 1.33
+      },
+      {
+        "t": "2026-11-13T03:00:00",
+        "kp": 0.33
+      },
+      {
+        "t": "2026-11-13T06:00:00",
+        "kp": 1.33
+      },
+      {
+        "t": "2026-11-13T09:00:00",
+        "kp": 1
+      },
+      {
+        "t": "2026-11-13T12:00:00",
+        "kp": 0.67
+      },
+      {
+        "t": "2026-11-13T15:00:00",
+        "kp": 0.67
+      },
+      {
+        "t": "2026-11-13T18:00:00",
+        "kp": 0.67
+      },
+      {
+        "t": "2026-11-13T21:00:00",
+        "kp": 0.67
+      },
+      {
+        "t": "2026-11-14T00:00:00",
+        "kp": 0.33
+      },
+      {
+        "t": "2026-11-14T03:00:00",
+        "kp": 0.67
+      },
+      {
+        "t": "2026-11-14T06:00:00",
+        "kp": 1
+      },
+      {
+        "t": "2026-11-14T09:00:00",
+        "kp": 1.33
+      },
+      {
+        "t": "2026-11-14T12:00:00",
+        "kp": 1.67
+      },
+      {
+        "t": "2026-11-14T15:00:00",
+        "kp": 1
+      },
+      {
+        "t": "2026-11-14T18:00:00",
+        "kp": 1
+      },
+      {
+        "t": "2026-11-14T21:00:00",
+        "kp": 1.33
+      },
+      {
+        "t": "2026-11-15T00:00:00",
+        "kp": 2
+      },
+      {
+        "t": "2026-11-15T03:00:00",
+        "kp": 1
+      },
+      {
+        "t": "2026-11-15T06:00:00",
+        "kp": 0.67
+      },
+      {
+        "t": "2026-11-15T09:00:00",
+        "kp": 0.33
+      },
+      {
+        "t": "2026-11-15T12:00:00",
+        "kp": 0.67
+      },
+      {
+        "t": "2026-11-15T15:00:00",
+        "kp": 1
+      }
+    ]
+  },
+  "gw": {
+    "ok": true,
+    "fetched_at": "2026-11-15T18:30:51.282Z",
+    "source": "LIGO/Virgo/KAGRA GraceDB — public alerts",
+    "latest": null,
+    "count_week": 0,
+    "week_ids": []
+  },
+  "space_news": {
+    "ok": true,
+    "fetched_at": "2026-11-15T18:30:55.631Z",
+    "source": "Spaceflight News API + NASA APOD",
+    "items": [
+      {
+        "title": "APOD: 2026 November 15 – Leonid Meteors Through Orion",
+        "url": "https://science.nasa.gov/image-article/apod-2026-november-15-leonid-meteors-through-orion/",
+        "site": "NASA",
+        "published": "2026-11-15T05:05:00Z",
+        "summary": "APOD Science APOD APOD: 2026 November 15 –… Today’s APOD Archive Submissions Index Search Calendar RSS Education About Discuss   APOD Astronomy Picture of the Day Discover the cosmos! Each day a different image or photog"
+      },
+      {
+        "title": "With Starship catch, SpaceX still shows it can dazzle the world",
+        "url": "https://arstechnica.com/space/2026/11/with-starship-catch-spacex-still-shows-it-can-dazzle-the-world/",
+        "site": "Arstechnica",
+        "published": "2026-11-15T00:40:59Z",
+        "summary": "It felt like stepping into the future."
+      },
+      {
+        "title": "SpaceX Catches a Starship",
+        "url": "https://spacepolicyonline.com/news/spacex-catches-a-starship/",
+        "site": "SpacePolicyOnline.com",
+        "published": "2026-11-14T21:53:18Z",
+        "summary": "SpaceX’s 15th Starship Integrated Flight Test (IFT-15) returned to Earth today and was “caught” back at the launch tower after orbiting Earth 14 times. It’s a milestone achievement for the […]"
+      },
+      {
+        "title": "Next Vega C Launch Edges Closer to Christmas Day as Satellites Arrive Late",
+        "url": "https://europeanspaceflight.com/next-vega-c-launch-edges-closer-to-christmas-day-as-satellites-arrive-late/",
+        "site": "European Spaceflight",
+        "published": "2026-11-14T06:00:41Z",
+        "summary": "Italian rocket manufacturer Avio has revealed that delays in the delivery of customer satellites have pushed the third Vega C launch of 2026 back toward Christmas, several weeks later than previously planned. Speaking du"
+      },
+      {
+        "title": "Starship flight 15 powers to orbit—setting up a possible catch on Saturday",
+        "url": "https://arstechnica.com/space/2026/11/starship-flight-15-powers-to-orbit-setting-up-a-possible-catch-on-saturday/",
+        "site": "Arstechnica",
+        "published": "2026-11-14T00:49:13Z",
+        "summary": "One way or another, the company will get some more data on Saturday."
+      }
+    ],
+    "apod": {
+      "title": "NASA Science",
+      "date": "2026-11-15",
+      "image": "https://science.nasa.gov/wp-content/themes/nasa-child/assets/images/nasa-logo@2x.png",
+      "media_type": "image",
+      "url": "https://apod.nasa.gov/apod/astropix.html"
+    }
+  },
+  "facebook": {
+    "ok": true,
+    "fetched_at": "2026-11-15T18:30:43.510Z",
+    "source": "Facebook (link-out only — no scraping)",
+    "linkOnly": true,
+    "links": [
+      {
+        "label": "Giles County, VA — community groups",
+        "url": "https://www.facebook.com/search/groups/?q=giles%20county%20va"
+      },
+      {
+        "label": "Pearisburg, VA — pages & posts",
+        "url": "https://www.facebook.com/search/top/?q=pearisburg%20va"
+      },
+      {
+        "label": "New River Valley — groups",
+        "url": "https://www.facebook.com/search/groups/?q=new%20river%20valley"
+      }
+    ],
+    "note": "Facebook does not publish these feeds, so this card links out. Sign-in may be required there."
+  },
+  "moon_sky": {
+    "ok": true,
+    "fetched_at": "2026-11-15T18:30:55.934Z",
+    "source": "Computed at build time (solar/lunar math + JPL approximate planetary elements); ISS via wheretheiss.at; showers & eclipses: IMO / NASA reference tables",
+    "sunrise_et": "7:02 AM",
+    "sunset_et": "5:13 PM",
+    "moon": {
+      "phase_name": "Waxing Crescent",
+      "illum_pct": 35,
+      "cycle": 0.2,
+      "rise_et": "12:21 PM",
+      "set_et": "9:29 PM",
+      "sign": "Aquarius"
+    },
+    "sky_chart": {
+      "start": "2026-11-15T22:00:00.000Z",
+      "step_min": 30,
+      "planets": {
+        "Mercury": [
+          -7,
+          -13,
+          -19,
+          -25,
+          -31,
+          -37,
+          -42,
+          -48,
+          -53,
+          -57,
+          -61,
+          -63,
+          -64,
+          -63,
+          -60,
+          -57,
+          -52,
+          -47,
+          -42,
+          -36,
+          -30,
+          -24,
+          -18,
+          -12,
+          -6,
+          0,
+          5,
+          11,
+          16
+        ],
+        "Venus": [
+          -17,
+          -23,
+          -29,
+          -34,
+          -40,
+          -46,
+          -51,
+          -55,
+          -59,
+          -61,
+          -63,
+          -62,
+          -60,
+          -57,
+          -52,
+          -47,
+          -42,
+          -36,
+          -31,
+          -25,
+          -19,
+          -13,
+          -7,
+          -1,
+          5,
+          11,
+          16,
+          21,
+          26
+        ],
+        "Mars": [
+          -33,
+          -35,
+          -37,
+          -38,
+          -38,
+          -36,
+          -34,
+          -31,
+          -28,
+          -24,
+          -19,
+          -14,
+          -9,
+          -4,
+          2,
+          8,
+          13,
+          19,
+          25,
+          31,
+          37,
+          43,
+          49,
+          54,
+          59,
+          63,
+          66,
+          67,
+          67
+        ],
+        "Jupiter": [
+          -34,
+          -37,
+          -38,
+          -39,
+          -39,
+          -37,
+          -35,
+          -32,
+          -29,
+          -25,
+          -20,
+          -15,
+          -10,
+          -4,
+          1,
+          7,
+          13,
+          19,
+          25,
+          31,
+          37,
+          43,
+          48,
+          54,
+          58,
+          62,
+          65,
+          66,
+          66
+        ],
+        "Saturn": [
+          20,
+          26,
+          32,
+          37,
+          42,
+          46,
+          49,
+          52,
+          53,
+          53,
+          52,
+          50,
+          47,
+          42,
+          38,
+          33,
+          27,
+          22,
+          16,
+          10,
+          4,
+          -2,
+          -8,
+          -14,
+          -20,
+          -25,
+          -31,
+          -36,
+          -41
+        ]
+      },
+      "iss_samples": [
+        {
+          "t": "2026-11-15T22:08:55.927Z",
+          "el": 14
+        },
+        {
+          "t": "2026-11-15T22:09:55.927Z",
+          "el": 25
+        },
+        {
+          "t": "2026-11-15T22:10:55.927Z",
+          "el": 47
+        },
+        {
+          "t": "2026-11-15T22:11:55.927Z",
+          "el": 72
+        },
+        {
+          "t": "2026-11-15T22:12:55.927Z",
+          "el": 37
+        },
+        {
+          "t": "2026-11-15T22:13:55.927Z",
+          "el": 20
+        },
+        {
+          "t": "2026-11-15T22:14:55.927Z",
+          "el": 11
+        },
+        {
+          "t": "2026-11-15T22:15:55.927Z",
+          "el": 5
+        }
+      ]
+    },
+    "visible_planets_tonight": [
+      {
+        "name": "Saturn",
+        "alt_9pm_deg": 53,
+        "alt_dusk_deg": 34
+      }
+    ],
+    "mercury_retrograde": false,
+    "active_showers": [
+      {
+        "name": "Southern Taurids",
+        "peak": "Nov 5",
+        "zhr": 5
+      },
+      {
+        "name": "Northern Taurids",
+        "peak": "Nov 12",
+        "zhr": 5
+      },
+      {
+        "name": "Leonids",
+        "peak": "Nov 17",
+        "zhr": 15
+      }
+    ],
+    "next_eclipse": {
+      "date": "2027-02-06",
+      "kind": "Annular solar eclipse"
+    },
+    "iss": {
+      "now": {
+        "lat": -51.44,
+        "lon": -143.63,
+        "alt_km": 438,
+        "velocity_kmh": 27531,
+        "source": "wheretheiss.at (live)"
+      },
+      "tle": {
+        "name": "ISS (ZARYA)",
+        "line1": "1 25544U 98067A   26319.33511727  .00010226  00000+0  19082-3 0  9993",
+        "line2": "2 25544  51.6322 272.1219 0007375  28.0230 332.1155 15.49391288595180",
+        "fetched_at": "2026-11-15T18:30:50.339Z"
+      },
+      "next_visible_pass": {
+        "start": "2026-11-15T22:08:55.927Z",
+        "max_elev_deg": 72
+      },
+      "next_pass": {
+        "start": "2026-11-15T22:08:55.927Z",
+        "max_elev_deg": 72
+      },
+      "pass_samples": [
+        {
+          "t": "2026-11-15T22:08:55.927Z",
+          "el": 14
+        },
+        {
+          "t": "2026-11-15T22:09:55.927Z",
+          "el": 25
+        },
+        {
+          "t": "2026-11-15T22:10:55.927Z",
+          "el": 47
+        },
+        {
+          "t": "2026-11-15T22:11:55.927Z",
+          "el": 72
+        },
+        {
+          "t": "2026-11-15T22:12:55.927Z",
+          "el": 37
+        },
+        {
+          "t": "2026-11-15T22:13:55.927Z",
+          "el": 20
+        },
+        {
+          "t": "2026-11-15T22:14:55.927Z",
+          "el": 11
+        },
+        {
+          "t": "2026-11-15T22:15:55.927Z",
+          "el": 5
+        }
+      ]
+    }
+  },
+  "cycles": {
+    "ok": true,
+    "fetched_at": "2026-11-15T18:30:43.510Z",
+    "source": "Computed daily from the date and the moon’s position, by each system’s own rules",
+    "zodiac_season": "Scorpio",
+    "moon_sign": "Aquarius",
+    "moon_phase_name": "Waxing Crescent",
+    "void_of_course": "Moon leaves Aquarius and enters Pisces at 3:30 PM ET. The void-of-course stretch is the window before that change (last-aspect timing varies by tradition; the sign change itself is computed).",
+    "universal_day": 9,
+    "tarot_card": "Three of Pentacles"
+  },
+  "earth_extras": {
+    "ok": true,
+    "fetched_at": "2026-11-15T18:31:06.197Z",
+    "source": "NOAA SWPC · Open-Meteo · NOAA Tides & Currents · NASA NEO · USGS",
+    "aurora": {
+      "kp_forecast_max": 5,
+      "image": "https://services.swpc.noaa.gov/images/aurora-forecast-northern-hemisphere.jpg",
+      "note": "NOAA 3-day Kp outlook (max). Mid-latitude aurora generally needs Kp 5+; a horizon glow this far south usually takes Kp 7+. Oval map: NOAA OVATION model, northern hemisphere."
+    },
+    "air_quality": {
+      "aqi_now": 40,
+      "aqi_max_today": 40
+    },
+    "uv": {
+      "uv_max_today": 1.95
+    },
+    "pollen": {
+      "ok": false,
+      "error": "No keyless pollen feed covers this area in season; not estimated."
+    },
+    "tides": {
+      "station": "Sewell’s Point, Norfolk VA (station 8638610) — nearest NOAA tide station; the New River itself has no tides",
+      "events": [
+        {
+          "time": "2026-11-15 00:29",
+          "height_ft": "2.09",
+          "type": "High"
+        },
+        {
+          "time": "2026-11-15 06:19",
+          "height_ft": "0.664",
+          "type": "Low"
+        },
+        {
+          "time": "2026-11-15 12:47",
+          "height_ft": "2.5",
+          "type": "High"
+        },
+        {
+          "time": "2026-11-15 19:21",
+          "height_ft": "0.625",
+          "type": "Low"
+        }
+      ]
+    },
+    "neo": {
+      "count_today": 1,
+      "closest": {
+        "name": "(2019 HW3)",
+        "miss_km": 18114579,
+        "vel_kmh": 31907,
+        "size_m": 59,
+        "hazardous": false
+      }
+    },
+    "fireballs": {
+      "ok": false,
+      "error": "report links not found on AMS page",
+      "link": "https://www.amsmeteors.org/fireballs/"
+    },
+    "volcano": {
+      "ok": false,
+      "error": "USGS volcano API refused the keyless request at build time.",
+      "link": "https://www.usgs.gov/volcanoes"
+    }
+  },
+  "human_world": {
+    "ok": true,
+    "fetched_at": "2026-11-15T18:31:05.703Z",
+    "source": "CoinGecko · Wikimedia · Virginia Lottery",
+    "bitcoin": {
+      "price_usd": 64645,
+      "change_24h_pct": -1.88
+    },
+    "lottery": {
+      "linkOnly": true,
+      "link": "https://www.valottery.com",
+      "note": "No readable keyless results feed — official winning numbers live at valottery.com."
+    },
+    "on_this_day": [
+      {
+        "year": 2025,
+        "text": "Anti-government demonstrations are held across Mexico following the assassination of Carlos Manzo earlier that month."
+      },
+      {
+        "year": 2022,
+        "text": "The world population reached eight billion."
+      },
+      {
+        "year": 2020,
+        "text": "Lewis Hamilton wins the Turkish Grand Prix and secures his seventh drivers' title, equaling the all-time record held by Michael Schumacher."
+      },
+      {
+        "year": 2017,
+        "text": "A flood a few miles outside of Athens results in the death of 25 people."
+      },
+      {
+        "year": 2017,
+        "text": "Khabarovsk Airlines Flight 463 crashes on approach to Nelkan Airport, killing six people."
+      }
+    ]
+  },
+  "findings": {
+    "ok": true,
+    "fetched_at": "2026-11-15T18:31:22.482Z",
+    "source": "This page’s own measured record",
+    "rule": "Outcomes and data only. Methods are never published here — that is the standing rule of this page.",
+    "items": [
+      "River watch, New River at Glen Lyn (public USGS gauge data, fused into one verdict): condition NORMAL · stage 3 ft · flow 1480 ft³/s · trend steady · measured 2026-11-15T17:30:00.000Z.",
+      "Daily wire health at this build: 10 of 10 core feeds answered live; every failure is shown as UNAVAILABLE on the page rather than filled in.",
+      "Anomaly archive: opened today, 2026-11-15. Quiet days are recorded as quiet — the log only claims what the feeds measured."
+    ]
+  },
+  "earth2": {
+    "ok": true,
+    "fetched_at": "2026-11-15T18:31:17.877Z",
+    "source": "USGS Water Services · NOAA Tsunami Program · US Drought Monitor · NOAA CPC · NOAA GML · NWS Storm Prediction Center · National Hurricane Center",
+    "rivers": {
+      "lines": [
+        "LITTLE RIVER AT GRAYSONTOWN, VA — Streamflow, ft&#179;/s: 88.7 ft3/s (2026-11-15T12:30:00.000-05:00)",
+        "LITTLE RIVER AT GRAYSONTOWN, VA — Gage height, ft: 1.05 ft (2026-11-15T12:30:00.000-05:00)",
+        "NEW RIVER AT GLEN LYN, VA — Streamflow, ft&#179;/s: 1480 ft3/s (2026-11-15T12:30:00.000-05:00)",
+        "NEW RIVER AT GLEN LYN, VA — Gage height, ft: 3.00 ft (2026-11-15T12:30:00.000-05:00)"
+      ],
+      "note": "Giles County’s own New River gauge is Glen Lyn (03176500); Radford (03170000) is the next gauge downriver. No separate Pearisburg gauge exists in the USGS network."
+    },
+    "tsunami": {
+      "entries": 1,
+      "latest_titles": [
+        "Tsunami Information Statement Number 1",
+        "65 miles NE of Kodiak City, Alaska"
+      ],
+      "feed": "https://www.tsunami.gov/events/xml/PAAQAtom.xml",
+      "note": "1 statement(s) in the current feed."
+    },
+    "drought": {
+      "lines": [
+        "Drought monitor (USDM weekly map): Pembroke / Giles County currently carries no drought designation."
+      ]
+    },
+    "oni": {
+      "lines": [
+        "Oceanic Niño Index (ASO 2026): anomaly +2.46 °C — El Niño conditions by NOAA’s definition (±0.5 °C threshold)."
+      ]
+    },
+    "co2": {
+      "lines": [
+        "CO₂ at Mauna Loa: 428.69 ppm (daily mean, 2026-11-14)."
+      ]
+    },
+    "spc": {
+      "lines": [
+        "Storm reports today (SPC, since 12 UTC): tornado 0 · wind 0 · hail 0."
+      ]
+    },
+    "nhc": {
+      "lines": [
+        "Active tropical systems (NHC): none right now."
+      ]
+    }
+  },
+  "deep2": {
+    "ok": true,
+    "fetched_at": "2026-11-15T18:31:20.770Z",
+    "source": "NOAA SWPC · NASA DONKI · NASA/JPL SSD (Sentry & CNEOS) · NASA DSN Now",
+    "scales": {
+      "lines": [
+        "Today’s NOAA scales — geomagnetic G0 (none), radio blackout R0 (none), radiation S0 (none).",
+        "Dst index now: -6 nT (2026-11-15T17:00:00 UTC).",
+        "IMF Bz: unavailable this build."
+      ]
+    },
+    "sun": {
+      "lines": [
+        "Solar flux F10.7: 125 sfu (latest report 2026-11-14T22:00:00).",
+        "Sunspot number (monthly observed, 2026-10): 45.7. Solar Cycle 25 began Dec 2019; at ~11 years long it is roughly 63% through its expected span (estimate from cycle length)."
+      ]
+    },
+    "cme": {
+      "lines": [
+        "Coronal mass ejections catalogued past 7 days (DONKI): 23.",
+        "Latest: 2026-11-15T09:00Z."
+      ]
+    },
+    "sentry": {
+      "lines": [
+        "Sentry risk list (JPL): 2251 objects with a computed future impact possibility, all at very low probability — the list existing is normal science, not an alarm."
+      ]
+    },
+    "fireball": {
+      "lines": [
+        "Latest satellite-detected fireball (NASA CNEOS): 2026-10-04 03:14:45 UTC · energy 5.4 kt · at 41.8°S, 173.1°W · burst altitude 26.9 km. CNEOS reports lag events by weeks — this is the newest on record, not necessarily recent."
+      ]
+    },
+    "dsn": {
+      "lines": [
+        "Deep Space Network right now: DSN via DSS26 · DSN via DSS14 · MRO via DSS23 · TESS via DSS24 · SPP via DSS25 · DSN via DSS53 · +9 more."
+      ]
+    },
+    "launches": {
+      "ok": false,
+      "error": "This operation was aborted"
+    }
+  },
+  "sky_tonight": {
+    "ok": true,
+    "fetched_at": "2026-11-15T18:31:20.774Z",
+    "source": "Computed at build time for 37.303° N, 80.602° W (solar/lunar math + JPL approximate planetary elements; Kp outlook by NOAA SWPC)",
+    "lines": [
+      "Twilight tonight: sunset 5:13 PM · civil dusk 5:41 PM · nautical dusk 6:13 PM · astronomical night from 6:44 PM to 5:32 AM · dawn 7:02 AM.",
+      "Moonless dark-sky window tonight: about 7h 0m of astronomical night with the moon below the horizon (computed by sampling).",
+      "Aurora chance for Pembroke tonight: Kp outlook max 5: low chance — a northern-horizon glow is possible on a clear, dark night.",
+      "Galactic core (Sagittarius A* direction): below the horizon tonight — core season has closed until spring.",
+      "Meteor radiant tonight: Southern Taurids from Taurus · Northern Taurids from Taurus · Leonids from Leo.",
+      "Pairings in tonight’s sky: Mars–Jupiter conjunction: 0.1° apart in ecliptic longitude.",
+      "Planet rise/set (ET, computed): Mercury rises 5:32 AM · Venus rises 4:35 AM · Mars rises 11:50 PM · Jupiter rises 11:52 PM · Saturn rises 3:16 PM, sets 3:19 AM."
+    ]
+  },
+  "cycles_full": {
+    "ok": true,
+    "fetched_at": "2026-11-15T18:30:43.510Z",
+    "source": "Computed exactly by each system’s own rules — ephemeris from JPL approximate elements, calendars from their standard arithmetic",
+    "planets": [
+      {
+        "name": "Sun",
+        "sign": "Scorpio",
+        "degree": 22.9,
+        "retro": false
+      },
+      {
+        "name": "Moon",
+        "sign": "Aquarius",
+        "degree": 4.9,
+        "retro": false
+      },
+      {
+        "name": "Mercury",
+        "sign": "Scorpio",
+        "degree": 5.1,
+        "retro": false
+      },
+      {
+        "name": "Venus",
+        "sign": "Libra",
+        "degree": 22.5,
+        "retro": false
+      },
+      {
+        "name": "Mars",
+        "sign": "Leo",
+        "degree": 25.3,
+        "retro": false
+      },
+      {
+        "name": "Jupiter",
+        "sign": "Leo",
+        "degree": 25.5,
+        "retro": false
+      },
+      {
+        "name": "Saturn",
+        "sign": "Aries",
+        "degree": 8.2,
+        "retro": true
+      },
+      {
+        "name": "Uranus",
+        "sign": "Pisces",
+        "degree": 19,
+        "retro": true
+      },
+      {
+        "name": "Neptune",
+        "sign": "Aries",
+        "degree": 12,
+        "retro": true
+      },
+      {
+        "name": "Pluto",
+        "sign": "Aquarius",
+        "degree": 2.9,
+        "retro": false
+      }
+    ],
+    "aspects": [
+      "Moon square Mercury (orb 0.1°)",
+      "Mars conjunction Jupiter (orb 0.2°)",
+      "Moon conjunction Pluto (orb 2.0°)",
+      "Mercury square Pluto (orb 2.1°)",
+      "Sun square Mars (orb 2.3°)",
+      "Sun square Jupiter (orb 2.6°)",
+      "Venus sextile Mars (orb 2.8°)",
+      "Venus sextile Jupiter (orb 3.0°)"
+    ],
+    "lines": [
+      "Planetary positions (sign · degree · motion, computed from JPL approximate elements):",
+      "Sun: Scorpio 22.9°",
+      "Moon: Aquarius 4.9°",
+      "Mercury: Scorpio 5.1°",
+      "Venus: Libra 22.5°",
+      "Mars: Leo 25.3°",
+      "Jupiter: Leo 25.5°",
+      "Saturn: Aries 8.2° — retrograde",
+      "Uranus: Pisces 19° — retrograde",
+      "Neptune: Aries 12° — retrograde",
+      "Pluto: Aquarius 2.9°",
+      "Aspects in orb today: Moon square Mercury (orb 0.1°) · Mars conjunction Jupiter (orb 0.2°) · Moon conjunction Pluto (orb 2.0°) · Mercury square Pluto (orb 2.1°) · Sun square Mars (orb 2.3°) · Sun square Jupiter (orb 2.6°) · Venus sextile Mars (orb 2.8°) · Venus sextile Jupiter (orb 3.0°).",
+      "Void-of-course Moon: last exact major aspect was Moon–Mercury at 1:30 PM ET (30-minute scan); the window closes when the Moon enters Pisces at 3:30 PM ET. Moon is in Aquarius until then.",
+      "Mercury: direct now · last station stations direct ~Nov 11 (daily scan, ±1 day). Shadow periods run roughly two weeks either side of the stations.",
+      "Planetary hour now: Sun (day hour 8 of 12; day ruler Sun). Hours divide sunrise→sunset and sunset→sunrise into twelfths, sequenced by the Chaldean order.",
+      "Numerology: Universal Year 1 · Universal Month 3 · Universal Day 9.",
+      "Next full moon: ~Nov 24 — the Beaver Moon · distance ~367,082 km (±6 h scan).",
+      "Next new moon: ~Dec 8 (±6 h scan).",
+      "Next solar station: December solstice in ~37 day(s).",
+      "Hebrew date: Sunday, 5 Kislev 5787.",
+      "Islamic date: Sunday, Jumada II 6, 1448 AH.",
+      "Chinese lunar date: Sunday, Tenth Month 7, 2026(bing-wu).",
+      "Chinese year pillar: Bing (Fire) Wu (Horse) (sexagenary cycle, year turns at Lunar New Year / Li Chun by school).",
+      "Chinese day pillar: Gui (Water) Si (Snake) (continuous sexagenary count from the 1900-01-01 Jia-Xu anchor).",
+      "Mayan: Long Count 13.0.14.1.17 · Tzolkin 11 Caban · Haab 10 Sak (GMT correlation 584283).",
+      "I Ching hexagram of the day: Obstruction (King Wen #39, drawn deterministically from the date).",
+      "Rune of the day: Gebo (Elder Futhark, drawn deterministically from the date).",
+      "Celtic tree calendar: Ivy season (Graves’ tree calendar dates)."
+    ]
+  },
+  "human2": {
+    "ok": true,
+    "fetched_at": "2026-11-15T18:31:06.112Z",
+    "source": "CoinGecko · data.ny.gov (NY Lottery results) · FEMA Open Data · openFDA",
+    "eth": {
+      "lines": [
+        "Ethereum: $1,812.89 (-1.48% / 24 h, CoinGecko)."
+      ]
+    },
+    "metals": {
+      "ok": false,
+      "error": "HTTP 404"
+    },
+    "powerball": {
+      "lines": [
+        "Powerball latest draw (2026-11-14, via NY Lottery data): 09 44 49 51 68 04 · multiplier 2. Jackpot is not in the results feed — see the official site for the current figure."
+      ]
+    },
+    "fema": {
+      "lines": [
+        "Latest FEMA declarations for Virginia: EM 2026-01-23 — SEVERE WINTER STORM · EM 2026-01-23 — SEVERE WINTER STORM · EM 2026-01-23 — SEVERE WINTER STORM."
+      ]
+    },
+    "fda": {
+      "lines": [
+        "Latest FDA food enforcement reports: Pharmatech LLC — CytoDetox, Hydrolyzed Clinoptilolite Fragments, 1 oz./30 mL, OTC Non-Sterile.  D (20161102) · Magic Gourmet Trading Inc — Koi Palace Mini Moon Cake: Single Box - Mini Oolong Tea Paste  Unit Size 1/2 lb. (20170118) · Oasis Brands, Inc — Crema GuateLinda (Guatemalan Style Cream) in individually soft poly/plastic bags (20141210)."
+      ]
+    }
+  },
+  "registry": [
+    {
+      "n": 1,
+      "domain": "Earth Body",
+      "name": "Earthquakes worldwide M4.5+ (USGS)",
+      "status": "LIVE"
+    },
+    {
+      "n": 2,
+      "domain": "Earth Body",
+      "name": "Earthquakes within 500 km of Pembroke M1.0+",
+      "status": "LIVE"
+    },
+    {
+      "n": 3,
+      "domain": "Earth Body",
+      "name": "Quake depth + Ring of Fire count",
+      "status": "LIVE"
+    },
+    {
+      "n": 4,
+      "domain": "Earth Body",
+      "name": "Quake swarm / aftershock flags",
+      "status": "COMPUTED"
+    },
+    {
+      "n": 5,
+      "domain": "Earth Body",
+      "name": "Volcano alert levels + new eruptions (USGS/GVP)",
+      "status": "PENDING"
+    },
+    {
+      "n": 6,
+      "domain": "Earth Body",
+      "name": "Volcanic ash advisories (VAAC)",
+      "status": "PENDING"
+    },
+    {
+      "n": 7,
+      "domain": "Earth Body",
+      "name": "SO₂ plumes from eruptions (satellite)",
+      "status": "DARK"
+    },
+    {
+      "n": 8,
+      "domain": "Earth Body",
+      "name": "Tsunami statements & bulletins",
+      "status": "LIVE"
+    },
+    {
+      "n": 9,
+      "domain": "Earth Body",
+      "name": "Schumann resonance (Tomsk)",
+      "status": "LIVE"
+    },
+    {
+      "n": 10,
+      "domain": "Earth Body",
+      "name": "Geomagnetic Kp / Dst / Bz / solar wind",
+      "status": "LIVE"
+    },
+    {
+      "n": 11,
+      "domain": "Earth Body",
+      "name": "Ionosphere TEC / scintillation / sporadic-E",
+      "status": "DARK"
+    },
+    {
+      "n": 12,
+      "domain": "Earth Body",
+      "name": "Earth rotation: length of day, polar motion (IERS)",
+      "status": "PENDING"
+    },
+    {
+      "n": 13,
+      "domain": "Earth Body",
+      "name": "Lightning strikes + global rate (Blitzortung)",
+      "status": "DARK"
+    },
+    {
+      "n": 14,
+      "domain": "Earth Body",
+      "name": "Sprites / ELVES / jets reports",
+      "status": "PENDING"
+    },
+    {
+      "n": 15,
+      "domain": "Earth Body",
+      "name": "Atmospheric gravity wave events",
+      "status": "PENDING"
+    },
+    {
+      "n": 16,
+      "domain": "Earth Body",
+      "name": "River gauges: New River Glen Lyn + Radford + temp",
+      "status": "LIVE"
+    },
+    {
+      "n": 17,
+      "domain": "Earth Body",
+      "name": "Groundwater well levels, Giles County",
+      "status": "PENDING"
+    },
+    {
+      "n": 18,
+      "domain": "Earth Body",
+      "name": "Reservoir & lake levels, regional",
+      "status": "PENDING"
+    },
+    {
+      "n": 19,
+      "domain": "Earth Body",
+      "name": "Drought monitor (weekly)",
+      "status": "LIVE"
+    },
+    {
+      "n": 20,
+      "domain": "Earth Body",
+      "name": "Soil moisture anomaly",
+      "status": "PENDING"
+    },
+    {
+      "n": 21,
+      "domain": "Earth Body",
+      "name": "El Niño/La Niña index (ONI)",
+      "status": "LIVE"
+    },
+    {
+      "n": 22,
+      "domain": "Earth Body",
+      "name": "Sea ice extent (NSIDC)",
+      "status": "PENDING"
+    },
+    {
+      "n": 23,
+      "domain": "Earth Body",
+      "name": "CO₂ at Mauna Loa (daily)",
+      "status": "LIVE"
+    },
+    {
+      "n": 24,
+      "domain": "Earth Body",
+      "name": "Ozone hole area (seasonal)",
+      "status": "PENDING"
+    },
+    {
+      "n": 25,
+      "domain": "Earth Body",
+      "name": "Polar vortex / SSW watch (seasonal)",
+      "status": "PENDING"
+    },
+    {
+      "n": 26,
+      "domain": "Earth Body",
+      "name": "Jet stream pattern",
+      "status": "DARK"
+    },
+    {
+      "n": 27,
+      "domain": "Earth Body",
+      "name": "Wildfires + smoke (NASA FIRMS — key required)",
+      "status": "PENDING"
+    },
+    {
+      "n": 28,
+      "domain": "Earth Body",
+      "name": "Weather records broken today",
+      "status": "PENDING"
+    },
+    {
+      "n": 29,
+      "domain": "Earth Body",
+      "name": "Storm reports: tornado / hail / wind (SPC)",
+      "status": "LIVE"
+    },
+    {
+      "n": 30,
+      "domain": "Earth Body",
+      "name": "Tropical systems (NHC)",
+      "status": "LIVE"
+    },
+    {
+      "n": 31,
+      "domain": "Sun & Deep Field",
+      "name": "Sunspot number + F10.7 flux",
+      "status": "LIVE"
+    },
+    {
+      "n": 32,
+      "domain": "Sun & Deep Field",
+      "name": "Solar flares by class (C/M/X)",
+      "status": "LIVE"
+    },
+    {
+      "n": 33,
+      "domain": "Sun & Deep Field",
+      "name": "CMEs: launches + Earth-directed analysis (DONKI)",
+      "status": "LIVE"
+    },
+    {
+      "n": 34,
+      "domain": "Sun & Deep Field",
+      "name": "Coronal hole high-speed streams",
+      "status": "PENDING"
+    },
+    {
+      "n": 35,
+      "domain": "Sun & Deep Field",
+      "name": "G / R / S storm scales (NOAA)",
+      "status": "LIVE"
+    },
+    {
+      "n": 36,
+      "domain": "Sun & Deep Field",
+      "name": "Aurora: Kp outlook 3 days",
+      "status": "LIVE"
+    },
+    {
+      "n": 37,
+      "domain": "Sun & Deep Field",
+      "name": "Cosmic rays: neutron monitors (Oulu)",
+      "status": "PENDING"
+    },
+    {
+      "n": 38,
+      "domain": "Sun & Deep Field",
+      "name": "Meteor showers + ZHR + peak countdowns",
+      "status": "COMPUTED"
+    },
+    {
+      "n": 39,
+      "domain": "Sun & Deep Field",
+      "name": "Fireballs & bolides (AMS + NASA CNEOS)",
+      "status": "LIVE"
+    },
+    {
+      "n": 40,
+      "domain": "Sun & Deep Field",
+      "name": "ISS position + next visible pass (crew list pending)",
+      "status": "LIVE"
+    },
+    {
+      "n": 41,
+      "domain": "Sun & Deep Field",
+      "name": "Satellite reentries",
+      "status": "PENDING"
+    },
+    {
+      "n": 42,
+      "domain": "Sun & Deep Field",
+      "name": "Satellite / debris conjunction warnings",
+      "status": "DARK"
+    },
+    {
+      "n": 43,
+      "domain": "Sun & Deep Field",
+      "name": "Starlink & bright satellite passes (needs TLE propagator)",
+      "status": "PENDING"
+    },
+    {
+      "n": 44,
+      "domain": "Sun & Deep Field",
+      "name": "NEO close approaches (NASA)",
+      "status": "LIVE"
+    },
+    {
+      "n": 45,
+      "domain": "Sun & Deep Field",
+      "name": "Sentry risk list (JPL)",
+      "status": "LIVE"
+    },
+    {
+      "n": 46,
+      "domain": "Sun & Deep Field",
+      "name": "Comets visible + perihelion countdowns",
+      "status": "PENDING"
+    },
+    {
+      "n": 47,
+      "domain": "Sun & Deep Field",
+      "name": "Voyager 1 & 2 distance / light time",
+      "status": "PENDING"
+    },
+    {
+      "n": 48,
+      "domain": "Sun & Deep Field",
+      "name": "Parker Solar Probe position",
+      "status": "PENDING"
+    },
+    {
+      "n": 49,
+      "domain": "Sun & Deep Field",
+      "name": "DSN Now: antennas ↔ spacecraft",
+      "status": "LIVE"
+    },
+    {
+      "n": 50,
+      "domain": "Sun & Deep Field",
+      "name": "Gravitational-wave events (GraceDB)",
+      "status": "LIVE"
+    },
+    {
+      "n": 51,
+      "domain": "Sun & Deep Field",
+      "name": "Gamma-ray bursts (Swift/Fermi)",
+      "status": "PENDING"
+    },
+    {
+      "n": 52,
+      "domain": "Sun & Deep Field",
+      "name": "Neutrino alerts (IceCube)",
+      "status": "PENDING"
+    },
+    {
+      "n": 53,
+      "domain": "Sun & Deep Field",
+      "name": "Fast radio bursts (CHIME)",
+      "status": "PENDING"
+    },
+    {
+      "n": 54,
+      "domain": "Sun & Deep Field",
+      "name": "Exoplanet discovery count",
+      "status": "PENDING"
+    },
+    {
+      "n": 55,
+      "domain": "Sun & Deep Field",
+      "name": "Supernova & magnetar watch",
+      "status": "PENDING"
+    },
+    {
+      "n": 56,
+      "domain": "Sun & Deep Field",
+      "name": "Launches worldwide (manifest + results)",
+      "status": "WIRE"
+    },
+    {
+      "n": 57,
+      "domain": "Sun & Deep Field",
+      "name": "Spacewalks / crew rotations",
+      "status": "PENDING"
+    },
+    {
+      "n": 58,
+      "domain": "Sun & Deep Field",
+      "name": "Galactic core visibility tonight",
+      "status": "COMPUTED"
+    },
+    {
+      "n": 59,
+      "domain": "Sky Over Pembroke",
+      "name": "Sunrise / sunset / twilights / golden & blue hour",
+      "status": "COMPUTED"
+    },
+    {
+      "n": 60,
+      "domain": "Sky Over Pembroke",
+      "name": "Moonrise / moonset / phase / illumination / distance",
+      "status": "COMPUTED"
+    },
+    {
+      "n": 61,
+      "domain": "Sky Over Pembroke",
+      "name": "Moon sign + phase name",
+      "status": "COMPUTED"
+    },
+    {
+      "n": 62,
+      "domain": "Sky Over Pembroke",
+      "name": "Planets visible tonight + rise/set",
+      "status": "COMPUTED"
+    },
+    {
+      "n": 63,
+      "domain": "Sky Over Pembroke",
+      "name": "Conjunctions & Moon–planet pairings",
+      "status": "COMPUTED"
+    },
+    {
+      "n": 64,
+      "domain": "Sky Over Pembroke",
+      "name": "ISS visible passes",
+      "status": "LIVE"
+    },
+    {
+      "n": 65,
+      "domain": "Sky Over Pembroke",
+      "name": "Aurora chance for this latitude tonight",
+      "status": "COMPUTED"
+    },
+    {
+      "n": 66,
+      "domain": "Sky Over Pembroke",
+      "name": "Dark-sky window (moonless astro night)",
+      "status": "COMPUTED"
+    },
+    {
+      "n": 67,
+      "domain": "Sky Over Pembroke",
+      "name": "Sky clarity / cloud cover forecast",
+      "status": "LIVE"
+    },
+    {
+      "n": 68,
+      "domain": "Sky Over Pembroke",
+      "name": "Eclipses: next + type",
+      "status": "COMPUTED"
+    },
+    {
+      "n": 69,
+      "domain": "Sky Over Pembroke",
+      "name": "Meteor radiant tonight",
+      "status": "COMPUTED"
+    },
+    {
+      "n": 70,
+      "domain": "Sky Over Pembroke",
+      "name": "Satellite flares & trains (needs TLE propagator)",
+      "status": "PENDING"
+    },
+    {
+      "n": 71,
+      "domain": "Cycles & Signs",
+      "name": "Sun sign + season + ingress",
+      "status": "COMPUTED"
+    },
+    {
+      "n": 72,
+      "domain": "Cycles & Signs",
+      "name": "Moon sign + ingress times",
+      "status": "COMPUTED"
+    },
+    {
+      "n": 73,
+      "domain": "Cycles & Signs",
+      "name": "All planets: sign, degree, retrograde",
+      "status": "COMPUTED"
+    },
+    {
+      "n": 74,
+      "domain": "Cycles & Signs",
+      "name": "Aspects forming today (with orbs)",
+      "status": "COMPUTED"
+    },
+    {
+      "n": 75,
+      "domain": "Cycles & Signs",
+      "name": "Void-of-course Moon windows",
+      "status": "COMPUTED"
+    },
+    {
+      "n": 76,
+      "domain": "Cycles & Signs",
+      "name": "Mercury retrograde: status, stations, shadow",
+      "status": "COMPUTED"
+    },
+    {
+      "n": 77,
+      "domain": "Cycles & Signs",
+      "name": "All retrogrades",
+      "status": "COMPUTED"
+    },
+    {
+      "n": 78,
+      "domain": "Cycles & Signs",
+      "name": "Planetary hours",
+      "status": "COMPUTED"
+    },
+    {
+      "n": 79,
+      "domain": "Cycles & Signs",
+      "name": "Numerology: Universal Year / Month / Day",
+      "status": "COMPUTED"
+    },
+    {
+      "n": 80,
+      "domain": "Cycles & Signs",
+      "name": "Master-number days flagged (11/22/33)",
+      "status": "COMPUTED"
+    },
+    {
+      "n": 81,
+      "domain": "Cycles & Signs",
+      "name": "Personal Day / Month / Year (needs birth numbers — none stored)",
+      "status": "PENDING"
+    },
+    {
+      "n": 82,
+      "domain": "Cycles & Signs",
+      "name": "Biorhythm cycles (needs birth numbers — none stored)",
+      "status": "PENDING"
+    },
+    {
+      "n": 83,
+      "domain": "Cycles & Signs",
+      "name": "New & full moon calendar + moon names",
+      "status": "COMPUTED"
+    },
+    {
+      "n": 84,
+      "domain": "Cycles & Signs",
+      "name": "Supermoons / micromoons (blue & black moons from the same calendar)",
+      "status": "COMPUTED"
+    },
+    {
+      "n": 85,
+      "domain": "Cycles & Signs",
+      "name": "Eclipse seasons",
+      "status": "COMPUTED"
+    },
+    {
+      "n": 86,
+      "domain": "Cycles & Signs",
+      "name": "Solstices, equinoxes, cross-quarters + countdowns",
+      "status": "COMPUTED"
+    },
+    {
+      "n": 87,
+      "domain": "Cycles & Signs",
+      "name": "Chinese almanac: day officer, auspicious/avoid (Tung Shing)",
+      "status": "PENDING"
+    },
+    {
+      "n": 88,
+      "domain": "Cycles & Signs",
+      "name": "Chinese zodiac year + day pillar (sexagenary)",
+      "status": "COMPUTED"
+    },
+    {
+      "n": 89,
+      "domain": "Cycles & Signs",
+      "name": "Mayan Tzolkin + Haab + Long Count",
+      "status": "COMPUTED"
+    },
+    {
+      "n": 90,
+      "domain": "Cycles & Signs",
+      "name": "Hebrew calendar date",
+      "status": "COMPUTED"
+    },
+    {
+      "n": 91,
+      "domain": "Cycles & Signs",
+      "name": "Islamic calendar date",
+      "status": "COMPUTED"
+    },
+    {
+      "n": 92,
+      "domain": "Cycles & Signs",
+      "name": "I Ching hexagram of the day",
+      "status": "COMPUTED"
+    },
+    {
+      "n": 93,
+      "domain": "Cycles & Signs",
+      "name": "Tarot card of the day",
+      "status": "COMPUTED"
+    },
+    {
+      "n": 94,
+      "domain": "Cycles & Signs",
+      "name": "Rune of the day",
+      "status": "COMPUTED"
+    },
+    {
+      "n": 95,
+      "domain": "Cycles & Signs",
+      "name": "Celtic tree calendar sign",
+      "status": "COMPUTED"
+    },
+    {
+      "n": 96,
+      "domain": "Cycles & Signs",
+      "name": "Dream & synchronicity field log (manual entries only)",
+      "status": "PENDING"
+    },
+    {
+      "n": 97,
+      "domain": "Human World",
+      "name": "Headline wire: local (Giles / NRV)",
+      "status": "WIRE"
+    },
+    {
+      "n": 98,
+      "domain": "Human World",
+      "name": "Headline wire: Virginia",
+      "status": "WIRE"
+    },
+    {
+      "n": 99,
+      "domain": "Human World",
+      "name": "Headline wire: national + world",
+      "status": "WIRE"
+    },
+    {
+      "n": 100,
+      "domain": "Human World",
+      "name": "Facebook local: Giles County groups (link-out)",
+      "status": "LIVE"
+    },
+    {
+      "n": 101,
+      "domain": "Human World",
+      "name": "NWS watches & warnings, Giles County",
+      "status": "LIVE"
+    },
+    {
+      "n": 102,
+      "domain": "Human World",
+      "name": "Traffic: VA-511 / I-81 (link-out, no keyless feed)",
+      "status": "WIRE"
+    },
+    {
+      "n": 103,
+      "domain": "Human World",
+      "name": "FAA ground stops & delay programs",
+      "status": "PENDING"
+    },
+    {
+      "n": 104,
+      "domain": "Human World",
+      "name": "Power grid outage counts",
+      "status": "PENDING"
+    },
+    {
+      "n": 105,
+      "domain": "Human World",
+      "name": "Internet health: outages, BGP, cable faults",
+      "status": "PENDING"
+    },
+    {
+      "n": 106,
+      "domain": "Human World",
+      "name": "Rail: Norfolk Southern regional incidents",
+      "status": "PENDING"
+    },
+    {
+      "n": 107,
+      "domain": "Human World",
+      "name": "FEMA disaster declarations (VA)",
+      "status": "LIVE"
+    },
+    {
+      "n": 108,
+      "domain": "Human World",
+      "name": "VA AMBER alerts + state police notices",
+      "status": "PENDING"
+    },
+    {
+      "n": 109,
+      "domain": "Human World",
+      "name": "CDC wastewater: flu / COVID / RSV",
+      "status": "PENDING"
+    },
+    {
+      "n": 110,
+      "domain": "Human World",
+      "name": "FDA recalls: food & drug",
+      "status": "LIVE"
+    },
+    {
+      "n": 111,
+      "domain": "Human World",
+      "name": "UAP: official releases, NUFORC counts",
+      "status": "PENDING"
+    },
+    {
+      "n": 112,
+      "domain": "Human World",
+      "name": "Science wire (space / physics / AI)",
+      "status": "WIRE"
+    },
+    {
+      "n": 113,
+      "domain": "Human World",
+      "name": "Markets: BTC, ETH, gold, silver, oil, S&P 500",
+      "status": "LIVE"
+    },
+    {
+      "n": 114,
+      "domain": "Human World",
+      "name": "Virginia Lottery latest numbers",
+      "status": "WIRE"
+    },
+    {
+      "n": 115,
+      "domain": "Human World",
+      "name": "Powerball numbers (jackpot not in feed)",
+      "status": "LIVE"
+    },
+    {
+      "n": 116,
+      "domain": "Human World",
+      "name": "On this day in history (Wikimedia)",
+      "status": "LIVE"
+    },
+    {
+      "n": 117,
+      "domain": "Human World",
+      "name": "Gas prices: Virginia average (AAA)",
+      "status": "PENDING"
+    },
+    {
+      "n": 118,
+      "domain": "Local Life",
+      "name": "Weather: Pembroke forecast + alerts (NWS)",
+      "status": "LIVE"
+    },
+    {
+      "n": 119,
+      "domain": "Local Life",
+      "name": "Air quality AQI + UV (pollen: no keyless in-season feed)",
+      "status": "LIVE"
+    },
+    {
+      "n": 120,
+      "domain": "Local Life",
+      "name": "New River conditions: level, flow, temp",
+      "status": "LIVE"
+    },
+    {
+      "n": 121,
+      "domain": "Local Life",
+      "name": "Giles County Schools closures & delays (seasonal)",
+      "status": "PENDING"
+    },
+    {
+      "n": 122,
+      "domain": "Local Life",
+      "name": "County & town notices",
+      "status": "PENDING"
+    },
+    {
+      "n": 123,
+      "domain": "Local Life",
+      "name": "Local events calendar",
+      "status": "PENDING"
+    },
+    {
+      "n": 124,
+      "domain": "Local Life",
+      "name": "Hunting / fishing seasons open today (VA DWR)",
+      "status": "PENDING"
+    },
+    {
+      "n": 125,
+      "domain": "Local Life",
+      "name": "Local obituaries (headlines only)",
+      "status": "PENDING"
+    },
+    {
+      "n": 126,
+      "domain": "Anomaly Registry",
+      "name": "Daily anomaly flags (threshold-based, all feeds)",
+      "status": "COMPUTED"
+    },
+    {
+      "n": 127,
+      "domain": "Anomaly Registry",
+      "name": "Days-since counters (M7 / M8 / X-flare / G5 / comet)",
+      "status": "COMPUTED"
+    },
+    {
+      "n": 128,
+      "domain": "Anomaly Registry",
+      "name": "Records table: month & year, per category",
+      "status": "COMPUTED"
+    },
+    {
+      "n": 129,
+      "domain": "Anomaly Registry",
+      "name": "Streaks & clusters (quake clustering, solar-cycle position, Schumann days)",
+      "status": "COMPUTED"
+    },
+    {
+      "n": 130,
+      "domain": "Anomaly Registry",
+      "name": "Correlation log: dated co-occurrences, recorded as data",
+      "status": "COMPUTED"
+    },
+    {
+      "n": 131,
+      "domain": "Anomaly Registry",
+      "name": "Full look-back archive (every day, every Tier-1 value)",
+      "status": "COMPUTED"
+    },
+    {
+      "n": 132,
+      "domain": "Bane Dome & Local Anomalies",
+      "name": "Bane Dome structure & cross-sections",
+      "status": "REFERENCE",
+      "desc": "A doubly plunging anticline — an arch of rock layers — under Giles County. Reference: USGS Bulletin 1839."
+    },
+    {
+      "n": 133,
+      "domain": "Bane Dome & Local Anomalies",
+      "name": "The +12 mGal gravity anomaly over the dome",
+      "status": "WIRE",
+      "desc": "Gravity over the dome reads +12 mGal high (VT survey, 1988, 395 stations) — dense rock below. Re-surveys would appear here."
+    },
+    {
+      "n": 134,
+      "domain": "Bane Dome & Local Anomalies",
+      "name": "Narrows fault — trace, displacement ~4 km",
+      "status": "REFERENCE",
+      "desc": "The fault bounding the dome on the northwest; rock offset about 4 km along it."
+    },
+    {
+      "n": 135,
+      "domain": "Bane Dome & Local Anomalies",
+      "name": "Saltville fault — trace, displacement ~8 km",
+      "status": "REFERENCE",
+      "desc": "The fault bounding the dome on the southeast; rock offset about 8 km. Gypsum and salt country."
+    },
+    {
+      "n": 136,
+      "domain": "Bane Dome & Local Anomalies",
+      "name": "St. Clair fault system",
+      "status": "REFERENCE",
+      "desc": "The dome formed at the footwall edge of this fault system."
+    },
+    {
+      "n": 137,
+      "domain": "Bane Dome & Local Anomalies",
+      "name": "Pulaski thrust sheet — 80 km displacement",
+      "status": "REFERENCE",
+      "desc": "A colossal sheet of rock shoved ~80 km northwest — the big structure southeast of the dome."
+    },
+    {
+      "n": 138,
+      "domain": "Bane Dome & Local Anomalies",
+      "name": "Rome Formation décollement",
+      "status": "REFERENCE",
+      "desc": "The weak shale layer, deep down, that the whole stack of rock slides on."
+    },
+    {
+      "n": 139,
+      "domain": "Bane Dome & Local Anomalies",
+      "name": "Strader #1 well",
+      "status": "REFERENCE",
+      "desc": "The crest well on the dome; its conodont fossils rewrote the dome’s story in 1979 (Perry et al., AAPG)."
+    },
+    {
+      "n": 140,
+      "domain": "Bane Dome & Local Anomalies",
+      "name": "Knox Group beneath the dome — windows (fensters)",
+      "status": "REFERENCE",
+      "desc": "At Price Mountain the cover is eroded through, opening windows into the Knox limestone beneath."
+    },
+    {
+      "n": 141,
+      "domain": "Bane Dome & Local Anomalies",
+      "name": "Pulaski sheet \"horses\"",
+      "status": "REFERENCE",
+      "desc": "Rootless slices of the Pulaski sheet stranded inside the fensters."
+    },
+    {
+      "n": 142,
+      "domain": "Bane Dome & Local Anomalies",
+      "name": "Devonian black shale — gas-prospective",
+      "status": "REFERENCE",
+      "desc": "Organic black shale under the dome; its fractures can trap gas."
+    },
+    {
+      "n": 143,
+      "domain": "Bane Dome & Local Anomalies",
+      "name": "Rome trough",
+      "status": "REFERENCE",
+      "desc": "An ancient rift basin buried underneath everything — the oldest chapter of the stack."
+    },
+    {
+      "n": 144,
+      "domain": "Bane Dome & Local Anomalies",
+      "name": "Conodont color alteration",
+      "status": "REFERENCE",
+      "desc": "Fossil teeth changed color with heat — proof these rocks were cooked into the gas window."
+    },
+    {
+      "n": 145,
+      "domain": "Bane Dome & Local Anomalies",
+      "name": "Giles County seismic zone — Virginia’s most active",
+      "status": "LIVE",
+      "desc": "The ground here moves more than anywhere else in Virginia. Live via the USGS local feed."
+    },
+    {
+      "n": 146,
+      "domain": "Bane Dome & Local Anomalies",
+      "name": "The 1897 Giles County earthquake (~M5.8)",
+      "status": "REFERENCE",
+      "desc": "May 31, 1897 — the largest earthquake in Virginia’s recorded history, right here in Giles County."
+    },
+    {
+      "n": 147,
+      "domain": "Bane Dome & Local Anomalies",
+      "name": "Micro-quakes within 100 km of Pembroke",
+      "status": "LIVE",
+      "desc": "The small end of the same restlessness — live subset of the USGS local watch."
+    },
+    {
+      "n": 148,
+      "domain": "Bane Dome & Local Anomalies",
+      "name": "Central VA seismic zone — 2011 Mineral M5.8 context",
+      "status": "WIRE",
+      "desc": "The 2011 Mineral quake’s zone, east of here — the regional comparison."
+    },
+    {
+      "n": 149,
+      "domain": "Bane Dome & Local Anomalies",
+      "name": "Swarm watch on Narrows / Saltville traces",
+      "status": "COMPUTED",
+      "desc": "Clustering in the local feed, computed daily — the traces to watch are the dome’s own faults."
+    },
+    {
+      "n": 150,
+      "domain": "Bane Dome & Local Anomalies",
+      "name": "Quarry blast vs quake discrimination",
+      "status": "REFERENCE",
+      "desc": "Many small local \"quakes\" in catalogs are quarry blasts — shallow, weekday, daytime. Read local events with that in mind."
+    },
+    {
+      "n": 151,
+      "domain": "Bane Dome & Local Anomalies",
+      "name": "Radon — fault-fractured rock pathways",
+      "status": "WIRE",
+      "desc": "Fractured rock along the faults gives radon gas a path up. EPA zone data is the wire source."
+    },
+    {
+      "n": 152,
+      "domain": "Bane Dome & Local Anomalies",
+      "name": "Telluric / earth-current research along the faults",
+      "status": "PENDING",
+      "desc": "Natural earth currents along fault lines — a research thread, no live feed yet."
+    },
+    {
+      "n": 153,
+      "domain": "Bane Dome & Local Anomalies",
+      "name": "Mountain Lake — the vanishing lake",
+      "status": "WIRE",
+      "desc": "One of two natural lakes in Virginia; it drained away in 2008 and refilled around 2020. Level record via USGS reporting."
+    },
+    {
+      "n": 154,
+      "domain": "Bane Dome & Local Anomalies",
+      "name": "Rock City boulder field, Mountain Lake",
+      "status": "REFERENCE",
+      "desc": "A field of house-sized sandstone boulders near the lake — the mountain slowly coming apart."
+    },
+    {
+      "n": 155,
+      "domain": "Bane Dome & Local Anomalies",
+      "name": "Karst sinkholes — Giles / Bland reports",
+      "status": "WIRE",
+      "desc": "Limestone country dissolves from below; new sinkhole reports are the wire signal."
+    },
+    {
+      "n": 156,
+      "domain": "Bane Dome & Local Anomalies",
+      "name": "Cave systems — New River Cave, Tawney’s Cave",
+      "status": "REFERENCE",
+      "desc": "Known cave systems in the limestone around the dome."
+    },
+    {
+      "n": 157,
+      "domain": "Bane Dome & Local Anomalies",
+      "name": "Limestone springs & spring flow on the dome flanks",
+      "status": "PENDING",
+      "desc": "Springs line the dome’s flanks where limestone meets shale; flow gauging is not yet wired."
+    },
+    {
+      "n": 158,
+      "domain": "Bane Dome & Local Anomalies",
+      "name": "Saltville salt — brine at the fault system’s edge",
+      "status": "REFERENCE",
+      "desc": "Salt and brine at Saltville, on the same fault system — worked since the Civil War era and long before."
+    },
+    {
+      "n": 159,
+      "domain": "Bane Dome & Local Anomalies",
+      "name": "Fault-line springs — Hot Springs & Warm Springs VA",
+      "status": "REFERENCE",
+      "desc": "Warm water rises along deep faults east of here — the same plumbing, showing at the surface."
+    },
+    {
+      "n": 160,
+      "domain": "Bane Dome & Local Anomalies",
+      "name": "The New River — ancient, north-flowing, cuts the dome country",
+      "status": "LIVE",
+      "desc": "One of the oldest rivers on Earth, flowing north through the dome country. Live gauges on the Earth card."
+    },
+    {
+      "n": 161,
+      "domain": "Bane Dome & Local Anomalies",
+      "name": "Dismal Creek & its falls",
+      "status": "REFERENCE",
+      "desc": "A cold mountain creek and falls in the county’s east."
+    },
+    {
+      "n": 162,
+      "domain": "Bane Dome & Local Anomalies",
+      "name": "Acid mine drainage & coal seeps, regional",
+      "status": "WIRE",
+      "desc": "Old coal country drainage — a water-quality wire item for the region."
+    },
+    {
+      "n": 163,
+      "domain": "Bane Dome & Local Anomalies",
+      "name": "Methane seeps — gas country above the shale",
+      "status": "WIRE",
+      "desc": "Gas country: seeps above the Devonian shale are reported, not instrumented."
+    },
+    {
+      "n": 164,
+      "domain": "Bane Dome & Local Anomalies",
+      "name": "UAP reports over the New River Valley (NUFORC)",
+      "status": "WIRE",
+      "desc": "Public report counts for the valley — reports are data about reports, labeled as such."
+    },
+    {
+      "n": 165,
+      "domain": "Bane Dome & Local Anomalies",
+      "name": "Fireballs over the valley (AMS)",
+      "status": "LIVE",
+      "desc": "Bright meteors over the valley — the global fireball feed is live; valley reports ride the wire."
+    },
+    {
+      "n": 166,
+      "domain": "Bane Dome & Local Anomalies",
+      "name": "Brown Mountain Lights — NC",
+      "status": "WIRE",
+      "desc": "The regional light anomaly across the line in North Carolina — reports layer."
+    },
+    {
+      "n": 167,
+      "domain": "Bane Dome & Local Anomalies",
+      "name": "Bigfoot reports — Giles / Appalachian VA (BFRO)",
+      "status": "WIRE",
+      "desc": "Public report database entries for the county and region — reports, labeled as reports."
+    },
+    {
+      "n": 168,
+      "domain": "Bane Dome & Local Anomalies",
+      "name": "Mothman corridor — Point Pleasant WV",
+      "status": "WIRE",
+      "desc": "Upriver on the same river system — the 1966–67 Point Pleasant reports are the regional reference case."
+    },
+    {
+      "n": 169,
+      "domain": "Bane Dome & Local Anomalies",
+      "name": "Mystery booms & hums reported in VA",
+      "status": "WIRE",
+      "desc": "Unexplained boom/hum reports statewide — wire item, checked against quarry and quake records first."
+    },
+    {
+      "n": 170,
+      "domain": "Bane Dome & Local Anomalies",
+      "name": "Aeromagnetic anomaly maps, Giles County (USGS)",
+      "status": "REFERENCE",
+      "desc": "Flown magnetic surveys map the buried structure — the dome shows in magnetics as well as gravity."
+    },
+    {
+      "n": 171,
+      "domain": "Bane Dome & Local Anomalies",
+      "name": "The 1988 gravity baseline — 395 stations",
+      "status": "REFERENCE",
+      "desc": "Moses 1988 (VT thesis): the gravity baseline every later survey compares against."
+    },
+    {
+      "n": 172,
+      "domain": "Bane Dome & Local Anomalies",
+      "name": "Celanese, Narrows — industry in the fault valley",
+      "status": "WIRE",
+      "desc": "The plant sits in the river gap the geology cut — industry follows the corridor."
+    },
+    {
+      "n": 173,
+      "domain": "Bane Dome & Local Anomalies",
+      "name": "Gypsum — US Gypsum / Plasterco on the Saltville fault",
+      "status": "WIRE",
+      "desc": "Gypsum mining rides the Saltville fault’s evaporite beds."
+    },
+    {
+      "n": 174,
+      "domain": "Bane Dome & Local Anomalies",
+      "name": "Gas wells & permits over the dome (VA DMME records)",
+      "status": "WIRE",
+      "desc": "State records of wells and permits over the structure."
+    },
+    {
+      "n": 175,
+      "domain": "Bane Dome & Local Anomalies",
+      "name": "Mountain Valley Pipeline corridor",
+      "status": "WIRE",
+      "desc": "The pipeline crosses this county — its corridor crosses the dome country too."
+    },
+    {
+      "n": 176,
+      "domain": "Bane Dome & Local Anomalies",
+      "name": "Norfolk Southern through the Narrows",
+      "status": "WIRE",
+      "desc": "Rail through the river gap — the corridor again."
+    },
+    {
+      "n": 177,
+      "domain": "Bane Dome & Local Anomalies",
+      "name": "The Narrows gap itself",
+      "status": "REFERENCE",
+      "desc": "The river cut through the ridge; town, rail, road, and plant all thread the gap geology made."
+    },
+    {
+      "n": 178,
+      "domain": "Bane Dome & Local Anomalies",
+      "name": "Saltville ice-age fossils — mastodon & mammoth",
+      "status": "WIRE",
+      "desc": "Ice-age giants preserved in the Saltville salt marshes — an active paleontology site."
+    },
+    {
+      "n": 179,
+      "domain": "Bane Dome & Local Anomalies",
+      "name": "Devonian shale fossils",
+      "status": "REFERENCE",
+      "desc": "The black shale carries its own fossil record."
+    },
+    {
+      "n": 180,
+      "domain": "Bane Dome & Local Anomalies",
+      "name": "Cambrian Rome Formation outcrops",
+      "status": "REFERENCE",
+      "desc": "The oldest rock in the stack, exposed where the rivers cut deep enough."
+    },
+    {
+      "n": 181,
+      "domain": "Bane Dome & Local Anomalies",
+      "name": "Knox limestone fossil sites — trilobites, brachiopods",
+      "status": "REFERENCE",
+      "desc": "Sea-floor fossils in the Knox limestone — this was an ocean once."
+    }
+  ],
+  "radio": {
+    "ok": true,
+    "stations": [
+      {
+        "name": "SomaFM — Groove Salad",
+        "desc": "Ambient beats, fits the observatory",
+        "url": "https://ice1.somafm.com/groovesalad-128-mp3",
+        "ok": true,
+        "verified_at": "2026-11-15T18:30:43.442Z"
+      },
+      {
+        "name": "SomaFM — Deep Space One",
+        "desc": "Deep space ambient",
+        "url": "https://ice1.somafm.com/deepspaceone-128-mp3",
+        "ok": true,
+        "verified_at": "2026-11-15T18:30:43.442Z"
+      },
+      {
+        "name": "SomaFM — Sonic Universe",
+        "desc": "Avant-garde jazz transmissions",
+        "url": "https://ice1.somafm.com/sonicuniverse-128-mp3",
+        "ok": true,
+        "verified_at": "2026-11-15T18:30:43.442Z"
+      },
+      {
+        "name": "WVTF / Radio IQ",
+        "desc": "Virginia public radio",
+        "url": null,
+        "ok": false,
+        "link": "https://www.wvtf.org",
+        "note": "No candidate stream verified at build time — link-out instead of a dead player."
+      },
+      {
+        "name": "NOAA Weather Radio (relay)",
+        "desc": "Public relay — relays come and go",
+        "url": null,
+        "ok": false,
+        "link": "https://www.noaaweatherradio.org",
+        "note": "No candidate stream verified at build time — link-out instead of a dead player."
+      }
+    ]
+  },
+  "video": {
+    "ok": true,
+    "items": [
+      {
+        "title": "NASA Live",
+        "desc": "NASA’s live channel — launches, spacewalks, mission coverage",
+        "id": "21X5lGlDOfg",
+        "embeddable": true,
+        "thumb": "https://i.ytimg.com/vi/21X5lGlDOfg/hqdefault.jpg",
+        "verified_at": "2026-11-15T18:30:43.442Z"
+      },
+      {
+        "title": "ISS — Earth from Space (live)",
+        "desc": "The station’s own view, when the feed is up",
+        "id": null,
+        "embeddable": false,
+        "link": "https://www.youtube.com/results?search_query=ISS+live+earth+from+space",
+        "note": "Embed did not verify at build time — honest link-out instead."
+      },
+      {
+        "title": "Virginia 511 traffic cameras",
+        "desc": "VDOT camera stills and the state traffic map",
+        "id": null,
+        "embeddable": false,
+        "link": "https://511virginia.org",
+        "note": "Cameras ride the state system — link-out card by design."
+      }
+    ]
+  },
+  "anomaly_registry": {
+    "counters": {
+      "last_m7": "24 days ago — M7 189 km ENE of Nagqu, China (2026-10-22)",
+      "last_m8": "473 days ago — M8.8 2025 Kamchatka Peninsula, Russia Earthquake (2025-07-29)",
+      "last_x_flare": "none in the current 7-day SWPC flare window",
+      "last_g5": "none in today’s Kp record; long-baseline counter starts with the archive",
+      "naked_eye_comet": "none reported by the tracked feeds today"
+    },
+    "records": {
+      "biggest_quake": {
+        "month": 5.5,
+        "year": 5.5
+      },
+      "highest_kp": {
+        "month": 2,
+        "year": 2
+      },
+      "closest_neo_km": {
+        "month": 18114579,
+        "year": 18114579
+      },
+      "highest_aqi": {
+        "month": 40,
+        "year": 40
+      },
+      "days_on_record": 1
+    },
+    "correlations": [
+      "No cross-system co-occurrences met the logging thresholds today. The log records; it does not assert."
+    ]
+  }
+}

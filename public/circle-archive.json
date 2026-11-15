@@ -1,0 +1,33 @@
+[
+  {
+    "date": "2026-11-15",
+    "anomalies": [],
+    "counts": {
+      "quakes_global_m45": 8,
+      "quakes_local_m25": 1,
+      "biggest_quake_mag": 5.5,
+      "gw_alerts_week": 0,
+      "kp_latest": 1,
+      "kp_max_today": 2,
+      "aqi_max_today": 40,
+      "closest_neo_km": 18114579,
+      "moon_illum_pct": 35,
+      "space_headlines": 5,
+      "local_outlets_live": 1
+    },
+    "snapshot": {
+      "kp_latest": 1,
+      "kp_max_today": 2,
+      "biggest_quake_mag": 5.5,
+      "closest_neo_km": 18114579,
+      "aqi_max_today": 40,
+      "moon_illum_pct": 35,
+      "gw_alerts_week": 0,
+      "btc_usd": 64645,
+      "co2_ppm": "428.69",
+      "oni_anomaly": "+2.46"
+    },
+    "prev_hash": "GENESIS",
+    "hash": "848d70b0549155babcc033c9cd6e26ee9eba96f0566a5924341a538edbd4bbc0"
+  }
+]

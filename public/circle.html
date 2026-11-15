@@ -1,0 +1,1611 @@
+<!DOCTYPE html>
+<!--
+  THE INNER CIRCLE — ONE CANON, EVERY SURFACE.
+  Identical information, order, names, and numbers on phone / tablet / desktop / TV.
+  Responsive layout may rearrange; it must NEVER add, drop, or alter content.
+  If it exists on desktop it exists on phone (collapsed is fine, missing is not).
+  One data layer (circle-data.json), one design system, one set of labels.
+  Future edits: keep this rule or do not ship.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="The Inner Circle — a private observatory and daily wire: weather, earthquakes, space weather, the Moon, the old tracked systems, and an anomaly archive that grows every day. Pembroke, Virginia.">
+<meta name="theme-color" content="#05080f">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='46' fill='%2305080f' stroke='%23e8b26a' stroke-width='4'/%3E%3Cpath d='M14 50 Q50 22 86 50 Q50 78 14 50Z' fill='none' stroke='%23e8b26a' stroke-width='4'/%3E%3Ccircle cx='50' cy='50' r='13' fill='%23e8b26a'/%3E%3C/svg%3E">
+<link rel="manifest" href="/circle.webmanifest">
+<link rel="apple-touch-icon" href="/icons/circle-192.png">
+<title>The Inner Circle — Daily Wire</title>
+<style>
+  :root { --bg:#05080f; --panel:rgba(16,26,40,.72); --line:#22374f; --txt:#e8eef4; --dim:#8fa8bd;
+          --gold:#ffd97a; --cyan:#7fd8ff; --red:#ff9a9a; --green:#9affc4; }
+  * { box-sizing:border-box; }
+  body { background:radial-gradient(1200px 600px at 70% -10%, #10233c 0%, var(--bg) 55%) fixed, var(--bg);
+         color:var(--txt); font-family: Georgia, 'Times New Roman', serif; margin:0; line-height:1.55; }
+  main { max-width:1060px; margin:0 auto; padding:18px 16px 56px; }
+  h1 { font-size:30px; margin:0 0 2px; letter-spacing:.03em; }
+  h2 { font-size:20px; margin:30px 0 10px; border-bottom:1px solid var(--line); padding-bottom:5px; }
+  h3 { font-size:16.5px; margin:0 0 6px; color:var(--gold); }
+  a { color:var(--cyan); }
+  strong { color:var(--gold); }
+  .date { color:var(--dim); font-size:15px; }
+  .hidden { display:none !important; }
+  /* ticker */
+  #ticker { position:sticky; top:0; z-index:40; background:rgba(5,10,18,.92); border-bottom:1px solid var(--line);
+            overflow:hidden; white-space:nowrap; font-size:13.5px; padding:6px 0; backdrop-filter: blur(6px); }
+  #ticker .track { display:inline-block; padding-left:100%; animation: tick 55s linear infinite; }
+  @keyframes tick { from { transform:translateX(0); } to { transform:translateX(-100%); } }
+  #ticker b { color:var(--gold); font-weight:normal; margin:0 14px; }
+  /* gate */
+  #gate { max-width:440px; margin:10vh auto; padding:0 16px; text-align:center; }
+  .glass { background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:16px 18px;
+           box-shadow:0 8px 32px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.05); backdrop-filter: blur(8px); }
+  #gate input { width:100%; padding:11px 12px; font-size:16px; margin:12px 0 6px; background:#0a1420;
+                color:var(--txt); border:1px solid #2c4a68; border-radius:8px; }
+  button { padding:9px 18px; font-size:15px; background:#1d3a56; color:var(--txt); border:1px solid #35648c;
+           border-radius:8px; cursor:pointer; font-family:inherit; }
+  button:hover { background:#26507a; }
+  button.small { padding:4px 10px; font-size:13px; }
+  .err { color:var(--red); font-size:14px; min-height:20px; }
+  /* hero + counters */
+  .hero { position:relative; border-radius:16px; overflow:hidden; border:1px solid var(--line); margin-top:14px; }
+  .hero img { width:100%; height:300px; object-fit:cover; display:block; filter:brightness(.75); }
+  .hero .cap { position:absolute; left:0; right:0; bottom:0; padding:12px 18px; background:linear-gradient(transparent, rgba(3,6,12,.92)); }
+  .counters { display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); gap:10px; margin:14px 0 4px; }
+  .counter { text-align:center; padding:10px 6px; }
+  .counter .num { font-size:27px; color:var(--gold); display:block; }
+  .counter .lbl { font-size:12px; color:var(--dim); text-transform:uppercase; letter-spacing:.06em; }
+  /* cards */
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:14px; }
+  .card { background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:14px 16px;
+          box-shadow:0 6px 24px rgba(0,0,0,.35); backdrop-filter: blur(8px); }
+  .card.wide { grid-column:1 / -1; }
+  .card .head { display:flex; justify-content:space-between; align-items:flex-start; gap:8px; cursor:pointer; }
+  .card .tools { display:flex; gap:6px; flex:none; }
+  .iconbtn { padding:3px 9px; font-size:13px; border-radius:20px; }
+  .src { color:var(--dim); font-size:12.5px; margin-top:10px; }
+  .badge { display:inline-block; font-size:11.5px; padding:1px 8px; border-radius:10px; border:1px solid #6b4d1f; color:var(--gold); }
+  .badge.down { border-color:#7a3434; color:var(--red); }
+  .badge.live { border-color:#2c6e4c; color:var(--green); }
+  .badge.comp { border-color:#3d5a80; color:var(--cyan); }
+  .badge.pend { border-color:#555; color:#bbb; }
+  .badge.dark { border-color:#333; color:#777; }
+  ul { padding-left:19px; margin:6px 0; } li { margin-bottom:7px; }
+  img.wire { max-width:100%; border:1px solid var(--line); border-radius:8px; }
+  canvas.chart { width:100%; height:auto; display:block; }
+  .moonwrap { display:flex; gap:16px; align-items:center; }
+  /* registry */
+  .reg-item { padding:7px 10px; border:1px solid #1b2a3c; border-radius:8px; margin-bottom:6px; cursor:pointer; background:rgba(10,18,30,.5); }
+  .reg-item:hover { border-color:#35648c; }
+  .reg-detail { color:var(--dim); font-size:13.5px; margin-top:5px; }
+  /* ar */
+  #arview { position:relative; border-radius:14px; overflow:hidden; background:#000; min-height:300px; }
+  #arview video { width:100%; height:100%; object-fit:cover; position:absolute; inset:0; }
+  #arview canvas { position:absolute; inset:0; width:100%; height:100%; }
+  .foot { color:var(--dim); font-size:13px; margin-top:40px; }
+  input[type="date"], input[type="text"], select { background:#0a1420; color:var(--txt); border:1px solid #2c4a68;
+           border-radius:6px; padding:7px 9px; font-family:inherit; font-size:14px; }
+  .snapgrid { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:8px; }
+  .snapgrid div { background:rgba(10,18,30,.6); border:1px solid #1b2a3c; border-radius:8px; padding:8px 10px; font-size:13.5px; }
+  @media (max-width:640px){ .hero img{height:200px} h1{font-size:24px} }
+  /* touch-first targets on coarse pointers (phones/tablets) */
+  @media (pointer:coarse){ button{ min-height:44px; padding:10px 18px; } .iconbtn{ min-height:38px; min-width:44px; } .reg-item{ padding:12px; } input, select{ min-height:44px; } }
+  /* tablet */
+  @media (min-width:641px) and (max-width:1024px){ main{ max-width:860px; } }
+  /* TV browsers / big desktops */
+  @media (min-width:1600px){ main{ max-width:1440px; font-size:19px; } .counter .num{ font-size:36px; } .hero img{ height:380px; } }
+  .board-post { border:1px solid #1b2a3c; border-radius:10px; padding:10px 14px; margin-bottom:10px; background:rgba(10,18,30,.5); }
+  .board-post .meta { color:var(--dim); font-size:12.5px; }
+  .stars { color:var(--gold); }
+  /* ===== concept polish layer (deep navy · teal nebula · gold) ===== */
+  body::before { content:""; position:fixed; inset:0; z-index:-2; pointer-events:none;
+    background:
+      radial-gradient(900px 480px at 82% 8%, rgba(38,110,130,.20), transparent 60%),
+      radial-gradient(700px 420px at 12% 78%, rgba(30,80,120,.16), transparent 60%),
+      radial-gradient(500px 300px at 60% 110%, rgba(120,84,30,.10), transparent 60%); }
+  body::after { content:""; position:fixed; inset:0; z-index:-1; pointer-events:none; opacity:.55;
+    background-image:
+      radial-gradient(1.2px 1.2px at 22px 34px, rgba(255,255,255,.85), transparent 60%),
+      radial-gradient(1px 1px at 130px 90px, rgba(190,225,255,.7), transparent 60%),
+      radial-gradient(1.6px 1.6px at 240px 150px, rgba(255,240,200,.8), transparent 60%),
+      radial-gradient(1px 1px at 320px 40px, rgba(255,255,255,.6), transparent 60%);
+    background-size: 360px 210px; }
+  h1 { color:#f6ead2; text-shadow:0 0 24px rgba(232,178,106,.25); }
+  h2 { color:#e9dcc0; letter-spacing:.04em; }
+  h3 { letter-spacing:.06em; text-transform:uppercase; font-size:14.5px; color:#eec27f; }
+  .card { transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease; }
+  .card:hover { transform: translateY(-2px); border-color:#3d6186; box-shadow:0 14px 38px rgba(0,0,0,.55), 0 0 0 1px rgba(238,194,127,.08), inset 0 1px 0 rgba(255,255,255,.06); }
+  button { transition: background .2s ease, transform .12s ease, box-shadow .2s ease; }
+  button:hover { box-shadow:0 4px 16px rgba(20,60,100,.5); }
+  button:active { transform: scale(.97); }
+  button:focus-visible, a:focus-visible, input:focus-visible { outline:2px solid var(--gold); outline-offset:2px; }
+  /* ticker label */
+  #ticker .tick-lbl { position:absolute; left:0; top:0; bottom:0; z-index:2; display:flex; align-items:center;
+    padding:0 12px; background:linear-gradient(90deg, rgba(5,10,18,.98) 82%, transparent); color:var(--gold);
+    font-size:12px; letter-spacing:.12em; }
+  /* headline banner */
+  #headline { margin:14px 0 4px; padding:16px 18px; font-size:19px; line-height:1.5; border-radius:14px;
+    background:linear-gradient(120deg, rgba(38,28,10,.55), rgba(16,26,40,.78) 55%);
+    border:1px solid #4a3d22; border-left:4px solid var(--gold);
+    box-shadow:0 10px 30px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,217,122,.12); }
+  #headline .hspk { float:right; width:46px; height:46px; border-radius:50%; font-size:20px; padding:0;
+    background:radial-gradient(circle at 35% 30%, #f4cd8a, #c98f3d); color:#241a05; border:1px solid #8a6420;
+    box-shadow:0 0 18px rgba(232,178,106,.45); }
+  /* loading shimmer */
+  #loading { margin:16px 0; }
+  .shim { height:86px; border-radius:14px; margin-bottom:10px;
+    background:linear-gradient(100deg, rgba(20,32,48,.7) 40%, rgba(46,74,104,.75) 50%, rgba(20,32,48,.7) 60%);
+    background-size:200% 100%; animation:shim 1.4s infinite linear; }
+  @keyframes shim { from { background-position:180% 0; } to { background-position:-20% 0; } }
+  /* ===== the gate (concept: eye over the horizon) ===== */
+  #gate-stars { position:fixed; inset:0; z-index:0; }
+  #gate { position:relative; z-index:1; max-width:520px; margin:0 auto; padding:6vh 16px 40px; text-align:center; }
+  .emblem { width:172px; height:172px; filter:drop-shadow(0 0 22px rgba(232,178,106,.45)); animation:emblemPulse 5s ease-in-out infinite; }
+  @keyframes emblemPulse { 0%,100% { filter:drop-shadow(0 0 16px rgba(232,178,106,.35)); } 50% { filter:drop-shadow(0 0 30px rgba(232,178,106,.6)); } }
+  .gate-title { font-size:42px; margin:10px 0 0; color:#f8efdb; letter-spacing:.02em; }
+  .gate-sub { color:#9fd8e8; letter-spacing:.22em; font-size:12.5px; text-transform:uppercase; margin-top:6px; }
+  .gate-card { margin-top:26px; text-align:left; border-color:#3a5170;
+    background:linear-gradient(160deg, rgba(20,34,52,.82), rgba(10,18,30,.86));
+    box-shadow:0 18px 50px rgba(0,0,0,.6), 0 0 0 1px rgba(238,194,127,.07), inset 0 1px 0 rgba(255,255,255,.07); }
+  .gate-note { color:#c7d6e4; font-size:14.5px; margin-top:2px; }
+  .pw-wrap { position:relative; margin-top:14px; }
+  .pw-wrap .pw-lock { position:absolute; left:12px; top:50%; transform:translateY(-50%); opacity:.85; }
+  #gate .pw-wrap input { margin:0; padding-left:38px; padding-right:48px; height:50px; font-size:17px;
+    background:rgba(6,12,20,.85); border-color:#3a5a7d; }
+  #gate-eye { position:absolute; right:6px; top:50%; transform:translateY(-50%); background:transparent;
+    border:none; font-size:18px; padding:8px; box-shadow:none; }
+  #gate-eye:hover { background:transparent; box-shadow:none; }
+  #gate-enter { width:100%; margin-top:10px; height:52px; font-size:18px; letter-spacing:.14em; color:#2a1d04;
+    background:linear-gradient(180deg, #f6d79b, #dfa94f); border:1px solid #9a742f; font-weight:bold;
+    box-shadow:0 8px 26px rgba(223,169,79,.35); }
+  #gate-enter:hover { background:linear-gradient(180deg, #ffe3ae, #eab95e); box-shadow:0 10px 30px rgba(223,169,79,.5); }
+  .gate-foot { margin-top:18px; color:#7e97ad; font-size:13px; letter-spacing:.05em; }
+  @media (max-width:560px) { .gate-title { font-size:34px; } .emblem { width:132px; height:132px; } #headline { font-size:16.5px; } }
+  @media (prefers-reduced-motion: reduce) { .ticker .track { animation:none; } .card, button { transition:none; } .emblem { animation:none; } .shim { animation:none; } }
+  /* ===== three tickers ===== */
+  #tickers { position:sticky; top:0; z-index:40; }
+  .ticker { position:relative; background:rgba(5,10,18,.92); border-bottom:1px solid var(--line);
+            overflow:hidden; white-space:nowrap; font-size:13px; padding:5px 0; backdrop-filter: blur(6px); }
+  .ticker .track { display:inline-block; padding-left:100%; animation: tick 55s linear infinite; }
+  .ticker:hover .track, .ticker.paused .track { animation-play-state:paused; }
+  .ticker b { color:var(--gold); font-weight:normal; margin:0 14px; }
+  .ticker .tick-lbl { position:absolute; left:0; top:0; bottom:0; z-index:2; display:flex; align-items:center;
+    padding:0 12px; background:linear-gradient(90deg, rgba(5,10,18,.98) 82%, transparent); color:var(--gold);
+    font-size:11.5px; letter-spacing:.1em; }
+  #ticker2 .tick-lbl { color:#9fd8e8; } #ticker3 .tick-lbl { color:#9affc4; }
+  .badge.reference { background:#2c3550; color:#c9d4ff; }
+  /* ===== radio bar ===== */
+  #radio-bar { position:fixed; left:0; right:0; bottom:0; z-index:50; display:flex; gap:10px; align-items:center; flex-wrap:wrap;
+    padding:9px 14px calc(9px + env(safe-area-inset-bottom)); background:rgba(6,11,19,.96); border-top:1px solid #35507a;
+    box-shadow:0 -8px 30px rgba(0,0,0,.55); backdrop-filter: blur(8px); }
+  #radio-bar select { background:#0a1420; color:var(--txt); border:1px solid #2c4a68; border-radius:8px; padding:8px; font-family:inherit; font-size:14px; max-width:46vw; }
+  #radio-bar .rb-label { color:var(--gold); letter-spacing:.06em; font-size:14px; }
+  body { padding-bottom:64px; }
+  /* ===== ambient / TV mode ===== */
+  #ambient { position:fixed; inset:0; z-index:90; background:#02040a; overflow:hidden; }
+  #ambient-stars { position:absolute; inset:0; }
+  .amb-inner { position:relative; z-index:1; height:100%; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; padding:4vw; }
+  .amb-clock { font-size:min(11vw,110px); color:#f6ead2; letter-spacing:.04em; text-shadow:0 0 40px rgba(232,178,106,.35); line-height:1; }
+  .amb-head { font-size:min(4.6vw,44px); color:#e9dcc0; max-width:20em; margin-top:2.2vh; line-height:1.35; }
+  .amb-nums { font-size:min(3.4vw,30px); color:#9fd8e8; margin-top:3vh; letter-spacing:.05em; }
+  .amb-hint { color:#5f7a90; font-size:14px; margin-top:4vh; }
+  .card:focus { outline:2px solid var(--gold); outline-offset:2px; }
+  body.instrument { --panel:rgba(7,13,21,.92); }
+  body.instrument main { font-size:14.5px; }
+  body.instrument .card { border-radius:8px; }
+  body.instrument h3 { color:#7fe8c9; }
+  body.instrument .explain { display:none; }
+  .avatar { display:inline-flex; align-items:center; justify-content:center; width:30px; height:30px; border-radius:50%;
+    color:#0a1420; font-weight:bold; font-size:13px; margin-right:8px; vertical-align:middle; }
+  #menu { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 2px; }
+  #menu a { padding:6px 12px; border:1px solid #2c4a68; border-radius:999px; background:rgba(16,26,40,.72);
+    color:var(--txt); text-decoration:none; font-size:13.5px; letter-spacing:.03em; }
+  #menu a:hover { border-color:var(--gold); color:var(--gold); }
+  .card.sz-l { grid-column: 1 / -1; }
+  .card.sz-s { font-size: 14px; }
+  .porch-raw { display:none; }
+  body.instrument .porch-raw { display:block; }
+  .join-slot iframe { width:100%; height:420px; border:0; border-radius:10px; margin-top:8px; }
+  .reader-feed { border-top:1px solid #1b2a3c; padding:8px 0; }
+  .reader-feed summary { cursor:pointer; }
+  .video-facade { cursor:pointer; position:relative; }
+  .video-facade img { width:100%; height:190px; object-fit:cover; border-radius:10px; display:block; filter:brightness(.8); }
+  .video-facade .play { position:absolute; top:76px; left:50%; transform:translateX(-50%); font-size:40px; color:#fff; text-shadow:0 2px 14px #000; }
+</style>
+</head>
+<body>
+
+<canvas id="gate-stars" aria-hidden="true"></canvas>
+<div id="gate">
+  <svg class="emblem" viewBox="0 0 200 200" role="img" aria-label="The Inner Circle emblem: an eye over the horizon">
+    <circle cx="100" cy="100" r="94" fill="none" stroke="#e8b26a" stroke-width="2.5"/>
+    <circle cx="100" cy="100" r="85" fill="none" stroke="#e8b26a" stroke-width="1" opacity=".55"/>
+    <path d="M32 96 Q100 44 168 96 Q100 148 32 96 Z" fill="none" stroke="#f0cd8d" stroke-width="3"/>
+    <circle cx="100" cy="96" r="27" fill="none" stroke="#f0cd8d" stroke-width="2.5"/>
+    <circle cx="100" cy="96" r="11" fill="#e8b26a"/>
+    <path d="M40 138 Q100 122 160 138" fill="none" stroke="#7fd8ff" stroke-width="2" opacity=".8"/>
+    <path d="M52 150 Q100 138 148 150" fill="none" stroke="#7fd8ff" stroke-width="1.4" opacity=".45"/>
+    <circle cx="100" cy="126" r="3.4" fill="#ffd97a"/>
+  </svg>
+  <h1 class="gate-title">The Inner Circle</h1>
+  <div class="gate-sub">Private Observatory · Daily Wire</div>
+  <div class="glass gate-card">
+    <p class="gate-note">Welcome. This gate is a <strong>light gate</strong> — a courtesy lock for the
+    circle, not real security, and nothing private lives behind it: every line on the page
+    comes from public, measured feeds or is computed openly from the date and the sky.</p>
+    <form id="gate-form">
+      <div class="pw-wrap">
+        <span class="pw-lock" aria-hidden="true">🔒</span>
+        <input type="password" id="gate-pw" placeholder="Password" autocomplete="off" aria-label="Password">
+        <button type="button" id="gate-eye" aria-label="Show or hide the password">👁</button>
+      </div>
+      <div class="err" id="gate-err" role="alert"></div>
+      <button type="submit" id="gate-enter">Enter</button>
+    </form>
+  </div>
+  <div class="gate-foot">For the circle · the wire refreshes daily · the sky refreshes itself</div>
+</div>
+
+<div id="shell" class="hidden">
+  <div id="tickers">
+    <div class="ticker" id="ticker"><span class="tick-lbl">⚠ ANOMALIES</span><span class="track" id="ticker-track">THE INNER CIRCLE — DAILY WIRE</span></div>
+    <div class="ticker" id="ticker2"><span class="tick-lbl">📰 HEADLINE WIRE</span><span class="track" id="ticker2-track">Headlines load with the wire…</span></div>
+    <div class="ticker" id="ticker3"><span class="tick-lbl">🔢 NUMBERS</span><span class="track" id="ticker3-track">Numbers load with the wire…</span></div>
+  </div>
+  <main>
+    <h1>The Inner Circle</h1>
+    <div class="date" id="today-line">Sunday, November 15, 2026</div>
+    <nav id="menu" aria-label="Sections"></nav>
+    <div class="date" id="stamp-line">Rebuilt daily from live public feeds. Cards labeled LIVE refresh themselves; cards labeled with a build time are the daily snapshot.</div>
+
+    <div class="hero hidden" id="hero">
+      <img id="hero-img" alt="NASA Astronomy Picture of the Day">
+      <div class="cap"><strong>NASA Picture of the Day:</strong> <span id="hero-title"></span>
+        <div class="src" style="margin-top:2px">Image: NASA APOD — loaded from origin, never stored here.</div></div>
+    </div>
+
+    <div id="loading" aria-hidden="true"><div class="shim"></div><div class="shim"></div><div class="shim"></div></div>
+
+    <div class="counters" id="counters"></div>
+
+    <p>
+      <button id="read-all">🔊 Read the whole Wire</button>
+      <button id="stop-read">⏹ Stop</button>
+      <a href="#ar"><button type="button">📷 Sky Camera (AR)</button></a>
+      <a href="https://satwq-reality-os.pages.dev/" target="_blank" rel="noopener"><button type="button">🥽 God's Eye — XR face</button></a>
+    </p>
+    <p>
+      <button id="mode-toggle" aria-label="Toggle Guided or Instrument mode">🧭 Mode: Guided</button>
+      <button id="tour-btn">▶ Start the tour</button>
+      <button id="settings-btn" aria-label="Open settings">⚙ Settings</button>
+      <button id="shortcuts-btn" aria-label="Keyboard shortcuts">? Keys</button>
+      <a href="circle-data.json" download><button type="button">⬇ Today's data (JSON)</button></a>
+      <a href="circle-archive.jsonl" download><button type="button">⬇ Archive (JSONL)</button></a>
+    </p>
+
+    <div id="headline" class="glass" style="padding:14px 18px; font-size:19px;" role="banner"></div>
+
+    <div id="settings-panel" class="card hidden" aria-label="Settings panel">
+      <div class="head"><h3>Settings — this device only</h3></div>
+      <div class="body">
+        <p>Settings change how the page renders on this device. They never change the underlying data.</p>
+        <p><label>Temperature: <select id="set-temp"><option value="F">°F</option><option value="C">°C</option></select></label>
+        <label style="margin-left:14px">Distance: <select id="set-dist"><option value="km">km</option><option value="mi">miles</option></select></label>
+        <label style="margin-left:14px">Live refresh: <select id="set-poll"><option value="60">60 s</option><option value="90">90 s</option><option value="180">3 min</option><option value="0">off</option></select></label></p>
+        <p><label>Quake highlight at M <input type="number" id="set-quake" min="4.5" max="9" step="0.5" style="width:64px"></label>
+        <label style="margin-left:14px">Storm watch at Kp <input type="number" id="set-kp" min="1" max="9" step="1" style="width:56px"></label>
+        <label style="margin-left:14px">Ticker speed: <select id="set-ticker"><option value="80">calm</option><option value="55">normal</option><option value="30">fast</option></select></label></p>
+        <p>Show: <span id="set-sections"></span></p>
+        <p><button id="settings-close">Done</button></p>
+      </div>
+    </div>
+
+    <div id="shortcuts-card" class="card hidden" aria-label="Keyboard shortcuts">
+      <div class="head"><h3>Keyboard shortcuts</h3></div>
+      <div class="body"><ul>
+        <li><strong>s</strong> — speak the whole page wire</li>
+        <li><strong>g</strong> — Guided mode · <strong>i</strong> — Instrument mode</li>
+        <li><strong>/</strong> — jump to the archive filter</li>
+        <li><strong>?</strong> — this card · <strong>Esc</strong> — stop speech / close panels</li>
+      </ul></div>
+    </div>
+
+    <div id="tour-box" class="glass hidden" style="position:fixed; left:50%; bottom:22px; transform:translateX(-50%); z-index:60; max-width:520px; width:92%;">
+      <p id="tour-text" style="margin:4px 0 10px"></p>
+      <button id="tour-back">Back</button> <button id="tour-next">Next</button> <button id="tour-done">Done</button>
+      <span id="tour-step" class="src"></span>
+    </div>
+
+    <div id="health-wrap" class="hidden">
+      <h2>Feed Health (Instrument)</h2>
+      <div id="version-box" style="margin-bottom:10px"></div>
+      <div class="card wide"><div class="body" id="health-table"></div></div>
+    </div>
+
+    <h2 data-section="findings">Findings</h2>
+    <div id="findings"></div>
+
+    <h2 data-section="bane">Bane Dome & Local Anomalies — the home ground</h2>
+    <div class="card" id="bane-card">
+      <div class="body">
+        <p style="font-size:17.5px;margin-top:2px"><strong>You live on a dome</strong>, inside Virginia's most active earthquake zone, next to a lake that disappears.</p>
+        <p class="explain" style="color:#bcd3e8;font-style:italic">The Bane Dome is a real geological structure in Giles County — a doubly plunging anticline bounded by the Narrows fault (northwest) and the Saltville fault (southeast), carrying a +12 mGal gravity high. Sources: USGS Bulletin 1839 · Moses 1988 (Virginia Tech thesis) · Perry et al. 1979 (AAPG). The live instruments ride on top; the rest is the reference layer — named, described, and honestly labeled.</p>
+        <svg viewBox="0 0 720 210" role="img" aria-label="Schematic cross-section of the Bane Dome" style="width:100%;height:auto;background:linear-gradient(180deg,#0a1626,#060b13);border:1px solid #22374f;border-radius:10px">
+          <path d="M0 62 L70 40 L130 54 L200 30 L270 48 L340 26 L420 44 L490 32 L560 50 L630 38 L720 56 L720 0 L0 0 Z" fill="#12283f"/>
+          <path d="M60 210 L150 108 Q360 30 570 108 L660 210 Z" fill="#3d2f16" opacity=".9"/>
+          <path d="M105 210 L185 128 Q360 62 535 128 L615 210 Z" fill="#274b63"/>
+          <path d="M150 210 L215 150 Q360 96 505 150 L570 210 Z" fill="#1d3a2e"/>
+          <path d="M0 196 L720 196" stroke="#c98f3d" stroke-width="2" stroke-dasharray="7 5"/>
+          <path d="M96 60 L150 210" stroke="#ff9a9a" stroke-width="2"/>
+          <path d="M624 60 L570 210" stroke="#ff9a9a" stroke-width="2"/>
+          <text x="360" y="88" fill="#f0cd8d" font-size="15" text-anchor="middle" font-family="Georgia">BANE DOME</text>
+          <text x="360" y="140" fill="#cfe3f2" font-size="12" text-anchor="middle" font-family="Georgia">Knox Group limestone</text>
+          <text x="360" y="176" fill="#b8d8c2" font-size="12" text-anchor="middle" font-family="Georgia">Devonian shale</text>
+          <text x="86" y="52" fill="#ff9a9a" font-size="12" font-family="Georgia">Narrows fault (NW)</text>
+          <text x="520" y="52" fill="#ff9a9a" font-size="12" font-family="Georgia">Saltville fault (SE)</text>
+          <text x="360" y="208" fill="#e8b26a" font-size="11.5" text-anchor="middle" font-family="Georgia">Rome Formation décollement — the layer everything slides on</text>
+        </svg>
+        <p class="src">Schematic cross-section — not to scale, drawn from the published structure (USGS Bulletin 1839). The dome is an arch of rock layers between two great faults; the +12 mGal gravity high says dense rock rides beneath it.</p>
+        <div id="bane-live"></div>
+        <div id="bane-filter" style="margin:10px 0 4px"></div>
+        <div id="bane-rows"></div>
+      </div>
+    </div>
+
+    <h2 data-section="globe">The Living Globe</h2>
+    <div class="card wide" id="globe-card">
+      <div class="head"><h3>Earth — earthquakes (24 h) + ISS, live</h3>
+        <div class="tools"><button class="iconbtn" data-speak="globe-card" title="Read this section aloud">🔊</button></div></div>
+      <div class="body">
+        <div id="globe-wrap" style="min-height:340px; position:relative;">
+          <p id="globe-loading">The globe wakes when this card scrolls into view (heavy libraries stay asleep until needed)…</p>
+          <canvas id="globe-2d" class="chart hidden" width="960" height="480"></canvas>
+          <div id="globe-3d" class="hidden" style="width:100%;height:420px;"></div>
+        </div>
+        <p id="globe-note" style="margin:6px 0 0"></p>
+        <div class="src">Quakes: USGS M4.5+ feed, refreshed in your browser every 90 s while this tab is visible. ISS: wheretheiss.at live, with on-device TLE propagation as fallback. Drag the 3D globe to spin it.</div>
+      </div>
+    </div>
+
+    <h2 data-section="wire">Today's Wire</h2>
+    <div class="grid" id="wire"></div>
+
+    <h2 data-section="reader">The Wire Reader — every feed, opened up</h2>
+    <div class="card"><div class="body">
+      <p class="explain" style="color:#bcd3e8;font-style:italic">Every feed this page pulled today, with its headlines opened up. The cards above and this reader drink from the same single fetch — there is no second pipeline.</p>
+      <div id="reader"></div>
+    </div></div>
+
+    <h2 data-section="video">Live Video</h2>
+    <div class="grid" id="video-rail"></div>
+
+    <h2 data-section="charts">Charts</h2>
+    <div class="grid">
+      <div class="card"><div class="head"><h3>Kp Index — recent</h3><div class="tools"><button class="iconbtn" data-speak-card title="Read aloud">🔊</button></div></div>
+        <div class="body"><canvas id="kp-chart" class="chart" width="460" height="180"></canvas>
+        <div class="src">NOAA SWPC planetary K-index (3-hour bars). Refreshes live in your browser.</div></div></div>
+      <div class="card"><div class="head"><h3>Earthquakes — magnitude timeline (24 h)</h3><div class="tools"><button class="iconbtn" data-speak-card title="Read aloud">🔊</button></div></div>
+        <div class="body"><canvas id="quake-chart" class="chart" width="460" height="180"></canvas>
+        <div class="src">USGS M4.5+ worldwide, past 24 hours. Dot size grows with magnitude; M6+ ringed in red.</div></div></div>
+      <div class="card"><div class="head"><h3>The Moon — tonight</h3><div class="tools"><button class="iconbtn" data-speak-card title="Read aloud">🔊</button></div></div>
+        <div class="body"><div class="moonwrap"><svg id="moon-svg" width="120" height="120" viewBox="0 0 100 100"></svg>
+        <div id="moon-text"></div></div>
+        <div class="src">Phase computed on this device, right now — not from the daily snapshot.</div></div></div>
+      <div class="card"><div class="head"><h3>Tonight's Sky — Pembroke (altitude curves)</h3><div class="tools"><button class="iconbtn" data-speak-card title="Read aloud">🔊</button></div></div>
+        <div class="body"><canvas id="sky-chart" class="chart" width="460" height="200"></canvas>
+        <div class="src">Planet altitude 5 PM → 7 AM ET (computed at build). White arc: the next visible ISS pass, if one is on the chart.</div></div></div>
+    </div>
+
+    <h2 id="ar">Sky Camera — augmented reality</h2>
+    <div class="card wide">
+      <div class="head"><h3>Point the phone at the sky</h3><div class="tools"><button class="iconbtn" data-speak-card title="Read aloud">🔊</button></div></div>
+      <div class="body">
+        <p>Camera + compass overlay: labels for the Sun, Moon, planets and the ISS, placed by
+        positions <strong>computed live on this device</strong>. Needs a phone with a compass;
+        accuracy rides on the phone's compass calibration. On a desktop, or if camera/sensors
+        are denied, this card says so plainly and the chart above carries the same sky.</p>
+        <p><button id="ar-start">Start Sky Camera</button> <button id="ar-stop" class="hidden">Stop</button></p>
+        <div id="arview" class="hidden"><video id="ar-video" playsinline muted></video><canvas id="ar-canvas"></canvas></div>
+        <p id="ar-msg" class="src"></p>
+        <p>For full passthrough in a headset: open the <a href="https://satwq-reality-os.pages.dev/" target="_blank" rel="noopener">God's Eye XR face</a>
+        in the Quest browser — WebXR passthrough works there where the headset allows it. This phone mode is the
+        honest 2D-compass version, labeled as such.</p>
+      </div>
+    </div>
+
+    <h2 data-section="anomalies">Anomaly Log & Look-Back</h2>
+    <div class="card wide">
+      <div class="head"><h3>The record — flags, counters, records</h3><div class="tools"><button class="iconbtn" data-speak-card title="Read aloud">🔊</button></div></div>
+      <div class="body">
+        <div id="anomaly-registry"></div>
+        <p>
+          <input type="text" id="anom-q" placeholder="Filter flags (e.g. quake, flare, Kp)…" size="30">
+          <input type="date" id="anom-date">
+          <button class="small" id="anom-clear">Show all days</button>
+        </p>
+        <div id="anomalies"></div>
+        <div id="lookback"></div>
+        <p class="src">The archive is hash-chained: every day's line carries the SHA-256 of the day before it,
+        so the record can prove it was not rewritten. <a id="field-note" href="#">✎ Add a field note (v1 — opens your mail app; the circle's own eyes belong in this record too)</a></p>
+      </div>
+    </div>
+
+    <h2 data-section="your-sky">Your Sky — opt-in location</h2>
+    <div class="card wide" id="my-sky-card">
+      <div class="head"><h3>The same wire, centered on you</h3><div class="tools"><button class="iconbtn" data-speak-card title="Read aloud">🔊</button></div></div>
+      <div class="body">
+        <p>Default sky on this page is Pembroke, VA — the circle's home. If you grant location,
+        your browser recomputes <strong>your</strong> weather and <strong>your</strong> sky (planets, ISS, aurora)
+        on this device. <strong>Location is opt-in, used only in your browser, never sent anywhere</strong> —
+        the coordinates never leave this page; only public weather/sky feeds are asked, the way any weather site asks.</p>
+        <p><button id="loc-btn">📍 Use my location</button></p>
+        <div id="my-sky"></div>
+      </div>
+    </div>
+
+    <h2 data-section="board">The Board — the circle talks</h2>
+    <div class="card wide">
+      <div class="head"><h3>Members' board</h3><div class="tools"><button class="iconbtn" data-speak-card title="Read aloud">🔊</button></div></div>
+      <div class="body">
+        <p class="src" style="margin-top:0">House rules: chosen display names only · no dollars · no personal identifiers · no court content.
+        Posts appear on the refresh cycle (this is a static page — nothing here is real-time, and it doesn't pretend to be).</p>
+        <div id="board-posts"><p>No posts yet — the board opens with the circle. Be the first voice.</p></div>
+        <p>
+          <a id="board-compose" href="#"><button type="button">✎ Post via the form door (v1)</button></a>
+          <a href="#" onclick="return false"><button type="button" disabled>💬 Live chat — to be connected</button></a>
+        </p>
+        <p class="src">Post types: <strong>Discussion</strong> (threaded) · <strong>Sighting</strong> (sky/event report — gets tagged with that day's instrument data) ·
+        <strong>Place</strong> (a local spot, star rating + notes) · <strong>Field Note</strong>. The composer is the v1 form door (your mail app);
+        the board's data shape is ready for a real backend with zero redesign.</p>
+      </div>
+    </div>
+
+    <h2 data-section="porch">The Porch — live video rooms</h2>
+    <div class="card"><div class="body">
+      <p class="explain" style="color:#bcd3e8;font-style:italic">One tap and you are in a live video room with the circle — no accounts, no installs. Empty rooms are fine: the first person in just sees the room waiting.</p>
+      <p><strong>Honest label:</strong> this rides a free public video service (Jitsi) — no account, and no recording by us. The room link is the key, so treat rooms as <strong>semi-public</strong>: great for hanging out, not for sensitive talk.</p>
+      <div class="grid" id="porch-rooms"></div>
+      <h3 style="margin-top:16px">Make your own room</h3>
+      <p>Name it, and the page mints an unguessable room + a shareable link. Anyone past this gate with the link lands in the same call.</p>
+      <p><input type="text" id="porch-name" placeholder="Room name — e.g. Leonids Watch" aria-label="New room name" style="padding:10px;border-radius:8px;border:1px solid #2c4a68;background:#0a1420;color:var(--txt);min-width:min(320px,80vw)">
+      <button type="button" id="porch-make">Create room</button></p>
+      <div id="porch-new"></div>
+    </div></div>
+
+    <h2 data-section="registry">The Master Registry — 181 tracked systems</h2>
+    <p class="date">Every tracked item, named, with its honest status. Click any item for its source and last-good-data health.
+    LIVE = measured today · COMPUTED = calculated exactly · WIRE = headline/link coverage · REFERENCE = the standing record (geology, history — named and sourced) · PENDING = source verification still owed · DARK = no keyless route known yet.</p>
+    <div id="registry"></div>
+
+    <p class="foot">The Inner Circle — a light password gate (a courtesy lock, not real security) over a public-feed daily wire.
+    The canonical daily snapshot is <strong>circle-data.json</strong> — one file every face (this page, the Window, the headset) reads; there is no second pipeline.
+    Refresh path contains no AI: a plain script fetches, validates, hash-gates, and writes. Images load from their origins and are never stored in the repo.
+    Every number here comes from a feed response or an open calculation; a failed feed shows UNAVAILABLE, never a guess.</p>
+    <p class="prov" style="border-top:1px solid #4a3d22;margin-top:14px;padding-top:10px;color:#e9dcc0;letter-spacing:.05em">The Inner Circle — a real program · real feeds · data as of <span id="prov-stamp">the latest build</span> · Pembroke, Virginia</p>
+
+    <div class="card" id="qr-card"><div class="body" style="display:flex;gap:16px;align-items:center;flex-wrap:wrap">
+      <img src="icons/circle-qr.png" alt="QR code for this page" width="132" height="132" style="border-radius:10px;background:#fff;padding:6px">
+      <div>
+        <h3 style="margin-top:0">Take it to your phone</h3>
+        <p style="margin:4px 0">Point a phone camera at the code — the same page, the same numbers, opens there. Your mode rides along in the link.</p>
+        <p style="margin:4px 0"><button type="button" class="small" id="ambient-btn">🌌 Ambient / TV mode</button>
+        <button type="button" class="small" id="install-btn" style="display:none">📲 Install the Circle</button></p>
+        <p class="src" style="margin:2px 0">One canon, every surface: identical information, order, names, and numbers on phone, tablet, desktop, and TV.</p>
+      </div>
+    </div></div>
+  </main>
+</div>
+
+<div id="radio-bar" class="hidden" role="region" aria-label="Internet radio">
+  <span class="rb-label">📻 Observatory Radio</span>
+  <select id="radio-select" aria-label="Choose a station"></select>
+  <button type="button" id="radio-play" aria-label="Play or pause the radio">▶ Play</button>
+  <span id="radio-status" class="src">Streams load only when you press play — no autoplay, no background data.</span>
+</div>
+
+<div id="ambient" class="hidden" role="dialog" aria-label="Ambient TV mode">
+  <canvas id="ambient-stars"></canvas>
+  <div class="amb-inner">
+    <div class="amb-clock" id="amb-clock">--:--</div>
+    <div class="amb-head" id="amb-head">The Inner Circle</div>
+    <div class="amb-nums" id="amb-nums"></div>
+    <p class="amb-hint">Arrow keys move · Esc leaves ambient mode</p>
+  </div>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  var GATE_KEY = 'circle-unlocked';
+  var DATA = null, ARCHIVE = [], HEALTH = {};
+  var $ = function (id) { return document.getElementById(id); };
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function fmtT(iso) { try { return new Date(iso).toLocaleString(); } catch (e) { return iso; } }
+
+  /* ---------- speech ---------- */
+  function speak(text) {
+    if (!('speechSynthesis' in window)) { alert('This browser has no speech voice. The text is all on the page.'); return; }
+    speechSynthesis.cancel();
+    var u = new SpeechSynthesisUtterance(String(text).slice(0, 6000));
+    u.rate = 1.02;
+    speechSynthesis.speak(u);
+  }
+  function cardText(el) {
+    var c = el.closest('.card') || el;
+    return (c.innerText || '').replace(/\s+/g, ' ').trim();
+  }
+  document.addEventListener('click', function (ev) {
+    var b = ev.target.closest('[data-speak-card],[data-speak]');
+    if (b) { speak(cardText(b)); }
+  });
+  $('stop-read').addEventListener('click', function () { if ('speechSynthesis' in window) speechSynthesis.cancel(); });
+  $('read-all').addEventListener('click', function () {
+    if (!DATA) return;
+    var parts = ['The Inner Circle daily wire for ' + $('today-line').textContent + '.'];
+    document.querySelectorAll('#wire .card, #findings .card').forEach(function (c) {
+      parts.push((c.innerText || '').replace(/\s+/g, ' ').trim());
+    });
+    speak(parts.join('\n'));
+  });
+
+  /* ---------- gate ---------- */
+  function unlock() { $('gate').classList.add('hidden'); var gs = $('gate-stars'); if (gs) gs.classList.add('hidden'); $('shell').classList.remove('hidden'); load(); }
+  if (sessionStorage.getItem(GATE_KEY) === '1') unlock();
+  $('gate-form').addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    if ($('gate-pw').value === 'abracadabra') { sessionStorage.setItem(GATE_KEY, '1'); unlock(); }
+    else { $('gate-err').textContent = 'That is not the word. Nothing shown.'; $('gate-pw').value = ''; }
+  });
+
+  /* ---------- card helpers ---------- */
+  function srcLine(sec) { return '<div class="src">Source: ' + esc(sec.source || '—') + (sec.fetched_at ? ' · measured ' + esc(fmtT(sec.fetched_at)) : '') + '</div>'; }
+  function head(title, badge) {
+    return '<div class="head"><h3>' + esc(title) + (badge ? ' ' + badge : '') + '</h3>' +
+      '<div class="tools"><button class="iconbtn" data-speak-card title="Read this section aloud">🔊</button>' +
+      '<button class="iconbtn fold" title="Fold / unfold">–</button></div></div>';
+  }
+  function card(title, bodyHtml, sec, badge) {
+    return '<div class="card">' + head(title, badge) + '<div class="body">' + bodyHtml + (sec ? srcLine(sec) : '') + '</div></div>';
+  }
+  function down(sec, title) {
+    return card(title, '<span class="badge down">UNAVAILABLE</span><p>This feed did not answer at build time' +
+      (sec && sec.error ? ' (' + esc(sec.error) + ')' : '') + '. Nothing is shown rather than guessed.</p>', sec, '');
+  }
+  function linesCard(title, sec, subs) {
+    if (!sec || !sec.ok) return down(sec, title);
+    var html = '';
+    subs.forEach(function (pair) {
+      var label = pair[0], v = sec[pair[1]];
+      if (v && v.ok !== false && v.lines) html += '<h3 style="margin-top:10px">' + esc(label) + '</h3><ul>' + v.lines.map(function (l) { return '<li>' + esc(l) + '</li>'; }).join('') + '</ul>' + (v.note ? '<p>' + esc(v.note) + '</p>' : '');
+      else if (v && v.linkOnly) html += '<h3 style="margin-top:10px">' + esc(label) + '</h3><p>' + esc(v.note || '') + ' <a href="' + esc(v.link) + '" target="_blank" rel="noopener">Open</a></p>';
+      else if (v) html += '<h3 style="margin-top:10px">' + esc(label) + '</h3><p><span class="badge down">UNAVAILABLE</span> ' + esc(v.error || '') + (v.link ? ' <a href="' + esc(v.link) + '" target="_blank" rel="noopener">Open the source</a>' : '') + '</p>';
+    });
+    return card(title, html, sec, '');
+  }
+  function linkList(items) {
+    return '<ul>' + items.map(function (i) {
+      return '<li><a href="' + esc(i.link || i.url) + '" target="_blank" rel="noopener">' + esc(i.title || i.label) + '</a>' +
+        (i.date ? ' <span class="src">' + esc(i.date) + '</span>' : '') + '</li>';
+    }).join('') + '</ul>';
+  }
+  document.addEventListener('click', function (ev) {
+    var f = ev.target.closest('.fold');
+    if (f) { var body = f.closest('.card').querySelector('.body'); if (body) body.classList.toggle('hidden'); f.textContent = body && body.classList.contains('hidden') ? '+' : '–'; }
+    var hd = ev.target.closest('.card .head');
+    if (hd && !ev.target.closest('button') && !ev.target.closest('a')) { var b2 = hd.parentElement.querySelector('.body'); if (b2) b2.classList.toggle('hidden'); }
+  });
+
+  /* ---------- renderers ---------- */
+  function render(d) {
+    var out = '';
+    // weather + alerts
+    if (d.weather && d.weather.ok && d.weather.periods) {
+      var w = '';
+      if (d.weather.alerts && d.weather.alerts.length) w += '<p>' + d.weather.alerts.map(function (a) { return '<span class="badge down">⚠ ' + esc(a.event) + '</span> ' + esc(a.headline || ''); }).join('<br>') + '</p>';
+      else w += '<p><span class="badge live">No active NWS alerts for Giles County</span></p>';
+      w += '<ul>' + d.weather.periods.map(function (p) { return '<li><strong>' + esc(p.name) + ':</strong> ' + esc(p.temperature) + '°' + esc(p.unit) + ' — ' + esc(p.short) + ' · wind ' + esc(p.wind) + '</li>'; }).join('') + '</ul>';
+      out += card('Weather — ' + (d.weather.place || 'Pembroke, VA'), w, d.weather, '');
+    } else out += down(d.weather, 'Weather — Pembroke, VA');
+    // local news
+    if (d.local_news && d.local_news.ok) {
+      var ln = '';
+      d.local_news.outlets.forEach(function (o) { ln += '<h3 style="margin-top:10px">' + esc(o.name) + '</h3>' + (o.ok ? linkList(o.items) : '<p><span class="badge down">UNAVAILABLE</span></p>'); });
+      out += card('Local News — New River Valley & Virginia', ln, d.local_news, '');
+    } else out += down(d.local_news, 'Local News');
+    // world
+    if (d.world_news && d.world_news.ok) out += card('World & National Headlines', linkList(d.world_news.items), d.world_news, '');
+    else out += down(d.world_news, 'World & National Headlines');
+    // traffic
+    if (d.traffic && d.traffic.ok) out += card('Traffic — Virginia 511', '<p>' + esc(d.traffic.note || '') + '</p><p><a href="' + esc(d.traffic.link) + '" target="_blank" rel="noopener"><strong>Open the live 511 Virginia map</strong></a></p>', d.traffic, '');
+    else out += down(d.traffic, 'Traffic — Virginia 511');
+    // quakes
+    if (d.quakes && d.quakes.ok) {
+      var q = '<p><strong>Worldwide M4.5+ (24 h): <span id="quake-count">' + d.quakes.global.length + '</span></strong> · Ring of Fire: ' + esc(d.quakes.ring_of_fire_count) + ' · deepest: ' + esc(d.quakes.deepest_km) + ' km</p>';
+      q += d.quakes.global.length ? linkList(d.quakes.global.slice(0, 8).map(function (x) { return { title: 'M' + x.mag.toFixed(1) + ' — ' + x.place, link: x.url, date: fmtT(x.time) }; })) : '<p>None at M4.5+ in the last day.</p>';
+      q += '<p><strong>' + esc(d.quakes.localNote || 'Near Pembroke') + ': ' + d.quakes.local.length + '</strong></p>';
+      q += d.quakes.local.length ? linkList(d.quakes.local.slice(0, 5).map(function (x) { return { title: 'M' + x.mag.toFixed(1) + ' — ' + x.place, link: x.url, date: fmtT(x.time) }; })) : '<p>Quiet near home.</p>';
+      out += card('Earthquakes — USGS', q, d.quakes, '<span class="badge live">LIVE-ish</span>');
+    } else out += down(d.quakes, 'Earthquakes — USGS');
+    // earth body II
+    out += linesCard('Earth Body — Rivers, Oceans, Storms', d.earth2, [['New River gauges', 'rivers'], ['Tsunami statements', 'tsunami'], ['Drought — Giles County', 'drought'], ['El Niño / La Niña (ONI)', 'oni'], ['CO₂ — Mauna Loa', 'co2'], ['Storm reports (SPC)', 'spc'], ['Tropical systems (NHC)', 'nhc']]);
+    // schumann
+    if (d.schumann && d.schumann.ok) out += card('Schumann Resonance — Tomsk', '<p>' + esc(d.schumann.note || '') + '</p><a href="' + esc(d.schumann.page) + '" target="_blank" rel="noopener"><img class="wire" loading="lazy" src="' + esc(d.schumann.image) + '" alt="Schumann resonance chart, Tomsk observatory"></a>', d.schumann, '');
+    else out += down(d.schumann, 'Schumann Resonance — Tomsk');
+    // space weather
+    if (d.space_weather && d.space_weather.ok) {
+      var sw = d.space_weather, s = '';
+      if (sw.kp_latest) s += '<p><strong>Kp now: <span id="kp-now">' + esc(sw.kp_latest.kp) + '</span></strong>' + (sw.kp_max_today != null ? ' · today\u2019s max: ' + esc(sw.kp_max_today) : '') + '</p>';
+      if (sw.solar_wind) s += '<p>Solar wind: <strong>' + esc(sw.solar_wind.speed_kms) + ' km/s</strong>' + (sw.solar_wind.density != null ? ' · density ' + esc(sw.solar_wind.density) + ' /cm³' : '') + '</p>';
+      if (sw.flares && sw.flares.length) s += '<p>Recent flares:</p><ul>' + sw.flares.slice(0, 5).map(function (f) { return '<li><strong>' + esc(f.cls) + '-class</strong> — peak ' + esc(f.max) + '</li>'; }).join('') + '</ul>';
+      out += card('Space Weather — NOAA SWPC', s || '<p>No data returned.</p>', sw, '<span class="badge live">LIVE-ish</span>');
+    } else out += down(d.space_weather, 'Space Weather — NOAA SWPC');
+    // deep field II
+    out += linesCard('Deep Field — Sun, Scales, Sentinels, DSN', d.deep2, [['NOAA scales · Dst · Bz', 'scales'], ['Sunspots & solar flux', 'sun'], ['Coronal mass ejections (7 d)', 'cme'], ['Sentry risk list', 'sentry'], ['Fireballs (CNEOS)', 'fireball'], ['Deep Space Network now', 'dsn'], ['Upcoming launches', 'launches']]);
+    // GW
+    if (d.gw && d.gw.ok) {
+      var g = '<p><strong>Public alerts this week: ' + esc(d.gw.count_week) + '</strong></p>';
+      g += d.gw.latest ? '<p>Latest: <a href="' + esc(d.gw.latest.url) + '" target="_blank" rel="noopener"><strong>' + esc(d.gw.latest.id) + '</strong></a> — ' + esc(d.gw.latest.created) + (d.gw.latest.group ? ' · ' + esc(d.gw.latest.group) : '') + '</p>' : '<p>No public alerts on record.</p>';
+      out += card('Gravitational Waves — LIGO/Virgo/KAGRA', g, d.gw, '');
+    } else out += down(d.gw, 'Gravitational Waves — GraceDB');
+    // moon & sky (builder snapshot; live device compute fills the Moon chart card)
+    if (d.moon_sky && d.moon_sky.ok) {
+      var ms = d.moon_sky, m = '<p>Sunrise <strong>' + esc(ms.sunrise_et) + '</strong> · sunset <strong>' + esc(ms.sunset_et) + '</strong></p>';
+      m += '<p>Moon: <strong>' + esc(ms.moon.phase_name) + '</strong>, ' + esc(ms.moon.illum_pct) + '% lit · in ' + esc(ms.moon.sign) + ' · rises ' + esc(ms.moon.rise_et || '—') + ', sets ' + esc(ms.moon.set_et || '—') + '</p>';
+      if (ms.visible_planets_tonight && ms.visible_planets_tonight.length) m += '<p>Planets up tonight: ' + ms.visible_planets_tonight.map(function (p) { return '<strong>' + esc(p.name) + '</strong>'; }).join(' · ') + '</p>';
+      m += '<p>Mercury is <strong>' + (ms.mercury_retrograde ? 'retrograde' : 'direct') + '</strong> (astronomical, computed).</p>';
+      if (ms.active_showers && ms.active_showers.length) m += '<p>Active meteor showers: ' + ms.active_showers.map(function (s2) { return esc(s2.name) + ' (peak ' + esc(s2.peak) + ', ZHR ~' + esc(s2.zhr) + ')'; }).join(' · ') + '</p>';
+      if (ms.next_eclipse) m += '<p>Next eclipse: <strong>' + esc(ms.next_eclipse.kind) + '</strong> — ' + esc(ms.next_eclipse.date) + ' (NASA catalog table).</p>';
+      if (ms.iss && ms.iss.now) {
+        m += '<p>ISS now: ' + esc(ms.iss.now.lat) + '°, ' + esc(ms.iss.now.lon) + '° · ' + esc(ms.iss.now.alt_km) + ' km up <span class="src">(' + esc(ms.iss.now.source || '') + ')</span></p>';
+        if (ms.iss.next_visible_pass) m += '<p><strong>Next visible pass over Pembroke: ' + esc(fmtT(ms.iss.next_visible_pass.start)) + ', up to ' + esc(ms.iss.next_visible_pass.max_elev_deg) + '° high.</strong> Go look.</p>';
+        else if (ms.iss.next_pass) m += '<p>Next pass (not in darkness): ' + esc(fmtT(ms.iss.next_pass.start)) + ', max ' + esc(ms.iss.next_pass.max_elev_deg) + '°.</p>';
+      } else if (ms.iss && ms.iss.error) m += '<p>ISS: <span class="badge down">UNAVAILABLE</span> ' + esc(ms.iss.error) + '</p>';
+      out += card('Moon & Sky — computed daily', m, ms, '<span class="badge comp">COMPUTED</span>');
+    } else out += down(d.moon_sky, 'Moon & Sky');
+    // cycles
+    if (d.cycles_full && d.cycles_full.ok) {
+      var cy = '';
+      if (d.cycles && d.cycles.ok) cy += '<p>Sun in <strong>' + esc(d.cycles.zodiac_season) + '</strong> season · Moon in <strong>' + esc(d.cycles.moon_sign) + '</strong> · Universal Day <strong>' + esc(d.cycles.universal_day) + '</strong> · Tarot of the day: <strong>' + esc(d.cycles.tarot_card) + '</strong></p>';
+      cy += '<ul>' + d.cycles_full.lines.map(function (l) { return '<li>' + esc(l) + '</li>'; }).join('') + '</ul>';
+      cy += '<p class="src">Computed live on this device as well — open the Moon card: the same engine runs in your browser, so these systems are never stale.</p>';
+      out += card('Cycles & Signs — Tracked Systems', cy, d.cycles_full, '<span class="badge comp">COMPUTED</span>');
+    } else out += down(d.cycles_full, 'Cycles & Signs — Tracked Systems');
+    // earth extras
+    if (d.earth_extras && d.earth_extras.ok) {
+      var ee = d.earth_extras, e = '';
+      if (ee.aurora && ee.aurora.ok !== false) e += '<p><strong>Aurora outlook:</strong> Kp forecast max ' + esc(ee.aurora.kp_forecast_max) + '.</p><img class="wire" loading="lazy" src="' + esc(ee.aurora.image) + '" alt="NOAA OVATION aurora oval forecast, northern hemisphere"><p>' + esc(ee.aurora.note) + '</p>';
+      if (ee.air_quality && ee.air_quality.ok !== false) e += '<p><strong>Air quality (Pembroke):</strong> US AQI now ' + esc(ee.air_quality.aqi_now) + ' · today\u2019s max ' + esc(ee.air_quality.aqi_max_today) + '.</p>';
+      if (ee.uv && ee.uv.ok !== false) e += '<p><strong>UV index max today:</strong> ' + esc(ee.uv.uv_max_today) + '.</p>';
+      if (ee.pollen) e += '<p>Pollen: <span class="badge down">UNAVAILABLE</span> ' + esc(ee.pollen.error || '') + '</p>';
+      if (ee.tides && ee.tides.ok !== false) e += '<p><strong>Tides — ' + esc(ee.tides.station) + ':</strong> ' + ee.tides.events.map(function (t) { return esc(t.type) + ' ' + esc(t.height_ft) + ' ft at ' + esc(t.time.slice(11)); }).join(' · ') + '</p>';
+      if (ee.neo && ee.neo.ok !== false) e += '<p><strong>Near-Earth objects today: ' + esc(ee.neo.count_today) + '</strong>' + (ee.neo.closest ? ' · closest: ' + esc(ee.neo.closest.name) + ' at ' + esc(ee.neo.closest.miss_km.toLocaleString()) + ' km (' + (ee.neo.closest.miss_km / 384400).toFixed(1) + ' lunar distances), ' + esc(ee.neo.closest.vel_kmh.toLocaleString()) + ' km/h, ~' + esc(ee.neo.closest.size_m) + ' m wide' : '') + '.</p>';
+      if (ee.volcano) e += '<p>Volcanoes: <span class="badge down">UNAVAILABLE</span> ' + esc(ee.volcano.error || '') + ' <a href="' + esc(ee.volcano.link || 'https://www.usgs.gov/volcanoes') + '" target="_blank" rel="noopener">USGS Volcanoes</a></p>';
+      if (ee.fireballs) e += ee.fireballs.ok !== false ? '<p>Fireballs: ' + esc(ee.fireballs.note || '') + ' <a href="' + esc(ee.fireballs.link) + '" target="_blank" rel="noopener">AMS fireball board</a></p>' : '<p>Fireball board (AMS): <span class="badge down">UNAVAILABLE</span> this build.</p>';
+      out += card('Earth Extras — Aurora, Air, Tides, NEOs', e, ee, '');
+    } else out += down(d.earth_extras, 'Earth Extras');
+    // space news
+    if (d.space_news && d.space_news.ok) {
+      var sn = '';
+      if (d.space_news.apod && d.space_news.apod.title) sn += '<p><strong>NASA Picture of the Day:</strong> <a href="' + esc(d.space_news.apod.url) + '" target="_blank" rel="noopener">' + esc(d.space_news.apod.title) + '</a></p>';
+      sn += linkList(d.space_news.items.map(function (a) { return { title: a.title, link: a.url, date: a.site || '' }; }));
+      out += card('Space News', sn, d.space_news, '');
+    } else out += down(d.space_news, 'Space News');
+    // human world
+    if (d.human_world && d.human_world.ok) {
+      var hw = d.human_world, h = '';
+      if (hw.bitcoin && hw.bitcoin.ok !== false) h += '<p><strong>Bitcoin:</strong> $' + esc(hw.bitcoin.price_usd.toLocaleString()) + ' (' + (hw.bitcoin.change_24h_pct >= 0 ? '+' : '') + esc(hw.bitcoin.change_24h_pct) + '% / 24 h)</p>';
+      if (hw.on_this_day && hw.on_this_day.ok !== false && hw.on_this_day.length) h += '<p><strong>On this day:</strong></p><ul>' + hw.on_this_day.map(function (x) { return '<li><strong>' + esc(x.year) + '</strong> — ' + esc(x.text) + '</li>'; }).join('') + '</ul>';
+      if (hw.lottery) h += hw.lottery.linkOnly ? '<p><strong>Virginia Lottery:</strong> ' + esc(hw.lottery.note) + ' <a href="' + esc(hw.lottery.link) + '" target="_blank" rel="noopener">valottery.com</a></p>' : linkList(hw.lottery.items || []);
+      out += card('Human World — Markets, History, Lottery', h, hw, '');
+    } else out += down(d.human_world, 'Human World');
+    out += linesCard('Human World — More Signals', d.human2, [['Ethereum', 'eth'], ['Metals · Oil · S&P (last close)', 'metals'], ['Powerball', 'powerball'], ['FEMA — Virginia', 'fema'], ['FDA food recalls', 'fda']]);
+    // facebook
+    if (d.facebook && d.facebook.ok) out += card('Facebook — Local (link-out)', '<p>' + esc(d.facebook.note || '') + '</p>' + linkList(d.facebook.links), d.facebook, '');
+    else out += down(d.facebook, 'Facebook — Local');
+
+    $('wire').innerHTML = out;
+    // sky tonight lines card injected after Moon & Sky card
+    if (d.sky_tonight && d.sky_tonight.ok) {
+      var cards = $('wire').children;
+      var stHtml = card('Sky Tonight — Pembroke', '<ul>' + d.sky_tonight.lines.map(function (l) { return '<li>' + esc(l) + '</li>'; }).join('') + '</ul>', d.sky_tonight, '<span class="badge comp">COMPUTED</span>');
+      var tmp = document.createElement('div'); tmp.innerHTML = stHtml;
+      // insert after the Moon & Sky card (find by heading text)
+      for (var i = 0; i < cards.length; i++) { if (cards[i].textContent.indexOf('Moon & Sky') === 0 || cards[i].querySelector('h3') && cards[i].querySelector('h3').textContent.indexOf('Moon & Sky') >= 0) { cards[i].after(tmp.firstChild); break; } }
+    }
+    // findings
+    if (d.findings && d.findings.ok) {
+      $('findings').innerHTML = card('Findings — outcomes only, methods never', '<ul>' + d.findings.items.map(function (i) { return '<li>' + esc(i) + '</li>'; }).join('') + '</ul><p>' + esc(d.findings.rule) + '</p>', d.findings, '');
+    }
+    // hero (APOD)
+    if (d.space_news && d.space_news.ok && d.space_news.apod && d.space_news.apod.image) {
+      $('hero-img').src = d.space_news.apod.image;
+      $('hero-title').textContent = d.space_news.apod.title;
+      $('hero').classList.remove('hidden');
+    }
+    // counters
+    var live = 0, total = 0;
+    ['weather','local_news','world_news','traffic','quakes','schumann','space_weather','gw','space_news','facebook','moon_sky','earth_extras','human_world','earth2','deep2','cycles_full','human2','sky_tonight'].forEach(function (k) { if (d[k]) { total++; if (d[k].ok) live++; } });
+    var biggest = d.quakes && d.quakes.ok && d.quakes.global.length ? Math.max.apply(null, d.quakes.global.map(function (x) { return x.mag; })) : 0;
+    $('counters').innerHTML =
+      counter(live + '/' + total, 'feeds live') + counter(d.quakes && d.quakes.ok ? d.quakes.global.length : '—', 'quakes M4.5+ / 24h') +
+      counter(biggest ? 'M' + biggest.toFixed(1) : '—', 'biggest quake') +
+      counter(d.space_weather && d.space_weather.ok && d.space_weather.kp_latest ? d.space_weather.kp_latest.kp : '—', 'Kp index now') +
+      counter(d.moon_sky && d.moon_sky.ok ? d.moon_sky.moon.illum_pct + '%' : '—', 'moon lit') +
+      counter(ARCHIVE.length || 1, 'days on record');
+    // ticker
+    var tick = [];
+    if (d.anomaly_registry && d.anomaly_registry.counters) Object.keys(d.anomaly_registry.counters).forEach(function (k) { tick.push(k.replace(/_/g, ' ').toUpperCase() + ': ' + d.anomaly_registry.counters[k]); });
+    (ARCHIVE.length && ARCHIVE[0].anomalies ? ARCHIVE[0].anomalies : []).forEach(function (a) { tick.push('⚠ ' + a); });
+    if (d.moon_sky && d.moon_sky.iss && d.moon_sky.iss.next_visible_pass) tick.push('ISS VISIBLE PASS ' + fmtT(d.moon_sky.iss.next_visible_pass.start) + ' — MAX ' + d.moon_sky.iss.next_visible_pass.max_elev_deg + '°');
+    tick.push('KP NOW ' + (d.space_weather && d.space_weather.kp_latest ? d.space_weather.kp_latest.kp : '—'));
+    $('ticker-track').innerHTML = tick.map(function (t) { return '<b>' + esc(t) + '</b>'; }).join(' ◆ ') || 'THE INNER CIRCLE — DAILY WIRE';
+    // field note door (v1, mailto — no backend)
+    $('field-note').href = 'mailto:sheldondouthat@gmail.com?subject=' + encodeURIComponent('Circle field note — ' + d.date_et) + '&body=' + encodeURIComponent('What I saw, where, and when:\n\n');
+  }
+  function counter(num, lbl) { return '<div class="counter glass"><span class="num">' + esc(num) + '</span><span class="lbl">' + esc(lbl) + '</span></div>'; }
+
+  /* ---------- anomaly registry + archive ---------- */
+  function renderAnomalyRegistry(d) {
+    var r = d.anomaly_registry; if (!r) return;
+    var h = '<h3 style="margin-top:4px">Days since</h3><div class="snapgrid">';
+    Object.keys(r.counters || {}).forEach(function (k) { h += '<div><strong>' + esc(k.replace(/_/g, ' ')) + '</strong><br>' + esc(r.counters[k]) + '</div>'; });
+    h += '</div><h3 style="margin-top:14px">Records (from the archive, ' + esc(r.records.days_on_record) + ' day(s) on record)</h3><div class="snapgrid">';
+    h += '<div>Biggest quake<br>month <strong>' + esc(r.records.biggest_quake.month ?? '—') + '</strong> · year <strong>' + esc(r.records.biggest_quake.year ?? '—') + '</strong></div>';
+    h += '<div>Highest Kp<br>month <strong>' + esc(r.records.highest_kp.month ?? '—') + '</strong> · year <strong>' + esc(r.records.highest_kp.year ?? '—') + '</strong></div>';
+    h += '<div>Closest NEO (km)<br>month <strong>' + esc(r.records.closest_neo_km.month ? r.records.closest_neo_km.month.toLocaleString() : '—') + '</strong> · year <strong>' + esc(r.records.closest_neo_km.year ? r.records.closest_neo_km.year.toLocaleString() : '—') + '</strong></div>';
+    h += '<div>Highest AQI<br>month <strong>' + esc(r.records.highest_aqi.month ?? '—') + '</strong> · year <strong>' + esc(r.records.highest_aqi.year ?? '—') + '</strong></div></div>';
+    h += '<h3 style="margin-top:14px">Correlation log (co-occurrences, recorded — never asserted)</h3><ul>' + (r.correlations || []).map(function (c) { return '<li>' + esc(c) + '</li>'; }).join('') + '</ul>';
+    $('anomaly-registry').innerHTML = h;
+  }
+  var archiveShown = 7; // rolling log window — never an unbounded DOM
+  function renderArchive() {
+    var q = ($('anom-q').value || '').toLowerCase();
+    var dateSel = $('anom-date').value;
+    var rows = ARCHIVE.filter(function (r) { return !dateSel || r.date === dateSel; });
+    if (!rows.length) { $('anomalies').innerHTML = '<p>No days match. The archive grows one line per day.</p>'; return; }
+    var moreBtn = rows.length > archiveShown ? '<p><button type="button" id="anom-more">Load older days (' + (rows.length - archiveShown) + ' more)</button></p>' : '';
+    $('anomalies').innerHTML = rows.slice(0, archiveShown).map(function (r) {
+      var anoms = (r.anomalies || []).filter(function (a) { return !q || a.toLowerCase().indexOf(q) >= 0; });
+      if (q && !anoms.length) return '';
+      return '<div class="card" style="margin-bottom:10px"><h3>' + esc(r.date) + '</h3>' +
+        (anoms.length ? '<ul>' + anoms.map(function (a) { return '<li>' + esc(a) + '</li>'; }).join('') + '</ul>' : '<p>No anomalies flagged — a quiet day, recorded as one.</p>') +
+        (r.hash ? '<div class="src">Chain link: ' + esc(r.hash.slice(0, 16)) + '… ← ' + esc((r.prev_hash || '').slice(0, 16)) + '…</div>' : '') + '</div>';
+    }).join('') + moreBtn || '<p>No flags match that filter.</p>';
+    var mb = $('anom-more');
+    if (mb) mb.addEventListener('click', function () { archiveShown += 7; renderArchive(); });
+    // look-back snapshot for the selected (or latest) day
+    var day = rows[0];
+    if (day && day.snapshot) {
+      $('lookback').innerHTML = '<h3 style="margin-top:14px">Look-back — ' + esc(day.date) + ' snapshot</h3><div class="snapgrid">' +
+        Object.keys(day.snapshot).map(function (k) { return '<div>' + esc(k.replace(/_/g, ' ')) + '<br><strong>' + esc(day.snapshot[k] == null ? '—' : day.snapshot[k]) + '</strong></div>'; }).join('') + '</div>' +
+        '<p class="src">Full section detail exists for today; past days keep their snapshot values, counts, and flags — the small-delta design that lets this archive run for years.</p>';
+    }
+  }
+  $('anom-q').addEventListener('input', renderArchive);
+  $('anom-date').addEventListener('change', renderArchive);
+  $('anom-clear').addEventListener('click', function () { $('anom-q').value = ''; $('anom-date').value = ''; renderArchive(); });
+
+  /* ---------- registry ---------- */
+  var HEALTH_KEY = { 1: 'quakes', 2: 'quakes', 3: 'quakes', 8: 'earth2.tsunami', 9: 'schumann', 10: 'space_weather', 16: 'earth2.rivers', 19: 'earth2.drought', 21: 'earth2.oni', 23: 'earth2.co2', 29: 'earth2.spc', 30: 'earth2.nhc', 31: 'deep2.sun', 33: 'deep2.cme', 35: 'deep2.scales', 39: 'deep2.fireball', 45: 'deep2.sentry', 49: 'deep2.dsn', 101: 'weather', 107: 'human2.fema', 110: 'human2.fda', 115: 'human2.powerball', 118: 'weather', 120: 'earth2.rivers' };
+  function renderRegistry(d) {
+    var domains = {};
+    d.registry.forEach(function (r) { (domains[r.domain] = domains[r.domain] || []).push(r); });
+    var badgeCls = { LIVE: 'live', COMPUTED: 'comp', WIRE: '', PENDING: 'pend', DARK: 'dark' };
+    $('registry').innerHTML = Object.keys(domains).map(function (dom) {
+      return '<h3 style="margin-top:18px">' + esc(dom) + '</h3>' + domains[dom].map(function (r) {
+        var hk = HEALTH_KEY[r.n], health = hk && HEALTH[hk];
+        var hTxt = health ? (health.ok_now ? 'last good: ' + esc(health.last_ok_date || 'today') : '⚠ dark — last good ' + esc(health.last_ok_date || 'never') + ', ' + esc(health.consecutive_failures) + ' failed day(s)') : '';
+        return '<div class="reg-item" data-n="' + r.n + '"><strong>#' + r.n + '</strong> ' + esc(r.name) +
+          ' <span class="badge ' + (badgeCls[r.status] || '') + '">' + esc(r.status) + '</span>' +
+          '<div class="reg-detail hidden">Status: ' + esc(r.status) + (hTxt ? ' · Feed health: ' + hTxt : ' · Health: tracked at section level — see the matching wire card for its source and timestamp.') + '</div></div>';
+      }).join('');
+    }).join('');
+    document.querySelectorAll('.reg-item').forEach(function (el) {
+      el.addEventListener('click', function () { var det = el.querySelector('.reg-detail'); if (det) det.classList.toggle('hidden'); });
+    });
+  }
+
+  /* ---------- load ---------- */
+  function load() {
+    Promise.all([
+      fetch('circle-data.json', { cache: 'no-store' }).then(function (r) { return r.json(); }),
+      fetch('circle-archive.json', { cache: 'no-store' }).then(function (r) { return r.json(); }).catch(function () { return []; }),
+      fetch('registry-health.json', { cache: 'no-store' }).then(function (r) { return r.json(); }).catch(function () { return {}; }),
+    ]).then(function (res) {
+      DATA = res[0]; ARCHIVE = res[1] || []; HEALTH = (res[2] && res[2].feeds) || {};
+      window.CIRCLE_HEALTH = HEALTH;
+      var dt = new Date(DATA.generated_at);
+      $('today-line').textContent = dt.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', timeZone: 'America/New_York' });
+      $('stamp-line').textContent = 'Daily snapshot rebuilt ' + dt.toLocaleString() + '. LIVE-ish cards refresh in your browser; computed cards run on this device in real time.';
+      render(DATA);
+      renderAnomalyRegistry(DATA);
+      renderArchive();
+      renderRegistry(DATA);
+      if (window.drawCharts) window.drawCharts(DATA);
+      if (window.initGlobe) window.initGlobe(DATA);
+      if (window.startLive) window.startLive(DATA);
+      if (window.renderCircleMedia) window.renderCircleMedia(DATA);
+    }).catch(function (err) {
+      console.error('[circle] load chain failed:', err && err.stack || err);
+      if (!$('wire').children.length) $('wire').innerHTML = '<div class="card"><span class="badge down">UNAVAILABLE</span><p>The wire data file did not load. Nothing is shown rather than guessed.</p></div>';
+    });
+  }
+})();
+</script>
+
+<script>
+(function () {
+  'use strict';
+  var $ = function (id) { return document.getElementById(id); };
+  var LS = { get: function (k, d) { try { var v = localStorage.getItem('circle-' + k); return v === null ? d : JSON.parse(v); } catch (e) { return d; } },
+             set: function (k, v) { try { localStorage.setItem('circle-' + k, JSON.stringify(v)); } catch (e) {} } };
+  var SETTINGS = Object.assign({ mode: 'guided', temp: 'F', dist: 'km', poll: 90, quake: 6, kp: 6, ticker: 55, hidden: [] }, LS.get('settings', {}));
+  window.CIRCLE_SETTINGS = SETTINGS;
+  function saveSettings() { LS.set('settings', SETTINGS); }
+  var DATA = null;
+
+  /* ================= client-side astro (compact port of the builder math) ================= */
+  var RAD = Math.PI / 180, J2000 = 2451545, EPS = RAD * 23.4397;
+  function toDays(d) { return d.valueOf() / 86400000 - 0.5 + 2440588 - J2000; }
+  function raDec(l, b) { return { ra: Math.atan2(Math.sin(l) * Math.cos(EPS) - Math.tan(b) * Math.sin(EPS), Math.cos(l)), dec: Math.asin(Math.sin(b) * Math.cos(EPS) + Math.cos(b) * Math.sin(EPS) * Math.sin(l)) }; }
+  function sunPos(d) { var dd = toDays(d), M = RAD * (357.5291 + 0.98560028 * dd), C = RAD * (1.9148 * Math.sin(M) + 0.02 * Math.sin(2 * M) + 0.0003 * Math.sin(3 * M)), L = M + C + RAD * 102.9372 + Math.PI, c = raDec(L, 0); return { lon: ((L / RAD) % 360 + 360) % 360, ra: c.ra, dec: c.dec }; }
+  function moonPos(d) { var dd = toDays(d), L = RAD * (218.316 + 13.176396 * dd), M = RAD * (134.963 + 13.064993 * dd), F = RAD * (93.272 + 13.229350 * dd), l = L + RAD * 6.289 * Math.sin(M), b = RAD * 5.128 * Math.sin(F), c = raDec(l, b); return { lon: ((l / RAD) % 360 + 360) % 360, ra: c.ra, dec: c.dec, dist: 385001 - 20905 * Math.cos(M) }; }
+  function moonIllum(d) { var s = sunPos(d), m = moonPos(d), phi = Math.acos(Math.sin(s.dec) * Math.sin(m.dec) + Math.cos(s.dec) * Math.cos(m.dec) * Math.cos(s.ra - m.ra)); var cyc = (((m.lon - s.lon) % 360) + 360) % 360 / 360; return { frac: (1 - Math.cos(phi)) / 2, cycle: cyc }; }
+  var EL = { Mercury: [0.38709927, 0.20563593, 7.00497902, 252.25032350, 77.45779628, 48.33076593, 0.00000037, 0.00001906, -0.00594749, 149472.67411175, 0.16047689, -0.12534081], Venus: [0.72333566, 0.00677672, 3.39467605, 181.97909950, 131.60246718, 76.67984255, 0.00000390, -0.00004107, -0.00078890, 58517.81538729, 0.00268329, -0.27769418], Earth: [1.00000261, 0.01671123, -0.00001531, 100.46457166, 102.93768193, 0.0, 0.00000562, -0.00004392, -0.01294668, 35999.37244981, 0.32327364, 0.0], Mars: [1.52371034, 0.09339410, 1.84969142, -4.55343205, -23.94362959, 49.55953891, 0.00001847, 0.00007882, -0.00813131, 19140.30268499, 0.44441088, -0.29257343], Jupiter: [5.20288700, 0.04838624, 1.30439695, 34.39644051, 14.72847983, 100.47390909, -0.00011607, -0.00013253, -0.00183714, 3034.74612775, 0.21252668, 0.20469106], Saturn: [9.53667594, 0.05386179, 2.48599187, 49.95424423, 92.59887831, 113.66242448, -0.00125060, -0.00050991, 0.00193609, 1222.49362201, -0.41897216, -0.28867794] };
+  function helio(name, d) { var T = toDays(d) / 36525, el = EL[name], a = el[0] + el[6] * T, e2 = el[1] + el[7] * T, I = RAD * (el[2] + el[8] * T), L = RAD * (el[3] + el[9] * T), p = RAD * (el[4] + el[10] * T), O = RAD * (el[5] + el[11] * T), w = p - O, M = (L - p) % (2 * Math.PI); if (M > Math.PI) M -= 2 * Math.PI; if (M < -Math.PI) M += 2 * Math.PI; var E = M + e2 * Math.sin(M), i; for (i = 0; i < 8; i++) E = E - (E - e2 * Math.sin(E) - M) / (1 - e2 * Math.cos(E)); var xp = a * (Math.cos(E) - e2), yp = a * Math.sqrt(1 - e2 * e2) * Math.sin(E), cw = Math.cos(w), sw = Math.sin(w), cO = Math.cos(O), sO = Math.sin(O), cI = Math.cos(I), sI = Math.sin(I); return { x: (cw * cO - sw * sO * cI) * xp + (-sw * cO - cw * sO * cI) * yp, y: (cw * sO + sw * cO * cI) * xp + (-sw * sO + cw * cO * cI) * yp, z: (sw * sI) * xp + (cw * sI) * yp }; }
+  function planetRaDec(name, d) { var p = helio(name, d), e2 = helio('Earth', d), x = p.x - e2.x, y = p.y - e2.y, z = p.z - e2.z, lon = Math.atan2(y, x), lat = Math.atan2(z, Math.hypot(x, y)), c = raDec(lon, lat); return { ra: c.ra, dec: c.dec, lon: ((lon / RAD) % 360 + 360) % 360 }; }
+  function altAz(ra, dec, d, lat, lon) { var lw = RAD * -lon, phi = RAD * lat, H = (RAD * (280.16 + 360.9856235 * toDays(d)) - lw) - ra, alt = Math.asin(Math.sin(phi) * Math.sin(dec) + Math.cos(phi) * Math.cos(dec) * Math.cos(H)), az = Math.atan2(Math.sin(H), Math.cos(H) * Math.sin(phi) - Math.tan(dec) * Math.cos(phi)) / RAD + 180; return { alt: alt / RAD, az: ((az % 360) + 360) % 360 }; }
+  function bodyAltAz(name, d, lat, lon) { if (name === 'Sun') { var s = sunPos(d); return altAz(s.ra, s.dec, d, lat, lon); } if (name === 'Moon') { var m = moonPos(d); return altAz(m.ra, m.dec, d, lat, lon); } var p = planetRaDec(name, d); return altAz(p.ra, p.dec, d, lat, lon); }
+  /* TLE two-body propagation (same simplified math as the builder) */
+  function parseTLE(l1, l2) { var ey = Number(l1.slice(18, 20)), ed = Number(l1.slice(20, 32)), fy = ey < 57 ? 2000 + ey : 1900 + ey; return { epoch: Date.UTC(fy, 0, 1) + (ed - 1) * 86400000, inc: RAD * Number(l2.slice(8, 16)), raan: RAD * Number(l2.slice(17, 25)), ecc: Number('0.' + l2.slice(26, 33).trim()), argp: RAD * Number(l2.slice(34, 42)), M0: RAD * Number(l2.slice(43, 51)), mm: Number(l2.slice(52, 63)) }; }
+  function propTLE(t, d) { var n = t.mm * 2 * Math.PI / 86400, a = Math.cbrt(398600.4418 / (n * n)), M = (t.M0 + n * (d.getTime() - t.epoch) / 1000) % (2 * Math.PI); if (M < 0) M += 2 * Math.PI; var E = M + t.ecc * Math.sin(M), i; for (i = 0; i < 8; i++) E = E - (E - t.ecc * Math.sin(E) - M) / (1 - t.ecc * Math.cos(E)); var nu = 2 * Math.atan2(Math.sqrt(1 + t.ecc) * Math.sin(E / 2), Math.sqrt(1 - t.ecc) * Math.cos(E / 2)), r = a * (1 - t.ecc * Math.cos(E)), xp = r * Math.cos(nu), yp = r * Math.sin(nu), cw = Math.cos(t.argp), sw = Math.sin(t.argp), cO = Math.cos(t.raan), sO = Math.sin(t.raan), cI = Math.cos(t.inc), sI = Math.sin(t.inc), x = (cw * cO - sw * sO * cI) * xp + (-sw * cO - cw * sO * cI) * yp, y = (cw * sO + sw * cO * cI) * xp + (-sw * sO + cw * cO * cI) * yp, z = (sw * sI) * xp + (cw * sI) * yp, jd = d.valueOf() / 86400000 + 2440587.5, g = (280.46061837 + 360.98564736629 * (jd - 2451545)) % 360; return { lat: Math.atan2(z, Math.hypot(x, y)) / RAD, lon: ((Math.atan2(y, x) / RAD - g + 540) % 360) - 180, alt: Math.hypot(x, y, z) - 6371 }; }
+  function issAltAz(d, lat, lon) { if (!DATA || !DATA.moon_sky || !DATA.moon_sky.iss || !DATA.moon_sky.iss.tle) return null; var t = parseTLE(DATA.moon_sky.iss.tle.line1, DATA.moon_sky.iss.tle.line2), p = propTLE(t, d); var p1 = RAD * lat, p2 = RAD * p.lat, dl = RAD * (p.lon - lon), c = Math.acos(Math.max(-1, Math.min(1, Math.sin(p1) * Math.sin(p2) + Math.cos(p1) * Math.cos(p2) * Math.cos(dl)))); var R = 6371, rr = R + p.alt, range = Math.sqrt(R * R + rr * rr - 2 * R * rr * Math.cos(c)); var el = Math.asin(Math.max(-1, Math.min(1, (rr * Math.cos(c) - R) / range))) / RAD; var az = Math.atan2(Math.sin(dl), Math.cos(p1) * Math.tan(p2) - Math.sin(p1) * Math.cos(dl)) / RAD; return { alt: el, az: ((az % 360) + 360) % 360, lat: p.lat, lon: p.lon }; }
+  window.CIRCLE_ASTRO = { moonIllum: moonIllum, bodyAltAz: bodyAltAz, issAltAz: issAltAz, propTLE: propTLE, parseTLE: parseTLE };
+
+  /* ================= post-render pass: sections, explainers, modes ================= */
+  var ORDER = ['weather', 'local_news', 'world_news', 'traffic', 'quakes', 'earth2', 'schumann', 'space_weather', 'deep2', 'gw', 'moon_sky', 'sky_tonight', 'cycles_full', 'earth_extras', 'space_news', 'human_world', 'human2', 'facebook'];
+  var EXPLAIN = {
+    weather: 'The forecast for home — what the sky over Pembroke is about to do, from the National Weather Service.',
+    local_news: 'What happened around the New River Valley and Virginia today, from the local papers and stations.',
+    world_news: 'The big headlines from out in the world, so the circle hears them once, clean.',
+    traffic: 'Road trouble near home — the live state map, one tap away.',
+    quakes: 'Every strong earthquake on Earth in the last day. The ground is always talking; this is what it said.',
+    earth2: 'The planet\u2019s body: our river, the drought map, the ocean\u2019s mood, the air\u2019s carbon, today\u2019s storms.',
+    schumann: 'Earth\u2019s heartbeat — a real electromagnetic hum between the ground and the sky, measured in Tomsk, Russia.',
+    space_weather: 'The Sun\u2019s weather: the wind it blows at us and the flares it throws. This is what makes auroras and radio static.',
+    deep2: 'Deep signals: how strong the Sun is today, what the big antennas are listening to, and what rocks are being watched.',
+    gw: 'Gravitational waves — ripples from colliding black holes and neutron stars, caught by the LIGO observatories.',
+    moon_sky: 'Tonight\u2019s sky over home, calculated exactly: the Moon, the planets, the meteors, the space station.',
+    sky_tonight: 'The fine print of tonight: when true dark starts, how much of it the Moon steals, and your aurora odds.',
+    cycles_full: 'The old tracked systems — signs, hours, calendars, numbers — computed by their own rules and written down daily so patterns can be checked, not just believed.',
+    earth_extras: 'Extra Earth: aurora map, the air you breathe, tides at the coast, and every asteroid that passed us today.',
+    space_news: 'What humanity did in space today, plus NASA\u2019s picture of the day.',
+    human_world: 'Civilization\u2019s pulse: markets, history\u2019s echo for this date, and the lottery numbers.',
+    human2: 'More pulse: Ethereum, metals and oil at the close, FEMA and FDA notices for Virginia.',
+    facebook: 'The local Facebook world — link-out only. Facebook shows nothing to machines, so the door is a link, honestly.',
+  };
+  function postRender() {
+    var ld = document.getElementById('loading'); if (ld) ld.remove();
+    var cards = document.querySelectorAll('#wire .card');
+    cards.forEach(function (c, i) { if (ORDER[i]) c.setAttribute('data-sec', ORDER[i]); });
+    applyMode(); applyUnits(); buildHeadline(); renderHealth(); if (window.__loadBoard) window.__loadBoard();
+    applyConfig();
+  }
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  /* ================= CONFIG-driven layout (the one canon) =================
+     circle-data.json → config defines menu order, section order, card
+     order/size/enabled. Reordering or disabling = editing the config
+     list in the builder only. No markup surgery, ever. */
+  function applyConfig() {
+    var cfg = DATA && DATA.config; if (!cfg) return;
+    var vb = $('version-box');
+    if (vb && cfg.version) vb.innerHTML = '<p class="src">Circle build <strong>v' + esc(cfg.version) + '</strong> · layout renders from config in circle-data.json (menu · sections · cards · feature flags)</p>' +
+      (cfg.changelog || []).map(function (c) { return '<p class="src">' + esc(c.date) + ' — v' + esc(c.v) + ': ' + esc(c.note) + '</p>'; }).join('');
+    var heads = Array.prototype.slice.call(document.querySelectorAll('main h2[data-section]'));
+    var groups = heads.map(function (h) {
+      var g = [h], n = h.nextElementSibling;
+      while (n && !(n.tagName === 'H2' && n.hasAttribute('data-section'))) { g.push(n); n = n.nextElementSibling; }
+      return { id: h.getAttribute('data-section'), head: h, nodes: g };
+    });
+    var byId = {}; groups.forEach(function (g) { byId[g.id] = g; });
+    var main = document.querySelector('main');
+    var anchor = document.querySelector('main .foot');
+    (cfg.sections || []).forEach(function (s) {
+      var g = byId[s.id]; if (!g) return;
+      g.head.id = 'sec-' + s.id;
+      if (!s.enabled) g.nodes.forEach(function (n) { n.style.display = 'none'; });
+      else if (anchor) g.nodes.forEach(function (n) { main.insertBefore(n, anchor); });
+    });
+    var menu = $('menu');
+    if (menu && cfg.sections) menu.innerHTML = cfg.sections.filter(function (s) { return s.enabled; }).map(function (s) { return '<a href="#sec-' + s.id + '">' + esc(s.title) + '</a>'; }).join('');
+    if (cfg.cards) {
+      var wire = $('wire'); if (!wire) return;
+      var cmap = {}; cfg.cards.forEach(function (c) { cmap[c.id] = c; });
+      Array.prototype.slice.call(wire.children).forEach(function (c) {
+        var sec = c.getAttribute('data-sec'), cc = sec && cmap[sec]; if (!cc) return;
+        if (!cc.enabled) c.style.display = 'none';
+        c.classList.remove('sz-l', 'sz-s');
+        if (cc.size === 'L') c.classList.add('sz-l');
+        if (cc.size === 'S') c.classList.add('sz-s');
+      });
+      cfg.cards.forEach(function (cc) { var el = wire.querySelector('[data-sec="' + cc.id + '"]'); if (el) wire.appendChild(el); });
+    }
+  }
+  function applyMode() {
+    var inst = SETTINGS.mode === 'instrument';
+    document.body.classList.toggle('instrument', inst);
+    $('mode-toggle').textContent = inst ? '🔬 Mode: Instrument' : '🧭 Mode: Guided';
+    $('health-wrap').classList.toggle('hidden', !inst);
+    document.querySelectorAll('#wire .card').forEach(function (c) {
+      var sec = c.getAttribute('data-sec');
+      var ex = c.querySelector('.explain'), raw = c.querySelector('.rawbox'), rb = c.querySelector('.rawbtn');
+      if (!inst && sec && EXPLAIN[sec] && !ex) { var p = document.createElement('p'); p.className = 'explain'; p.style.cssText = 'color:#bcd3e8;font-style:italic;margin:2px 0 8px'; p.textContent = EXPLAIN[sec]; var body = c.querySelector('.body'); if (body) body.prepend(p); }
+      if (ex) ex.style.display = inst ? 'none' : '';
+      if (inst && sec && DATA && DATA[sec] && !rb) {
+        rb = document.createElement('button'); rb.className = 'iconbtn rawbtn'; rb.textContent = '{ } raw';
+        rb.addEventListener('click', function () { var box = c.querySelector('.rawbox'); if (box) box.classList.toggle('hidden'); });
+        var tools = c.querySelector('.tools'); if (tools) tools.appendChild(rb);
+        var pre = document.createElement('pre'); pre.className = 'rawbox hidden'; pre.style.cssText = 'overflow:auto;max-height:300px;font-size:11.5px;background:#060b13;padding:10px;border-radius:8px;white-space:pre-wrap';
+        pre.textContent = JSON.stringify(DATA[sec], null, 1); c.querySelector('.body').appendChild(pre);
+      }
+      if (rb) rb.style.display = inst ? '' : 'none';
+      if (raw) raw.classList.add('hidden');
+    });
+    applySectionVisibility();
+  }
+  function applySectionVisibility() {
+    var map = { globe: '#globe-card', findings: '#findings', registry: '#registry', anomalies: null, board: null };
+    document.querySelectorAll('h2').forEach(function (h) {
+      var t = h.textContent;
+      var key = t.indexOf('Living Globe') >= 0 ? 'globe' : t.indexOf('Master Registry') >= 0 ? 'registry' : t.indexOf('Board') >= 0 ? 'board' : t.indexOf('Anomaly') >= 0 ? 'anomalies' : t.indexOf('Findings') >= 0 ? 'findings' : null;
+      if (!key) return;
+      var hide = SETTINGS.hidden.indexOf(key) >= 0;
+      h.style.display = hide ? 'none' : '';
+      var sib = h.nextElementSibling; if (sib) sib.style.display = hide ? 'none' : '';
+    });
+  }
+  function applyUnits() {
+    if (!DATA) return;
+    document.querySelectorAll('#wire .card').forEach(function (c) {
+      var sec = c.getAttribute('data-sec'), body = c.querySelector('.body'); if (!body) return;
+      if (sec === 'weather' && SETTINGS.temp === 'C' && !body.dataset.convC) {
+        body.innerHTML = body.innerHTML.replace(/(-?\d+)°F/g, function (m, n) { return Math.round((Number(n) - 32) * 5 / 9) + '°C'; });
+        body.dataset.convC = '1';
+      }
+      if (sec === 'earth_extras' && SETTINGS.dist === 'mi' && !body.dataset.convMi) {
+        body.innerHTML = body.innerHTML.replace(/([\d,]+) km/g, function (m, n) { return Number(n.replace(/,/g, '')).toLocaleString() + ' km (' + Math.round(Number(n.replace(/,/g, '')) * 0.621371).toLocaleString() + ' mi)'; });
+        body.dataset.convMi = '1';
+      }
+    });
+  }
+  function buildHeadline() {
+    if (!DATA) return;
+    var d = DATA, best = null;
+    var fl = (d.space_weather && d.space_weather.flares || []).filter(function (f) { return /^[MX]/.test(f.cls); });
+    var big = d.quakes && d.quakes.ok && d.quakes.global.length ? Math.max.apply(null, d.quakes.global.map(function (q) { return q.mag; })) : 0;
+    var bigQ = big ? d.quakes.global.find(function (q) { return q.mag === big; }) : null;
+    if (fl.length) best = 'The Sun fired a <strong>' + fl[0].cls + '-class flare</strong> (peak ' + esc2(fl[0].max) + ') — the loudest voice in today\u2019s sky.';
+    else if (big >= 5.5) best = 'A <strong>magnitude ' + big.toFixed(1) + ' earthquake</strong> struck ' + esc2(bigQ.place) + ' today — the strongest signal on the wire.';
+    else if (d.anomaly_registry && d.anomaly_registry.counters && d.anomaly_registry.counters.last_m7) best = 'A quiet day on the instruments — and the record says so. Strongest quake today: <strong>M' + (big ? big.toFixed(1) : '—') + '</strong>. Last M7 anywhere: ' + esc2(d.anomaly_registry.counters.last_m7) + '.';
+    $('headline').innerHTML = '<button type="button" class="hspk" data-speak-headline aria-label="Hear today\u2019s headline read aloud">🔊</button>' + (best || 'The wire is live. Every instrument below measured something today.');
+    function esc2(s) { return String(s == null ? '' : s).replace(/</g, '&lt;'); }
+  }
+  function renderHealth() {
+    if (!window.CIRCLE_HEALTH || !$('health-table')) return;
+    var feeds = window.CIRCLE_HEALTH;
+    $('health-table').innerHTML = '<table style="width:100%;font-size:13.5px;border-collapse:collapse">' +
+      Object.keys(feeds).sort().map(function (k) { var f = feeds[k]; return '<tr style="border-bottom:1px solid #1b2a3c"><td style="padding:4px 6px">' + k + '</td><td>' + (f.ok_now ? '<span class="badge live">OK</span>' : '<span class="badge down">DARK</span>') + '</td><td>last good: ' + (f.last_ok_date || 'never') + '</td><td>consecutive failed days: ' + f.consecutive_failures + (f.consecutive_failures >= 3 ? ' ⚠ FLAG' : '') + '</td></tr>'; }).join('') + '</table>';
+  }
+
+  /* ================= tour ================= */
+  var TOUR = [
+    ['#globe-card', 'This is the living Earth. Every strong earthquake from the last day glows on it, and the space station rides along. Drag it. Spin it. It updates itself.'],
+    ['#wire .card', 'This is the Wire — the day, measured. Weather, the river, the Sun, the deep field, the old tracked systems. Every card names its source and the minute it was measured.'],
+    ['[data-speak-card]', 'See the speaker buttons? Every card can read itself out loud. The big one at the top reads the whole Wire. No reading required, ever.'],
+    ['#board-posts', 'The Board is where the circle talks back — sightings, places, field notes. What you see in the sky belongs in the record next to the instruments.'],
+    ['#anomalies', 'And this is the memory: every day, flagged and hash-chained so nobody can rewrite it later. Quiet days count too.'],
+  ];
+  var tourIdx = -1;
+  function tourShow(i) {
+    tourIdx = i;
+    if (i < 0 || i >= TOUR.length) { $('tour-box').classList.add('hidden'); document.querySelectorAll('.tour-hi').forEach(function (e) { e.classList.remove('tour-hi'); }); return; }
+    document.querySelectorAll('.tour-hi').forEach(function (e) { e.classList.remove('tour-hi'); });
+    var el = document.querySelector(TOUR[i][0]);
+    if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'center' }); el.classList.add('tour-hi'); }
+    $('tour-text').textContent = TOUR[i][1];
+    $('tour-step').textContent = 'Step ' + (i + 1) + ' of ' + TOUR.length;
+    $('tour-box').classList.remove('hidden');
+  }
+  $('tour-btn').addEventListener('click', function () { tourShow(0); });
+  $('tour-next').addEventListener('click', function () { tourShow(tourIdx + 1); });
+  $('tour-back').addEventListener('click', function () { tourShow(tourIdx - 1); });
+  $('tour-done').addEventListener('click', function () { tourShow(-1); LS.set('toured', true); });
+
+  /* ================= settings + shortcuts + mode ================= */
+  $('mode-toggle').addEventListener('click', function () { SETTINGS.mode = SETTINGS.mode === 'guided' ? 'instrument' : 'guided'; saveSettings(); applyMode(); });
+  $('settings-btn').addEventListener('click', function () { $('settings-panel').classList.toggle('hidden'); });
+  $('settings-close').addEventListener('click', function () { $('settings-panel').classList.add('hidden'); });
+  $('shortcuts-btn').addEventListener('click', function () { $('shortcuts-card').classList.toggle('hidden'); });
+  function initSettings() {
+    $('set-temp').value = SETTINGS.temp; $('set-dist').value = SETTINGS.dist; $('set-poll').value = String(SETTINGS.poll);
+    $('set-quake').value = SETTINGS.quake; $('set-kp').value = SETTINGS.kp; $('set-ticker').value = String(SETTINGS.ticker);
+    var secs = [['globe', 'Living Globe'], ['findings', 'Findings'], ['registry', 'Master Registry'], ['board', 'The Board'], ['anomalies', 'Anomaly Log']];
+    $('set-sections').innerHTML = secs.map(function (s) { return '<label style="margin-right:10px"><input type="checkbox" data-sec-toggle="' + s[0] + '"' + (SETTINGS.hidden.indexOf(s[0]) < 0 ? ' checked' : '') + '> ' + s[1] + '</label>'; }).join('');
+    document.querySelectorAll('[data-sec-toggle]').forEach(function (cb) { cb.addEventListener('change', function () { var k = cb.getAttribute('data-sec-toggle'); if (cb.checked) SETTINGS.hidden = SETTINGS.hidden.filter(function (x) { return x !== k; }); else if (SETTINGS.hidden.indexOf(k) < 0) SETTINGS.hidden.push(k); saveSettings(); applySectionVisibility(); }); });
+    $('set-temp').addEventListener('change', function () { SETTINGS.temp = this.value; saveSettings(); location.reload(); });
+    $('set-dist').addEventListener('change', function () { SETTINGS.dist = this.value; saveSettings(); location.reload(); });
+    $('set-poll').addEventListener('change', function () { SETTINGS.poll = Number(this.value); saveSettings(); if (window.__restartLive) window.__restartLive(); });
+    $('set-quake').addEventListener('change', function () { SETTINGS.quake = Number(this.value); saveSettings(); });
+    $('set-kp').addEventListener('change', function () { SETTINGS.kp = Number(this.value); saveSettings(); });
+    $('set-ticker').addEventListener('change', function () { SETTINGS.ticker = Number(this.value); saveSettings(); document.querySelectorAll('.ticker .track').forEach(function (tr) { tr.style.animationDuration = SETTINGS.ticker + 's'; }); });
+    document.querySelectorAll('.ticker .track').forEach(function (tr) { tr.style.animationDuration = SETTINGS.ticker + 's'; });
+    // section anchors: copy-link on h2 click of the 🔗 chip
+    document.querySelectorAll('main h2').forEach(function (h) {
+      if (h.id) return;
+      var id = h.textContent.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+      if (document.getElementById(id)) id = id + '-section'; // never collide with a content element id (e.g. #findings)
+      h.id = id;
+      var b = document.createElement('button'); b.className = 'iconbtn'; b.textContent = '🔗'; b.title = 'Copy link to this section';
+      b.addEventListener('click', function () { var url = location.origin + location.pathname + '#' + id; if (navigator.clipboard) navigator.clipboard.writeText(url); b.textContent = '✓'; setTimeout(function () { b.textContent = '🔗'; }, 1200); });
+      h.appendChild(document.createTextNode(' ')); h.appendChild(b);
+    });
+  }
+  document.addEventListener('keydown', function (ev) {
+    if (ev.target.matches('input, textarea, select')) return;
+    if (ev.key === 's') { var b = $('read-all'); if (b) b.click(); }
+    else if (ev.key === 'g') { SETTINGS.mode = 'guided'; saveSettings(); applyMode(); }
+    else if (ev.key === 'i') { SETTINGS.mode = 'instrument'; saveSettings(); applyMode(); }
+    else if (ev.key === '/') { ev.preventDefault(); var q = $('anom-q'); if (q) { q.scrollIntoView({ behavior: 'smooth', block: 'center' }); q.focus(); } }
+    else if (ev.key === '?') { $('shortcuts-card').classList.toggle('hidden'); }
+    else if (ev.key === 'Escape') { if ('speechSynthesis' in window) speechSynthesis.cancel(); $('settings-panel').classList.add('hidden'); $('shortcuts-card').classList.add('hidden'); tourShow(-1); }
+  });
+
+  /* ================= charts ================= */
+  function line(ctx, x, y, w, h) { ctx.strokeStyle = '#22374f'; ctx.beginPath(); ctx.moveTo(x, y + h); ctx.lineTo(x + w, y + h); ctx.moveTo(x, y); ctx.lineTo(x, y + h); ctx.stroke(); }
+  window.drawCharts = function (d) {
+    DATA = d;
+    window.CIRCLE_HEALTH = window.CIRCLE_HEALTH || null;
+    postRender(); initSettings();
+    // Kp bars
+    try {
+      var kc = $('kp-chart').getContext('2d'), W = 460, H = 180;
+      kc.clearRect(0, 0, W, H); line(kc, 30, 10, W - 40, H - 40);
+      var series = (d.space_weather && d.space_weather.kp_series) || [];
+      var bw = (W - 50) / Math.max(series.length, 1);
+      series.forEach(function (r, i) { var v = Number(r.kp), bh = v / 9 * (H - 50); kc.fillStyle = v >= SETTINGS.kp ? '#ff9a9a' : v >= 4 ? '#ffd97a' : '#3f7fbf'; kc.fillRect(32 + i * bw, H - 30 - bh, Math.max(bw - 2, 2), bh); });
+      kc.fillStyle = '#8fa8bd'; kc.font = '11px Georgia'; kc.fillText('Kp 0–9 · red at your storm-watch threshold (Kp ' + SETTINGS.kp + ')', 30, H - 8);
+      kc.fillText(series.length ? new Date(series[0].t).toLocaleDateString() + ' → now' : 'no series', 30, 20);
+    } catch (e) {}
+    // quake timeline
+    try {
+      var qc = $('quake-chart').getContext('2d'); qc.clearRect(0, 0, W, H); line(qc, 30, 10, W - 40, H - 40);
+      var qs = (d.quakes && d.quakes.global) || [], nowMs = Date.now();
+      qs.forEach(function (q) { var x = 32 + (1 - (nowMs - new Date(q.time).getTime()) / 86400000) * (W - 60), y = H - 30 - (q.mag - 4.5) / 4 * (H - 50); qc.beginPath(); qc.arc(x, Math.max(y, 14), 2 + (q.mag - 4.5) * 2.2, 0, 7); qc.fillStyle = q.mag >= SETTINGS.quake ? '#ff6b6b' : '#7fd8ff'; qc.fill(); if (q.mag >= 6) { qc.strokeStyle = '#ff9a9a'; qc.stroke(); } });
+      qc.fillStyle = '#8fa8bd'; qc.font = '11px Georgia'; qc.fillText('24 h ago → now · vertical = magnitude', 30, H - 8);
+    } catch (e) {}
+    // moon visual — computed on this device, right now
+    try {
+      var ill = moonIllum(new Date()), svg = $('moon-svg'), NS = 'http://www.w3.org/2000/svg';
+      svg.innerHTML = '';
+      var bg = document.createElementNS(NS, 'circle'); bg.setAttribute('cx', 50); bg.setAttribute('cy', 50); bg.setAttribute('r', 46); bg.setAttribute('fill', '#1a2636'); svg.appendChild(bg);
+      var lit = document.createElementNS(NS, 'path'), cyc = ill.cycle, waxing = cyc < 0.5, f = ill.frac;
+      var rx = Math.abs(50 * (1 - 2 * f)) + 0.01;
+      var sweepOuter = waxing ? 1 : 0, sweepInner = (f < 0.5) === waxing ? 1 : 0;
+      lit.setAttribute('d', 'M50,4 A46,46 0 0 ' + sweepOuter + ' 50,96 A' + rx.toFixed(1) + ',46 0 0 ' + sweepInner + ' 50,4 Z');
+      lit.setAttribute('fill', '#f4ead0'); svg.appendChild(lit);
+      var names = [[0.033, 'New Moon'], [0.217, 'Waxing Crescent'], [0.283, 'First Quarter'], [0.467, 'Waxing Gibbous'], [0.533, 'Full Moon'], [0.717, 'Waning Gibbous'], [0.783, 'Last Quarter'], [0.967, 'Waning Crescent'], [1.01, 'New Moon']];
+      var nm = names.find(function (n) { return cyc < n[0]; })[1];
+      $('moon-text').innerHTML = '<p style="margin:0"><strong>' + nm + '</strong> — ' + Math.round(f * 100) + '% lit, computed on this device at ' + new Date().toLocaleTimeString() + '. The daily card carries rise/set and sign from the morning build.</p>';
+    } catch (e) {}
+    // tonight sky chart
+    try {
+      var sc = $('sky-chart').getContext('2d'), W2 = 460, H2 = 200;
+      sc.clearRect(0, 0, W2, H2); line(sc, 30, 10, W2 - 40, H2 - 40);
+      var chart = d.moon_sky && d.moon_sky.sky_chart, colors = { Mercury: '#c9a227', Venus: '#ffd97a', Mars: '#ff8a5c', Jupiter: '#9affc4', Saturn: '#7fd8ff' };
+      if (chart) {
+        Object.keys(chart.planets).forEach(function (name) { var arr = chart.planets[name]; sc.beginPath(); arr.forEach(function (a, i) { var x = 32 + i / (arr.length - 1) * (W2 - 60), y = H2 - 30 - Math.max(a, -10) / 90 * (H2 - 50); i ? sc.lineTo(x, y) : sc.moveTo(x, y); }); sc.strokeStyle = colors[name] || '#fff'; sc.stroke(); });
+        sc.fillStyle = '#8fa8bd'; sc.font = '11px Georgia';
+        var lx = 34; Object.keys(chart.planets).forEach(function (name) { sc.fillStyle = colors[name]; sc.fillText(name, lx, 20); lx += name.length * 7 + 14; });
+        if (chart.iss_samples && chart.iss_samples.length) { sc.beginPath(); var t0 = new Date(chart.iss_samples[0].t).getTime(), t1 = new Date(chart.start).getTime() + 28 * 1800000; chart.iss_samples.forEach(function (s, i) { var x = 32 + (new Date(s.t).getTime() - new Date(chart.start).getTime()) / (t1 - new Date(chart.start).getTime()) * (W2 - 60), y = H2 - 30 - s.el / 90 * (H2 - 50); i ? sc.lineTo(x, y) : sc.moveTo(x, y); }); sc.strokeStyle = '#ffffff'; sc.setLineDash([4, 3]); sc.stroke(); sc.setLineDash([]); sc.fillStyle = '#fff'; sc.fillText('ISS pass (dashed)', 34, H2 - 8); }
+        sc.fillStyle = '#8fa8bd'; sc.fillText('altitude 0–90° · 5 PM → 7 AM ET', 200, H2 - 8);
+      }
+    } catch (e) {}
+    // first-visit tour nudge
+    if (!LS.get('toured', false)) { $('tour-btn').textContent = '▶ Start the tour (first visit — 5 stops)'; }
+  };
+})();
+</script>
+
+<script>
+(function () {
+  'use strict';
+  var $ = function (id) { return document.getElementById(id); };
+  var SETTINGS = window.CIRCLE_SETTINGS || { poll: 90, quake: 6 };
+  var DATA = null, globeState = { mode: 'none', update: null }, liveTimer = null;
+
+  /* ================= the living globe (lazy, tiered) ================= */
+  function llToVec(lat, lon, r) { var phi = (90 - lat) * Math.PI / 180, th = (lon + 180) * Math.PI / 180; return [-r * Math.sin(phi) * Math.cos(th), r * Math.cos(phi), r * Math.sin(phi) * Math.sin(th)]; }
+  function draw2D(quakes, iss) {
+    var cv = $('globe-2d'); if (!cv) return; var ctx = cv.getContext('2d'), W = cv.width, H = cv.height;
+    ctx.clearRect(0, 0, W, H);
+    var grad = ctx.createRadialGradient(W / 2, H / 2, 60, W / 2, H / 2, W / 2);
+    grad.addColorStop(0, '#0d2038'); grad.addColorStop(1, '#05080f'); ctx.fillStyle = grad; ctx.fillRect(0, 0, W, H);
+    ctx.strokeStyle = 'rgba(70,110,150,.35)';
+    for (var la = -60; la <= 60; la += 30) { ctx.beginPath(); ctx.moveTo(0, (90 - la) / 180 * H); ctx.lineTo(W, (90 - la) / 180 * H); ctx.stroke(); }
+    for (var lo = -150; lo <= 180; lo += 30) { ctx.beginPath(); ctx.moveTo((lo + 180) / 360 * W, 0); ctx.lineTo((lo + 180) / 360 * W, H); ctx.stroke(); }
+    // day/night terminator (simple: shade the night half from the Sun's current longitude)
+    var nowD = new Date(), utcH = nowD.getUTCHours() + nowD.getUTCMinutes() / 60, sunLon = 180 - utcH * 15;
+    ctx.fillStyle = 'rgba(0,0,10,.45)';
+    var nightStart = ((sunLon + 90 + 180) % 360) / 360 * W;
+    ctx.fillRect(nightStart, 0, W / 2, H); if (nightStart + W / 2 > W) ctx.fillRect(0, 0, nightStart + W / 2 - W, H);
+    (quakes || []).forEach(function (q) { if (q.lat == null) return; var x = (q.lon + 180) / 360 * W, y = (90 - q.lat) / 180 * H; ctx.beginPath(); ctx.arc(x, y, 2 + (q.mag - 4.5) * 2.4, 0, 7); ctx.fillStyle = q.mag >= (SETTINGS.quake || 6) ? '#ff6b6b' : '#ffb35c'; ctx.fill(); ctx.strokeStyle = 'rgba(255,220,150,.5)'; ctx.stroke(); });
+    // Pembroke home marker
+    ctx.fillStyle = '#9affc4'; ctx.beginPath(); ctx.arc((-80.6015 + 180) / 360 * W, (90 - 37.3031) / 180 * H, 3.5, 0, 7); ctx.fill();
+    ctx.fillStyle = '#cfe8d8'; ctx.font = '11px Georgia'; ctx.fillText('⌂ Pembroke', (-80.6015 + 180) / 360 * W + 7, (90 - 37.3031) / 180 * H + 3);
+    if (iss) { ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc((iss.lon + 180) / 360 * W, (90 - iss.lat) / 180 * H, 3, 0, 7); ctx.fill(); ctx.fillText('ISS', (iss.lon + 180) / 360 * W + 6, (90 - iss.lat) / 180 * H - 4); }
+    ctx.fillStyle = '#8fa8bd'; ctx.fillText('2D map mode — flat projection, night side shaded. Same live data as the 3D globe.', 10, H - 10);
+  }
+  function init3D(quakes, issPos) {
+    var wrap = $('globe-3d');
+    var scene = new THREE.Scene();
+    var camera = new THREE.PerspectiveCamera(45, wrap.clientWidth / wrap.clientHeight, 0.1, 100); camera.position.z = 3.1;
+    var renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setSize(wrap.clientWidth, wrap.clientHeight); wrap.appendChild(renderer.domElement);
+    var earth = new THREE.Mesh(new THREE.SphereGeometry(1, 48, 48), new THREE.MeshPhongMaterial({ color: 0x14406e, emissive: 0x05182e, shininess: 18, transparent: true, opacity: 0.96 }));
+    scene.add(earth);
+    // graticule
+    var grat = new THREE.Group();
+    for (var la = -60; la <= 60; la += 30) { var pts = []; for (var lo = -180; lo <= 180; lo += 5) pts.push(new THREE.Vector3().fromArray(llToVec(la, lo, 1.002))); grat.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), new THREE.LineBasicMaterial({ color: 0x2c5a8a, transparent: true, opacity: 0.5 }))); }
+    for (var lo2 = -180; lo2 < 180; lo2 += 30) { var pts2 = []; for (var la2 = -90; la2 <= 90; la2 += 5) pts2.push(new THREE.Vector3().fromArray(llToVec(la2, lo2, 1.002))); grat.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts2), new THREE.LineBasicMaterial({ color: 0x2c5a8a, transparent: true, opacity: 0.5 }))); }
+    scene.add(grat);
+    // atmosphere glow
+    var glow = new THREE.Mesh(new THREE.SphereGeometry(1.14, 48, 48), new THREE.ShaderMaterial({ vertexShader: 'varying vec3 vN; void main(){ vN = normalize(normalMatrix * normal); gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0); }', fragmentShader: 'varying vec3 vN; void main(){ float i = pow(0.62 - dot(vN, vec3(0,0,1.0)), 3.2); gl_FragColor = vec4(0.35,0.62,1.0,1.0) * i; }', blending: THREE.AdditiveBlending, side: THREE.BackSide, transparent: true }));
+    scene.add(glow);
+    // sun light → real terminator
+    var nowD = new Date(), utcH = nowD.getUTCHours() + nowD.getUTCMinutes() / 60, sunLon = 180 - utcH * 15, sunLat = -23.44 * Math.cos((dayOfYear(nowD) - 172) / 365.25 * 2 * Math.PI);
+    function dayOfYear(d) { return Math.floor((d - new Date(d.getFullYear(), 0, 0)) / 86400000); }
+    var sunDir = llToVec(sunLat, sunLon, 5);
+    var sun = new THREE.DirectionalLight(0xfff2d8, 1.5); sun.position.fromArray(sunDir); scene.add(sun);
+    scene.add(new THREE.AmbientLight(0x334455, 0.7));
+    var qGroup = new THREE.Group(); scene.add(qGroup);
+    function plotQuakes(list) {
+      while (qGroup.children.length) qGroup.remove(qGroup.children[0]);
+      (list || []).forEach(function (q) { if (q.lat == null) return; var m = new THREE.Mesh(new THREE.SphereGeometry(0.008 + (q.mag - 4.5) * 0.006, 8, 8), new THREE.MeshBasicMaterial({ color: q.mag >= (SETTINGS.quake || 6) ? 0xff5040 : 0xffb35c })); m.position.fromArray(llToVec(q.lat, q.lon, 1.01)); qGroup.add(m); });
+      var home = new THREE.Mesh(new THREE.SphereGeometry(0.011, 8, 8), new THREE.MeshBasicMaterial({ color: 0x9affc4 })); home.position.fromArray(llToVec(37.3031, -80.6015, 1.01)); qGroup.add(home);
+    }
+    plotQuakes(quakes);
+    var issMark = new THREE.Mesh(new THREE.SphereGeometry(0.013, 10, 10), new THREE.MeshBasicMaterial({ color: 0xffffff }));
+    scene.add(issMark);
+    function plotISS(p) { if (p) issMark.position.fromArray(llToVec(p.lat, p.lon, 1.09)); }
+    plotISS(issPos);
+    // drag to spin
+    var dragging = false, px = 0, py = 0, vx = 0.0025;
+    wrap.addEventListener('pointerdown', function (e) { dragging = true; px = e.clientX; py = e.clientY; });
+    window.addEventListener('pointerup', function () { dragging = false; });
+    wrap.addEventListener('pointermove', function (e) { if (!dragging) return; earth.rotation.y += (e.clientX - px) * 0.005; grat.rotation.y = earth.rotation.y; qGroup.rotation.y = earth.rotation.y; issMark.position.applyAxisAngle(new THREE.Vector3(0, 1, 0), (e.clientX - px) * 0.005); earth.rotation.x += (e.clientY - py) * 0.002; px = e.clientX; py = e.clientY; });
+    (function animate() { requestAnimationFrame(animate); if (!dragging) { earth.rotation.y += vx; grat.rotation.y = earth.rotation.y; qGroup.rotation.y = earth.rotation.y; } renderer.render(scene, camera); })();
+    globeState = { mode: '3d', update: function (qs, iss) { plotQuakes(qs); if (iss) { issMark.position.fromArray(llToVec(iss.lat, iss.lon, 1.09)); issMark.position.applyAxisAngle(new THREE.Vector3(0, 1, 0), earth.rotation.y); } } };
+  }
+  window.initGlobe = function (d) {
+    DATA = d;
+    var card = $('globe-card'); if (!card) return;
+    var done = false;
+    var io = new IntersectionObserver(function (entries) {
+      if (done || !entries[0].isIntersecting) return; done = true; io.disconnect();
+      var weak = (navigator.connection && navigator.connection.saveData) || (navigator.deviceMemory && navigator.deviceMemory < 2) || (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 2) || window.__FORCE_2D;
+      var quakes = (d.quakes && d.quakes.global) || [], issPos = d.moon_sky && d.moon_sky.iss ? d.moon_sky.iss.now : null;
+      if (weak) { $('globe-loading').textContent = 'Light device or data-saver detected — the flat map carries the same live data.'; $('globe-2d').classList.remove('hidden'); globeState = { mode: '2d', update: function (qs, iss) { draw2D(qs, iss); } }; draw2D(quakes, issPos); return; }
+      var s = document.createElement('script'); s.src = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js';
+      s.onload = function () { try { $('globe-loading').classList.add('hidden'); $('globe-3d').classList.remove('hidden'); init3D(quakes, issPos); $('globe-note').innerHTML = '<span class="badge live">3D</span> Drag to spin. Gold dots: M4.5+ quakes today · red at your M' + (SETTINGS.quake || 6) + '+ threshold · green: Pembroke · white: the ISS. The dark side is real — the light is where the Sun actually is right now.'; } catch (e) { fallback2D(quakes, issPos, '3D failed to start (' + e.message + ') — flat map instead, same data.'); } };
+      s.onerror = function () { fallback2D(quakes, issPos, 'The 3D library could not be loaded — flat map instead, same data.'); };
+      document.head.appendChild(s);
+      function fallback2D(qs, iss, msg) { $('globe-loading').textContent = msg; $('globe-3d').classList.add('hidden'); $('globe-2d').classList.remove('hidden'); globeState = { mode: '2d', update: function (a, b) { draw2D(a, b); } }; draw2D(qs, iss); }
+    }, { rootMargin: '240px' });
+    io.observe(card);
+  };
+
+  /* ================= live polling (CORS-open feeds, polite, visible-only) ================= */
+  function poll() {
+    if (document.hidden || !DATA) return;
+    fetch('https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_day.geojson').then(function (r) { return r.json(); }).then(function (j) {
+      var qs = (j.features || []).map(function (f) { return { mag: f.properties.mag, place: f.properties.place, time: new Date(f.properties.time).toISOString(), url: f.properties.url, lat: f.geometry.coordinates[1], lon: f.geometry.coordinates[0] }; });
+      var el = $('quake-count'); if (el) el.textContent = qs.length;
+      if (globeState.update) globeState.update(qs, null);
+      DATA.quakes.global = qs;
+      var qc = $('quake-chart'); if (qc && window.drawCharts) { /* charts redraw on next full load; counters stay live */ }
+    }).catch(function () {});
+    fetch('https://services.swpc.noaa.gov/products/noaa-planetary-k-index.json').then(function (r) { return r.json(); }).then(function (rows) {
+      var last = rows[rows.length - 1]; var kp = last && (last.Kp != null ? last.Kp : last[1]);
+      var el = $('kp-now'); if (el && kp != null) el.textContent = kp;
+    }).catch(function () {});
+    fetch('https://api.wheretheiss.at/v1/satellites/25544').then(function (r) { return r.json(); }).then(function (p) {
+      if (globeState.update && DATA.quakes) globeState.update(DATA.quakes.global, { lat: p.latitude, lon: p.longitude });
+      var note = $('globe-note'); if (note && globeState.mode !== 'none') note.innerHTML += '';
+    }).catch(function () {
+      // TLE fallback: propagate on-device from today's TLE
+      if (window.CIRCLE_ASTRO && DATA.moon_sky && DATA.moon_sky.iss && DATA.moon_sky.iss.tle) {
+        var t = window.CIRCLE_ASTRO.parseTLE(DATA.moon_sky.iss.tle.line1, DATA.moon_sky.iss.tle.line2);
+        var pos = window.CIRCLE_ASTRO.propTLE(t, new Date());
+        if (globeState.update && DATA.quakes) globeState.update(DATA.quakes.global, pos);
+      }
+    });
+  }
+  window.startLive = function (d) {
+    DATA = d;
+    if (liveTimer) clearInterval(liveTimer);
+    var secs = Number((window.CIRCLE_SETTINGS || {}).poll || 90);
+    if (secs > 0) { liveTimer = setInterval(poll, secs * 1000); }
+  };
+  window.__restartLive = function () { if (DATA) window.startLive(DATA); };
+
+  /* ================= board ================= */
+  function loadBoard() {
+    fetch('board.json', { cache: 'no-store' }).then(function (r) { return r.json(); }).then(function (b) {
+      var posts = (b && b.posts) || [];
+      if (!posts.length) return; // honest empty state already in the HTML
+      $('board-posts').innerHTML = posts.map(function (p) {
+        var hue = 0; for (var ci = 0; ci < String(p.author).length; ci++) hue = (hue * 31 + String(p.author).charCodeAt(ci)) % 360;
+        var initials = String(p.author || '?').split(/\s+/).map(function (w) { return w[0]; }).join('').slice(0, 2).toUpperCase();
+        return '<div class="board-post"><span class="avatar" style="background:hsl(' + hue + ',65%,72%)">' + esc(initials) + '</span><strong>' + esc(p.title) + '</strong> <span class="badge comp">' + esc(p.type) + '</span>' +
+          (p.rating ? ' <span class="stars">' + '★'.repeat(p.rating) + '☆'.repeat(5 - p.rating) + '</span>' : '') +
+          '<div class="meta">by ' + esc(p.author) + ' · ' + esc(new Date(p.ts).toLocaleString()) + (p.place ? ' · 📍 ' + esc(p.place) : '') + '</div>' +
+          '<p style="margin:6px 0">' + esc(p.body) + '</p>' +
+          (p.replies && p.replies.length ? '<div style="margin-left:16px">' + p.replies.map(function (r) { return '<p style="margin:4px 0"><strong>' + esc(r.author) + ':</strong> ' + esc(r.body) + '</p>'; }).join('') + '</div>' : '') + '</div>';
+      }).join('');
+    }).catch(function () {});
+    var dateStr = DATA ? DATA.date_et : '';
+    $('board-compose').href = 'mailto:sheldondouthat@gmail.com?subject=' + encodeURIComponent('Board post — ' + dateStr) + '&body=' + encodeURIComponent('Type (Discussion / Sighting / Place / Field Note):\nDisplay name:\nTitle:\nPlace (if a Place post) + rating 1-5:\n\nPost:\n');
+  }
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  window.__loadBoard = loadBoard;
+
+  /* ================= opt-in location: your sky ================= */
+  document.addEventListener('click', function (ev) { if (ev.target && ev.target.id === 'loc-btn') useLocation(); });
+  function haversineKm(a, b, c, d) { var R = 6371, dLa = (c - a) * RAD2, dLo = (d - b) * RAD2, h = Math.sin(dLa / 2) ** 2 + Math.cos(a * RAD2) * Math.cos(c * RAD2) * Math.sin(dLo / 2) ** 2; return 2 * R * Math.asin(Math.sqrt(h)); }
+  var RAD2 = Math.PI / 180;
+  function useLocation() {
+    var out = $('my-sky');
+    if (!navigator.geolocation) { out.innerHTML = '<p>This browser has no geolocation — the page stays centered on Pembroke.</p>'; return; }
+    out.innerHTML = '<p>Asking the browser for your position — nothing is sent anywhere…</p>';
+    navigator.geolocation.getCurrentPosition(function (pos) {
+      var lat = pos.coords.latitude, lon = pos.coords.longitude;
+      var distKm = haversineKm(lat, lon, 37.3031, -80.6015);
+      var html = '<p><strong>Your position (held only in this browser):</strong> ' + lat.toFixed(3) + '°, ' + lon.toFixed(3) + '° · ' + Math.round(distKm).toLocaleString() + ' km from Pembroke.</p>';
+      out.innerHTML = html + '<p>Computing your sky…</p>';
+      // your weather (NWS, asked directly from your browser)
+      fetch('https://api.weather.gov/points/' + lat.toFixed(4) + ',' + lon.toFixed(4)).then(function (r) { return r.json(); }).then(function (pts) { return fetch(pts.properties.forecast).then(function (r) { return r.json(); }); }).then(function (fc) {
+        var p = fc.properties.periods[0];
+        html += '<p><strong>Your weather now:</strong> ' + p.temperature + '°' + p.temperatureUnit + ' — ' + p.shortForecast + ' (NWS, for your location).</p>';
+        out.innerHTML = html;
+      }).catch(function () { html += '<p>Your weather: NWS did not answer for that point (it covers the US only).</p>'; out.innerHTML = html; });
+      // your sky, computed on-device
+      try {
+        var A = window.CIRCLE_ASTRO, nowD = new Date(), tonight = new Date(nowD.getTime() + 3 * 3600e3);
+        var vis = ['Venus', 'Mars', 'Jupiter', 'Saturn', 'Mercury'].filter(function (n) { return A.bodyAltAz(n, tonight, lat, lon).alt > 5; });
+        var moon = A.bodyAltAz('Moon', tonight, lat, lon);
+        html += '<p><strong>Your sky tonight:</strong> planets up: ' + (vis.length ? vis.join(', ') : 'none of the bright five') + ' · Moon altitude tonight ' + Math.round(moon.alt) + '°.</p>';
+        var iss = A.issAltAz(nowD, lat, lon);
+        if (iss) html += '<p>ISS from you right now: altitude ' + Math.round(iss.alt) + '°' + (iss.alt > 10 ? ' — <strong>it is up! Look ' + Math.round(iss.az) + '° azimuth.</strong>' : ' (below your horizon or low)') + '.</p>';
+        var kpF = DATA && DATA.earth_extras && DATA.earth_extras.aurora ? DATA.earth_extras.aurora.kp_forecast_max : null;
+        if (kpF != null) html += '<p>Aurora for your latitude: Kp outlook ' + kpF + ' — ' + (kpF >= 7 ? 'a real chance.' : kpF >= 5 ? 'a low, horizon-glow chance on a dark clear night.' : 'essentially nil tonight.') + '</p>';
+        out.innerHTML = html;
+      } catch (e) { html += '<p>Your sky computation hit a snag (' + e.message + ') — Pembroke\u2019s sky above still stands.</p>'; out.innerHTML = html; }
+    }, function (err) {
+      out.innerHTML = '<p>Location not granted (' + err.message + ') — no harm done: the page stays centered on Pembroke, VA, and nothing was sent anywhere.</p>';
+    }, { timeout: 12000 });
+  }
+
+  /* ================= voice note (field note door, v1) ================= */
+  (function () {
+    var anchor = document.getElementById('field-note');
+    if (!anchor) return;
+    var wrap = document.createElement('span');
+    wrap.innerHTML = ' &nbsp;·&nbsp; <button type="button" class="small" id="vn-btn">🎙 Record a voice note</button> <span id="vn-out"></span>';
+    anchor.parentElement.appendChild(wrap);
+    var rec = null, chunks = [];
+    document.addEventListener('click', function (ev) {
+      if (!ev.target || ev.target.id !== 'vn-btn') return;
+      var out = $('vn-out');
+      if (!navigator.mediaDevices || !window.MediaRecorder) { out.textContent = 'Voice notes need a browser with MediaRecorder — this one does not have it. The mail door above still works.'; return; }
+      if (rec && rec.state === 'recording') { rec.stop(); ev.target.textContent = '🎙 Record a voice note'; return; }
+      navigator.mediaDevices.getUserMedia({ audio: true }).then(function (stream) {
+        chunks = []; rec = new MediaRecorder(stream);
+        rec.ondataavailable = function (e) { chunks.push(e.data); };
+        rec.onstop = function () {
+          stream.getTracks().forEach(function (t) { t.stop(); });
+          var blob = new Blob(chunks, { type: rec.mimeType || 'audio/webm' });
+          var url = URL.createObjectURL(blob);
+          out.innerHTML = '<audio controls src="' + url + '" style="vertical-align:middle"></audio> <a href="' + url + '" download="circle-voice-note.webm">⬇ download the clip</a> <span class="src">(v1: the clip lives on your device — download it or attach it through the mail door; nothing uploads itself.)</span>';
+        };
+        rec.start(); ev.target.textContent = '⏹ Stop recording';
+        out.textContent = 'Recording… tap stop when done.';
+      }).catch(function (e) { out.textContent = 'Microphone not granted (' + e.message + ') — the mail door above still works.'; });
+    });
+  })();
+
+  /* ================= Sky Camera AR ================= */
+  var arStream = null, arOrient = null, arRAF = null;
+  document.addEventListener('click', function (ev) {
+    if (ev.target && ev.target.id === 'ar-start') startAR();
+    if (ev.target && ev.target.id === 'ar-stop') stopAR();
+  });
+  function startAR() {
+    var msg = $('ar-msg');
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) { msg.textContent = 'This browser cannot open a camera here. The sky chart above carries the same sky, computed.'; return; }
+    var begin = function () {
+      navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' }, audio: false }).then(function (stream) {
+        arStream = stream;
+        $('arview').classList.remove('hidden'); $('ar-stop').classList.remove('hidden');
+        var v = $('ar-video'); v.srcObject = stream; v.play();
+        msg.textContent = 'Sky Camera live. Labels are computed on this device from the date, your Pembroke sky, and the phone compass. Calibrate the compass (figure-8 wave) if labels drift.';
+        window.addEventListener('deviceorientationabsolute', arOrient = drawAR, true);
+        window.addEventListener('deviceorientation', arOrient, true);
+      }).catch(function (e) { msg.textContent = 'Camera not granted (' + e.message + '). No labels without a lens — the sky chart above carries the same sky, computed.'; });
+    };
+    if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
+      DeviceOrientationEvent.requestPermission().then(function (r) { if (r === 'granted') begin(); else $('ar-msg').textContent = 'Compass permission denied — labels need the compass. The sky chart above carries the same sky.'; }).catch(begin);
+    } else begin();
+  }
+  function stopAR() {
+    if (arStream) arStream.getTracks().forEach(function (t) { t.stop(); });
+    if (arOrient) { window.removeEventListener('deviceorientationabsolute', arOrient, true); window.removeEventListener('deviceorientation', arOrient, true); }
+    if (arRAF) cancelAnimationFrame(arRAF);
+    $('arview').classList.add('hidden'); $('ar-stop').classList.add('hidden');
+    $('ar-msg').textContent = 'Sky Camera stopped.';
+  }
+  function drawAR(ev) {
+    var cv = $('ar-canvas'), v = $('ar-video');
+    if (!cv || !v.videoWidth) return;
+    if (cv.width !== v.clientWidth) { cv.width = v.clientWidth; cv.height = v.clientHeight; }
+    var ctx = cv.getContext('2d'), W = cv.width, H = cv.height;
+    ctx.clearRect(0, 0, W, H);
+    var heading = ev.webkitCompassHeading != null ? ev.webkitCompassHeading : (ev.alpha != null ? 360 - ev.alpha : null);
+    if (heading == null) { $('ar-msg').textContent = 'This device is not reporting a compass heading — labels paused. The sky chart above carries the same sky.'; return; }
+    var pitch = ev.beta != null ? 90 - ev.beta : 0; // portrait approximation: phone elevation angle
+    var A = window.CIRCLE_ASTRO, nowD = new Date(), bodies = ['Sun', 'Moon', 'Venus', 'Mars', 'Jupiter', 'Saturn'];
+    ctx.font = '600 14px Georgia'; ctx.textAlign = 'center';
+    function place(name, alt, az, color) {
+      var dx = ((az - heading + 540) % 360) - 180, dy = pitch - alt;
+      if (Math.abs(dx) > 38 || Math.abs(dy) > 30) return;
+      var x = W / 2 + dx / 38 * W / 2, y = H / 2 + dy / 30 * H / 2;
+      ctx.beginPath(); ctx.arc(x, y, 5, 0, 7); ctx.fillStyle = color; ctx.fill();
+      ctx.fillStyle = '#fff'; ctx.fillText(name + ' ' + Math.round(alt) + '°', x, y - 10);
+    }
+    bodies.forEach(function (b) { try { var p = A.bodyAltAz(b, nowD, 37.3031, -80.6015); if (p.alt > -2) place(b, p.alt, p.az, b === 'Sun' ? '#ffd97a' : b === 'Moon' ? '#e8e4d8' : '#7fd8ff'); } catch (e) {} });
+    try { var iss = A.issAltAz(nowD, 37.3031, -80.6015); if (iss && iss.alt > 0) place('ISS', iss.alt, iss.az, '#9affc4'); } catch (e) {}
+    ctx.fillStyle = 'rgba(255,255,255,.75)'; ctx.font = '12px Georgia'; ctx.fillText('heading ' + Math.round(heading) + '° · computed live on-device (TLE for the ISS — approximate)', W / 2, H - 8);
+  }
+})();
+</script>
+<script>
+(function () {
+  'use strict';
+  /* gate starfield — gentle drift, honors reduced motion */
+  var cv = document.getElementById('gate-stars');
+  if (cv && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    var ctx = cv.getContext('2d'), stars = [], W, H, raf;
+    function size() { W = cv.width = innerWidth; H = cv.height = innerHeight; stars = []; for (var i = 0; i < 170; i++) stars.push({ x: Math.random() * W, y: Math.random() * H, r: Math.random() * 1.4 + 0.3, p: Math.random() * 6.28, s: 0.4 + Math.random() * 1.1 }); }
+    size(); addEventListener('resize', size);
+    (function tick(t) {
+      if (cv.classList.contains('hidden')) return;
+      ctx.clearRect(0, 0, W, H);
+      stars.forEach(function (s) { var a = 0.35 + 0.55 * Math.abs(Math.sin(t / 1600 * s.s + s.p)); ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, 7); ctx.fillStyle = 'rgba(220,235,255,' + a.toFixed(2) + ')'; ctx.fill(); });
+      raf = requestAnimationFrame(tick);
+    })(0);
+  }
+  /* password visibility toggle */
+  var eye = document.getElementById('gate-eye'), pw = document.getElementById('gate-pw');
+  if (eye && pw) eye.addEventListener('click', function () { pw.type = pw.type === 'password' ? 'text' : 'password'; pw.focus(); });
+  /* headline speaker (mobile concept: the big gold speaker) */
+  document.addEventListener('click', function (ev) {
+    if (ev.target && ev.target.hasAttribute && ev.target.hasAttribute('data-speak-headline')) {
+      var h = document.getElementById('headline');
+      if (h && 'speechSynthesis' in window) { speechSynthesis.cancel(); var u = new SpeechSynthesisUtterance(h.textContent.replace('🔊', '').trim()); u.rate = 1.02; speechSynthesis.speak(u); }
+    }
+  });
+})();
+</script>
+<script>
+(function () {
+  'use strict';
+  var $ = function (id) { return document.getElementById(id); };
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  var SETTINGS = window.CIRCLE_SETTINGS || {};
+  /* URL params ride-along (QR handoff): mode / temp / dist — rendering only */
+  try {
+    var q = new URLSearchParams(location.search), dirty = false;
+    if (q.get('mode') === 'guided' || q.get('mode') === 'instrument') { SETTINGS.mode = q.get('mode'); dirty = true; }
+    if (q.get('temp') === 'F' || q.get('temp') === 'C') { SETTINGS.temp = q.get('temp'); dirty = true; }
+    if (q.get('dist') === 'km' || q.get('dist') === 'mi') { SETTINGS.dist = q.get('dist'); dirty = true; }
+    if (dirty) localStorage.setItem('circle-settings', JSON.stringify(SETTINGS));
+  } catch (e) {}
+  /* service worker (PWA offline shell) */
+  if ('serviceWorker' in navigator) { navigator.serviceWorker.register('/circle-sw.js').catch(function () {}); }
+  /* install prompt */
+  var deferredInstall = null;
+  window.addEventListener('beforeinstallprompt', function (e) { e.preventDefault(); deferredInstall = e; var b = $('install-btn'); if (b) b.style.display = ''; });
+  document.addEventListener('click', function (ev) { if (ev.target && ev.target.id === 'install-btn' && deferredInstall) { deferredInstall.prompt(); } });
+  /* ticker tap = pause */
+  document.querySelectorAll('.ticker').forEach(function (t) { t.addEventListener('click', function () { t.classList.toggle('paused'); }); });
+  /* D-pad / arrow navigation across cards */
+  document.querySelectorAll('.card').forEach(function (c) { c.setAttribute('tabindex', '-1'); });
+  document.addEventListener('keydown', function (ev) {
+    if (ev.target.matches('input, textarea, select') || ev.key.indexOf('Arrow') !== 0) return;
+    var cards = Array.prototype.slice.call(document.querySelectorAll('.card'));
+    var i = cards.indexOf(document.activeElement);
+    if (ev.key === 'ArrowDown' || ev.key === 'ArrowRight') { ev.preventDefault(); var n = cards[Math.min(i + 1, cards.length - 1)]; if (n) { n.focus(); n.scrollIntoView({ block: 'center', behavior: 'smooth' }); } }
+    if (ev.key === 'ArrowUp' || ev.key === 'ArrowLeft') { ev.preventDefault(); var p = cards[Math.max(i - 1, 0)]; if (p) { p.focus(); p.scrollIntoView({ block: 'center', behavior: 'smooth' }); } }
+  });
+
+  function havKm(lat1, lon1, lat2, lon2) { var R = 6371, dLa = (lat2 - lat1) * Math.PI / 180, dLo = (lon2 - lon1) * Math.PI / 180, h = Math.sin(dLa / 2) ** 2 + Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * Math.sin(dLo / 2) ** 2; return 2 * R * Math.asin(Math.sqrt(h)); }
+
+  window.renderCircleMedia = function (d) {
+    /* ---- headline ticker: local → world, same fetch as the cards ---- */
+    try {
+      var heads = [];
+      (d.local_news.outlets || []).forEach(function (o) { (o.items || []).slice(0, 3).forEach(function (it) { heads.push(o.name.split(' ')[0] + ': ' + it.title); }); });
+      (d.world_news.items || []).slice(0, 6).forEach(function (it) { heads.push('World: ' + it.title); });
+      (d.space_news.items || []).slice(0, 3).forEach(function (it) { heads.push('Space: ' + it.title); });
+      if (heads.length) $('ticker2-track').innerHTML = heads.map(function (h) { return '<b>•</b>' + esc(h); }).join('');
+    } catch (e) {}
+    /* ---- numbers ticker ---- */
+    var nums = [];
+    try {
+      if (d.space_weather && d.space_weather.kp_latest) nums.push('Kp now ' + d.space_weather.kp_latest.kp);
+      if (d.moon_sky && d.moon_sky.ok) nums.push('Moon ' + d.moon_sky.moon.illum_pct + '% lit · ' + d.moon_sky.moon.phase_name);
+      var rl = (d.earth2.rivers && d.earth2.rivers.lines || []).join(' ').match(/NEW RIVER AT GLEN LYN, VA — Gage height, ft: ([\d.]+) ft/);
+      if (rl) nums.push('New River at Glen Lyn ' + rl[1] + ' ft');
+      if (d.human_world && d.human_world.bitcoin && d.human_world.bitcoin.ok !== false) nums.push('Bitcoin ' + Number(d.human_world.bitcoin.price_usd).toLocaleString() + ' USD (' + (d.human_world.bitcoin.change_24h_pct >= 0 ? '+' : '') + d.human_world.bitcoin.change_24h_pct + '% 24h)');
+      var pb = (d.human2.powerball && d.human2.powerball.lines || [])[0];
+      if (pb) nums.push(pb.replace(/<[^>]+>/g, '').split('·')[0].trim());
+      nums.push('Virginia Lottery: latest numbers at valottery.com (link-out — no keyless feed)');
+      var c = d.anomaly_registry && d.anomaly_registry.counters;
+      if (c && c.last_m7) nums.push('Last M7+: ' + c.last_m7);
+      if (c && c.last_m8) nums.push('Last M8+: ' + c.last_m8);
+      if (d.earth2.co2 && d.earth2.co2.ok !== false) { var cm = (d.earth2.co2.lines || []).join(' ').match(/([\d.]+) ppm/); if (cm) nums.push('CO₂ ' + cm[1] + ' ppm'); }
+      if (nums.length) { $('ticker3-track').innerHTML = nums.map(function (n) { return '<b>•</b>' + esc(n); }).join(''); $('amb-nums').textContent = nums.slice(0, 4).join('   ·   '); }
+    } catch (e) {}
+    /* ---- Bane Dome section ---- */
+    try {
+      var near = (d.quakes.local || []).map(function (x) { return Object.assign({}, x, { dist: (x.lat != null) ? havKm(37.3031, -80.6015, x.lat, x.lon) : null }); });
+      var within100 = near.filter(function (x) { return x.dist != null && x.dist <= 100; });
+      var strongestLocal = (d.quakes.local || []).slice().sort(function (a, b) { return b.mag - a.mag; })[0];
+      var fb = (d.deep2.fireball && d.deep2.fireball.lines || [])[0] || '';
+      $('bane-live').innerHTML =
+        '<p><span class="badge live">LIVE</span> <strong>Giles County seismic zone:</strong> ' + (d.quakes.local || []).length + ' local events in the current USGS watch window (500 km)' +
+        (strongestLocal ? ' · strongest M' + strongestLocal.mag + ' — ' + esc(strongestLocal.place) : '') +
+        ' · within 100 km of Pembroke: ' + within100.length + ' micro-quake(s) in the window.</p>' +
+        '<p><span class="badge ref" style="background:#2c3550;color:#c9d4ff;padding:1px 7px;border-radius:9px;font-size:11px">REFERENCE</span> <strong>May 31, 1897:</strong> a ~M5.8 earthquake in Giles County — still the largest in Virginia\u2019s recorded history. The zone has not gone quiet since; it is the most active in the state.</p>' +
+        (fb ? '<p><span class="badge live">LIVE</span> <strong>Fireballs:</strong> ' + esc(fb) + '</p>' : '') +
+        '<p><span class="badge wire">WIRE</span> <strong>Mountain Lake level:</strong> the lake drained in 2008 and refilled around 2020 — its level record rides the wire via USGS reporting. <a href="https://en.wikipedia.org/wiki/Mountain_Lake_(Virginia)" target="_blank" rel="noopener">The lake\u2019s story ↗</a></p>' +
+        '<p><span class="badge wire">WIRE</span> <strong>Radon:</strong> fault-fractured rock is a radon pathway — Giles County sits in EPA radon Zone 1 (highest potential). <a href="https://www.epa.gov/radon/epa-map-radon-zones" target="_blank" rel="noopener">EPA radon map ↗</a></p>';
+      var items = (d.registry || []).filter(function (r) { return r.domain === 'Bane Dome & Local Anomalies'; });
+      $('bane-rows').innerHTML = items.map(function (r) {
+        return '<div class="reg-row" data-status="' + r.status + '"><span class="badge ' + r.status.toLowerCase() + '">' + r.status + '</span><span class="reg-name">' + esc(r.name) + (r.desc ? '</span><div class="reg-detail" style="display:block">' + esc(r.desc) + '</div>' : '</span>');
+      }).join('');
+      var statuses = ['ALL', 'LIVE', 'COMPUTED', 'WIRE', 'REFERENCE', 'PENDING'];
+      $('bane-filter').innerHTML = statuses.map(function (s) { return '<button type="button" class="small" data-bane-filter="' + s + '">' + s + '</button>'; }).join(' ');
+      document.querySelectorAll('[data-bane-filter]').forEach(function (b) { b.addEventListener('click', function () { var f = b.getAttribute('data-bane-filter'); document.querySelectorAll('#bane-rows .reg-row').forEach(function (row) { row.style.display = (f === 'ALL' || row.getAttribute('data-status') === f) ? '' : 'none'; }); }); });
+    } catch (e) { $('bane-live').innerHTML = '<p class="down-note">UNAVAILABLE — the dome section failed to render; the registry below carries the same items.</p>'; }
+    /* ---- Wire Reader ---- */
+    try {
+      var feeds = [];
+      (d.local_news.outlets || []).forEach(function (o) { feeds.push({ name: o.name + ' (local RSS)', ok: o.ok, fetched: d.local_news.fetched_at, items: (o.items || []).map(function (it) { return { t: it.title, u: it.link }; }) }); });
+      feeds.push({ name: 'World wire — ' + (d.world_news.outlet || 'RSS'), ok: d.world_news.ok, fetched: d.world_news.fetched_at, items: (d.world_news.items || []).map(function (it) { return { t: it.title, u: it.link }; }) });
+      feeds.push({ name: 'Spaceflight News API', ok: d.space_news.ok, fetched: d.space_news.fetched_at, items: (d.space_news.items || []).map(function (it) { return { t: it.title, u: it.url }; }) });
+      $('reader').innerHTML = feeds.map(function (f) {
+        return '<details class="reader-feed"><summary><strong>' + esc(f.name) + '</strong> ' + (f.ok ? '<span class="badge live">LIVE</span>' : '<span class="badge down">UNAVAILABLE</span>') +
+          ' <span class="src">' + f.items.length + ' items · fetched ' + esc(f.fetched ? new Date(f.fetched).toLocaleString() : d.generated_at ? new Date(d.generated_at).toLocaleString() : '') + '</span></summary>' +
+          (f.items.length ? '<ul>' + f.items.map(function (it) { return '<li><a href="' + esc(it.u) + '" target="_blank" rel="noopener">' + esc(it.t) + '</a></li>'; }).join('') + '</ul>' : '<p class="down-note">No items this cycle — the feed said so, honestly.</p>') + '</details>';
+      }).join('');
+    } catch (e) {}
+    /* ---- radio bar ---- */
+    try {
+      var stations = (d.radio && d.radio.stations) || [];
+      if (stations.length) {
+        $('radio-bar').classList.remove('hidden');
+        $('radio-select').innerHTML = stations.map(function (s, i) { return '<option value="' + i + '"' + (s.ok ? '' : ' disabled') + '>' + esc(s.name) + (s.ok ? '' : ' — stream unverified') + '</option>'; }).join('');
+        var audio = new Audio(); audio.preload = 'none';
+        var playing = false;
+        function setStatus(t) { $('radio-status').textContent = t; }
+        $('radio-play').addEventListener('click', function () {
+          var s = stations[Number($('radio-select').value)];
+          if (!s || !s.ok) { setStatus('That station\u2019s stream did not verify at build time — pick a live one, or use its site link-out on the registry.'); return; }
+          if (playing) { audio.pause(); playing = false; $('radio-play').textContent = '▶ Play'; setStatus('Paused. The stream stops with the pause — no background data.'); return; }
+          if (audio.src !== s.url) audio.src = s.url;
+          setStatus('Connecting to ' + s.name + '…');
+          audio.play().then(function () { playing = true; $('radio-play').textContent = '⏸ Pause'; setStatus('Now playing: ' + s.name + ' — ' + s.desc + ' (verified live at build, ' + new Date(d.generated_at).toLocaleTimeString() + ').'); })
+            .catch(function (err) { setStatus('The stream refused to play (' + err.message + ') — it may have moved since the build check.'); });
+        });
+        $('radio-select').addEventListener('change', function () { if (playing) { audio.pause(); playing = false; $('radio-play').textContent = '▶ Play'; setStatus('Station changed — press play when ready.'); } });
+        audio.addEventListener('error', function () { if (playing) { playing = false; $('radio-play').textContent = '▶ Play'; setStatus('Stream dropped — it happens with live radio. Press play to retry.'); } });
+      }
+    } catch (e) {}
+    /* ---- video rail ---- */
+    try {
+      $('video-rail').innerHTML = ((d.video && d.video.items) || []).map(function (v, i) {
+        if (v.embeddable) return '<div class="card"><h3>' + esc(v.title) + '</h3><div class="body"><div class="video-facade" data-video="' + v.id + '" role="button" tabindex="0" aria-label="Load the ' + esc(v.title) + ' live video"><img src="' + esc(v.thumb) + '" alt="" loading="lazy"><span class="play">▶</span></div><p>' + esc(v.desc) + '</p><p class="src">YouTube (privacy-enhanced embed) — the player loads only on your tap. Embed verified at build time.</p></div></div>';
+        return '<div class="card"><h3>' + esc(v.title) + '</h3><div class="body"><p>' + esc(v.desc) + '</p><p class="down-note">' + esc(v.note || 'Link-out.') + '</p><p><a href="' + esc(v.link) + '" target="_blank" rel="noopener">Open at the source ↗</a></p></div></div>';
+      }).join('');
+      document.querySelectorAll('.video-facade').forEach(function (f) {
+        function load() { f.innerHTML = '<iframe width="100%" height="220" src="https://www.youtube-nocookie.com/embed/' + f.getAttribute('data-video') + '?autoplay=1" title="Live video" frameborder="0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen style="border-radius:10px"></iframe>'; }
+        f.addEventListener('click', load);
+        f.addEventListener('keydown', function (ev) { if (ev.key === 'Enter') load(); });
+      });
+    } catch (e) {}
+    /* ---- The Porch (Jitsi rooms from config) ---- */
+    try {
+      var rooms = (d.config && d.config.rooms) || [];
+      var wrap = $('porch-rooms');
+      if (wrap && rooms.length) {
+        wrap.innerHTML = rooms.map(function (r) {
+          return '<div class="card"><h3>' + esc(r.name) + '</h3><div class="body"><p>' + esc(r.blurb) + '</p>' +
+            '<p><button type="button" data-join="' + esc(r.room) + '">📹 Join here</button> ' +
+            '<a href="https://meet.jit.si/' + esc(r.room) + '" target="_blank" rel="noopener"><button type="button">↗ Open full screen</button></a> ' +
+            '<button type="button" class="iconbtn" data-speak="' + esc(r.name + '. ' + r.blurb + ' One tap joins the live video room. No account, no recording by us; treat rooms as semi-public.') + '" aria-label="Hear about this room">🔊</button></p>' +
+            '<div class="join-slot"></div>' +
+            '<p class="src porch-raw">Room: ' + esc(r.room) + ' · https://meet.jit.si/' + esc(r.room) + '</p></div></div>';
+        }).join('');
+      }
+    } catch (e) {}
+    /* ---- ambient data ---- */
+    var h = $('headline'); if (h) $('amb-head').textContent = h.textContent.replace('🔊', '').trim();
+    var ps = $('prov-stamp'); if (ps) ps.textContent = new Date(d.generated_at).toLocaleString() + ' (build) · page opened ' + new Date().toLocaleTimeString();
+  };
+
+  /* ================= The Porch: join / leave / make-your-own ================= */
+  document.addEventListener('click', function (ev) {
+    var j = ev.target && ev.target.closest ? ev.target.closest('[data-join]') : null;
+    if (j) {
+      var card = j.closest('.card'), slot = card ? card.querySelector('.join-slot') : null;
+      if (!slot) return;
+      if (slot.children.length) { slot.innerHTML = ''; j.textContent = '📹 Join here'; return; }
+      var f = document.createElement('iframe');
+      f.setAttribute('allow', 'camera; microphone; fullscreen; display-capture; autoplay');
+      f.setAttribute('allowfullscreen', '');
+      f.src = 'https://meet.jit.si/' + j.getAttribute('data-join');
+      slot.appendChild(f);
+      j.textContent = '⏹ Leave room';
+      return;
+    }
+    if (ev.target && ev.target.id === 'porch-make') {
+      var name = ($('porch-name').value || 'circle-room').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 32) || 'circle-room';
+      var chars = 'abcdefghjkmnpqrstuvwxyz23456789', suf = '';
+      var rnd = new Uint8Array(6); (window.crypto || {}).getRandomValues ? crypto.getRandomValues(rnd) : rnd.forEach(function (v, i) { rnd[i] = Math.floor(Math.random() * 256); });
+      for (var i = 0; i < 6; i++) suf += chars[rnd[i] % chars.length];
+      var room = 'satwq-circle-' + name + '-' + suf, url = 'https://meet.jit.si/' + room;
+      $('porch-new').innerHTML = '<div class="card"><h3>Your room is ready</h3><div class="body"><p><strong>' + esc(url) + '</strong></p>' +
+        '<p><button type="button" data-join="' + esc(room) + '">📹 Join here</button> ' +
+        '<a href="' + esc(url) + '" target="_blank" rel="noopener"><button type="button">↗ Open full screen</button></a> ' +
+        '<button type="button" id="porch-copy">📋 Copy the link</button></p><div class="join-slot"></div>' +
+        '<p class="src">Share the link with anyone you want in the room — the link is the key. Custom rooms live in your browser session only; the three house rooms above are the permanent ones.</p></div></div>';
+      var cp = $('porch-copy');
+      if (cp) cp.addEventListener('click', function () { if (navigator.clipboard) navigator.clipboard.writeText(url); cp.textContent = '✓ Copied'; });
+    }
+  });
+
+  /* ================= ambient / TV mode ================= */
+  var ambTimer = null, ambRAF = null;
+  function openAmbient() {
+    $('ambient').classList.remove('hidden');
+    document.documentElement.requestFullscreen && document.documentElement.requestFullscreen().catch(function () {});
+    function clock() { var n = new Date(); $('amb-clock').textContent = n.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }) + '  ·  ' + String(n.getUTCHours()).padStart(2, '0') + ':' + String(n.getUTCMinutes()).padStart(2, '0') + ' UTC'; }
+    clock(); ambTimer = setInterval(clock, 1000);
+    var cv = $('ambient-stars'), ctx = cv.getContext('2d'), stars = [];
+    cv.width = innerWidth; cv.height = innerHeight;
+    for (var i = 0; i < 220; i++) stars.push({ x: Math.random() * cv.width, y: Math.random() * cv.height, r: Math.random() * 1.5 + 0.3, p: Math.random() * 6.28 });
+    (function drift(t) {
+      ctx.clearRect(0, 0, cv.width, cv.height);
+      stars.forEach(function (s) { s.x -= 0.008 * s.r; if (s.x < 0) s.x = cv.width; var a = 0.3 + 0.6 * Math.abs(Math.sin(t / 2400 + s.p)); ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, 7); ctx.fillStyle = 'rgba(215,232,255,' + a.toFixed(2) + ')'; ctx.fill(); });
+      ambRAF = requestAnimationFrame(drift);
+    })(0);
+  }
+  function closeAmbient() { $('ambient').classList.add('hidden'); if (ambTimer) clearInterval(ambTimer); if (ambRAF) cancelAnimationFrame(ambRAF); if (document.fullscreenElement) document.exitFullscreen().catch(function () {}); }
+  document.addEventListener('click', function (ev) { if (ev.target && ev.target.id === 'ambient-btn') openAmbient(); });
+  document.addEventListener('keydown', function (ev) { if (ev.key === 'Escape' && !$('ambient').classList.contains('hidden')) closeAmbient(); });
+})();
+</script>
+</body>
+</html>
