@@ -206,6 +206,19 @@ test('falsifier leg 1: the vendored client decodes real tiles from the shipped a
   assert.ok(modeled > 0 && estimated > 0, 'both honesty classes must be present');
 });
 
+test('the floor face waits for worker control before reading tiles', () => {
+  // The PMTiles client throws on a 200 answer to a Range request; the
+  // worker is the range server, so the map must not be created until
+  // the page is controlled (bounded wait, direct-load fallback).
+  assert.ok(floorPageSource.includes('controllerchange'), 'face must listen for worker control');
+  assert.ok(floorPageSource.includes('await whenControlled()'), 'map creation must be gated on control');
+  assert.ok(
+    floorPageSource.indexOf('await whenControlled()') <
+      floorPageSource.indexOf('new maplibregl.Map('),
+    'the control gate must precede map creation'
+  );
+});
+
 test('the floor face renders the record grammar, never a live badge', () => {
   assert.ok(floorPageSource.includes('FLOOR RECORD'), 'floor banner grammar missing');
   assert.ok(!floorPageSource.includes("className = 'banner live'"), 'floor face must never wear the live banner');

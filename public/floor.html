@@ -150,6 +150,29 @@
   loadFloorState();
   setInterval(renderBanner, 30_000);
 
+  // Tile reads MUST be answered by the service worker out of the
+  // verified floor cache: the PMTiles client requires byte serving
+  // (it throws on a 200 answer to a Range request), and the worker is
+  // the range server. So the map waits — briefly, with a bounded
+  // timeout — until this page is under the worker's control. On a
+  // first-ever visit the worker installs, verifies the archive, and
+  // claims the page (skipWaiting + clients.claim); the wait is short.
+  // If control never comes (no service worker support), the map still
+  // loads directly and depends on the origin honoring Range.
+  async function whenControlled(timeoutMs = 5000) {
+    if (!('serviceWorker' in navigator)) return;
+    if (navigator.serviceWorker.controller) return;
+    await Promise.race([
+      new Promise((resolve) => {
+        navigator.serviceWorker.addEventListener('controllerchange', resolve, { once: true });
+      }),
+      new Promise((resolve) => setTimeout(resolve, timeoutMs)),
+    ]);
+  }
+
+  await whenControlled();
+  loadFloorState();
+
   // The map: tiles come from the single on-device archive via the
   // PMTiles protocol (range requests, answered by the service worker
   // out of the verified floor cache). Buildings are colored BY their
