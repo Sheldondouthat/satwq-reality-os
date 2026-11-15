@@ -29,7 +29,11 @@ test('the complete Realtime tool payload pins the additive analyst, satellite, L
     digest,
     // Re-derived for the additive `local-adsb` set_layer_visibility value and
     // the Cyber HUD layout; the separate sonar tool is excluded above.
-    '590d537d93e132ac64ac5e211ad5bb9d7d1b1f22e2dd963dda5465fab4510a3b',
+    // Re-derived again 2026-11-15 for the Delta Sweep II U-5 analyst seam
+    // unlock: seven additive analyst_query layer enum values (aurora, buoys,
+    // meteors, space-weather, tides, volcanoes, wspr) plus their
+    // tool-description wording.
+    'f2d3d32b01a35d61a9154edc151d463b5e3002925e5f55fc863c03ba2f7be517',
   );
 });
 
@@ -98,6 +102,15 @@ test('all legacy action arguments are byte-identical after removing the delibera
         'local-datacenters',
         'local-dams',
         'fire-perimeters',
+        // Delta Sweep II U-5 analyst seam unlock (2026-11-15): the catalog
+        // layers that already implemented getAnalystRecords behind the enum.
+        'aurora',
+        'buoys',
+        'meteors',
+        'space-weather',
+        'tides',
+        'volcanoes',
+        'wspr',
       ].includes(key),
   );
   // Local ADS-B is an additive set_layer_visibility enum value.

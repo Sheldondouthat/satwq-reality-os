@@ -82,6 +82,50 @@ export const ANALYST_LAYERS = {
     text: ['name', 'state', 'county', 'cause', 'behavior', 'complexity'],
     flags: [],
   },
+  // Delta Sweep II U-5 unlock (2026-11-15): every catalog layer that
+  // implements getAnalystRecords is admitted below. The four frontier-only
+  // implementations (aurora-ovation, invisible-ocean, lightning,
+  // seismic-waves) are deliberately NOT admitted: their instances live in
+  // the frontier integrator, not in the data-manager catalog the analyst
+  // provider reads from, so admission would return an empty snapshot for
+  // a layer that may be showing data — a silent empty. They become
+  // admissible when their instances join the catalog; the completeness
+  // test in src/voice/analystSeam.test.mjs pins this boundary.
+  aurora: {
+    numeric: ['kp', 'timeMs'],
+    text: ['gScale'],
+    flags: [],
+  },
+  buoys: {
+    numeric: [],
+    text: ['name', 'stationId', 'stationType'],
+    flags: [],
+  },
+  meteors: {
+    numeric: ['zhr'],
+    text: ['name'],
+    flags: [],
+  },
+  'space-weather': {
+    numeric: ['speedKms', 'densityPerCm3', 'tempK', 'bzGsm', 'timeMs'],
+    text: [],
+    flags: [],
+  },
+  tides: {
+    numeric: [],
+    text: ['name', 'trend'],
+    flags: [],
+  },
+  volcanoes: {
+    numeric: [],
+    text: ['name', 'colorCode', 'alertLevel'],
+    flags: [],
+  },
+  wspr: {
+    numeric: ['freqMHz', 'snrDb'],
+    text: ['spotId', 'txCall', 'rxCall', 'band'],
+    flags: [],
+  },
 };
 
 const EARTH_R_KM = 6371;

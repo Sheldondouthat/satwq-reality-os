@@ -528,7 +528,7 @@ export const ACTION_DESCRIPTIONS = {
   },
   analyst_query: {
     description:
-      'Answer questions ABOUT the data currently loaded on the map — counts, lists, superlatives, and attribute filters over live layers (flights, military, ships, fires, earthquakes, satellites, datacenters, dams). Examples: "how many flights over Texas", "biggest fire near LA", "which ships are headed to Oakland", "anything above 40,000 feet", "fastest thing in view". For satellites and infrastructure, counts and ranks cover only bounded examined loaded records; omitted records can change nearest/count. Queries ONLY client-side data from ENABLED layers — if the needed layer is off, say so and offer to enable it. For a follow-up about the previous answer\'s set ("which of those is closest?"), set followUp=true and send only the new filters/sort.',
+      'Answer questions ABOUT the data currently loaded on the map — counts, lists, superlatives, and attribute filters over live layers (flights, military, ships, fires, earthquakes, satellites, datacenters, dams, fire perimeters, aurora, buoys, meteors, space weather, tides, volcanoes, WSPR spots). Examples: "how many flights over Texas", "biggest fire near LA", "which ships are headed to Oakland", "anything above 40,000 feet", "fastest thing in view", "highest tide", "strongest WSPR spot". For satellites and infrastructure, counts and ranks cover only bounded examined loaded records; omitted records can change nearest/count. Aurora, space-weather, and WSPR answers are single global readings or spot lists with no position of their own — use scope kind=anywhere for them. Queries ONLY client-side data from ENABLED layers — if the needed layer is off, say so and offer to enable it. For a follow-up about the previous answer\'s set ("which of those is closest?"), set followUp=true and send only the new filters/sort.',
     $position: 1,
     parameters: {
       properties: {
@@ -555,7 +555,7 @@ export const ACTION_DESCRIPTIONS = {
         },
         filters: {
           description:
-            'Attribute predicates, ANDed. ALTITUDE IS METERS (40,000 ft = 12192). Fields: altitudeM, speedMps, military, onGround, aircraftClass, callsign, operator, routeOrigin, routeDestination, originCountry (flights); speedKts, shipType, destination (ships); frp, confidence (fires); magnitude, depthKm, place (earthquakes).',
+            'Attribute predicates, ANDed. ALTITUDE IS METERS (40,000 ft = 12192). Fields: altitudeM, speedMps, military, onGround, aircraftClass, callsign, operator, routeOrigin, routeDestination, originCountry (flights); speedKts, shipType, destination (ships); frp, confidence (fires); magnitude, depthKm, place (earthquakes); kp, gScale (aurora); name, stationId, stationType (buoys); zhr, name (meteors); speedKms, densityPerCm3, tempK, bzGsm (space-weather); name, trend (tides); name, colorCode, alertLevel (volcanoes); snrDb, freqMHz, band, txCall, rxCall (wspr).',
           $position: 1,
         },
         sortBy: {

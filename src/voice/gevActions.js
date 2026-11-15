@@ -4366,6 +4366,28 @@ async function runAnalystQuery(
       'river',
       'output',
       'capacity',
+      // Delta Sweep II U-5 unlock: the newly admitted layers' query fields,
+      // so a superlative answer can name the value it ranked by.
+      'kp',
+      'gScale',
+      'stationId',
+      'stationType',
+      'zhr',
+      'speedKms',
+      'densityPerCm3',
+      'tempK',
+      'bzGsm',
+      'trend',
+      'colorCode',
+      'alertLevel',
+      'spotId',
+      'txCall',
+      'rxCall',
+      'freqMHz',
+      'band',
+      'snrDb',
+      'timeMs',
+      'time',
     ]) {
       if (r[k] !== null && r[k] !== undefined) compact[k] = r[k];
     }
