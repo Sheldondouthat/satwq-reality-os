@@ -35,6 +35,7 @@ import { gracedbProxy } from './wave3/gracedb.js';
 import { nwisGaugesProxy } from './wave3/nwisGauges.js';
 import { glenLynProxy } from './wave3/glenLyn.js';
 import { fusionRiverProxy } from './wave3/fusionRiver.js';
+import { helmTasksProxy } from './helmTasks.js';
 import { nwpsProxy } from './wave3/nwps.js';
 import { sensorCommunityProxy } from './wave3/sensorCommunity.js';
 import { swpcProxy } from './wave3/swpc.js';
@@ -170,6 +171,7 @@ function localProviderPlugins() {
     nwisGaugesProxy(),
     glenLynProxy(),
     fusionRiverProxy(),
+    helmTasksProxy(),
     nwpsProxy(),
     sensorCommunityProxy(),
     swpcProxy(),

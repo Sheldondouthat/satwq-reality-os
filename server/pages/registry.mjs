@@ -405,6 +405,19 @@ const REGISTRY = [
       ),
   },
   {
+    // Helm task read path: serves the Event Contract's task store,
+    // which lives on the Home Node's disk (HELM_TASK_STORE_DIR). The
+    // module graph is workerd-safe (lazy node:fs), so it loads on the
+    // edge — where the node's files are unreachable and the endpoint
+    // answers its honest { unavailable: true } payload, never a
+    // fabricated empty store. On the node's own stack it serves the
+    // live store. Read-only by construction (no write code path).
+    name: 'helm-tasks',
+    routes: ['/api/helm-tasks'],
+    load: () =>
+      import('../providers/helmTasks.js').then((m) => m.helmTasksProxy()),
+  },
+  {
     name: 'nwps',
     routes: ['/api/nwps'],
     load: () => import('../providers/wave3/nwps.js').then((m) => m.nwpsProxy()),

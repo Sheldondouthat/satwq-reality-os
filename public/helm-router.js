@@ -215,6 +215,26 @@ export function routeUtterance(rawText) {
     };
   }
 
+  // Task store read path — world_ask templates over /api/helm-tasks
+  // (the Event Contract's store; Incorporation Spec Candidate 2,
+  // step 3). Read-only: no actuation verb exists for tasks in v0.
+  const taskIdMatch =
+    text.match(/\b(task-[a-z0-9]+(?:-[a-z0-9]+)*)\b/) ||
+    text.match(/\btask\s+(evt-[a-z0-9]+)\b/);
+  if (taskIdMatch) {
+    const raw = taskIdMatch[1];
+    const id = raw.startsWith('task-') ? raw : `task-${raw}`;
+    return { ok: true, calls: [call('world_ask', { template: 'task', id })] };
+  }
+  if (
+    /watching the river|who(?:'s| is) watching|what(?:'s| is) watching/.test(
+      text,
+    ) ||
+    /\btasks?\b/.test(text)
+  ) {
+    return { ok: true, calls: [call('world_ask', { template: 'tasks' })] };
+  }
+
   // §1 exchange 1 — compound: go to the gauge AND answer the river question.
   const place = findPlace(text);
   const riverQuestion =

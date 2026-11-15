@@ -34,6 +34,7 @@ export const GLEN_LYN = Object.freeze({
 });
 
 const RIVER_API = '/api/usgs-water-glen-lyn';
+const TASKS_API = '/api/helm-tasks';
 const WDFN_CONTINUOUS =
   'https://api.waterdata.usgs.gov/ogcapi/v1/collections/continuous/items';
 const CELESTRAK_STATIONS = '/api/celestrak/stations';
@@ -307,14 +308,16 @@ export function createHelmTools({
       };
     },
 
-    async world_ask({ template } = {}) {
+    async world_ask({ template, id } = {}) {
       if (template === 'river-trend') return riverTrend();
       if (template === 'identify-light') return identifyLight();
+      if (template === 'tasks') return taskList();
+      if (template === 'task') return taskInspect(id);
       return {
         ok: false,
         tool: 'world_ask',
         summary:
-          'UNKNOWN — Tier 0 world_ask holds exactly two templates tonight (river-trend, identify-light). ' +
+          'UNKNOWN — Tier 0 world_ask holds exactly four templates tonight (river-trend, identify-light, tasks, task). ' +
           'Open questions route to Tier 1, which is not connected in v0; I will not improvise an answer.',
         citations: [],
       };
@@ -602,6 +605,203 @@ export function createHelmTools({
           note: `${sectorAircraft.length} aircraft in the sector were checked and do not claim the satellite's position.`,
         },
       ],
+    };
+  }
+
+  // ---- Task store read path (Event Contract; world_ask templates
+  // 'tasks' and 'task'). READ-ONLY: the bridge is fetched with GET
+  // only, and no verb in this grammar closes, escalates, or modifies
+  // a task — the write-back verb belongs to the store's own CLI.
+  // The store is the only source: answers cite its records (task id,
+  // bornFrom event id, evidence record ids) or refuse honestly.
+
+  function honestyClass(honesty) {
+    const head = String(honesty || '')
+      .trim()
+      .toLowerCase();
+    if (head.startsWith('measured')) return 'MEASURED';
+    if (head.startsWith('modeled')) return 'MODELED';
+    if (head.startsWith('estimated')) return 'ESTIMATED';
+    return 'UNKNOWN';
+  }
+
+  function birthEventOf(payload, task) {
+    return (payload.lifecycle || []).find((e) => e.eventId === task.bornFrom);
+  }
+
+  function taskCitation(payload, task) {
+    const birth = birthEventOf(payload, task);
+    return {
+      feed: 'event-contract-task-store',
+      endpoint: TASKS_API,
+      dataTimestamp: birth ? birth.t : payload.generatedAt,
+      confidence: honestyClass(task.honesty),
+      note:
+        `Task ${task.id}; bornFrom ${task.bornFrom}; evidence ` +
+        `${(task.evidence || []).join(', ')}; honesty as stored: "${task.honesty}".`,
+    };
+  }
+
+  function storeCitation(payload, note) {
+    const lastEv = payload.lastEvaluation;
+    const lifecycle = payload.lifecycle || [];
+    const lastLife = lifecycle[lifecycle.length - 1];
+    return {
+      feed: 'event-contract-task-store',
+      endpoint: TASKS_API,
+      dataTimestamp: lastEv ? lastEv.t : lastLife ? lastLife.t : payload.generatedAt,
+      confidence: lastEv ? honestyClass(
+        lastEv.confidence ? `${lastEv.confidence.class} (${(lastEv.confidence.qualifiers || []).join(', ')})` : '',
+      ) : 'MEASURED',
+      note,
+    };
+  }
+
+  function describeTask(payload, task) {
+    const birth = birthEventOf(payload, task);
+    const parts = [`Task ${task.id} — "${task.title}".`];
+    parts.push(
+      `State: ${task.state === 'closed' ? 'closed' : `${task.state} (open)`}; stakes ${task.stakes}` +
+        `${task.escalated ? '; escalated (the escalation woke the Helm)' : ''}.`,
+    );
+    if (task.place && task.place.name) {
+      parts.push(
+        `Place: ${task.place.name} (${task.place.lat}, ${task.place.lon}).`,
+      );
+    }
+    if (task.intent) {
+      parts.push(
+        `Intent: ${task.intent}. Capability: ${task.capability}. ` +
+          `Provider: ${task.provider} (owner ${task.owner} is accountable).`,
+      );
+      if (task.authority) {
+        parts.push(
+          `Authority: ${task.authority.rule} Birth clause: ${task.authority.birth}. ` +
+            `Escalation clause: ${task.authority.escalation}.`,
+        );
+      }
+    }
+    parts.push(
+      `Born from event ${task.bornFrom}${birth ? ` (task.born at ${birth.t})` : ''}. ` +
+        `Evidence: ${(task.evidence || []).join(', ')}. Honesty: ${task.honesty}.`,
+    );
+    if (task.evidenceStale) {
+      parts.push(
+        'STALE evidence: this task\'s evidence stream has crossed into STALE — ' +
+          'the task itself carries the evidenceStale label; do not read it as current.',
+      );
+    }
+    if (task.verdict) {
+      parts.push(
+        `Verdict written back: "${task.verdict.outcome}" — closed by ${task.verdict.closed_by}, ` +
+          `citing evidence ${(task.verdict.evidence || []).join(', ')}, evidence time ${task.verdict.data_ts}.`,
+      );
+    } else {
+      parts.push(
+        'Verdict: not yet written back — not yet worked; the task is not done ' +
+          'until the verdict is written.',
+      );
+    }
+    return parts.join(' ');
+  }
+
+  function storeUnavailable(payload) {
+    return {
+      ok: false,
+      tool: 'world_ask',
+      summary:
+        'UNKNOWN — the Event Contract\'s task store lives on the Home Node and ' +
+        'this face cannot reach it (the bridge answered unavailable). Whether ' +
+        'tasks exist is not knowable from here, and I will not guess.',
+      citations: [
+        {
+          feed: 'event-contract-task-store',
+          endpoint: TASKS_API,
+          dataTimestamp: payload.generatedAt,
+          confidence: 'UNKNOWN',
+          note: payload.reason || 'Store unreachable from this face.',
+        },
+      ],
+    };
+  }
+
+  async function taskList() {
+    const payload = await fetchJson(TASKS_API);
+    if (payload.unavailable || payload.reachable === false)
+      return { ...storeUnavailable(payload), template: 'tasks' };
+    const tasks = payload.tasks || [];
+    if (tasks.length === 0) {
+      const ev = payload.lastEvaluation;
+      const evText = ev
+        ? ` The contract's latest evaluation (${ev.eventId}, data time ${ev.t}) read ` +
+          `${ev.payload.stage_ft} ft at ${ev.place.name}, band ${ev.payload.band}, ` +
+          `action ${ev.payload.action} (${ev.payload.reason}) — no crossing, so nothing was born.`
+        : ' No evaluation has been journaled yet either.';
+      return {
+        ok: true,
+        tool: 'world_ask',
+        template: 'tasks',
+        summary: `No tasks born yet — the river is quiet.${evText}`,
+        citations: [
+          storeCitation(
+            payload,
+            `Task store read at ${payload.generatedAt}: ${payload.evaluations} evaluation(s) on record, 0 tasks.`,
+          ),
+        ],
+      };
+    }
+    const open = tasks.filter((t) => t.state !== 'closed');
+    const closed = tasks.filter((t) => t.state === 'closed');
+    return {
+      ok: true,
+      tool: 'world_ask',
+      template: 'tasks',
+      summary:
+        `${tasks.length} task(s) in the Event Contract store — ${open.length} open, ` +
+        `${closed.length} closed. ` +
+        tasks.map((t) => describeTask(payload, t)).join(' '),
+      tasks: tasks.map((t) => t.id),
+      citations: tasks.map((t) => taskCitation(payload, t)),
+    };
+  }
+
+  async function taskInspect(id) {
+    if (!id) {
+      return {
+        ok: false,
+        tool: 'world_ask',
+        template: 'task',
+        summary:
+          'UNKNOWN — no task id was named. Ask what tasks exist, or name a task id to inspect.',
+        citations: [],
+      };
+    }
+    const payload = await fetchJson(
+      `${TASKS_API}?id=${encodeURIComponent(id)}`,
+    );
+    if (payload.unavailable || payload.reachable === false)
+      return { ...storeUnavailable(payload), template: 'task' };
+    if (!payload.found || !payload.task) {
+      const held = (payload.tasks || []).map((t) => t.id);
+      return {
+        ok: false,
+        tool: 'world_ask',
+        template: 'task',
+        summary:
+          `UNKNOWN — the task store holds no task "${id}". The store is the only ` +
+          `source and I will not invent one. It currently holds ${payload.count} task(s)` +
+          `${held.length ? `: ${held.join(', ')}` : ''}.`,
+        citations: [
+          storeCitation(payload, `Store searched for id ${id}; absent.`),
+        ],
+      };
+    }
+    return {
+      ok: true,
+      tool: 'world_ask',
+      template: 'task',
+      summary: describeTask(payload, payload.task),
+      citations: [taskCitation(payload, payload.task)],
     };
   }
 
