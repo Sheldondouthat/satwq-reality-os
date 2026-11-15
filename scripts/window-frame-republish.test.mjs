@@ -6,6 +6,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { stableFrameRecord, frameContentChanged } from './window-frame-republish.mjs';
+import { bandForMHz } from './window-frame/room-records.mjs';
 
 const base = {
   format: 'gev-window-frame/1',
@@ -70,4 +71,47 @@ test('key order does not matter', () => {
     return v;
   };
   assert.equal(frameContentChanged(reorder(base), base), false);
+});
+
+/* ---- generic rooms (deck / mind / signals) ---------------------------- */
+
+const roomBase = {
+  format: 'gev-window-frame/1',
+  room: 'deck',
+  frame_file: 'deck.png',
+  data_ts: '2026-11-15T14:02:20.000Z',
+  data_epoch: 1794753740,
+  rendered_ts: '2026-11-15T14:29:46.000Z',
+  rendered_epoch: 1794755386,
+  age_at_render_seconds: 1646,
+  max_age_seconds: 3600,
+  freshness: { verdict: 'CURRENT', basis: 'record fresh at render' },
+  values: {
+    chain_ok: true,
+    lines: [{ label: 'HELM TASKS', value: '0 OPEN — NO TASKS BORN YET; THE RIVER IS QUIET' }],
+  },
+};
+
+test('generic room: re-render of the same record is NOT a content change', () => {
+  const later = { ...roomBase, rendered_epoch: 1794756286, age_at_render_seconds: 2546 };
+  assert.equal(frameContentChanged(later, roomBase), false);
+});
+
+test('generic room: a changed line (a task is born) IS a content change', () => {
+  const born = {
+    ...roomBase,
+    values: {
+      ...roomBase.values,
+      lines: [{ label: 'HELM TASKS', value: '1 OPEN — RIVER CROSSED CAUTION' }],
+    },
+  };
+  assert.equal(frameContentChanged(born, roomBase), true);
+});
+
+test('bandForMHz names the WSPR bands and refuses strangers', () => {
+  assert.equal(bandForMHz(14.0971), '20M');
+  assert.equal(bandForMHz(10.1402), '30M');
+  assert.equal(bandForMHz(7.0401), '40M');
+  assert.equal(bandForMHz(144.4905), '2M');
+  assert.equal(bandForMHz(9.9999), 'OTHER');
 });
