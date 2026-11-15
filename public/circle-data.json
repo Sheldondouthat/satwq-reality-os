@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-15T18:30:43.442Z",
+  "generated_at": "2026-11-15T18:38:36.909Z",
   "date_et": "2026-11-15",
   "config": {
     "version": "1.0.0",
@@ -252,7 +252,7 @@
   },
   "weather": {
     "ok": true,
-    "fetched_at": "2026-11-15T18:30:59.161Z",
+    "fetched_at": "2026-11-15T18:38:54.987Z",
     "source": "National Weather Service (api.weather.gov)",
     "place": "Pembroke, VA 24136",
     "periods": [
@@ -309,7 +309,7 @@
   },
   "local_news": {
     "ok": true,
-    "fetched_at": "2026-11-15T18:31:05.533Z",
+    "fetched_at": "2026-11-15T18:39:01.655Z",
     "source": "Local news RSS (WVVA / WDBJ7 / Roanoke Times / Virginia Mercury)",
     "outlets": [
       {
@@ -357,7 +357,7 @@
   },
   "world_news": {
     "ok": true,
-    "fetched_at": "2026-11-15T18:31:00.299Z",
+    "fetched_at": "2026-11-15T18:38:57.842Z",
     "source": "NPR News RSS",
     "outlet": "NPR News",
     "items": [
@@ -372,11 +372,6 @@
         "date": "Sun, 15 Nov 2026 08:11:30 -0500"
       },
       {
-        "title": "New Mexico wanted free childcare for all. This is what's worked — and what hasn't",
-        "link": "https://www.npr.org/2026/11/15/nx-s1-6040194/new-mexico-free-universal-childcare-families",
-        "date": "Sun, 15 Nov 2026 05:00:00 -0500"
-      },
-      {
         "title": "Midterm voters ended the long-running GOP dominance in state legislatures",
         "link": "https://www.npr.org/2026/11/15/nx-s1-6039175/midterms-legislatures-states-democrats-gop",
         "date": "Sun, 15 Nov 2026 05:00:00 -0500"
@@ -384,6 +379,11 @@
       {
         "title": "A new generation of disability rights activists carry on Judy Heumann's legacy",
         "link": "https://www.npr.org/2026/11/15/nx-s1-6002935/being-heumann-new-generation-disability-rights",
+        "date": "Sun, 15 Nov 2026 05:00:00 -0500"
+      },
+      {
+        "title": "New Mexico wanted free childcare for all. This is what's worked — and what hasn't",
+        "link": "https://www.npr.org/2026/11/15/nx-s1-6040194/new-mexico-free-universal-childcare-families",
         "date": "Sun, 15 Nov 2026 05:00:00 -0500"
       },
       {
@@ -395,7 +395,7 @@
   },
   "traffic": {
     "ok": true,
-    "fetched_at": "2026-11-15T18:30:51.474Z",
+    "fetched_at": "2026-11-15T18:38:44.947Z",
     "source": "Virginia 511 (VDOT)",
     "link": "https://511virginia.org",
     "note": "Live incident map for Giles County and the New River Valley. No keyless public incident feed is published, so this card links out instead of showing numbers we did not measure.",
@@ -403,7 +403,7 @@
   },
   "quakes": {
     "ok": true,
-    "fetched_at": "2026-11-15T18:30:56.050Z",
+    "fetched_at": "2026-11-15T18:38:51.656Z",
     "source": "USGS Earthquake Hazards Program",
     "global": [
       {
@@ -497,7 +497,7 @@
   },
   "schumann": {
     "ok": true,
-    "fetched_at": "2026-11-15T18:30:50.332Z",
+    "fetched_at": "2026-11-15T18:38:46.721Z",
     "source": "Tomsk State University — Space Observing System (sosrff.tsu.ru)",
     "image": "https://sosrff.tsu.ru/new/shm.jpg",
     "page": "http://sosrff.tsu.ru/?page_id=7",
@@ -505,7 +505,7 @@
   },
   "space_weather": {
     "ok": true,
-    "fetched_at": "2026-11-15T18:30:56.359Z",
+    "fetched_at": "2026-11-15T18:38:55.450Z",
     "source": "NOAA Space Weather Prediction Center",
     "kp_latest": {
       "t": "2026-11-15T15:00:00",
@@ -664,7 +664,7 @@
   },
   "gw": {
     "ok": true,
-    "fetched_at": "2026-11-15T18:30:51.282Z",
+    "fetched_at": "2026-11-15T18:38:46.440Z",
     "source": "LIGO/Virgo/KAGRA GraceDB — public alerts",
     "latest": null,
     "count_week": 0,
@@ -672,7 +672,7 @@
   },
   "space_news": {
     "ok": true,
-    "fetched_at": "2026-11-15T18:30:55.631Z",
+    "fetched_at": "2026-11-15T18:38:55.553Z",
     "source": "Spaceflight News API + NASA APOD",
     "items": [
       {
@@ -721,7 +721,7 @@
   },
   "facebook": {
     "ok": true,
-    "fetched_at": "2026-11-15T18:30:43.510Z",
+    "fetched_at": "2026-11-15T18:38:36.984Z",
     "source": "Facebook (link-out only — no scraping)",
     "linkOnly": true,
     "links": [
@@ -742,7 +742,7 @@
   },
   "moon_sky": {
     "ok": true,
-    "fetched_at": "2026-11-15T18:30:55.934Z",
+    "fetched_at": "2026-11-15T18:38:54.043Z",
     "source": "Computed at build time (solar/lunar math + JPL approximate planetary elements); ISS via wheretheiss.at; showers & eclipses: IMO / NASA reference tables",
     "sunrise_et": "7:02 AM",
     "sunset_et": "5:13 PM",
@@ -916,36 +916,36 @@
       },
       "iss_samples": [
         {
-          "t": "2026-11-15T22:08:55.927Z",
-          "el": 14
+          "t": "2026-11-15T22:08:54.036Z",
+          "el": 13
         },
         {
-          "t": "2026-11-15T22:09:55.927Z",
-          "el": 25
+          "t": "2026-11-15T22:09:54.036Z",
+          "el": 24
         },
         {
-          "t": "2026-11-15T22:10:55.927Z",
-          "el": 47
+          "t": "2026-11-15T22:10:54.036Z",
+          "el": 46
         },
         {
-          "t": "2026-11-15T22:11:55.927Z",
-          "el": 72
+          "t": "2026-11-15T22:11:54.036Z",
+          "el": 73
         },
         {
-          "t": "2026-11-15T22:12:55.927Z",
-          "el": 37
+          "t": "2026-11-15T22:12:54.036Z",
+          "el": 38
         },
         {
-          "t": "2026-11-15T22:13:55.927Z",
-          "el": 20
+          "t": "2026-11-15T22:13:54.036Z",
+          "el": 21
         },
         {
-          "t": "2026-11-15T22:14:55.927Z",
+          "t": "2026-11-15T22:14:54.036Z",
           "el": 11
         },
         {
-          "t": "2026-11-15T22:15:55.927Z",
-          "el": 5
+          "t": "2026-11-15T22:15:54.036Z",
+          "el": 6
         }
       ]
     },
@@ -980,76 +980,76 @@
     },
     "iss": {
       "now": {
-        "lat": -51.44,
-        "lon": -143.63,
-        "alt_km": 438,
-        "velocity_kmh": 27531,
+        "lat": -39.27,
+        "lon": -104.72,
+        "alt_km": 431,
+        "velocity_kmh": 27552,
         "source": "wheretheiss.at (live)"
       },
       "tle": {
         "name": "ISS (ZARYA)",
         "line1": "1 25544U 98067A   26319.33511727  .00010226  00000+0  19082-3 0  9993",
         "line2": "2 25544  51.6322 272.1219 0007375  28.0230 332.1155 15.49391288595180",
-        "fetched_at": "2026-11-15T18:30:50.339Z"
+        "fetched_at": "2026-11-15T18:38:46.431Z"
       },
       "next_visible_pass": {
-        "start": "2026-11-15T22:08:55.927Z",
-        "max_elev_deg": 72
+        "start": "2026-11-15T22:08:54.036Z",
+        "max_elev_deg": 73
       },
       "next_pass": {
-        "start": "2026-11-15T22:08:55.927Z",
-        "max_elev_deg": 72
+        "start": "2026-11-15T22:08:54.036Z",
+        "max_elev_deg": 73
       },
       "pass_samples": [
         {
-          "t": "2026-11-15T22:08:55.927Z",
-          "el": 14
+          "t": "2026-11-15T22:08:54.036Z",
+          "el": 13
         },
         {
-          "t": "2026-11-15T22:09:55.927Z",
-          "el": 25
+          "t": "2026-11-15T22:09:54.036Z",
+          "el": 24
         },
         {
-          "t": "2026-11-15T22:10:55.927Z",
-          "el": 47
+          "t": "2026-11-15T22:10:54.036Z",
+          "el": 46
         },
         {
-          "t": "2026-11-15T22:11:55.927Z",
-          "el": 72
+          "t": "2026-11-15T22:11:54.036Z",
+          "el": 73
         },
         {
-          "t": "2026-11-15T22:12:55.927Z",
-          "el": 37
+          "t": "2026-11-15T22:12:54.036Z",
+          "el": 38
         },
         {
-          "t": "2026-11-15T22:13:55.927Z",
-          "el": 20
+          "t": "2026-11-15T22:13:54.036Z",
+          "el": 21
         },
         {
-          "t": "2026-11-15T22:14:55.927Z",
+          "t": "2026-11-15T22:14:54.036Z",
           "el": 11
         },
         {
-          "t": "2026-11-15T22:15:55.927Z",
-          "el": 5
+          "t": "2026-11-15T22:15:54.036Z",
+          "el": 6
         }
       ]
     }
   },
   "cycles": {
     "ok": true,
-    "fetched_at": "2026-11-15T18:30:43.510Z",
+    "fetched_at": "2026-11-15T18:38:36.984Z",
     "source": "Computed daily from the date and the moon’s position, by each system’s own rules",
     "zodiac_season": "Scorpio",
     "moon_sign": "Aquarius",
     "moon_phase_name": "Waxing Crescent",
-    "void_of_course": "Moon leaves Aquarius and enters Pisces at 3:30 PM ET. The void-of-course stretch is the window before that change (last-aspect timing varies by tradition; the sign change itself is computed).",
+    "void_of_course": "Moon leaves Aquarius and enters Pisces at 3:38 PM ET. The void-of-course stretch is the window before that change (last-aspect timing varies by tradition; the sign change itself is computed).",
     "universal_day": 9,
     "tarot_card": "Three of Pentacles"
   },
   "earth_extras": {
     "ok": true,
-    "fetched_at": "2026-11-15T18:31:06.197Z",
+    "fetched_at": "2026-11-15T18:39:02.593Z",
     "source": "NOAA SWPC · Open-Meteo · NOAA Tides & Currents · NASA NEO · USGS",
     "aurora": {
       "kp_forecast_max": 5,
@@ -1115,11 +1115,11 @@
   },
   "human_world": {
     "ok": true,
-    "fetched_at": "2026-11-15T18:31:05.703Z",
+    "fetched_at": "2026-11-15T18:39:01.285Z",
     "source": "CoinGecko · Wikimedia · Virginia Lottery",
     "bitcoin": {
-      "price_usd": 64645,
-      "change_24h_pct": -1.88
+      "price_usd": 64569,
+      "change_24h_pct": -2.06
     },
     "lottery": {
       "linkOnly": true,
@@ -1151,7 +1151,7 @@
   },
   "findings": {
     "ok": true,
-    "fetched_at": "2026-11-15T18:31:22.482Z",
+    "fetched_at": "2026-11-15T18:39:16.643Z",
     "source": "This page’s own measured record",
     "rule": "Outcomes and data only. Methods are never published here — that is the standing rule of this page.",
     "items": [
@@ -1162,7 +1162,7 @@
   },
   "earth2": {
     "ok": true,
-    "fetched_at": "2026-11-15T18:31:17.877Z",
+    "fetched_at": "2026-11-15T18:39:14.832Z",
     "source": "USGS Water Services · NOAA Tsunami Program · US Drought Monitor · NOAA CPC · NOAA GML · NWS Storm Prediction Center · National Hurricane Center",
     "rivers": {
       "lines": [
@@ -1210,12 +1210,12 @@
   },
   "deep2": {
     "ok": true,
-    "fetched_at": "2026-11-15T18:31:20.770Z",
+    "fetched_at": "2026-11-15T18:39:06.242Z",
     "source": "NOAA SWPC · NASA DONKI · NASA/JPL SSD (Sentry & CNEOS) · NASA DSN Now",
     "scales": {
       "lines": [
         "Today’s NOAA scales — geomagnetic G0 (none), radio blackout R0 (none), radiation S0 (none).",
-        "Dst index now: -6 nT (2026-11-15T17:00:00 UTC).",
+        "Dst index now: -2 nT (2026-11-15T18:00:00 UTC).",
         "IMF Bz: unavailable this build."
       ]
     },
@@ -1227,8 +1227,8 @@
     },
     "cme": {
       "lines": [
-        "Coronal mass ejections catalogued past 7 days (DONKI): 23.",
-        "Latest: 2026-11-15T09:00Z."
+        "Coronal mass ejections catalogued past 7 days (DONKI): 25.",
+        "Latest: 2026-11-15T15:12Z."
       ]
     },
     "sentry": {
@@ -1248,12 +1248,12 @@
     },
     "launches": {
       "ok": false,
-      "error": "This operation was aborted"
+      "error": "HTTP 429"
     }
   },
   "sky_tonight": {
     "ok": true,
-    "fetched_at": "2026-11-15T18:31:20.774Z",
+    "fetched_at": "2026-11-15T18:39:14.835Z",
     "source": "Computed at build time for 37.303° N, 80.602° W (solar/lunar math + JPL approximate planetary elements; Kp outlook by NOAA SWPC)",
     "lines": [
       "Twilight tonight: sunset 5:13 PM · civil dusk 5:41 PM · nautical dusk 6:13 PM · astronomical night from 6:44 PM to 5:32 AM · dawn 7:02 AM.",
@@ -1267,19 +1267,19 @@
   },
   "cycles_full": {
     "ok": true,
-    "fetched_at": "2026-11-15T18:30:43.510Z",
+    "fetched_at": "2026-11-15T18:38:36.984Z",
     "source": "Computed exactly by each system’s own rules — ephemeris from JPL approximate elements, calendars from their standard arithmetic",
     "planets": [
       {
         "name": "Sun",
         "sign": "Scorpio",
-        "degree": 22.9,
+        "degree": 23,
         "retro": false
       },
       {
         "name": "Moon",
         "sign": "Aquarius",
-        "degree": 4.9,
+        "degree": 5,
         "retro": false
       },
       {
@@ -1332,9 +1332,9 @@
       }
     ],
     "aspects": [
-      "Moon square Mercury (orb 0.1°)",
+      "Moon square Mercury (orb 0.0°)",
       "Mars conjunction Jupiter (orb 0.2°)",
-      "Moon conjunction Pluto (orb 2.0°)",
+      "Moon conjunction Pluto (orb 2.1°)",
       "Mercury square Pluto (orb 2.1°)",
       "Sun square Mars (orb 2.3°)",
       "Sun square Jupiter (orb 2.6°)",
@@ -1343,8 +1343,8 @@
     ],
     "lines": [
       "Planetary positions (sign · degree · motion, computed from JPL approximate elements):",
-      "Sun: Scorpio 22.9°",
-      "Moon: Aquarius 4.9°",
+      "Sun: Scorpio 23°",
+      "Moon: Aquarius 5°",
       "Mercury: Scorpio 5.1°",
       "Venus: Libra 22.5°",
       "Mars: Leo 25.3°",
@@ -1353,12 +1353,12 @@
       "Uranus: Pisces 19° — retrograde",
       "Neptune: Aries 12° — retrograde",
       "Pluto: Aquarius 2.9°",
-      "Aspects in orb today: Moon square Mercury (orb 0.1°) · Mars conjunction Jupiter (orb 0.2°) · Moon conjunction Pluto (orb 2.0°) · Mercury square Pluto (orb 2.1°) · Sun square Mars (orb 2.3°) · Sun square Jupiter (orb 2.6°) · Venus sextile Mars (orb 2.8°) · Venus sextile Jupiter (orb 3.0°).",
-      "Void-of-course Moon: last exact major aspect was Moon–Mercury at 1:30 PM ET (30-minute scan); the window closes when the Moon enters Pisces at 3:30 PM ET. Moon is in Aquarius until then.",
+      "Aspects in orb today: Moon square Mercury (orb 0.0°) · Mars conjunction Jupiter (orb 0.2°) · Moon conjunction Pluto (orb 2.1°) · Mercury square Pluto (orb 2.1°) · Sun square Mars (orb 2.3°) · Sun square Jupiter (orb 2.6°) · Venus sextile Mars (orb 2.8°) · Venus sextile Jupiter (orb 3.0°).",
+      "Void-of-course Moon: last exact major aspect was Moon–Mercury at 1:38 PM ET (30-minute scan); the window closes when the Moon enters Pisces at 3:38 PM ET. Moon is in Aquarius until then.",
       "Mercury: direct now · last station stations direct ~Nov 11 (daily scan, ±1 day). Shadow periods run roughly two weeks either side of the stations.",
       "Planetary hour now: Sun (day hour 8 of 12; day ruler Sun). Hours divide sunrise→sunset and sunset→sunrise into twelfths, sequenced by the Chaldean order.",
       "Numerology: Universal Year 1 · Universal Month 3 · Universal Day 9.",
-      "Next full moon: ~Nov 24 — the Beaver Moon · distance ~367,082 km (±6 h scan).",
+      "Next full moon: ~Nov 24 — the Beaver Moon · distance ~367,069 km (±6 h scan).",
       "Next new moon: ~Dec 8 (±6 h scan).",
       "Next solar station: December solstice in ~37 day(s).",
       "Hebrew date: Sunday, 5 Kislev 5787.",
@@ -1374,11 +1374,11 @@
   },
   "human2": {
     "ok": true,
-    "fetched_at": "2026-11-15T18:31:06.112Z",
+    "fetched_at": "2026-11-15T18:39:01.744Z",
     "source": "CoinGecko · data.ny.gov (NY Lottery results) · FEMA Open Data · openFDA",
     "eth": {
       "lines": [
-        "Ethereum: $1,812.89 (-1.48% / 24 h, CoinGecko)."
+        "Ethereum: $1,814.2 (-1.48% / 24 h, CoinGecko)."
       ]
     },
     "metals": {
@@ -2547,21 +2547,21 @@
         "desc": "Ambient beats, fits the observatory",
         "url": "https://ice1.somafm.com/groovesalad-128-mp3",
         "ok": true,
-        "verified_at": "2026-11-15T18:30:43.442Z"
+        "verified_at": "2026-11-15T18:38:36.909Z"
       },
       {
         "name": "SomaFM — Deep Space One",
         "desc": "Deep space ambient",
         "url": "https://ice1.somafm.com/deepspaceone-128-mp3",
         "ok": true,
-        "verified_at": "2026-11-15T18:30:43.442Z"
+        "verified_at": "2026-11-15T18:38:36.909Z"
       },
       {
         "name": "SomaFM — Sonic Universe",
         "desc": "Avant-garde jazz transmissions",
         "url": "https://ice1.somafm.com/sonicuniverse-128-mp3",
         "ok": true,
-        "verified_at": "2026-11-15T18:30:43.442Z"
+        "verified_at": "2026-11-15T18:38:36.909Z"
       },
       {
         "name": "WVTF / Radio IQ",
@@ -2590,7 +2590,7 @@
         "id": "21X5lGlDOfg",
         "embeddable": true,
         "thumb": "https://i.ytimg.com/vi/21X5lGlDOfg/hqdefault.jpg",
-        "verified_at": "2026-11-15T18:30:43.442Z"
+        "verified_at": "2026-11-15T18:38:36.909Z"
       },
       {
         "title": "ISS — Earth from Space (live)",

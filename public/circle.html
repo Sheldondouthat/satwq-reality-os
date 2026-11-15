@@ -162,7 +162,7 @@
     box-shadow:0 8px 26px rgba(223,169,79,.35); }
   #gate-enter:hover { background:linear-gradient(180deg, #ffe3ae, #eab95e); box-shadow:0 10px 30px rgba(223,169,79,.5); }
   .gate-foot { margin-top:18px; color:#7e97ad; font-size:13px; letter-spacing:.05em; }
-  @media (max-width:560px) { .gate-title { font-size:34px; } .emblem { width:132px; height:132px; } #headline { font-size:16.5px; } }
+  @media (max-width:560px) { .gate-title { font-size:34px; } .emblem { width:132px; height:132px; } #headline { font-size:16.5px; } body { padding-bottom:132px; } }
   @media (prefers-reduced-motion: reduce) { .ticker .track { animation:none; } .card, button { transition:none; } .emblem { animation:none; } .shim { animation:none; } }
   /* ===== three tickers ===== */
   #tickers { position:sticky; top:0; z-index:40; }
@@ -1335,14 +1335,17 @@
     var msg = $('ar-msg');
     if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) { msg.textContent = 'This browser cannot open a camera here. The sky chart above carries the same sky, computed.'; return; }
     var begin = function () {
+      var settled = false;
+      var slowTimer = setTimeout(function () { if (!settled) msg.textContent = 'The camera is taking its time — if a permission prompt is waiting, answer it; if nothing appears, this browser or device cannot share a camera here. The sky chart above carries the same sky, computed.'; }, 6000);
       navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' }, audio: false }).then(function (stream) {
+        settled = true; clearTimeout(slowTimer);
         arStream = stream;
         $('arview').classList.remove('hidden'); $('ar-stop').classList.remove('hidden');
         var v = $('ar-video'); v.srcObject = stream; v.play();
         msg.textContent = 'Sky Camera live. Labels are computed on this device from the date, your Pembroke sky, and the phone compass. Calibrate the compass (figure-8 wave) if labels drift.';
         window.addEventListener('deviceorientationabsolute', arOrient = drawAR, true);
         window.addEventListener('deviceorientation', arOrient, true);
-      }).catch(function (e) { msg.textContent = 'Camera not granted (' + e.message + '). No labels without a lens — the sky chart above carries the same sky, computed.'; });
+      }).catch(function (e) { settled = true; clearTimeout(slowTimer); msg.textContent = 'Camera not granted (' + e.message + '). No labels without a lens — the sky chart above carries the same sky, computed.'; });
     };
     if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
       DeviceOrientationEvent.requestPermission().then(function (r) { if (r === 'granted') begin(); else $('ar-msg').textContent = 'Compass permission denied — labels need the compass. The sky chart above carries the same sky.'; }).catch(begin);
@@ -1474,7 +1477,7 @@
       var strongestLocal = (d.quakes.local || []).slice().sort(function (a, b) { return b.mag - a.mag; })[0];
       var fb = (d.deep2.fireball && d.deep2.fireball.lines || [])[0] || '';
       $('bane-live').innerHTML =
-        '<p><span class="badge live">LIVE</span> <strong>Giles County seismic zone:</strong> ' + (d.quakes.local || []).length + ' local events in the current USGS watch window (500 km)' +
+        '<p><span class="badge live">LIVE</span> <strong>Giles County seismic zone:</strong> ' + (d.quakes.local || []).length + ' local event' + ((d.quakes.local || []).length === 1 ? '' : 's') + ' in the current USGS watch window (500 km)' +
         (strongestLocal ? ' · strongest M' + strongestLocal.mag + ' — ' + esc(strongestLocal.place) : '') +
         ' · within 100 km of Pembroke: ' + within100.length + ' micro-quake(s) in the window.</p>' +
         '<p><span class="badge ref" style="background:#2c3550;color:#c9d4ff;padding:1px 7px;border-radius:9px;font-size:11px">REFERENCE</span> <strong>May 31, 1897:</strong> a ~M5.8 earthquake in Giles County — still the largest in Virginia\u2019s recorded history. The zone has not gone quiet since; it is the most active in the state.</p>' +
