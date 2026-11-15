@@ -394,6 +394,17 @@ export const WSPR_CREDIT = {
     '(mirrors wsprnet.org; non-commercial use only)',
 };
 
+/** Registered when a face first renders the S6 RIVER fused verdict. */
+export const FUSION_RIVER_CREDIT = {
+  key: 'fusion-river',
+  html:
+    'S6 RIVER fused verdict: ' +
+    '<a href="https://waterdata.usgs.gov" target="_blank" rel="noopener">USGS NWIS</a> ' +
+    'via WDFN · ' +
+    '<a href="https://www.weather.gov" target="_blank" rel="noopener">NWS</a> · ' +
+    '<a href="https://www.rainviewer.com" target="_blank" rel="noopener">RainViewer</a>',
+};
+
 /** Registered when the first Natural Earth region outline resolves (public
  * domain — no attribution required; credited as a courtesy). */
 export const NATURAL_EARTH_CREDIT = {

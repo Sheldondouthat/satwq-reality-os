@@ -34,6 +34,7 @@ import { neoProxy } from './wave3/neo.js';
 import { gracedbProxy } from './wave3/gracedb.js';
 import { nwisGaugesProxy } from './wave3/nwisGauges.js';
 import { glenLynProxy } from './wave3/glenLyn.js';
+import { fusionRiverProxy } from './wave3/fusionRiver.js';
 import { nwpsProxy } from './wave3/nwps.js';
 import { sensorCommunityProxy } from './wave3/sensorCommunity.js';
 import { swpcProxy } from './wave3/swpc.js';
@@ -157,6 +158,7 @@ function localProviderPlugins() {
     gracedbProxy(),
     nwisGaugesProxy(),
     glenLynProxy(),
+    fusionRiverProxy(),
     nwpsProxy(),
     sensorCommunityProxy(),
     swpcProxy(),

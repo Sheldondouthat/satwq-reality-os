@@ -322,6 +322,14 @@ const REGISTRY = [
       import('../providers/wave3/glenLyn.js').then((m) => m.glenLynProxy()),
   },
   {
+    name: 'fusion-river',
+    routes: ['/api/fusion-river'],
+    load: () =>
+      import('../providers/wave3/fusionRiver.js').then((m) =>
+        m.fusionRiverProxy(),
+      ),
+  },
+  {
     name: 'nwps',
     routes: ['/api/nwps'],
     load: () => import('../providers/wave3/nwps.js').then((m) => m.nwpsProxy()),
