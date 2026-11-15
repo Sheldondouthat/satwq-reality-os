@@ -1,1 +1,159 @@
-{"name":"ns1:timeSeriesResponseType","declaredType":"org.cuahsi.waterml.TimeSeriesResponseType","scope":"javax.xml.bind.JAXBElement$GlobalScope","value":{"queryInfo":{"queryURL":"http://waterservices.usgs.gov/nwis/iv/format=json&sites=353328119144403,353328119144404,353328119144405,353328119144406,355933119062001&parameterCd=72019","criteria":{"locationParam":"[ALL:353328119144403, ALL:353328119144404, ALL:353328119144405, ALL:353328119144406, ALL:355933119062001]","variableParam":"[72019]","parameter":[]},"note":[{"value":"[ALL:353328119144403, ALL:353328119144404, ALL:353328119144405, ALL:353328119144406, ALL:355933119062001]","title":"filter:sites"},{"value":"[mode=LATEST, modifiedSince=null]","title":"filter:timeRange"},{"value":"methodIds=[ALL]","title":"filter:methodId"},{"value":"2026-10-02T23:16:13.856Z","title":"requestDT"},{"value":"430f12f0-beb7-11f1-acac-005056beda50","title":"requestId"},{"value":"Provisional data are subject to revision. Go to http://waterdata.usgs.gov/nwis/help/?provisional for more information.","title":"disclaimer"},{"value":"caas01","title":"server"}]},"timeSeries":[{"sourceInfo":{"siteName":"027S025E26A001M","siteCode":[{"value":"353328119144403","network":"NWIS","agencyCode":"USGS"}],"timeZoneInfo":{"defaultTimeZone":{"zoneOffset":"-08:00","zoneAbbreviation":"PST"},"daylightSavingsTimeZone":{"zoneOffset":"-07:00","zoneAbbreviation":"PDT"},"siteUsesDaylightSavingsTime":true},"geoLocation":{"geogLocation":{"srs":"EPSG:4326","latitude":35.55788889,"longitude":-119.24563889},"localSiteXY":[]},"note":[],"siteType":[],"siteProperty":[{"value":"GW","name":"siteTypeCd"},{"value":"180300040403","name":"hucCd"},{"value":"06","name":"stateCd"},{"value":"06029","name":"countyCd"}]},"variable":{"variableCode":[{"value":"72019","network":"NWIS","vocabulary":"NWIS:UnitValues","variableID":52331280,"default":true}],"variableName":"Depth to water level, ft below land surface","variableDescription":"Depth to water level, feet below land surface","valueType":"Derived Value","unit":{"unitCode":"ft"},"options":{"option":[{"name":"Statistic","optionCode":"00000"}]},"note":[],"noDataValue":-999999.0,"variableProperty":[],"oid":"52331280"},"values":[{"value":[{"value":"450.25","qualifiers":["P"],"dateTime":"2026-10-02T16:00:00.000-07:00"}],"qualifier":[{"qualifierCode":"P","qualifierDescription":"Provisional data subject to revision.","qualifierID":0,"network":"NWIS","vocabulary":"uv_rmk_cd"}],"qualityControlLevel":[],"method":[{"methodDescription":"","methodID":353970}],"source":[],"offset":[],"sample":[],"censorCode":[]}],"name":"USGS:353328119144403:72019:00000"},{"sourceInfo":{"siteName":"027S025E26A002M","siteCode":[{"value":"353328119144404","network":"NWIS","agencyCode":"USGS"}],"timeZoneInfo":{"defaultTimeZone":{"zoneOffset":"-08:00","zoneAbbreviation":"PST"},"daylightSavingsTimeZone":{"zoneOffset":"-07:00","zoneAbbreviation":"PDT"},"siteUsesDaylightSavingsTime":true},"geoLocation":{"geogLocation":{"srs":"EPSG:4326","latitude":35.55788889,"longitude":-119.24563889},"localSiteXY":[]},"note":[],"siteType":[],"siteProperty":[{"value":"GW","name":"siteTypeCd"},{"value":"180300040403","name":"hucCd"},{"value":"06","name":"stateCd"},{"value":"06029","name":"countyCd"}]},"variable":{"variableCode":[{"value":"72019","network":"NWIS","vocabulary":"NWIS:UnitValues","variableID":52331280,"default":true}],"variableName":"Depth to water level, ft below land surface","variableDescription":"Depth to water level, feet below land surface","valueType":"Derived Value","unit":{"unitCode":"ft"},"options":{"option":[{"name":"Statistic","optionCode":"00000"}]},"note":[],"noDataValue":-999999.0,"variableProperty":[],"oid":"52331280"},"values":[{"value":[{"value":"448.59","qualifiers":["P"],"dateTime":"2026-10-02T16:00:00.000-07:00"}],"qualifier":[{"qualifierCode":"P","qualifierDescription":"Provisional data subject to revision.","qualifierID":0,"network":"NWIS","vocabulary":"uv_rmk_cd"}],"qualityControlLevel":[],"method":[{"methodDescription":"","methodID":354077}],"source":[],"offset":[],"sample":[],"censorCode":[]}],"name":"USGS:353328119144404:72019:00000"},{"sourceInfo":{"siteName":"027S025E26A003M","siteCode":[{"value":"353328119144405","network":"NWIS","agencyCode":"USGS"}],"timeZoneInfo":{"defaultTimeZone":{"zoneOffset":"-08:00","zoneAbbreviation":"PST"},"daylightSavingsTimeZone":{"zoneOffset":"-07:00","zoneAbbreviation":"PDT"},"siteUsesDaylightSavingsTime":true},"geoLocation":{"geogLocation":{"srs":"EPSG:4326","latitude":35.55788889,"longitude":-119.24563889},"localSiteXY":[]},"note":[],"siteType":[],"siteProperty":[{"value":"GW","name":"siteTypeCd"},{"value":"180300040403","name":"hucCd"},{"value":"06","name":"stateCd"},{"value":"06029","name":"countyCd"}]},"variable":{"variableCode":[{"value":"72019","network":"NWIS","vocabulary":"NWIS:UnitValues","variableID":52331280,"default":true}],"variableName":"Depth to water level, ft below land surface","variableDescription":"Depth to water level, feet below land surface","valueType":"Derived Value","unit":{"unitCode":"ft"},"options":{"option":[{"name":"Statistic","optionCode":"00000"}]},"note":[],"noDataValue":-999999.0,"variableProperty":[],"oid":"52331280"},"values":[{"value":[{"value":"442.97","qualifiers":["P"],"dateTime":"2026-10-02T16:00:00.000-07:00"}],"qualifier":[{"qualifierCode":"P","qualifierDescription":"Provisional data subject to revision.","qualifierID":0,"network":"NWIS","vocabulary":"uv_rmk_cd"}],"qualityControlLevel":[],"method":[{"methodDescription":"","methodID":354081}],"source":[],"offset":[],"sample":[],"censorCode":[]}],"name":"USGS:353328119144405:72019:00000"},{"sourceInfo":{"siteName":"027S025E26A004M","siteCode":[{"value":"353328119144406","network":"NWIS","agencyCode":"USGS"}],"timeZoneInfo":{"defaultTimeZone":{"zoneOffset":"-08:00","zoneAbbreviation":"PST"},"daylightSavingsTimeZone":{"zoneOffset":"-07:00","zoneAbbreviation":"PDT"},"siteUsesDaylightSavingsTime":true},"geoLocation":{"geogLocation":{"srs":"EPSG:4326","latitude":35.55788889,"longitude":-119.24563889},"localSiteXY":[]},"note":[],"siteType":[],"siteProperty":[{"value":"GW","name":"siteTypeCd"},{"value":"180300040403","name":"hucCd"},{"value":"06","name":"stateCd"},{"value":"06029","name":"countyCd"}]},"variable":{"variableCode":[{"value":"72019","network":"NWIS","vocabulary":"NWIS:UnitValues","variableID":52331280,"default":true}],"variableName":"Depth to water level, ft below land surface","variableDescription":"Depth to water level, feet below land surface","valueType":"Derived Value","unit":{"unitCode":"ft"},"options":{"option":[{"name":"Statistic","optionCode":"00000"}]},"note":[],"noDataValue":-999999.0,"variableProperty":[],"oid":"52331280"},"values":[{"value":[{"value":"440.26","qualifiers":["P"],"dateTime":"2026-10-02T16:00:00.000-07:00"}],"qualifier":[{"qualifierCode":"P","qualifierDescription":"Provisional data subject to revision.","qualifierID":0,"network":"NWIS","vocabulary":"uv_rmk_cd"}],"qualityControlLevel":[],"method":[{"methodDescription":"","methodID":354085}],"source":[],"offset":[],"sample":[],"censorCode":[]}],"name":"USGS:353328119144406:72019:00000"},{"sourceInfo":{"siteName":"022S027E30D002M","siteCode":[{"value":"355933119062001","network":"NWIS","agencyCode":"USGS"}],"timeZoneInfo":{"defaultTimeZone":{"zoneOffset":"-08:00","zoneAbbreviation":"PST"},"daylightSavingsTimeZone":{"zoneOffset":"-07:00","zoneAbbreviation":"PDT"},"siteUsesDaylightSavingsTime":true},"geoLocation":{"geogLocation":{"srs":"EPSG:4326","latitude":35.99291667,"longitude":-119.1065},"localSiteXY":[]},"note":[],"siteType":[],"siteProperty":[{"value":"GW-EX","name":"siteTypeCd"},{"value":"18030005","name":"hucCd"},{"value":"06","name":"stateCd"},{"value":"06107","name":"countyCd"}]},"variable":{"variableCode":[{"value":"72019","network":"NWIS","vocabulary":"NWIS:UnitValues","variableID":52331280,"default":true}],"variableName":"Depth to water level, ft below land surface","variableDescription":"Depth to water level, feet below land surface","valueType":"Derived Value","unit":{"unitCode":"ft"},"options":{"option":[{"name":"Statistic","optionCode":"00000"}]},"note":[],"noDataValue":-999999.0,"variableProperty":[],"oid":"52331280"},"values":[{"value":[{"value":"365.52","qualifiers":["P"],"dateTime":"2026-10-02T16:00:00.000-07:00"}],"qualifier":[{"qualifierCode":"P","qualifierDescription":"Provisional data subject to revision.","qualifierID":0,"network":"NWIS","vocabulary":"uv_rmk_cd"}],"qualityControlLevel":[],"method":[{"methodDescription":"","methodID":238353}],"source":[],"offset":[],"sample":[],"censorCode":[]}],"name":"USGS:355933119062001:72019:00000"}]},"nil":false,"globalScope":true,"typeSubstituted":false}
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "time_series_id": "3ed0292f2bfe46f586463933f6cb29ef",
+        "monitoring_location_id": "USGS-355933119062001",
+        "parameter_code": "72019",
+        "statistic_id": "00011",
+        "time": "2026-11-15T14:00:00+00:00",
+        "value": "340.09",
+        "unit_of_measure": "ft",
+        "approval_status": "Provisional",
+        "qualifier": null,
+        "last_modified": "2026-11-15T14:09:24.670717+00:00",
+        "method_category": "STNRD"
+      },
+      "id": "14b4ef31-5868-485d-b196-b326b9574b5e",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.1065,
+          35.9929166666667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "time_series_id": "7521fbe02bf245f190dc29b1e979e9ff",
+        "monitoring_location_id": "USGS-353328119144405",
+        "parameter_code": "72019",
+        "statistic_id": "00011",
+        "time": "2026-11-15T14:00:00+00:00",
+        "value": "427.09",
+        "unit_of_measure": "ft",
+        "approval_status": "Provisional",
+        "qualifier": null,
+        "last_modified": "2026-11-15T14:08:32.096635+00:00",
+        "method_category": "STNRD"
+      },
+      "id": "40242976-adc7-4880-ace6-2fe82b77a04c",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.24563888888889,
+          35.55788888888888
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "time_series_id": "f4f8a8ba15ef40e8b88e12bf9f9dc516",
+        "monitoring_location_id": "USGS-353328119144403",
+        "parameter_code": "72019",
+        "statistic_id": "00011",
+        "time": "2026-11-15T14:00:00+00:00",
+        "value": "429.99",
+        "unit_of_measure": "ft",
+        "approval_status": "Provisional",
+        "qualifier": null,
+        "last_modified": "2026-11-15T14:08:31.733623+00:00",
+        "method_category": "STNRD"
+      },
+      "id": "e663b52c-048e-4f78-92d7-ac40b35b983f",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.24563888888889,
+          35.55788888888888
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "time_series_id": "dbca97db807e4ee69e0a06c026973af1",
+        "monitoring_location_id": "USGS-353328119144406",
+        "parameter_code": "72019",
+        "statistic_id": "00011",
+        "time": "2026-11-15T14:00:00+00:00",
+        "value": "426.05",
+        "unit_of_measure": "ft",
+        "approval_status": "Provisional",
+        "qualifier": null,
+        "last_modified": "2026-11-15T14:08:32.912461+00:00",
+        "method_category": "STNRD"
+      },
+      "id": "f01d7620-a94b-4165-aee2-3c562a9d2b67",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.24563888888889,
+          35.55788888888888
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "time_series_id": "fc70dd7cdaee488e8af8b6e738674102",
+        "monitoring_location_id": "USGS-353328119144404",
+        "parameter_code": "72019",
+        "statistic_id": "00011",
+        "time": "2026-11-05T16:00:00+00:00",
+        "value": "428.84",
+        "unit_of_measure": "ft",
+        "approval_status": "Provisional",
+        "qualifier": null,
+        "last_modified": "2026-11-15T09:09:39.341436+00:00",
+        "method_category": "STNRD"
+      },
+      "id": "f82bbd91-6c88-4bfa-8415-2fe0ad3095aa",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.24563888888889,
+          35.55788888888888
+        ]
+      }
+    }
+  ],
+  "numberReturned": 5,
+  "links": [
+    {
+      "type": "application/geo+json",
+      "rel": "self",
+      "title": "This document as GeoJSON",
+      "href": "https://api.waterdata.usgs.gov/ogcapi/v1/collections/latest-continuous/items?f=json&monitoring_location_number=353328119144403,353328119144404,353328119144405,353328119144406,355933119062001&parameter_code=72019&limit=100"
+    },
+    {
+      "rel": "alternate",
+      "type": "application/ld+json",
+      "title": "This document as RDF (JSON-LD)",
+      "href": "https://api.waterdata.usgs.gov/ogcapi/v1/collections/latest-continuous/items?f=jsonld&monitoring_location_number=353328119144403,353328119144404,353328119144405,353328119144406,355933119062001&parameter_code=72019&limit=100"
+    },
+    {
+      "type": "text/html",
+      "rel": "alternate",
+      "title": "This document as HTML",
+      "href": "https://api.waterdata.usgs.gov/ogcapi/v1/collections/latest-continuous/items?f=html&monitoring_location_number=353328119144403,353328119144404,353328119144405,353328119144406,355933119062001&parameter_code=72019&limit=100"
+    },
+    {
+      "type": "text/csv; charset=utf-8",
+      "rel": "alternate",
+      "title": "This document as CSV",
+      "href": "https://api.waterdata.usgs.gov/ogcapi/v1/collections/latest-continuous/items?f=csv&monitoring_location_number=353328119144403,353328119144404,353328119144405,353328119144406,355933119062001&parameter_code=72019&limit=100"
+    },
+    {
+      "type": "application/json",
+      "title": "Latest continuous",
+      "rel": "collection",
+      "href": "https://api.waterdata.usgs.gov/ogcapi/v1/collections/latest-continuous"
+    }
+  ],
+  "timeStamp": "2026-11-15T14:13:49.190296Z"
+}

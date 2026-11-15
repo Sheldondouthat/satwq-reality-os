@@ -1,1 +1,495 @@
-{"name": "ns1:timeSeriesResponseType", "declaredType": "org.cuahsi.waterml.TimeSeriesResponseType", "scope": "javax.xml.bind.JAXBElement$GlobalScope", "value": {"queryInfo": {"queryURL": "http://waterservices.usgs.gov/nwis/iv/format=json&bBox=-103.5,39.5,-100.5,41.5&siteType=GW&parameterCd=72019", "criteria": {"locationParam": "[-103.5,39.5,-100.5,41.5]", "variableParam": "[72019]", "parameter": []}, "note": [{"value": "[-103.5,39.5,-100.5,41.5]", "title": "filter:bbox"}, {"value": "[GW]", "title": "filter:siteType"}, {"value": "[mode=LATEST, modifiedSince=null]", "title": "filter:timeRange"}, {"value": "methodIds=[ALL]", "title": "filter:methodId"}, {"value": "2026-10-02T19:39:32.067Z", "title": "requestDT"}, {"value": "fa7a6df0-be98-11f1-b7dc-2cea7f58f5ca", "title": "requestId"}, {"value": "Provisional data are subject to revision. Go to http://waterdata.usgs.gov/nwis/help/?provisional for more information.", "title": "disclaimer"}, {"value": "vaas01", "title": "server"}]}, "timeSeries": [{"sourceInfo": {"siteName": "1N 40W 29BB2 Haigler", "siteCode": [{"value": "400155101521302", "network": "NWIS", "agencyCode": "USGS"}], "timeZoneInfo": {"defaultTimeZone": {"zoneOffset": "-07:00", "zoneAbbreviation": "MST"}, "daylightSavingsTimeZone": {"zoneOffset": "-06:00", "zoneAbbreviation": "MDT"}, "siteUsesDaylightSavingsTime": true}, "geoLocation": {"geogLocation": {"srs": "EPSG:4326", "latitude": 40.0286722, "longitude": -101.8712611}, "localSiteXY": []}, "note": [], "siteType": [], "siteProperty": [{"value": "GW", "name": "siteTypeCd"}, {"value": "10250002", "name": "hucCd"}, {"value": "31", "name": "stateCd"}, {"value": "31057", "name": "countyCd"}]}, "variable": {"variableCode": [{"value": "72019", "network": "NWIS", "vocabulary": "NWIS:UnitValues", "variableID": 52331280, "default": true}], "variableName": "Depth to water level, ft below land surface", "variableDescription": "Depth to water level, feet below land surface", "valueType": "Derived Value", "unit": {"unitCode": "ft"}, "options": {"option": [{"name": "Statistic", "optionCode": "00000"}]}, "note": [], "noDataValue": -999999.0, "variableProperty": [], "oid": "52331280"}, "values": [{"value": [{"value": "17.29", "qualifiers": ["A"], "dateTime": "2024-10-16T12:45:00.000-06:00"}], "qualifier": [{"qualifierCode": "A", "qualifierDescription": "Approved for publication -- Processing and review completed.", "qualifierID": 0, "network": "NWIS", "vocabulary": "uv_rmk_cd"}], "qualityControlLevel": [], "method": [{"methodDescription": "", "methodID": 95103}], "source": [], "offset": [], "sample": [], "censorCode": []}], "name": "USGS:400155101521302:72019:00000"}, {"sourceInfo": {"siteName": "  2N 38W10DD  1  BENKELMAN", "siteCode": [{"value": "400852101352701", "network": "NWIS", "agencyCode": "USGS"}], "timeZoneInfo": {"defaultTimeZone": {"zoneOffset": "-07:00", "zoneAbbreviation": "MST"}, "daylightSavingsTimeZone": {"zoneOffset": "-06:00", "zoneAbbreviation": "MDT"}, "siteUsesDaylightSavingsTime": true}, "geoLocation": {"geogLocation": {"srs": "EPSG:4326", "latitude": 40.14832705, "longitude": -101.59628}, "localSiteXY": []}, "note": [], "siteType": [], "siteProperty": [{"value": "GW", "name": "siteTypeCd"}, {"value": "10250004", "name": "hucCd"}, {"value": "31", "name": "stateCd"}, {"value": "31057", "name": "countyCd"}]}, "variable": {"variableCode": [{"value": "72019", "network": "NWIS", "vocabulary": "NWIS:UnitValues", "variableID": 52331280, "default": true}], "variableName": "Depth to water level, ft below land surface", "variableDescription": "Depth to water level, feet below land surface", "valueType": "Derived Value", "unit": {"unitCode": "ft"}, "options": {"option": [{"name": "Statistic", "optionCode": "00000"}]}, "note": [], "noDataValue": -999999.0, "variableProperty": [], "oid": "52331280"}, "values": [{"value": [{"value": "141.75", "qualifiers": ["A"], "dateTime": "2016-11-27T23:00:00.000-07:00"}], "qualifier": [{"qualifierCode": "A", "qualifierDescription": "Approved for publication -- Processing and review completed.", "qualifierID": 0, "network": "NWIS", "vocabulary": "uv_rmk_cd"}], "qualityControlLevel": [], "method": [{"methodDescription": "", "methodID": 95108}], "source": [], "offset": [], "sample": [], "censorCode": []}], "name": "USGS:400852101352701:72019:00000"}, {"sourceInfo": {"siteName": "  3N 40W16BBB 1  Lamont", "siteCode": [{"value": "401401101510701", "network": "NWIS", "agencyCode": "USGS"}], "timeZoneInfo": {"defaultTimeZone": {"zoneOffset": "-07:00", "zoneAbbreviation": "MST"}, "daylightSavingsTimeZone": {"zoneOffset": "-06:00", "zoneAbbreviation": "MDT"}, "siteUsesDaylightSavingsTime": true}, "geoLocation": {"geogLocation": {"srs": "EPSG:4326", "latitude": 40.2336037, "longitude": -101.8524003}, "localSiteXY": []}, "note": [], "siteType": [], "siteProperty": [{"value": "GW", "name": "siteTypeCd"}, {"value": "10250002", "name": "hucCd"}, {"value": "31", "name": "stateCd"}, {"value": "31057", "name": "countyCd"}]}, "variable": {"variableCode": [{"value": "72019", "network": "NWIS", "vocabulary": "NWIS:UnitValues", "variableID": 52331280, "default": true}], "variableName": "Depth to water level, ft below land surface", "variableDescription": "Depth to water level, feet below land surface", "valueType": "Derived Value", "unit": {"unitCode": "ft"}, "options": {"option": [{"name": "Statistic", "optionCode": "00000"}]}, "note": [], "noDataValue": -999999.0, "variableProperty": [], "oid": "52331280"}, "values": [{"value": [{"value": "91.89", "qualifiers": ["A"], "dateTime": "2016-11-27T23:45:00.000-07:00"}], "qualifier": [{"qualifierCode": "A", "qualifierDescription": "Approved for publication -- Processing and review completed.", "qualifierID": 0, "network": "NWIS", "vocabulary": "uv_rmk_cd"}], "qualityControlLevel": [], "method": [{"methodDescription": "", "methodID": 95109}], "source": [], "offset": [], "sample": [], "censorCode": []}], "name": "USGS:401401101510701:72019:00000"}, {"sourceInfo": {"siteName": "  4N 38W30BCC 1  ENDERS", "siteCode": [{"value": "401703101394801", "network": "NWIS", "agencyCode": "USGS"}], "timeZoneInfo": {"defaultTimeZone": {"zoneOffset": "-07:00", "zoneAbbreviation": "MST"}, "daylightSavingsTimeZone": {"zoneOffset": "-06:00", "zoneAbbreviation": "MDT"}, "siteUsesDaylightSavingsTime": true}, "geoLocation": {"geogLocation": {"srs": "EPSG:4326", "latitude": 40.28582667, "longitude": -101.6632265}, "localSiteXY": []}, "note": [], "siteType": [], "siteProperty": [{"value": "GW", "name": "siteTypeCd"}, {"value": "10250004", "name": "hucCd"}, {"value": "31", "name": "stateCd"}, {"value": "31057", "name": "countyCd"}]}, "variable": {"variableCode": [{"value": "72019", "network": "NWIS", "vocabulary": "NWIS:UnitValues", "variableID": 52331280, "default": true}], "variableName": "Depth to water level, ft below land surface", "variableDescription": "Depth to water level, feet below land surface", "valueType": "Derived Value", "unit": {"unitCode": "ft"}, "options": {"option": [{"name": "Statistic", "optionCode": "00000"}]}, "note": [], "noDataValue": -999999.0, "variableProperty": [], "oid": "52331280"}, "values": [{"value": [{"value": "84.64", "qualifiers": ["A"], "dateTime": "2016-11-27T23:00:00.000-07:00"}], "qualifier": [{"qualifierCode": "A", "qualifierDescription": "Approved for publication -- Processing and review completed.", "qualifierID": 0, "network": "NWIS", "vocabulary": "uv_rmk_cd"}], "qualityControlLevel": [], "method": [{"methodDescription": "", "methodID": 95114}], "source": [], "offset": [], "sample": [], "censorCode": []}], "name": "USGS:401703101394801:72019:00000"}, {"sourceInfo": {"siteName": "SB00505404ADD NAWQA 14", "siteCode": [{"value": "402538103242001", "network": "NWIS", "agencyCode": "USGS"}], "timeZoneInfo": {"defaultTimeZone": {"zoneOffset": "-07:00", "zoneAbbreviation": "MST"}, "daylightSavingsTimeZone": {"zoneOffset": "-06:00", "zoneAbbreviation": "MDT"}, "siteUsesDaylightSavingsTime": true}, "geoLocation": {"geogLocation": {"srs": "EPSG:4326", "latitude": 40.42899167, "longitude": -103.4074278}, "localSiteXY": []}, "note": [], "siteType": [], "siteProperty": [{"value": "GW", "name": "siteTypeCd"}, {"value": "10190012", "name": "hucCd"}, {"value": "08", "name": "stateCd"}, {"value": "08121", "name": "countyCd"}]}, "variable": {"variableCode": [{"value": "72019", "network": "NWIS", "vocabulary": "NWIS:UnitValues", "variableID": 52331280, "default": true}], "variableName": "Depth to water level, ft below land surface", "variableDescription": "Depth to water level, feet below land surface", "valueType": "Derived Value", "unit": {"unitCode": "ft"}, "options": {"option": [{"name": "Statistic", "optionCode": "00000"}]}, "note": [], "noDataValue": -999999.0, "variableProperty": [], "oid": "52331280"}, "values": [{"value": [{"value": "9.78", "qualifiers": ["A"], "dateTime": "2018-11-07T13:00:00.000-07:00"}], "qualifier": [{"qualifierCode": "A", "qualifierDescription": "Approved for publication -- Processing and review completed.", "qualifierID": 0, "network": "NWIS", "vocabulary": "uv_rmk_cd"}], "qualityControlLevel": [], "method": [{"methodDescription": "", "methodID": 218456}], "source": [], "offset": [], "sample": [], "censorCode": []}], "name": "USGS:402538103242001:72019:00000"}, {"sourceInfo": {"siteName": "SB00605311CCC NAWQA 16", "siteCode": [{"value": "402955103163501", "network": "NWIS", "agencyCode": "USGS"}], "timeZoneInfo": {"defaultTimeZone": {"zoneOffset": "-07:00", "zoneAbbreviation": "MST"}, "daylightSavingsTimeZone": {"zoneOffset": "-06:00", "zoneAbbreviation": "MDT"}, "siteUsesDaylightSavingsTime": true}, "geoLocation": {"geogLocation": {"srs": "EPSG:4326", "latitude": 40.498475, "longitude": -103.2749806}, "localSiteXY": []}, "note": [], "siteType": [], "siteProperty": [{"value": "GW", "name": "siteTypeCd"}, {"value": "10190012", "name": "hucCd"}, {"value": "08", "name": "stateCd"}, {"value": "08075", "name": "countyCd"}]}, "variable": {"variableCode": [{"value": "72019", "network": "NWIS", "vocabulary": "NWIS:UnitValues", "variableID": 52331280, "default": true}], "variableName": "Depth to water level, ft below land surface", "variableDescription": "Depth to water level, feet below land surface", "valueType": "Derived Value", "unit": {"unitCode": "ft"}, "options": {"option": [{"name": "Statistic", "optionCode": "00000"}]}, "note": [], "noDataValue": -999999.0, "variableProperty": [], "oid": "52331280"}, "values": [{"value": [{"value": "16.07", "qualifiers": ["A"], "dateTime": "2018-11-07T12:00:00.000-07:00"}], "qualifier": [{"qualifierCode": "A", "qualifierDescription": "Approved for publication -- Processing and review completed.", "qualifierID": 0, "network": "NWIS", "vocabulary": "uv_rmk_cd"}], "qualityControlLevel": [], "method": [{"methodDescription": "", "methodID": 218468}], "source": [], "offset": [], "sample": [], "censorCode": []}], "name": "USGS:402955103163501:72019:00000"}, {"sourceInfo": {"siteName": "  7N 38W29CBB 1 IMPERIAL", "siteCode": [{"value": "403235101395501", "network": "NWIS", "agencyCode": "USGS"}], "timeZoneInfo": {"defaultTimeZone": {"zoneOffset": "-07:00", "zoneAbbreviation": "MST"}, "daylightSavingsTimeZone": {"zoneOffset": "-06:00", "zoneAbbreviation": "MDT"}, "siteUsesDaylightSavingsTime": true}, "geoLocation": {"geogLocation": {"srs": "EPSG:4326", "latitude": 40.5447181, "longitude": -101.6668369}, "localSiteXY": []}, "note": [], "siteType": [], "siteProperty": [{"value": "GW", "name": "siteTypeCd"}, {"value": "10250006", "name": "hucCd"}, {"value": "31", "name": "stateCd"}, {"value": "31029", "name": "countyCd"}]}, "variable": {"variableCode": [{"value": "72019", "network": "NWIS", "vocabulary": "NWIS:UnitValues", "variableID": 52331280, "default": true}], "variableName": "Depth to water level, ft below land surface", "variableDescription": "Depth to water level, feet below land surface", "valueType": "Derived Value", "unit": {"unitCode": "ft"}, "options": {"option": [{"name": "Statistic", "optionCode": "00000"}]}, "note": [], "noDataValue": -999999.0, "variableProperty": [], "oid": "52331280"}, "values": [{"value": [{"value": "110.79", "qualifiers": ["A"], "dateTime": "2016-11-27T23:45:00.000-07:00"}], "qualifier": [{"qualifierCode": "A", "qualifierDescription": "Approved for publication -- Processing and review completed.", "qualifierID": 0, "network": "NWIS", "vocabulary": "uv_rmk_cd"}], "qualityControlLevel": [], "method": [{"methodDescription": "", "methodID": 95130}], "source": [], "offset": [], "sample": [], "censorCode": []}], "name": "USGS:403235101395501:72019:00000"}, {"sourceInfo": {"siteName": "SB00705317BCB1 NAWQA 17", "siteCode": [{"value": "403426103200401", "network": "NWIS", "agencyCode": "USGS"}], "timeZoneInfo": {"defaultTimeZone": {"zoneOffset": "-07:00", "zoneAbbreviation": "MST"}, "daylightSavingsTimeZone": {"zoneOffset": "-06:00", "zoneAbbreviation": "MDT"}, "siteUsesDaylightSavingsTime": true}, "geoLocation": {"geogLocation": {"srs": "EPSG:4326", "latitude": 40.57435556, "longitude": -103.3344917}, "localSiteXY": []}, "note": [], "siteType": [], "siteProperty": [{"value": "GW", "name": "siteTypeCd"}, {"value": "10190012", "name": "hucCd"}, {"value": "08", "name": "stateCd"}, {"value": "08075", "name": "countyCd"}]}, "variable": {"variableCode": [{"value": "72019", "network": "NWIS", "vocabulary": "NWIS:UnitValues", "variableID": 52331280, "default": true}], "variableName": "Depth to water level, ft below land surface", "variableDescription": "Depth to water level, feet below land surface", "valueType": "Derived Value", "unit": {"unitCode": "ft"}, "options": {"option": [{"name": "Statistic", "optionCode": "00000"}]}, "note": [], "noDataValue": -999999.0, "variableProperty": [], "oid": "52331280"}, "values": [{"value": [{"value": "16.96", "qualifiers": ["A"], "dateTime": "2018-11-07T11:00:00.000-07:00"}], "qualifier": [{"qualifierCode": "A", "qualifierDescription": "Approved for publication -- Processing and review completed.", "qualifierID": 0, "network": "NWIS", "vocabulary": "uv_rmk_cd"}], "qualityControlLevel": [], "method": [{"methodDescription": "", "methodID": 218470}], "source": [], "offset": [], "sample": [], "censorCode": []}], "name": "USGS:403426103200401:72019:00000"}, {"sourceInfo": {"siteName": "  7N 41W11DAA 1  LAMAR", "siteCode": [{"value": "403516101560601", "network": "NWIS", "agencyCode": "USGS"}], "timeZoneInfo": {"defaultTimeZone": {"zoneOffset": "-07:00", "zoneAbbreviation": "MST"}, "daylightSavingsTimeZone": {"zoneOffset": "-06:00", "zoneAbbreviation": "MDT"}, "siteUsesDaylightSavingsTime": true}, "geoLocation": {"geogLocation": {"srs": "EPSG:4326", "latitude": 40.58777385, "longitude": -101.9354582}, "localSiteXY": []}, "note": [], "siteType": [], "siteProperty": [{"value": "GW", "name": "siteTypeCd"}, {"value": "10250005", "name": "hucCd"}, {"value": "31", "name": "stateCd"}, {"value": "31029", "name": "countyCd"}]}, "variable": {"variableCode": [{"value": "72019", "network": "NWIS", "vocabulary": "NWIS:UnitValues", "variableID": 52331280, "default": true}], "variableName": "Depth to water level, ft below land surface", "variableDescription": "Depth to water level, feet below land surface", "valueType": "Derived Value", "unit": {"unitCode": "ft"}, "options": {"option": [{"name": "Statistic", "optionCode": "00000"}]}, "note": [], "noDataValue": -999999.0, "variableProperty": [], "oid": "52331280"}, "values": [{"value": [{"value": "117.17", "qualifiers": ["A"], "dateTime": "2016-11-27T23:00:00.000-07:00"}], "qualifier": [{"qualifierCode": "A", "qualifierDescription": "Approved for publication -- Processing and review completed.", "qualifierID": 0, "network": "NWIS", "vocabulary": "uv_rmk_cd"}], "qualityControlLevel": [], "method": [{"methodDescription": "", "methodID": 95135}], "source": [], "offset": [], "sample": [], "censorCode": []}], "name": "USGS:403516101560601:72019:00000"}, {"sourceInfo": {"siteName": "SB00805201CCD NAWQA 18", "siteCode": [{"value": "404106103082201", "network": "NWIS", "agencyCode": "USGS"}], "timeZoneInfo": {"defaultTimeZone": {"zoneOffset": "-07:00", "zoneAbbreviation": "MST"}, "daylightSavingsTimeZone": {"zoneOffset": "-06:00", "zoneAbbreviation": "MDT"}, "siteUsesDaylightSavingsTime": true}, "geoLocation": {"geogLocation": {"srs": "EPSG:4326", "latitude": 40.6850083, "longitude": -103.1395222}, "localSiteXY": []}, "note": [], "siteType": [], "siteProperty": [{"value": "GW", "name": "siteTypeCd"}, {"value": "10190012", "name": "hucCd"}, {"value": "08", "name": "stateCd"}, {"value": "08075", "name": "countyCd"}]}, "variable": {"variableCode": [{"value": "72019", "network": "NWIS", "vocabulary": "NWIS:UnitValues", "variableID": 52331280, "default": true}], "variableName": "Depth to water level, ft below land surface", "variableDescription": "Depth to water level, feet below land surface", "valueType": "Derived Value", "unit": {"unitCode": "ft"}, "options": {"option": [{"name": "Statistic", "optionCode": "00000"}]}, "note": [], "noDataValue": -999999.0, "variableProperty": [], "oid": "52331280"}, "values": [{"value": [{"value": "4.67", "qualifiers": ["A"], "dateTime": "2018-11-06T13:00:00.000-07:00"}], "qualifier": [{"qualifierCode": "A", "qualifierDescription": "Approved for publication -- Processing and review completed.", "qualifierID": 0, "network": "NWIS", "vocabulary": "uv_rmk_cd"}], "qualityControlLevel": [], "method": [{"methodDescription": "", "methodID": 218478}], "source": [], "offset": [], "sample": [], "censorCode": []}], "name": "USGS:404106103082201:72019:00000"}, {"sourceInfo": {"siteName": "SB00905130DAA NAWQA 19", "siteCode": [{"value": "404320103053801", "network": "NWIS", "agencyCode": "USGS"}], "timeZoneInfo": {"defaultTimeZone": {"zoneOffset": "-07:00", "zoneAbbreviation": "MST"}, "daylightSavingsTimeZone": {"zoneOffset": "-06:00", "zoneAbbreviation": "MDT"}, "siteUsesDaylightSavingsTime": true}, "geoLocation": {"geogLocation": {"srs": "EPSG:4326", "latitude": 40.72216667, "longitude": -103.0945944}, "localSiteXY": []}, "note": [], "siteType": [], "siteProperty": [{"value": "GW", "name": "siteTypeCd"}, {"value": "10190012", "name": "hucCd"}, {"value": "08", "name": "stateCd"}, {"value": "08075", "name": "countyCd"}]}, "variable": {"variableCode": [{"value": "72019", "network": "NWIS", "vocabulary": "NWIS:UnitValues", "variableID": 52331280, "default": true}], "variableName": "Depth to water level, ft below land surface", "variableDescription": "Depth to water level, feet below land surface", "valueType": "Derived Value", "unit": {"unitCode": "ft"}, "options": {"option": [{"name": "Statistic", "optionCode": "00000"}]}, "note": [], "noDataValue": -999999.0, "variableProperty": [], "oid": "52331280"}, "values": [{"value": [{"value": "6.44", "qualifiers": ["A"], "dateTime": "2018-11-06T13:00:00.000-07:00"}], "qualifier": [{"qualifierCode": "A", "qualifierDescription": "Approved for publication -- Processing and review completed.", "qualifierID": 0, "network": "NWIS", "vocabulary": "uv_rmk_cd"}], "qualityControlLevel": [], "method": [{"methodDescription": "", "methodID": 218483}], "source": [], "offset": [], "sample": [], "censorCode": []}], "name": "USGS:404320103053801:72019:00000"}, {"sourceInfo": {"siteName": "SB00905123BDD NAWQA 20", "siteCode": [{"value": "404450103013501", "network": "NWIS", "agencyCode": "USGS"}], "timeZoneInfo": {"defaultTimeZone": {"zoneOffset": "-07:00", "zoneAbbreviation": "MST"}, "daylightSavingsTimeZone": {"zoneOffset": "-06:00", "zoneAbbreviation": "MDT"}, "siteUsesDaylightSavingsTime": true}, "geoLocation": {"geogLocation": {"srs": "EPSG:4326", "latitude": 40.74640278, "longitude": -103.0276278}, "localSiteXY": []}, "note": [], "siteType": [], "siteProperty": [{"value": "GW", "name": "siteTypeCd"}, {"value": "10190012", "name": "hucCd"}, {"value": "08", "name": "stateCd"}, {"value": "08075", "name": "countyCd"}]}, "variable": {"variableCode": [{"value": "72019", "network": "NWIS", "vocabulary": "NWIS:UnitValues", "variableID": 52331280, "default": true}], "variableName": "Depth to water level, ft below land surface", "variableDescription": "Depth to water level, feet below land surface", "valueType": "Derived Value", "unit": {"unitCode": "ft"}, "options": {"option": [{"name": "Statistic", "optionCode": "00000"}]}, "note": [], "noDataValue": -999999.0, "variableProperty": [], "oid": "52331280"}, "values": [{"value": [{"value": "37.70", "qualifiers": ["A"], "dateTime": "2018-11-06T12:00:00.000-07:00"}], "qualifier": [{"qualifierCode": "A", "qualifierDescription": "Approved for publication -- Processing and review completed.", "qualifierID": 0, "network": "NWIS", "vocabulary": "uv_rmk_cd"}], "qualityControlLevel": [], "method": [{"methodDescription": "", "methodID": 218501}], "source": [], "offset": [], "sample": [], "censorCode": []}], "name": "USGS:404450103013501:72019:00000"}, {"sourceInfo": {"siteName": "  9N 35W23BBB 1 GRAINTON", "siteCode": [{"value": "404519101170301", "network": "NWIS", "agencyCode": "USGS"}], "timeZoneInfo": {"defaultTimeZone": {"zoneOffset": "-07:00", "zoneAbbreviation": "MST"}, "daylightSavingsTimeZone": {"zoneOffset": "-06:00", "zoneAbbreviation": "MDT"}, "siteUsesDaylightSavingsTime": true}, "geoLocation": {"geogLocation": {"srs": "EPSG:4326", "latitude": 40.74083478, "longitude": -101.284882}, "localSiteXY": []}, "note": [], "siteType": [], "siteProperty": [{"value": "GW", "name": "siteTypeCd"}, {"value": "10250004", "name": "hucCd"}, {"value": "31", "name": "stateCd"}, {"value": "31135", "name": "countyCd"}]}, "variable": {"variableCode": [{"value": "72019", "network": "NWIS", "vocabulary": "NWIS:UnitValues", "variableID": 52331280, "default": true}], "variableName": "Depth to water level, ft below land surface", "variableDescription": "Depth to water level, feet below land surface", "valueType": "Derived Value", "unit": {"unitCode": "ft"}, "options": {"option": [{"name": "Statistic", "optionCode": "00000"}]}, "note": [], "noDataValue": -999999.0, "variableProperty": [], "oid": "52331280"}, "values": [{"value": [{"value": "187.98", "qualifiers": ["A"], "dateTime": "2016-11-28T23:00:00.000-07:00"}], "qualifier": [{"qualifierCode": "A", "qualifierDescription": "Approved for publication -- Processing and review completed.", "qualifierID": 0, "network": "NWIS", "vocabulary": "uv_rmk_cd"}], "qualityControlLevel": [], "method": [{"methodDescription": "", "methodID": 95160}], "source": [], "offset": [], "sample": [], "censorCode": []}], "name": "USGS:404519101170301:72019:00000"}, {"sourceInfo": {"siteName": "  9N 39W 2DDDD1 GRANT SOUTH", "siteCode": [{"value": "404620101433401", "network": "NWIS", "agencyCode": "USGS"}], "timeZoneInfo": {"defaultTimeZone": {"zoneOffset": "-07:00", "zoneAbbreviation": "MST"}, "daylightSavingsTimeZone": {"zoneOffset": "-06:00", "zoneAbbreviation": "MDT"}, "siteUsesDaylightSavingsTime": true}, "geoLocation": {"geogLocation": {"srs": "EPSG:4326", "latitude": 40.7722193, "longitude": -101.7265605}, "localSiteXY": []}, "note": [], "siteType": [], "siteProperty": [{"value": "GW", "name": "siteTypeCd"}, {"value": "10250006", "name": "hucCd"}, {"value": "31", "name": "stateCd"}, {"value": "31135", "name": "countyCd"}]}, "variable": {"variableCode": [{"value": "72019", "network": "NWIS", "vocabulary": "NWIS:UnitValues", "variableID": 52331280, "default": true}], "variableName": "Depth to water level, ft below land surface", "variableDescription": "Depth to water level, feet below land surface", "valueType": "Derived Value", "unit": {"unitCode": "ft"}, "options": {"option": [{"name": "Statistic", "optionCode": "00000"}]}, "note": [], "noDataValue": -999999.0, "variableProperty": [], "oid": "52331280"}, "values": [{"value": [{"value": "192.68", "qualifiers": ["A"], "dateTime": "2016-11-28T23:00:00.000-07:00"}], "qualifier": [{"qualifierCode": "A", "qualifierDescription": "Approved for publication -- Processing and review completed.", "qualifierID": 0, "network": "NWIS", "vocabulary": "uv_rmk_cd"}], "qualityControlLevel": [], "method": [{"methodDescription": "", "methodID": 95165}], "source": [], "offset": [], "sample": [], "censorCode": []}], "name": "USGS:404620101433401:72019:00000"}, {"sourceInfo": {"siteName": " 10N 36W31CCCC1 MADRID", "siteCode": [{"value": "404706101282201", "network": "NWIS", "agencyCode": "USGS"}], "timeZoneInfo": {"defaultTimeZone": {"zoneOffset": "-07:00", "zoneAbbreviation": "MST"}, "daylightSavingsTimeZone": {"zoneOffset": "-06:00", "zoneAbbreviation": "MDT"}, "siteUsesDaylightSavingsTime": true}, "geoLocation": {"geogLocation": {"srs": "EPSG:4326", "latitude": 40.7849978, "longitude": -101.4732208}, "localSiteXY": []}, "note": [], "siteType": [], "siteProperty": [{"value": "GW", "name": "siteTypeCd"}, {"value": "10250006", "name": "hucCd"}, {"value": "31", "name": "stateCd"}, {"value": "31135", "name": "countyCd"}]}, "variable": {"variableCode": [{"value": "72019", "network": "NWIS", "vocabulary": "NWIS:UnitValues", "variableID": 52331280, "default": true}], "variableName": "Depth to water level, ft below land surface", "variableDescription": "Depth to water level, feet below land surface", "valueType": "Derived Value", "unit": {"unitCode": "ft"}, "options": {"option": [{"name": "Statistic", "optionCode": "00000"}]}, "note": [], "noDataValue": -999999.0, "variableProperty": [], "oid": "52331280"}, "values": [{"value": [{"value": "95.23", "qualifiers": ["A"], "dateTime": "2016-11-28T23:30:00.000-07:00"}], "qualifier": [{"qualifierCode": "A", "qualifierDescription": "Approved for publication -- Processing and review completed.", "qualifierID": 0, "network": "NWIS", "vocabulary": "uv_rmk_cd"}], "qualityControlLevel": [], "method": [{"methodDescription": "", "methodID": 95166}], "source": [], "offset": [], "sample": [], "censorCode": []}], "name": "USGS:404706101282201:72019:00000"}, {"sourceInfo": {"siteName": "SB01004915BCC NAWQA 21", "siteCode": [{"value": "405039102485601", "network": "NWIS", "agencyCode": "USGS"}], "timeZoneInfo": {"defaultTimeZone": {"zoneOffset": "-07:00", "zoneAbbreviation": "MST"}, "daylightSavingsTimeZone": {"zoneOffset": "-06:00", "zoneAbbreviation": "MDT"}, "siteUsesDaylightSavingsTime": true}, "geoLocation": {"geogLocation": {"srs": "EPSG:4326", "latitude": 40.84411667, "longitude": -102.8158806}, "localSiteXY": []}, "note": [], "siteType": [], "siteProperty": [{"value": "GW", "name": "siteTypeCd"}, {"value": "10190012", "name": "hucCd"}, {"value": "08", "name": "stateCd"}, {"value": "08075", "name": "countyCd"}]}, "variable": {"variableCode": [{"value": "72019", "network": "NWIS", "vocabulary": "NWIS:UnitValues", "variableID": 52331280, "default": true}], "variableName": "Depth to water level, ft below land surface", "variableDescription": "Depth to water level, feet below land surface", "valueType": "Derived Value", "unit": {"unitCode": "ft"}, "options": {"option": [{"name": "Statistic", "optionCode": "00000"}]}, "note": [], "noDataValue": -999999.0, "variableProperty": [], "oid": "52331280"}, "values": [{"value": [{"value": "5.88", "qualifiers": ["A"], "dateTime": "2018-11-06T12:00:00.000-07:00"}], "qualifier": [{"qualifierCode": "A", "qualifierDescription": "Approved for publication -- Processing and review completed.", "qualifierID": 0, "network": "NWIS", "vocabulary": "uv_rmk_cd"}], "qualityControlLevel": [], "method": [{"methodDescription": "", "methodID": 218502}], "source": [], "offset": [], "sample": [], "censorCode": []}], "name": "USGS:405039102485601:72019:00000"}, {"sourceInfo": {"siteName": "SB01004805CCC NAWQA 22", "siteCode": [{"value": "405159102444201", "network": "NWIS", "agencyCode": "USGS"}], "timeZoneInfo": {"defaultTimeZone": {"zoneOffset": "-07:00", "zoneAbbreviation": "MST"}, "daylightSavingsTimeZone": {"zoneOffset": "-06:00", "zoneAbbreviation": "MDT"}, "siteUsesDaylightSavingsTime": true}, "geoLocation": {"geogLocation": {"srs": "EPSG:4326", "latitude": 40.86635556, "longitude": -102.7456944}, "localSiteXY": []}, "note": [], "siteType": [], "siteProperty": [{"value": "GW", "name": "siteTypeCd"}, {"value": "10190012", "name": "hucCd"}, {"value": "08", "name": "stateCd"}, {"value": "08075", "name": "countyCd"}]}, "variable": {"variableCode": [{"value": "72019", "network": "NWIS", "vocabulary": "NWIS:UnitValues", "variableID": 52331280, "default": true}], "variableName": "Depth to water level, ft below land surface", "variableDescription": "Depth to water level, feet below land surface", "valueType": "Derived Value", "unit": {"unitCode": "ft"}, "options": {"option": [{"name": "Statistic", "optionCode": "00000"}]}, "note": [], "noDataValue": -999999.0, "variableProperty": [], "oid": "52331280"}, "values": [{"value": [{"value": "6.63", "qualifiers": ["A"], "dateTime": "2018-11-06T11:00:00.000-07:00"}], "qualifier": [{"qualifierCode": "A", "qualifierDescription": "Approved for publication -- Processing and review completed.", "qualifierID": 0, "network": "NWIS", "vocabulary": "uv_rmk_cd"}], "qualityControlLevel": [], "method": [{"methodDescription": "", "methodID": 218503}], "source": [], "offset": [], "sample": [], "censorCode": []}], "name": "USGS:405159102444201:72019:00000"}, {"sourceInfo": {"siteName": "SB01104509CCC NAWQA 23", "siteCode": [{"value": "405658102231201", "network": "NWIS", "agencyCode": "USGS"}], "timeZoneInfo": {"defaultTimeZone": {"zoneOffset": "-07:00", "zoneAbbreviation": "MST"}, "daylightSavingsTimeZone": {"zoneOffset": "-06:00", "zoneAbbreviation": "MDT"}, "siteUsesDaylightSavingsTime": true}, "geoLocation": {"geogLocation": {"srs": "EPSG:4326", "latitude": 40.949678, "longitude": -102.386611}, "localSiteXY": []}, "note": [], "siteType": [], "siteProperty": [{"value": "GW", "name": "siteTypeCd"}, {"value": "10190018", "name": "hucCd"}, {"value": "08", "name": "stateCd"}, {"value": "08115", "name": "countyCd"}]}, "variable": {"variableCode": [{"value": "72019", "network": "NWIS", "vocabulary": "NWIS:UnitValues", "variableID": 52331280, "default": true}], "variableName": "Depth to water level, ft below land surface", "variableDescription": "Depth to water level, feet below land surface", "valueType": "Derived Value", "unit": {"unitCode": "ft"}, "options": {"option": [{"name": "Statistic", "optionCode": "00000"}]}, "note": [], "noDataValue": -999999.0, "variableProperty": [], "oid": "52331280"}, "values": [{"value": [{"value": "7.65", "qualifiers": ["A"], "dateTime": "2018-11-06T10:00:00.000-07:00"}], "qualifier": [{"qualifierCode": "A", "qualifierDescription": "Approved for publication -- Processing and review completed.", "qualifierID": 0, "network": "NWIS", "vocabulary": "uv_rmk_cd"}], "qualityControlLevel": [], "method": [{"methodDescription": "", "methodID": 218504}], "source": [], "offset": [], "sample": [], "censorCode": []}], "name": "USGS:405658102231201:72019:00000"}, {"sourceInfo": {"siteName": "SB01104603BBC NAWQA 24", "siteCode": [{"value": "405801102284501", "network": "NWIS", "agencyCode": "USGS"}], "timeZoneInfo": {"defaultTimeZone": {"zoneOffset": "-07:00", "zoneAbbreviation": "MST"}, "daylightSavingsTimeZone": {"zoneOffset": "-06:00", "zoneAbbreviation": "MDT"}, "siteUsesDaylightSavingsTime": true}, "geoLocation": {"geogLocation": {"srs": "EPSG:4326", "latitude": 40.96642778, "longitude": -102.4784611}, "localSiteXY": []}, "note": [], "siteType": [], "siteProperty": [{"value": "GW", "name": "siteTypeCd"}, {"value": "10190012", "name": "hucCd"}, {"value": "08", "name": "stateCd"}, {"value": "08115", "name": "countyCd"}]}, "variable": {"variableCode": [{"value": "72019", "network": "NWIS", "vocabulary": "NWIS:UnitValues", "variableID": 52331280, "default": true}], "variableName": "Depth to water level, ft below land surface", "variableDescription": "Depth to water level, feet below land surface", "valueType": "Derived Value", "unit": {"unitCode": "ft"}, "options": {"option": [{"name": "Statistic", "optionCode": "00000"}]}, "note": [], "noDataValue": -999999.0, "variableProperty": [], "oid": "52331280"}, "values": [{"value": [{"value": "10.79", "qualifiers": ["A"], "dateTime": "2018-11-06T10:00:00.000-07:00"}], "qualifier": [{"qualifierCode": "A", "qualifierDescription": "Approved for publication -- Processing and review completed.", "qualifierID": 0, "network": "NWIS", "vocabulary": "uv_rmk_cd"}], "qualityControlLevel": [], "method": [{"methodDescription": "", "methodID": 218505}], "source": [], "offset": [], "sample": [], "censorCode": []}], "name": "USGS:405801102284501:72019:00000"}]}, "nil": false, "globalScope": true, "typeSubstituted": false}
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "time_series_id": "df86127472d9413997063e50cb7450da",
+        "monitoring_location_id": "USGS-404706101282201",
+        "parameter_code": "72019",
+        "statistic_id": "00011",
+        "time": "2016-11-29T06:30:00+00:00",
+        "value": "95.23",
+        "unit_of_measure": "ft",
+        "approval_status": "Approved",
+        "qualifier": null,
+        "last_modified": "2025-08-29T03:37:20.756423+00:00",
+        "method_category": null
+      },
+      "id": "030e6713-5a21-4d2f-9d5e-d53e355d9272",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -101.473220838036,
+          40.7849978358067
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "time_series_id": "34054e94f40f430d802381f1db9d3043",
+        "monitoring_location_id": "USGS-405658102231201",
+        "parameter_code": "72019",
+        "statistic_id": "00011",
+        "time": "2018-11-06T17:00:00+00:00",
+        "value": "7.65",
+        "unit_of_measure": "ft",
+        "approval_status": "Approved",
+        "qualifier": null,
+        "last_modified": "2025-08-13T15:23:44.352540+00:00",
+        "method_category": null
+      },
+      "id": "1908dcab-e599-4e9e-8d0f-1958affdebdf",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -102.386611,
+          40.949678
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "time_series_id": "2b9f11ec0dae49488d2a7652fef816e0",
+        "monitoring_location_id": "USGS-404450103013501",
+        "parameter_code": "72019",
+        "statistic_id": "00011",
+        "time": "2018-11-06T19:00:00+00:00",
+        "value": "37.70",
+        "unit_of_measure": "ft",
+        "approval_status": "Approved",
+        "qualifier": null,
+        "last_modified": "2025-08-13T13:42:44.595862+00:00",
+        "method_category": null
+      },
+      "id": "24fc8599-4ae7-4330-bcd8-f622ed87f2fb",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -103.027627777778,
+          40.7464027777778
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "time_series_id": "debac0358bee4b86bc417a0b644a65e0",
+        "monitoring_location_id": "USGS-404106103082201",
+        "parameter_code": "72019",
+        "statistic_id": "00011",
+        "time": "2018-11-06T20:00:00+00:00",
+        "value": "4.67",
+        "unit_of_measure": "ft",
+        "approval_status": "Approved",
+        "qualifier": null,
+        "last_modified": "2025-08-14T01:58:42.828229+00:00",
+        "method_category": null
+      },
+      "id": "31719f30-c564-45f6-aa9b-eb8d63e8eb30",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -103.139522222222,
+          40.6850083333333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "time_series_id": "25e3b18d790c4f99b68dd44fa58875ed",
+        "monitoring_location_id": "USGS-400852101352701",
+        "parameter_code": "72019",
+        "statistic_id": "00011",
+        "time": "2016-11-28T06:00:00+00:00",
+        "value": "141.75",
+        "unit_of_measure": "ft",
+        "approval_status": "Approved",
+        "qualifier": null,
+        "last_modified": "2025-08-28T23:37:53.700474+00:00",
+        "method_category": null
+      },
+      "id": "40cf8afc-b29d-4367-a85e-1803883e1b93",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -101.596281,
+          40.148328
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "time_series_id": "f6924a8c84974b819f3a0e2f0805a2f6",
+        "monitoring_location_id": "USGS-403426103200401",
+        "parameter_code": "72019",
+        "statistic_id": "00011",
+        "time": "2018-11-07T18:00:00+00:00",
+        "value": "16.96",
+        "unit_of_measure": "ft",
+        "approval_status": "Approved",
+        "qualifier": null,
+        "last_modified": "2025-08-14T03:31:00.473159+00:00",
+        "method_category": null
+      },
+      "id": "43422148-f478-49ee-89b3-bace4964a17c",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -103.334491666667,
+          40.5743555555556
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "time_series_id": "34610e78c8d74392b274bdd92a7ca672",
+        "monitoring_location_id": "USGS-400155101521302",
+        "parameter_code": "72019",
+        "statistic_id": "00011",
+        "time": "2024-10-16T18:45:00+00:00",
+        "value": "17.29",
+        "unit_of_measure": "ft",
+        "approval_status": "Approved",
+        "qualifier": null,
+        "last_modified": "2025-08-28T23:55:13.677786+00:00",
+        "method_category": null
+      },
+      "id": "64916785-67cd-4046-b4ec-f3f6b629d617",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -101.87126111111111,
+          40.02867222222222
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "time_series_id": "f6d096d5b0b146a2a75ef6a733a18b3f",
+        "monitoring_location_id": "USGS-402538103242001",
+        "parameter_code": "72019",
+        "statistic_id": "00011",
+        "time": "2018-11-07T20:00:00+00:00",
+        "value": "9.78",
+        "unit_of_measure": "ft",
+        "approval_status": "Approved",
+        "qualifier": null,
+        "last_modified": "2025-08-14T05:12:52.974565+00:00",
+        "method_category": null
+      },
+      "id": "652745b2-be55-4be9-a03d-160053dc97ca",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -103.407427777778,
+          40.4289916666667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "time_series_id": "6a50422c387b46e2b6731a94fabe073d",
+        "monitoring_location_id": "USGS-403235101395501",
+        "parameter_code": "72019",
+        "statistic_id": "00011",
+        "time": "2016-11-28T06:45:00+00:00",
+        "value": "110.79",
+        "unit_of_measure": "ft",
+        "approval_status": "Approved",
+        "qualifier": null,
+        "last_modified": "2025-08-29T00:51:57.845517+00:00",
+        "method_category": null
+      },
+      "id": "840bc44b-dccf-49ae-8cf3-6efaa12cebe9",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -101.66683690716,
+          40.5447181174341
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "time_series_id": "f87ae6c5ceab4f8484112cff8ec957ec",
+        "monitoring_location_id": "USGS-405159102444201",
+        "parameter_code": "72019",
+        "statistic_id": "00011",
+        "time": "2018-11-06T18:00:00+00:00",
+        "value": "6.63",
+        "unit_of_measure": "ft",
+        "approval_status": "Approved",
+        "qualifier": null,
+        "last_modified": "2025-08-14T05:24:45.258123+00:00",
+        "method_category": null
+      },
+      "id": "c38fa5a3-f14f-4779-be11-375a3a54cf00",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -102.745694444444,
+          40.8663555555556
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "time_series_id": "11100df1e4cc4290ae2cd4aec800d105",
+        "monitoring_location_id": "USGS-401401101510701",
+        "parameter_code": "72019",
+        "statistic_id": "00011",
+        "time": "2016-11-28T06:45:00+00:00",
+        "value": "91.89",
+        "unit_of_measure": "ft",
+        "approval_status": "Approved",
+        "qualifier": null,
+        "last_modified": "2025-08-28T23:16:36.346153+00:00",
+        "method_category": null
+      },
+      "id": "d0608263-4677-4aba-a1b4-f57dee551ee1",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -101.852400314905,
+          40.2336036981682
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "time_series_id": "4a784ee32fd34d5b86ba9685c8880ae6",
+        "monitoring_location_id": "USGS-404320103053801",
+        "parameter_code": "72019",
+        "statistic_id": "00011",
+        "time": "2018-11-06T20:00:00+00:00",
+        "value": "6.44",
+        "unit_of_measure": "ft",
+        "approval_status": "Approved",
+        "qualifier": null,
+        "last_modified": "2025-08-13T16:43:58.332443+00:00",
+        "method_category": null
+      },
+      "id": "d2618929-9880-4e3c-ba84-e8e637cadef2",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -103.094594444444,
+          40.7221666666667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "time_series_id": "545cf784235243b7b4e6b0441bd33595",
+        "monitoring_location_id": "USGS-405039102485601",
+        "parameter_code": "72019",
+        "statistic_id": "00011",
+        "time": "2018-11-06T19:00:00+00:00",
+        "value": "5.88",
+        "unit_of_measure": "ft",
+        "approval_status": "Approved",
+        "qualifier": null,
+        "last_modified": "2025-08-13T18:03:02.185725+00:00",
+        "method_category": null
+      },
+      "id": "db08a247-1ac9-4886-91f7-93cc8737e82f",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -102.815880555556,
+          40.8441166666667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "time_series_id": "97410321629a49c997d88548d1a82a45",
+        "monitoring_location_id": "USGS-401703101394801",
+        "parameter_code": "72019",
+        "statistic_id": "00011",
+        "time": "2016-11-28T06:00:00+00:00",
+        "value": "84.64",
+        "unit_of_measure": "ft",
+        "approval_status": "Approved",
+        "qualifier": null,
+        "last_modified": "2025-08-29T01:43:01.015487+00:00",
+        "method_category": null
+      },
+      "id": "db65c973-c31a-490a-9236-c4203e1e451f",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -101.663226472157,
+          40.2858266682223
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "time_series_id": "cca2cf0c32224bffb4c98efcff77d563",
+        "monitoring_location_id": "USGS-404519101170301",
+        "parameter_code": "72019",
+        "statistic_id": "00011",
+        "time": "2016-11-29T06:00:00+00:00",
+        "value": "187.98",
+        "unit_of_measure": "ft",
+        "approval_status": "Approved",
+        "qualifier": null,
+        "last_modified": "2025-08-29T03:05:36.716249+00:00",
+        "method_category": null
+      },
+      "id": "dc4a2edc-aaa8-42cf-b935-6937585d9e4c",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -101.284881984326,
+          40.7408347784891
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "time_series_id": "7a449a0c82d64988b5302d3e36971bc2",
+        "monitoring_location_id": "USGS-404620101433401",
+        "parameter_code": "72019",
+        "statistic_id": "00011",
+        "time": "2016-11-29T06:00:00+00:00",
+        "value": "192.68",
+        "unit_of_measure": "ft",
+        "approval_status": "Approved",
+        "qualifier": null,
+        "last_modified": "2025-08-29T01:05:48.953806+00:00",
+        "method_category": null
+      },
+      "id": "e8c8ba0a-aeb3-40df-b304-5d53067e84c1",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -101.726560519384,
+          40.7722193270942
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "time_series_id": "779ee7c308474006be3f7d52a1fa36b0",
+        "monitoring_location_id": "USGS-403516101560601",
+        "parameter_code": "72019",
+        "statistic_id": "00011",
+        "time": "2016-11-28T06:00:00+00:00",
+        "value": "117.17",
+        "unit_of_measure": "ft",
+        "approval_status": "Approved",
+        "qualifier": null,
+        "last_modified": "2025-08-29T01:05:01.710666+00:00",
+        "method_category": null
+      },
+      "id": "e9b605bf-853c-4607-84df-7d8dab360620",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -101.935458227554,
+          40.5877738492466
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "time_series_id": "3b9bec3098684d5482edee3616e04758",
+        "monitoring_location_id": "USGS-405801102284501",
+        "parameter_code": "72019",
+        "statistic_id": "00011",
+        "time": "2018-11-06T17:00:00+00:00",
+        "value": "10.79",
+        "unit_of_measure": "ft",
+        "approval_status": "Approved",
+        "qualifier": null,
+        "last_modified": "2025-08-14T12:14:58.730488+00:00",
+        "method_category": null
+      },
+      "id": "eb82e6ae-76fe-4cc5-8f2f-e153a972bc7b",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -102.478461111111,
+          40.9664277777778
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "time_series_id": "329dc1aa2cef41908900dadd440554e2",
+        "monitoring_location_id": "USGS-402955103163501",
+        "parameter_code": "72019",
+        "statistic_id": "00011",
+        "time": "2018-11-07T19:00:00+00:00",
+        "value": "16.07",
+        "unit_of_measure": "ft",
+        "approval_status": "Approved",
+        "qualifier": null,
+        "last_modified": "2025-08-13T13:01:53.139427+00:00",
+        "method_category": null
+      },
+      "id": "fb87eb0d-ad67-4f4e-baa5-ff56a942fe79",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -103.274980555556,
+          40.498475
+        ]
+      }
+    }
+  ],
+  "numberReturned": 19,
+  "links": [
+    {
+      "type": "application/geo+json",
+      "rel": "self",
+      "title": "This document as GeoJSON",
+      "href": "https://api.waterdata.usgs.gov/ogcapi/v1/collections/latest-continuous/items?f=json&bbox=-103.5,39.5,-100.5,41.5&parameter_code=72019&limit=200"
+    },
+    {
+      "rel": "alternate",
+      "type": "application/ld+json",
+      "title": "This document as RDF (JSON-LD)",
+      "href": "https://api.waterdata.usgs.gov/ogcapi/v1/collections/latest-continuous/items?f=jsonld&bbox=-103.5,39.5,-100.5,41.5&parameter_code=72019&limit=200"
+    },
+    {
+      "type": "text/html",
+      "rel": "alternate",
+      "title": "This document as HTML",
+      "href": "https://api.waterdata.usgs.gov/ogcapi/v1/collections/latest-continuous/items?f=html&bbox=-103.5,39.5,-100.5,41.5&parameter_code=72019&limit=200"
+    },
+    {
+      "type": "text/csv; charset=utf-8",
+      "rel": "alternate",
+      "title": "This document as CSV",
+      "href": "https://api.waterdata.usgs.gov/ogcapi/v1/collections/latest-continuous/items?f=csv&bbox=-103.5,39.5,-100.5,41.5&parameter_code=72019&limit=200"
+    },
+    {
+      "type": "application/json",
+      "title": "Latest continuous",
+      "rel": "collection",
+      "href": "https://api.waterdata.usgs.gov/ogcapi/v1/collections/latest-continuous"
+    }
+  ],
+  "timeStamp": "2026-11-15T14:13:41.027460Z"
+}
