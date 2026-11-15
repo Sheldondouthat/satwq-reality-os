@@ -1,0 +1,303 @@
+{
+    "@context": [
+        "https://geojson.org/geojson-ld/geojson-context.jsonld",
+        {
+            "@version": "1.1",
+            "wx": "https://api.weather.gov/ontology#",
+            "@vocab": "https://api.weather.gov/ontology#"
+        }
+    ],
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.a68fafa8cae7d92d0d5468726854bc0bdd29f78a.003.1",
+            "type": "Feature",
+            "geometry": null,
+            "properties": {
+                "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.a68fafa8cae7d92d0d5468726854bc0bdd29f78a.003.1",
+                "@type": "wx:Alert",
+                "id": "urn:oid:2.49.0.1.840.0.a68fafa8cae7d92d0d5468726854bc0bdd29f78a.003.1",
+                "areaDesc": "Pasquotank; Camden; Chowan; Perquimans; Richmond; Gloucester; Middlesex; James City; Chesapeake; Western King William; Eastern King William; Western King and Queen; Eastern King and Queen; Western Essex; Eastern Essex",
+                "geocode": {
+                    "SAME": [
+                        "037139",
+                        "037029",
+                        "037041",
+                        "037143",
+                        "051159",
+                        "051073",
+                        "051119",
+                        "051095",
+                        "051830",
+                        "051550",
+                        "051101",
+                        "051097",
+                        "051057"
+                    ],
+                    "UGC": [
+                        "NCZ015",
+                        "NCZ016",
+                        "NCZ031",
+                        "NCZ032",
+                        "VAZ076",
+                        "VAZ084",
+                        "VAZ085",
+                        "VAZ090",
+                        "VAZ097",
+                        "VAZ517",
+                        "VAZ518",
+                        "VAZ519",
+                        "VAZ520",
+                        "VAZ521",
+                        "VAZ522"
+                    ]
+                },
+                "affectedZones": [
+                    "https://api.weather.gov/zones/forecast/NCZ015",
+                    "https://api.weather.gov/zones/forecast/NCZ016",
+                    "https://api.weather.gov/zones/forecast/NCZ031",
+                    "https://api.weather.gov/zones/forecast/NCZ032",
+                    "https://api.weather.gov/zones/forecast/VAZ076",
+                    "https://api.weather.gov/zones/forecast/VAZ084",
+                    "https://api.weather.gov/zones/forecast/VAZ085",
+                    "https://api.weather.gov/zones/forecast/VAZ090",
+                    "https://api.weather.gov/zones/forecast/VAZ097",
+                    "https://api.weather.gov/zones/forecast/VAZ517",
+                    "https://api.weather.gov/zones/forecast/VAZ518",
+                    "https://api.weather.gov/zones/forecast/VAZ519",
+                    "https://api.weather.gov/zones/forecast/VAZ520",
+                    "https://api.weather.gov/zones/forecast/VAZ521",
+                    "https://api.weather.gov/zones/forecast/VAZ522"
+                ],
+                "references": [
+                    {
+                        "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.c9b0c688cd4dcab915ff460776a91fb2b71c12ad.001.1",
+                        "identifier": "urn:oid:2.49.0.1.840.0.c9b0c688cd4dcab915ff460776a91fb2b71c12ad.001.1",
+                        "sender": "w-nws.webmaster@noaa.gov",
+                        "sent": "2026-11-14T13:09:00-05:00"
+                    }
+                ],
+                "sent": "2026-11-14T18:37:00-05:00",
+                "effective": "2026-11-14T18:37:00-05:00",
+                "onset": "2026-11-15T01:00:00-05:00",
+                "expires": "2026-11-15T08:00:00-05:00",
+                "ends": "2026-11-15T08:00:00-05:00",
+                "status": "Actual",
+                "messageType": "Update",
+                "category": "Met",
+                "severity": "Minor",
+                "certainty": "Likely",
+                "urgency": "Expected",
+                "event": "Frost Advisory",
+                "sender": "w-nws.webmaster@noaa.gov",
+                "senderName": "NWS Wakefield VA",
+                "headline": "Frost Advisory issued November 14 at 6:37PM EST until November 15 at 8:00AM EST by NWS Wakefield VA",
+                "description": "* WHAT...Temperatures as low as 33 will result in frost formation.\n\n* WHERE...Portions of northeast North Carolina and east central,\neastern, and southeast Virginia.\n\n* WHEN...From 1 AM to 8 AM EST Sunday.\n\n* IMPACTS...Frost could harm sensitive outdoor vegetation. Sensitive\noutdoor plants may be killed if left uncovered.",
+                "instruction": "Take steps now to protect tender plants from the cold.",
+                "response": "Prepare",
+                "note": null,
+                "parameters": {
+                    "AWIPSidentifier": [
+                        "NPWAKQ"
+                    ],
+                    "WMOidentifier": [
+                        "WWUS71 KAKQ 142337"
+                    ],
+                    "NWSheadline": [
+                        "FROST ADVISORY REMAINS IN EFFECT FROM 1 AM TO 8 AM EST SUNDAY"
+                    ],
+                    "BLOCKCHANNEL": [
+                        "EAS",
+                        "NWEM",
+                        "CMAS"
+                    ],
+                    "VTEC": [
+                        "/O.CON.KAKQ.FR.Y.0007.261115T0600Z-261115T1300Z/"
+                    ],
+                    "eventEndingTime": [
+                        "2026-11-15T08:00:00-05:00"
+                    ]
+                },
+                "scope": "Public",
+                "code": "IPAWSv1.0",
+                "language": "en-US",
+                "web": "http://www.weather.gov",
+                "eventCode": {
+                    "SAME": [
+                        "NWS"
+                    ],
+                    "NationalWeatherService": [
+                        "FRY"
+                    ]
+                }
+            }
+        },
+        {
+            "id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.a68fafa8cae7d92d0d5468726854bc0bdd29f78a.001.2",
+            "type": "Feature",
+            "geometry": null,
+            "properties": {
+                "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.a68fafa8cae7d92d0d5468726854bc0bdd29f78a.001.2",
+                "@type": "wx:Alert",
+                "id": "urn:oid:2.49.0.1.840.0.a68fafa8cae7d92d0d5468726854bc0bdd29f78a.001.2",
+                "areaDesc": "Gates; Bertie; Suffolk",
+                "geocode": {
+                    "SAME": [
+                        "037073",
+                        "037015",
+                        "051800"
+                    ],
+                    "UGC": [
+                        "NCZ014",
+                        "NCZ030",
+                        "VAZ529"
+                    ]
+                },
+                "affectedZones": [
+                    "https://api.weather.gov/zones/forecast/NCZ014",
+                    "https://api.weather.gov/zones/forecast/NCZ030",
+                    "https://api.weather.gov/zones/forecast/VAZ529"
+                ],
+                "references": [],
+                "sent": "2026-11-14T18:37:00-05:00",
+                "effective": "2026-11-14T18:37:00-05:00",
+                "onset": "2026-11-15T01:00:00-05:00",
+                "expires": "2026-11-15T08:00:00-05:00",
+                "ends": "2026-11-15T08:00:00-05:00",
+                "status": "Actual",
+                "messageType": "Alert",
+                "category": "Met",
+                "severity": "Severe",
+                "certainty": "Likely",
+                "urgency": "Expected",
+                "event": "Freeze Warning",
+                "sender": "w-nws.webmaster@noaa.gov",
+                "senderName": "NWS Wakefield VA",
+                "headline": "Freeze Warning issued November 14 at 6:37PM EST until November 15 at 8:00AM EST by NWS Wakefield VA",
+                "description": "* WHAT...Sub-freezing temperatures as low as 30 expected.\n\n* WHERE...In North Carolina, Bertie and Gates Counties. In Virginia,\nSuffolk.\n\n* WHEN...From 1 AM to 8 AM EST Sunday.\n\n* IMPACTS...Frost and freeze conditions could kill crops, other\nsensitive vegetation and possibly damage unprotected outdoor\nplumbing.",
+                "instruction": "Take steps now to protect tender plants from the cold.",
+                "response": "Execute",
+                "note": null,
+                "parameters": {
+                    "AWIPSidentifier": [
+                        "NPWAKQ"
+                    ],
+                    "WMOidentifier": [
+                        "WWUS71 KAKQ 142337"
+                    ],
+                    "NWSheadline": [
+                        "FREEZE WARNING IN EFFECT FROM 1 AM TO 8 AM EST SUNDAY"
+                    ],
+                    "BLOCKCHANNEL": [
+                        "EAS",
+                        "NWEM",
+                        "CMAS"
+                    ],
+                    "VTEC": [
+                        "/O.NEW.KAKQ.FZ.W.0005.261115T0600Z-261115T1300Z/"
+                    ],
+                    "eventEndingTime": [
+                        "2026-11-15T08:00:00-05:00"
+                    ]
+                },
+                "scope": "Public",
+                "code": "IPAWSv1.0",
+                "language": "en-US",
+                "web": "http://www.weather.gov",
+                "eventCode": {
+                    "SAME": [
+                        "NWS"
+                    ],
+                    "NationalWeatherService": [
+                        "FZW"
+                    ]
+                }
+            }
+        },
+        {
+            "id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.a68fafa8cae7d92d0d5468726854bc0bdd29f78a.002.1",
+            "type": "Feature",
+            "geometry": null,
+            "properties": {
+                "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.a68fafa8cae7d92d0d5468726854bc0bdd29f78a.002.1",
+                "@type": "wx:Alert",
+                "id": "urn:oid:2.49.0.1.840.0.a68fafa8cae7d92d0d5468726854bc0bdd29f78a.002.1",
+                "areaDesc": "Western Currituck; Virginia Beach; York",
+                "geocode": {
+                    "SAME": [
+                        "037053",
+                        "051810",
+                        "051199",
+                        "051735"
+                    ],
+                    "UGC": [
+                        "NCZ017",
+                        "VAZ098",
+                        "VAZ523"
+                    ]
+                },
+                "affectedZones": [
+                    "https://api.weather.gov/zones/forecast/NCZ017",
+                    "https://api.weather.gov/zones/forecast/VAZ098",
+                    "https://api.weather.gov/zones/forecast/VAZ523"
+                ],
+                "references": [],
+                "sent": "2026-11-14T18:37:00-05:00",
+                "effective": "2026-11-14T18:37:00-05:00",
+                "onset": "2026-11-15T01:00:00-05:00",
+                "expires": "2026-11-15T08:00:00-05:00",
+                "ends": "2026-11-15T08:00:00-05:00",
+                "status": "Actual",
+                "messageType": "Alert",
+                "category": "Met",
+                "severity": "Minor",
+                "certainty": "Likely",
+                "urgency": "Expected",
+                "event": "Frost Advisory",
+                "sender": "w-nws.webmaster@noaa.gov",
+                "senderName": "NWS Wakefield VA",
+                "headline": "Frost Advisory issued November 14 at 6:37PM EST until November 15 at 8:00AM EST by NWS Wakefield VA",
+                "description": "* WHAT...Temperatures as low as 33 will result in frost formation.\n\n* WHERE...In North Carolina, Western Currituck County. In Virginia,\nVirginia Beach, and York County.\n\n* WHEN...From 1 AM to 8 AM EST Sunday.\n\n* IMPACTS...Frost could harm sensitive outdoor vegetation. Sensitive\noutdoor plants may be killed if left uncovered.",
+                "instruction": "Take steps now to protect tender plants from the cold.",
+                "response": "Prepare",
+                "note": null,
+                "parameters": {
+                    "AWIPSidentifier": [
+                        "NPWAKQ"
+                    ],
+                    "WMOidentifier": [
+                        "WWUS71 KAKQ 142337"
+                    ],
+                    "NWSheadline": [
+                        "FROST ADVISORY IN EFFECT FROM 1 AM TO 8 AM EST SUNDAY"
+                    ],
+                    "BLOCKCHANNEL": [
+                        "EAS",
+                        "NWEM",
+                        "CMAS"
+                    ],
+                    "VTEC": [
+                        "/O.EXA.KAKQ.FR.Y.0007.261115T0600Z-261115T1300Z/"
+                    ],
+                    "eventEndingTime": [
+                        "2026-11-15T08:00:00-05:00"
+                    ]
+                },
+                "scope": "Public",
+                "code": "IPAWSv1.0",
+                "language": "en-US",
+                "web": "http://www.weather.gov",
+                "eventCode": {
+                    "SAME": [
+                        "NWS"
+                    ],
+                    "NationalWeatherService": [
+                        "FRY"
+                    ]
+                }
+            }
+        }
+    ],
+    "title": "Current watches, warnings, and advisories for Virginia",
+    "updated": "2026-11-15T06:55:10+00:00"
+}

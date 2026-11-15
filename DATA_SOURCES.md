@@ -213,6 +213,10 @@ Douglas-Peucker simplification, 6-decimal rounding).
 
 ## Weather sources
 
+| Source | Used for | License / terms | Attribution |
+|---|---|---|---|
+| **National Weather Service — Virginia alerts** (`api.weather.gov/alerts/active?area=VA`) | Active watches/warnings/advisories for Virginia via `/api/nws-alerts-va` (600 s cache), closing the state-endpoint set's Virginia gap (Giles County coverage) | U.S. public domain (NOAA/NWS); keyless, User-Agent identified per api.weather.gov terms | "Data: NWS — keyless, UA-identified." |
+
 ### ECMWF IFS wind
 
 Wind also offers ECMWF IFS 10 m forecasts from the keyless [ECMWF Open Data](https://www.ecmwf.int/en/forecasts/datasets/open-data) service. The proxy reads its JSON Lines inventory and byte-range fetches 10u/10v GRIB messages, optionally adding 2t (2 m temperature) or msl (mean sea-level pressure) from the same run and forecast time. It resamples these fields to the approximately 1° display grid. Data is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). The [ECMWF Terms of Use](https://apps.ecmwf.int/datasets/licences/general/) also apply. In-app attribution identifies this service as based on ECMWF data and products, links the CC BY 4.0 licence, identifies resampling and animation as modifications, and retains the required ECMWF liability disclaimer. Both model issue time and the selected forecast valid time appear in the WEATHER panel. These are model forecasts, not observations.

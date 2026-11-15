@@ -6327,6 +6327,14 @@ const REGISTRY = [
     routes: ['/api/home'],
     load: () => import('../providers/wave9/home.js').then((m) => m.homeProxy()),
   },
+  {
+    name: 'nws-alerts-va',
+    routes: ['/api/nws-alerts-va'],
+    load: () => import('../providers/wave10/specs/nws-alerts-va.mjs').then(async (s) => {
+      const g = await import('../providers/wave10/generic.js');
+      return g.specProxy('nws-alerts-va', s.SPEC);
+    }),
+  },
 ];
 
 export { REGISTRY };
