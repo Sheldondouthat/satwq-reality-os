@@ -129,6 +129,7 @@ import {
 } from './wave3/cosmicRay/index.js';
 import { createNmdbSource } from './wave3/nmdb/index.js';
 import { init as initSchumann } from './wave3/schumann/index.js';
+import { init as initSurgeGeneric } from './wave10/surgeGeneric/index.js';
 import { init as initEclipse } from './wave3/eclipse/index.js';
 import { init as initOrcasound } from './wave3/orcasound/index.js';
 import { init as initSargassum } from './wave3/sargassum/index.js';
@@ -1260,6 +1261,13 @@ export function initFrontier({ viewer } = {}) {
     const s = section(t('feature.schumann'));
     dock.appendChild(s);
     return initSchumann({ viewer, mount: s, chip, trackLayer, t });
+  });
+
+  // — W10 U-1b Surge-500 generic consumer —
+  attempt('surgeGeneric', () => {
+    const s = section(t('feature.surgeGeneric'));
+    dock.appendChild(s);
+    return initSurgeGeneric({ viewer, mount: s, chip, trackLayer, t });
   });
 
   attempt('eclipse', () => {
