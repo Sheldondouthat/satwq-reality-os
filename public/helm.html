@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0a0a0f" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <title>The Helm — God's Eye conversational face (v0, Tier 0)</title>
+    <style>
+      body {
+        background: #0b0f14;
+        color: #e8eef4;
+        font-family:
+          system-ui,
+          -apple-system,
+          'Segoe UI',
+          sans-serif;
+        margin: 0;
+        padding: 24px 16px 48px;
+        line-height: 1.5;
+      }
+      main {
+        max-width: 760px;
+        margin: 0 auto;
+      }
+      h1 {
+        font-size: 24px;
+        margin: 0 0 2px;
+      }
+      .sub {
+        color: #9fb4c7;
+        font-size: 14px;
+        margin-bottom: 6px;
+      }
+      .tier {
+        display: inline-block;
+        border: 1px solid #2e7d4f;
+        background: #0f2417;
+        color: #9fe8bb;
+        border-radius: 999px;
+        padding: 4px 12px;
+        font-weight: 600;
+        font-size: 13px;
+        margin: 8px 0 16px;
+      }
+      .tier span {
+        color: #cfe9d8;
+        font-weight: 400;
+      }
+      #log {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-bottom: 16px;
+      }
+      .turn {
+        border: 1px solid #22303d;
+        border-radius: 10px;
+        padding: 12px 16px;
+        background: #10161d;
+      }
+      .turn.user {
+        background: #12202e;
+        border-color: #274b63;
+      }
+      .turn.refusal {
+        border-color: #8a6d2f;
+        background: #1d1809;
+      }
+      .who {
+        font-size: 12px;
+        letter-spacing: 0.08em;
+        color: #7d93a8;
+        text-transform: uppercase;
+        margin-bottom: 4px;
+      }
+      .call {
+        font-family: ui-monospace, monospace;
+        font-size: 13px;
+        color: #8ecbff;
+        margin: 6px 0 2px;
+      }
+      .call .args {
+        color: #9fb4c7;
+      }
+      .answer {
+        margin-top: 6px;
+      }
+      .chips {
+        margin-top: 8px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+      .chip {
+        font-size: 12px;
+        border: 1px solid #274b63;
+        background: #0b0f14;
+        border-radius: 999px;
+        padding: 3px 10px;
+        color: #cfe0ee;
+      }
+      .chip b {
+        color: #8ecbff;
+        font-weight: 600;
+      }
+      .chip.stale {
+        border-color: #8a3b2f;
+        color: #ffb4a3;
+      }
+      form {
+        display: flex;
+        gap: 8px;
+      }
+      input[type='text'] {
+        flex: 1;
+        background: #10161d;
+        border: 1px solid #274b63;
+        border-radius: 8px;
+        color: #e8eef4;
+        padding: 12px 14px;
+        font-size: 16px;
+      }
+      button {
+        background: #274b63;
+        color: #e8eef4;
+        border: 1px solid #3a6a8a;
+        border-radius: 8px;
+        padding: 12px 18px;
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      .world {
+        margin-top: 20px;
+        background: #10161d;
+        border: 1px solid #22303d;
+        border-radius: 10px;
+        padding: 14px 18px;
+        font-size: 14px;
+      }
+      .world h2 {
+        font-size: 14px;
+        margin: 0 0 6px;
+        color: #9fb4c7;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+      .foot {
+        color: #7d93a8;
+        font-size: 13px;
+        margin-top: 28px;
+      }
+      a {
+        color: #8ecbff;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>The Helm</h1>
+      <div class="sub">
+        God's Eye's conversational face — v0, the smallest Helm that proves the
+        model.
+      </div>
+      <div class="tier">
+        TIER 0 — DETERMINISTIC
+        <span
+          >· no model · Tier 1 (local mind, Envy) not connected — v0 does not
+          fake it · Tier 2 not built</span
+        >
+      </div>
+
+      <div id="log" aria-live="polite"></div>
+
+      <form id="form">
+        <input
+          type="text"
+          id="input"
+          autocomplete="off"
+          placeholder="Take me to the river gauge and show me if it's rising"
+        />
+        <button type="submit">Steer</button>
+      </form>
+
+      <section class="world">
+        <h2>World state (this face)</h2>
+        <div id="worldState">Looking at Pembroke, VA (Home). No turns yet.</div>
+      </section>
+
+      <p class="foot">
+        The Helm v0 holds exactly 10 tools and answers only what they can prove:
+        every world-claim carries its feed, the data's own timestamp, and its
+        confidence class. A question Tier 0 cannot ground gets UNKNOWN and the
+        named blocker — never a guess, never a silent escalation. Try:
+        <i>"What's that light over the Atlantic?"</i> ·
+        <i>"Open the mesh"</i> (honest blocker) ·
+        <i>"What changed since yesterday?"</i> (honest blocker) ·
+        <i>"Turn on the wspr layer"</i> · <i>"Save scene as first helm"</i
+        ><br />
+        <a href="/">Back to the globe</a> ·
+        <a href="/river">The river floor (V5-0)</a>
+      </p>
+    </main>
+
+    <script type="module">
+      import { routeUtterance, TIER_STATEMENT } from '/helm-router.js';
+      import { createHelmTools } from '/helm-tools.js';
+
+      const log = document.getElementById('log');
+      const worldEl = document.getElementById('worldState');
+      const form = document.getElementById('form');
+      const input = document.getElementById('input');
+
+      // SGP4 from the same satellite.js major the repo pins (^6.0.2). If the
+      // CDN copy cannot load, the orbit tools refuse honestly (UNKNOWN) —
+      // the rest of Tier 0 is unaffected.
+      const tools = createHelmTools({
+        fetchImpl: (url, opts) => fetch(url, opts),
+        loadSatellite: () =>
+          import('https://cdn.jsdelivr.net/npm/satellite.js@6.0.2/+esm'),
+      });
+
+      function addTurn(cls, who, html) {
+        const div = document.createElement('div');
+        div.className = 'turn ' + cls;
+        div.innerHTML = `<div class="who">${who}</div>${html}`;
+        log.appendChild(div);
+        div.scrollIntoView({ block: 'nearest' });
+        return div;
+      }
+
+      const esc = (s) =>
+        String(s).replace(
+          /[&<>"]/g,
+          (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c],
+        );
+
+      function chipsHtml(citations) {
+        if (!citations || !citations.length) return '';
+        const chips = citations
+          .map((c) => {
+            const stale = c.note && /STALE/i.test(c.note) ? ' stale' : '';
+            return `<span class="chip${stale}"><b>${esc(c.feed)}</b> · ${esc(c.dataTimestamp || '—')} · ${esc(c.confidence)}</span>`;
+          })
+          .join('');
+        return `<div class="chips">${chips}</div>`;
+      }
+
+      function renderWorld() {
+        const s = tools.state;
+        const on =
+          Object.entries(s.layers)
+            .filter(([, v]) => v)
+            .map(([k]) => k)
+            .join(', ') || 'none';
+        worldEl.textContent =
+          `${s.view.label} — ${s.view.lat.toFixed(4)}, ${s.view.lon.toFixed(4)}, range ${(s.view.rangeM / 1000).toFixed(1)} km · ` +
+          `layers on: ${on} · HUD ${s.hud} · panels: ${s.panels.join(', ') || 'none'} · scenes saved: ${s.scenes.length}`;
+      }
+
+      async function runTurn(text) {
+        addTurn('user', 'You', esc(text));
+        const routed = routeUtterance(text);
+        if (!routed.ok) {
+          addTurn(
+            'refusal',
+            'The Helm — refused honestly',
+            `<div class="answer">${esc(routed.summary)}</div><div class="answer" style="color:#7d93a8">${esc(routed.tier || TIER_STATEMENT)}</div>`,
+          );
+          return;
+        }
+        for (const callDef of routed.calls) {
+          const turn = addTurn(
+            '',
+            'The Helm — tool call',
+            `<div class="call">${esc(callDef.tool)}<span class="args">(${esc(JSON.stringify(callDef.args))})</span></div><div class="answer">running…</div>`,
+          );
+          try {
+            const result = await tools.tools[callDef.tool](callDef.args);
+            turn.className = 'turn' + (result.ok ? '' : ' refusal');
+            turn.innerHTML =
+              `<div class="who">The Helm — ${result.ok ? 'tool result' : 'refused honestly'}</div>` +
+              `<div class="call">${esc(callDef.tool)}<span class="args">(${esc(JSON.stringify(callDef.args))})</span></div>` +
+              `<div class="answer">${esc(result.summary)}</div>${chipsHtml(result.citations)}`;
+          } catch (err) {
+            turn.className = 'turn refusal';
+            turn.innerHTML =
+              `<div class="who">The Helm — tool error</div>` +
+              `<div class="call">${esc(callDef.tool)}</div>` +
+              `<div class="answer">UNKNOWN — the tool failed (${esc(err.message)}). No value was invented to cover the failure.</div>`;
+          }
+          renderWorld();
+        }
+      }
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const text = input.value.trim();
+        if (!text) return;
+        input.value = '';
+        runTurn(text);
+      });
+
+      addTurn(
+        '',
+        'The Helm',
+        `<div class="answer">Tier 0 is live: I steer by verb and alias, at $0, with no model. Ask me for the river, a place, a layer, a panel, a pass — or ask me something I cannot do, and watch me say so with the reason named.</div>`,
+      );
+      renderWorld();
+    </script>
+  </body>
+</html>
