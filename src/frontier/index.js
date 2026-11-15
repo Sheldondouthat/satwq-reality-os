@@ -147,6 +147,12 @@ import {
   createVaacAshLayer,
   mountVaacAshDock,
 } from './wave3/vaacAsh/index.js';
+import { init as initVolcanoInfrasound } from './wave3/infrasound/index.js';
+import { init as initWave3Argo } from './wave3/argo/index.js';
+import {
+  initSatOracle,
+  mountSatOracleDock,
+} from './wave3/satOracle/index.js';
 import { init as initPskreporter } from './wave6/pskreporter/index.js';
 import { init as initWspr } from './wave6/wspr/index.js';
 import { init as initSondes } from './wave6/sondes/index.js';
@@ -210,6 +216,7 @@ import { init as initLunar } from './wave9/lunar/index.js';
 import { init as initMempool } from './wave9/mempool/index.js';
 import { init as initSeaIce } from './wave9/seaIce/index.js';
 import { init as initOzone } from './wave9/ozone/index.js';
+import { init as initSnotel } from './wave9/snotel/index.js';
 import { init as initPhenology } from './wave9/phenology/index.js';
 import { init as initSelfProbe } from './wave9/selfProbe/index.js';
 import { init as initAlertRules } from './wave9/alertRules/index.js';
@@ -1353,6 +1360,37 @@ export function initFrontier({ viewer } = {}) {
     };
   });
 
+  // — PANEL MOUNTS (Delta Sweep II remainders, 2026-11-15) —
+  // The four organs the Wave-3 Wiring Completion kept for their own briefs:
+  // infrasound's wave-3 route was owned by nobody (its panel polled a 404),
+  // and the argo / satOracle / snotel panels were never mounted. Recipes
+  // adapted to this block like the eleven above; mount shapes, init
+  // arguments, and cleanup follow each feature's INTEGRATION.md.
+  attempt('wave3-infrasound', () => {
+    const s = section(t('feature.infrasound'));
+    dock.appendChild(s);
+    return initVolcanoInfrasound({ viewer, mount: s, chip, trackLayer, t });
+  });
+
+  // Data-layer mount (no dock UI of its own; the fail-soft snapshot feeds
+  // the ocean-twin UX, per the argo INTEGRATION.md contract).
+  attempt('wave3-argo', () => {
+    const handle = initWave3Argo();
+    return () => handle.stop();
+  });
+
+  attempt('sat-oracle', () => {
+    const oracle = initSatOracle({ viewer });
+    if (!oracle) return;
+    trackLayer('satOracle', oracle);
+    const dockCtl = mountSatOracleDock({ section, chip, t, oracle });
+    if (dockCtl) dock.appendChild(dockCtl.element);
+    return () => {
+      dockCtl?.destroy();
+      oracle.destroy();
+    };
+  });
+
   // — WAVE 6 · RF / HAM tickers —
   {
     const s = section('WAVE 6 · RF / HAM');
@@ -1532,6 +1570,9 @@ export function initFrontier({ viewer } = {}) {
     );
     attempt('goes', () => initGoes({ viewer, mount: s, chip, trackLayer, t }));
     attempt('usdm', () => initUsdm({ viewer, mount: s, chip, trackLayer, t }));
+    attempt('snotel', () =>
+      initSnotel({ viewer, mount: s, chip, trackLayer, t }),
+    );
     attempt('exoplanets', () =>
       initExoplanets({ viewer, mount: s, chip, trackLayer, t }),
     );

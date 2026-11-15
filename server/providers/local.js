@@ -125,6 +125,8 @@ import { eclipseProxy } from './wave3/eclipse.js';
 import { eonetProxy } from './wave3/eonet.js';
 import { intermagnetProxy } from './wave3/intermagnet.js';
 import { iocSealevelProxy } from './wave3/iocSealevel.js';
+import { infrasoundProxy as volcanoInfrasoundProxy } from './wave3/infrasound.js';
+import { snotelProxy } from './wave9/snotel.js';
 import { orcasoundProxy } from './wave3/orcasound.js';
 import { sargassumProxy } from './wave3/sargassum.js';
 import { shortwaveOracleProxy } from './wave3/shortwave.js';
@@ -198,6 +200,8 @@ function localProviderPlugins() {
     eonetProxy(),
     intermagnetProxy(),
     iocSealevelProxy(),
+    volcanoInfrasoundProxy(),
+    snotelProxy(),
     orcasoundProxy(),
     sargassumProxy(),
     shortwaveOracleProxy(),

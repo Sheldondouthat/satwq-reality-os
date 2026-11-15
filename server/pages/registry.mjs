@@ -816,6 +816,14 @@ const REGISTRY = [
       ),
   },
   {
+    name: 'infrasound',
+    routes: ['/api/infrasound'],
+    load: () =>
+      import('../providers/wave3/infrasound.js').then((m) =>
+        m.infrasoundProxy(),
+      ),
+  },
+  {
     name: 'infrasound-ims',
     routes: ['/api/infrasound-ims'],
     load: () =>
