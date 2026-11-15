@@ -43,7 +43,7 @@ test('map resolves required fields ' + (false ? 'when rows exist' : 'on at least
 });
 
 test('numeric fields are null-or-finite (Number("")===0 trap guarded)', () => {
-  const numbers = new Set(["spaces"]);
+  const numbers = new Set(["spaces","lat","lon"]);
   const rows = extractItems(spec, fixture).map((item) => applyMap(spec, item));
   for (const row of rows) {
     for (const f of numbers) {

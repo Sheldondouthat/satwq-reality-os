@@ -11,13 +11,14 @@ export const SPEC = {
     limit: 50,
     map: {
       address: '$.adresse',
-      geo: '$.geo_point_2d',
+      lat: '$.geo_point_2d.lat',
+      lon: '$.geo_point_2d.lon',
       name: '$.nom',
       spaces: '$.emplacements',
       station_id: '$.id',
       status: '$.statut',
     },
-    numbers: ['spaces'],
+    numbers: ['spaces', 'lat', 'lon'],
   },
   headers: {},
   honesty:
@@ -28,7 +29,8 @@ export const SPEC = {
   title: 'Paris — taxi ranks',
   ttlSeconds: 3600,
   units: {
-    geo: 'lon,lat',
+    lat: 'deg',
+    lon: 'deg',
     spaces: 'taxi spaces',
   },
   url: 'https://opendata.paris.fr/api/explore/v2.1/catalog/datasets/bornes-dappel-taxi/records?limit=50',

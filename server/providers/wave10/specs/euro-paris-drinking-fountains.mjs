@@ -12,13 +12,14 @@ export const SPEC = {
     map: {
       available: '$.dispo',
       commune: '$.commune',
-      geo: '$.geo_point_2d',
+      lat: '$.geo_point_2d.lat',
+      lon: '$.geo_point_2d.lon',
       model: '$.modele',
       object_type: '$.type_objet',
       record_id: '$.gid',
       street: '$.voie',
     },
-    numbers: [],
+    numbers: ['lat', 'lon'],
   },
   headers: {},
   honesty:
@@ -29,7 +30,8 @@ export const SPEC = {
   title: 'Paris — drinking fountains',
   ttlSeconds: 3600,
   units: {
-    geo: 'lon,lat',
+    lat: 'deg',
+    lon: 'deg',
   },
   url: 'https://opendata.paris.fr/api/explore/v2.1/catalog/datasets/fontaines-a-boire/records?limit=50',
   verifiedAt: '2026-10-02',

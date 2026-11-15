@@ -6,12 +6,17 @@
  * verifiably live on the audit date. Everything else is UNWIRED with its
  * reason recorded — enforcement by absence: an unwired spec never
  * appears in the consumer. Regenerate to re-audit.
+ *
+ * Scoped re-audit 2026-11-15 (AUDIT_META.specRevision): the 10 specs
+ * whose non-scalar-field refusal was remedied by a spec revision were
+ * re-audited through the same two gates and wired; the other 492
+ * specs' U-1b verdicts stand as recorded above.
  */
 export const AUDIT_META = {
   "generatedAt": "2026-11-15T09:57:34.491Z",
   "totalSpecs": 502,
-  "wiredCount": 465,
-  "unwiredCount": 37,
+  "wiredCount": 475,
+  "unwiredCount": 27,
   "reprobe": {
     "at": "2026-11-15T10:00:08.313Z",
     "flipped": [
@@ -20,6 +25,22 @@ export const AUDIT_META = {
       "nasa-apod-week-20260925",
       "usgs-water-sanjoaquin-flow",
       "wiki-tallest-mountains"
+    ]
+  },
+  "specRevision": {
+    "at": "2026-11-15T10:35:46.763Z",
+    "audit": "NON-SCALAR-SPEC-REVISIONS-2026-11-15",
+    "wired": [
+      "euro-paris-bike-counters",
+      "euro-paris-defibrillators",
+      "euro-paris-drinking-fountains",
+      "euro-paris-green-spaces",
+      "euro-paris-markets",
+      "euro-paris-taxi-stations",
+      "euro-paris-traffic-sensors",
+      "euro-paris-velib-realtime",
+      "euro-paris-velib-stations",
+      "socrata-austin-traffic"
     ]
   }
 };
@@ -39,6 +60,11 @@ export const WIRED_SPECS = [
     "id": "socrata-austin-cameras",
     "title": "Austin (data.austintexas.gov) — traffic cameras",
     "ttlSeconds": 3600
+  },
+  {
+    "id": "socrata-austin-traffic",
+    "title": "Austin Open Data — real-time traffic incidents",
+    "ttlSeconds": 600
   },
   {
     "id": "gbif-australia-observations",
@@ -2334,6 +2360,47 @@ export const WIRED_SPECS = [
     "ttlSeconds": 1800
   },
   {
+    "id": "euro-paris-bike-counters",
+    "title": "Paris — bike counter readings (hourly)",
+    "ttlSeconds": 300,
+    "units": {
+      "bikes": "bikes/h",
+      "lat": "deg",
+      "lon": "deg",
+      "ts": "ISO8601"
+    }
+  },
+  {
+    "id": "euro-paris-drinking-fountains",
+    "title": "Paris — drinking fountains",
+    "ttlSeconds": 3600,
+    "units": {
+      "lat": "deg",
+      "lon": "deg"
+    }
+  },
+  {
+    "id": "euro-paris-green-spaces",
+    "title": "Paris — green spaces and gardens",
+    "ttlSeconds": 3600,
+    "units": {
+      "area_m2": "m²",
+      "horticultural_m2": "m²",
+      "lat": "deg",
+      "lon": "deg"
+    }
+  },
+  {
+    "id": "euro-paris-markets",
+    "title": "Paris — open-air markets",
+    "ttlSeconds": 3600,
+    "units": {
+      "arrondissement": "Paris district #",
+      "lat": "deg",
+      "lon": "deg"
+    }
+  },
+  {
     "id": "euro-paris-parking-garages",
     "title": "Paris — parking garages",
     "ttlSeconds": 3600,
@@ -2345,6 +2412,61 @@ export const WIRED_SPECS = [
       "disabled_spaces": "spaces",
       "moto_spaces": "spaces",
       "total_spaces": "spaces"
+    }
+  },
+  {
+    "id": "euro-paris-defibrillators",
+    "title": "Paris — public defibrillator locations",
+    "ttlSeconds": 3600,
+    "units": {
+      "lat": "deg",
+      "lon": "deg"
+    }
+  },
+  {
+    "id": "euro-paris-traffic-sensors",
+    "title": "Paris — road traffic sensor readings (hourly)",
+    "ttlSeconds": 300,
+    "units": {
+      "hour": "ISO8601",
+      "lat": "deg",
+      "lon": "deg",
+      "occupancy_pct": "percent",
+      "vehicles_per_hour": "veh/h"
+    }
+  },
+  {
+    "id": "euro-paris-taxi-stations",
+    "title": "Paris — taxi ranks",
+    "ttlSeconds": 3600,
+    "units": {
+      "lat": "deg",
+      "lon": "deg",
+      "spaces": "taxi spaces"
+    }
+  },
+  {
+    "id": "euro-paris-velib-realtime",
+    "title": "Paris — Vélib' bike-share stations, real-time availability",
+    "ttlSeconds": 300,
+    "units": {
+      "bikes_available": "bikes",
+      "capacity": "docks",
+      "docks_available": "docks",
+      "ebike": "bikes",
+      "lat": "deg",
+      "lon": "deg",
+      "mechanical": "bikes"
+    }
+  },
+  {
+    "id": "euro-paris-velib-stations",
+    "title": "Paris — Vélib' station directory (locations)",
+    "ttlSeconds": 3600,
+    "units": {
+      "capacity": "docks",
+      "lat": "deg",
+      "lon": "deg"
     }
   },
   {
@@ -3954,42 +4076,6 @@ export const UNWIRED_SPECS = [
     "reason": "live-upstream-error"
   },
   {
-    "id": "euro-paris-bike-counters",
-    "reason": "non-scalar-field"
-  },
-  {
-    "id": "euro-paris-defibrillators",
-    "reason": "non-scalar-field"
-  },
-  {
-    "id": "euro-paris-drinking-fountains",
-    "reason": "non-scalar-field"
-  },
-  {
-    "id": "euro-paris-green-spaces",
-    "reason": "non-scalar-field"
-  },
-  {
-    "id": "euro-paris-markets",
-    "reason": "non-scalar-field"
-  },
-  {
-    "id": "euro-paris-taxi-stations",
-    "reason": "non-scalar-field"
-  },
-  {
-    "id": "euro-paris-traffic-sensors",
-    "reason": "non-scalar-field"
-  },
-  {
-    "id": "euro-paris-velib-realtime",
-    "reason": "non-scalar-field"
-  },
-  {
-    "id": "euro-paris-velib-stations",
-    "reason": "non-scalar-field"
-  },
-  {
     "id": "fda-faers-2026",
     "reason": "live-too-large"
   },
@@ -4040,10 +4126,6 @@ export const UNWIRED_SPECS = [
   {
     "id": "scholar-openalex-topic",
     "reason": "live-upstream-error"
-  },
-  {
-    "id": "socrata-austin-traffic",
-    "reason": "non-scalar-field"
   },
   {
     "id": "socrata-cincinnati-crashes",

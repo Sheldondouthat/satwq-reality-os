@@ -14,7 +14,6 @@ export const SPEC = {
       agency: '$.agency',
       key: '$.traffic_report_id',
       lat: '$.latitude',
-      location: '$.location',
       lon: '$.longitude',
       status: '$.traffic_report_status',
       time: '$.published_date',

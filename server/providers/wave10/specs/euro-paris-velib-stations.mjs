@@ -11,12 +11,13 @@ export const SPEC = {
     limit: 50,
     map: {
       capacity: '$.capacity',
-      geo: '$.coordonnees_geo',
+      lat: '$.coordonnees_geo.lat',
+      lon: '$.coordonnees_geo.lon',
       name: '$.name',
       opening_hours: '$.station_opening_hours',
       station_code: '$.stationcode',
     },
-    numbers: ['capacity'],
+    numbers: ['capacity', 'lat', 'lon'],
   },
   headers: {},
   honesty:
@@ -28,7 +29,8 @@ export const SPEC = {
   ttlSeconds: 3600,
   units: {
     capacity: 'docks',
-    geo: 'lon,lat',
+    lat: 'deg',
+    lon: 'deg',
   },
   url: 'https://opendata.paris.fr/api/explore/v2.1/catalog/datasets/velib-emplacement-des-stations/records?limit=50',
   verifiedAt: '2026-10-02',
