@@ -3424,7 +3424,7 @@ export const WIRED_SPECS = [
     "title": "USGS Water — Allegheny River (PA) & Fox River (WI) streamflow",
     "ttlSeconds": 3600,
     "units": {
-      "value": "cfs"
+      "value": "ft^3/s"
     }
   },
   {
@@ -3432,7 +3432,7 @@ export const WIRED_SPECS = [
     "title": "USGS Water — Arkansas River streamflow (Arkansas City, KS)",
     "ttlSeconds": 3600,
     "units": {
-      "value": "ft3/s"
+      "value": "ft^3/s"
     }
   },
   {
@@ -3440,7 +3440,7 @@ export const WIRED_SPECS = [
     "title": "USGS Water — Brazos River streamflow (Richmond, TX)",
     "ttlSeconds": 3600,
     "units": {
-      "value": "ft3/s"
+      "value": "ft^3/s"
     }
   },
   {
@@ -3448,7 +3448,7 @@ export const WIRED_SPECS = [
     "title": "USGS Water — Cape Fear River streamflow (Tarheel, NC)",
     "ttlSeconds": 3600,
     "units": {
-      "value": "ft3/s"
+      "value": "ft^3/s"
     }
   },
   {
@@ -3456,7 +3456,7 @@ export const WIRED_SPECS = [
     "title": "USGS Water — Chattahoochee River streamflow (Atlanta and Whitesburg, GA)",
     "ttlSeconds": 3600,
     "units": {
-      "value": "ft3/s"
+      "value": "ft^3/s"
     }
   },
   {
@@ -3464,7 +3464,7 @@ export const WIRED_SPECS = [
     "title": "USGS Water — Colorado River streamflow (Lees Ferry, AZ)",
     "ttlSeconds": 3600,
     "units": {
-      "value": "ft3/s"
+      "value": "ft^3/s"
     }
   },
   {
@@ -3472,7 +3472,7 @@ export const WIRED_SPECS = [
     "title": "USGS Water — Columbia River streamflow (The Dalles, OR)",
     "ttlSeconds": 3600,
     "units": {
-      "value": "ft3/s"
+      "value": "ft^3/s"
     }
   },
   {
@@ -3480,7 +3480,7 @@ export const WIRED_SPECS = [
     "title": "USGS Water — Connecticut River streamflow (North Walpole, NH and Thompsonville, CT)",
     "ttlSeconds": 3600,
     "units": {
-      "value": "ft3/s"
+      "value": "ft^3/s"
     }
   },
   {
@@ -3488,7 +3488,7 @@ export const WIRED_SPECS = [
     "title": "USGS Water — Cumberland River streamflow (Nashville, TN)",
     "ttlSeconds": 3600,
     "units": {
-      "value": "ft3/s"
+      "value": "ft^3/s"
     }
   },
   {
@@ -3496,7 +3496,7 @@ export const WIRED_SPECS = [
     "title": "USGS Water — Daily mean river flow (Hudson, Delaware)",
     "ttlSeconds": 3600,
     "units": {
-      "value": "ft3/s daily mean"
+      "value": "ft^3/s daily mean"
     }
   },
   {
@@ -3504,7 +3504,7 @@ export const WIRED_SPECS = [
     "title": "USGS Water — Daily mean river flow (Southeast: Chattahoochee, Savannah, James)",
     "ttlSeconds": 3600,
     "units": {
-      "value": "ft3/s daily mean"
+      "value": "ft^3/s daily mean"
     }
   },
   {
@@ -3512,7 +3512,7 @@ export const WIRED_SPECS = [
     "title": "USGS Water — Delaware River streamflow (Trenton, NJ)",
     "ttlSeconds": 3600,
     "units": {
-      "value": "ft3/s"
+      "value": "ft^3/s"
     }
   },
   {
@@ -3520,7 +3520,7 @@ export const WIRED_SPECS = [
     "title": "USGS Water — Deschutes River streamflow (Moody, OR)",
     "ttlSeconds": 3600,
     "units": {
-      "value": "ft3/s"
+      "value": "ft^3/s"
     }
   },
   {
@@ -3528,7 +3528,7 @@ export const WIRED_SPECS = [
     "title": "USGS Water — Dissolved oxygen, mid-Atlantic rivers",
     "ttlSeconds": 3600,
     "units": {
-      "value": "mg/L"
+      "value": "mg/l"
     }
   },
   {
@@ -3536,7 +3536,7 @@ export const WIRED_SPECS = [
     "title": "USGS Water — Dissolved oxygen, Mississippi River (Dam 13)",
     "ttlSeconds": 3600,
     "units": {
-      "value": "mg/L"
+      "value": "mg/l"
     }
   },
   {
@@ -3552,7 +3552,7 @@ export const WIRED_SPECS = [
     "title": "USGS Water — Gila River streamflow (Gila, NM)",
     "ttlSeconds": 3600,
     "units": {
-      "value": "ft3/s"
+      "value": "ft^3/s"
     }
   },
   {
@@ -3560,7 +3560,7 @@ export const WIRED_SPECS = [
     "title": "USGS Water — Groundwater levels, Central Valley (CA)",
     "ttlSeconds": 3600,
     "units": {
-      "value": "ft below land surface"
+      "value": "ft"
     }
   },
   {
@@ -3568,7 +3568,7 @@ export const WIRED_SPECS = [
     "title": "USGS Water — Groundwater levels, Edwards Aquifer (TX)",
     "ttlSeconds": 3600,
     "units": {
-      "value": "ft below land surface"
+      "value": "ft"
     }
   },
   {
@@ -3576,7 +3576,7 @@ export const WIRED_SPECS = [
     "title": "USGS Water — Groundwater levels, High Plains aquifer (Ogallala)",
     "ttlSeconds": 3600,
     "units": {
-      "value": "ft below land surface"
+      "value": "ft"
     }
   },
   {
@@ -3584,7 +3584,7 @@ export const WIRED_SPECS = [
     "title": "USGS Water — Groundwater levels, Virginia piedmont (bbox wells)",
     "ttlSeconds": 3600,
     "units": {
-      "value": "ft below land surface"
+      "value": "ft"
     }
   },
   {
@@ -3592,7 +3592,7 @@ export const WIRED_SPECS = [
     "title": "USGS Water — Hudson River streamflow (Green Island, NY)",
     "ttlSeconds": 3600,
     "units": {
-      "value": "ft3/s"
+      "value": "ft^3/s"
     }
   },
   {
@@ -3600,7 +3600,7 @@ export const WIRED_SPECS = [
     "title": "USGS Water — James River streamflow (Scottsville and Richmond, VA)",
     "ttlSeconds": 3600,
     "units": {
-      "value": "ft3/s"
+      "value": "ft^3/s"
     }
   },
   {
@@ -3608,7 +3608,7 @@ export const WIRED_SPECS = [
     "title": "USGS Water — Klamath River streamflow (Klamath, CA)",
     "ttlSeconds": 3600,
     "units": {
-      "value": "ft3/s"
+      "value": "ft^3/s"
     }
   },
   {
@@ -3616,7 +3616,7 @@ export const WIRED_SPECS = [
     "title": "USGS Water — Merrimack River streamflow (Lowell, MA)",
     "ttlSeconds": 3600,
     "units": {
-      "value": "ft3/s"
+      "value": "ft^3/s"
     }
   },
   {
@@ -3624,7 +3624,7 @@ export const WIRED_SPECS = [
     "title": "USGS Water — Minnesota & Des Moines Rivers streamflow",
     "ttlSeconds": 3600,
     "units": {
-      "value": "cfs"
+      "value": "ft^3/s"
     }
   },
   {
@@ -3632,7 +3632,7 @@ export const WIRED_SPECS = [
     "title": "USGS Water — Mississippi River streamflow (St. Louis, MO)",
     "ttlSeconds": 3600,
     "units": {
-      "value": "ft3/s"
+      "value": "ft^3/s"
     }
   },
   {
@@ -3640,7 +3640,7 @@ export const WIRED_SPECS = [
     "title": "USGS Water — Missouri River streamflow (Hermann, MO)",
     "ttlSeconds": 3600,
     "units": {
-      "value": "ft3/s"
+      "value": "ft^3/s"
     }
   },
   {
@@ -3648,7 +3648,7 @@ export const WIRED_SPECS = [
     "title": "USGS Water — Mohawk & Oswego Rivers streamflow (NY)",
     "ttlSeconds": 3600,
     "units": {
-      "value": "cfs"
+      "value": "ft^3/s"
     }
   },
   {
@@ -3656,7 +3656,7 @@ export const WIRED_SPECS = [
     "title": "USGS Water — Ohio River streamflow (Metropolis, IL)",
     "ttlSeconds": 3600,
     "units": {
-      "value": "ft3/s"
+      "value": "ft^3/s"
     }
   },
   {
@@ -3664,7 +3664,7 @@ export const WIRED_SPECS = [
     "title": "USGS Water — Pecos River (NM) & Green River (WY) streamflow",
     "ttlSeconds": 3600,
     "units": {
-      "value": "cfs"
+      "value": "ft^3/s"
     }
   },
   {
@@ -3672,7 +3672,7 @@ export const WIRED_SPECS = [
     "title": "USGS Water — pH, western rivers",
     "ttlSeconds": 3600,
     "units": {
-      "value": "std units"
+      "value": "pH Units"
     }
   },
   {
@@ -3688,7 +3688,7 @@ export const WIRED_SPECS = [
     "title": "USGS Water — Potomac River streamflow (Little Falls, DC)",
     "ttlSeconds": 3600,
     "units": {
-      "value": "ft3/s"
+      "value": "ft^3/s"
     }
   },
   {
@@ -3696,7 +3696,7 @@ export const WIRED_SPECS = [
     "title": "USGS Water — Red River of the North streamflow (Fargo, ND)",
     "ttlSeconds": 3600,
     "units": {
-      "value": "ft3/s"
+      "value": "ft^3/s"
     }
   },
   {
@@ -3712,7 +3712,7 @@ export const WIRED_SPECS = [
     "title": "USGS Water — Rio Grande streamflow (Otowi Bridge, NM)",
     "ttlSeconds": 3600,
     "units": {
-      "value": "ft3/s"
+      "value": "ft^3/s"
     }
   },
   {
@@ -3720,7 +3720,7 @@ export const WIRED_SPECS = [
     "title": "USGS Water — Rogue River streamflow (Grants Pass, OR)",
     "ttlSeconds": 3600,
     "units": {
-      "value": "ft3/s"
+      "value": "ft^3/s"
     }
   },
   {
@@ -3728,7 +3728,7 @@ export const WIRED_SPECS = [
     "title": "USGS Water — Sacramento River streamflow (Verona and Freeport, CA)",
     "ttlSeconds": 3600,
     "units": {
-      "value": "ft3/s"
+      "value": "ft^3/s"
     }
   },
   {
@@ -3736,7 +3736,7 @@ export const WIRED_SPECS = [
     "title": "USGS Water — San Joaquin River streamflow (Vernalis, CA)",
     "ttlSeconds": 3600,
     "units": {
-      "value": "ft3/s"
+      "value": "ft^3/s"
     }
   },
   {
@@ -3744,7 +3744,7 @@ export const WIRED_SPECS = [
     "title": "USGS Water — Savannah River streamflow (Augusta and Clyo, GA)",
     "ttlSeconds": 3600,
     "units": {
-      "value": "ft3/s"
+      "value": "ft^3/s"
     }
   },
   {
@@ -3752,7 +3752,7 @@ export const WIRED_SPECS = [
     "title": "USGS Water — Skagit River streamflow (Mount Vernon, WA)",
     "ttlSeconds": 3600,
     "units": {
-      "value": "ft3/s"
+      "value": "ft^3/s"
     }
   },
   {
@@ -3760,7 +3760,7 @@ export const WIRED_SPECS = [
     "title": "USGS Water — Snake River streamflow (Weiser, ID and Anatone, WA)",
     "ttlSeconds": 3600,
     "units": {
-      "value": "ft3/s"
+      "value": "ft^3/s"
     }
   },
   {
@@ -3768,7 +3768,7 @@ export const WIRED_SPECS = [
     "title": "USGS Water — South Platte River streamflow (Englewood, CO)",
     "ttlSeconds": 3600,
     "units": {
-      "value": "ft3/s"
+      "value": "ft^3/s"
     }
   },
   {
@@ -3784,7 +3784,7 @@ export const WIRED_SPECS = [
     "title": "USGS Water — Susquehanna River streamflow (Conowingo, MD)",
     "ttlSeconds": 3600,
     "units": {
-      "value": "ft3/s"
+      "value": "ft^3/s"
     }
   },
   {
@@ -3792,7 +3792,7 @@ export const WIRED_SPECS = [
     "title": "USGS Water — Tennessee River streamflow (Chattanooga, TN)",
     "ttlSeconds": 3600,
     "units": {
-      "value": "ft3/s"
+      "value": "ft^3/s"
     }
   },
   {
@@ -3800,7 +3800,7 @@ export const WIRED_SPECS = [
     "title": "USGS Water — Trinity River streamflow (Dallas, TX)",
     "ttlSeconds": 3600,
     "units": {
-      "value": "ft3/s"
+      "value": "ft^3/s"
     }
   },
   {
@@ -3808,7 +3808,7 @@ export const WIRED_SPECS = [
     "title": "USGS Water — Truckee River streamflow (Reno, NV)",
     "ttlSeconds": 3600,
     "units": {
-      "value": "ft3/s"
+      "value": "ft^3/s"
     }
   },
   {
@@ -3816,7 +3816,7 @@ export const WIRED_SPECS = [
     "title": "USGS Water — Turbidity, major rivers",
     "ttlSeconds": 3600,
     "units": {
-      "value": "FNU"
+      "value": "_FNU"
     }
   },
   {
@@ -3824,7 +3824,7 @@ export const WIRED_SPECS = [
     "title": "USGS Water — Wabash River streamflow (Mount Carmel, IL)",
     "ttlSeconds": 3600,
     "units": {
-      "value": "ft3/s"
+      "value": "ft^3/s"
     }
   },
   {
@@ -3832,7 +3832,7 @@ export const WIRED_SPECS = [
     "title": "USGS Water — Water temperature (Delaware, Potomac)",
     "ttlSeconds": 3600,
     "units": {
-      "value": "°C"
+      "value": "degC"
     }
   },
   {
@@ -3840,7 +3840,7 @@ export const WIRED_SPECS = [
     "title": "USGS Water — Water temperature, Chattahoochee River at Atlanta, GA",
     "ttlSeconds": 3600,
     "units": {
-      "value": "°C"
+      "value": "degC"
     }
   },
   {
@@ -3848,7 +3848,7 @@ export const WIRED_SPECS = [
     "title": "USGS Water — Water temperature, three western rivers",
     "ttlSeconds": 3600,
     "units": {
-      "value": "°C"
+      "value": "degC"
     }
   },
   {
@@ -3856,7 +3856,7 @@ export const WIRED_SPECS = [
     "title": "USGS Water — Willamette River streamflow (Albany and Portland, OR)",
     "ttlSeconds": 3600,
     "units": {
-      "value": "ft3/s"
+      "value": "ft^3/s"
     }
   },
   {
@@ -3864,7 +3864,7 @@ export const WIRED_SPECS = [
     "title": "USGS Water — Wisconsin River streamflow (Muscoda, WI)",
     "ttlSeconds": 3600,
     "units": {
-      "value": "ft3/s"
+      "value": "ft^3/s"
     }
   },
   {
@@ -3872,7 +3872,7 @@ export const WIRED_SPECS = [
     "title": "USGS Water — Yellowstone River streamflow (Corwin Springs, MT)",
     "ttlSeconds": 3600,
     "units": {
-      "value": "ft3/s"
+      "value": "ft^3/s"
     }
   },
   {
@@ -3880,7 +3880,7 @@ export const WIRED_SPECS = [
     "title": "USGS Water — Yukon River streamflow (Pilot Station, AK)",
     "ttlSeconds": 3600,
     "units": {
-      "value": "ft3/s"
+      "value": "ft^3/s"
     }
   },
   {
