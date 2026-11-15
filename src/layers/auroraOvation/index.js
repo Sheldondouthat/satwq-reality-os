@@ -200,7 +200,7 @@ export function createAuroraOvationLayer({ source, overlayHost } = {}) {
 }
 
 const LEGEND_CSS = [
-  'position:absolute;right:14px;bottom:18px;z-index:50;',
+  'position:absolute;right:14px;bottom:100px;z-index:50;',
   'background:rgba(8,12,20,.82);border:1px solid rgba(120,180,255,.25);',
   'border-radius:10px;padding:8px 12px;color:#dfe9ff;',
   'font:11px/1.5 system-ui,sans-serif;backdrop-filter:blur(6px);',
@@ -221,9 +221,24 @@ export function createOvationLegend(layer, { mount = document.body } = {}) {
   el.setAttribute('aria-label', 'OVATION aurora intensity legend');
   el.style.cssText = LEGEND_CSS;
 
+  const titleRow = document.createElement('div');
+  titleRow.style.cssText =
+    'display:flex;align-items:center;justify-content:space-between;gap:12px;';
   const title = document.createElement('div');
   title.textContent = '🌌 OVATION aurora';
   title.style.cssText = 'font-weight:600;margin-bottom:4px;';
+  // Closable: the legend is a guest in the bottom-right corner (records
+  // button + Cesium credits live there too), so the operator can dismiss
+  // it. Re-enabling the OVATION layer rebuilds it.
+  const closeBtn = document.createElement('button');
+  closeBtn.type = 'button';
+  closeBtn.textContent = '×';
+  closeBtn.setAttribute('aria-label', 'Close OVATION aurora legend');
+  closeBtn.style.cssText =
+    'background:none;border:0;color:#9fb4d8;cursor:pointer;font-size:14px;' +
+    'line-height:1;padding:0 2px;margin-bottom:4px;';
+  closeBtn.addEventListener('click', () => el.remove());
+  titleRow.append(title, closeBtn);
 
   const bar = document.createElement('div');
   const stops = ovationLegendStops();
@@ -245,7 +260,7 @@ export function createOvationLegend(layer, { mount = document.body } = {}) {
   obs.style.cssText = 'color:#7c8fb0;';
   obs.textContent = 'obs —';
 
-  el.append(title, bar, labels, caption, obs);
+  el.append(titleRow, bar, labels, caption, obs);
   mount.appendChild(el);
 
   function sync() {

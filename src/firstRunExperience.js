@@ -521,6 +521,11 @@ export function initFirstRunExperience({
   });
 
   for (const button of buttons) button.addEventListener('click', onChoice);
+  // Visible dismiss control: ESC worked but was undiscoverable. The × is
+  // the same dismissal path (session-scoped, no mission launched).
+  root
+    .querySelector('[data-first-run-dismiss]')
+    ?.addEventListener('click', () => dismiss());
   suppressBox?.addEventListener('change', onSuppressChange);
   // Capture phase: the app binds its own global hotkeys (including bare letters
   // that cycle detection and styles), and the launcher owns the keyboard first.

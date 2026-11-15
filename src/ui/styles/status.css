@@ -388,7 +388,9 @@
   bottom: 100px;
   left: 50%;
   transform: translateX(-50%) translateY(20px);
-  z-index: 200;
+  /* Above the Akashic bar (z 9999): a toast is transient operator feedback
+     and must never be painted over by the bottom chrome stack. */
+  z-index: 10002;
   padding: 10px 24px;
   background: var(--glass-bg);
   border: 1px solid var(--accent);

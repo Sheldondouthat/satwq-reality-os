@@ -201,7 +201,7 @@ export function createDvrLayer({
 }
 
 const DVR_CSS = [
-  'position:absolute;left:50%;bottom:18px;transform:translateX(-50%);',
+  'position:absolute;left:50%;bottom:calc(2vh + 92px);transform:translateX(-50%);',
   'display:flex;align-items:center;gap:10px;z-index:50;',
   'background:rgba(8,12,20,.82);border:1px solid rgba(120,180,255,.25);',
   'border-radius:12px;padding:8px 14px;color:#dfe9ff;',

@@ -1012,7 +1012,18 @@ body.ui-clean-view #data-panel,
 body.ui-clean-view #cctv-panel,
 body.ui-clean-view #radio-panel,
 body.ui-clean-view #global-context-panel,
-body.ui-clean-view #scene-panel {
+body.ui-clean-view #scene-panel,
+body.ui-clean-view #command-dock,
+body.ui-clean-view #left-panel-stack,
+body.ui-clean-view #right-context-rail,
+body.ui-clean-view #left-stack-toggle,
+body.ui-clean-view #intel-hud,
+body.ui-clean-view #safe-frame-overlay,
+body.ui-clean-view #akashic-timeline-bar,
+body.ui-clean-view .ovation-legend,
+body.ui-clean-view .akashic-records-toggle,
+body.ui-clean-view .akashic-wave3-panel,
+body.ui-clean-view #satwq-frontier-dock {
   opacity: 0 !important;
   visibility: hidden !important;
   pointer-events: none !important;

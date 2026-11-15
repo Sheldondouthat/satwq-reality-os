@@ -3,6 +3,7 @@ import { describeError } from './standalone/errors.js';
 import { initAkashic } from './akashic/index.js';
 import { initCinematic } from './cinematic/index.js';
 import { initFrontier } from './frontier/index.js';
+import { initLeftStackToggle } from './ui/leftStackToggle.js';
 import { showBootSplash } from './ui/bootSplash.js';
 import './ui/bootSplash.css';
 import './ui/voiceCommand.css';
@@ -81,6 +82,12 @@ application
       initFrontier({ viewer: components?.scene?.viewer ?? null });
     } catch (error) {
       console.warn('Frontier features failed to initialize:', error);
+    }
+    // Left panel stack hide tab: fail-soft like the other packs.
+    try {
+      initLeftStackToggle();
+    } catch (error) {
+      console.warn('Left stack toggle failed to initialize:', error);
     }
     splash.ready();
   })

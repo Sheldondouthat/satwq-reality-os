@@ -84,6 +84,24 @@
   color: rgba(54, 220, 255, 0.86);
 }
 
+.first-run-close {
+  flex: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  border: 1px solid rgba(171, 210, 220, 0.35);
+  background: rgba(8, 12, 20, 0.6);
+  color: rgba(217, 247, 255, 0.9);
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.first-run-close:hover {
+  border-color: rgba(54, 220, 255, 0.8);
+  color: #ffffff;
+}
+
 #first-run-launcher h2 {
   margin-top: 0.6rem;
   font-family: var(--font-mono);

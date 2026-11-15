@@ -49,6 +49,11 @@ export function _renderCctvState(state) {
 
   this._updateCctvSyncChip(state?.loading, enabled);
 
+  // Empty state: with no cameras the panel is a wall of disabled controls
+  // around a blank feed. Tag the panel so CSS can fold those away and let
+  // the enable button + status line carry the panel until a camera exists.
+  this._cctvPanel?.classList?.toggle('cctv-empty', cameras.length === 0);
+
   if (this._cctvEnableBtn) {
     this._cctvEnableBtn.classList.toggle('active', enabled);
     this._cctvEnableBtn.textContent = enabled ? 'CCTV ON' : 'CCTV OFF';
@@ -254,8 +259,21 @@ export function _updateCctvSyncChip(loading, enabled) {
     // during a grid load, and flapping it would read as a slot machine.
     this._cctvSyncProgress.textContent = `${loaded}/${total}`;
     this._cctvSyncChip.classList.add('visible');
+    // Stall watchdog: a healthy load re-renders state (and re-arms this
+    // timer) as frames land. If updates stop arriving while the chip is
+    // up — a wedged grid load — hide the chip instead of leaving a
+    // "LOADING FRAMES" pill on screen forever.
+    clearTimeout(this._cctvChipStallTimer);
+    this._cctvChipStallTimer = window.setTimeout(() => {
+      if (this.destroyed) return;
+      this._cctvChipStallTimer = null;
+      this._cctvChipWasBusy = false;
+      this._cctvSyncChip.classList.remove('visible');
+    }, 30000);
     return;
   }
+  clearTimeout(this._cctvChipStallTimer);
+  this._cctvChipStallTimer = null;
 
   if (this._cctvChipWasBusy && enabled && total > 0) {
     // Load just completed — flash the final count, then auto-hide.

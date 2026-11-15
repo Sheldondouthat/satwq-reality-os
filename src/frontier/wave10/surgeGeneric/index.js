@@ -84,13 +84,34 @@ export function init({ viewer, mount, chip, trackLayer, t } = {}) {
           'width:100%;font-size:10px;margin:2px 0;padding:3px;border-radius:6px;' +
           'border:1px solid #2a3b66;background:#0a1220;color:#c8d6f5;';
         selectEl.setAttribute('aria-label', 'Surge-500 wired feed');
-        for (const s of WIRED_SPECS) {
-          const opt = document.createElement('option');
-          opt.value = s.id;
-          opt.textContent = s.title;
-          if (s.id === currentId) opt.selected = true;
-          selectEl.appendChild(opt);
-        }
+        // Lazy options: WIRED_SPECS runs to ~479 entries, and building all
+        // of them as <option> nodes up front is hundreds of DOM nodes for a
+        // control most sessions never open. Ship just the current feed's
+        // option and populate the full list on first interaction
+        // (pointerdown/focus fire before the native popup renders).
+        let optionsPopulated = false;
+        const populateOptions = () => {
+          if (optionsPopulated) return;
+          optionsPopulated = true;
+          selectEl.innerHTML = '';
+          for (const s of WIRED_SPECS) {
+            const opt = document.createElement('option');
+            opt.value = s.id;
+            opt.textContent = s.title;
+            if (s.id === currentId) opt.selected = true;
+            selectEl.appendChild(opt);
+          }
+        };
+        const currentSpec = WIRED_SPECS.find((s) => s.id === currentId);
+        const initialOpt = document.createElement('option');
+        initialOpt.value = currentId;
+        initialOpt.textContent = currentSpec
+          ? currentSpec.title
+          : 'Select a feed…';
+        initialOpt.selected = true;
+        selectEl.appendChild(initialOpt);
+        selectEl.addEventListener('pointerdown', populateOptions);
+        selectEl.addEventListener('focus', populateOptions);
         selectEl.addEventListener('change', () => {
           currentId = selectEl.value;
           if (statusEl) statusEl.textContent = 'loading…';

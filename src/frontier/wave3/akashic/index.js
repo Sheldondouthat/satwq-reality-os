@@ -72,9 +72,10 @@ export function initAkashicArchive({
     if (!smallViewport) {
       const btn = document.createElement('button');
       btn.textContent = '◈ records';
+      btn.className = 'akashic-records-toggle';
       btn.setAttribute('aria-label', 'Open Akashic Records timeline');
       btn.style.cssText =
-        'position:fixed;right:12px;bottom:12px;z-index:9990;padding:7px 12px;border-radius:20px;' +
+        'position:fixed;right:12px;bottom:20px;z-index:9990;padding:7px 12px;border-radius:20px;' +
         'border:1px solid rgba(120,180,255,.35);background:rgba(8,12,20,.88);color:#9fc2ff;' +
         'cursor:pointer;font-size:11px;letter-spacing:.06em;';
       btn.addEventListener('click', () => {

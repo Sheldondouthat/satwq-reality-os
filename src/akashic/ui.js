@@ -43,8 +43,8 @@ function el(tag, attrs = {}, children = []) {
 }
 
 const CSS = `
-#${BAR_ID}{position:fixed;left:50%;transform:translateX(-50%);bottom:12px;z-index:9999;
-width:min(860px,94vw);background:rgba(8,12,20,.88);border:1px solid rgba(120,180,255,.25);
+#${BAR_ID}{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(2vh + 148px);z-index:9999;
+width:min(860px,calc(100vw - 620px));background:rgba(8,12,20,.88);border:1px solid rgba(120,180,255,.25);
 border-radius:12px;backdrop-filter:blur(8px);color:#dfe9ff;font-family:system-ui,sans-serif;
 font-size:12px;box-shadow:0 8px 32px rgba(0,0,0,.5);user-select:none}
 #${BAR_ID} .ak-head{display:flex;align-items:center;gap:8px;padding:8px 12px 4px}
@@ -168,7 +168,14 @@ export function mountAkashicUI({
     ctx.clearRect(0, 0, w, h);
     const bw = w / buckets.length;
     for (let i = 0; i < buckets.length; i++) {
-      const bh = max > 0 ? (buckets[i].count / max) * (h - 6) : 0;
+      // Sqrt scale: with ~120 buckets over 30 days, real event counts are
+      // sparse (0-3 per bucket next to one burst bucket). A linear scale
+      // renders everything except the burst as invisible slivers, so the
+      // bar reads as "empty" even with dozens of events on the log.
+      const bh =
+        max > 0 && buckets[i].count > 0
+          ? Math.max(2, Math.sqrt(buckets[i].count / max) * (h - 6))
+          : 0;
       const grad = ctx.createLinearGradient(0, h, 0, h - bh);
       grad.addColorStop(0, 'rgba(110,168,255,.85)');
       grad.addColorStop(1, 'rgba(177,123,255,.85)');
@@ -220,9 +227,9 @@ export function mountAkashicUI({
       console.warn('[Akashic] refresh failed', error);
       events = [];
     }
-    drawHistogram();
-    renderGlobe();
-    syncChrome();
+    // Route through the visibility gate defined below (hoisted call time:
+    // refresh only runs after mount completes or on recorder events).
+    paint();
   }
 
   // --- interactions ---
@@ -267,11 +274,28 @@ export function mountAkashicUI({
   };
   document.addEventListener('keydown', onKey);
 
+  // Perf: a hidden tab needs no canvas redraws or globe re-renders. Event
+  // refreshes are cheap data swaps, so they keep running; only the paint
+  // work is deferred until the tab is visible again.
+  let paintDeferred = false;
+  const paint = () => {
+    if (typeof document !== 'undefined' && document.hidden) {
+      paintDeferred = true;
+      return;
+    }
+    paintDeferred = false;
+    renderGlobe();
+    drawHistogram();
+    syncChrome();
+  };
+  const onVisibility = () => {
+    if (!document.hidden && paintDeferred) paint();
+  };
+  document.addEventListener('visibilitychange', onVisibility);
+
   const unsubs = [
     replay.subscribe(() => {
-      renderGlobe();
-      drawHistogram();
-      syncChrome();
+      paint();
     }),
     recorder.onEvents(() => refresh()),
   ];
@@ -282,6 +306,7 @@ export function mountAkashicUI({
     dispose() {
       unsubs.forEach((off) => off());
       document.removeEventListener('keydown', onKey);
+      document.removeEventListener('visibilitychange', onVisibility);
       bar.remove();
       style.remove();
     },

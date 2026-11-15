@@ -16,6 +16,58 @@
     bottom var(--transition-fast);
 }
 
+/* Whole-stack hide tab: lives in the 52px gutter left of the rail, aligned
+   with the first panel. The tab is a sibling of the stack (not a child),
+   so it stays visible — and clickable — while the stack is hidden. */
+#left-stack-toggle {
+  position: fixed;
+  left: 6px;
+  top: calc(var(--left-stack-top) + var(--left-stack-gap));
+  /* Above the frontier dock (z 9990): the dock's left edge shares this
+     gutter, and the tab must stay visible and clickable over it. */
+  z-index: 9995;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 5px;
+  border-radius: 8px;
+  border: 1px solid rgba(123, 189, 211, 0.35);
+  background: rgba(9, 18, 27, 0.85);
+  color: rgba(170, 252, 255, 0.9);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 2px;
+  cursor: pointer;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+#left-stack-toggle .left-stack-toggle-label {
+  writing-mode: vertical-rl;
+}
+
+#left-stack-toggle:hover {
+  border-color: rgba(0, 212, 255, 0.6);
+  color: #d9f7ff;
+}
+
+/* Panels are fixed-position children of the stack, several with their own
+   visibility rules (#data-panel.active sets visibility:visible), so the
+   hide must land on the children directly with enough force to win. */
+body.left-stack-hidden #left-panel-stack > * {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+@media (max-width: 768px) {
+  /* Phones use the bottom-sheet layout; the gutter tab has no home there. */
+  #left-stack-toggle {
+    display: none;
+  }
+}
+
 #data-panel {
   --panel-expanded-width: 280px;
   position: fixed;

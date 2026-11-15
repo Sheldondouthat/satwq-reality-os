@@ -50,6 +50,8 @@ export class VisualEffects {
     this.destroyed = false;
     this.stageEntries = [];
     this.previousBloom = null;
+    this._appliedAltitudeFactor = null;
+    this._removeCameraListener = null;
   }
 
   initStyles() {
@@ -106,6 +108,19 @@ export class VisualEffects {
     this.sharpenStage.enabled = false;
     this.viewer.scene.postProcessStages.add(this.sharpenStage);
     this.applySharpenIntensity(sharpenIntensity);
+    // Keep bloom/sharpen altitude-scaled as the camera moves. Cesium's
+    // camera.changed only fires past a movement threshold, and
+    // refreshAltitudeEffects additionally gates on factor delta.
+    this._appliedAltitudeFactor = this.altitudeFactor();
+    try {
+      const changed = this.viewer?.camera?.changed;
+      if (changed?.addEventListener)
+        this._removeCameraListener = changed.addEventListener(() =>
+          this.refreshAltitudeEffects(),
+        );
+    } catch {
+      /* camera events unavailable — effects stay at boot altitude */
+    }
   }
 
   setStageIntensity(stage, value) {
@@ -122,11 +137,36 @@ export class VisualEffects {
       this.setStageIntensity(stage, stage.uniforms.intensity);
   }
 
+  /**
+   * Bloom/sharpen are cinematic at orbital altitude but wash out street
+   * level: at a few hundred metres the imagery is low-resolution and a
+   * full-strength glow + unsharp mask turns it into a flat bright disc.
+   * Scale both effects down as the camera descends — full strength at
+   * 60 km+, a floor of 0.3 at 1.2 km and below, log-interpolated between.
+   * Returns 1 whenever the camera height is unavailable (tests, early
+   * boot), so stored user settings apply verbatim there.
+   */
+  altitudeFactor() {
+    try {
+      const height = this.viewer?.camera?.positionCartographic?.height;
+      if (!Number.isFinite(height)) return 1;
+      if (height >= 60000) return 1;
+      if (height <= 1200) return 0.3;
+      const t =
+        (Math.log(height) - Math.log(1200)) /
+        (Math.log(60000) - Math.log(1200));
+      return 0.3 + 0.7 * t;
+    } catch {
+      return 1;
+    }
+  }
+
   syncBloomEnabled() {
     if (this.stopped || !this.bloomStage) return;
     this.bloomStage.enabled =
       this.bloomEnabled &&
-      bloomStrengthFromIntensity(this.bloomIntensity) > 0.06;
+      bloomStrengthFromIntensity(this.bloomIntensity) * this.altitudeFactor() >
+        0.06;
   }
 
   applyBloomIntensity(intensity) {
@@ -134,7 +174,8 @@ export class VisualEffects {
     this.bloomIntensity = clampBloomIntensity(intensity);
     this.requestRender('bloom');
     if (!this.bloomStage) return;
-    const rawStrength = bloomStrengthFromIntensity(this.bloomIntensity);
+    const rawStrength =
+      bloomStrengthFromIntensity(this.bloomIntensity) * this.altitudeFactor();
     const strength = rawStrength <= 0.06 ? 0.0 : (rawStrength - 0.06) / 0.94;
     const eased = strength * strength * (3.0 - 2.0 * strength);
     this.bloomStage.uniforms.contrast = 255.0 - eased * 168.0;
@@ -143,6 +184,21 @@ export class VisualEffects {
     this.bloomStage.uniforms.delta = 0.2 + eased * 2.25;
     this.bloomStage.uniforms.stepSize = 1.0 + eased * 1.25;
     this.syncBloomEnabled();
+  }
+
+  /** Re-apply altitude-scaled effects after camera moves (throttled by
+   *  factor delta so a slow zoom doesn't churn uniform writes). */
+  refreshAltitudeEffects() {
+    if (this.stopped) return;
+    const factor = this.altitudeFactor();
+    if (
+      this._appliedAltitudeFactor !== null &&
+      Math.abs(factor - this._appliedAltitudeFactor) <= 0.02
+    )
+      return;
+    this._appliedAltitudeFactor = factor;
+    this.applyBloomIntensity(this.bloomIntensity);
+    this.applySharpenIntensity(this.sharpenIntensity);
   }
 
   setBloomEnabled(enabled) {
@@ -156,7 +212,8 @@ export class VisualEffects {
     if (this.stopped) return;
     this.sharpenIntensity = value;
     if (this.sharpenStage)
-      this.sharpenStage.uniforms.amount = 0.1 + value * 2.0;
+      this.sharpenStage.uniforms.amount =
+        0.1 + value * 2.0 * (0.35 + 0.65 * this.altitudeFactor());
     this.requestRender('sharpen');
   }
 
@@ -224,6 +281,12 @@ export class VisualEffects {
     if (this.destroyed) return;
     this.stop();
     this.destroyed = true;
+    try {
+      this._removeCameraListener?.();
+    } catch {
+      /* listener already gone */
+    }
+    this._removeCameraListener = null;
     const stages = this.viewer.scene.postProcessStages;
     for (const [, stage] of this.stageEntries) stages.remove(stage);
     if (this.sharpenStage) stages.remove(this.sharpenStage);

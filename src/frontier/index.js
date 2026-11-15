@@ -251,19 +251,42 @@ function createDock() {
     'button',
     {
       style:
-        'width:100%;background:none;border:0;color:#9fc2ff;cursor:pointer;' +
+        'width:100%;background:none;border:0;color:#9fc2ff;cursor:pointer;flex:none;' +
         'padding:8px 12px;text-align:left;font-weight:600;letter-spacing:.08em;font-size:11px;',
       'aria-expanded': 'true',
     },
     '◈ FRONTIER',
   );
-  const body = el('div', { style: 'padding:0 12px 12px;display:block;' });
+  // The body scrolls internally: with 8 waves of sections the dock is far
+  // taller than any viewport, and anchored at bottom:12 an unbounded body
+  // pushed the header (the only collapse control) off the top of the
+  // screen. Flex column + min-height:0 keeps the header pinned and the
+  // content reachable.
+  const body = el('div', {
+    style:
+      'padding:0 12px 12px;display:block;overflow-y:auto;min-height:0;',
+  });
   head.addEventListener('click', () => {
     const open = body.style.display !== 'none';
     body.style.display = open ? 'none' : 'block';
+    topBtn.style.display = open ? 'none' : 'block';
     head.setAttribute('aria-expanded', String(!open));
   });
-  dock.append(head, body);
+  const topBtn = el(
+    'button',
+    {
+      style:
+        'width:100%;background:none;border:0;border-top:1px solid rgba(120,180,255,.18);' +
+        'color:#8aa4d6;cursor:pointer;flex:none;padding:6px 12px;text-align:center;' +
+        'font-size:10px;letter-spacing:.1em;',
+      'aria-label': 'Back to top of Frontier panel',
+    },
+    '↑ BACK TO TOP',
+  );
+  topBtn.addEventListener('click', () => {
+    body.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+  dock.append(head, body, topBtn);
   document.body.appendChild(dock);
   // Phone-first: on small viewports the dock is a bottom sheet, so start
   // collapsed — the globe stays visible and the header is always one tap
@@ -275,6 +298,7 @@ function createDock() {
       window.matchMedia('(max-width: 768px)').matches
     ) {
       body.style.display = 'none';
+      topBtn.style.display = 'none';
       head.setAttribute('aria-expanded', 'false');
     }
   } catch {
@@ -425,7 +449,10 @@ export function initFrontier({ viewer } = {}) {
     dvr.init(viewer);
     dvrLayer = dvr; // captured for Akashic Records "view in DVR"
     const s = section(t('feature.dvr'));
-    const controls = createDvrControls(dvr, { mount: s });
+    // Mount to the viewport, not the section: the scrubber is absolutely
+    // positioned, and inside the dock its containing block becomes the
+    // dock itself, which slammed it into the bottom-left panel pile-up.
+    const controls = createDvrControls(dvr, { mount: document.body });
     const ctl = trackLayer('dvr', dvr);
     s.appendChild(chip('DVR', (on) => (on ? ctl.show() : ctl.hide()), true));
     dock.appendChild(s);
@@ -460,7 +487,10 @@ export function initFrontier({ viewer } = {}) {
     const apply = (on) => {
       if (on) {
         ctl.show();
-        legend = createOvationLegend(ovation, { mount: s });
+        // Viewport mount (the legend's own default): mounting into the
+        // dock section made the dock its containing block, so it landed
+        // on top of the dock's own bottom controls.
+        legend = createOvationLegend(ovation, { mount: document.body });
       } else {
         legend?.destroy();
         legend = null;

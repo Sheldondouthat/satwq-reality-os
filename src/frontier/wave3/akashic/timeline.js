@@ -77,6 +77,7 @@ export function createAkashicTimeline({
       'border-radius:10px;color:#dfe9ff;font:12px/1.45 system-ui,sans-serif;' +
       'padding:10px 12px;box-shadow:0 8px 30px rgba(0,0,0,.5);display:none;',
   );
+  panel.className = 'akashic-wave3-panel';
   panel.setAttribute('aria-label', 'Akashic records timeline');
 
   const title = el(

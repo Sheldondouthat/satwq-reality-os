@@ -213,6 +213,52 @@
   .video-facade { cursor:pointer; position:relative; }
   .video-facade img { width:100%; height:190px; object-fit:cover; border-radius:10px; display:block; filter:brightness(.8); }
   .video-facade .play { position:absolute; top:76px; left:50%; transform:translateX(-50%); font-size:40px; color:#fff; text-shadow:0 2px 14px #000; }
+  /* ===== glass polish pass (2026-11-15 site review) ===== */
+  /* translucent glass on nav pills, stat cards, cards (Findings included) */
+  .glass:not(.gate-card), .card, #menu a {
+    background: rgba(255,255,255,.07);
+    border: 1px solid rgba(255,255,255,.12);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 8px 32px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.06);
+  }
+  body.instrument .card, body.instrument .glass:not(.gate-card) { background: rgba(7,13,21,.92); }
+  .card:hover { box-shadow: 0 14px 38px rgba(0,0,0,.55), 0 0 0 1px rgba(255,255,255,.08), inset 0 1px 0 rgba(255,255,255,.06); }
+  #menu a:hover { border-color: rgba(255,255,255,.38); color:#fff; }
+  /* alert banner: glass — and the only gold chrome accent left on the page */
+  #headline { background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12); border-left: 4px solid var(--gold);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 10px 30px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.06); }
+  /* tickers: glass pills with edge fade + per-ticker close */
+  #tickers { padding: 8px 10px 4px; display: flex; flex-direction: column; gap: 6px; }
+  #tickers .ticker { position: relative; border-radius: 999px; background: rgba(255,255,255,.06);
+    border: 1px solid rgba(255,255,255,.12);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 6px 24px rgba(0,0,0,.35); padding: 5px 0; }
+  .tick-view { display: block; overflow: hidden;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 120px, #000 calc(100% - 30px), transparent 100%);
+    mask-image: linear-gradient(90deg, transparent 0, #000 120px, #000 calc(100% - 30px), transparent 100%); }
+  .tick-close { position: absolute; right: 6px; top: 50%; transform: translateY(-50%); z-index: 3;
+    width: 24px; height: 24px; padding: 0; border-radius: 50%; font-size: 15px; line-height: 1;
+    background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.18); color: var(--txt); }
+  .tick-close:hover { background: rgba(255,255,255,.18); box-shadow: none; }
+  .tick-close:active { transform: translateY(-50%) scale(.94); }
+  /* radio bar: floating glass pill, inset from the bottom, dismissible */
+  #radio-bar { left: 50%; right: auto; transform: translateX(-50%); bottom: 16px; width: max-content;
+    max-width: min(1060px, calc(100vw - 24px)); border-radius: 999px;
+    border: 1px solid rgba(255,255,255,.12); border-top: 1px solid rgba(255,255,255,.12);
+    background: rgba(255,255,255,.07);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 12px 36px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.06);
+    padding: 8px 10px 8px 18px; }
+  #radio-bar .rb-label { color: var(--txt); }
+  .rb-close { flex: none; width: 30px; height: 30px; padding: 0; border-radius: 50%; font-size: 17px; line-height: 1;
+    background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.18); }
+  .rb-close:hover { background: rgba(255,255,255,.18); box-shadow: none; }
+  /* page bottom padding so the floating radio pill never covers card content */
+  body { padding-bottom: 110px; }
+  @media (max-width: 640px) { #radio-bar { border-radius: 22px; } body { padding-bottom: 250px; } }
+  /* registry rows: a status badge never touches the item name */
+  #bane-rows .badge { margin-right: 4px; }
 </style>
 </head>
 <body>
@@ -250,9 +296,9 @@
 
 <div id="shell" class="hidden">
   <div id="tickers">
-    <div class="ticker" id="ticker"><span class="tick-lbl">⚠ ANOMALIES</span><span class="track" id="ticker-track">THE INNER CIRCLE — DAILY WIRE</span></div>
-    <div class="ticker" id="ticker2"><span class="tick-lbl">📰 HEADLINE WIRE</span><span class="track" id="ticker2-track">Headlines load with the wire…</span></div>
-    <div class="ticker" id="ticker3"><span class="tick-lbl">🔢 NUMBERS</span><span class="track" id="ticker3-track">Numbers load with the wire…</span></div>
+    <div class="ticker" id="ticker"><span class="tick-lbl">⚠ ANOMALIES</span><span class="tick-view"><span class="track" id="ticker-track">THE INNER CIRCLE — DAILY WIRE</span></span><button type="button" class="tick-close" data-close-ticker="ticker" aria-label="Dismiss the anomalies ticker">×</button></div>
+    <div class="ticker" id="ticker2"><span class="tick-lbl">📰 HEADLINE WIRE</span><span class="tick-view"><span class="track" id="ticker2-track">Headlines load with the wire…</span></span><button type="button" class="tick-close" data-close-ticker="ticker2" aria-label="Dismiss the headline ticker">×</button></div>
+    <div class="ticker" id="ticker3"><span class="tick-lbl">🔢 NUMBERS</span><span class="tick-view"><span class="track" id="ticker3-track">Numbers load with the wire…</span></span><button type="button" class="tick-close" data-close-ticker="ticker3" aria-label="Dismiss the numbers ticker">×</button></div>
   </div>
   <main>
     <h1>The Inner Circle</h1>
@@ -503,6 +549,7 @@
   <select id="radio-select" aria-label="Choose a station"></select>
   <button type="button" id="radio-play" aria-label="Play or pause the radio">▶ Play</button>
   <span id="radio-status" class="src">Streams load only when you press play — no autoplay, no background data.</span>
+  <button type="button" id="radio-close" class="rb-close" aria-label="Close the radio bar">×</button>
 </div>
 
 <div id="ambient" class="hidden" role="dialog" aria-label="Ambient TV mode">
@@ -1432,6 +1479,17 @@
   document.addEventListener('click', function (ev) { if (ev.target && ev.target.id === 'install-btn' && deferredInstall) { deferredInstall.prompt(); } });
   /* ticker tap = pause */
   document.querySelectorAll('.ticker').forEach(function (t) { t.addEventListener('click', function () { t.classList.toggle('paused'); }); });
+  /* ticker close buttons — hidden for the rest of the session */
+  function syncTickerStack() { var open = Array.prototype.filter.call(document.querySelectorAll('.ticker'), function (t) { return t.style.display !== 'none'; }); var wrap = $('tickers'); if (wrap) wrap.style.display = open.length ? '' : 'none'; }
+  document.querySelectorAll('[data-close-ticker]').forEach(function (b) {
+    var id = b.getAttribute('data-close-ticker');
+    try { if (sessionStorage.getItem('circle-closed-' + id) === '1') { var t0 = $(id); if (t0) t0.style.display = 'none'; } } catch (e) {}
+    b.addEventListener('click', function (ev) { ev.stopPropagation(); var t = $(id); if (t) t.style.display = 'none'; try { sessionStorage.setItem('circle-closed-' + id, '1'); } catch (e) {} syncTickerStack(); });
+  });
+  syncTickerStack();
+  /* radio bar close — hidden for the rest of the session */
+  var radioClose = $('radio-close');
+  if (radioClose) radioClose.addEventListener('click', function () { $('radio-bar').classList.add('hidden'); try { sessionStorage.setItem('circle-radio-closed', '1'); } catch (e) {} });
   /* D-pad / arrow navigation across cards */
   document.querySelectorAll('.card').forEach(function (c) { c.setAttribute('tabindex', '-1'); });
   document.addEventListener('keydown', function (ev) {
@@ -1486,7 +1544,7 @@
         '<p><span class="badge wire">WIRE</span> <strong>Radon:</strong> fault-fractured rock is a radon pathway — Giles County sits in EPA radon Zone 1 (highest potential). <a href="https://www.epa.gov/radon/epa-map-radon-zones" target="_blank" rel="noopener">EPA radon map ↗</a></p>';
       var items = (d.registry || []).filter(function (r) { return r.domain === 'Bane Dome & Local Anomalies'; });
       $('bane-rows').innerHTML = items.map(function (r) {
-        return '<div class="reg-row" data-status="' + r.status + '"><span class="badge ' + r.status.toLowerCase() + '">' + r.status + '</span><span class="reg-name">' + esc(r.name) + (r.desc ? '</span><div class="reg-detail" style="display:block">' + esc(r.desc) + '</div>' : '</span>');
+        return '<div class="reg-row" data-status="' + r.status + '"><span class="badge ' + r.status.toLowerCase() + '">' + r.status + '</span> <span class="reg-name">' + esc(r.name) + (r.desc ? '</span><div class="reg-detail" style="display:block">' + esc(r.desc) + '</div>' : '</span>');
       }).join('');
       var statuses = ['ALL', 'LIVE', 'COMPUTED', 'WIRE', 'REFERENCE', 'PENDING'];
       $('bane-filter').innerHTML = statuses.map(function (s) { return '<button type="button" class="small" data-bane-filter="' + s + '">' + s + '</button>'; }).join(' ');
@@ -1507,7 +1565,8 @@
     /* ---- radio bar ---- */
     try {
       var stations = (d.radio && d.radio.stations) || [];
-      if (stations.length) {
+      var radioClosed = false; try { radioClosed = sessionStorage.getItem('circle-radio-closed') === '1'; } catch (e) {}
+      if (stations.length && !radioClosed) {
         $('radio-bar').classList.remove('hidden');
         $('radio-select').innerHTML = stations.map(function (s, i) { return '<option value="' + i + '"' + (s.ok ? '' : ' disabled') + '>' + esc(s.name) + (s.ok ? '' : ' — stream unverified') + '</option>'; }).join('');
         var audio = new Audio(); audio.preload = 'none';

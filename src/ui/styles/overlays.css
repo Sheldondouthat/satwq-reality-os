@@ -371,3 +371,18 @@
 #intel-hud[data-variant='minimal'] .hud-summary-wrap {
   max-width: 280px;
 }
+
+/* ── Frontier dock (desktop): bounded column ──────────────────────
+   The dock is bottom-anchored and holds 8 waves of sections — far taller
+   than any viewport. As a flex column with a capped height, the header
+   (its collapse control) stays pinned and reachable, the body scrolls
+   internally (inline style), and the top stops below the title bar
+   instead of growing up over it. Phones keep their bottom-sheet rules
+   in mobile-rebuild.css. */
+@media (min-width: 769px) {
+  #satwq-frontier-dock {
+    display: flex;
+    flex-direction: column;
+    max-height: calc(100vh - 132px);
+  }
+}

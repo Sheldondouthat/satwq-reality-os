@@ -1,4 +1,17 @@
 /* ── CCTV Panel ─────────────────────────────── */
+/* Empty state (no cameras loaded): fold away the control rows that only
+   make sense with a camera — prev/next/select, focus/coverage/autohop,
+   projection, calibration, scene summary, and the blank feed frame.
+   The header, the enable row, and the status line stay. */
+#cctv-panel.cctv-empty .cctv-controls:not(:has(#cctv-enable-btn)),
+#cctv-panel.cctv-empty .cctv-calibration-block,
+#cctv-panel.cctv-empty .cctv-summary-label,
+#cctv-panel.cctv-empty #cctv-summary,
+#cctv-panel.cctv-empty #cctv-frame-wrap,
+#cctv-panel.cctv-empty #cctv-source-badge {
+  display: none;
+}
+
 #cctv-panel {
   --panel-expanded-width: 360px;
   position: fixed;
