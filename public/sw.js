@@ -35,7 +35,10 @@ const SHELL_URLS = [
   '/manifest.webmanifest',
   '/fonts/material-symbols-outlined-subset.woff2',
   // V5-0 floor fragment: the Glen Lyn river page + its pure logic module.
+  // Both URL forms: Pages 308-redirects /river.html → /river (clean
+  // URL), so the canonical path is precached beside the file path.
   '/river.html',
+  '/river',
   '/river-floor.js',
 ];
 
