@@ -1,1 +1,63 @@
-{"name":"ns1:timeSeriesResponseType","declaredType":"org.cuahsi.waterml.TimeSeriesResponseType","scope":"javax.xml.bind.JAXBElement$GlobalScope","value":{"queryInfo":{"queryURL":"http://waterservices.usgs.gov/nwis/iv/format=json&sites=05420400&parameterCd=00300","criteria":{"locationParam":"[ALL:05420400]","variableParam":"[00300]","parameter":[]},"note":[{"value":"[ALL:05420400]","title":"filter:sites"},{"value":"[mode=LATEST, modifiedSince=null]","title":"filter:timeRange"},{"value":"methodIds=[ALL]","title":"filter:methodId"},{"value":"2026-10-02T23:17:57.273Z","title":"requestDT"},{"value":"80b34180-beb7-11f1-b7dc-2cea7f58f5ca","title":"requestId"},{"value":"Provisional data are subject to revision. Go to http://waterdata.usgs.gov/nwis/help/?provisional for more information.","title":"disclaimer"},{"value":"vaas01","title":"server"}]},"timeSeries":[{"sourceInfo":{"siteName":"MISSISSIPPI RIVER AT DAM 13 NEAR FULTON, IL","siteCode":[{"value":"05420400","network":"NWIS","agencyCode":"USGS"}],"timeZoneInfo":{"defaultTimeZone":{"zoneOffset":"-06:00","zoneAbbreviation":"CST"},"daylightSavingsTimeZone":{"zoneOffset":"-05:00","zoneAbbreviation":"CDT"},"siteUsesDaylightSavingsTime":false},"geoLocation":{"geogLocation":{"srs":"EPSG:4326","latitude":41.8944725,"longitude":-90.156793},"localSiteXY":[]},"note":[],"siteType":[],"siteProperty":[{"value":"ST","name":"siteTypeCd"},{"value":"07080101","name":"hucCd"},{"value":"17","name":"stateCd"},{"value":"17195","name":"countyCd"}]},"variable":{"variableCode":[{"value":"00300","network":"NWIS","vocabulary":"NWIS:UnitValues","variableID":45809894,"default":true}],"variableName":"Dissolved oxygen, water, unfiltered, mg/L","variableDescription":"Dissolved oxygen, water, unfiltered, milligrams per liter","valueType":"Derived Value","unit":{"unitCode":"mg/l"},"options":{"option":[{"name":"Statistic","optionCode":"00000"}]},"note":[],"noDataValue":-999999.0,"variableProperty":[],"oid":"45809894"},"values":[{"value":[{"value":"8.2","qualifiers":["P"],"dateTime":"2026-10-02T16:15:00.000-06:00"}],"qualifier":[{"qualifierCode":"P","qualifierDescription":"Provisional data subject to revision.","qualifierID":0,"network":"NWIS","vocabulary":"uv_rmk_cd"}],"qualityControlLevel":[],"method":[{"methodDescription":"","methodID":309062}],"source":[],"offset":[],"sample":[],"censorCode":[]}],"name":"USGS:05420400:00300:00000"}]},"nil":false,"globalScope":true,"typeSubstituted":false}
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "time_series_id": "07d95a7280f6458f9fabb5b81b684c3d",
+        "monitoring_location_id": "USGS-05420400",
+        "parameter_code": "00300",
+        "statistic_id": "00011",
+        "time": "2026-11-11T21:15:00+00:00",
+        "value": "10.1",
+        "unit_of_measure": "mg/l",
+        "approval_status": "Provisional",
+        "qualifier": null,
+        "last_modified": "2026-11-15T09:22:33.101717+00:00",
+        "method_category": "STNRD"
+      },
+      "id": "67058b05-b9bc-4916-afb8-f7283f2b6375",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -90.1567930273846,
+          41.8944725373443
+        ]
+      }
+    }
+  ],
+  "numberReturned": 1,
+  "links": [
+    {
+      "type": "application/geo+json",
+      "rel": "self",
+      "title": "This document as GeoJSON",
+      "href": "https://api.waterdata.usgs.gov/ogcapi/v1/collections/latest-continuous/items?f=json&monitoring_location_number=05420400&parameter_code=00300&limit=100"
+    },
+    {
+      "rel": "alternate",
+      "type": "application/ld+json",
+      "title": "This document as RDF (JSON-LD)",
+      "href": "https://api.waterdata.usgs.gov/ogcapi/v1/collections/latest-continuous/items?f=jsonld&monitoring_location_number=05420400&parameter_code=00300&limit=100"
+    },
+    {
+      "type": "text/html",
+      "rel": "alternate",
+      "title": "This document as HTML",
+      "href": "https://api.waterdata.usgs.gov/ogcapi/v1/collections/latest-continuous/items?f=html&monitoring_location_number=05420400&parameter_code=00300&limit=100"
+    },
+    {
+      "type": "text/csv; charset=utf-8",
+      "rel": "alternate",
+      "title": "This document as CSV",
+      "href": "https://api.waterdata.usgs.gov/ogcapi/v1/collections/latest-continuous/items?f=csv&monitoring_location_number=05420400&parameter_code=00300&limit=100"
+    },
+    {
+      "type": "application/json",
+      "title": "Latest continuous",
+      "rel": "collection",
+      "href": "https://api.waterdata.usgs.gov/ogcapi/v1/collections/latest-continuous"
+    }
+  ],
+  "timeStamp": "2026-11-15T14:12:44.220080Z"
+}

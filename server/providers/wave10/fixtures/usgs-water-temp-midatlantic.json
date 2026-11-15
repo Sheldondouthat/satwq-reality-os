@@ -1,1 +1,183 @@
-{"name":"ns1:timeSeriesResponseType","declaredType":"org.cuahsi.waterml.TimeSeriesResponseType","scope":"javax.xml.bind.JAXBElement$GlobalScope","value":{"queryInfo":{"queryURL":"http://waterservices.usgs.gov/nwis/iv/format=json&sites=01646500,01463500,01578310&parameterCd=00010","criteria":{"locationParam":"[ALL:01646500, ALL:01463500, ALL:01578310]","variableParam":"[00010]","parameter":[]},"note":[{"value":"[ALL:01646500, ALL:01463500, ALL:01578310]","title":"filter:sites"},{"value":"[mode=LATEST, modifiedSince=null]","title":"filter:timeRange"},{"value":"methodIds=[ALL]","title":"filter:methodId"},{"value":"2026-10-02T09:21:33.800Z","title":"requestDT"},{"value":"a904f770-be42-11f1-acac-005056beda50","title":"requestId"}]},"timeSeries":[{"sourceInfo":{"siteName":"Delaware River at Trenton NJ","siteCode":[{"value":"01463500","network":"NWIS","agencyCode":"USGS"}],"timeZoneInfo":{"defaultTimeZone":{"zoneOffset":"-05:00","zoneAbbreviation":"EST"},"daylightSavingsTimeZone":{"zoneOffset":"-04:00","zoneAbbreviation":"EDT"},"siteUsesDaylightSavingsTime":true},"geoLocation":{"geogLocation":{"srs":"EPSG:4326","latitude":40.22166667,"longitude":-74.77805556},"localSiteXY":[]},"note":[],"siteType":[],"siteProperty":[{"value":"ST","name":"siteTypeCd"},{"value":"020401050911","name":"hucCd"},{"value":"34","name":"stateCd"},{"value":"34021","name":"countyCd"}]},"variable":{"variableCode":[{"value":"00010","network":"NWIS","vocabulary":"NWIS:UnitValues","variableID":45807042,"default":true}],"variableName":"Temperature, water, &#176;C","variableDescription":"Temperature, water, degrees Celsius","valueType":"Derived Value","unit":{"unitCode":"deg C"},"options":{"option":[{"name":"Statistic","optionCode":"00000"}]},"note":[],"noDataValue":-999999,"variableProperty":[],"oid":"45807042"},"values":[{"value":[{"value":"19.6","qualifiers":["P"],"dateTime":"2026-10-02T04:00:00.000-04:00"}],"qualifier":[{"qualifierCode":"P","qualifierDescription":"Provisional data subject to revision.","qualifierID":0,"network":"NWIS","vocabulary":"uv_rmk_cd"}],"qualityControlLevel":[],"method":[{"methodDescription":"","methodID":195093}],"source":[],"offset":[],"sample":[],"censorCode":[]}],"name":"USGS:01463500:00010:00000"},{"sourceInfo":{"siteName":"POTOMAC RIVER NEAR WASH, DC LITTLE FALLS PUMP STA","siteCode":[{"value":"01646500","network":"NWIS","agencyCode":"USGS"}],"timeZoneInfo":{"defaultTimeZone":{"zoneOffset":"-05:00","zoneAbbreviation":"EST"},"daylightSavingsTimeZone":{"zoneOffset":"-04:00","zoneAbbreviation":"EDT"},"siteUsesDaylightSavingsTime":true},"geoLocation":{"geogLocation":{"srs":"EPSG:4326","latitude":38.94977778,"longitude":-77.12763889},"localSiteXY":[]},"note":[],"siteType":[],"siteProperty":[{"value":"ST","name":"siteTypeCd"},{"value":"020700081005","name":"hucCd"},{"value":"24","name":"stateCd"},{"value":"24031","name":"countyCd"}]},"variable":{"variableCode":[{"value":"00010","network":"NWIS","vocabulary":"NWIS:UnitValues","variableID":45807042,"default":true}],"variableName":"Temperature, water, &#176;C","variableDescription":"Temperature, water, degrees Celsius","valueType":"Derived Value","unit":{"unitCode":"deg C"},"options":{"option":[{"name":"Statistic","optionCode":"00000"}]},"note":[],"noDataValue":-999999,"variableProperty":[],"oid":"45807042"},"values":[{"value":[{"value":"24.3","qualifiers":["A"],"dateTime":"2019-10-01T12:15:00.000-04:00"}],"qualifier":[{"qualifierCode":"A","qualifierDescription":"Approved for publication -- Processing and review completed.","qualifierID":0,"network":"NWIS","vocabulary":"uv_rmk_cd"}],"qualityControlLevel":[],"method":[{"methodDescription":"4.1 ft from riverbed (middle), [Discontinued]","methodID":69930}],"source":[],"offset":[],"sample":[],"censorCode":[]},{"value":[{"value":"24.0","qualifiers":["A"],"dateTime":"2019-10-01T12:15:00.000-04:00"}],"qualifier":[{"qualifierCode":"A","qualifierDescription":"Approved for publication -- Processing and review completed.","qualifierID":0,"network":"NWIS","vocabulary":"uv_rmk_cd"}],"qualityControlLevel":[],"method":[{"methodDescription":"1.0 ft from riverbed (bottom), [Discontinued]","methodID":69931}],"source":[],"offset":[],"sample":[],"censorCode":[]},{"value":[{"value":"23.9","qualifiers":["A"],"dateTime":"2019-10-01T12:30:00.000-04:00"}],"qualifier":[{"qualifierCode":"A","qualifierDescription":"Approved for publication -- Processing and review completed.","qualifierID":0,"network":"NWIS","vocabulary":"uv_rmk_cd"}],"qualityControlLevel":[],"method":[{"methodDescription":"7.1 ft from riverbed (top), [Discontinued]","methodID":69932}],"source":[],"offset":[],"sample":[],"censorCode":[]},{"value":[{"value":"24.8","qualifiers":["A"],"dateTime":"2019-05-27T15:00:00.000-04:00"}],"qualifier":[{"qualifierCode":"A","qualifierDescription":"Approved for publication -- Processing and review completed.","qualifierID":0,"network":"NWIS","vocabulary":"uv_rmk_cd"}],"qualityControlLevel":[],"method":[{"methodDescription":"From multiparameter sonde, [Discontinued]","methodID":69942}],"source":[],"offset":[],"sample":[],"censorCode":[]},{"value":[{"value":"22.1","qualifiers":["P"],"dateTime":"2026-10-02T04:50:00.000-04:00"}],"qualifier":[{"qualifierCode":"P","qualifierDescription":"Provisional data subject to revision.","qualifierID":0,"network":"NWIS","vocabulary":"uv_rmk_cd"}],"qualityControlLevel":[],"method":[{"methodDescription":"From multiparameter sonde","methodID":252060}],"source":[],"offset":[],"sample":[],"censorCode":[]}],"name":"USGS:01646500:00010:00000"}]},"nil":false,"globalScope":true,"typeSubstituted":false}
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "time_series_id": "52b33353ad684b76a8afd49cf017a42c",
+        "monitoring_location_id": "USGS-01646500",
+        "parameter_code": "00010",
+        "statistic_id": "00011",
+        "time": "2019-10-01T16:15:00+00:00",
+        "value": "24.3",
+        "unit_of_measure": "degC",
+        "approval_status": "Approved",
+        "qualifier": null,
+        "last_modified": "2026-08-08T19:37:42.177074+00:00",
+        "method_category": null
+      },
+      "id": "1c3ea2f6-f7d9-4311-9225-0e2c4c282d7b",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.12763888888888,
+          38.949777777777776
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "time_series_id": "d1875d1d73e447d2a1203105ba654e7d",
+        "monitoring_location_id": "USGS-01646500",
+        "parameter_code": "00010",
+        "statistic_id": "00011",
+        "time": "2026-11-15T13:50:00+00:00",
+        "value": "10.4",
+        "unit_of_measure": "degC",
+        "approval_status": "Provisional",
+        "qualifier": null,
+        "last_modified": "2026-11-15T13:58:21.968071+00:00",
+        "method_category": "STNRD"
+      },
+      "id": "35990d8c-cfa5-44e8-b63e-f820c28693b0",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.12763888888888,
+          38.949777777777776
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "time_series_id": "089a50eca92a4e268b8816a1bc22c000",
+        "monitoring_location_id": "USGS-01646500",
+        "parameter_code": "00010",
+        "statistic_id": "00011",
+        "time": "2019-05-27T19:00:00+00:00",
+        "value": "24.8",
+        "unit_of_measure": "degC",
+        "approval_status": "Approved",
+        "qualifier": null,
+        "last_modified": "2026-08-08T19:36:52.612240+00:00",
+        "method_category": "STNRD"
+      },
+      "id": "8b9c288c-ff6b-4590-b27f-4b27d99b5251",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.12763888888888,
+          38.949777777777776
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "time_series_id": "1e8eee0b0e6b4eeca5108680efde0662",
+        "monitoring_location_id": "USGS-01463500",
+        "parameter_code": "00010",
+        "statistic_id": "00011",
+        "time": "2026-11-15T13:00:00+00:00",
+        "value": "9.1",
+        "unit_of_measure": "degC",
+        "approval_status": "Provisional",
+        "qualifier": null,
+        "last_modified": "2026-11-15T13:45:21.805544+00:00",
+        "method_category": "STNRD"
+      },
+      "id": "945d483b-7648-40f0-afcc-2e7c22321b4e",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.7780555555556,
+          40.2216666666667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "time_series_id": "c8e767f6cdfc4ff484a99f77962dc46c",
+        "monitoring_location_id": "USGS-01646500",
+        "parameter_code": "00010",
+        "statistic_id": "00011",
+        "time": "2019-10-01T16:30:00+00:00",
+        "value": "23.9",
+        "unit_of_measure": "degC",
+        "approval_status": "Approved",
+        "qualifier": null,
+        "last_modified": "2026-08-08T19:38:48.473052+00:00",
+        "method_category": "STNRD"
+      },
+      "id": "d441f04e-0a5c-4e3c-af7d-0e2bc71685e2",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.12763888888888,
+          38.949777777777776
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "time_series_id": "f60be489a22b4dfd9fd0fb97f3acc285",
+        "monitoring_location_id": "USGS-01646500",
+        "parameter_code": "00010",
+        "statistic_id": "00011",
+        "time": "2019-10-01T16:15:00+00:00",
+        "value": "24.0",
+        "unit_of_measure": "degC",
+        "approval_status": "Approved",
+        "qualifier": null,
+        "last_modified": "2026-08-08T19:39:09.145374+00:00",
+        "method_category": "STNRD"
+      },
+      "id": "df722c58-1eb4-40ff-8f07-00c6d4990aac",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.12763888888888,
+          38.949777777777776
+        ]
+      }
+    }
+  ],
+  "numberReturned": 6,
+  "links": [
+    {
+      "type": "application/geo+json",
+      "rel": "self",
+      "title": "This document as GeoJSON",
+      "href": "https://api.waterdata.usgs.gov/ogcapi/v1/collections/latest-continuous/items?f=json&monitoring_location_number=01646500,01463500,01578310&parameter_code=00010&limit=100"
+    },
+    {
+      "rel": "alternate",
+      "type": "application/ld+json",
+      "title": "This document as RDF (JSON-LD)",
+      "href": "https://api.waterdata.usgs.gov/ogcapi/v1/collections/latest-continuous/items?f=jsonld&monitoring_location_number=01646500,01463500,01578310&parameter_code=00010&limit=100"
+    },
+    {
+      "type": "text/html",
+      "rel": "alternate",
+      "title": "This document as HTML",
+      "href": "https://api.waterdata.usgs.gov/ogcapi/v1/collections/latest-continuous/items?f=html&monitoring_location_number=01646500,01463500,01578310&parameter_code=00010&limit=100"
+    },
+    {
+      "type": "text/csv; charset=utf-8",
+      "rel": "alternate",
+      "title": "This document as CSV",
+      "href": "https://api.waterdata.usgs.gov/ogcapi/v1/collections/latest-continuous/items?f=csv&monitoring_location_number=01646500,01463500,01578310&parameter_code=00010&limit=100"
+    },
+    {
+      "type": "application/json",
+      "title": "Latest continuous",
+      "rel": "collection",
+      "href": "https://api.waterdata.usgs.gov/ogcapi/v1/collections/latest-continuous"
+    }
+  ],
+  "timeStamp": "2026-11-15T14:12:41.125579Z"
+}

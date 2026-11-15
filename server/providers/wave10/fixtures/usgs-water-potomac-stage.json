@@ -1,1 +1,63 @@
-{"name":"ns1:timeSeriesResponseType","declaredType":"org.cuahsi.waterml.TimeSeriesResponseType","scope":"javax.xml.bind.JAXBElement$GlobalScope","value":{"queryInfo":{"queryURL":"http://waterservices.usgs.gov/nwis/iv/format=json&sites=01646500&parameterCd=00065","criteria":{"locationParam":"[ALL:01646500]","variableParam":"[00065]","parameter":[]},"note":[{"value":"[ALL:01646500]","title":"filter:sites"},{"value":"[mode=LATEST, modifiedSince=null]","title":"filter:timeRange"},{"value":"methodIds=[ALL]","title":"filter:methodId"},{"value":"2026-10-02T14:20:19.983Z","title":"requestDT"},{"value":"65b67dc0-be6c-11f1-a2d4-2cea7f5e5ede","title":"requestId"}]},"timeSeries":[{"sourceInfo":{"siteName":"POTOMAC RIVER NEAR WASH, DC LITTLE FALLS PUMP STA","siteCode":[{"value":"01646500","network":"NWIS","agencyCode":"USGS"}],"timeZoneInfo":{"defaultTimeZone":{"zoneOffset":"-05:00","zoneAbbreviation":"EST"},"daylightSavingsTimeZone":{"zoneOffset":"-04:00","zoneAbbreviation":"EDT"},"siteUsesDaylightSavingsTime":true},"geoLocation":{"geogLocation":{"srs":"EPSG:4326","latitude":38.94977778,"longitude":-77.12763889},"localSiteXY":[]},"note":[],"siteType":[],"siteProperty":[{"value":"ST","name":"siteTypeCd"},{"value":"020700081005","name":"hucCd"},{"value":"24","name":"stateCd"},{"value":"24031","name":"countyCd"}]},"variable":{"variableCode":[{"value":"00065","network":"NWIS","vocabulary":"NWIS:UnitValues","variableID":45807202,"default":true}],"variableName":"Gage height, ft","variableDescription":"Gage height, feet","valueType":"Derived Value","unit":{"unitCode":"ft"},"options":{"option":[{"name":"Statistic","optionCode":"00000"}]},"note":[],"noDataValue":-999999,"variableProperty":[],"oid":"45807202"},"values":[{"value":[{"value":"2.89","qualifiers":["P"],"dateTime":"2026-10-02T09:50:00.000-04:00"}],"qualifier":[{"qualifierCode":"P","qualifierDescription":"Provisional data subject to revision.","qualifierID":0,"network":"NWIS","vocabulary":"uv_rmk_cd"}],"qualityControlLevel":[],"method":[{"methodDescription":"","methodID":69929}],"source":[],"offset":[],"sample":[],"censorCode":[]}],"name":"USGS:01646500:00065:00000"}]},"nil":false,"globalScope":true,"typeSubstituted":false}
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "time_series_id": "8a83eb3a3cbc4087b0c201cf07c0c76d",
+        "monitoring_location_id": "USGS-01646500",
+        "parameter_code": "00065",
+        "statistic_id": "00011",
+        "time": "2026-11-15T13:50:00+00:00",
+        "value": "2.74",
+        "unit_of_measure": "ft",
+        "approval_status": "Provisional",
+        "qualifier": null,
+        "last_modified": "2026-11-15T13:58:24.439161+00:00",
+        "method_category": "UNKWN"
+      },
+      "id": "5a185ea8-5790-4309-8f23-b363a798b01a",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.12763888888888,
+          38.949777777777776
+        ]
+      }
+    }
+  ],
+  "numberReturned": 1,
+  "links": [
+    {
+      "type": "application/geo+json",
+      "rel": "self",
+      "title": "This document as GeoJSON",
+      "href": "https://api.waterdata.usgs.gov/ogcapi/v1/collections/latest-continuous/items?f=json&monitoring_location_number=01646500&parameter_code=00065&limit=100"
+    },
+    {
+      "rel": "alternate",
+      "type": "application/ld+json",
+      "title": "This document as RDF (JSON-LD)",
+      "href": "https://api.waterdata.usgs.gov/ogcapi/v1/collections/latest-continuous/items?f=jsonld&monitoring_location_number=01646500&parameter_code=00065&limit=100"
+    },
+    {
+      "type": "text/html",
+      "rel": "alternate",
+      "title": "This document as HTML",
+      "href": "https://api.waterdata.usgs.gov/ogcapi/v1/collections/latest-continuous/items?f=html&monitoring_location_number=01646500&parameter_code=00065&limit=100"
+    },
+    {
+      "type": "text/csv; charset=utf-8",
+      "rel": "alternate",
+      "title": "This document as CSV",
+      "href": "https://api.waterdata.usgs.gov/ogcapi/v1/collections/latest-continuous/items?f=csv&monitoring_location_number=01646500&parameter_code=00065&limit=100"
+    },
+    {
+      "type": "application/json",
+      "title": "Latest continuous",
+      "rel": "collection",
+      "href": "https://api.waterdata.usgs.gov/ogcapi/v1/collections/latest-continuous"
+    }
+  ],
+  "timeStamp": "2026-11-15T14:12:27.772528Z"
+}
