@@ -367,6 +367,24 @@ export const TOMTOM_CREDIT = {
     '<a href="https://www.tomtom.com" target="_blank" rel="noopener">TomTom</a>',
 };
 
+/** Registered when the DSN dock ticker first renders data (NASA data is
+ * U.S. public domain; credited as a courtesy). */
+export const DSN_CREDIT = {
+  key: 'dsn',
+  html:
+    'Deep Space Network status: ' +
+    '<a href="https://eyes.nasa.gov/dsn/dsn.html" target="_blank" rel="noopener">NASA DSN Now</a> (public domain)',
+};
+
+/** Registered when the PSKReporter dock ticker first renders data. */
+export const PSKREPORTER_CREDIT = {
+  key: 'pskreporter',
+  html:
+    'HF reception reports: ' +
+    '<a href="https://pskreporter.info" target="_blank" rel="noopener">PSKReporter</a> ' +
+    '(amateur-use service by Philip Gladstone)',
+};
+
 /** Registered when the first Natural Earth region outline resolves (public
  * domain — no attribution required; credited as a courtesy). */
 export const NATURAL_EARTH_CREDIT = {
