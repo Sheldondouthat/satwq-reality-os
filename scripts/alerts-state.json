@@ -383,8 +383,9 @@
     "faa:closure:SUA": "2026-11-13T21:30:34.244Z",
     "faa:closure:FLL": "2026-11-14T01:50:17.562Z",
     "faa:closure:DCA": "2026-11-14T01:50:17.562Z",
-    "faa:closure:DAL": "2026-11-15T05:47:24.907Z"
+    "faa:closure:DAL": "2026-11-15T05:47:24.907Z",
+    "faa:ground-stop:DAL": "2026-11-15T19:28:25.502Z"
   },
-  "updatedAt": "2026-11-15T13:41:15.986Z",
+  "updatedAt": "2026-11-15T19:28:25.502Z",
   "topic": "satwq-alerts"
 }
