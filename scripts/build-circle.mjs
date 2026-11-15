@@ -252,7 +252,13 @@ async function getSpaceNews() {
   let apod = null;
   try {
     const a = await fetchJSON('https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY');
-    apod = { title: a.title, date: a.date, image: a.media_type === 'image' ? a.url : null, media_type: a.media_type, url: 'https://apod.nasa.gov/apod/astropix.html' };
+    // Guard: DEMO_KEY sometimes answers with a generic NASA page payload (logo image,
+    // "NASA Science" title). That is not an astronomy picture — mark it unavailable
+    // rather than dressing the hero in a logo.
+    const realPhoto = a && a.media_type === 'image' && a.url && !/nasa-logo|placeholder/i.test(a.url) && a.title && a.title !== 'NASA Science';
+    apod = realPhoto
+      ? { title: a.title, date: a.date, image: a.url, media_type: a.media_type, url: 'https://apod.nasa.gov/apod/astropix.html' }
+      : { ok: false, error: 'APOD returned a non-photo payload today (video day or DEMO_KEY fallback) — hero stays hidden, story links out.', media_type: a && a.media_type, url: 'https://apod.nasa.gov/apod/astropix.html' };
   } catch (e) { apod = { ok: false, error: String(e.message || e) }; }
   return { source: 'Spaceflight News API + NASA APOD', items, apod };
 }

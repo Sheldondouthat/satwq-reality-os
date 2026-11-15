@@ -23,11 +23,11 @@
       "aqi_max_today": 40,
       "moon_illum_pct": 35,
       "gw_alerts_week": 0,
-      "btc_usd": 64569,
+      "btc_usd": 64637,
       "co2_ppm": "428.69",
       "oni_anomaly": "+2.46"
     },
     "prev_hash": "GENESIS",
-    "hash": "558ed8690878294c6b604d04163e4ea759bef78d2a8ce6ed59f81a13bce01cc4"
+    "hash": "faf9e310a4e8c5a077a76c81945a171881accdfd7fb781ca39ac7db09374a6a4"
   }
 ]
