@@ -16,12 +16,22 @@
  * one spec whose non-scalar-field refusal was remedied by the path
  * grammar's new '[]' projection form was re-audited through the same
  * two gates and wired; the other 501 specs' verdicts stand.
+ *
+ * Scoped re-audit 2026-11-15 (AUDIT_META.liveClassReprobe): the 26
+ * specs refused on live-class reasons were re-probed through the
+ * engine's fetch semantics under the pass's rate law (one 429 stops
+ * its upstream family for the run; a repeated USGS-volcano 403
+ * stops that family). 3 answered live and were wired; 13 were
+ * re-probed and refused again on the same class; 10 were never
+ * spent — their families stopped first, and their recorded
+ * verdicts stand. The other 476 specs' verdicts stand as recorded
+ * above.
  */
 export const AUDIT_META = {
   "generatedAt": "2026-11-15T09:57:34.491Z",
   "totalSpecs": 502,
-  "wiredCount": 476,
-  "unwiredCount": 26,
+  "wiredCount": 479,
+  "unwiredCount": 23,
   "reprobe": {
     "at": "2026-11-15T10:00:08.313Z",
     "flipped": [
@@ -54,6 +64,31 @@ export const AUDIT_META = {
     "wired": [
       "tfl-central-line-stations"
     ]
+  },
+  "liveClassReprobe": {
+    "at": "2026-11-15T13:44:30.142Z",
+    "audit": "SURGE-REPROBE-2026-11-15",
+    "wired": [
+      "mb-artist-beyonce",
+      "mb-artist-nirvana",
+      "socrata-neworleans-311"
+    ],
+    "familyStopped": {
+      "usgs-volcano": [
+        "usgs-volcano-status-geojson",
+        "usgsx-volcano-avo",
+        "usgsx-volcano-monitored",
+        "usgsx-volcano-notices"
+      ],
+      "openalex": [
+        "scholar-openalex-crispr",
+        "scholar-openalex-fusion",
+        "scholar-openalex-quantum",
+        "scholar-openalex-recent-2026",
+        "scholar-openalex-top-cited",
+        "scholar-openalex-topic"
+      ]
+    }
   }
 };
 
@@ -1282,6 +1317,11 @@ export const WIRED_SPECS = [
     }
   },
   {
+    "id": "mb-artist-beyonce",
+    "title": "MusicBrainz — artist search: Beyoncé",
+    "ttlSeconds": 86400
+  },
+  {
     "id": "mb-artist-led-zeppelin",
     "title": "MusicBrainz — artist search: Led Zeppelin",
     "ttlSeconds": 86400
@@ -1289,6 +1329,11 @@ export const WIRED_SPECS = [
   {
     "id": "mb-artist-michael-jackson",
     "title": "MusicBrainz — artist search: Michael Jackson",
+    "ttlSeconds": 86400
+  },
+  {
+    "id": "mb-artist-nirvana",
+    "title": "MusicBrainz — artist search: Nirvana",
     "ttlSeconds": 86400
   },
   {
@@ -1419,6 +1464,11 @@ export const WIRED_SPECS = [
       "windLowKmh": "km/h",
       "windHighKmh": "km/h"
     }
+  },
+  {
+    "id": "socrata-neworleans-311",
+    "title": "New Orleans (data.nola.gov) — 311 OPCD service requests",
+    "ttlSeconds": 1800
   },
   {
     "id": "socrata-neworleans-permits",
@@ -4101,14 +4151,6 @@ export const UNWIRED_SPECS = [
     "reason": "live-too-large"
   },
   {
-    "id": "mb-artist-beyonce",
-    "reason": "live-upstream-error"
-  },
-  {
-    "id": "mb-artist-nirvana",
-    "reason": "live-upstream-error"
-  },
-  {
     "id": "mb-release-group-nevermind",
     "reason": "live-upstream-error"
   },
@@ -4154,10 +4196,6 @@ export const UNWIRED_SPECS = [
   },
   {
     "id": "socrata-cincinnati-crime",
-    "reason": "live-upstream-error"
-  },
-  {
-    "id": "socrata-neworleans-311",
     "reason": "live-upstream-error"
   },
   {
