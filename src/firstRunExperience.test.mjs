@@ -669,10 +669,17 @@ test('the voice TOOL SCHEMA matches the pinned release — the mission mapping i
   const block = JSON.stringify(legacyTools);
   // Re-derived for the additive `local-adsb` set_layer_visibility value and
   // its common-name mapping; the missions still ride existing tools.
-  assert.equal(block.length, 27432, 'serialized tool schema length drifted');
+  // Re-derived again for the Analyst Seam Unlock (5094311): analyst_query —
+  // the ONLY tool changed — grew +588 serialized chars, accounted item by
+  // item: layers enum 9 → 16 (+70: aurora, buoys, meteors, space-weather,
+  // tides, volcanoes, wspr — the 7 catalog layers admitted at both gates),
+  // its description naming them (+276), and the filters description
+  // carrying their predicate fields (+242). The frontier-only four
+  // (aurora-ovation, invisible-ocean, lightning, seismic-waves) stay out.
+  assert.equal(block.length, 28020, 'serialized tool schema length drifted');
   assert.equal(
     crypto.createHash('sha256').update(block).digest('hex'),
-    'a2a4a787f4528f75b01f3f42caec636f29c37452c0d45b11f4f986171d6be57d',
+    'd0ac0ba17bd6b68dd7137ddb9cee6c660f12037747d9450aa217a59eab53e1ad',
     'the first-run missions must ride EXISTING tools: no schema edit, no cache bust',
   );
   const instructions = fs.readFileSync(new URL('../server/providers/openai/instructions.js', import.meta.url), 'utf8');
