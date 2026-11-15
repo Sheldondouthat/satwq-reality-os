@@ -1,1 +1,87 @@
-{"name":"ns1:timeSeriesResponseType","declaredType":"org.cuahsi.waterml.TimeSeriesResponseType","scope":"javax.xml.bind.JAXBElement$GlobalScope","value":{"queryInfo":{"queryURL":"http://waterservices.usgs.gov/nwis/iv/format=json&sites=03049500,04084445&parameterCd=00060","criteria":{"locationParam":"[ALL:03049500, ALL:04084445]","variableParam":"[00060]","parameter":[]},"note":[{"value":"[ALL:03049500, ALL:04084445]","title":"filter:sites"},{"value":"[mode=LATEST, modifiedSince=null]","title":"filter:timeRange"},{"value":"methodIds=[ALL]","title":"filter:methodId"},{"value":"2026-10-02T23:13:27.606Z","title":"requestDT"},{"value":"dff5f6c0-beb6-11f1-acac-005056beda50","title":"requestId"},{"value":"Provisional data are subject to revision. Go to http://waterdata.usgs.gov/nwis/help/?provisional for more information.","title":"disclaimer"},{"value":"caas01","title":"server"}]},"timeSeries":[{"sourceInfo":{"siteName":"Allegheny River at Natrona, PA","siteCode":[{"value":"03049500","network":"NWIS","agencyCode":"USGS"}],"timeZoneInfo":{"defaultTimeZone":{"zoneOffset":"-05:00","zoneAbbreviation":"EST"},"daylightSavingsTimeZone":{"zoneOffset":"-04:00","zoneAbbreviation":"EDT"},"siteUsesDaylightSavingsTime":true},"geoLocation":{"geogLocation":{"srs":"EPSG:4326","latitude":40.6152958,"longitude":-79.7183667},"localSiteXY":[]},"note":[],"siteType":[],"siteProperty":[{"value":"ST","name":"siteTypeCd"},{"value":"05010009","name":"hucCd"},{"value":"42","name":"stateCd"},{"value":"42003","name":"countyCd"}]},"variable":{"variableCode":[{"value":"00060","network":"NWIS","vocabulary":"NWIS:UnitValues","variableID":45807197,"default":true}],"variableName":"Streamflow, ft&#179;/s","variableDescription":"Discharge, cubic feet per second","valueType":"Derived Value","unit":{"unitCode":"ft3/s"},"options":{"option":[{"name":"Statistic","optionCode":"00000"}]},"note":[],"noDataValue":-999999.0,"variableProperty":[],"oid":"45807197"},"values":[{"value":[{"value":"8700","qualifiers":["P"],"dateTime":"2026-10-02T18:15:00.000-04:00"}],"qualifier":[{"qualifierCode":"P","qualifierDescription":"Provisional data subject to revision.","qualifierID":0,"network":"NWIS","vocabulary":"uv_rmk_cd"}],"qualityControlLevel":[],"method":[{"methodDescription":"","methodID":122525}],"source":[],"offset":[],"sample":[],"censorCode":[]}],"name":"USGS:03049500:00060:00000"},{"sourceInfo":{"siteName":"FOX RIVER AT APPLETON, WI","siteCode":[{"value":"04084445","network":"NWIS","agencyCode":"USGS"}],"timeZoneInfo":{"defaultTimeZone":{"zoneOffset":"-06:00","zoneAbbreviation":"CST"},"daylightSavingsTimeZone":{"zoneOffset":"-05:00","zoneAbbreviation":"CDT"},"siteUsesDaylightSavingsTime":true},"geoLocation":{"geogLocation":{"srs":"EPSG:4326","latitude":44.24805556,"longitude":-88.4230556},"localSiteXY":[]},"note":[],"siteType":[],"siteProperty":[{"value":"ST","name":"siteTypeCd"},{"value":"04030204","name":"hucCd"},{"value":"55","name":"stateCd"},{"value":"55087","name":"countyCd"}]},"variable":{"variableCode":[{"value":"00060","network":"NWIS","vocabulary":"NWIS:UnitValues","variableID":45807197,"default":true}],"variableName":"Streamflow, ft&#179;/s","variableDescription":"Discharge, cubic feet per second","valueType":"Derived Value","unit":{"unitCode":"ft3/s"},"options":{"option":[{"name":"Statistic","optionCode":"00000"}]},"note":[],"noDataValue":-999999.0,"variableProperty":[],"oid":"45807197"},"values":[{"value":[{"value":"5550","qualifiers":["P"],"dateTime":"2026-10-02T17:00:00.000-05:00"}],"qualifier":[{"qualifierCode":"P","qualifierDescription":"Provisional data subject to revision.","qualifierID":0,"network":"NWIS","vocabulary":"uv_rmk_cd"}],"qualityControlLevel":[],"method":[{"methodDescription":"","methodID":226286}],"source":[],"offset":[],"sample":[],"censorCode":[]}],"name":"USGS:04084445:00060:00000"}]},"nil":false,"globalScope":true,"typeSubstituted":false}
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "time_series_id": "d9dfffb1297044bb84bfd8095f9a7e22",
+        "monitoring_location_id": "USGS-03049500",
+        "parameter_code": "00060",
+        "statistic_id": "00011",
+        "time": "2026-11-15T13:15:00+00:00",
+        "value": "6030",
+        "unit_of_measure": "ft^3/s",
+        "approval_status": "Provisional",
+        "qualifier": null,
+        "last_modified": "2026-11-15T13:25:16.576655+00:00",
+        "method_category": null
+      },
+      "id": "07dd7a86-70a4-420e-bd65-f303b94b6da5",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -79.71836666309927,
+          40.61529582142961
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "time_series_id": "8f97ff4f05e94199bcf80316fb1d08cd",
+        "monitoring_location_id": "USGS-04084445",
+        "parameter_code": "00060",
+        "statistic_id": "00011",
+        "time": "2026-11-15T13:05:00+00:00",
+        "value": "4200",
+        "unit_of_measure": "ft^3/s",
+        "approval_status": "Provisional",
+        "qualifier": null,
+        "last_modified": "2026-11-15T13:20:31.064879+00:00",
+        "method_category": null
+      },
+      "id": "94c460c7-d1dd-4aa7-9973-7a5d5de412f3",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -88.4230555555556,
+          44.2480555555556
+        ]
+      }
+    }
+  ],
+  "numberReturned": 2,
+  "links": [
+    {
+      "type": "application/geo+json",
+      "rel": "self",
+      "title": "This document as GeoJSON",
+      "href": "https://api.waterdata.usgs.gov/ogcapi/v1/collections/latest-continuous/items?f=json&monitoring_location_number=03049500,04084445&parameter_code=00060&limit=100"
+    },
+    {
+      "rel": "alternate",
+      "type": "application/ld+json",
+      "title": "This document as RDF (JSON-LD)",
+      "href": "https://api.waterdata.usgs.gov/ogcapi/v1/collections/latest-continuous/items?f=jsonld&monitoring_location_number=03049500,04084445&parameter_code=00060&limit=100"
+    },
+    {
+      "type": "text/html",
+      "rel": "alternate",
+      "title": "This document as HTML",
+      "href": "https://api.waterdata.usgs.gov/ogcapi/v1/collections/latest-continuous/items?f=html&monitoring_location_number=03049500,04084445&parameter_code=00060&limit=100"
+    },
+    {
+      "type": "text/csv; charset=utf-8",
+      "rel": "alternate",
+      "title": "This document as CSV",
+      "href": "https://api.waterdata.usgs.gov/ogcapi/v1/collections/latest-continuous/items?f=csv&monitoring_location_number=03049500,04084445&parameter_code=00060&limit=100"
+    },
+    {
+      "type": "application/json",
+      "title": "Latest continuous",
+      "rel": "collection",
+      "href": "https://api.waterdata.usgs.gov/ogcapi/v1/collections/latest-continuous"
+    }
+  ],
+  "timeStamp": "2026-11-15T14:11:56.402824Z"
+}

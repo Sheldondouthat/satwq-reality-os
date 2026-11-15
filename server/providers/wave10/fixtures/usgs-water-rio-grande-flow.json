@@ -1,1 +1,63 @@
-{"name":"ns1:timeSeriesResponseType","declaredType":"org.cuahsi.waterml.TimeSeriesResponseType","scope":"javax.xml.bind.JAXBElement$GlobalScope","value":{"queryInfo":{"queryURL":"http://waterservices.usgs.gov/nwis/iv/format=json&sites=08313000&parameterCd=00060","criteria":{"locationParam":"[ALL:08313000]","variableParam":"[00060]","parameter":[]},"note":[{"value":"[ALL:08313000]","title":"filter:sites"},{"value":"[mode=LATEST, modifiedSince=null]","title":"filter:timeRange"},{"value":"methodIds=[ALL]","title":"filter:methodId"},{"value":"2026-10-02T09:15:24.573Z","title":"requestDT"},{"value":"ccf05450-be41-11f1-acac-005056beda50","title":"requestId"}]},"timeSeries":[{"sourceInfo":{"siteName":"RIO GRANDE AT OTOWI BRIDGE, NM","siteCode":[{"value":"08313000","network":"NWIS","agencyCode":"USGS"}],"timeZoneInfo":{"defaultTimeZone":{"zoneOffset":"-07:00","zoneAbbreviation":"MST"},"daylightSavingsTimeZone":{"zoneOffset":"-06:00","zoneAbbreviation":"MDT"},"siteUsesDaylightSavingsTime":true},"geoLocation":{"geogLocation":{"srs":"EPSG:4326","latitude":35.8745,"longitude":-106.1424444},"localSiteXY":[]},"note":[],"siteType":[],"siteProperty":[{"value":"ST","name":"siteTypeCd"},{"value":"13020101","name":"hucCd"},{"value":"35","name":"stateCd"},{"value":"35049","name":"countyCd"}]},"variable":{"variableCode":[{"value":"00060","network":"NWIS","vocabulary":"NWIS:UnitValues","variableID":45807197,"default":true}],"variableName":"Streamflow, ft&#179;/s","variableDescription":"Discharge, cubic feet per second","valueType":"Derived Value","unit":{"unitCode":"ft3/s"},"options":{"option":[{"name":"Statistic","optionCode":"00000"}]},"note":[],"noDataValue":-999999,"variableProperty":[],"oid":"45807197"},"values":[{"value":[{"value":"1340","qualifiers":["P"],"dateTime":"2026-10-02T03:00:00.000-06:00"}],"qualifier":[{"qualifierCode":"P","qualifierDescription":"Provisional data subject to revision.","qualifierID":0,"network":"NWIS","vocabulary":"uv_rmk_cd"}],"qualityControlLevel":[],"method":[{"methodDescription":"","methodID":101151}],"source":[],"offset":[],"sample":[],"censorCode":[]}],"name":"USGS:08313000:00060:00000"}]},"nil":false,"globalScope":true,"typeSubstituted":false}
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "time_series_id": "ef57b34dacd74efa85af83470e7837ea",
+        "monitoring_location_id": "USGS-08313000",
+        "parameter_code": "00060",
+        "statistic_id": "00011",
+        "time": "2026-11-15T13:00:00+00:00",
+        "value": "3500",
+        "unit_of_measure": "ft^3/s",
+        "approval_status": "Provisional",
+        "qualifier": null,
+        "last_modified": "2026-11-15T13:12:19.450759+00:00",
+        "method_category": null
+      },
+      "id": "f421125f-c59f-4d46-a694-f824b84ed1f5",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -106.14244444444445,
+          35.8745
+        ]
+      }
+    }
+  ],
+  "numberReturned": 1,
+  "links": [
+    {
+      "type": "application/geo+json",
+      "rel": "self",
+      "title": "This document as GeoJSON",
+      "href": "https://api.waterdata.usgs.gov/ogcapi/v1/collections/latest-continuous/items?f=json&monitoring_location_number=08313000&parameter_code=00060&limit=100"
+    },
+    {
+      "rel": "alternate",
+      "type": "application/ld+json",
+      "title": "This document as RDF (JSON-LD)",
+      "href": "https://api.waterdata.usgs.gov/ogcapi/v1/collections/latest-continuous/items?f=jsonld&monitoring_location_number=08313000&parameter_code=00060&limit=100"
+    },
+    {
+      "type": "text/html",
+      "rel": "alternate",
+      "title": "This document as HTML",
+      "href": "https://api.waterdata.usgs.gov/ogcapi/v1/collections/latest-continuous/items?f=html&monitoring_location_number=08313000&parameter_code=00060&limit=100"
+    },
+    {
+      "type": "text/csv; charset=utf-8",
+      "rel": "alternate",
+      "title": "This document as CSV",
+      "href": "https://api.waterdata.usgs.gov/ogcapi/v1/collections/latest-continuous/items?f=csv&monitoring_location_number=08313000&parameter_code=00060&limit=100"
+    },
+    {
+      "type": "application/json",
+      "title": "Latest continuous",
+      "rel": "collection",
+      "href": "https://api.waterdata.usgs.gov/ogcapi/v1/collections/latest-continuous"
+    }
+  ],
+  "timeStamp": "2026-11-15T14:11:26.130154Z"
+}

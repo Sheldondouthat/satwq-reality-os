@@ -1,1 +1,63 @@
-{"name":"ns1:timeSeriesResponseType","declaredType":"org.cuahsi.waterml.TimeSeriesResponseType","scope":"javax.xml.bind.JAXBElement$GlobalScope","value":{"queryInfo":{"queryURL":"http://waterservices.usgs.gov/nwis/iv/format=json&sites=06934500&parameterCd=00060","criteria":{"locationParam":"[ALL:06934500]","variableParam":"[00060]","parameter":[]},"note":[{"value":"[ALL:06934500]","title":"filter:sites"},{"value":"[mode=LATEST, modifiedSince=null]","title":"filter:timeRange"},{"value":"methodIds=[ALL]","title":"filter:methodId"},{"value":"2026-10-02T09:07:34.037Z","title":"requestDT"},{"value":"b3e045c0-be40-11f1-acac-005056beda50","title":"requestId"}]},"timeSeries":[{"sourceInfo":{"siteName":"Missouri River at Hermann, MO","siteCode":[{"value":"06934500","network":"NWIS","agencyCode":"USGS"}],"timeZoneInfo":{"defaultTimeZone":{"zoneOffset":"-06:00","zoneAbbreviation":"CST"},"daylightSavingsTimeZone":{"zoneOffset":"-05:00","zoneAbbreviation":"CDT"},"siteUsesDaylightSavingsTime":true},"geoLocation":{"geogLocation":{"srs":"EPSG:4326","latitude":38.70980556,"longitude":-91.4385},"localSiteXY":[]},"note":[],"siteType":[],"siteProperty":[{"value":"ST","name":"siteTypeCd"},{"value":"10300200","name":"hucCd"},{"value":"29","name":"stateCd"},{"value":"29139","name":"countyCd"}]},"variable":{"variableCode":[{"value":"00060","network":"NWIS","vocabulary":"NWIS:UnitValues","variableID":45807197,"default":true}],"variableName":"Streamflow, ft&#179;/s","variableDescription":"Discharge, cubic feet per second","valueType":"Derived Value","unit":{"unitCode":"ft3/s"},"options":{"option":[{"name":"Statistic","optionCode":"00000"}]},"note":[],"noDataValue":-999999,"variableProperty":[],"oid":"45807197"},"values":[{"value":[{"value":"76700","qualifiers":["P"],"dateTime":"2026-10-02T03:30:00.000-05:00"}],"qualifier":[{"qualifierCode":"P","qualifierDescription":"Provisional data subject to revision.","qualifierID":0,"network":"NWIS","vocabulary":"uv_rmk_cd"}],"qualityControlLevel":[],"method":[{"methodDescription":"","methodID":77372}],"source":[],"offset":[],"sample":[],"censorCode":[]}],"name":"USGS:06934500:00060:00000"}]},"nil":false,"globalScope":true,"typeSubstituted":false}
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "time_series_id": "58e3917dbd20444fa9a018994c70d683",
+        "monitoring_location_id": "USGS-06934500",
+        "parameter_code": "00060",
+        "statistic_id": "00011",
+        "time": "2026-11-15T13:30:00+00:00",
+        "value": "59400",
+        "unit_of_measure": "ft^3/s",
+        "approval_status": "Provisional",
+        "qualifier": null,
+        "last_modified": "2026-11-15T13:43:19.842216+00:00",
+        "method_category": null
+      },
+      "id": "ec8d9539-8193-4318-8719-d50d1a3fd48c",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -91.4385,
+          38.7098055555556
+        ]
+      }
+    }
+  ],
+  "numberReturned": 1,
+  "links": [
+    {
+      "type": "application/geo+json",
+      "rel": "self",
+      "title": "This document as GeoJSON",
+      "href": "https://api.waterdata.usgs.gov/ogcapi/v1/collections/latest-continuous/items?f=json&monitoring_location_number=06934500&parameter_code=00060&limit=100"
+    },
+    {
+      "rel": "alternate",
+      "type": "application/ld+json",
+      "title": "This document as RDF (JSON-LD)",
+      "href": "https://api.waterdata.usgs.gov/ogcapi/v1/collections/latest-continuous/items?f=jsonld&monitoring_location_number=06934500&parameter_code=00060&limit=100"
+    },
+    {
+      "type": "text/html",
+      "rel": "alternate",
+      "title": "This document as HTML",
+      "href": "https://api.waterdata.usgs.gov/ogcapi/v1/collections/latest-continuous/items?f=html&monitoring_location_number=06934500&parameter_code=00060&limit=100"
+    },
+    {
+      "type": "text/csv; charset=utf-8",
+      "rel": "alternate",
+      "title": "This document as CSV",
+      "href": "https://api.waterdata.usgs.gov/ogcapi/v1/collections/latest-continuous/items?f=csv&monitoring_location_number=06934500&parameter_code=00060&limit=100"
+    },
+    {
+      "type": "application/json",
+      "title": "Latest continuous",
+      "rel": "collection",
+      "href": "https://api.waterdata.usgs.gov/ogcapi/v1/collections/latest-continuous"
+    }
+  ],
+  "timeStamp": "2026-11-15T14:11:17.309593Z"
+}

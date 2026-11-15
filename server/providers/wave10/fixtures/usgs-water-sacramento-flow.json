@@ -1,1 +1,87 @@
-{"name":"ns1:timeSeriesResponseType","declaredType":"org.cuahsi.waterml.TimeSeriesResponseType","scope":"javax.xml.bind.JAXBElement$GlobalScope","value":{"queryInfo":{"queryURL":"http://waterservices.usgs.gov/nwis/iv/format=json&sites=11425500,11447650&parameterCd=00060","criteria":{"locationParam":"[ALL:11425500, ALL:11447650]","variableParam":"[00060]","parameter":[]},"note":[{"value":"[ALL:11425500, ALL:11447650]","title":"filter:sites"},{"value":"[mode=LATEST, modifiedSince=null]","title":"filter:timeRange"},{"value":"methodIds=[ALL]","title":"filter:methodId"},{"value":"2026-10-02T14:27:13.262Z","title":"requestDT"},{"value":"5c30c9d0-be6d-11f1-acac-005056beda50","title":"requestId"}]},"timeSeries":[{"sourceInfo":{"siteName":"SACRAMENTO R A VERONA CA","siteCode":[{"value":"11425500","network":"NWIS","agencyCode":"USGS"}],"timeZoneInfo":{"defaultTimeZone":{"zoneOffset":"-08:00","zoneAbbreviation":"PST"},"daylightSavingsTimeZone":{"zoneOffset":"-07:00","zoneAbbreviation":"PDT"},"siteUsesDaylightSavingsTime":true},"geoLocation":{"geogLocation":{"srs":"EPSG:4326","latitude":38.77432258,"longitude":-121.5982593},"localSiteXY":[]},"note":[],"siteType":[],"siteProperty":[{"value":"ST","name":"siteTypeCd"},{"value":"18020161","name":"hucCd"},{"value":"06","name":"stateCd"},{"value":"06101","name":"countyCd"}]},"variable":{"variableCode":[{"value":"00060","network":"NWIS","vocabulary":"NWIS:UnitValues","variableID":45807197,"default":true}],"variableName":"Streamflow, ft&#179;/s","variableDescription":"Discharge, cubic feet per second","valueType":"Derived Value","unit":{"unitCode":"ft3/s"},"options":{"option":[{"name":"Statistic","optionCode":"00000"}]},"note":[],"noDataValue":-999999,"variableProperty":[],"oid":"45807197"},"values":[{"value":[{"value":"14700","qualifiers":["P"],"dateTime":"2026-10-02T06:45:00.000-07:00"}],"qualifier":[{"qualifierCode":"P","qualifierDescription":"Provisional data subject to revision.","qualifierID":0,"network":"NWIS","vocabulary":"uv_rmk_cd"}],"qualityControlLevel":[],"method":[{"methodDescription":"","methodID":15690}],"source":[],"offset":[],"sample":[],"censorCode":[]}],"name":"USGS:11425500:00060:00000"},{"sourceInfo":{"siteName":"SACRAMENTO R A FREEPORT CA","siteCode":[{"value":"11447650","network":"NWIS","agencyCode":"USGS"}],"timeZoneInfo":{"defaultTimeZone":{"zoneOffset":"-08:00","zoneAbbreviation":"PST"},"daylightSavingsTimeZone":{"zoneOffset":"-07:00","zoneAbbreviation":"PDT"},"siteUsesDaylightSavingsTime":true},"geoLocation":{"geogLocation":{"srs":"EPSG:4326","latitude":38.45566389,"longitude":-121.5016167},"localSiteXY":[]},"note":[],"siteType":[],"siteProperty":[{"value":"ST","name":"siteTypeCd"},{"value":"18020163","name":"hucCd"},{"value":"06","name":"stateCd"},{"value":"06067","name":"countyCd"}]},"variable":{"variableCode":[{"value":"00060","network":"NWIS","vocabulary":"NWIS:UnitValues","variableID":45807197,"default":true}],"variableName":"Streamflow, ft&#179;/s","variableDescription":"Discharge, cubic feet per second","valueType":"Derived Value","unit":{"unitCode":"ft3/s"},"options":{"option":[{"name":"Statistic","optionCode":"00000"}]},"note":[],"noDataValue":-999999,"variableProperty":[],"oid":"45807197"},"values":[{"value":[{"value":"19400","qualifiers":["P"],"dateTime":"2026-10-02T06:15:00.000-07:00"}],"qualifier":[{"qualifierCode":"P","qualifierDescription":"Provisional data subject to revision.","qualifierID":0,"network":"NWIS","vocabulary":"uv_rmk_cd"}],"qualityControlLevel":[],"method":[{"methodDescription":"","methodID":236032}],"source":[],"offset":[],"sample":[],"censorCode":[]}],"name":"USGS:11447650:00060:00000"}]},"nil":false,"globalScope":true,"typeSubstituted":false}
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "time_series_id": "4a06fb222971485e8859fbc836a24847",
+        "monitoring_location_id": "USGS-11425500",
+        "parameter_code": "00060",
+        "statistic_id": "00011",
+        "time": "2026-11-15T12:45:00+00:00",
+        "value": "8850",
+        "unit_of_measure": "ft^3/s",
+        "approval_status": "Provisional",
+        "qualifier": null,
+        "last_modified": "2026-11-15T13:03:16.248710+00:00",
+        "method_category": null
+      },
+      "id": "51020e08-95b1-43e6-b946-e690b57f43c3",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -121.59825928205096,
+          38.774322583790116
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "time_series_id": "ae75783b6205495e91cbd943f34d2718",
+        "monitoring_location_id": "USGS-11447650",
+        "parameter_code": "00060",
+        "statistic_id": "00011",
+        "time": "2026-11-15T13:15:00+00:00",
+        "value": "13800",
+        "unit_of_measure": "ft^3/s",
+        "approval_status": "Provisional",
+        "qualifier": null,
+        "last_modified": "2026-11-15T13:40:19.636387+00:00",
+        "method_category": null
+      },
+      "id": "a7970675-7f89-41b6-8c9e-8941d35308a0",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -121.501616666667,
+          38.4556638888889
+        ]
+      }
+    }
+  ],
+  "numberReturned": 2,
+  "links": [
+    {
+      "type": "application/geo+json",
+      "rel": "self",
+      "title": "This document as GeoJSON",
+      "href": "https://api.waterdata.usgs.gov/ogcapi/v1/collections/latest-continuous/items?f=json&monitoring_location_number=11425500,11447650&parameter_code=00060&limit=100"
+    },
+    {
+      "rel": "alternate",
+      "type": "application/ld+json",
+      "title": "This document as RDF (JSON-LD)",
+      "href": "https://api.waterdata.usgs.gov/ogcapi/v1/collections/latest-continuous/items?f=jsonld&monitoring_location_number=11425500,11447650&parameter_code=00060&limit=100"
+    },
+    {
+      "type": "text/html",
+      "rel": "alternate",
+      "title": "This document as HTML",
+      "href": "https://api.waterdata.usgs.gov/ogcapi/v1/collections/latest-continuous/items?f=html&monitoring_location_number=11425500,11447650&parameter_code=00060&limit=100"
+    },
+    {
+      "type": "text/csv; charset=utf-8",
+      "rel": "alternate",
+      "title": "This document as CSV",
+      "href": "https://api.waterdata.usgs.gov/ogcapi/v1/collections/latest-continuous/items?f=csv&monitoring_location_number=11425500,11447650&parameter_code=00060&limit=100"
+    },
+    {
+      "type": "application/json",
+      "title": "Latest continuous",
+      "rel": "collection",
+      "href": "https://api.waterdata.usgs.gov/ogcapi/v1/collections/latest-continuous"
+    }
+  ],
+  "timeStamp": "2026-11-15T14:11:30.117598Z"
+}

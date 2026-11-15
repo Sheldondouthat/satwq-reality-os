@@ -1,1 +1,63 @@
-{"name": "ns1:timeSeriesResponseType", "declaredType": "org.cuahsi.waterml.TimeSeriesResponseType", "scope": "javax.xml.bind.JAXBElement$GlobalScope", "value": {"queryInfo": {"queryURL": "http://waterservices.usgs.gov/nwis/iv/format=json&sites=14103000&parameterCd=00060", "criteria": {"locationParam": "[ALL:14103000]", "variableParam": "[00060]", "parameter": []}, "note": [{"value": "[ALL:14103000]", "title": "filter:sites"}, {"value": "[mode=LATEST, modifiedSince=null]", "title": "filter:timeRange"}, {"value": "methodIds=[ALL]", "title": "filter:methodId"}, {"value": "2026-10-02T19:39:03.341Z", "title": "requestDT"}, {"value": "ec4446c0-be98-11f1-acac-005056beda50", "title": "requestId"}, {"value": "Provisional data are subject to revision. Go to http://waterdata.usgs.gov/nwis/help/?provisional for more information.", "title": "disclaimer"}, {"value": "caas01", "title": "server"}]}, "timeSeries": [{"sourceInfo": {"siteName": "DESCHUTES RIVER AT MOODY, NEAR BIGGS, OR", "siteCode": [{"value": "14103000", "network": "NWIS", "agencyCode": "USGS"}], "timeZoneInfo": {"defaultTimeZone": {"zoneOffset": "-08:00", "zoneAbbreviation": "PST"}, "daylightSavingsTimeZone": {"zoneOffset": "-07:00", "zoneAbbreviation": "PDT"}, "siteUsesDaylightSavingsTime": true}, "geoLocation": {"geogLocation": {"srs": "EPSG:4326", "latitude": 45.6220678, "longitude": -120.9056203}, "localSiteXY": []}, "note": [], "siteType": [], "siteProperty": [{"value": "ST", "name": "siteTypeCd"}, {"value": "17070306", "name": "hucCd"}, {"value": "41", "name": "stateCd"}, {"value": "41055", "name": "countyCd"}]}, "variable": {"variableCode": [{"value": "00060", "network": "NWIS", "vocabulary": "NWIS:UnitValues", "variableID": 45807197, "default": true}], "variableName": "Streamflow, ft&#179;/s", "variableDescription": "Discharge, cubic feet per second", "valueType": "Derived Value", "unit": {"unitCode": "ft3/s"}, "options": {"option": [{"name": "Statistic", "optionCode": "00000"}]}, "note": [], "noDataValue": -999999.0, "variableProperty": [], "oid": "45807197"}, "values": [{"value": [{"value": "4090", "qualifiers": ["P"], "dateTime": "2026-10-02T11:45:00.000-07:00"}], "qualifier": [{"qualifierCode": "P", "qualifierDescription": "Provisional data subject to revision.", "qualifierID": 0, "network": "NWIS", "vocabulary": "uv_rmk_cd"}], "qualityControlLevel": [], "method": [{"methodDescription": "", "methodID": 116749}], "source": [], "offset": [], "sample": [], "censorCode": []}], "name": "USGS:14103000:00060:00000"}]}, "nil": false, "globalScope": true, "typeSubstituted": false}
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "time_series_id": "5e1925ea44c94eb199158a23fc17febe",
+        "monitoring_location_id": "USGS-14103000",
+        "parameter_code": "00060",
+        "statistic_id": "00011",
+        "time": "2026-11-15T13:45:00+00:00",
+        "value": "4410",
+        "unit_of_measure": "ft^3/s",
+        "approval_status": "Provisional",
+        "qualifier": null,
+        "last_modified": "2026-11-15T13:57:13.880656+00:00",
+        "method_category": null
+      },
+      "id": "f47c8ddb-0bb5-4718-9d69-e66df187f11d",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -120.905620323184,
+          45.6220678034004
+        ]
+      }
+    }
+  ],
+  "numberReturned": 1,
+  "links": [
+    {
+      "type": "application/geo+json",
+      "rel": "self",
+      "title": "This document as GeoJSON",
+      "href": "https://api.waterdata.usgs.gov/ogcapi/v1/collections/latest-continuous/items?f=json&monitoring_location_number=14103000&parameter_code=00060&limit=100"
+    },
+    {
+      "rel": "alternate",
+      "type": "application/ld+json",
+      "title": "This document as RDF (JSON-LD)",
+      "href": "https://api.waterdata.usgs.gov/ogcapi/v1/collections/latest-continuous/items?f=jsonld&monitoring_location_number=14103000&parameter_code=00060&limit=100"
+    },
+    {
+      "type": "text/html",
+      "rel": "alternate",
+      "title": "This document as HTML",
+      "href": "https://api.waterdata.usgs.gov/ogcapi/v1/collections/latest-continuous/items?f=html&monitoring_location_number=14103000&parameter_code=00060&limit=100"
+    },
+    {
+      "type": "text/csv; charset=utf-8",
+      "rel": "alternate",
+      "title": "This document as CSV",
+      "href": "https://api.waterdata.usgs.gov/ogcapi/v1/collections/latest-continuous/items?f=csv&monitoring_location_number=14103000&parameter_code=00060&limit=100"
+    },
+    {
+      "type": "application/json",
+      "title": "Latest continuous",
+      "rel": "collection",
+      "href": "https://api.waterdata.usgs.gov/ogcapi/v1/collections/latest-continuous"
+    }
+  ],
+  "timeStamp": "2026-11-15T14:11:06.828404Z"
+}

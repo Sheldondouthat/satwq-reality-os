@@ -1,1 +1,63 @@
-{"name": "ns1:timeSeriesResponseType", "declaredType": "org.cuahsi.waterml.TimeSeriesResponseType", "scope": "javax.xml.bind.JAXBElement$GlobalScope", "value": {"queryInfo": {"queryURL": "http://waterservices.usgs.gov/nwis/iv/format=json&sites=08114000&parameterCd=00060", "criteria": {"locationParam": "[ALL:08114000]", "variableParam": "[00060]", "parameter": []}, "note": [{"value": "[ALL:08114000]", "title": "filter:sites"}, {"value": "[mode=LATEST, modifiedSince=null]", "title": "filter:timeRange"}, {"value": "methodIds=[ALL]", "title": "filter:methodId"}, {"value": "2026-10-02T19:38:59.886Z", "title": "requestDT"}, {"value": "ea3515d0-be98-11f1-acac-005056beda50", "title": "requestId"}, {"value": "Provisional data are subject to revision. Go to http://waterdata.usgs.gov/nwis/help/?provisional for more information.", "title": "disclaimer"}, {"value": "caas01", "title": "server"}]}, "timeSeries": [{"sourceInfo": {"siteName": "Brazos Rv at Richmond, TX", "siteCode": [{"value": "08114000", "network": "NWIS", "agencyCode": "USGS"}], "timeZoneInfo": {"defaultTimeZone": {"zoneOffset": "-06:00", "zoneAbbreviation": "CST"}, "daylightSavingsTimeZone": {"zoneOffset": "-05:00", "zoneAbbreviation": "CDT"}, "siteUsesDaylightSavingsTime": true}, "geoLocation": {"geogLocation": {"srs": "EPSG:4326", "latitude": 29.5824589, "longitude": -95.7577275}, "localSiteXY": []}, "note": [], "siteType": [], "siteProperty": [{"value": "ST", "name": "siteTypeCd"}, {"value": "12070104", "name": "hucCd"}, {"value": "48", "name": "stateCd"}, {"value": "48157", "name": "countyCd"}]}, "variable": {"variableCode": [{"value": "00060", "network": "NWIS", "vocabulary": "NWIS:UnitValues", "variableID": 45807197, "default": true}], "variableName": "Streamflow, ft&#179;/s", "variableDescription": "Discharge, cubic feet per second", "valueType": "Derived Value", "unit": {"unitCode": "ft3/s"}, "options": {"option": [{"name": "Statistic", "optionCode": "00000"}]}, "note": [], "noDataValue": -999999.0, "variableProperty": [], "oid": "45807197"}, "values": [{"value": [{"value": "1260", "qualifiers": ["P"], "dateTime": "2026-10-02T14:15:00.000-05:00"}], "qualifier": [{"qualifierCode": "P", "qualifierDescription": "Provisional data subject to revision.", "qualifierID": 0, "network": "NWIS", "vocabulary": "uv_rmk_cd"}], "qualityControlLevel": [], "method": [{"methodDescription": "Radar Sensor", "methodID": 140986}], "source": [], "offset": [], "sample": [], "censorCode": []}], "name": "USGS:08114000:00060:00000"}]}, "nil": false, "globalScope": true, "typeSubstituted": false}
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "time_series_id": "2063f9c11fbe4ace8948e55530573720",
+        "monitoring_location_id": "USGS-08114000",
+        "parameter_code": "00060",
+        "statistic_id": "00011",
+        "time": "2026-11-15T13:15:00+00:00",
+        "value": "814",
+        "unit_of_measure": "ft^3/s",
+        "approval_status": "Provisional",
+        "qualifier": null,
+        "last_modified": "2026-11-15T13:27:26.491325+00:00",
+        "method_category": null
+      },
+      "id": "1e3b77c6-ae3e-4ced-b719-c1d0ee86759e",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -95.7577275325698,
+          29.5824589022502
+        ]
+      }
+    }
+  ],
+  "numberReturned": 1,
+  "links": [
+    {
+      "type": "application/geo+json",
+      "rel": "self",
+      "title": "This document as GeoJSON",
+      "href": "https://api.waterdata.usgs.gov/ogcapi/v1/collections/latest-continuous/items?f=json&monitoring_location_number=08114000&parameter_code=00060&limit=100"
+    },
+    {
+      "rel": "alternate",
+      "type": "application/ld+json",
+      "title": "This document as RDF (JSON-LD)",
+      "href": "https://api.waterdata.usgs.gov/ogcapi/v1/collections/latest-continuous/items?f=jsonld&monitoring_location_number=08114000&parameter_code=00060&limit=100"
+    },
+    {
+      "type": "text/html",
+      "rel": "alternate",
+      "title": "This document as HTML",
+      "href": "https://api.waterdata.usgs.gov/ogcapi/v1/collections/latest-continuous/items?f=html&monitoring_location_number=08114000&parameter_code=00060&limit=100"
+    },
+    {
+      "type": "text/csv; charset=utf-8",
+      "rel": "alternate",
+      "title": "This document as CSV",
+      "href": "https://api.waterdata.usgs.gov/ogcapi/v1/collections/latest-continuous/items?f=csv&monitoring_location_number=08114000&parameter_code=00060&limit=100"
+    },
+    {
+      "type": "application/json",
+      "title": "Latest continuous",
+      "rel": "collection",
+      "href": "https://api.waterdata.usgs.gov/ogcapi/v1/collections/latest-continuous"
+    }
+  ],
+  "timeStamp": "2026-11-15T14:10:52.518365Z"
+}
