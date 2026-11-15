@@ -1,0 +1,34 @@
+{
+  "format": "gev-window-frame/1",
+  "room": "river",
+  "frame_file": "river.png",
+  "data_ts": "2026-11-15T09:30:00.000Z",
+  "data_epoch": 1794735000,
+  "data_ts_label": "09:30 UTC \u00b7 NOV 15, 2026",
+  "rendered_ts": "2026-11-15T09:49:39.000Z",
+  "rendered_epoch": 1794736179,
+  "age_at_render_seconds": 1179,
+  "max_age_seconds": 3600,
+  "freshness": {
+    "verdict": "CURRENT",
+    "basis": "record fresh at render: stale flag false and age inside the gauge leg's 3600 s max-age"
+  },
+  "renderer_epoch": "2026-11-15",
+  "min_channel_format": 1,
+  "source": {
+    "record": "God\u2019s Eye S6 RIVER fusion (X-Ray Fusion v6, patterns P3/P6) over shipped GEV legs",
+    "registry": "glen-lyn-03176500 v0.2.0",
+    "station": "03176500",
+    "station_name": "NEW RIVER AT GLEN LYN, VA"
+  },
+  "values": {
+    "condition": "NORMAL",
+    "stage_ft": 2.93,
+    "discharge_cfs": 1380,
+    "trend_direction": "STEADY",
+    "trend_delta_ft": -0.01,
+    "trend_over_hours": 3,
+    "caution_ft": 13,
+    "flood_stage_ft": 15
+  }
+}
