@@ -6,7 +6,8 @@ import {
   quantizeBbox,
   anomalyPeriod,
   trailingZ,
-  parseNwisPayload,
+  parseWdfnPayload,
+  bareSiteNumber,
   parseSites,
   FEATURED_SITES,
 } from './nwisGauges.js';
@@ -71,40 +72,55 @@ test('quantizeBbox rounds to halves', () => {
   assert.equal(quantizeBbox({ minLon: -125.26, minLat: 24.24, maxLon: -66.1, maxLat: 50.49 }), '-125.5,24,-66,50.5');
 });
 
-// — parseNwisPayload —
+// — parseWdfnPayload (WDFN GeoJSON features; ported 2026-11-15) —
 
-function siteSeries(siteId, siteName, lat, lon, code, values) {
+test('bareSiteNumber strips the agency prefix', () => {
+  assert.equal(bareSiteNumber('USGS-03176500'), '03176500');
+  assert.equal(bareSiteNumber('03176500'), '03176500');
+  assert.equal(bareSiteNumber(null), '');
+});
+
+let tsCounter = 0;
+function wdfnFeature(siteId, lat, lon, code, value, time, statistic = '00011') {
   return {
-    sourceInfo: {
-      siteCode: [{ value: siteId }],
-      siteName,
-      geoLocation: { geogLocation: { latitude: String(lat), longitude: String(lon) } },
+    type: 'Feature',
+    id: `feature-${++tsCounter}`,
+    geometry: { type: 'Point', coordinates: [lon, lat] },
+    properties: {
+      time_series_id: `ts-${siteId}-${code}-${statistic}`,
+      monitoring_location_id: `USGS-${siteId}`,
+      parameter_code: code,
+      statistic_id: statistic,
+      time,
+      value: String(value),
+      unit_of_measure: code === '00060' ? 'ft^3/s' : 'ft',
+      approval_status: 'Provisional',
+      qualifier: null,
+      last_modified: time,
     },
-    variable: { variableCode: [{ value: code }] },
-    values: [{
-      value: values.map(([v, t]) => ({ value: String(v), dateTime: t })),
-    }],
   };
 }
 
-const FLOW = [[1000, '2026-09-27T19:00:00.000-04:00'], [1100, '2026-09-27T19:15:00.000-04:00'],
-  [1050, '2026-09-27T19:30:00.000-04:00'], [1200, '2026-09-27T19:45:00.000-04:00']];
-const HEIGHT = [[10.1, '2026-09-27T19:00:00.000-04:00'], [10.2, '2026-09-27T19:15:00.000-04:00'],
-  [10.15, '2026-09-27T19:30:00.000-04:00'], [10.3, '2026-09-27T19:45:00.000-04:00']];
+function siteFeatures(siteId, lat, lon, code, values) {
+  return values.map(([v, t]) => wdfnFeature(siteId, lat, lon, code, v, t));
+}
 
-test('parseNwisPayload merges 00060+00065 into one gauge', () => {
-  const doc = {
-    value: {
-      timeSeries: [
-        siteSeries('01646500', 'Potomac River near Wash, DC Little Falls pump sta', 38.94977778, -77.12763889, '00060', FLOW),
-        siteSeries('01646500', 'Potomac River near Wash, DC Little Falls pump sta', 38.94977778, -77.12763889, '00065', HEIGHT),
-      ],
-    },
-  };
-  const gauges = parseNwisPayload(doc);
+// Same instants as the pre-port WaterML fixtures (19:00-19:45 -04:00 = 23:00-23:45Z).
+const FLOW = [[1000, '2026-09-27T23:00:00+00:00'], [1100, '2026-09-27T23:15:00+00:00'],
+  [1050, '2026-09-27T23:30:00+00:00'], [1200, '2026-09-27T23:45:00+00:00']];
+const HEIGHT = [[10.1, '2026-09-27T23:00:00+00:00'], [10.2, '2026-09-27T23:15:00+00:00'],
+  [10.15, '2026-09-27T23:30:00+00:00'], [10.3, '2026-09-27T23:45:00+00:00']];
+
+test('parseWdfnPayload merges 00060+00065 into one gauge', () => {
+  const features = [
+    ...siteFeatures('01646500', 38.94977778, -77.12763889, '00060', FLOW),
+    ...siteFeatures('01646500', 38.94977778, -77.12763889, '00065', HEIGHT),
+  ];
+  const gauges = parseWdfnPayload(features);
   assert.equal(gauges.length, 1);
   const g = gauges[0];
   assert.equal(g.id, '01646500');
+  assert.equal(g.name, '01646500'); // unresolved until the monitoring-locations join
   assert.equal(g.flowCfs, 1200);
   assert.equal(g.heightFt, 10.3);
   assert.equal(g.flowN, 4);
@@ -112,16 +128,40 @@ test('parseNwisPayload merges 00060+00065 into one gauge', () => {
   assert.ok(Number.isFinite(g.timeMs));
 });
 
-test('parseNwisPayload skips no-data sentinels and non-target codes', () => {
-  const doc = {
-    value: {
-      timeSeries: [
-        siteSeries('00000001', 'X', 40, -77, '00060', [[-999999, '2026-09-27T19:00:00.000-04:00']]),
-        siteSeries('00000002', 'Y', 40, -77, '72019', [[5, '2026-09-27T19:00:00.000-04:00']]),
-      ],
-    },
-  };
-  assert.equal(parseNwisPayload(doc).length, 0);
+test('parseWdfnPayload skips no-data sentinels and non-target codes', () => {
+  const features = [
+    wdfnFeature('00000001', 40, -77, '00060', -999999, '2026-09-27T23:00:00+00:00'),
+    wdfnFeature('00000002', 40, -77, '72019', 5, '2026-09-27T23:00:00+00:00'),
+  ];
+  assert.equal(parseWdfnPayload(features).length, 0);
+});
+
+test('parseWdfnPayload prefers the instantaneous statistic (00011) series', () => {
+  const features = [
+    wdfnFeature('01646500', 38.95, -77.13, '00060', 999, '2026-09-27T23:45:00+00:00', '00003'),
+    ...siteFeatures('01646500', 38.95, -77.13, '00060', FLOW),
+  ];
+  const gauges = parseWdfnPayload(features);
+  assert.equal(gauges.length, 1);
+  assert.equal(gauges[0].flowCfs, 1200);
+  assert.equal(gauges[0].flowN, 4);
+});
+
+test('parseWdfnPayload treats value:null as no-data (never a fabricated 0)', () => {
+  // Observed live 2026-11-15: gauge 03052500's discharge series is
+  // all -999999 in IV and all value:null in WDFN continuous.
+  const nullFeature = wdfnFeature('03052500', 39.0, -80.5, '00060', 0, '2026-09-27T23:45:00+00:00');
+  nullFeature.properties.value = null;
+  const heightFeature = wdfnFeature('03052500', 39.0, -80.5, '00065', 2.0, '2026-09-27T23:45:00+00:00');
+  const gauges = parseWdfnPayload([nullFeature, heightFeature]);
+  assert.equal(gauges.length, 1);
+  assert.equal(gauges[0].flowCfs, null);
+  assert.equal(gauges[0].flowN, 0);
+  assert.equal(gauges[0].heightFt, 2.0);
+});
+
+test('parseWdfnPayload throws on a non-array payload', () => {
+  assert.throws(() => parseWdfnPayload({ value: {} }), { message: /nwis_unexpected_shape/ });
 });
 
 // — handler with stubbed fetch —
@@ -138,11 +178,39 @@ function fakeRes() {
   return res;
 }
 
-function watermlResponse(doc, status = 200) {
+function geojsonResponse(doc, status = 200) {
   return new Response(JSON.stringify(doc), {
     status,
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'application/geo+json' },
   });
+}
+
+function mlDoc(numbers) {
+  return {
+    type: 'FeatureCollection',
+    features: numbers.map((n) => ({
+      type: 'Feature',
+      id: `USGS-${n}`,
+      geometry: { type: 'Point', coordinates: [-77.12763889, 38.94977778] },
+      properties: {
+        monitoring_location_number: n,
+        monitoring_location_name: n === '01646500' ? 'POTOMAC RIVER NEAR WASH, DC LITTLE FALLS PUMP STA' : `STATION ${n}`,
+      },
+    })),
+  };
+}
+
+/** Stub fetch: monitoring-locations URLs get the name doc, everything else the data doc. */
+function stubFetch(dataDoc, seen) {
+  return async (url) => {
+    const text = String(url);
+    seen?.push(text);
+    if (text.includes('/monitoring-locations/')) {
+      const numbers = new URL(text).searchParams.get('monitoring_location_number').split(',');
+      return geojsonResponse(mlDoc(numbers));
+    }
+    return geojsonResponse(dataDoc);
+  };
 }
 
 function mount(provider) {
@@ -159,20 +227,14 @@ test('handler routes both /api/nwis-gauges and /api/rivers', () => {
   assert.ok(routes.includes('/api/rivers'));
 });
 
-test('handler sites mode queries the IV endpoint with sites=', async () => {
+test('handler sites mode queries WDFN continuous with monitoring_location_number=', async () => {
   const seen = [];
-  const doc = {
-    value: {
-      timeSeries: [
-        siteSeries('01646500', 'Potomac River near Wash, DC Little Falls pump sta', 38.94977778, -77.12763889, '00060', FLOW),
-      ],
-    },
+  const dataDoc = {
+    type: 'FeatureCollection',
+    features: siteFeatures('01646500', 38.94977778, -77.12763889, '00060', FLOW),
   };
   const provider = nwisGaugesProxy({
-    fetchImpl: async (url) => {
-      seen.push(String(url));
-      return watermlResponse(doc);
-    },
+    fetchImpl: stubFetch(dataDoc, seen),
     now: () => 1_759_000_000_000,
   });
   const { handler } = mount(provider)[0];
@@ -185,14 +247,51 @@ test('handler sites mode queries the IV endpoint with sites=', async () => {
   assert.equal(body.bbox, null);
   assert.equal(body.gauges[0].id, '01646500');
   assert.equal(body.gauges[0].flowCfs, 1200);
+  assert.equal(body.gauges[0].name, 'POTOMAC RIVER NEAR WASH, DC LITTLE FALLS PUMP STA');
   assert.ok(body.anomalyBasis.includes('P1D'));
   const url = seen[0];
-  assert.ok(url.includes('sites=01646500%2C01463500') || url.includes('sites=01646500,01463500'), url);
-  assert.ok(!url.includes('bBox='), url);
+  assert.ok(url.includes('/collections/continuous/items'), url);
+  assert.ok(url.includes('monitoring_location_number=01646500%2C01463500') || url.includes('monitoring_location_number=01646500,01463500'), url);
+  assert.ok(url.includes('datetime='), url);
+  assert.ok(!url.includes('bbox='), url);
+});
+
+test('handler follows WDFN cursor pagination', async () => {
+  const page1 = {
+    type: 'FeatureCollection',
+    features: siteFeatures('01646500', 38.95, -77.13, '00060', [[1200, '2026-09-27T23:45:00+00:00']]),
+    links: [{ rel: 'next', href: 'https://api.waterdata.usgs.gov/ogcapi/v1/collections/latest-continuous/items?cursor=PAGE2' }],
+  };
+  const page2 = {
+    type: 'FeatureCollection',
+    features: siteFeatures('01463500', 40.22, -74.78, '00060', [[800, '2026-09-27T23:45:00+00:00']]),
+    links: [],
+  };
+  const seen = [];
+  const provider = nwisGaugesProxy({
+    fetchImpl: async (url) => {
+      const text = String(url);
+      seen.push(text);
+      if (text.includes('/monitoring-locations/')) {
+        const numbers = new URL(text).searchParams.get('monitoring_location_number').split(',');
+        return geojsonResponse(mlDoc(numbers));
+      }
+      return geojsonResponse(text.includes('cursor=PAGE2') ? page2 : page1);
+    },
+    now: () => 1_759_000_000_000,
+  });
+  const { handler } = mount(provider)[0];
+  const res = fakeRes();
+  await handler({ method: 'GET', url: '/api/nwis-gauges?bbox=-125,24,-66,50' }, res);
+  assert.equal(res.statusCode, 200);
+  const body = JSON.parse(res.body);
+  assert.equal(body.count, 2);
+  assert.deepEqual(body.gauges.map((g) => g.id).sort(), ['01463500', '01646500']);
+  assert.ok(seen.some((u) => u.includes('cursor=PAGE2')), seen.join(' | '));
 });
 
 test('handler rejects malformed sites with 400', async () => {
-  const provider = nwisGaugesProxy({ fetchImpl: async () => watermlResponse({ value: { timeSeries: [] } }) });
+  const provider = nwisGaugesProxy({ fetchImpl: stubFetch({ type: 'FeatureCollection', features: [] }) });
   const { handler } = mount(provider)[0];
   const res = fakeRes();
   await handler({ method: 'GET', url: '/api/nwis-gauges?sites=abc' }, res);
@@ -203,10 +302,7 @@ test('handler rejects malformed sites with 400', async () => {
 test('handler bbox mode is unchanged', async () => {
   const seen = [];
   const provider = nwisGaugesProxy({
-    fetchImpl: async (url) => {
-      seen.push(String(url));
-      return watermlResponse({ value: { timeSeries: [] } });
-    },
+    fetchImpl: stubFetch({ type: 'FeatureCollection', features: [] }, seen),
     now: () => 1_759_000_000_000,
   });
   const { handler } = mount(provider)[0];
@@ -217,7 +313,7 @@ test('handler bbox mode is unchanged', async () => {
   assert.equal(body.bbox, '-78,38,-76,40');
   assert.equal(body.sites, null);
   assert.equal(body.count, 0);
-  assert.ok(seen[0].includes('bBox=-78%2C38%2C-76%2C40') || seen[0].includes('bBox=-78,38,-76,40'), seen[0]);
+  assert.ok(seen[0].includes('bbox=-78%2C38%2C-76%2C40') || seen[0].includes('bbox=-78,38,-76,40'), seen[0]);
 });
 
 test('handler degrades honestly on upstream failure', async () => {

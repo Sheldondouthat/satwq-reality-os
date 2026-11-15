@@ -2,9 +2,18 @@
  * Water twin (Wave 3, Track 1c, item 1.10).
  *
  * Reservoirs + rivers + rain state: live CDEC reservoir storage (keyless CSV,
- * verified 2026-09-27) crossed with live USGS NWIS instantaneous values
- * (00060 discharge, 00065 gage height — keyless, verified 2026-09-27) and
- * curated NWS flood-stage references.
+ * verified 2026-09-27) crossed with live USGS river values (00060 discharge,
+ * 00065 gage height) and curated NWS flood-stage references.
+ *
+ * WDFN MIGRATION (2026-11-15, spec: sky-map-quest/registry/
+ * WDFN-MIGRATION-2026-11-15.md): the river leg now reads the WDFN API V1
+ * `latest-continuous` collection (keyless, verified live 2026-11-15)
+ * instead of WaterServices NWIS IV, which USGS decommissions in early
+ * 2027. Observation times are now the WDFN UTC ISO timestamps (the same
+ * instants the WaterML local-offset strings named). No-data is an
+ * absent feature or a value:null feature — a site with no current
+ * value is 'unavailable', never synthesized. The sourceErrors key stays `nwis`: it names the
+ * NWIS data lineage this leg serves, and the envelope shape is frozen.
  *
  * Route: GET /api/water-twin
  *
@@ -25,8 +34,8 @@ import {
 
 const CDEC_URL = (stations) =>
   `https://cdec.water.ca.gov/dynamicapp/req/CSVDataServlet?Stations=${stations}&SensorNums=15&dur_code=D&Start=__START__&End=__END__`;
-const NWIS_IV_URL = (sites) =>
-  `https://waterservices.usgs.gov/nwis/iv/?format=json&sites=${sites}&parameterCd=00060,00065&siteStatus=all`;
+const WDFN_LATEST_URL = (sites) =>
+  `https://api.waterdata.usgs.gov/ogcapi/v1/collections/latest-continuous/items?monitoring_location_number=${sites}&parameter_code=00060,00065&limit=1000`;
 
 const CACHE_TTL_MS = 30 * 60_000; // reservoir storage is daily; rivers refresh faster client-side
 const STALE_MS = 6 * 60 * 60_000;
@@ -61,28 +70,53 @@ export function parseCdecCsv(text) {
   return byStation;
 }
 
-/** Collapse an NWIS IV response to {site: {flowCfs, gageFt, time}}. */
-export function parseNwisIv(payload) {
+/**
+ * Collapse a WDFN latest-continuous GeoJSON payload to
+ * {site: {flowCfs, gageFt, time}} keyed by the BARE site number (the
+ * envelope's registry sites are bare; WDFN ids are agency-prefixed,
+ * "USGS-07010000"). One feature per time series: when a site carries
+ * duplicate series for a parameter, the instantaneous statistic
+ * (00011, migration spec §3.2) wins. `time` is the feature's UTC ISO
+ * timestamp. Absence of a feature is the no-data signal.
+ */
+export function parseWdfnLatest(payload) {
   const out = {};
-  const series = payload?.value?.timeSeries;
-  if (!Array.isArray(series)) return out;
-  for (const ts of series) {
-    const site = ts?.sourceInfo?.siteCode?.[0]?.value;
-    const code = ts?.variable?.variableCode?.[0]?.value;
-    if (!site || (code !== '00060' && code !== '00065')) continue;
-    const vals = ts?.values?.[0]?.value;
-    if (!Array.isArray(vals) || !vals.length) continue;
-    const latest = vals[vals.length - 1];
-    const v = Number(latest.value);
+  const features = payload?.features;
+  if (!Array.isArray(features)) return out;
+  for (const feature of features) {
+    const p = feature?.properties;
+    if (!p) continue;
+    const code = p.parameter_code;
+    if (code !== '00060' && code !== '00065') continue;
+    const site = String(p.monitoring_location_id ?? '').replace(
+      /^[A-Za-z][A-Za-z0-9]*-/,
+      '',
+    );
+    if (!site) continue;
+    // WDFN spells no-data as value:null — Number(null)===0 would
+    // fabricate a 0 reading; filter before converting (see nwisGauges).
+    const v =
+      p.value == null || (typeof p.value === 'string' && p.value.trim() === '')
+        ? NaN
+        : Number(p.value);
     if (!Number.isFinite(v)) continue;
-    out[site] = out[site] ?? {};
-    if (code === '00060') {
-      out[site].flowCfs = v;
-      out[site].time = latest.dateTime;
-    } else {
-      out[site].gageFt = v;
-      out[site].time = latest.dateTime;
-    }
+    const prev = out[site] ?? {};
+    const field = code === '00060' ? 'flowCfs' : 'gageFt';
+    const prevStat = prev[`${field}Stat`];
+    if (
+      prev[field] != null &&
+      prevStat === '00011' &&
+      p.statistic_id !== '00011'
+    )
+      continue; // keep the instantaneous-statistic series already recorded
+    prev[field] = v;
+    prev[`${field}Stat`] = p.statistic_id ?? null;
+    prev.time = p.time;
+    out[site] = prev;
+  }
+  for (const site of Object.values(out)) {
+    delete site.flowCfsStat;
+    delete site.gageFtStat;
   }
   return out;
 }
@@ -152,9 +186,9 @@ export function waterTwinProxy({
     const cdecUrl = CDEC_URL(CDEC_STATION_IDS)
       .replace('__START__', ymd(start))
       .replace('__END__', ymd(end));
-    const [cdecText, nwisText] = await Promise.all([
+    const [cdecText, wdfnText] = await Promise.all([
       upstreamText(cdecUrl, signal).catch((e) => ({ error: e?.message })),
-      upstreamText(NWIS_IV_URL(NWIS_SITE_IDS), signal).catch((e) => ({
+      upstreamText(WDFN_LATEST_URL(NWIS_SITE_IDS), signal).catch((e) => ({
         error: e?.message,
       })),
     ]);
@@ -163,9 +197,9 @@ export function waterTwinProxy({
     const storageByStation =
       typeof cdecText === 'string' ? parseCdecCsv(cdecText) : {};
     let nwis = {};
-    if (typeof nwisText === 'string') {
+    if (typeof wdfnText === 'string') {
       try {
-        nwis = parseNwisIv(JSON.parse(nwisText));
+        nwis = parseWdfnLatest(JSON.parse(wdfnText));
       } catch {
         nwis = {};
       }
@@ -221,7 +255,9 @@ export function waterTwinProxy({
       fetchedAt: now(),
       sourceErrors: {
         cdec: typeof cdecText === 'string' ? null : cdecText.error,
-        nwis: typeof nwisText === 'string' ? null : nwisText.error,
+        // Key stays `nwis` (envelope shape is frozen); the leg it names
+        // is now served by the WDFN API — see the header migration note.
+        nwis: typeof wdfnText === 'string' ? null : wdfnText.error,
       },
       allUnavailable:
         reservoirFailures === reservoirs.length &&
@@ -261,10 +297,10 @@ export function waterTwinProxy({
     return {
       schemaVersion: 1,
       source:
-        'CDEC daily reservoir storage + USGS NWIS instantaneous values, via local proxy',
+        'CDEC daily reservoir storage + USGS WDFN latest-continuous river values (NWIS), via local proxy',
       attribution:
         'Reservoir storage: California Data Exchange Center (CDEC), public. ' +
-        'River flow/gage height: USGS NWIS. Flood-stage references: curated ' +
+        'River flow/gage height: USGS NWIS via the WDFN API. Flood-stage references: curated ' +
         'approximate NWS-published values.',
       fetchedAt: value?.fetchedAt ?? null,
       stale,

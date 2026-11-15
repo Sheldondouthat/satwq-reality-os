@@ -1,5 +1,5 @@
 /**
- * Wave 3 / Track 2a.1 — USGS NWIS instantaneous-values gauge layer.
+ * Wave 3 / Track 2a.1 — USGS gauge layer (WDFN API V1).
  *
  * WHY A PROXY: the frontend asks for "gauges in the current camera view" as
  * a bbox; this provider validates + quantizes the bbox, picks a trailing
@@ -19,28 +19,52 @@
  * Sites mode fetches a P1D trailing window so the per-gauge z-score stays a
  * real trailing-window anomaly, exactly like bbox mode. A site that reports
  * no 00060/00065 values in the window is omitted — never synthesized.
+ *
+ * WDFN MIGRATION (2026-11-15, spec: sky-map-quest/registry/
+ * WDFN-MIGRATION-2026-11-15.md): the upstream is now the WDFN API V1
+ * (https://api.waterdata.usgs.gov/ogcapi/v1), keyless — WaterServices is
+ * decommissioned in early 2027. Latest-only sweeps read the
+ * `latest-continuous` collection; windowed sweeps read `continuous` with
+ * an explicit datetime interval (the §3.1 history mapping). Station
+ * names are joined from `monitoring-locations` (the §3.3 discovery
+ * surface), because WDFN value features carry geometry but no name.
+ * WDFN paginates with cursor `next` links at a default page of 10, so
+ * every collection read follows pages up to a bounded feature budget.
+ * No-data in WDFN is an absent feature OR a feature with value:null
+ * (the latter observed in `continuous` for series IV flags -999999;
+ * both are filtered — a null must never become a fabricated 0). One behavior
+ * improvement over the legacy host, recorded in the migration record:
+ * WaterServices rejected bboxes wider than ~1.1° (latitude-scaled) with
+ * HTTP 400, so the legacy CONUS default sweep could never succeed;
+ * WDFN accepts the full bbox range this provider validates.
  */
 import { readResponseJsonCapped } from '../common/http.js';
 
-const UPSTREAM = 'https://waterservices.usgs.gov/nwis/iv/';
+const WDFN_BASE = 'https://api.waterdata.usgs.gov/ogcapi/v1/collections';
 const USER_AGENT =
-  'satwq-reality-os/1.0 (USGS NWIS public instantaneous values; contact via repo)';
+  'satwq-reality-os/1.0 (USGS WDFN public water data; contact via repo)';
 
 const CACHE_TTL_MS = 15 * 60_000; // gauges move slowly; refresh at most every 15 min
 const STALE_MS = 60 * 60_000;
 const RETRY_COOLDOWN_MS = 60_000;
 const UPSTREAM_TIMEOUT_MS = 25_000;
-const JSON_CAP = 6 * 1024 * 1024;
+const JSON_CAP = 6 * 1024 * 1024; // per-page read cap (a limit=5000 page is ~3.5 MB)
+const PAGE_LIMIT = 5000; // WDFN default page is 10 — always ask for a real page
+const MAX_PAGES = 20; // cursor-follow bound across one collection read
+const MAX_FEATURES = 80_000; // accumulated-feature budget (CONUS latest ≈ 26.5k)
+const META_CHUNK = 100; // monitoring-locations numbers per name-join request
 const MAX_GAUGES = 500; // compact output bound
-const MAX_SITES = 20; // site-ID mode cap — keeps the IV payload bounded
+const MAX_SITES = 20; // site-ID mode cap — keeps the upstream payload bounded
 const MAX_CACHE_KEYS = 8;
-const NO_DATA = -999999; // NWIS no-data sentinel
+const NO_DATA = -999999; // legacy NWIS no-data sentinel (defensive filter; WDFN omits instead)
 const DEFAULT_BBOX = '-125,24,-66,50'; // CONUS fallback
 
 /**
  * Curated major-river gauges for site-ID mode. IDs + coords are the REAL
  * NWIS site-service values (verified 2026-09-27 via the RDB site service);
- * names are the official station_nm from that same response.
+ * names are the official station_nm from that same response. (Runtime
+ * names now come from WDFN monitoring-locations; this list stays the
+ * curated documentation of the featured set.)
  */
 export const FEATURED_SITES = [
   {
@@ -239,40 +263,52 @@ export function trailingZ(values) {
   return { z: sd > 0 ? (last - mean) / sd : 0, n: xs.length, mean };
 }
 
+/** Bare site number from a WDFN monitoring_location_id ("USGS-03176500" -> "03176500"). */
+export function bareSiteNumber(monitoringLocationId) {
+  return String(monitoringLocationId ?? '').replace(/^[A-Za-z][A-Za-z0-9]*-/, '');
+}
+
 /**
- * Parse one WaterML timeSeries into a gauge record, or null to skip.
- * seriesMap accumulates per-site { flow: {...}, height: {...} } across
- * the two parameter codes so one site yields one gauge.
+ * Parse WDFN GeoJSON features (latest-continuous or continuous) into
+ * gauge records, or throw on a non-array. Features accumulate per site
+ * across the two parameter codes so one site yields one gauge. When a
+ * site carries several time series for one parameter, the instantaneous
+ * statistic (00011, per the migration spec §3.2) wins; otherwise the
+ * longest series wins. `name` starts as the bare site number — the
+ * fetch path overwrites it from monitoring-locations (value features
+ * carry no name); a gauge whose name was never resolved keeps the
+ * number, visibly, never a fabricated name.
  */
-export function parseNwisPayload(doc, { maxGauges = MAX_GAUGES } = {}) {
-  const series = doc?.value?.timeSeries;
-  if (!Array.isArray(series)) throw new Error('nwis_unexpected_shape');
+export function parseWdfnPayload(features, { maxGauges = MAX_GAUGES } = {}) {
+  if (!Array.isArray(features)) throw new Error('nwis_unexpected_shape');
   const sites = new Map();
-  for (const ts of series) {
-    if (sites.size >= maxGauges * 2 && !sites.has(siteIdOf(ts))) {
-      // keep scanning cheap: hard stop once well past the cap
-      if (sites.size >= maxGauges * 3) break;
-    }
-    const info = ts?.sourceInfo;
-    const geo = info?.geoLocation?.geogLocation;
-    const lat = Number(geo?.latitude);
-    const lon = Number(geo?.longitude);
-    if (!Number.isFinite(lat) || !Number.isFinite(lon)) continue;
-    const code = ts?.variable?.variableCode?.[0]?.value;
+  for (const feature of features) {
+    const p = feature?.properties;
+    if (!p) continue;
+    const code = p.parameter_code;
     if (code !== '00060' && code !== '00065') continue;
-    const siteCode = info?.siteCode?.[0]?.value ?? `${lat},${lon}`;
-    const rawValues = ts?.values?.[0]?.value ?? [];
-    const vals = rawValues
-      .map((v) => Number(v?.value))
-      .filter((v) => Number.isFinite(v) && v !== NO_DATA);
-    if (vals.length === 0) continue;
-    const last = rawValues[rawValues.length - 1];
-    const timeMs = Date.parse(last?.dateTime);
+    const siteCode = bareSiteNumber(p.monitoring_location_id);
+    if (!siteCode) continue;
+    const coords = feature?.geometry?.coordinates;
+    const lon = Number(coords?.[0]);
+    const lat = Number(coords?.[1]);
+    if (!Number.isFinite(lat) || !Number.isFinite(lon)) continue;
+    // WDFN spells no-data as value:null (observed live 2026-11-15 on
+    // gauge 03052500, whose IV series is all -999999): Number(null)===0
+    // would fabricate a 0 reading, so null/blank is filtered BEFORE the
+    // numeric conversion — the numOrNull discipline from generic.js.
+    const value =
+      p.value == null || (typeof p.value === 'string' && p.value.trim() === '')
+        ? NaN
+        : Number(p.value);
+    if (!Number.isFinite(value) || value === NO_DATA) continue;
+    const timeMs = Date.parse(p.time);
+    if (!Number.isFinite(timeMs)) continue;
     let site = sites.get(siteCode);
     if (!site) {
       site = {
         id: siteCode,
-        name: info?.siteName ?? siteCode,
+        name: siteCode,
         lat,
         lon,
         flowCfs: null,
@@ -280,37 +316,56 @@ export function parseNwisPayload(doc, { maxGauges = MAX_GAUGES } = {}) {
         flowN: 0,
         heightFt: null,
         heightZ: 0,
-        timeMs: Number.isFinite(timeMs) ? timeMs : null,
+        timeMs: null,
+        series: new Map(), // `${code}|${time_series_id}` -> { statistic, vals: [{t, v}] }
       };
       sites.set(siteCode, site);
     }
-    const { z, n } = trailingZ(vals);
-    if (code === '00060') {
-      site.flowCfs = vals[vals.length - 1];
-      site.flowZ = z;
-      site.flowN = n;
-    } else {
-      site.heightFt = vals[vals.length - 1];
-      site.heightZ = z;
+    const key = `${code}|${p.time_series_id ?? ''}`;
+    let series = site.series.get(key);
+    if (!series) {
+      series = { statistic: p.statistic_id ?? null, vals: [] };
+      site.series.set(key, series);
     }
-    if (
-      Number.isFinite(timeMs) &&
-      (site.timeMs == null || timeMs > site.timeMs)
-    ) {
-      site.timeMs = timeMs;
-    }
+    series.vals.push({ t: timeMs, v: value });
   }
-  return [...sites.values()].slice(0, maxGauges);
-}
-
-function siteIdOf(ts) {
-  return ts?.sourceInfo?.siteCode?.[0]?.value ?? '';
+  const gauges = [];
+  for (const site of sites.values()) {
+    for (const code of ['00060', '00065']) {
+      const candidates = [...site.series.entries()]
+        .filter(([key]) => key.startsWith(`${code}|`))
+        .map(([, series]) => series)
+        .sort(
+          (a, b) =>
+            (b.statistic === '00011') - (a.statistic === '00011') ||
+            b.vals.length - a.vals.length,
+        );
+      const chosen = candidates[0];
+      if (!chosen) continue;
+      const vals = chosen.vals.sort((a, b) => a.t - b.t);
+      const values = vals.map((x) => x.v);
+      const { z, n } = trailingZ(values);
+      const last = vals[vals.length - 1];
+      if (code === '00060') {
+        site.flowCfs = last.v;
+        site.flowZ = z;
+        site.flowN = n;
+      } else {
+        site.heightFt = last.v;
+        site.heightZ = z;
+      }
+      if (site.timeMs == null || last.t > site.timeMs) site.timeMs = last.t;
+    }
+    delete site.series;
+    gauges.push(site);
+  }
+  return gauges.slice(0, maxGauges);
 }
 
 function describe(value, { stale = false, reason = null } = {}) {
   return {
     schemaVersion: 1,
-    source: 'USGS NWIS instantaneous values via local proxy',
+    source: 'USGS WDFN (Water Data for the Nation) via local proxy',
     attribution: 'Streamflow data: U.S. Geological Survey (public domain).',
     fetchedAt: value?.fetchedAt ?? null,
     stale,
@@ -341,25 +396,12 @@ export function nwisGaugesProxy({
     cache.set(key, { value, fetchedAt: now() });
   }
 
-  async function fetchUpstream({ bbox, sites, period, signal }) {
-    const params = new URLSearchParams({
-      format: 'json',
-      parameterCd: '00060,00065',
-    });
-    if (sites) {
-      params.set('sites', sites.join(','));
-    } else {
-      params.set(
-        'bBox',
-        `${bbox.minLon},${bbox.minLat},${bbox.maxLon},${bbox.maxLat}`,
-      );
-    }
-    if (period) params.set('period', period);
-    const url = `${UPSTREAM}?${params.toString()}`;
+  /** One WDFN page -> parsed GeoJSON doc (capped read, honest errors). */
+  async function fetchPage(url, signal) {
     signal.throwIfAborted();
     const response = await fetchImpl(url, {
       signal,
-      headers: { 'User-Agent': USER_AGENT, Accept: 'application/json' },
+      headers: { 'User-Agent': USER_AGENT, Accept: 'application/geo+json, application/json' },
     });
     if (!response.ok) {
       await response.body?.cancel().catch(() => {});
@@ -367,7 +409,90 @@ export function nwisGaugesProxy({
     }
     const doc = await readResponseJsonCapped(response, JSON_CAP, signal);
     signal.throwIfAborted();
-    const gauges = parseNwisPayload(doc);
+    if (!Array.isArray(doc?.features)) throw new Error('nwis_unexpected_shape');
+    return doc;
+  }
+
+  /** Follow cursor `next` links until the collection is exhausted or the budget is hit. */
+  async function fetchFeatures(firstUrl, signal) {
+    const features = [];
+    let url = firstUrl;
+    for (let page = 0; url && page < MAX_PAGES; page++) {
+      const doc = await fetchPage(url, signal);
+      features.push(...doc.features);
+      if (features.length > MAX_FEATURES)
+        throw new Error('nwis_upstream_too_large');
+      url = doc.links?.find((link) => link?.rel === 'next')?.href ?? null;
+    }
+    if (url) throw new Error('nwis_upstream_too_large'); // pages remain past the bound
+    return features;
+  }
+
+  /**
+   * Name join via monitoring-locations (migration spec §3.3): bare site
+   * number -> official station name. Chunked CSV queries, settled in
+   * parallel; a failed chunk just leaves those gauges numbered.
+   */
+  async function fetchSiteNames(numbers, signal) {
+    const names = new Map();
+    const unique = [...new Set(numbers)].filter(Boolean);
+    const chunks = [];
+    for (let i = 0; i < unique.length; i += META_CHUNK)
+      chunks.push(unique.slice(i, i + META_CHUNK));
+    const settled = await Promise.allSettled(
+      chunks.map(async (chunk) => {
+        const url = `${WDFN_BASE}/monitoring-locations/items?monitoring_location_number=${chunk.join(',')}&limit=1000`;
+        const doc = await fetchPage(url, signal);
+        for (const feature of doc.features) {
+          const number = feature?.properties?.monitoring_location_number;
+          const name = feature?.properties?.monitoring_location_name;
+          if (number && typeof name === 'string' && name.trim())
+            names.set(String(number), name.trim());
+        }
+      }),
+    );
+    void settled;
+    return names;
+  }
+
+  async function fetchUpstream({ bbox, sites, period, signal }) {
+    // Windowed sweeps read the `continuous` collection over an explicit
+    // datetime interval; latest-only sweeps read `latest-continuous`
+    // (migration spec §3.1). Both are one Feature per observation.
+    const collection = period ? 'continuous' : 'latest-continuous';
+    const params = new URLSearchParams({
+      parameter_code: '00060,00065',
+      limit: String(PAGE_LIMIT),
+    });
+    if (sites) {
+      params.set('monitoring_location_number', sites.join(','));
+    } else {
+      params.set(
+        'bbox',
+        `${bbox.minLon},${bbox.minLat},${bbox.maxLon},${bbox.maxLat}`,
+      );
+    }
+    if (period) {
+      const endMs = now();
+      const startMs = endMs - (period === 'P2D' ? 2 : 1) * 24 * 3600_000;
+      params.set(
+        'datetime',
+        `${new Date(startMs).toISOString()}/${new Date(endMs).toISOString()}`,
+      );
+    }
+    const url = `${WDFN_BASE}/${collection}/items?${params.toString()}`;
+    const features = await fetchFeatures(url, signal);
+    const gauges = parseWdfnPayload(features);
+    // Names: sites mode resolves the requested list; bbox mode resolves
+    // exactly the gauges that survived the output slice.
+    const names = await fetchSiteNames(
+      sites ?? gauges.map((gauge) => gauge.id),
+      signal,
+    ).catch(() => new Map());
+    for (const gauge of gauges) {
+      const name = names.get(gauge.id);
+      if (name) gauge.name = name;
+    }
     return {
       bbox: sites
         ? null
@@ -472,7 +597,7 @@ export function nwisGaugesProxy({
                 reason: 'USGS unreachable; showing last good sweep.',
               })
             : describe(null, {
-                reason: 'USGS NWIS unreachable and no cached sweep exists.',
+                reason: 'USGS WDFN unreachable and no cached sweep exists.',
               }),
         );
       }

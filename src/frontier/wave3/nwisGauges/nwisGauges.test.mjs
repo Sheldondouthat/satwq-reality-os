@@ -12,7 +12,7 @@ import {
   anomalyPeriod,
   nwisGaugesProxy,
   parseBbox,
-  parseNwisPayload,
+  parseWdfnPayload,
   quantizeBbox,
   trailingZ,
 } from '../../../../server/providers/wave3/nwisGauges.js';
@@ -100,52 +100,45 @@ test('trailingZ scores the last value against its window', () => {
   assert.equal(trailingZ([-999999, -999999]).n, 0); // sentinel skipped
 });
 
-const WATERML_FIXTURE = {
-  value: {
-    timeSeries: [
-      {
-        sourceInfo: {
-          siteName: 'BLACK WARRIOR RIVER AT BANKHEAD DAM',
-          siteCode: [{ value: '02441500' }],
-          geoLocation: { geogLocation: { latitude: 33.66565755, longitude: -86.592209 } },
-        },
-        variable: { variableCode: [{ value: '00060' }], unit: { unitCode: 'ft3/s' } },
-        values: [
-          {
-            value: [
-              { value: '9800', dateTime: '2026-09-26T00:00:00.000-05:00' },
-              { value: '10100', dateTime: '2026-09-26T06:00:00.000-05:00' },
-              { value: '9900', dateTime: '2026-09-26T12:00:00.000-05:00' },
-              { value: '15200', dateTime: '2026-09-26T18:00:00.000-05:00' },
-            ],
-          },
-        ],
-      },
-      {
-        sourceInfo: {
-          siteName: 'BLACK WARRIOR RIVER AT BANKHEAD DAM',
-          siteCode: [{ value: '02441500' }],
-          geoLocation: { geogLocation: { latitude: 33.66565755, longitude: -86.592209 } },
-        },
-        variable: { variableCode: [{ value: '00065' }], unit: { unitCode: 'ft' } },
-        values: [{ value: [{ value: '12.4', dateTime: '2026-09-26T18:00:00.000-05:00' }] }],
-      },
-      {
-        // dry gauge: only the no-data sentinel -> skipped entirely
-        sourceInfo: {
-          siteName: 'DRY CREEK NEAR NOWHERE',
-          siteCode: [{ value: '99999999' }],
-          geoLocation: { geogLocation: { latitude: 33.1, longitude: -86.1 } },
-        },
-        variable: { variableCode: [{ value: '00060' }] },
-        values: [{ value: [{ value: '-999999', dateTime: '2026-09-26T18:00:00.000-05:00' }] }],
-      },
-    ],
-  },
+// WDFN GeoJSON form of the pre-port WaterML fixture (WDFN migration
+// 2026-11-15): same gauge, same values, same instants (00:00-05:00 =
+// 05:00Z). The dry gauge's no-data sentinel is spelled value:null by
+// WDFN — and the name join is a fetch-path concern, so parser-level
+// gauges carry their site number as the name.
+function wdfnFixtureFeature(siteId, lat, lon, code, value, time) {
+  return {
+    type: 'Feature',
+    geometry: { type: 'Point', coordinates: [lon, lat] },
+    properties: {
+      time_series_id: `ts-${siteId}-${code}`,
+      monitoring_location_id: `USGS-${siteId}`,
+      parameter_code: code,
+      statistic_id: '00011',
+      time,
+      value: value == null ? null : String(value),
+      unit_of_measure: code === '00060' ? 'ft^3/s' : 'ft',
+      approval_status: 'Provisional',
+      qualifier: null,
+      last_modified: time,
+    },
+  };
+}
+
+const WDFN_FIXTURE = {
+  type: 'FeatureCollection',
+  features: [
+    wdfnFixtureFeature('02441500', 33.66565755, -86.592209, '00060', 9800, '2026-09-26T05:00:00+00:00'),
+    wdfnFixtureFeature('02441500', 33.66565755, -86.592209, '00060', 10100, '2026-09-26T11:00:00+00:00'),
+    wdfnFixtureFeature('02441500', 33.66565755, -86.592209, '00060', 9900, '2026-09-26T17:00:00+00:00'),
+    wdfnFixtureFeature('02441500', 33.66565755, -86.592209, '00060', 15200, '2026-09-26T23:00:00+00:00'),
+    wdfnFixtureFeature('02441500', 33.66565755, -86.592209, '00065', 12.4, '2026-09-26T23:00:00+00:00'),
+    // dry gauge: only a no-data (value:null) feature -> skipped entirely
+    wdfnFixtureFeature('99999999', 33.1, -86.1, '00060', null, '2026-09-26T23:00:00+00:00'),
+  ],
 };
 
-test('parseNwisPayload merges flow+height per site and skips dry gauges', () => {
-  const gauges = parseNwisPayload(WATERML_FIXTURE);
+test('parseWdfnPayload merges flow+height per site and skips dry gauges', () => {
+  const gauges = parseWdfnPayload(WDFN_FIXTURE.features);
   assert.equal(gauges.length, 1);
   const g = gauges[0];
   assert.equal(g.id, '02441500');
@@ -218,7 +211,7 @@ test('nwisGaugesProxy rejects a bad bbox with 400', async () => {
 });
 
 test('nwisGaugesProxy serves parsed gauges and caches the second call', async () => {
-  const { fetchImpl, calls } = fakeFetchJson(WATERML_FIXTURE);
+  const { fetchImpl, calls } = fakeFetchJson(WDFN_FIXTURE);
   const proxy = nwisGaugesProxy({ fetchImpl, now: () => 1_000_000 });
   const url = '/api/nwis-gauges?bbox=-87.5,33,-86.5,34';
   const first = await callHandler(proxy, url);
@@ -227,9 +220,10 @@ test('nwisGaugesProxy serves parsed gauges and caches the second call', async ()
   assert.equal(doc.count, 1);
   assert.equal(doc.gauges[0].id, '02441500');
   assert.equal(doc.anomalyBasis, 'trailing P2D z-score per gauge');
-  assert.match(calls[0], /waterservices\.usgs\.gov\/nwis\/iv\//);
-  assert.match(calls[0], /parameterCd=00060%2C00065/);
+  assert.match(calls[0], /api\.waterdata\.usgs\.gov\/ogcapi\/v1\/collections\/continuous\/items/);
+  assert.match(calls[0], /parameter_code=00060%2C00065/);
+  const callsAfterFirst = calls.length; // data page(s) + the monitoring-locations name join
   const second = await callHandler(proxy, url);
   assert.equal(second.res.statusCode, 200);
-  assert.equal(calls.length, 1, 'second identical request must hit the cache');
+  assert.equal(calls.length, callsAfterFirst, 'second identical request must hit the cache');
 });

@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import {
   parseCdecCsv,
-  parseNwisIv,
+  parseWdfnLatest,
   classifyFloodBand,
   reservoirState,
   waterTwinProxy,
@@ -26,36 +26,65 @@ test('parseCdecCsv: empty text returns empty object', () => {
   assert.deepEqual(parseCdecCsv(''), {});
 });
 
-test('parseNwisIv: collapses 00060/00065 series per site (verified 2026-09-27 shape)', () => {
-  const payload = {
-    value: {
-      timeSeries: [
-        {
-          sourceInfo: { siteCode: [{ value: '07010000' }] },
-          variable: { variableCode: [{ value: '00060' }] },
-          values: [{ value: [{ value: '273000', dateTime: '2026-09-27T00:00:00.000-05:00' }] }],
-        },
-        {
-          sourceInfo: { siteCode: [{ value: '07010000' }] },
-          variable: { variableCode: [{ value: '00065' }] },
-          values: [{ value: [{ value: '16.09', dateTime: '2026-09-27T00:00:00.000-05:00' }] }],
-        },
-        {
-          sourceInfo: { siteCode: [{ value: '07010000' }] },
-          variable: { variableCode: [{ value: '00010' }] },
-          values: [{ value: [{ value: '70', dateTime: 'x' }] }],
-        },
-      ],
+function wdfnFeature(site, code, value, time, statistic = '00011') {
+  return {
+    type: 'Feature',
+    geometry: { type: 'Point', coordinates: [-90.18, 38.62] },
+    properties: {
+      time_series_id: `ts-${site}-${code}-${statistic}`,
+      monitoring_location_id: `USGS-${site}`,
+      parameter_code: code,
+      statistic_id: statistic,
+      time,
+      value: String(value),
+      unit_of_measure: code === '00060' ? 'ft^3/s' : 'ft',
+      approval_status: 'Provisional',
+      qualifier: null,
+      last_modified: time,
     },
   };
-  const out = parseNwisIv(payload);
+}
+
+test('parseWdfnLatest: collapses 00060/00065 features per site (WDFN shape, ported 2026-11-15)', () => {
+  const payload = {
+    type: 'FeatureCollection',
+    features: [
+      wdfnFeature('07010000', '00060', '273000', '2026-09-27T05:00:00+00:00'),
+      wdfnFeature('07010000', '00065', '16.09', '2026-09-27T05:00:00+00:00'),
+      wdfnFeature('07010000', '00010', '70', '2026-09-27T05:00:00+00:00'),
+    ],
+  };
+  const out = parseWdfnLatest(payload);
   assert.equal(out['07010000'].flowCfs, 273000);
   assert.equal(out['07010000'].gageFt, 16.09);
+  assert.equal(out['07010000'].time, '2026-09-27T05:00:00+00:00');
 });
 
-test('parseNwisIv: malformed payload returns empty', () => {
-  assert.deepEqual(parseNwisIv({}), {});
-  assert.deepEqual(parseNwisIv(null), {});
+test('parseWdfnLatest: the instantaneous statistic (00011) wins over duplicates', () => {
+  const meanFirst = {
+    type: 'FeatureCollection',
+    features: [
+      wdfnFeature('07010000', '00065', '99.99', '2026-09-27T05:00:00+00:00', '00003'),
+      wdfnFeature('07010000', '00065', '16.09', '2026-09-27T05:00:00+00:00', '00011'),
+    ],
+  };
+  assert.equal(parseWdfnLatest(meanFirst)['07010000'].gageFt, 16.09);
+  const instFirst = {
+    type: 'FeatureCollection',
+    features: [...meanFirst.features].reverse(),
+  };
+  assert.equal(parseWdfnLatest(instFirst)['07010000'].gageFt, 16.09);
+});
+
+test('parseWdfnLatest: value:null is no-data, never a fabricated 0', () => {
+  const f = wdfnFeature('07010000', '00060', '0', '2026-09-27T05:00:00+00:00');
+  f.properties.value = null;
+  assert.deepEqual(parseWdfnLatest({ type: 'FeatureCollection', features: [f] }), {});
+});
+
+test('parseWdfnLatest: malformed payload returns empty', () => {
+  assert.deepEqual(parseWdfnLatest({}), {});
+  assert.deepEqual(parseWdfnLatest(null), {});
 });
 
 test('classifyFloodBand: bands from curated reference stages', () => {
@@ -91,15 +120,10 @@ test('handler: end-to-end with stubbed CDEC + NWIS', async () => {
     'STATION_ID,DURATION,SENSOR_NUMBER,SENSOR_TYPE,DATE TIME,OBS DATE,VALUE,DATA_FLAG,UNITS\n' +
     'SHA,D,15,STORAGE,20260925 0000,20260926 0000,2477120, ,AF\n';
   const nwis = JSON.stringify({
-    value: {
-      timeSeries: [
-        {
-          sourceInfo: { siteCode: [{ value: '07010000' }] },
-          variable: { variableCode: [{ value: '00065' }] },
-          values: [{ value: [{ value: '16.09', dateTime: '2026-09-27T00:00:00.000-05:00' }] }],
-        },
-      ],
-    },
+    type: 'FeatureCollection',
+    features: [
+      wdfnFeature('07010000', '00065', '16.09', '2026-09-27T05:00:00+00:00'),
+    ],
   });
   const fetchImpl = async (url) => {
     const text = String(url).includes('cdec.water.ca.gov') ? cdec : nwis;
