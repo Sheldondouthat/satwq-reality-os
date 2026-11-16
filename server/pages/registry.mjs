@@ -621,8 +621,7 @@ const REGISTRY = [
   {
     name: 'wspr',
     routes: ['/api/wspr-live'],
-    load: () =>
-      import('../providers/wave6/wspr.js').then((m) => m.wsprProxy()),
+    load: () => import('../providers/wave6/wspr.js').then((m) => m.wsprProxy()),
   },
   {
     name: 'sondes',
@@ -6461,10 +6460,11 @@ const REGISTRY = [
   {
     name: 'nws-alerts-va',
     routes: ['/api/nws-alerts-va'],
-    load: () => import('../providers/wave10/specs/nws-alerts-va.mjs').then(async (s) => {
-      const g = await import('../providers/wave10/generic.js');
-      return g.specProxy('nws-alerts-va', s.SPEC);
-    }),
+    load: () =>
+      import('../providers/wave10/specs/nws-alerts-va.mjs').then(async (s) => {
+        const g = await import('../providers/wave10/generic.js');
+        return g.specProxy('nws-alerts-va', s.SPEC);
+      }),
   },
 ];
 
