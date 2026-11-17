@@ -1,5 +1,38 @@
 [
   {
+    "date": "2026-11-17",
+    "anomalies": [
+      "M6.6 earthquake — 148 km WSW of Tual, Indonesia"
+    ],
+    "counts": {
+      "quakes_global_m45": 13,
+      "quakes_local_m25": 1,
+      "biggest_quake_mag": 6.6,
+      "gw_alerts_week": 0,
+      "kp_latest": 1,
+      "kp_max_today": 1,
+      "aqi_max_today": 41,
+      "closest_neo_km": 15309843,
+      "moon_illum_pct": 51,
+      "space_headlines": 5,
+      "local_outlets_live": 1
+    },
+    "snapshot": {
+      "kp_latest": 1,
+      "kp_max_today": 1,
+      "biggest_quake_mag": 6.6,
+      "closest_neo_km": 15309843,
+      "aqi_max_today": 41,
+      "moon_illum_pct": 51,
+      "gw_alerts_week": 0,
+      "btc_usd": 64292,
+      "co2_ppm": "428.19",
+      "oni_anomaly": "+2.46"
+    },
+    "prev_hash": "399fadc3e2b1970b4b28759092f914f8fea27931e0a5e3f74c3d84fd6cb0910c",
+    "hash": "697394bcc1c513592397d1315e73f363e66f6d9de83cb30f2ac4ef47c156ba81"
+  },
+  {
     "date": "2026-11-16",
     "anomalies": [],
     "counts": {
