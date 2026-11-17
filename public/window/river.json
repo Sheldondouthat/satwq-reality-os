@@ -2,16 +2,16 @@
   "format": "gev-window-frame/1",
   "room": "river",
   "frame_file": "river.png",
-  "data_ts": "2026-11-17T14:30:00.000Z",
-  "data_epoch": 1794925800,
-  "data_ts_label": "14:30 UTC \u00b7 NOV 17, 2026",
-  "rendered_ts": "2026-11-17T15:32:52.000Z",
-  "rendered_epoch": 1794929572,
-  "age_at_render_seconds": 3772,
+  "data_ts": "2026-11-17T15:30:00.000Z",
+  "data_epoch": 1794929400,
+  "data_ts_label": "15:30 UTC \u00b7 NOV 17, 2026",
+  "rendered_ts": "2026-11-17T15:47:47.000Z",
+  "rendered_epoch": 1794930467,
+  "age_at_render_seconds": 1067,
   "max_age_seconds": 3600,
   "freshness": {
-    "verdict": "STALE",
-    "basis": "the record's own verdict: stale (its gauge leg crossed its max-age before this frame was rendered)"
+    "verdict": "CURRENT",
+    "basis": "record fresh at render: stale flag false and age inside the gauge leg's 3600 s max-age"
   },
   "renderer_epoch": "2026-11-15",
   "min_channel_format": 1,
@@ -26,7 +26,7 @@
     "stage_ft": 3.17,
     "discharge_cfs": 1730,
     "trend_direction": "RISING",
-    "trend_delta_ft": 0.07,
+    "trend_delta_ft": 0.04,
     "trend_over_hours": 3,
     "caution_ft": 13,
     "flood_stage_ft": 15
