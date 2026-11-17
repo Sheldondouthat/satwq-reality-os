@@ -5,9 +5,9 @@
   "data_ts": "2026-11-17T05:47:27.000Z",
   "data_epoch": 1794894447,
   "data_ts_label": "05:47 UTC \u00b7 NOV 17, 2026",
-  "rendered_ts": "2026-11-17T05:47:36.000Z",
-  "rendered_epoch": 1794894456,
-  "age_at_render_seconds": 9,
+  "rendered_ts": "2026-11-17T06:02:35.000Z",
+  "rendered_epoch": 1794895355,
+  "age_at_render_seconds": 908,
   "max_age_seconds": 3600,
   "freshness": {
     "verdict": "CURRENT",
@@ -48,11 +48,11 @@
       },
       {
         "label": "WITNESS \u00b7 WSPR",
-        "value": "OK \u00b7 1,500 SPOTS \u00b7 04:56 UTC"
+        "value": "OK \u00b7 1,500 SPOTS \u00b7 05:56 UTC"
       },
       {
         "label": "WITNESS \u00b7 WP937",
-        "value": "NO READING \u2014 OPERATOR ENDPOINTS FAILING \u00b7 LAST ATTEMPT 04:56 UTC"
+        "value": "NO READING \u2014 OPERATOR ENDPOINTS FAILING \u00b7 LAST ATTEMPT 05:56 UTC"
       }
     ]
   }
