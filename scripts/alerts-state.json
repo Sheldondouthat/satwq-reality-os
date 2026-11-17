@@ -390,6 +390,6 @@
     "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.9c33b9e89815765f26c8d42bc7fe9105e000178d.001.1": "2026-11-16T20:55:43.349Z",
     "quake:us7000tymu": "2026-11-17T03:33:49.924Z"
   },
-  "updatedAt": "2026-11-17T03:33:49.924Z",
+  "updatedAt": "2026-11-17T12:30:35.713Z",
   "topic": "satwq-alerts"
 }
