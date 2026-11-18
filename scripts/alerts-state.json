@@ -393,8 +393,11 @@
     "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.5574d4811b29f2f60371ca9ebaac2711999bfe6e.001.1": "2026-11-18T03:04:15.124Z",
     "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.3b9450248b09d17d46bca635add68ce1d2af311b.001.1": "2026-11-18T03:04:15.124Z",
     "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.054faad23da4bbede0270541d904538455eb7a06.001.1": "2026-11-18T03:04:15.124Z",
-    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.b07dd3a456801c6d04b92848f222a97470e0a168.001.1": "2026-11-18T03:04:15.124Z"
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.b07dd3a456801c6d04b92848f222a97470e0a168.001.1": "2026-11-18T03:04:15.124Z",
+    "quake:us7000tz37": "2026-11-18T20:11:56.893Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.b29a0ae4be07c4888167eca2f581cb3349e6c382.001.1": "2026-11-18T20:11:56.893Z",
+    "faa:ground-stop:DJT": "2026-11-18T20:11:56.893Z"
   },
-  "updatedAt": "2026-11-18T11:45:55.794Z",
+  "updatedAt": "2026-11-18T20:11:56.893Z",
   "topic": "satwq-alerts"
 }
