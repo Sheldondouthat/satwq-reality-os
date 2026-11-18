@@ -1,5 +1,38 @@
 [
   {
+    "date": "2026-11-18",
+    "anomalies": [
+      "Quake clustering — 4 M4.5+ events in 24 h around Indonesia (swarm/aftershock pattern, computed from the feed)"
+    ],
+    "counts": {
+      "quakes_global_m45": 18,
+      "quakes_local_m25": 2,
+      "biggest_quake_mag": 5.9,
+      "gw_alerts_week": 0,
+      "kp_latest": 2.33,
+      "kp_max_today": 3.33,
+      "aqi_max_today": 44,
+      "closest_neo_km": 7541684,
+      "moon_illum_pct": 61,
+      "space_headlines": 5,
+      "local_outlets_live": 1
+    },
+    "snapshot": {
+      "kp_latest": 2.33,
+      "kp_max_today": 3.33,
+      "biggest_quake_mag": 5.9,
+      "closest_neo_km": 7541684,
+      "aqi_max_today": 44,
+      "moon_illum_pct": 61,
+      "gw_alerts_week": 0,
+      "btc_usd": 64143,
+      "co2_ppm": "429.89",
+      "oni_anomaly": "+2.46"
+    },
+    "prev_hash": "697394bcc1c513592397d1315e73f363e66f6d9de83cb30f2ac4ef47c156ba81",
+    "hash": "029d0220a99f338aadf004ab405e8ae5da7e9d1ec7df74a1f1f8fd618ff31363"
+  },
+  {
     "date": "2026-11-17",
     "anomalies": [
       "M6.6 earthquake — 148 km WSW of Tual, Indonesia"
