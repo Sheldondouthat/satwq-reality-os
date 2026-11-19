@@ -396,8 +396,9 @@
     "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.b07dd3a456801c6d04b92848f222a97470e0a168.001.1": "2026-11-18T03:04:15.124Z",
     "quake:us7000tz37": "2026-11-18T20:11:56.893Z",
     "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.b29a0ae4be07c4888167eca2f581cb3349e6c382.001.1": "2026-11-18T20:11:56.893Z",
-    "faa:ground-stop:DJT": "2026-11-18T20:11:56.893Z"
+    "faa:ground-stop:DJT": "2026-11-18T20:11:56.893Z",
+    "nws:https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.e313d09d13b7cf56b4d936b310f370a2afb63d83.001.1": "2026-11-19T01:53:27.953Z"
   },
-  "updatedAt": "2026-11-18T20:11:56.893Z",
+  "updatedAt": "2026-11-19T01:53:27.953Z",
   "topic": "satwq-alerts"
 }
