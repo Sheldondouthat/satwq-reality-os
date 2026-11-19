@@ -1,19 +1,19 @@
 {
-  "date": "2026-11-18",
-  "generated_at": "2026-11-18T11:16:10.340Z",
+  "date": "2026-11-19",
+  "generated_at": "2026-11-19T11:16:09.743Z",
   "flags": [
-    "Quake clustering — 4 M4.5+ events in 24 h around Indonesia (swarm/aftershock pattern, computed from the feed)"
+    "M6.1 earthquake — Pacific-Antarctic Ridge"
   ],
   "counts": {
-    "quakes_global_m45": 18,
+    "quakes_global_m45": 14,
     "quakes_local_m25": 2,
-    "biggest_quake_mag": 5.9,
+    "biggest_quake_mag": 6.1,
     "gw_alerts_week": 0,
-    "kp_latest": 2.33,
-    "kp_max_today": 3.33,
-    "aqi_max_today": 44,
-    "closest_neo_km": 7541684,
-    "moon_illum_pct": 61,
+    "kp_latest": 1.67,
+    "kp_max_today": 5,
+    "aqi_max_today": 42,
+    "closest_neo_km": 6385660,
+    "moon_illum_pct": 70,
     "space_headlines": 5,
     "local_outlets_live": 1
   }
