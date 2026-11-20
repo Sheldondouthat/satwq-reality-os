@@ -2,12 +2,12 @@
   "format": "gev-window-frame/1",
   "room": "signals",
   "frame_file": "signals.png",
-  "data_ts": "2026-11-20T07:46:00.000Z",
-  "data_epoch": 1795160760,
-  "data_ts_label": "07:46 UTC \u00b7 NOV 20, 2026",
-  "rendered_ts": "2026-11-20T07:47:32.000Z",
-  "rendered_epoch": 1795160852,
-  "age_at_render_seconds": 92,
+  "data_ts": "2026-11-20T08:02:00.000Z",
+  "data_epoch": 1795161720,
+  "data_ts_label": "08:02 UTC \u00b7 NOV 20, 2026",
+  "rendered_ts": "2026-11-20T08:02:34.000Z",
+  "rendered_epoch": 1795161754,
+  "age_at_render_seconds": 34,
   "max_age_seconds": 3600,
   "freshness": {
     "verdict": "CURRENT",
@@ -21,29 +21,29 @@
   },
   "values": {
     "wspr_count": 1500,
-    "wspr_newest_spot": "2026-11-20T07:46:00.000Z",
-    "wspr_top_band": "40M",
+    "wspr_newest_spot": "2026-11-20T08:02:00.000Z",
+    "wspr_top_band": "20M",
     "dsn_dishes": 15,
-    "dsn_tracking": 5,
-    "psk_status": "ok",
+    "dsn_tracking": 6,
+    "psk_status": "fetch-failed",
     "ionosonde_status": "no-reading",
-    "headline": "SIGNALS \u2014 LIVE FROM THE STACK",
+    "headline": "SIGNALS \u2014 LIVE, WITH LEGS DOWN",
     "lines": [
       {
         "label": "WSPR",
-        "value": "1,500 SPOTS \u00b7 NEWEST 07:46 UTC \u00b7 TOP BAND 40M"
+        "value": "1,500 SPOTS \u00b7 NEWEST 08:02 UTC \u00b7 TOP BAND 20M"
       },
       {
         "label": "DSN",
-        "value": "15 DISHES \u00b7 5 TRACKING \u00b7 07:47 UTC"
+        "value": "15 DISHES \u00b7 6 TRACKING \u00b7 08:02 UTC"
       },
       {
         "label": "PSK REPORTER",
-        "value": "0 REPORTS \u00b7 07:47 UTC"
+        "value": "UNAVAILABLE \u2014 HTTP 502"
       },
       {
         "label": "WP937 IONOSONDE",
-        "value": "NO READING \u2014 OPERATOR ENDPOINTS FAILING \u00b7 LAST ATTEMPT 06:56 UTC"
+        "value": "NO READING \u2014 OPERATOR ENDPOINTS FAILING \u00b7 LAST ATTEMPT 07:56 UTC"
       }
     ]
   }
