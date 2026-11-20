@@ -1,5 +1,39 @@
 [
   {
+    "date": "2026-11-20",
+    "anomalies": [
+      "M1.1-class solar flare (peak 2026-11-19T13:59:00Z)",
+      "M2.4-class solar flare (peak 2026-11-19T13:24:00Z)"
+    ],
+    "counts": {
+      "quakes_global_m45": 13,
+      "quakes_local_m25": 2,
+      "biggest_quake_mag": 5.6,
+      "gw_alerts_week": 0,
+      "kp_latest": 1.33,
+      "kp_max_today": 2,
+      "aqi_max_today": 46,
+      "closest_neo_km": 8981854,
+      "moon_illum_pct": 79,
+      "space_headlines": 5,
+      "local_outlets_live": 2
+    },
+    "snapshot": {
+      "kp_latest": 1.33,
+      "kp_max_today": 2,
+      "biggest_quake_mag": 5.6,
+      "closest_neo_km": 8981854,
+      "aqi_max_today": 46,
+      "moon_illum_pct": 79,
+      "gw_alerts_week": 0,
+      "btc_usd": 61756,
+      "co2_ppm": "428.55",
+      "oni_anomaly": "+2.46"
+    },
+    "prev_hash": "977c891297e3988a407b4418a49ac7da81bdc89f3615ab9d3e400c3e62a325d4",
+    "hash": "6aad8c99ef4adae47757e72b01ffd569d67c696f5d0b9d4776289e18b04beedd"
+  },
+  {
     "date": "2026-11-19",
     "anomalies": [
       "M6.1 earthquake — Pacific-Antarctic Ridge"
