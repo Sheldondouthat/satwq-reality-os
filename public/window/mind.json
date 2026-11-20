@@ -2,16 +2,16 @@
   "format": "gev-window-frame/1",
   "room": "mind",
   "frame_file": "mind.png",
-  "data_ts": "2026-11-19T23:30:00.000Z",
-  "data_epoch": 1795131000,
-  "data_ts_label": "23:30 UTC \u00b7 NOV 19, 2026",
-  "rendered_ts": "2026-11-20T00:32:51.000Z",
-  "rendered_epoch": 1795134771,
-  "age_at_render_seconds": 3771,
+  "data_ts": "2026-11-20T00:30:00.000Z",
+  "data_epoch": 1795134600,
+  "data_ts_label": "00:30 UTC \u00b7 NOV 20, 2026",
+  "rendered_ts": "2026-11-20T00:47:38.000Z",
+  "rendered_epoch": 1795135658,
+  "age_at_render_seconds": 1058,
   "max_age_seconds": 3600,
   "freshness": {
-    "verdict": "STALE",
-    "basis": "age at render crossed the room record's 3600 s max-age"
+    "verdict": "CURRENT",
+    "basis": "record fresh at render: age inside the room record's 3600 s max-age"
   },
   "renderer_epoch": "2026-11-15",
   "min_channel_format": 1,
@@ -20,32 +20,32 @@
     "detail": "sky-map-quest/home-node/journal, read on this node"
   },
   "values": {
-    "records_total": 148,
-    "feed_records": 146,
+    "records_total": 149,
+    "feed_records": 147,
     "verdict_records": 1,
     "coverage_from": "2026-11-15T07:30:00+00:00",
-    "coverage_to": "2026-11-19T23:30:00+00:00",
+    "coverage_to": "2026-11-20T00:30:00+00:00",
     "chain_ok": true,
-    "closing_hash": "35974ae08fcf0a132c89bcbe96387b63d4f7498d2f04560485d290b2dd937e16",
+    "closing_hash": "2c51befbd791db41e90d39c6c973a905a8660094dd77493e9a9f3789c5cf79ce",
     "latest_kind": "feed-record",
     "drill_verdict": "FAIL",
     "headline": "THE JOURNAL \u2014 CHAIN UNBROKEN",
     "lines": [
       {
         "label": "RECORDS",
-        "value": "148 ON CHAIN \u2014 146 FEED \u00b7 1 REGISTRY-CHANGE \u00b7 1 VERDICT (+5 SEGMENT HEADER)"
+        "value": "149 ON CHAIN \u2014 147 FEED \u00b7 1 REGISTRY-CHANGE \u00b7 1 VERDICT (+6 SEGMENT HEADER)"
       },
       {
         "label": "COVERAGE",
-        "value": "DATA 07:30 UTC \u2192 23:30 UTC \u00b7 2026-11-19"
+        "value": "DATA 07:30 UTC \u2192 00:30 UTC \u00b7 2026-11-20"
       },
       {
         "label": "CHAIN",
-        "value": "UNBROKEN \u2014 CLOSING HASH 35974ae08fcf\u2026"
+        "value": "UNBROKEN \u2014 CLOSING HASH 2c51befbd791\u2026"
       },
       {
         "label": "LATEST",
-        "value": "FEED-RECORD \u00b7 DATA 23:30 UTC \u00b7 JOURNALED 23:42 UTC"
+        "value": "FEED-RECORD \u00b7 DATA 00:30 UTC \u00b7 JOURNALED 00:42 UTC"
       },
       {
         "label": "DEATH DRILL",
