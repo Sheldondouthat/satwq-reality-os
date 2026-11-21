@@ -1,5 +1,39 @@
 [
   {
+    "date": "2026-11-21",
+    "anomalies": [
+      "M6.8 earthquake — 103 km NE of Lospalos, Timor Leste",
+      "M6.7 earthquake — 9 km NE of Carhuamayo, Peru"
+    ],
+    "counts": {
+      "quakes_global_m45": 12,
+      "quakes_local_m25": 2,
+      "biggest_quake_mag": 6.8,
+      "gw_alerts_week": 0,
+      "kp_latest": 1.33,
+      "kp_max_today": 2.67,
+      "aqi_max_today": 49,
+      "closest_neo_km": 20892346,
+      "moon_illum_pct": 87,
+      "space_headlines": 5,
+      "local_outlets_live": 1
+    },
+    "snapshot": {
+      "kp_latest": 1.33,
+      "kp_max_today": 2.67,
+      "biggest_quake_mag": 6.8,
+      "closest_neo_km": 20892346,
+      "aqi_max_today": 49,
+      "moon_illum_pct": 87,
+      "gw_alerts_week": 0,
+      "btc_usd": 57885,
+      "co2_ppm": "428.55",
+      "oni_anomaly": "+2.46"
+    },
+    "prev_hash": "6aad8c99ef4adae47757e72b01ffd569d67c696f5d0b9d4776289e18b04beedd",
+    "hash": "5645765886790a52fe1c6fef160d064cf8af7ec6b2eab2bca29b676ed4255a38"
+  },
+  {
     "date": "2026-11-20",
     "anomalies": [
       "M1.1-class solar flare (peak 2026-11-19T13:59:00Z)",
