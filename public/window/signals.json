@@ -2,12 +2,12 @@
   "format": "gev-window-frame/1",
   "room": "signals",
   "frame_file": "signals.png",
-  "data_ts": "2026-11-21T11:16:00.000Z",
-  "data_epoch": 1795259760,
-  "data_ts_label": "11:16 UTC \u00b7 NOV 21, 2026",
-  "rendered_ts": "2026-11-21T11:17:33.000Z",
-  "rendered_epoch": 1795259853,
-  "age_at_render_seconds": 93,
+  "data_ts": "2026-11-21T11:32:00.000Z",
+  "data_epoch": 1795260720,
+  "data_ts_label": "11:32 UTC \u00b7 NOV 21, 2026",
+  "rendered_ts": "2026-11-21T11:32:35.000Z",
+  "rendered_epoch": 1795260755,
+  "age_at_render_seconds": 35,
   "max_age_seconds": 3600,
   "freshness": {
     "verdict": "CURRENT",
@@ -21,7 +21,7 @@
   },
   "values": {
     "wspr_count": 1500,
-    "wspr_newest_spot": "2026-11-21T11:16:00.000Z",
+    "wspr_newest_spot": "2026-11-21T11:32:00.000Z",
     "wspr_top_band": "20M",
     "dsn_dishes": 15,
     "dsn_tracking": 9,
@@ -31,11 +31,11 @@
     "lines": [
       {
         "label": "WSPR",
-        "value": "1,500 SPOTS \u00b7 NEWEST 11:16 UTC \u00b7 TOP BAND 20M"
+        "value": "1,500 SPOTS \u00b7 NEWEST 11:32 UTC \u00b7 TOP BAND 20M"
       },
       {
         "label": "DSN",
-        "value": "15 DISHES \u00b7 9 TRACKING \u00b7 11:17 UTC"
+        "value": "15 DISHES \u00b7 9 TRACKING \u00b7 11:32 UTC"
       },
       {
         "label": "PSK REPORTER",
