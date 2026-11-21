@@ -2,12 +2,12 @@
   "format": "gev-window-frame/1",
   "room": "deck",
   "frame_file": "deck.png",
-  "data_ts": "2026-11-21T07:57:15.000Z",
-  "data_epoch": 1795247835,
-  "data_ts_label": "07:57 UTC \u00b7 NOV 21, 2026",
-  "rendered_ts": "2026-11-21T08:02:31.000Z",
-  "rendered_epoch": 1795248151,
-  "age_at_render_seconds": 316,
+  "data_ts": "2026-11-21T09:02:19.000Z",
+  "data_epoch": 1795251739,
+  "data_ts_label": "09:02 UTC \u00b7 NOV 21, 2026",
+  "rendered_ts": "2026-11-21T09:02:29.000Z",
+  "rendered_epoch": 1795251749,
+  "age_at_render_seconds": 10,
   "max_age_seconds": 3600,
   "freshness": {
     "verdict": "CURRENT",
@@ -21,9 +21,9 @@
   },
   "values": {
     "chain_ok": true,
-    "journal_records": 193,
-    "journal_last_journaled_at": "2026-11-21T07:57:15Z",
-    "last_evaluation_id": "evt-000145",
+    "journal_records": 194,
+    "journal_last_journaled_at": "2026-11-21T08:57:15Z",
+    "last_evaluation_id": "evt-000146",
     "last_evaluation_band": "NORMAL",
     "tasks_open": 0,
     "witness_wspr_ok": true,
@@ -32,15 +32,15 @@
     "lines": [
       {
         "label": "JOURNAL CHAIN",
-        "value": "UNBROKEN \u2014 CLOSING 3e8e0e4ca6e8\u2026"
+        "value": "UNBROKEN \u2014 CLOSING fa8102e2db8f\u2026"
       },
       {
         "label": "JOURNAL",
-        "value": "193 RECORDS (184 FEED) \u00b7 LAST JOURNALED 07:57 UTC"
+        "value": "194 RECORDS (185 FEED) \u00b7 LAST JOURNALED 08:57 UTC"
       },
       {
         "label": "EVALUATOR",
-        "value": "EVT-000145 \u00b7 BAND NORMAL \u00b7 NO-CROSSING \u00b7 07:47 UTC"
+        "value": "EVT-000146 \u00b7 BAND NORMAL \u00b7 NO-CROSSING \u00b7 09:02 UTC"
       },
       {
         "label": "HELM TASKS",
@@ -48,11 +48,11 @@
       },
       {
         "label": "WITNESS \u00b7 WSPR",
-        "value": "OK \u00b7 1,500 SPOTS \u00b7 07:56 UTC"
+        "value": "OK \u00b7 1,500 SPOTS \u00b7 08:56 UTC"
       },
       {
         "label": "WITNESS \u00b7 WP937",
-        "value": "NO READING \u2014 OPERATOR ENDPOINTS FAILING \u00b7 LAST ATTEMPT 07:56 UTC"
+        "value": "NO READING \u2014 OPERATOR ENDPOINTS FAILING \u00b7 LAST ATTEMPT 08:56 UTC"
       }
     ]
   }
