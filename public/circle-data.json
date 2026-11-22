@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-21T11:16:08.358Z",
-  "date_et": "2026-11-21",
+  "generated_at": "2026-11-22T11:16:08.267Z",
+  "date_et": "2026-11-22",
   "config": {
     "version": "1.0.0",
     "changelog": [
@@ -252,64 +252,64 @@
   },
   "weather": {
     "ok": true,
-    "fetched_at": "2026-11-21T11:16:23.784Z",
+    "fetched_at": "2026-11-22T11:16:22.296Z",
     "source": "National Weather Service (api.weather.gov)",
     "place": "Pembroke, VA 24136",
     "periods": [
       {
         "name": "Today",
-        "temperature": 58,
+        "temperature": 61,
         "unit": "F",
-        "wind": "0 to 6 mph",
-        "short": "Mostly Cloudy",
-        "detailed": "Mostly cloudy, with a high near 58. East wind 0 to 6 mph."
+        "wind": "2 to 9 mph",
+        "short": "Chance Light Rain",
+        "detailed": "A chance of rain. Cloudy, with a high near 61. Northeast wind 2 to 9 mph. Chance of precipitation is 30%. New rainfall amounts less than a tenth of an inch possible."
       },
       {
         "name": "Tonight",
-        "temperature": 46,
-        "unit": "F",
-        "wind": "2 to 6 mph",
-        "short": "Cloudy then Chance Light Rain",
-        "detailed": "A chance of rain after midnight. Cloudy, with a low around 46. East wind 2 to 6 mph. Chance of precipitation is 50%. New rainfall amounts between a tenth and quarter of an inch possible."
-      },
-      {
-        "name": "Sunday",
-        "temperature": 62,
-        "unit": "F",
-        "wind": "2 mph",
-        "short": "Rain Likely then Chance Rain Showers",
-        "detailed": "Rain likely before 10am, then a chance of rain showers. Cloudy, with a high near 62. North wind around 2 mph. Chance of precipitation is 70%. New rainfall amounts between a quarter and half of an inch possible."
-      },
-      {
-        "name": "Sunday Night",
         "temperature": 47,
         "unit": "F",
-        "wind": "2 mph",
-        "short": "Mostly Cloudy",
-        "detailed": "Mostly cloudy, with a low around 47. West wind around 2 mph. New rainfall amounts less than a tenth of an inch possible."
+        "wind": "3 mph",
+        "short": "Chance Light Rain then Partly Cloudy",
+        "detailed": "A chance of rain before 7pm. Partly cloudy, with a low around 47. West wind around 3 mph. Chance of precipitation is 30%. New rainfall amounts less than a tenth of an inch possible."
       },
       {
         "name": "Monday",
-        "temperature": 61,
+        "temperature": 60,
         "unit": "F",
-        "wind": "2 to 8 mph",
-        "short": "Partly Sunny",
-        "detailed": "Partly sunny, with a high near 61. Northwest wind 2 to 8 mph."
+        "wind": "3 to 9 mph",
+        "short": "Mostly Cloudy",
+        "detailed": "Mostly cloudy, with a high near 60. West wind 3 to 9 mph, with gusts as high as 21 mph."
       },
       {
         "name": "Monday Night",
-        "temperature": 34,
+        "temperature": 28,
         "unit": "F",
-        "wind": "2 to 7 mph",
-        "short": "Mostly Cloudy",
-        "detailed": "Mostly cloudy, with a low around 34."
+        "wind": "2 to 9 mph",
+        "short": "Partly Cloudy",
+        "detailed": "Partly cloudy, with a low around 28. Northwest wind 2 to 9 mph, with gusts as high as 22 mph."
+      },
+      {
+        "name": "Tuesday",
+        "temperature": 52,
+        "unit": "F",
+        "wind": "2 mph",
+        "short": "Sunny",
+        "detailed": "Sunny, with a high near 52. Northeast wind around 2 mph."
+      },
+      {
+        "name": "Tuesday Night",
+        "temperature": 28,
+        "unit": "F",
+        "wind": "2 to 6 mph",
+        "short": "Mostly Clear",
+        "detailed": "Mostly clear, with a low around 28."
       }
     ],
     "alerts": []
   },
   "local_news": {
     "ok": true,
-    "fetched_at": "2026-11-21T11:16:29.897Z",
+    "fetched_at": "2026-11-22T11:16:34.225Z",
     "source": "Local news RSS (WVVA / WDBJ7 / Roanoke Times / Virginia Mercury)",
     "outlets": [
       {
@@ -357,45 +357,45 @@
   },
   "world_news": {
     "ok": true,
-    "fetched_at": "2026-11-21T11:16:25.574Z",
+    "fetched_at": "2026-11-22T11:16:22.554Z",
     "source": "NPR News RSS",
     "outlet": "NPR News",
     "items": [
       {
-        "title": "5 ways to turn off your 'work brain' after the day ends",
-        "link": "https://www.npr.org/2026/11/21/nx-s1-6043793/stop-thinking-about-work",
-        "date": "Sat, 21 Nov 2026 05:01:00 -0500"
+        "title": "NPR's Senior Podcast Challenge: Early entries we love",
+        "link": "https://www.npr.org/2026/11/22/nx-s1-6044221/npr-senior-podcast-challenge-early-entries",
+        "date": "Sun, 22 Nov 2026 05:00:00 -0500"
       },
       {
-        "title": "The AI boom had a really bad week — and it's raising loud alarms",
-        "link": "https://www.npr.org/2026/11/21/nx-s1-6048729/ai-stock-markets-anthropic-nvidia",
-        "date": "Sat, 21 Nov 2026 05:00:00 -0500"
+        "title": "He expected a small-business loan. It turned out to be a trap",
+        "link": "https://www.npr.org/2026/11/22/nx-s1-5752261/small-business-loan-merchant-cash-advance",
+        "date": "Sun, 22 Nov 2026 05:00:00 -0500"
       },
       {
-        "title": "An effort to circumvent the Electoral College may be within reach. But hurdles remain",
-        "link": "https://www.npr.org/2026/11/21/nx-s1-6044237/electoral-college-national-popular-vote-interstate-compact",
-        "date": "Sat, 21 Nov 2026 05:00:00 -0500"
+        "title": "Trump orders federal contractors to check with White House before responding to Congress",
+        "link": "https://www.npr.org/2026/11/21/g-s1-154966/trump-contractors-congress",
+        "date": "Sat, 21 Nov 2026 17:40:36 -0500"
       },
       {
-        "title": "Anthropic says it will put humanity first. Will its IPO change that?",
-        "link": "https://www.npr.org/2026/11/21/nx-s1-6048678/anthropic-ipo-mission-ai-safety",
-        "date": "Sat, 21 Nov 2026 05:00:00 -0500"
+        "title": "Google employees protest AI in schools policy",
+        "link": "https://www.npr.org/2026/11/21/nx-s1-6048599/google-employees-protest-ai-in-schools-policy",
+        "date": "Sat, 21 Nov 2026 17:01:40 -0500"
       },
       {
-        "title": "Nations at UN talks on AI killer robots agree to more talks but no firm commitment to rein them in",
-        "link": "https://www.npr.org/2026/11/21/g-s1-154914/nations-at-un-talks-on-ai-killer-robots-agree-to-more-talks-but-no-firm-commitment-to-rein-them-in",
-        "date": "Sat, 21 Nov 2026 03:08:01 -0500"
+        "title": "Highlights and challenges from covering an historic month in South America",
+        "link": "https://www.npr.org/2026/11/21/nx-s1-6044647/highlights-and-challenges-from-covering-an-historic-month-in-south-america",
+        "date": "Sat, 21 Nov 2026 17:01:35 -0500"
       },
       {
-        "title": "S&P 500 sinks 3.7% and the Nasdaq composite goes negative for the year",
-        "link": "https://www.npr.org/2026/11/20/g-s1-154797/nasdaq-sp500-stock-market-ai-sink-negative",
-        "date": "Fri, 20 Nov 2026 17:11:29 -0500"
+        "title": "Bayer reaches Roundup settlement that could cost the company billions",
+        "link": "https://www.npr.org/2026/11/21/nx-s1-6049684/roundup-bayer-hodgkins-settlement",
+        "date": "Sat, 21 Nov 2026 15:37:35 -0500"
       }
     ]
   },
   "traffic": {
     "ok": true,
-    "fetched_at": "2026-11-21T11:16:16.385Z",
+    "fetched_at": "2026-11-22T11:16:16.291Z",
     "source": "Virginia 511 (VDOT)",
     "link": "https://511virginia.org",
     "note": "Live incident map for Giles County and the New River Valley. No keyless public incident feed is published, so this card links out instead of showing numbers we did not measure.",
@@ -403,116 +403,89 @@
   },
   "quakes": {
     "ok": true,
-    "fetched_at": "2026-11-21T11:16:20.407Z",
+    "fetched_at": "2026-11-22T11:16:19.631Z",
     "source": "USGS Earthquake Hazards Program",
     "global": [
       {
-        "mag": 5.9,
-        "place": "238 km SW of Yanglong, China",
-        "time": "2026-11-21T10:45:33.230Z",
-        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000ucly",
+        "mag": 5.1,
+        "place": "45 km SE of Ürümqi, China",
+        "time": "2026-11-22T09:08:28.009Z",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000ucrp",
         "depth_km": 10,
-        "lon": 96.6398,
-        "lat": 37.1958
+        "lon": 87.9381,
+        "lat": 43.4743
       },
       {
-        "mag": 6.8,
-        "place": "103 km NE of Lospalos, Timor Leste",
-        "time": "2026-11-21T09:42:10.314Z",
-        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000ucij",
-        "depth_km": 143.423,
-        "lon": 127.5428,
-        "lat": -7.7563
+        "mag": 5.4,
+        "place": "224 km NE of Bitung, Indonesia",
+        "time": "2026-11-22T07:54:40.056Z",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000ucrb",
+        "depth_km": 43.705,
+        "lon": 126.3861,
+        "lat": 3.0314
       },
       {
         "mag": 4.9,
-        "place": "65 km NNW of Port-Vila, Vanuatu",
-        "time": "2026-11-21T07:20:44.218Z",
-        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000uci2",
-        "depth_km": 43.228,
-        "lon": 168.0998,
-        "lat": -17.1789
+        "place": "246 km ESE of Sarangani, Philippines",
+        "time": "2026-11-22T07:06:58.521Z",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000ucr3",
+        "depth_km": 5.573,
+        "lon": 127.5165,
+        "lat": 4.56
       },
       {
         "mag": 5,
-        "place": "0 km NE of Carhuamayo, Peru",
-        "time": "2026-11-21T05:12:04.898Z",
-        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000uchd",
-        "depth_km": 110.928,
-        "lon": -76.0308,
-        "lat": -10.913
+        "place": "15 km NNE of Carhuamayo, Peru",
+        "time": "2026-11-22T05:51:58.624Z",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000ucqu",
+        "depth_km": 108.134,
+        "lon": -75.9635,
+        "lat": -10.7957
+      },
+      {
+        "mag": 4.6,
+        "place": "60 km WNW of Abepura, Indonesia",
+        "time": "2026-11-21T23:16:05.571Z",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000ucpj",
+        "depth_km": 31.078,
+        "lon": 140.1129,
+        "lat": -2.442
       },
       {
         "mag": 4.9,
-        "place": "Reykjanes Ridge",
-        "time": "2026-11-21T02:24:37.289Z",
-        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000ucgj",
+        "place": "88 km WNW of El Aguilar, Argentina",
+        "time": "2026-11-21T19:03:04.170Z",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000ucni",
+        "depth_km": 209.784,
+        "lon": -66.519,
+        "lat": -23.0294
+      },
+      {
+        "mag": 4.6,
+        "place": "68 km SSE of Tateyama, Japan",
+        "time": "2026-11-21T17:30:44.504Z",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000ucn8",
+        "depth_km": 65.465,
+        "lon": 140.131,
+        "lat": 34.4089
+      },
+      {
+        "mag": 4.5,
+        "place": "0 km SSW of La Colorada, Panama",
+        "time": "2026-11-21T17:14:21.477Z",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000ucn2",
         "depth_km": 10,
-        "lon": -31.857,
-        "lat": 58.5457
+        "lon": -80.988,
+        "lat": 8.0091
       },
       {
-        "mag": 4.9,
-        "place": "Reykjanes Ridge",
-        "time": "2026-11-21T01:26:19.109Z",
-        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000ucga",
-        "depth_km": 10,
-        "lon": -31.7606,
-        "lat": 58.3017
-      },
-      {
-        "mag": 4.7,
-        "place": "38 km NE of Calama, Chile",
-        "time": "2026-11-21T01:24:09.274Z",
-        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000ucg8",
-        "depth_km": 120.01,
-        "lon": -68.6409,
-        "lat": -22.2307
-      },
-      {
-        "mag": 6.7,
-        "place": "9 km NE of Carhuamayo, Peru",
-        "time": "2026-11-21T00:09:19.667Z",
-        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000ucfm",
-        "depth_km": 107.991,
-        "lon": -75.9779,
-        "lat": -10.8548
-      },
-      {
-        "mag": 4.9,
-        "place": "113 km ESE of Pangai, Tonga",
-        "time": "2026-11-20T22:34:39.096Z",
-        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000ucf0",
-        "depth_km": 10,
-        "lon": -173.4099,
-        "lat": -20.3204
-      },
-      {
-        "mag": 5.1,
-        "place": "32 km NE of Port-Olry, Vanuatu",
-        "time": "2026-11-20T17:53:15.442Z",
-        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000ucd6",
-        "depth_km": 94.53,
-        "lon": 167.29,
-        "lat": -14.835
-      },
-      {
-        "mag": 4.7,
-        "place": "94 km W of Illapel, Chile",
-        "time": "2026-11-20T14:16:15.225Z",
-        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000uc9c",
-        "depth_km": 10,
-        "lon": -72.1485,
-        "lat": -31.7842
-      },
-      {
-        "mag": 5.1,
-        "place": "15 km SSW of Balangonan, Philippines",
-        "time": "2026-11-20T13:09:04.057Z",
-        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000uc96",
-        "depth_km": 73.392,
-        "lon": 125.2986,
-        "lat": 5.4441
+        "mag": 4.6,
+        "place": "18 km ESE of La Romana, Dominican Republic",
+        "time": "2026-11-21T15:00:13.140Z",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/pr2026325000",
+        "depth_km": 104,
+        "lon": -68.8265,
+        "lat": 18.3416
       }
     ],
     "local": [
@@ -536,13 +509,13 @@
       }
     ],
     "localNote": "M1.0+ within 500 km of Pembroke, past 7 days",
-    "ring_of_fire_count": 8,
-    "deepest_km": 143.423,
+    "ring_of_fire_count": 7,
+    "deepest_km": 209.784,
     "swarm_flags": []
   },
   "schumann": {
     "ok": true,
-    "fetched_at": "2026-11-21T11:16:16.697Z",
+    "fetched_at": "2026-11-22T11:16:16.518Z",
     "source": "Tomsk State University — Space Observing System (sosrff.tsu.ru)",
     "image": "https://sosrff.tsu.ru/new/shm.jpg",
     "page": "http://sosrff.tsu.ru/?page_id=7",
@@ -550,15 +523,21 @@
   },
   "space_weather": {
     "ok": true,
-    "fetched_at": "2026-11-21T11:16:23.799Z",
+    "fetched_at": "2026-11-22T11:16:21.282Z",
     "source": "NOAA Space Weather Prediction Center",
     "kp_latest": {
-      "t": "2026-11-21T06:00:00",
-      "kp": 1.33
+      "t": "2026-11-22T06:00:00",
+      "kp": 2.33
     },
-    "kp_max_today": 2.67,
+    "kp_max_today": 2.33,
     "solar_wind": null,
     "flares": [
+      {
+        "begin": "2026-11-21T19:19:00Z",
+        "max": "2026-11-21T19:27:00Z",
+        "cls": "B4.7",
+        "region": null
+      },
       {
         "begin": "2026-11-21T09:10:00Z",
         "max": "2026-11-21T09:17:00Z",
@@ -600,47 +579,9 @@
         "max": "2026-11-20T16:31:00Z",
         "cls": "B5.1",
         "region": null
-      },
-      {
-        "begin": "2026-11-20T11:10:00Z",
-        "max": "2026-11-20T11:30:00Z",
-        "cls": "C9.6",
-        "region": null
       }
     ],
     "kp_series": [
-      {
-        "t": "2026-11-18T09:00:00",
-        "kp": 2.33
-      },
-      {
-        "t": "2026-11-18T12:00:00",
-        "kp": 2.67
-      },
-      {
-        "t": "2026-11-18T15:00:00",
-        "kp": 2.67
-      },
-      {
-        "t": "2026-11-18T18:00:00",
-        "kp": 1.33
-      },
-      {
-        "t": "2026-11-18T21:00:00",
-        "kp": 1.33
-      },
-      {
-        "t": "2026-11-19T00:00:00",
-        "kp": 5
-      },
-      {
-        "t": "2026-11-19T03:00:00",
-        "kp": 2.67
-      },
-      {
-        "t": "2026-11-19T06:00:00",
-        "kp": 1.67
-      },
       {
         "t": "2026-11-19T09:00:00",
         "kp": 1.33
@@ -704,12 +645,44 @@
       {
         "t": "2026-11-21T06:00:00",
         "kp": 1.33
+      },
+      {
+        "t": "2026-11-21T09:00:00",
+        "kp": 2
+      },
+      {
+        "t": "2026-11-21T12:00:00",
+        "kp": 1
+      },
+      {
+        "t": "2026-11-21T15:00:00",
+        "kp": 1.67
+      },
+      {
+        "t": "2026-11-21T18:00:00",
+        "kp": 1.33
+      },
+      {
+        "t": "2026-11-21T21:00:00",
+        "kp": 1.33
+      },
+      {
+        "t": "2026-11-22T00:00:00",
+        "kp": 0.67
+      },
+      {
+        "t": "2026-11-22T03:00:00",
+        "kp": 1
+      },
+      {
+        "t": "2026-11-22T06:00:00",
+        "kp": 2.33
       }
     ]
   },
   "gw": {
     "ok": true,
-    "fetched_at": "2026-11-21T11:16:16.252Z",
+    "fetched_at": "2026-11-22T11:16:16.892Z",
     "source": "LIGO/Virgo/KAGRA GraceDB — public alerts",
     "latest": null,
     "count_week": 0,
@@ -717,9 +690,23 @@
   },
   "space_news": {
     "ok": true,
-    "fetched_at": "2026-11-21T11:16:22.355Z",
+    "fetched_at": "2026-11-22T11:16:20.820Z",
     "source": "Spaceflight News API + NASA APOD",
     "items": [
+      {
+        "title": "APOD: 2026 November 22 – Swirls and Colors on Jupiter from Juno",
+        "url": "https://science.nasa.gov/image-article/apod-2026-november-22-swirls-and-colors-on-jupiter-from-juno/",
+        "site": "NASA",
+        "published": "2026-11-22T05:05:00Z",
+        "summary": "APOD Science APOD APOD: 2026 November 22 –… Today’s APOD Archive Submissions Index Search Calendar RSS Education About Discuss   APOD Astronomy Picture of the Day Discover the cosmos! Each day a different image or photog"
+      },
+      {
+        "title": "Live coverage: SpaceX to launch intelligence-gathering satellites for the National Reconnaissance Office",
+        "url": "https://spaceflightnow.com/2026/11/21/live-coverage-spacex-to-launch-intelligence-gathering-satellites-for-the-national-reconnaissance-office-3/",
+        "site": "Spaceflight Now",
+        "published": "2026-11-21T16:50:51Z",
+        "summary": "The NROL-136 mission will be the fourth launch of the year supporting the agency’s proliferated architecture satellite constellation in low Earth orbit. Liftoff from pad 4E at Vandenberg Space Force Base is scheduled dur"
+      },
       {
         "title": "Denmark’s GomSpace Secures €8M Contract for Blue Origin Moon Mission",
         "url": "https://europeanspaceflight.com/denmarks-gomspace-secures-e8m-contract-for-blue-origin-moon-mission/",
@@ -740,32 +727,16 @@
         "site": "NASA",
         "published": "2026-11-20T22:27:05Z",
         "summary": "Description NASA’s Curiosity Mars rover captured these drifting clouds on Oct. 31, 2026, the 5,061st Martian day, or sol, of the mission. The rover uses its navigation cameras to capture post-sunset clouds, called twilig"
-      },
-      {
-        "title": "Incoming House chair threatens SpaceX funding over Ukraine controversy",
-        "url": "https://arstechnica.com/space/2026/11/incoming-house-chair-threatens-spacex-funding-over-ukraine-controversy/",
-        "site": "Arstechnica",
-        "published": "2026-11-20T22:16:51Z",
-        "summary": "\"Explain the changes that were made to the Starshield service in October 2026.\""
-      },
-      {
-        "title": "New NASA Seed Funding Primes Small Businesses for Innovation",
-        "url": "https://www.nasa.gov/directorates/rtmd/new-nasa-seed-funding-primes-small-businesses-for-innovation/",
-        "site": "NASA",
-        "published": "2026-11-20T20:46:14Z",
-        "summary": "Awards to small businesses around the country are addressing some of NASA’s most crucial technology needs for exploration of the Moon and Mars while fueling the U.S. space economy. NASA’s Small Business Innovation Resear"
       }
     ],
     "apod": {
       "ok": false,
-      "error": "APOD returned a non-photo payload today (video day or DEMO_KEY fallback) — hero stays hidden, story links out.",
-      "media_type": "image",
-      "url": "https://apod.nasa.gov/apod/astropix.html"
+      "error": "HTTP 500"
     }
   },
   "facebook": {
     "ok": true,
-    "fetched_at": "2026-11-21T11:16:08.414Z",
+    "fetched_at": "2026-11-22T11:16:08.320Z",
     "source": "Facebook (link-out only — no scraping)",
     "linkOnly": true,
     "links": [
@@ -786,20 +757,20 @@
   },
   "moon_sky": {
     "ok": true,
-    "fetched_at": "2026-11-21T11:16:25.337Z",
+    "fetched_at": "2026-11-22T11:16:23.301Z",
     "source": "Computed at build time (solar/lunar math + JPL approximate planetary elements); ISS via wheretheiss.at; showers & eclipses: IMO / NASA reference tables",
-    "sunrise_et": "7:09 AM",
-    "sunset_et": "5:10 PM",
+    "sunrise_et": "7:10 AM",
+    "sunset_et": "5:09 PM",
     "moon": {
       "phase_name": "Waxing Gibbous",
-      "illum_pct": 87,
-      "cycle": 0.385,
-      "rise_et": "2:56 PM",
-      "set_et": "3:45 AM",
-      "sign": "Aries"
+      "illum_pct": 94,
+      "cycle": 0.42,
+      "rise_et": "3:28 PM",
+      "set_et": "4:54 AM",
+      "sign": "Taurus"
     },
     "sky_chart": {
-      "start": "2026-11-21T22:00:00.000Z",
+      "start": "2026-11-22T22:00:00.000Z",
       "step_min": 30,
       "planets": {
         "Mercury": [
@@ -808,36 +779,36 @@
           -21,
           -27,
           -33,
-          -38,
+          -39,
           -44,
           -50,
           -55,
           -59,
           -63,
           -65,
-          -65,
+          -66,
           -64,
-          -61,
-          -57,
+          -62,
+          -58,
           -53,
-          -47,
+          -48,
           -42,
           -36,
           -30,
-          -24,
-          -18,
-          -12,
-          -6,
+          -25,
+          -19,
+          -13,
+          -7,
           -1,
           5,
-          11,
-          16
+          10,
+          15
         ],
         "Venus": [
           -20,
           -26,
           -32,
-          -37,
+          -38,
           -43,
           -48,
           -53,
@@ -846,23 +817,23 @@
           -62,
           -62,
           -60,
-          -58,
-          -54,
+          -57,
+          -53,
           -49,
-          -44,
+          -43,
           -38,
-          -33,
-          -27,
-          -21,
-          -15,
-          -9,
+          -32,
+          -26,
+          -20,
+          -14,
+          -8,
           -3,
           3,
           9,
-          14,
-          19,
+          15,
+          20,
           25,
-          29
+          30
         ],
         "Mars": [
           -35,
@@ -874,22 +845,22 @@
           -34,
           -31,
           -27,
-          -23,
-          -18,
-          -13,
+          -22,
+          -17,
+          -12,
           -7,
-          -2,
+          -1,
           4,
           10,
           16,
           22,
           28,
           34,
-          39,
+          40,
           45,
           51,
           56,
-          60,
+          61,
           64,
           66,
           67,
@@ -903,81 +874,67 @@
           -38,
           -36,
           -33,
-          -30,
-          -26,
+          -29,
+          -25,
           -21,
-          -17,
+          -16,
           -11,
-          -6,
+          -5,
           0,
           6,
-          11,
-          17,
-          23,
-          29,
-          35,
-          41,
+          12,
+          18,
+          24,
+          30,
+          36,
+          42,
           47,
-          52,
-          57,
-          61,
-          64,
+          53,
+          58,
+          62,
+          65,
           66,
           66,
           64
         ],
         "Saturn": [
-          25,
+          26,
           31,
           36,
           41,
-          45,
+          46,
           49,
-          51,
+          52,
           53,
           53,
           52,
           50,
           47,
           43,
-          39,
-          34,
-          28,
-          23,
-          17,
-          11,
-          5,
-          -1,
-          -7,
-          -13,
-          -19,
-          -24,
-          -30,
-          -35,
+          38,
+          33,
+          27,
+          22,
+          16,
+          10,
+          4,
+          -2,
+          -8,
+          -14,
+          -20,
+          -25,
+          -31,
+          -36,
           -40,
-          -44
+          -45
         ]
-      },
-      "iss_samples": [
-        {
-          "t": "2026-11-21T22:15:25.334Z",
-          "el": 11
-        },
-        {
-          "t": "2026-11-21T22:16:25.334Z",
-          "el": 10
-        },
-        {
-          "t": "2026-11-21T22:17:25.334Z",
-          "el": 8
-        }
-      ]
+      }
     },
     "visible_planets_tonight": [
       {
         "name": "Saturn",
         "alt_9pm_deg": 53,
-        "alt_dusk_deg": 37
+        "alt_dusk_deg": 38
       }
     ],
     "mercury_retrograde": false,
@@ -998,57 +955,23 @@
       "kind": "Annular solar eclipse"
     },
     "iss": {
-      "now": {
-        "lat": 31.73,
-        "lon": 41.3,
-        "alt_km": 415,
-        "velocity_kmh": 27609,
-        "source": "wheretheiss.at (live)"
-      },
-      "tle": {
-        "name": "ISS (ZARYA)",
-        "line1": "1 25544U 98067A   26324.88180268  .00009897  00000+0  18414-3 0  9991",
-        "line2": "2 25544  51.6319 244.6605 0007389  48.0812 312.0806 15.49518511596048",
-        "fetched_at": "2026-11-21T11:16:19.844Z"
-      },
-      "next_visible_pass": {
-        "start": "2026-11-21T22:15:25.334Z",
-        "max_elev_deg": 11
-      },
-      "next_pass": {
-        "start": "2026-11-21T18:59:25.334Z",
-        "max_elev_deg": 18
-      },
-      "pass_samples": [
-        {
-          "t": "2026-11-21T22:15:25.334Z",
-          "el": 11
-        },
-        {
-          "t": "2026-11-21T22:16:25.334Z",
-          "el": 10
-        },
-        {
-          "t": "2026-11-21T22:17:25.334Z",
-          "el": 8
-        }
-      ]
+      "error": "TLE fetch failed"
     }
   },
   "cycles": {
     "ok": true,
-    "fetched_at": "2026-11-21T11:16:08.414Z",
+    "fetched_at": "2026-11-22T11:16:08.321Z",
     "source": "Computed daily from the date and the moon’s position, by each system’s own rules",
-    "zodiac_season": "Scorpio",
-    "moon_sign": "Aries",
+    "zodiac_season": "Sagittarius",
+    "moon_sign": "Taurus",
     "moon_phase_name": "Waxing Gibbous",
-    "void_of_course": "Moon leaves Aries and enters Taurus at 5:16 AM ET. The void-of-course stretch is the window before that change (last-aspect timing varies by tradition; the sign change itself is computed).",
-    "universal_day": 6,
-    "tarot_card": "The Devil"
+    "void_of_course": "Moon leaves Taurus and enters Gemini at 8:16 AM ET. The void-of-course stretch is the window before that change (last-aspect timing varies by tradition; the sign change itself is computed).",
+    "universal_day": 7,
+    "tarot_card": "The Tower"
   },
   "earth_extras": {
     "ok": true,
-    "fetched_at": "2026-11-21T11:16:31.114Z",
+    "fetched_at": "2026-11-22T11:16:27.357Z",
     "source": "NOAA SWPC · Open-Meteo · NOAA Tides & Currents · NASA NEO · USGS",
     "aurora": {
       "kp_forecast_max": 5,
@@ -1056,11 +979,11 @@
       "note": "NOAA 3-day Kp outlook (max). Mid-latitude aurora generally needs Kp 5+; a horizon glow this far south usually takes Kp 7+. Oval map: NOAA OVATION model, northern hemisphere."
     },
     "air_quality": {
-      "aqi_now": 32,
-      "aqi_max_today": 49
+      "aqi_now": 40,
+      "aqi_max_today": 50
     },
     "uv": {
-      "uv_max_today": 2.85
+      "uv_max_today": 0.55
     },
     "pollen": {
       "ok": false,
@@ -1070,29 +993,34 @@
       "station": "Sewell’s Point, Norfolk VA (station 8638610) — nearest NOAA tide station; the New River itself has no tides",
       "events": [
         {
-          "time": "2026-11-21 05:44",
-          "height_ft": "2.697",
-          "type": "High"
-        },
-        {
-          "time": "2026-11-21 12:13",
-          "height_ft": "0.306",
+          "time": "2026-11-22 00:07",
+          "height_ft": "0.056",
           "type": "Low"
         },
         {
-          "time": "2026-11-21 18:04",
-          "height_ft": "2.33",
+          "time": "2026-11-22 06:32",
+          "height_ft": "2.904",
+          "type": "High"
+        },
+        {
+          "time": "2026-11-22 13:06",
+          "height_ft": "0.148",
+          "type": "Low"
+        },
+        {
+          "time": "2026-11-22 18:54",
+          "height_ft": "2.375",
           "type": "High"
         }
       ]
     },
     "neo": {
-      "count_today": 3,
+      "count_today": 2,
       "closest": {
-        "name": "(2017 WR28)",
-        "miss_km": 20892346,
-        "vel_kmh": 82878,
-        "size_m": 206,
+        "name": "(2010 HG20)",
+        "miss_km": 16326166,
+        "vel_kmh": 37711,
+        "size_m": 312,
         "hazardous": false
       }
     },
@@ -1109,11 +1037,11 @@
   },
   "human_world": {
     "ok": true,
-    "fetched_at": "2026-11-21T11:16:30.456Z",
+    "fetched_at": "2026-11-22T11:16:32.728Z",
     "source": "CoinGecko · Wikimedia · Virginia Lottery",
     "bitcoin": {
-      "price_usd": 57885,
-      "change_24h_pct": -6.28
+      "price_usd": 60920,
+      "change_24h_pct": 5.25
     },
     "lottery": {
       "linkOnly": true,
@@ -1123,49 +1051,44 @@
     "on_this_day": [
       {
         "year": 2022,
-        "text": "A magnitude 5.6 earthquake on the Indonesian island of Java kills between 335 and 602 people."
+        "text": "A shooting at a Walmart in Chesapeake, Virginia leaves seven workers dead, including the shooter, and four others injured."
       },
       {
-        "year": 2021,
-        "text": "An SUV plows through a Christmas parade in Waukesha, Wisconsin, killing six and injuring 62."
+        "year": 2014,
+        "text": "While playing with a toy gun in Cleveland, 12-year-old African American Tamir Rice is killed by a white police officer."
       },
       {
-        "year": 2019,
-        "text": "Israeli Prime Minister Benjamin Netanyahu is indicted on charges of bribery, fraud, and breach of trust."
+        "year": 2010,
+        "text": "During the Cambodian water festival, a stampede in Koh Pich, Phnom Penh, kills 347 people."
       },
       {
-        "year": 2019,
-        "text": "Tesla launches the SUV Cybertruck. A gaffe occurs during the launch event when its \"unbreakable\" windows shatter during demonstration."
+        "year": 2004,
+        "text": "The Orange Revolution begins in Ukraine, resulting from the presidential elections."
       },
       {
-        "year": 2017,
-        "text": "Robert Mugabe formally resigns as President of Zimbabwe, after thirty-seven years in office."
+        "year": 2003,
+        "text": "Baghdad DHL attempted shootdown incident: Shortly after takeoff, a DHL Express cargo plane is struck on the left wing by a surface-to-air missile and forced to land."
       }
     ]
   },
   "findings": {
     "ok": true,
-    "fetched_at": "2026-11-21T11:16:42.644Z",
+    "fetched_at": "2026-11-22T11:16:46.425Z",
     "source": "This page’s own measured record",
     "rule": "Outcomes and data only. Methods are never published here — that is the standing rule of this page.",
     "items": [
-      "River watch, New River at Glen Lyn (public USGS gauge data, fused into one verdict): condition NORMAL · stage 3.07 ft · flow 1580 ft³/s · trend rising · measured 2026-11-21T10:30:00.000Z.",
+      "River watch, New River at Glen Lyn (public USGS gauge data, fused into one verdict): condition NORMAL · stage 3.02 ft · flow 1500 ft³/s · trend steady · measured 2026-11-22T10:30:00.000Z.",
       "Daily wire health at this build: 10 of 10 core feeds answered live; every failure is shown as UNAVAILABLE on the page rather than filled in.",
       "Anomaly archive: opened today, 2026-11-15. Quiet days are recorded as quiet — the log only claims what the feeds measured."
     ]
   },
   "earth2": {
     "ok": true,
-    "fetched_at": "2026-11-21T11:16:41.220Z",
+    "fetched_at": "2026-11-22T11:16:45.018Z",
     "source": "USGS Water Services · NOAA Tsunami Program · US Drought Monitor · NOAA CPC · NOAA GML · NWS Storm Prediction Center · National Hurricane Center",
     "rivers": {
-      "lines": [
-        "LITTLE RIVER AT GRAYSONTOWN, VA — Streamflow, ft&#179;/s: 91.5 ft3/s (2026-11-21T05:30:00.000-05:00)",
-        "LITTLE RIVER AT GRAYSONTOWN, VA — Gage height, ft: 1.06 ft (2026-11-21T05:30:00.000-05:00)",
-        "NEW RIVER AT GLEN LYN, VA — Streamflow, ft&#179;/s: 1580 ft3/s (2026-11-21T05:30:00.000-05:00)",
-        "NEW RIVER AT GLEN LYN, VA — Gage height, ft: 3.07 ft (2026-11-21T05:30:00.000-05:00)"
-      ],
-      "note": "Giles County’s own New River gauge is Glen Lyn (03176500); Radford (03170000) is the next gauge downriver. No separate Pearisburg gauge exists in the USGS network."
+      "ok": false,
+      "error": "fetch failed"
     },
     "tsunami": {
       "entries": 1,
@@ -1188,12 +1111,12 @@
     },
     "co2": {
       "lines": [
-        "CO₂ at Mauna Loa: 428.55 ppm (daily mean, 2026-11-18)."
+        "CO₂ at Mauna Loa: 429.16 ppm (daily mean, 2026-11-19)."
       ]
     },
     "spc": {
       "lines": [
-        "Storm reports today (SPC, since 12 UTC): tornado 0 · wind 0 · hail 0."
+        "Storm reports today (SPC, since 12 UTC): tornado 0 · wind 5 · hail 0."
       ]
     },
     "nhc": {
@@ -1204,30 +1127,30 @@
   },
   "deep2": {
     "ok": true,
-    "fetched_at": "2026-11-21T11:16:34.796Z",
+    "fetched_at": "2026-11-22T11:16:31.494Z",
     "source": "NOAA SWPC · NASA DONKI · NASA/JPL SSD (Sentry & CNEOS) · NASA DSN Now",
     "scales": {
       "lines": [
         "Today’s NOAA scales — geomagnetic G0 (none), radio blackout R0 (none), radiation S0 (none).",
-        "Dst index now: -8 nT (2026-11-21T10:00:00 UTC).",
+        "Dst index now: 4 nT (2026-11-22T10:00:00 UTC).",
         "IMF Bz: unavailable this build."
       ]
     },
     "sun": {
       "lines": [
-        "Solar flux F10.7: 102 sfu (latest report 2026-11-20T22:00:00).",
+        "Solar flux F10.7: 98 sfu (latest report 2026-11-21T22:00:00).",
         "Sunspot number (monthly observed, 2026-10): 45.7. Solar Cycle 25 began Dec 2019; at ~11 years long it is roughly 63% through its expected span (estimate from cycle length)."
       ]
     },
     "cme": {
       "lines": [
-        "Coronal mass ejections catalogued past 7 days (DONKI): 36.",
-        "Latest: 2026-11-20T23:15Z."
+        "Coronal mass ejections catalogued past 7 days (DONKI): 33.",
+        "Latest: 2026-11-21T20:24Z."
       ]
     },
     "sentry": {
       "lines": [
-        "Sentry risk list (JPL): 2257 objects with a computed future impact possibility, all at very low probability — the list existing is normal science, not an alarm."
+        "Sentry risk list (JPL): 2256 objects with a computed future impact possibility, all at very low probability — the list existing is normal science, not an alarm."
       ]
     },
     "fireball": {
@@ -1237,7 +1160,7 @@
     },
     "dsn": {
       "lines": [
-        "Deep Space Network right now: DSN via DSS14 · M01O via DSS26 · TGO via DSS25 · MRO via DSS23 · CHDR via DSS24 · DSN via DSS55 · +9 more."
+        "Deep Space Network right now: DSN via DSS25 · DSN via DSS14 · MRO via DSS26 · STA via DSS23 · JWST via DSS24 · DSN via DSS55 · +9 more."
       ]
     },
     "launches": {
@@ -1247,63 +1170,63 @@
   },
   "sky_tonight": {
     "ok": true,
-    "fetched_at": "2026-11-21T11:16:41.223Z",
+    "fetched_at": "2026-11-22T11:16:45.024Z",
     "source": "Computed at build time for 37.303° N, 80.602° W (solar/lunar math + JPL approximate planetary elements; Kp outlook by NOAA SWPC)",
     "lines": [
-      "Twilight tonight: sunset 5:10 PM · civil dusk 5:38 PM · nautical dusk 6:10 PM · astronomical night from 6:41 PM to 5:38 AM · dawn 7:09 AM.",
-      "Moonless dark-sky window tonight: about 0h 40m of astronomical night with the moon below the horizon (computed by sampling).",
+      "Twilight tonight: sunset 5:09 PM · civil dusk 5:37 PM · nautical dusk 6:09 PM · astronomical night from 6:40 PM to 5:39 AM · dawn 7:10 AM.",
+      "Moonless dark-sky window tonight: about 0h 0m of astronomical night with the moon below the horizon (computed by sampling).",
       "Aurora chance for Pembroke tonight: Kp outlook max 5: low chance — a northern-horizon glow is possible on a clear, dark night.",
       "Galactic core (Sagittarius A* direction): below the horizon tonight — core season has closed until spring.",
       "Meteor radiant tonight: Northern Taurids from Taurus · Leonids from Leo.",
-      "Pairings in tonight’s sky: Mars–Jupiter conjunction: 2.1° apart in ecliptic longitude.",
-      "Planet rise/set (ET, computed): Mercury rises 5:33 AM · Venus rises 4:15 AM · Mars rises 11:39 PM · Jupiter rises 11:31 PM · Saturn rises 2:52 PM, sets 2:54 AM."
+      "Pairings in tonight’s sky: Mars–Jupiter conjunction: 2.4° apart in ecliptic longitude.",
+      "Planet rise/set (ET, computed): Mercury rises 5:35 AM · Venus rises 4:13 AM · Mars rises 11:37 PM · Jupiter rises 11:27 PM · Saturn rises 2:48 PM, sets 2:50 AM."
     ]
   },
   "cycles_full": {
     "ok": true,
-    "fetched_at": "2026-11-21T11:16:08.414Z",
+    "fetched_at": "2026-11-22T11:16:08.321Z",
     "source": "Computed exactly by each system’s own rules — ephemeris from JPL approximate elements, calendars from their standard arithmetic",
     "planets": [
       {
         "name": "Sun",
         "sign": "Scorpio",
-        "degree": 28.7,
+        "degree": 29.7,
         "retro": false
       },
       {
         "name": "Moon",
-        "sign": "Aries",
-        "degree": 17.3,
+        "sign": "Taurus",
+        "degree": 1,
         "retro": false
       },
       {
         "name": "Mercury",
         "sign": "Scorpio",
-        "degree": 9.3,
+        "degree": 10.4,
         "retro": false
       },
       {
         "name": "Venus",
         "sign": "Libra",
-        "degree": 23.5,
+        "degree": 23.8,
         "retro": false
       },
       {
         "name": "Mars",
         "sign": "Leo",
-        "degree": 27.8,
+        "degree": 28.2,
         "retro": false
       },
       {
         "name": "Jupiter",
         "sign": "Leo",
-        "degree": 25.9,
+        "degree": 26,
         "retro": false
       },
       {
         "name": "Saturn",
         "sign": "Aries",
-        "degree": 8,
+        "degree": 7.9,
         "retro": true
       },
       {
@@ -1326,62 +1249,62 @@
       }
     ],
     "aspects": [
-      "Sun square Mars (orb 0.9°)",
-      "Mars conjunction Jupiter (orb 1.8°)",
-      "Venus sextile Jupiter (orb 2.4°)",
-      "Sun square Jupiter (orb 2.8°)",
-      "Saturn conjunction Neptune (orb 4.0°)",
-      "Venus sextile Mars (orb 4.2°)",
-      "Sun sextile Pluto (orb 4.3°)",
-      "Saturn sextile Pluto (orb 5.0°)"
+      "Sun square Mars (orb 1.5°)",
+      "Moon square Pluto (orb 2.0°)",
+      "Venus sextile Jupiter (orb 2.2°)",
+      "Mars conjunction Jupiter (orb 2.2°)",
+      "Moon trine Mars (orb 2.8°)",
+      "Sun sextile Pluto (orb 3.3°)",
+      "Sun square Jupiter (orb 3.7°)",
+      "Saturn conjunction Neptune (orb 4.0°)"
     ],
     "lines": [
       "Planetary positions (sign · degree · motion, computed from JPL approximate elements):",
-      "Sun: Scorpio 28.7°",
-      "Moon: Aries 17.3°",
-      "Mercury: Scorpio 9.3°",
-      "Venus: Libra 23.5°",
-      "Mars: Leo 27.8°",
-      "Jupiter: Leo 25.9°",
-      "Saturn: Aries 8° — retrograde",
+      "Sun: Scorpio 29.7°",
+      "Moon: Taurus 1°",
+      "Mercury: Scorpio 10.4°",
+      "Venus: Libra 23.8°",
+      "Mars: Leo 28.2°",
+      "Jupiter: Leo 26°",
+      "Saturn: Aries 7.9° — retrograde",
       "Uranus: Pisces 18.9° — retrograde",
       "Neptune: Aries 11.9° — retrograde",
       "Pluto: Aquarius 3°",
-      "Aspects in orb today: Sun square Mars (orb 0.9°) · Mars conjunction Jupiter (orb 1.8°) · Venus sextile Jupiter (orb 2.4°) · Sun square Jupiter (orb 2.8°) · Saturn conjunction Neptune (orb 4.0°) · Venus sextile Mars (orb 4.2°) · Sun sextile Pluto (orb 4.3°) · Saturn sextile Pluto (orb 5.0°).",
-      "Void-of-course Moon: last exact major aspect was Moon–Neptune at 9:16 PM ET (30-minute scan); the window closes when the Moon enters Taurus at 5:16 AM ET. Moon is in Aries until then.",
+      "Aspects in orb today: Sun square Mars (orb 1.5°) · Moon square Pluto (orb 2.0°) · Venus sextile Jupiter (orb 2.2°) · Mars conjunction Jupiter (orb 2.2°) · Moon trine Mars (orb 2.8°) · Sun sextile Pluto (orb 3.3°) · Sun square Jupiter (orb 3.7°) · Saturn conjunction Neptune (orb 4.0°).",
+      "Void-of-course Moon: last exact major aspect was Moon–Mars at 1:46 AM ET (30-minute scan); the window closes when the Moon enters Gemini at 8:16 AM ET. Moon is in Taurus until then.",
       "Mercury: direct now · last station stations direct ~Nov 11 (daily scan, ±1 day). Shadow periods run roughly two weeks either side of the stations.",
-      "Planetary hour now: Mars (night hour -9 of 12; day ruler Saturn). Hours divide sunrise→sunset and sunset→sunrise into twelfths, sequenced by the Chaldean order.",
-      "Numerology: Universal Year 1 · Universal Month 3 · Universal Day 6.",
+      "Planetary hour now: Mercury (night hour -9 of 12; day ruler Sun). Hours divide sunrise→sunset and sunset→sunrise into twelfths, sequenced by the Chaldean order.",
+      "Numerology: Universal Year 1 · Universal Month 3 · Universal Day 7.",
       "Next full moon: ~Nov 24 — the Beaver Moon · distance ~367,210 km (±6 h scan).",
       "Next new moon: ~Dec 8 (±6 h scan).",
-      "Next solar station: December solstice in ~31 day(s).",
-      "Hebrew date: Saturday, 11 Kislev 5787.",
-      "Islamic date: Saturday, Jumada II 12, 1448 AH.",
-      "Chinese lunar date: Saturday, Tenth Month 13, 2026(bing-wu).",
+      "Next solar station: December solstice in ~30 day(s).",
+      "Hebrew date: Sunday, 12 Kislev 5787.",
+      "Islamic date: Sunday, Jumada II 13, 1448 AH.",
+      "Chinese lunar date: Sunday, Tenth Month 14, 2026(bing-wu).",
       "Chinese year pillar: Bing (Fire) Wu (Horse) (sexagenary cycle, year turns at Lunar New Year / Li Chun by school).",
-      "Chinese day pillar: Ji (Earth) Hai (Pig) (continuous sexagenary count from the 1900-01-01 Jia-Xu anchor).",
-      "Mayan: Long Count 13.0.14.2.3 · Tzolkin 4 Akbal · Haab 16 Sak (GMT correlation 584283).",
-      "I Ching hexagram of the day: The Receptive (King Wen #2, drawn deterministically from the date).",
-      "Rune of the day: Isa (Elder Futhark, drawn deterministically from the date).",
-      "Celtic tree calendar: Ivy season (Graves’ tree calendar dates)."
+      "Chinese day pillar: Geng (Metal) Zi (Rat) (continuous sexagenary count from the 1900-01-01 Jia-Xu anchor).",
+      "Mayan: Long Count 13.0.14.2.4 · Tzolkin 5 Kan · Haab 17 Sak (GMT correlation 584283).",
+      "I Ching hexagram of the day: Difficulty at the Beginning (King Wen #3, drawn deterministically from the date).",
+      "Rune of the day: Jera (Elder Futhark, drawn deterministically from the date).",
+      "Celtic tree calendar: Reed season (Graves’ tree calendar dates)."
     ]
   },
   "human2": {
     "ok": true,
-    "fetched_at": "2026-11-21T11:16:30.200Z",
+    "fetched_at": "2026-11-22T11:16:37.052Z",
     "source": "CoinGecko · data.ny.gov (NY Lottery results) · FEMA Open Data · openFDA",
     "eth": {
       "lines": [
-        "Ethereum: $1,639.56 (-6.29% / 24 h, CoinGecko)."
+        "Ethereum: $1,709.33 (+4.22% / 24 h, CoinGecko)."
       ]
     },
     "metals": {
       "ok": false,
-      "error": "HTTP 404"
+      "error": "fetch failed"
     },
     "powerball": {
       "lines": [
-        "Powerball latest draw (2026-11-18, via NY Lottery data): 18 31 43 51 62 12 · multiplier 2. Jackpot is not in the results feed — see the official site for the current figure."
+        "Powerball latest draw (2026-11-21, via NY Lottery data): 05 29 33 36 45 22 · multiplier 2. Jackpot is not in the results feed — see the official site for the current figure."
       ]
     },
     "fema": {
@@ -1490,7 +1413,7 @@
       "n": 16,
       "domain": "Earth Body",
       "name": "River gauges: New River Glen Lyn + Radford + temp",
-      "status": "LIVE"
+      "status": "PENDING"
     },
     {
       "n": 17,
@@ -2114,7 +2037,7 @@
       "n": 120,
       "domain": "Local Life",
       "name": "New River conditions: level, flow, temp",
-      "status": "LIVE"
+      "status": "PENDING"
     },
     {
       "n": 121,
@@ -2382,7 +2305,7 @@
       "n": 160,
       "domain": "Bane Dome & Local Anomalies",
       "name": "The New River — ancient, north-flowing, cuts the dome country",
-      "status": "LIVE",
+      "status": "PENDING",
       "desc": "One of the oldest rivers on Earth, flowing north through the dome country. Live gauges on the Earth card."
     },
     {
@@ -2541,21 +2464,21 @@
         "desc": "Ambient beats, fits the observatory",
         "url": "https://ice1.somafm.com/groovesalad-128-mp3",
         "ok": true,
-        "verified_at": "2026-11-21T11:16:08.358Z"
+        "verified_at": "2026-11-22T11:16:08.267Z"
       },
       {
         "name": "SomaFM — Deep Space One",
         "desc": "Deep space ambient",
         "url": "https://ice1.somafm.com/deepspaceone-128-mp3",
         "ok": true,
-        "verified_at": "2026-11-21T11:16:08.358Z"
+        "verified_at": "2026-11-22T11:16:08.267Z"
       },
       {
         "name": "SomaFM — Sonic Universe",
         "desc": "Avant-garde jazz transmissions",
         "url": "https://ice1.somafm.com/sonicuniverse-128-mp3",
         "ok": true,
-        "verified_at": "2026-11-21T11:16:08.358Z"
+        "verified_at": "2026-11-22T11:16:08.267Z"
       },
       {
         "name": "WVTF / Radio IQ",
@@ -2584,7 +2507,7 @@
         "id": "21X5lGlDOfg",
         "embeddable": true,
         "thumb": "https://i.ytimg.com/vi/21X5lGlDOfg/hqdefault.jpg",
-        "verified_at": "2026-11-21T11:16:08.358Z"
+        "verified_at": "2026-11-22T11:16:08.267Z"
       },
       {
         "title": "ISS — Earth from Space (live)",
@@ -2606,8 +2529,8 @@
   },
   "anomaly_registry": {
     "counters": {
-      "last_m7": "29 days ago — M7 189 km ENE of Nagqu, China (2026-10-22)",
-      "last_m8": "479 days ago — M8.8 2025 Kamchatka Peninsula, Russia Earthquake (2025-07-29)",
+      "last_m7": "30 days ago — M7 189 km ENE of Nagqu, China (2026-10-22)",
+      "last_m8": "480 days ago — M8.8 2025 Kamchatka Peninsula, Russia Earthquake (2025-07-29)",
       "last_x_flare": "none in the current 7-day SWPC flare window",
       "last_g5": "none in today’s Kp record; long-baseline counter starts with the archive",
       "naked_eye_comet": "none reported by the tracked feeds today"
@@ -2626,10 +2549,10 @@
         "year": 6385660
       },
       "highest_aqi": {
-        "month": 49,
-        "year": 49
+        "month": 50,
+        "year": 50
       },
-      "days_on_record": 7
+      "days_on_record": 8
     },
     "correlations": [
       "No cross-system co-occurrences met the logging thresholds today. The log records; it does not assert."

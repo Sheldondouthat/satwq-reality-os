@@ -1,5 +1,36 @@
 [
   {
+    "date": "2026-11-22",
+    "anomalies": [],
+    "counts": {
+      "quakes_global_m45": 9,
+      "quakes_local_m25": 2,
+      "biggest_quake_mag": 5.4,
+      "gw_alerts_week": 0,
+      "kp_latest": 2.33,
+      "kp_max_today": 2.33,
+      "aqi_max_today": 50,
+      "closest_neo_km": 16326166,
+      "moon_illum_pct": 94,
+      "space_headlines": 5,
+      "local_outlets_live": 1
+    },
+    "snapshot": {
+      "kp_latest": 2.33,
+      "kp_max_today": 2.33,
+      "biggest_quake_mag": 5.4,
+      "closest_neo_km": 16326166,
+      "aqi_max_today": 50,
+      "moon_illum_pct": 94,
+      "gw_alerts_week": 0,
+      "btc_usd": 60920,
+      "co2_ppm": "429.16",
+      "oni_anomaly": "+2.46"
+    },
+    "prev_hash": "5645765886790a52fe1c6fef160d064cf8af7ec6b2eab2bca29b676ed4255a38",
+    "hash": "82c4511985bede57be0a8d225999921f20283ab46dc01eecba68714d6cda9c48"
+  },
+  {
     "date": "2026-11-21",
     "anomalies": [
       "M6.8 earthquake — 103 km NE of Lospalos, Timor Leste",
