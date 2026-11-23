@@ -1,5 +1,38 @@
 [
   {
+    "date": "2026-11-23",
+    "anomalies": [
+      "M6.5 earthquake — Vanuatu region"
+    ],
+    "counts": {
+      "quakes_global_m45": 19,
+      "quakes_local_m25": 1,
+      "biggest_quake_mag": 6.5,
+      "gw_alerts_week": 0,
+      "kp_latest": 0,
+      "kp_max_today": 0.67,
+      "aqi_max_today": 37,
+      "closest_neo_km": 31460548,
+      "moon_illum_pct": 98,
+      "space_headlines": 5,
+      "local_outlets_live": 1
+    },
+    "snapshot": {
+      "kp_latest": 0,
+      "kp_max_today": 0.67,
+      "biggest_quake_mag": 6.5,
+      "closest_neo_km": 31460548,
+      "aqi_max_today": 37,
+      "moon_illum_pct": 98,
+      "gw_alerts_week": 0,
+      "btc_usd": 61272,
+      "co2_ppm": "429.16",
+      "oni_anomaly": "+2.46"
+    },
+    "prev_hash": "82c4511985bede57be0a8d225999921f20283ab46dc01eecba68714d6cda9c48",
+    "hash": "f1af61196ec017a04099f3a9737a70e0b4758d9c1a31e2d940346435e35f92c9"
+  },
+  {
     "date": "2026-11-22",
     "anomalies": [],
     "counts": {

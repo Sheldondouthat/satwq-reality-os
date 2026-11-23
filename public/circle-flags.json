@@ -1,17 +1,19 @@
 {
-  "date": "2026-11-22",
-  "generated_at": "2026-11-22T11:16:08.267Z",
-  "flags": [],
+  "date": "2026-11-23",
+  "generated_at": "2026-11-23T11:16:10.667Z",
+  "flags": [
+    "M6.5 earthquake — Vanuatu region"
+  ],
   "counts": {
-    "quakes_global_m45": 9,
-    "quakes_local_m25": 2,
-    "biggest_quake_mag": 5.4,
+    "quakes_global_m45": 19,
+    "quakes_local_m25": 1,
+    "biggest_quake_mag": 6.5,
     "gw_alerts_week": 0,
-    "kp_latest": 2.33,
-    "kp_max_today": 2.33,
-    "aqi_max_today": 50,
-    "closest_neo_km": 16326166,
-    "moon_illum_pct": 94,
+    "kp_latest": 0,
+    "kp_max_today": 0.67,
+    "aqi_max_today": 37,
+    "closest_neo_km": 31460548,
+    "moon_illum_pct": 98,
     "space_headlines": 5,
     "local_outlets_live": 1
   }
