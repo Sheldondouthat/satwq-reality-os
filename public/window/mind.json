@@ -5,13 +5,13 @@
   "data_ts": "2026-11-23T15:30:00.000Z",
   "data_epoch": 1795447800,
   "data_ts_label": "15:30 UTC \u00b7 NOV 23, 2026",
-  "rendered_ts": "2026-11-23T16:02:35.000Z",
-  "rendered_epoch": 1795449755,
-  "age_at_render_seconds": 1955,
+  "rendered_ts": "2026-11-23T16:32:33.000Z",
+  "rendered_epoch": 1795451553,
+  "age_at_render_seconds": 3753,
   "max_age_seconds": 3600,
   "freshness": {
-    "verdict": "CURRENT",
-    "basis": "record fresh at render: age inside the room record's 3600 s max-age"
+    "verdict": "STALE",
+    "basis": "age at render crossed the room record's 3600 s max-age"
   },
   "renderer_epoch": "2026-11-15",
   "min_channel_format": 1,
