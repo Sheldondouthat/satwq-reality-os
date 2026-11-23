@@ -5,13 +5,13 @@
   "data_ts": "2026-11-23T11:30:00.000Z",
   "data_epoch": 1795433400,
   "data_ts_label": "11:30 UTC \u00b7 NOV 23, 2026",
-  "rendered_ts": "2026-11-23T11:47:32.000Z",
-  "rendered_epoch": 1795434452,
-  "age_at_render_seconds": 1052,
+  "rendered_ts": "2026-11-23T12:32:35.000Z",
+  "rendered_epoch": 1795437155,
+  "age_at_render_seconds": 3755,
   "max_age_seconds": 3600,
   "freshness": {
-    "verdict": "CURRENT",
-    "basis": "record fresh at render: stale flag false and age inside the gauge leg's 3600 s max-age"
+    "verdict": "STALE",
+    "basis": "the record's own verdict: stale (its gauge leg crossed its max-age before this frame was rendered)"
   },
   "renderer_epoch": "2026-11-15",
   "min_channel_format": 1,
