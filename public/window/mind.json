@@ -5,9 +5,9 @@
   "data_ts": "2026-11-24T11:30:00.000Z",
   "data_epoch": 1795519800,
   "data_ts_label": "11:30 UTC \u00b7 NOV 24, 2026",
-  "rendered_ts": "2026-11-24T12:32:32.000Z",
-  "rendered_epoch": 1795523552,
-  "age_at_render_seconds": 3752,
+  "rendered_ts": "2026-11-24T12:47:34.000Z",
+  "rendered_epoch": 1795524454,
+  "age_at_render_seconds": 4654,
   "max_age_seconds": 3600,
   "freshness": {
     "verdict": "STALE",
@@ -20,20 +20,20 @@
     "detail": "sky-map-quest/home-node/journal, read on this node"
   },
   "values": {
-    "records_total": 275,
-    "feed_records": 273,
+    "records_total": 276,
+    "feed_records": 274,
     "verdict_records": 1,
     "coverage_from": "2026-11-15T07:30:00+00:00",
     "coverage_to": "2026-11-24T11:30:00+00:00",
     "chain_ok": true,
-    "closing_hash": "e465ab5828195155aed50ac4b264a3191ffbe968e813aee88fdc037ddf1207f7",
+    "closing_hash": "6b64bb115cf8a47e6379bad61e5c9213da8f1a4b37137252b80197ff138f2151",
     "latest_kind": "feed-record",
     "drill_verdict": "FAIL",
     "headline": "THE JOURNAL \u2014 CHAIN UNBROKEN",
     "lines": [
       {
         "label": "RECORDS",
-        "value": "275 ON CHAIN \u2014 273 FEED \u00b7 1 REGISTRY-CHANGE \u00b7 1 VERDICT (+10 SEGMENT HEADER)"
+        "value": "276 ON CHAIN \u2014 274 FEED \u00b7 1 REGISTRY-CHANGE \u00b7 1 VERDICT (+10 SEGMENT HEADER)"
       },
       {
         "label": "COVERAGE",
@@ -41,11 +41,11 @@
       },
       {
         "label": "CHAIN",
-        "value": "UNBROKEN \u2014 CLOSING HASH e465ab582819\u2026"
+        "value": "UNBROKEN \u2014 CLOSING HASH 6b64bb115cf8\u2026"
       },
       {
         "label": "LATEST",
-        "value": "FEED-RECORD \u00b7 DATA 11:30 UTC \u00b7 JOURNALED 11:57 UTC"
+        "value": "FEED-RECORD \u00b7 DATA 11:30 UTC \u00b7 JOURNALED 12:42 UTC"
       },
       {
         "label": "DEATH DRILL",
