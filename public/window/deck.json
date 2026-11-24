@@ -2,16 +2,16 @@
   "format": "gev-window-frame/1",
   "room": "deck",
   "frame_file": "deck.png",
-  "data_ts": "2026-11-24T13:47:19.000Z",
-  "data_epoch": 1795528039,
-  "data_ts_label": "13:47 UTC \u00b7 NOV 24, 2026",
-  "rendered_ts": "2026-11-24T14:47:31.000Z",
-  "rendered_epoch": 1795531651,
-  "age_at_render_seconds": 3612,
+  "data_ts": "2026-11-24T15:02:22.000Z",
+  "data_epoch": 1795532542,
+  "data_ts_label": "15:02 UTC \u00b7 NOV 24, 2026",
+  "rendered_ts": "2026-11-24T15:02:46.000Z",
+  "rendered_epoch": 1795532566,
+  "age_at_render_seconds": 24,
   "max_age_seconds": 3600,
   "freshness": {
-    "verdict": "STALE",
-    "basis": "age at render crossed the room record's 3600 s max-age"
+    "verdict": "CURRENT",
+    "basis": "record fresh at render: age inside the room record's 3600 s max-age"
   },
   "renderer_epoch": "2026-11-15",
   "min_channel_format": 1,
@@ -21,9 +21,9 @@
   },
   "values": {
     "chain_ok": true,
-    "journal_records": 288,
-    "journal_last_journaled_at": "2026-11-24T13:42:17Z",
-    "last_evaluation_id": "evt-000223",
+    "journal_records": 289,
+    "journal_last_journaled_at": "2026-11-24T14:57:16Z",
+    "last_evaluation_id": "evt-000224",
     "last_evaluation_band": "NORMAL",
     "tasks_open": 0,
     "witness_wspr_ok": true,
@@ -32,15 +32,15 @@
     "lines": [
       {
         "label": "JOURNAL CHAIN",
-        "value": "UNBROKEN \u2014 CLOSING 933b296884e2\u2026"
+        "value": "UNBROKEN \u2014 CLOSING a6ab36f8e583\u2026"
       },
       {
         "label": "JOURNAL",
-        "value": "288 RECORDS (276 FEED) \u00b7 LAST JOURNALED 13:42 UTC"
+        "value": "289 RECORDS (277 FEED) \u00b7 LAST JOURNALED 14:57 UTC"
       },
       {
         "label": "EVALUATOR",
-        "value": "EVT-000223 \u00b7 BAND NORMAL \u00b7 NO-CROSSING \u00b7 13:47 UTC"
+        "value": "EVT-000224 \u00b7 BAND NORMAL \u00b7 NO-CROSSING \u00b7 15:02 UTC"
       },
       {
         "label": "HELM TASKS",
@@ -48,11 +48,11 @@
       },
       {
         "label": "WITNESS \u00b7 WSPR",
-        "value": "OK \u00b7 1,500 SPOTS \u00b7 13:56 UTC"
+        "value": "OK \u00b7 1,500 SPOTS \u00b7 14:56 UTC"
       },
       {
         "label": "WITNESS \u00b7 WP937",
-        "value": "NO READING \u2014 OPERATOR ENDPOINTS FAILING \u00b7 LAST ATTEMPT 13:56 UTC"
+        "value": "NO READING \u2014 OPERATOR ENDPOINTS FAILING \u00b7 LAST ATTEMPT 14:56 UTC"
       }
     ]
   }
