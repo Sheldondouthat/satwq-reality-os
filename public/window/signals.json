@@ -2,12 +2,12 @@
   "format": "gev-window-frame/1",
   "room": "signals",
   "frame_file": "signals.png",
-  "data_ts": "2026-11-25T01:16:00.000Z",
-  "data_epoch": 1795569360,
-  "data_ts_label": "01:16 UTC \u00b7 NOV 25, 2026",
-  "rendered_ts": "2026-11-25T01:17:37.000Z",
-  "rendered_epoch": 1795569457,
-  "age_at_render_seconds": 97,
+  "data_ts": "2026-11-25T01:32:00.000Z",
+  "data_epoch": 1795570320,
+  "data_ts_label": "01:32 UTC \u00b7 NOV 25, 2026",
+  "rendered_ts": "2026-11-25T01:32:37.000Z",
+  "rendered_epoch": 1795570357,
+  "age_at_render_seconds": 37,
   "max_age_seconds": 3600,
   "freshness": {
     "verdict": "CURRENT",
@@ -21,21 +21,21 @@
   },
   "values": {
     "wspr_count": 1500,
-    "wspr_newest_spot": "2026-11-25T01:16:00.000Z",
+    "wspr_newest_spot": "2026-11-25T01:32:00.000Z",
     "wspr_top_band": "40M",
     "dsn_dishes": 15,
-    "dsn_tracking": 8,
+    "dsn_tracking": 9,
     "psk_status": "fetch-failed",
     "ionosonde_status": "no-reading",
     "headline": "SIGNALS \u2014 LIVE, WITH LEGS DOWN",
     "lines": [
       {
         "label": "WSPR",
-        "value": "1,500 SPOTS \u00b7 NEWEST 01:16 UTC \u00b7 TOP BAND 40M"
+        "value": "1,500 SPOTS \u00b7 NEWEST 01:32 UTC \u00b7 TOP BAND 40M"
       },
       {
         "label": "DSN",
-        "value": "15 DISHES \u00b7 8 TRACKING \u00b7 01:17 UTC"
+        "value": "15 DISHES \u00b7 9 TRACKING \u00b7 01:32 UTC"
       },
       {
         "label": "PSK REPORTER",
