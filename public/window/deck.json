@@ -2,12 +2,12 @@
   "format": "gev-window-frame/1",
   "room": "deck",
   "frame_file": "deck.png",
-  "data_ts": "2026-11-26T03:47:17.000Z",
-  "data_epoch": 1795664837,
-  "data_ts_label": "03:47 UTC \u00b7 NOV 26, 2026",
-  "rendered_ts": "2026-11-26T03:47:33.000Z",
-  "rendered_epoch": 1795664853,
-  "age_at_render_seconds": 16,
+  "data_ts": "2026-11-26T03:57:16.000Z",
+  "data_epoch": 1795665436,
+  "data_ts_label": "03:57 UTC \u00b7 NOV 26, 2026",
+  "rendered_ts": "2026-11-26T04:02:33.000Z",
+  "rendered_epoch": 1795665753,
+  "age_at_render_seconds": 317,
   "max_age_seconds": 3600,
   "freshness": {
     "verdict": "CURRENT",
@@ -21,8 +21,8 @@
   },
   "values": {
     "chain_ok": true,
-    "journal_records": 343,
-    "journal_last_journaled_at": "2026-11-26T03:42:18Z",
+    "journal_records": 344,
+    "journal_last_journaled_at": "2026-11-26T03:57:16Z",
     "last_evaluation_id": "evt-000261",
     "last_evaluation_band": "NORMAL",
     "tasks_open": 0,
@@ -32,11 +32,11 @@
     "lines": [
       {
         "label": "JOURNAL CHAIN",
-        "value": "UNBROKEN \u2014 CLOSING 842e9f010add\u2026"
+        "value": "UNBROKEN \u2014 CLOSING 9f5a14b42b25\u2026"
       },
       {
         "label": "JOURNAL",
-        "value": "343 RECORDS (329 FEED) \u00b7 LAST JOURNALED 03:42 UTC"
+        "value": "344 RECORDS (330 FEED) \u00b7 LAST JOURNALED 03:57 UTC"
       },
       {
         "label": "EVALUATOR",
@@ -48,11 +48,11 @@
       },
       {
         "label": "WITNESS \u00b7 WSPR",
-        "value": "OK \u00b7 1,500 SPOTS \u00b7 02:56 UTC"
+        "value": "OK \u00b7 1,500 SPOTS \u00b7 03:56 UTC"
       },
       {
         "label": "WITNESS \u00b7 WP937",
-        "value": "NO READING \u2014 OPERATOR ENDPOINTS FAILING \u00b7 LAST ATTEMPT 02:56 UTC"
+        "value": "NO READING \u2014 OPERATOR ENDPOINTS FAILING \u00b7 LAST ATTEMPT 03:56 UTC"
       }
     ]
   }
