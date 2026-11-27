@@ -1,27 +1,27 @@
 {
-  "updated": "2026-11-26",
+  "updated": "2026-11-27",
   "feeds": {
-    "updated": "2026-11-25",
+    "updated": "2026-11-26",
     "feeds": {
-      "updated": "2026-11-24",
+      "updated": "2026-11-25",
       "feeds": {
-        "updated": "2026-11-23",
+        "updated": "2026-11-24",
         "feeds": {
-          "updated": "2026-11-22",
+          "updated": "2026-11-23",
           "feeds": {
-            "updated": "2026-11-21",
+            "updated": "2026-11-22",
             "feeds": {
-              "updated": "2026-11-20",
+              "updated": "2026-11-21",
               "feeds": {
-                "updated": "2026-11-19",
+                "updated": "2026-11-20",
                 "feeds": {
-                  "updated": "2026-11-18",
+                  "updated": "2026-11-19",
                   "feeds": {
-                    "updated": "2026-11-17",
+                    "updated": "2026-11-18",
                     "feeds": {
-                      "updated": "2026-11-16",
+                      "updated": "2026-11-17",
                       "feeds": {
-                        "updated": "2026-11-15",
+                        "updated": "2026-11-16",
                         "feeds": {
                           "updated": "2026-11-15",
                           "feeds": {
@@ -33,6 +33,237 @@
                                 "feeds": {
                                   "updated": "2026-11-15",
                                   "feeds": {
+                                    "updated": "2026-11-15",
+                                    "feeds": {
+                                      "weather": {
+                                        "last_ok_date": "2026-11-15",
+                                        "consecutive_failures": 0,
+                                        "last_attempt_date": "2026-11-15",
+                                        "ok_now": true
+                                      },
+                                      "local_news": {
+                                        "last_ok_date": "2026-11-15",
+                                        "consecutive_failures": 0,
+                                        "last_attempt_date": "2026-11-15",
+                                        "ok_now": true
+                                      },
+                                      "world_news": {
+                                        "last_ok_date": "2026-11-15",
+                                        "consecutive_failures": 0,
+                                        "last_attempt_date": "2026-11-15",
+                                        "ok_now": true
+                                      },
+                                      "traffic": {
+                                        "last_ok_date": "2026-11-15",
+                                        "consecutive_failures": 0,
+                                        "last_attempt_date": "2026-11-15",
+                                        "ok_now": true
+                                      },
+                                      "quakes": {
+                                        "last_ok_date": "2026-11-15",
+                                        "consecutive_failures": 0,
+                                        "last_attempt_date": "2026-11-15",
+                                        "ok_now": true
+                                      },
+                                      "schumann": {
+                                        "last_ok_date": "2026-11-15",
+                                        "consecutive_failures": 0,
+                                        "last_attempt_date": "2026-11-15",
+                                        "ok_now": true
+                                      },
+                                      "space_weather": {
+                                        "last_ok_date": "2026-11-15",
+                                        "consecutive_failures": 0,
+                                        "last_attempt_date": "2026-11-15",
+                                        "ok_now": true
+                                      },
+                                      "gw": {
+                                        "last_ok_date": "2026-11-15",
+                                        "consecutive_failures": 0,
+                                        "last_attempt_date": "2026-11-15",
+                                        "ok_now": true
+                                      },
+                                      "space_news": {
+                                        "last_ok_date": "2026-11-15",
+                                        "consecutive_failures": 0,
+                                        "last_attempt_date": "2026-11-15",
+                                        "ok_now": true
+                                      },
+                                      "facebook": {
+                                        "last_ok_date": "2026-11-15",
+                                        "consecutive_failures": 0,
+                                        "last_attempt_date": "2026-11-15",
+                                        "ok_now": true
+                                      },
+                                      "moon_sky": {
+                                        "last_ok_date": "2026-11-15",
+                                        "consecutive_failures": 0,
+                                        "last_attempt_date": "2026-11-15",
+                                        "ok_now": true
+                                      },
+                                      "cycles": {
+                                        "last_ok_date": "2026-11-15",
+                                        "consecutive_failures": 0,
+                                        "last_attempt_date": "2026-11-15",
+                                        "ok_now": true
+                                      },
+                                      "earth_extras": {
+                                        "last_ok_date": "2026-11-15",
+                                        "consecutive_failures": 0,
+                                        "last_attempt_date": "2026-11-15",
+                                        "ok_now": true
+                                      },
+                                      "human_world": {
+                                        "last_ok_date": "2026-11-15",
+                                        "consecutive_failures": 0,
+                                        "last_attempt_date": "2026-11-15",
+                                        "ok_now": true
+                                      },
+                                      "earth2": {
+                                        "last_ok_date": "2026-11-15",
+                                        "consecutive_failures": 0,
+                                        "last_attempt_date": "2026-11-15",
+                                        "ok_now": true
+                                      },
+                                      "deep2": {
+                                        "last_ok_date": "2026-11-15",
+                                        "consecutive_failures": 0,
+                                        "last_attempt_date": "2026-11-15",
+                                        "ok_now": true
+                                      },
+                                      "sky_tonight": {
+                                        "last_ok_date": "2026-11-15",
+                                        "consecutive_failures": 0,
+                                        "last_attempt_date": "2026-11-15",
+                                        "ok_now": true
+                                      },
+                                      "cycles_full": {
+                                        "last_ok_date": "2026-11-15",
+                                        "consecutive_failures": 0,
+                                        "last_attempt_date": "2026-11-15",
+                                        "ok_now": true
+                                      },
+                                      "human2": {
+                                        "last_ok_date": "2026-11-15",
+                                        "consecutive_failures": 0,
+                                        "last_attempt_date": "2026-11-15",
+                                        "ok_now": true
+                                      },
+                                      "findings": {
+                                        "last_ok_date": "2026-11-15",
+                                        "consecutive_failures": 0,
+                                        "last_attempt_date": "2026-11-15",
+                                        "ok_now": true
+                                      },
+                                      "earth2.rivers": {
+                                        "last_ok_date": "2026-11-15",
+                                        "consecutive_failures": 0,
+                                        "last_attempt_date": "2026-11-15",
+                                        "ok_now": true
+                                      },
+                                      "earth2.tsunami": {
+                                        "last_ok_date": "2026-11-15",
+                                        "consecutive_failures": 0,
+                                        "last_attempt_date": "2026-11-15",
+                                        "ok_now": true
+                                      },
+                                      "earth2.drought": {
+                                        "last_ok_date": "2026-11-15",
+                                        "consecutive_failures": 0,
+                                        "last_attempt_date": "2026-11-15",
+                                        "ok_now": true
+                                      },
+                                      "earth2.oni": {
+                                        "last_ok_date": "2026-11-15",
+                                        "consecutive_failures": 0,
+                                        "last_attempt_date": "2026-11-15",
+                                        "ok_now": true
+                                      },
+                                      "earth2.co2": {
+                                        "last_ok_date": "2026-11-15",
+                                        "consecutive_failures": 0,
+                                        "last_attempt_date": "2026-11-15",
+                                        "ok_now": true
+                                      },
+                                      "earth2.spc": {
+                                        "last_ok_date": "2026-11-15",
+                                        "consecutive_failures": 0,
+                                        "last_attempt_date": "2026-11-15",
+                                        "ok_now": true
+                                      },
+                                      "earth2.nhc": {
+                                        "last_ok_date": "2026-11-15",
+                                        "consecutive_failures": 0,
+                                        "last_attempt_date": "2026-11-15",
+                                        "ok_now": true
+                                      },
+                                      "deep2.scales": {
+                                        "last_ok_date": "2026-11-15",
+                                        "consecutive_failures": 0,
+                                        "last_attempt_date": "2026-11-15",
+                                        "ok_now": true
+                                      },
+                                      "deep2.sun": {
+                                        "last_ok_date": "2026-11-15",
+                                        "consecutive_failures": 0,
+                                        "last_attempt_date": "2026-11-15",
+                                        "ok_now": true
+                                      },
+                                      "deep2.cme": {
+                                        "last_ok_date": "2026-11-15",
+                                        "consecutive_failures": 0,
+                                        "last_attempt_date": "2026-11-15",
+                                        "ok_now": true
+                                      },
+                                      "deep2.sentry": {
+                                        "last_ok_date": "2026-11-15",
+                                        "consecutive_failures": 0,
+                                        "last_attempt_date": "2026-11-15",
+                                        "ok_now": true
+                                      },
+                                      "deep2.fireball": {
+                                        "last_ok_date": "2026-11-15",
+                                        "consecutive_failures": 0,
+                                        "last_attempt_date": "2026-11-15",
+                                        "ok_now": true
+                                      },
+                                      "deep2.dsn": {
+                                        "last_ok_date": "2026-11-15",
+                                        "consecutive_failures": 0,
+                                        "last_attempt_date": "2026-11-15",
+                                        "ok_now": true
+                                      },
+                                      "human2.fema": {
+                                        "last_ok_date": "2026-11-15",
+                                        "consecutive_failures": 0,
+                                        "last_attempt_date": "2026-11-15",
+                                        "ok_now": true
+                                      },
+                                      "human2.fda": {
+                                        "last_ok_date": "2026-11-15",
+                                        "consecutive_failures": 0,
+                                        "last_attempt_date": "2026-11-15",
+                                        "ok_now": true
+                                      },
+                                      "human2.powerball": {
+                                        "last_ok_date": "2026-11-15",
+                                        "consecutive_failures": 0,
+                                        "last_attempt_date": "2026-11-15",
+                                        "ok_now": true
+                                      },
+                                      "human2.eth": {
+                                        "last_ok_date": "2026-11-15",
+                                        "consecutive_failures": 0,
+                                        "last_attempt_date": "2026-11-15",
+                                        "ok_now": true
+                                      },
+                                      "human2.metals": {
+                                        "last_ok_date": null,
+                                        "consecutive_failures": 1,
+                                        "last_attempt_date": "2026-11-15",
+                                        "ok_now": false
+                                      }
+                                    },
                                     "weather": {
                                       "last_ok_date": "2026-11-15",
                                       "consecutive_failures": 0,
@@ -1179,2750 +1410,2750 @@
                             }
                           },
                           "weather": {
-                            "last_ok_date": "2026-11-15",
+                            "last_ok_date": "2026-11-16",
                             "consecutive_failures": 0,
-                            "last_attempt_date": "2026-11-15",
+                            "last_attempt_date": "2026-11-16",
                             "ok_now": true
                           },
                           "local_news": {
-                            "last_ok_date": "2026-11-15",
+                            "last_ok_date": "2026-11-16",
                             "consecutive_failures": 0,
-                            "last_attempt_date": "2026-11-15",
+                            "last_attempt_date": "2026-11-16",
                             "ok_now": true
                           },
                           "world_news": {
-                            "last_ok_date": "2026-11-15",
+                            "last_ok_date": "2026-11-16",
                             "consecutive_failures": 0,
-                            "last_attempt_date": "2026-11-15",
+                            "last_attempt_date": "2026-11-16",
                             "ok_now": true
                           },
                           "traffic": {
-                            "last_ok_date": "2026-11-15",
+                            "last_ok_date": "2026-11-16",
                             "consecutive_failures": 0,
-                            "last_attempt_date": "2026-11-15",
+                            "last_attempt_date": "2026-11-16",
                             "ok_now": true
                           },
                           "quakes": {
-                            "last_ok_date": "2026-11-15",
+                            "last_ok_date": "2026-11-16",
                             "consecutive_failures": 0,
-                            "last_attempt_date": "2026-11-15",
+                            "last_attempt_date": "2026-11-16",
                             "ok_now": true
                           },
                           "schumann": {
-                            "last_ok_date": "2026-11-15",
+                            "last_ok_date": "2026-11-16",
                             "consecutive_failures": 0,
-                            "last_attempt_date": "2026-11-15",
+                            "last_attempt_date": "2026-11-16",
                             "ok_now": true
                           },
                           "space_weather": {
-                            "last_ok_date": "2026-11-15",
+                            "last_ok_date": "2026-11-16",
                             "consecutive_failures": 0,
-                            "last_attempt_date": "2026-11-15",
+                            "last_attempt_date": "2026-11-16",
                             "ok_now": true
                           },
                           "gw": {
-                            "last_ok_date": "2026-11-15",
+                            "last_ok_date": "2026-11-16",
                             "consecutive_failures": 0,
-                            "last_attempt_date": "2026-11-15",
+                            "last_attempt_date": "2026-11-16",
                             "ok_now": true
                           },
                           "space_news": {
-                            "last_ok_date": "2026-11-15",
+                            "last_ok_date": "2026-11-16",
                             "consecutive_failures": 0,
-                            "last_attempt_date": "2026-11-15",
+                            "last_attempt_date": "2026-11-16",
                             "ok_now": true
                           },
                           "facebook": {
-                            "last_ok_date": "2026-11-15",
+                            "last_ok_date": "2026-11-16",
                             "consecutive_failures": 0,
-                            "last_attempt_date": "2026-11-15",
+                            "last_attempt_date": "2026-11-16",
                             "ok_now": true
                           },
                           "moon_sky": {
-                            "last_ok_date": "2026-11-15",
+                            "last_ok_date": "2026-11-16",
                             "consecutive_failures": 0,
-                            "last_attempt_date": "2026-11-15",
+                            "last_attempt_date": "2026-11-16",
                             "ok_now": true
                           },
                           "cycles": {
-                            "last_ok_date": "2026-11-15",
+                            "last_ok_date": "2026-11-16",
                             "consecutive_failures": 0,
-                            "last_attempt_date": "2026-11-15",
+                            "last_attempt_date": "2026-11-16",
                             "ok_now": true
                           },
                           "earth_extras": {
-                            "last_ok_date": "2026-11-15",
+                            "last_ok_date": "2026-11-16",
                             "consecutive_failures": 0,
-                            "last_attempt_date": "2026-11-15",
+                            "last_attempt_date": "2026-11-16",
                             "ok_now": true
                           },
                           "human_world": {
-                            "last_ok_date": "2026-11-15",
+                            "last_ok_date": "2026-11-16",
                             "consecutive_failures": 0,
-                            "last_attempt_date": "2026-11-15",
+                            "last_attempt_date": "2026-11-16",
                             "ok_now": true
                           },
                           "earth2": {
-                            "last_ok_date": "2026-11-15",
+                            "last_ok_date": "2026-11-16",
                             "consecutive_failures": 0,
-                            "last_attempt_date": "2026-11-15",
+                            "last_attempt_date": "2026-11-16",
                             "ok_now": true
                           },
                           "deep2": {
-                            "last_ok_date": "2026-11-15",
+                            "last_ok_date": "2026-11-16",
                             "consecutive_failures": 0,
-                            "last_attempt_date": "2026-11-15",
+                            "last_attempt_date": "2026-11-16",
                             "ok_now": true
                           },
                           "sky_tonight": {
-                            "last_ok_date": "2026-11-15",
+                            "last_ok_date": "2026-11-16",
                             "consecutive_failures": 0,
-                            "last_attempt_date": "2026-11-15",
+                            "last_attempt_date": "2026-11-16",
                             "ok_now": true
                           },
                           "cycles_full": {
-                            "last_ok_date": "2026-11-15",
+                            "last_ok_date": "2026-11-16",
                             "consecutive_failures": 0,
-                            "last_attempt_date": "2026-11-15",
+                            "last_attempt_date": "2026-11-16",
                             "ok_now": true
                           },
                           "human2": {
-                            "last_ok_date": "2026-11-15",
+                            "last_ok_date": "2026-11-16",
                             "consecutive_failures": 0,
-                            "last_attempt_date": "2026-11-15",
+                            "last_attempt_date": "2026-11-16",
                             "ok_now": true
                           },
                           "findings": {
-                            "last_ok_date": "2026-11-15",
+                            "last_ok_date": "2026-11-16",
                             "consecutive_failures": 0,
-                            "last_attempt_date": "2026-11-15",
+                            "last_attempt_date": "2026-11-16",
                             "ok_now": true
                           },
                           "earth2.rivers": {
-                            "last_ok_date": "2026-11-15",
+                            "last_ok_date": "2026-11-16",
                             "consecutive_failures": 0,
-                            "last_attempt_date": "2026-11-15",
+                            "last_attempt_date": "2026-11-16",
                             "ok_now": true
                           },
                           "earth2.tsunami": {
-                            "last_ok_date": "2026-11-15",
+                            "last_ok_date": "2026-11-16",
                             "consecutive_failures": 0,
-                            "last_attempt_date": "2026-11-15",
+                            "last_attempt_date": "2026-11-16",
                             "ok_now": true
                           },
                           "earth2.drought": {
-                            "last_ok_date": "2026-11-15",
+                            "last_ok_date": "2026-11-16",
                             "consecutive_failures": 0,
-                            "last_attempt_date": "2026-11-15",
+                            "last_attempt_date": "2026-11-16",
                             "ok_now": true
                           },
                           "earth2.oni": {
-                            "last_ok_date": "2026-11-15",
+                            "last_ok_date": "2026-11-16",
                             "consecutive_failures": 0,
-                            "last_attempt_date": "2026-11-15",
+                            "last_attempt_date": "2026-11-16",
                             "ok_now": true
                           },
                           "earth2.co2": {
-                            "last_ok_date": "2026-11-15",
+                            "last_ok_date": "2026-11-16",
                             "consecutive_failures": 0,
-                            "last_attempt_date": "2026-11-15",
+                            "last_attempt_date": "2026-11-16",
                             "ok_now": true
                           },
                           "earth2.spc": {
-                            "last_ok_date": "2026-11-15",
+                            "last_ok_date": "2026-11-16",
                             "consecutive_failures": 0,
-                            "last_attempt_date": "2026-11-15",
+                            "last_attempt_date": "2026-11-16",
                             "ok_now": true
                           },
                           "earth2.nhc": {
-                            "last_ok_date": "2026-11-15",
+                            "last_ok_date": "2026-11-16",
                             "consecutive_failures": 0,
-                            "last_attempt_date": "2026-11-15",
+                            "last_attempt_date": "2026-11-16",
                             "ok_now": true
                           },
                           "deep2.scales": {
-                            "last_ok_date": "2026-11-15",
+                            "last_ok_date": "2026-11-16",
                             "consecutive_failures": 0,
-                            "last_attempt_date": "2026-11-15",
+                            "last_attempt_date": "2026-11-16",
                             "ok_now": true
                           },
                           "deep2.sun": {
-                            "last_ok_date": "2026-11-15",
+                            "last_ok_date": "2026-11-16",
                             "consecutive_failures": 0,
-                            "last_attempt_date": "2026-11-15",
+                            "last_attempt_date": "2026-11-16",
                             "ok_now": true
                           },
                           "deep2.cme": {
-                            "last_ok_date": "2026-11-15",
+                            "last_ok_date": "2026-11-16",
                             "consecutive_failures": 0,
-                            "last_attempt_date": "2026-11-15",
+                            "last_attempt_date": "2026-11-16",
                             "ok_now": true
                           },
                           "deep2.sentry": {
-                            "last_ok_date": "2026-11-15",
+                            "last_ok_date": "2026-11-16",
                             "consecutive_failures": 0,
-                            "last_attempt_date": "2026-11-15",
+                            "last_attempt_date": "2026-11-16",
                             "ok_now": true
                           },
                           "deep2.fireball": {
-                            "last_ok_date": "2026-11-15",
-                            "consecutive_failures": 0,
-                            "last_attempt_date": "2026-11-15",
-                            "ok_now": true
+                            "last_ok_date": null,
+                            "consecutive_failures": 1,
+                            "last_attempt_date": "2026-11-16",
+                            "ok_now": false
                           },
                           "deep2.dsn": {
-                            "last_ok_date": "2026-11-15",
+                            "last_ok_date": "2026-11-16",
                             "consecutive_failures": 0,
-                            "last_attempt_date": "2026-11-15",
+                            "last_attempt_date": "2026-11-16",
                             "ok_now": true
                           },
                           "human2.fema": {
-                            "last_ok_date": "2026-11-15",
+                            "last_ok_date": "2026-11-16",
                             "consecutive_failures": 0,
-                            "last_attempt_date": "2026-11-15",
+                            "last_attempt_date": "2026-11-16",
                             "ok_now": true
                           },
                           "human2.fda": {
-                            "last_ok_date": "2026-11-15",
+                            "last_ok_date": "2026-11-16",
                             "consecutive_failures": 0,
-                            "last_attempt_date": "2026-11-15",
+                            "last_attempt_date": "2026-11-16",
                             "ok_now": true
                           },
                           "human2.powerball": {
-                            "last_ok_date": "2026-11-15",
+                            "last_ok_date": "2026-11-16",
                             "consecutive_failures": 0,
-                            "last_attempt_date": "2026-11-15",
+                            "last_attempt_date": "2026-11-16",
                             "ok_now": true
                           },
                           "human2.eth": {
-                            "last_ok_date": "2026-11-15",
+                            "last_ok_date": "2026-11-16",
                             "consecutive_failures": 0,
-                            "last_attempt_date": "2026-11-15",
+                            "last_attempt_date": "2026-11-16",
                             "ok_now": true
                           },
                           "human2.metals": {
                             "last_ok_date": null,
                             "consecutive_failures": 1,
-                            "last_attempt_date": "2026-11-15",
+                            "last_attempt_date": "2026-11-16",
                             "ok_now": false
                           }
                         },
                         "weather": {
-                          "last_ok_date": "2026-11-16",
+                          "last_ok_date": "2026-11-17",
                           "consecutive_failures": 0,
-                          "last_attempt_date": "2026-11-16",
+                          "last_attempt_date": "2026-11-17",
                           "ok_now": true
                         },
                         "local_news": {
-                          "last_ok_date": "2026-11-16",
+                          "last_ok_date": "2026-11-17",
                           "consecutive_failures": 0,
-                          "last_attempt_date": "2026-11-16",
+                          "last_attempt_date": "2026-11-17",
                           "ok_now": true
                         },
                         "world_news": {
-                          "last_ok_date": "2026-11-16",
+                          "last_ok_date": "2026-11-17",
                           "consecutive_failures": 0,
-                          "last_attempt_date": "2026-11-16",
+                          "last_attempt_date": "2026-11-17",
                           "ok_now": true
                         },
                         "traffic": {
-                          "last_ok_date": "2026-11-16",
+                          "last_ok_date": "2026-11-17",
                           "consecutive_failures": 0,
-                          "last_attempt_date": "2026-11-16",
+                          "last_attempt_date": "2026-11-17",
                           "ok_now": true
                         },
                         "quakes": {
-                          "last_ok_date": "2026-11-16",
+                          "last_ok_date": "2026-11-17",
                           "consecutive_failures": 0,
-                          "last_attempt_date": "2026-11-16",
+                          "last_attempt_date": "2026-11-17",
                           "ok_now": true
                         },
                         "schumann": {
-                          "last_ok_date": "2026-11-16",
+                          "last_ok_date": "2026-11-17",
                           "consecutive_failures": 0,
-                          "last_attempt_date": "2026-11-16",
+                          "last_attempt_date": "2026-11-17",
                           "ok_now": true
                         },
                         "space_weather": {
-                          "last_ok_date": "2026-11-16",
+                          "last_ok_date": "2026-11-17",
                           "consecutive_failures": 0,
-                          "last_attempt_date": "2026-11-16",
+                          "last_attempt_date": "2026-11-17",
                           "ok_now": true
                         },
                         "gw": {
-                          "last_ok_date": "2026-11-16",
+                          "last_ok_date": "2026-11-17",
                           "consecutive_failures": 0,
-                          "last_attempt_date": "2026-11-16",
+                          "last_attempt_date": "2026-11-17",
                           "ok_now": true
                         },
                         "space_news": {
-                          "last_ok_date": "2026-11-16",
+                          "last_ok_date": "2026-11-17",
                           "consecutive_failures": 0,
-                          "last_attempt_date": "2026-11-16",
+                          "last_attempt_date": "2026-11-17",
                           "ok_now": true
                         },
                         "facebook": {
-                          "last_ok_date": "2026-11-16",
+                          "last_ok_date": "2026-11-17",
                           "consecutive_failures": 0,
-                          "last_attempt_date": "2026-11-16",
+                          "last_attempt_date": "2026-11-17",
                           "ok_now": true
                         },
                         "moon_sky": {
-                          "last_ok_date": "2026-11-16",
+                          "last_ok_date": "2026-11-17",
                           "consecutive_failures": 0,
-                          "last_attempt_date": "2026-11-16",
+                          "last_attempt_date": "2026-11-17",
                           "ok_now": true
                         },
                         "cycles": {
-                          "last_ok_date": "2026-11-16",
+                          "last_ok_date": "2026-11-17",
                           "consecutive_failures": 0,
-                          "last_attempt_date": "2026-11-16",
+                          "last_attempt_date": "2026-11-17",
                           "ok_now": true
                         },
                         "earth_extras": {
-                          "last_ok_date": "2026-11-16",
+                          "last_ok_date": "2026-11-17",
                           "consecutive_failures": 0,
-                          "last_attempt_date": "2026-11-16",
+                          "last_attempt_date": "2026-11-17",
                           "ok_now": true
                         },
                         "human_world": {
-                          "last_ok_date": "2026-11-16",
+                          "last_ok_date": "2026-11-17",
                           "consecutive_failures": 0,
-                          "last_attempt_date": "2026-11-16",
+                          "last_attempt_date": "2026-11-17",
                           "ok_now": true
                         },
                         "earth2": {
-                          "last_ok_date": "2026-11-16",
+                          "last_ok_date": "2026-11-17",
                           "consecutive_failures": 0,
-                          "last_attempt_date": "2026-11-16",
+                          "last_attempt_date": "2026-11-17",
                           "ok_now": true
                         },
                         "deep2": {
-                          "last_ok_date": "2026-11-16",
+                          "last_ok_date": "2026-11-17",
                           "consecutive_failures": 0,
-                          "last_attempt_date": "2026-11-16",
+                          "last_attempt_date": "2026-11-17",
                           "ok_now": true
                         },
                         "sky_tonight": {
-                          "last_ok_date": "2026-11-16",
+                          "last_ok_date": "2026-11-17",
                           "consecutive_failures": 0,
-                          "last_attempt_date": "2026-11-16",
+                          "last_attempt_date": "2026-11-17",
                           "ok_now": true
                         },
                         "cycles_full": {
-                          "last_ok_date": "2026-11-16",
+                          "last_ok_date": "2026-11-17",
                           "consecutive_failures": 0,
-                          "last_attempt_date": "2026-11-16",
+                          "last_attempt_date": "2026-11-17",
                           "ok_now": true
                         },
                         "human2": {
-                          "last_ok_date": "2026-11-16",
+                          "last_ok_date": "2026-11-17",
                           "consecutive_failures": 0,
-                          "last_attempt_date": "2026-11-16",
+                          "last_attempt_date": "2026-11-17",
                           "ok_now": true
                         },
                         "findings": {
-                          "last_ok_date": "2026-11-16",
+                          "last_ok_date": "2026-11-17",
                           "consecutive_failures": 0,
-                          "last_attempt_date": "2026-11-16",
+                          "last_attempt_date": "2026-11-17",
                           "ok_now": true
                         },
                         "earth2.rivers": {
-                          "last_ok_date": "2026-11-16",
+                          "last_ok_date": "2026-11-17",
                           "consecutive_failures": 0,
-                          "last_attempt_date": "2026-11-16",
+                          "last_attempt_date": "2026-11-17",
                           "ok_now": true
                         },
                         "earth2.tsunami": {
-                          "last_ok_date": "2026-11-16",
+                          "last_ok_date": "2026-11-17",
                           "consecutive_failures": 0,
-                          "last_attempt_date": "2026-11-16",
+                          "last_attempt_date": "2026-11-17",
                           "ok_now": true
                         },
                         "earth2.drought": {
-                          "last_ok_date": "2026-11-16",
+                          "last_ok_date": "2026-11-17",
                           "consecutive_failures": 0,
-                          "last_attempt_date": "2026-11-16",
+                          "last_attempt_date": "2026-11-17",
                           "ok_now": true
                         },
                         "earth2.oni": {
-                          "last_ok_date": "2026-11-16",
+                          "last_ok_date": "2026-11-17",
                           "consecutive_failures": 0,
-                          "last_attempt_date": "2026-11-16",
+                          "last_attempt_date": "2026-11-17",
                           "ok_now": true
                         },
                         "earth2.co2": {
-                          "last_ok_date": "2026-11-16",
+                          "last_ok_date": "2026-11-17",
                           "consecutive_failures": 0,
-                          "last_attempt_date": "2026-11-16",
+                          "last_attempt_date": "2026-11-17",
                           "ok_now": true
                         },
                         "earth2.spc": {
-                          "last_ok_date": "2026-11-16",
+                          "last_ok_date": "2026-11-17",
                           "consecutive_failures": 0,
-                          "last_attempt_date": "2026-11-16",
+                          "last_attempt_date": "2026-11-17",
                           "ok_now": true
                         },
                         "earth2.nhc": {
-                          "last_ok_date": "2026-11-16",
+                          "last_ok_date": "2026-11-17",
                           "consecutive_failures": 0,
-                          "last_attempt_date": "2026-11-16",
+                          "last_attempt_date": "2026-11-17",
                           "ok_now": true
                         },
                         "deep2.scales": {
-                          "last_ok_date": "2026-11-16",
+                          "last_ok_date": "2026-11-17",
                           "consecutive_failures": 0,
-                          "last_attempt_date": "2026-11-16",
+                          "last_attempt_date": "2026-11-17",
                           "ok_now": true
                         },
                         "deep2.sun": {
-                          "last_ok_date": "2026-11-16",
+                          "last_ok_date": "2026-11-17",
                           "consecutive_failures": 0,
-                          "last_attempt_date": "2026-11-16",
+                          "last_attempt_date": "2026-11-17",
                           "ok_now": true
                         },
                         "deep2.cme": {
-                          "last_ok_date": "2026-11-16",
+                          "last_ok_date": "2026-11-17",
                           "consecutive_failures": 0,
-                          "last_attempt_date": "2026-11-16",
+                          "last_attempt_date": "2026-11-17",
                           "ok_now": true
                         },
                         "deep2.sentry": {
-                          "last_ok_date": "2026-11-16",
+                          "last_ok_date": "2026-11-17",
                           "consecutive_failures": 0,
-                          "last_attempt_date": "2026-11-16",
+                          "last_attempt_date": "2026-11-17",
                           "ok_now": true
                         },
                         "deep2.fireball": {
-                          "last_ok_date": null,
-                          "consecutive_failures": 1,
-                          "last_attempt_date": "2026-11-16",
-                          "ok_now": false
+                          "last_ok_date": "2026-11-17",
+                          "consecutive_failures": 0,
+                          "last_attempt_date": "2026-11-17",
+                          "ok_now": true
                         },
                         "deep2.dsn": {
-                          "last_ok_date": "2026-11-16",
+                          "last_ok_date": "2026-11-17",
                           "consecutive_failures": 0,
-                          "last_attempt_date": "2026-11-16",
+                          "last_attempt_date": "2026-11-17",
                           "ok_now": true
                         },
                         "human2.fema": {
-                          "last_ok_date": "2026-11-16",
+                          "last_ok_date": "2026-11-17",
                           "consecutive_failures": 0,
-                          "last_attempt_date": "2026-11-16",
+                          "last_attempt_date": "2026-11-17",
                           "ok_now": true
                         },
                         "human2.fda": {
-                          "last_ok_date": "2026-11-16",
-                          "consecutive_failures": 0,
-                          "last_attempt_date": "2026-11-16",
-                          "ok_now": true
+                          "last_ok_date": null,
+                          "consecutive_failures": 1,
+                          "last_attempt_date": "2026-11-17",
+                          "ok_now": false
                         },
                         "human2.powerball": {
-                          "last_ok_date": "2026-11-16",
+                          "last_ok_date": "2026-11-17",
                           "consecutive_failures": 0,
-                          "last_attempt_date": "2026-11-16",
+                          "last_attempt_date": "2026-11-17",
                           "ok_now": true
                         },
                         "human2.eth": {
-                          "last_ok_date": "2026-11-16",
+                          "last_ok_date": "2026-11-17",
                           "consecutive_failures": 0,
-                          "last_attempt_date": "2026-11-16",
+                          "last_attempt_date": "2026-11-17",
                           "ok_now": true
                         },
                         "human2.metals": {
                           "last_ok_date": null,
                           "consecutive_failures": 1,
-                          "last_attempt_date": "2026-11-16",
+                          "last_attempt_date": "2026-11-17",
                           "ok_now": false
                         }
                       },
                       "weather": {
-                        "last_ok_date": "2026-11-17",
+                        "last_ok_date": "2026-11-18",
                         "consecutive_failures": 0,
-                        "last_attempt_date": "2026-11-17",
+                        "last_attempt_date": "2026-11-18",
                         "ok_now": true
                       },
                       "local_news": {
-                        "last_ok_date": "2026-11-17",
+                        "last_ok_date": "2026-11-18",
                         "consecutive_failures": 0,
-                        "last_attempt_date": "2026-11-17",
+                        "last_attempt_date": "2026-11-18",
                         "ok_now": true
                       },
                       "world_news": {
-                        "last_ok_date": "2026-11-17",
+                        "last_ok_date": "2026-11-18",
                         "consecutive_failures": 0,
-                        "last_attempt_date": "2026-11-17",
+                        "last_attempt_date": "2026-11-18",
                         "ok_now": true
                       },
                       "traffic": {
-                        "last_ok_date": "2026-11-17",
+                        "last_ok_date": "2026-11-18",
                         "consecutive_failures": 0,
-                        "last_attempt_date": "2026-11-17",
+                        "last_attempt_date": "2026-11-18",
                         "ok_now": true
                       },
                       "quakes": {
-                        "last_ok_date": "2026-11-17",
+                        "last_ok_date": "2026-11-18",
                         "consecutive_failures": 0,
-                        "last_attempt_date": "2026-11-17",
+                        "last_attempt_date": "2026-11-18",
                         "ok_now": true
                       },
                       "schumann": {
-                        "last_ok_date": "2026-11-17",
+                        "last_ok_date": "2026-11-18",
                         "consecutive_failures": 0,
-                        "last_attempt_date": "2026-11-17",
+                        "last_attempt_date": "2026-11-18",
                         "ok_now": true
                       },
                       "space_weather": {
-                        "last_ok_date": "2026-11-17",
+                        "last_ok_date": "2026-11-18",
                         "consecutive_failures": 0,
-                        "last_attempt_date": "2026-11-17",
+                        "last_attempt_date": "2026-11-18",
                         "ok_now": true
                       },
                       "gw": {
-                        "last_ok_date": "2026-11-17",
+                        "last_ok_date": "2026-11-18",
                         "consecutive_failures": 0,
-                        "last_attempt_date": "2026-11-17",
+                        "last_attempt_date": "2026-11-18",
                         "ok_now": true
                       },
                       "space_news": {
-                        "last_ok_date": "2026-11-17",
+                        "last_ok_date": "2026-11-18",
                         "consecutive_failures": 0,
-                        "last_attempt_date": "2026-11-17",
+                        "last_attempt_date": "2026-11-18",
                         "ok_now": true
                       },
                       "facebook": {
-                        "last_ok_date": "2026-11-17",
+                        "last_ok_date": "2026-11-18",
                         "consecutive_failures": 0,
-                        "last_attempt_date": "2026-11-17",
+                        "last_attempt_date": "2026-11-18",
                         "ok_now": true
                       },
                       "moon_sky": {
-                        "last_ok_date": "2026-11-17",
+                        "last_ok_date": "2026-11-18",
                         "consecutive_failures": 0,
-                        "last_attempt_date": "2026-11-17",
+                        "last_attempt_date": "2026-11-18",
                         "ok_now": true
                       },
                       "cycles": {
-                        "last_ok_date": "2026-11-17",
+                        "last_ok_date": "2026-11-18",
                         "consecutive_failures": 0,
-                        "last_attempt_date": "2026-11-17",
+                        "last_attempt_date": "2026-11-18",
                         "ok_now": true
                       },
                       "earth_extras": {
-                        "last_ok_date": "2026-11-17",
+                        "last_ok_date": "2026-11-18",
                         "consecutive_failures": 0,
-                        "last_attempt_date": "2026-11-17",
+                        "last_attempt_date": "2026-11-18",
                         "ok_now": true
                       },
                       "human_world": {
-                        "last_ok_date": "2026-11-17",
+                        "last_ok_date": "2026-11-18",
                         "consecutive_failures": 0,
-                        "last_attempt_date": "2026-11-17",
+                        "last_attempt_date": "2026-11-18",
                         "ok_now": true
                       },
                       "earth2": {
-                        "last_ok_date": "2026-11-17",
+                        "last_ok_date": "2026-11-18",
                         "consecutive_failures": 0,
-                        "last_attempt_date": "2026-11-17",
+                        "last_attempt_date": "2026-11-18",
                         "ok_now": true
                       },
                       "deep2": {
-                        "last_ok_date": "2026-11-17",
+                        "last_ok_date": "2026-11-18",
                         "consecutive_failures": 0,
-                        "last_attempt_date": "2026-11-17",
+                        "last_attempt_date": "2026-11-18",
                         "ok_now": true
                       },
                       "sky_tonight": {
-                        "last_ok_date": "2026-11-17",
+                        "last_ok_date": "2026-11-18",
                         "consecutive_failures": 0,
-                        "last_attempt_date": "2026-11-17",
+                        "last_attempt_date": "2026-11-18",
                         "ok_now": true
                       },
                       "cycles_full": {
-                        "last_ok_date": "2026-11-17",
+                        "last_ok_date": "2026-11-18",
                         "consecutive_failures": 0,
-                        "last_attempt_date": "2026-11-17",
+                        "last_attempt_date": "2026-11-18",
                         "ok_now": true
                       },
                       "human2": {
-                        "last_ok_date": "2026-11-17",
+                        "last_ok_date": "2026-11-18",
                         "consecutive_failures": 0,
-                        "last_attempt_date": "2026-11-17",
+                        "last_attempt_date": "2026-11-18",
                         "ok_now": true
                       },
                       "findings": {
-                        "last_ok_date": "2026-11-17",
+                        "last_ok_date": "2026-11-18",
                         "consecutive_failures": 0,
-                        "last_attempt_date": "2026-11-17",
+                        "last_attempt_date": "2026-11-18",
                         "ok_now": true
                       },
                       "earth2.rivers": {
-                        "last_ok_date": "2026-11-17",
-                        "consecutive_failures": 0,
-                        "last_attempt_date": "2026-11-17",
-                        "ok_now": true
+                        "last_ok_date": null,
+                        "consecutive_failures": 1,
+                        "last_attempt_date": "2026-11-18",
+                        "ok_now": false
                       },
                       "earth2.tsunami": {
-                        "last_ok_date": "2026-11-17",
+                        "last_ok_date": "2026-11-18",
                         "consecutive_failures": 0,
-                        "last_attempt_date": "2026-11-17",
+                        "last_attempt_date": "2026-11-18",
                         "ok_now": true
                       },
                       "earth2.drought": {
-                        "last_ok_date": "2026-11-17",
+                        "last_ok_date": "2026-11-18",
                         "consecutive_failures": 0,
-                        "last_attempt_date": "2026-11-17",
+                        "last_attempt_date": "2026-11-18",
                         "ok_now": true
                       },
                       "earth2.oni": {
-                        "last_ok_date": "2026-11-17",
+                        "last_ok_date": "2026-11-18",
                         "consecutive_failures": 0,
-                        "last_attempt_date": "2026-11-17",
+                        "last_attempt_date": "2026-11-18",
                         "ok_now": true
                       },
                       "earth2.co2": {
-                        "last_ok_date": "2026-11-17",
+                        "last_ok_date": "2026-11-18",
                         "consecutive_failures": 0,
-                        "last_attempt_date": "2026-11-17",
+                        "last_attempt_date": "2026-11-18",
                         "ok_now": true
                       },
                       "earth2.spc": {
-                        "last_ok_date": "2026-11-17",
+                        "last_ok_date": "2026-11-18",
                         "consecutive_failures": 0,
-                        "last_attempt_date": "2026-11-17",
+                        "last_attempt_date": "2026-11-18",
                         "ok_now": true
                       },
                       "earth2.nhc": {
-                        "last_ok_date": "2026-11-17",
+                        "last_ok_date": "2026-11-18",
                         "consecutive_failures": 0,
-                        "last_attempt_date": "2026-11-17",
+                        "last_attempt_date": "2026-11-18",
                         "ok_now": true
                       },
                       "deep2.scales": {
-                        "last_ok_date": "2026-11-17",
+                        "last_ok_date": "2026-11-18",
                         "consecutive_failures": 0,
-                        "last_attempt_date": "2026-11-17",
+                        "last_attempt_date": "2026-11-18",
                         "ok_now": true
                       },
                       "deep2.sun": {
-                        "last_ok_date": "2026-11-17",
+                        "last_ok_date": "2026-11-18",
                         "consecutive_failures": 0,
-                        "last_attempt_date": "2026-11-17",
+                        "last_attempt_date": "2026-11-18",
                         "ok_now": true
                       },
                       "deep2.cme": {
-                        "last_ok_date": "2026-11-17",
+                        "last_ok_date": "2026-11-18",
                         "consecutive_failures": 0,
-                        "last_attempt_date": "2026-11-17",
+                        "last_attempt_date": "2026-11-18",
                         "ok_now": true
                       },
                       "deep2.sentry": {
-                        "last_ok_date": "2026-11-17",
+                        "last_ok_date": "2026-11-18",
                         "consecutive_failures": 0,
-                        "last_attempt_date": "2026-11-17",
+                        "last_attempt_date": "2026-11-18",
                         "ok_now": true
                       },
                       "deep2.fireball": {
-                        "last_ok_date": "2026-11-17",
+                        "last_ok_date": "2026-11-18",
                         "consecutive_failures": 0,
-                        "last_attempt_date": "2026-11-17",
+                        "last_attempt_date": "2026-11-18",
                         "ok_now": true
                       },
                       "deep2.dsn": {
-                        "last_ok_date": "2026-11-17",
+                        "last_ok_date": "2026-11-18",
                         "consecutive_failures": 0,
-                        "last_attempt_date": "2026-11-17",
+                        "last_attempt_date": "2026-11-18",
                         "ok_now": true
                       },
                       "human2.fema": {
-                        "last_ok_date": "2026-11-17",
+                        "last_ok_date": "2026-11-18",
                         "consecutive_failures": 0,
-                        "last_attempt_date": "2026-11-17",
+                        "last_attempt_date": "2026-11-18",
                         "ok_now": true
                       },
                       "human2.fda": {
-                        "last_ok_date": null,
-                        "consecutive_failures": 1,
-                        "last_attempt_date": "2026-11-17",
-                        "ok_now": false
+                        "last_ok_date": "2026-11-18",
+                        "consecutive_failures": 0,
+                        "last_attempt_date": "2026-11-18",
+                        "ok_now": true
                       },
                       "human2.powerball": {
-                        "last_ok_date": "2026-11-17",
+                        "last_ok_date": "2026-11-18",
                         "consecutive_failures": 0,
-                        "last_attempt_date": "2026-11-17",
+                        "last_attempt_date": "2026-11-18",
                         "ok_now": true
                       },
                       "human2.eth": {
-                        "last_ok_date": "2026-11-17",
+                        "last_ok_date": "2026-11-18",
                         "consecutive_failures": 0,
-                        "last_attempt_date": "2026-11-17",
+                        "last_attempt_date": "2026-11-18",
                         "ok_now": true
                       },
                       "human2.metals": {
                         "last_ok_date": null,
                         "consecutive_failures": 1,
-                        "last_attempt_date": "2026-11-17",
+                        "last_attempt_date": "2026-11-18",
                         "ok_now": false
                       }
                     },
                     "weather": {
-                      "last_ok_date": "2026-11-18",
+                      "last_ok_date": "2026-11-19",
                       "consecutive_failures": 0,
-                      "last_attempt_date": "2026-11-18",
+                      "last_attempt_date": "2026-11-19",
                       "ok_now": true
                     },
                     "local_news": {
-                      "last_ok_date": "2026-11-18",
+                      "last_ok_date": "2026-11-19",
                       "consecutive_failures": 0,
-                      "last_attempt_date": "2026-11-18",
+                      "last_attempt_date": "2026-11-19",
                       "ok_now": true
                     },
                     "world_news": {
-                      "last_ok_date": "2026-11-18",
+                      "last_ok_date": "2026-11-19",
                       "consecutive_failures": 0,
-                      "last_attempt_date": "2026-11-18",
+                      "last_attempt_date": "2026-11-19",
                       "ok_now": true
                     },
                     "traffic": {
-                      "last_ok_date": "2026-11-18",
+                      "last_ok_date": "2026-11-19",
                       "consecutive_failures": 0,
-                      "last_attempt_date": "2026-11-18",
+                      "last_attempt_date": "2026-11-19",
                       "ok_now": true
                     },
                     "quakes": {
-                      "last_ok_date": "2026-11-18",
+                      "last_ok_date": "2026-11-19",
                       "consecutive_failures": 0,
-                      "last_attempt_date": "2026-11-18",
+                      "last_attempt_date": "2026-11-19",
                       "ok_now": true
                     },
                     "schumann": {
-                      "last_ok_date": "2026-11-18",
+                      "last_ok_date": "2026-11-19",
                       "consecutive_failures": 0,
-                      "last_attempt_date": "2026-11-18",
+                      "last_attempt_date": "2026-11-19",
                       "ok_now": true
                     },
                     "space_weather": {
-                      "last_ok_date": "2026-11-18",
+                      "last_ok_date": "2026-11-19",
                       "consecutive_failures": 0,
-                      "last_attempt_date": "2026-11-18",
+                      "last_attempt_date": "2026-11-19",
                       "ok_now": true
                     },
                     "gw": {
-                      "last_ok_date": "2026-11-18",
+                      "last_ok_date": "2026-11-19",
                       "consecutive_failures": 0,
-                      "last_attempt_date": "2026-11-18",
+                      "last_attempt_date": "2026-11-19",
                       "ok_now": true
                     },
                     "space_news": {
-                      "last_ok_date": "2026-11-18",
+                      "last_ok_date": "2026-11-19",
                       "consecutive_failures": 0,
-                      "last_attempt_date": "2026-11-18",
+                      "last_attempt_date": "2026-11-19",
                       "ok_now": true
                     },
                     "facebook": {
-                      "last_ok_date": "2026-11-18",
+                      "last_ok_date": "2026-11-19",
                       "consecutive_failures": 0,
-                      "last_attempt_date": "2026-11-18",
+                      "last_attempt_date": "2026-11-19",
                       "ok_now": true
                     },
                     "moon_sky": {
-                      "last_ok_date": "2026-11-18",
+                      "last_ok_date": "2026-11-19",
                       "consecutive_failures": 0,
-                      "last_attempt_date": "2026-11-18",
+                      "last_attempt_date": "2026-11-19",
                       "ok_now": true
                     },
                     "cycles": {
-                      "last_ok_date": "2026-11-18",
+                      "last_ok_date": "2026-11-19",
                       "consecutive_failures": 0,
-                      "last_attempt_date": "2026-11-18",
+                      "last_attempt_date": "2026-11-19",
                       "ok_now": true
                     },
                     "earth_extras": {
-                      "last_ok_date": "2026-11-18",
+                      "last_ok_date": "2026-11-19",
                       "consecutive_failures": 0,
-                      "last_attempt_date": "2026-11-18",
+                      "last_attempt_date": "2026-11-19",
                       "ok_now": true
                     },
                     "human_world": {
-                      "last_ok_date": "2026-11-18",
+                      "last_ok_date": "2026-11-19",
                       "consecutive_failures": 0,
-                      "last_attempt_date": "2026-11-18",
+                      "last_attempt_date": "2026-11-19",
                       "ok_now": true
                     },
                     "earth2": {
-                      "last_ok_date": "2026-11-18",
+                      "last_ok_date": "2026-11-19",
                       "consecutive_failures": 0,
-                      "last_attempt_date": "2026-11-18",
+                      "last_attempt_date": "2026-11-19",
                       "ok_now": true
                     },
                     "deep2": {
-                      "last_ok_date": "2026-11-18",
+                      "last_ok_date": "2026-11-19",
                       "consecutive_failures": 0,
-                      "last_attempt_date": "2026-11-18",
+                      "last_attempt_date": "2026-11-19",
                       "ok_now": true
                     },
                     "sky_tonight": {
-                      "last_ok_date": "2026-11-18",
+                      "last_ok_date": "2026-11-19",
                       "consecutive_failures": 0,
-                      "last_attempt_date": "2026-11-18",
+                      "last_attempt_date": "2026-11-19",
                       "ok_now": true
                     },
                     "cycles_full": {
-                      "last_ok_date": "2026-11-18",
+                      "last_ok_date": "2026-11-19",
                       "consecutive_failures": 0,
-                      "last_attempt_date": "2026-11-18",
+                      "last_attempt_date": "2026-11-19",
                       "ok_now": true
                     },
                     "human2": {
-                      "last_ok_date": "2026-11-18",
+                      "last_ok_date": "2026-11-19",
                       "consecutive_failures": 0,
-                      "last_attempt_date": "2026-11-18",
+                      "last_attempt_date": "2026-11-19",
                       "ok_now": true
                     },
                     "findings": {
-                      "last_ok_date": "2026-11-18",
+                      "last_ok_date": "2026-11-19",
                       "consecutive_failures": 0,
-                      "last_attempt_date": "2026-11-18",
+                      "last_attempt_date": "2026-11-19",
                       "ok_now": true
                     },
                     "earth2.rivers": {
                       "last_ok_date": null,
                       "consecutive_failures": 1,
-                      "last_attempt_date": "2026-11-18",
+                      "last_attempt_date": "2026-11-19",
                       "ok_now": false
                     },
                     "earth2.tsunami": {
-                      "last_ok_date": "2026-11-18",
+                      "last_ok_date": "2026-11-19",
                       "consecutive_failures": 0,
-                      "last_attempt_date": "2026-11-18",
+                      "last_attempt_date": "2026-11-19",
                       "ok_now": true
                     },
                     "earth2.drought": {
-                      "last_ok_date": "2026-11-18",
+                      "last_ok_date": "2026-11-19",
                       "consecutive_failures": 0,
-                      "last_attempt_date": "2026-11-18",
+                      "last_attempt_date": "2026-11-19",
                       "ok_now": true
                     },
                     "earth2.oni": {
-                      "last_ok_date": "2026-11-18",
+                      "last_ok_date": "2026-11-19",
                       "consecutive_failures": 0,
-                      "last_attempt_date": "2026-11-18",
+                      "last_attempt_date": "2026-11-19",
                       "ok_now": true
                     },
                     "earth2.co2": {
-                      "last_ok_date": "2026-11-18",
+                      "last_ok_date": "2026-11-19",
                       "consecutive_failures": 0,
-                      "last_attempt_date": "2026-11-18",
+                      "last_attempt_date": "2026-11-19",
                       "ok_now": true
                     },
                     "earth2.spc": {
-                      "last_ok_date": "2026-11-18",
+                      "last_ok_date": "2026-11-19",
                       "consecutive_failures": 0,
-                      "last_attempt_date": "2026-11-18",
+                      "last_attempt_date": "2026-11-19",
                       "ok_now": true
                     },
                     "earth2.nhc": {
-                      "last_ok_date": "2026-11-18",
+                      "last_ok_date": "2026-11-19",
                       "consecutive_failures": 0,
-                      "last_attempt_date": "2026-11-18",
+                      "last_attempt_date": "2026-11-19",
                       "ok_now": true
                     },
                     "deep2.scales": {
-                      "last_ok_date": "2026-11-18",
+                      "last_ok_date": "2026-11-19",
                       "consecutive_failures": 0,
-                      "last_attempt_date": "2026-11-18",
+                      "last_attempt_date": "2026-11-19",
                       "ok_now": true
                     },
                     "deep2.sun": {
-                      "last_ok_date": "2026-11-18",
+                      "last_ok_date": "2026-11-19",
                       "consecutive_failures": 0,
-                      "last_attempt_date": "2026-11-18",
+                      "last_attempt_date": "2026-11-19",
                       "ok_now": true
                     },
                     "deep2.cme": {
-                      "last_ok_date": "2026-11-18",
+                      "last_ok_date": "2026-11-19",
                       "consecutive_failures": 0,
-                      "last_attempt_date": "2026-11-18",
+                      "last_attempt_date": "2026-11-19",
                       "ok_now": true
                     },
                     "deep2.sentry": {
-                      "last_ok_date": "2026-11-18",
+                      "last_ok_date": "2026-11-19",
                       "consecutive_failures": 0,
-                      "last_attempt_date": "2026-11-18",
+                      "last_attempt_date": "2026-11-19",
                       "ok_now": true
                     },
                     "deep2.fireball": {
-                      "last_ok_date": "2026-11-18",
+                      "last_ok_date": "2026-11-19",
                       "consecutive_failures": 0,
-                      "last_attempt_date": "2026-11-18",
+                      "last_attempt_date": "2026-11-19",
                       "ok_now": true
                     },
                     "deep2.dsn": {
-                      "last_ok_date": "2026-11-18",
+                      "last_ok_date": "2026-11-19",
                       "consecutive_failures": 0,
-                      "last_attempt_date": "2026-11-18",
+                      "last_attempt_date": "2026-11-19",
                       "ok_now": true
                     },
                     "human2.fema": {
-                      "last_ok_date": "2026-11-18",
+                      "last_ok_date": "2026-11-19",
                       "consecutive_failures": 0,
-                      "last_attempt_date": "2026-11-18",
+                      "last_attempt_date": "2026-11-19",
                       "ok_now": true
                     },
                     "human2.fda": {
-                      "last_ok_date": "2026-11-18",
-                      "consecutive_failures": 0,
-                      "last_attempt_date": "2026-11-18",
-                      "ok_now": true
+                      "last_ok_date": null,
+                      "consecutive_failures": 1,
+                      "last_attempt_date": "2026-11-19",
+                      "ok_now": false
                     },
                     "human2.powerball": {
-                      "last_ok_date": "2026-11-18",
+                      "last_ok_date": "2026-11-19",
                       "consecutive_failures": 0,
-                      "last_attempt_date": "2026-11-18",
+                      "last_attempt_date": "2026-11-19",
                       "ok_now": true
                     },
                     "human2.eth": {
-                      "last_ok_date": "2026-11-18",
+                      "last_ok_date": "2026-11-19",
                       "consecutive_failures": 0,
-                      "last_attempt_date": "2026-11-18",
+                      "last_attempt_date": "2026-11-19",
                       "ok_now": true
                     },
                     "human2.metals": {
                       "last_ok_date": null,
                       "consecutive_failures": 1,
-                      "last_attempt_date": "2026-11-18",
+                      "last_attempt_date": "2026-11-19",
                       "ok_now": false
                     }
                   },
                   "weather": {
-                    "last_ok_date": "2026-11-19",
+                    "last_ok_date": "2026-11-20",
                     "consecutive_failures": 0,
-                    "last_attempt_date": "2026-11-19",
+                    "last_attempt_date": "2026-11-20",
                     "ok_now": true
                   },
                   "local_news": {
-                    "last_ok_date": "2026-11-19",
+                    "last_ok_date": "2026-11-20",
                     "consecutive_failures": 0,
-                    "last_attempt_date": "2026-11-19",
+                    "last_attempt_date": "2026-11-20",
                     "ok_now": true
                   },
                   "world_news": {
-                    "last_ok_date": "2026-11-19",
+                    "last_ok_date": "2026-11-20",
                     "consecutive_failures": 0,
-                    "last_attempt_date": "2026-11-19",
+                    "last_attempt_date": "2026-11-20",
                     "ok_now": true
                   },
                   "traffic": {
-                    "last_ok_date": "2026-11-19",
+                    "last_ok_date": "2026-11-20",
                     "consecutive_failures": 0,
-                    "last_attempt_date": "2026-11-19",
+                    "last_attempt_date": "2026-11-20",
                     "ok_now": true
                   },
                   "quakes": {
-                    "last_ok_date": "2026-11-19",
+                    "last_ok_date": "2026-11-20",
                     "consecutive_failures": 0,
-                    "last_attempt_date": "2026-11-19",
+                    "last_attempt_date": "2026-11-20",
                     "ok_now": true
                   },
                   "schumann": {
-                    "last_ok_date": "2026-11-19",
+                    "last_ok_date": "2026-11-20",
                     "consecutive_failures": 0,
-                    "last_attempt_date": "2026-11-19",
+                    "last_attempt_date": "2026-11-20",
                     "ok_now": true
                   },
                   "space_weather": {
-                    "last_ok_date": "2026-11-19",
+                    "last_ok_date": "2026-11-20",
                     "consecutive_failures": 0,
-                    "last_attempt_date": "2026-11-19",
+                    "last_attempt_date": "2026-11-20",
                     "ok_now": true
                   },
                   "gw": {
-                    "last_ok_date": "2026-11-19",
+                    "last_ok_date": "2026-11-20",
                     "consecutive_failures": 0,
-                    "last_attempt_date": "2026-11-19",
+                    "last_attempt_date": "2026-11-20",
                     "ok_now": true
                   },
                   "space_news": {
-                    "last_ok_date": "2026-11-19",
+                    "last_ok_date": "2026-11-20",
                     "consecutive_failures": 0,
-                    "last_attempt_date": "2026-11-19",
+                    "last_attempt_date": "2026-11-20",
                     "ok_now": true
                   },
                   "facebook": {
-                    "last_ok_date": "2026-11-19",
+                    "last_ok_date": "2026-11-20",
                     "consecutive_failures": 0,
-                    "last_attempt_date": "2026-11-19",
+                    "last_attempt_date": "2026-11-20",
                     "ok_now": true
                   },
                   "moon_sky": {
-                    "last_ok_date": "2026-11-19",
+                    "last_ok_date": "2026-11-20",
                     "consecutive_failures": 0,
-                    "last_attempt_date": "2026-11-19",
+                    "last_attempt_date": "2026-11-20",
                     "ok_now": true
                   },
                   "cycles": {
-                    "last_ok_date": "2026-11-19",
+                    "last_ok_date": "2026-11-20",
                     "consecutive_failures": 0,
-                    "last_attempt_date": "2026-11-19",
+                    "last_attempt_date": "2026-11-20",
                     "ok_now": true
                   },
                   "earth_extras": {
-                    "last_ok_date": "2026-11-19",
+                    "last_ok_date": "2026-11-20",
                     "consecutive_failures": 0,
-                    "last_attempt_date": "2026-11-19",
+                    "last_attempt_date": "2026-11-20",
                     "ok_now": true
                   },
                   "human_world": {
-                    "last_ok_date": "2026-11-19",
+                    "last_ok_date": "2026-11-20",
                     "consecutive_failures": 0,
-                    "last_attempt_date": "2026-11-19",
+                    "last_attempt_date": "2026-11-20",
                     "ok_now": true
                   },
                   "earth2": {
-                    "last_ok_date": "2026-11-19",
+                    "last_ok_date": "2026-11-20",
                     "consecutive_failures": 0,
-                    "last_attempt_date": "2026-11-19",
+                    "last_attempt_date": "2026-11-20",
                     "ok_now": true
                   },
                   "deep2": {
-                    "last_ok_date": "2026-11-19",
+                    "last_ok_date": "2026-11-20",
                     "consecutive_failures": 0,
-                    "last_attempt_date": "2026-11-19",
+                    "last_attempt_date": "2026-11-20",
                     "ok_now": true
                   },
                   "sky_tonight": {
-                    "last_ok_date": "2026-11-19",
+                    "last_ok_date": "2026-11-20",
                     "consecutive_failures": 0,
-                    "last_attempt_date": "2026-11-19",
+                    "last_attempt_date": "2026-11-20",
                     "ok_now": true
                   },
                   "cycles_full": {
-                    "last_ok_date": "2026-11-19",
+                    "last_ok_date": "2026-11-20",
                     "consecutive_failures": 0,
-                    "last_attempt_date": "2026-11-19",
+                    "last_attempt_date": "2026-11-20",
                     "ok_now": true
                   },
                   "human2": {
-                    "last_ok_date": "2026-11-19",
+                    "last_ok_date": "2026-11-20",
                     "consecutive_failures": 0,
-                    "last_attempt_date": "2026-11-19",
+                    "last_attempt_date": "2026-11-20",
                     "ok_now": true
                   },
                   "findings": {
-                    "last_ok_date": "2026-11-19",
+                    "last_ok_date": "2026-11-20",
                     "consecutive_failures": 0,
-                    "last_attempt_date": "2026-11-19",
+                    "last_attempt_date": "2026-11-20",
                     "ok_now": true
                   },
                   "earth2.rivers": {
-                    "last_ok_date": null,
-                    "consecutive_failures": 1,
-                    "last_attempt_date": "2026-11-19",
-                    "ok_now": false
+                    "last_ok_date": "2026-11-20",
+                    "consecutive_failures": 0,
+                    "last_attempt_date": "2026-11-20",
+                    "ok_now": true
                   },
                   "earth2.tsunami": {
-                    "last_ok_date": "2026-11-19",
+                    "last_ok_date": "2026-11-20",
                     "consecutive_failures": 0,
-                    "last_attempt_date": "2026-11-19",
+                    "last_attempt_date": "2026-11-20",
                     "ok_now": true
                   },
                   "earth2.drought": {
-                    "last_ok_date": "2026-11-19",
+                    "last_ok_date": "2026-11-20",
                     "consecutive_failures": 0,
-                    "last_attempt_date": "2026-11-19",
+                    "last_attempt_date": "2026-11-20",
                     "ok_now": true
                   },
                   "earth2.oni": {
-                    "last_ok_date": "2026-11-19",
+                    "last_ok_date": "2026-11-20",
                     "consecutive_failures": 0,
-                    "last_attempt_date": "2026-11-19",
+                    "last_attempt_date": "2026-11-20",
                     "ok_now": true
                   },
                   "earth2.co2": {
-                    "last_ok_date": "2026-11-19",
+                    "last_ok_date": "2026-11-20",
                     "consecutive_failures": 0,
-                    "last_attempt_date": "2026-11-19",
+                    "last_attempt_date": "2026-11-20",
                     "ok_now": true
                   },
                   "earth2.spc": {
-                    "last_ok_date": "2026-11-19",
+                    "last_ok_date": "2026-11-20",
                     "consecutive_failures": 0,
-                    "last_attempt_date": "2026-11-19",
+                    "last_attempt_date": "2026-11-20",
                     "ok_now": true
                   },
                   "earth2.nhc": {
-                    "last_ok_date": "2026-11-19",
+                    "last_ok_date": "2026-11-20",
                     "consecutive_failures": 0,
-                    "last_attempt_date": "2026-11-19",
+                    "last_attempt_date": "2026-11-20",
                     "ok_now": true
                   },
                   "deep2.scales": {
-                    "last_ok_date": "2026-11-19",
+                    "last_ok_date": "2026-11-20",
                     "consecutive_failures": 0,
-                    "last_attempt_date": "2026-11-19",
+                    "last_attempt_date": "2026-11-20",
                     "ok_now": true
                   },
                   "deep2.sun": {
-                    "last_ok_date": "2026-11-19",
+                    "last_ok_date": "2026-11-20",
                     "consecutive_failures": 0,
-                    "last_attempt_date": "2026-11-19",
+                    "last_attempt_date": "2026-11-20",
                     "ok_now": true
                   },
                   "deep2.cme": {
-                    "last_ok_date": "2026-11-19",
+                    "last_ok_date": "2026-11-20",
                     "consecutive_failures": 0,
-                    "last_attempt_date": "2026-11-19",
+                    "last_attempt_date": "2026-11-20",
                     "ok_now": true
                   },
                   "deep2.sentry": {
-                    "last_ok_date": "2026-11-19",
+                    "last_ok_date": "2026-11-20",
                     "consecutive_failures": 0,
-                    "last_attempt_date": "2026-11-19",
+                    "last_attempt_date": "2026-11-20",
                     "ok_now": true
                   },
                   "deep2.fireball": {
-                    "last_ok_date": "2026-11-19",
+                    "last_ok_date": "2026-11-20",
                     "consecutive_failures": 0,
-                    "last_attempt_date": "2026-11-19",
+                    "last_attempt_date": "2026-11-20",
                     "ok_now": true
                   },
                   "deep2.dsn": {
-                    "last_ok_date": "2026-11-19",
+                    "last_ok_date": "2026-11-20",
                     "consecutive_failures": 0,
-                    "last_attempt_date": "2026-11-19",
+                    "last_attempt_date": "2026-11-20",
                     "ok_now": true
                   },
                   "human2.fema": {
-                    "last_ok_date": "2026-11-19",
+                    "last_ok_date": "2026-11-20",
                     "consecutive_failures": 0,
-                    "last_attempt_date": "2026-11-19",
+                    "last_attempt_date": "2026-11-20",
                     "ok_now": true
                   },
                   "human2.fda": {
-                    "last_ok_date": null,
-                    "consecutive_failures": 1,
-                    "last_attempt_date": "2026-11-19",
-                    "ok_now": false
+                    "last_ok_date": "2026-11-20",
+                    "consecutive_failures": 0,
+                    "last_attempt_date": "2026-11-20",
+                    "ok_now": true
                   },
                   "human2.powerball": {
-                    "last_ok_date": "2026-11-19",
+                    "last_ok_date": "2026-11-20",
                     "consecutive_failures": 0,
-                    "last_attempt_date": "2026-11-19",
+                    "last_attempt_date": "2026-11-20",
                     "ok_now": true
                   },
                   "human2.eth": {
-                    "last_ok_date": "2026-11-19",
+                    "last_ok_date": "2026-11-20",
                     "consecutive_failures": 0,
-                    "last_attempt_date": "2026-11-19",
+                    "last_attempt_date": "2026-11-20",
                     "ok_now": true
                   },
                   "human2.metals": {
                     "last_ok_date": null,
                     "consecutive_failures": 1,
-                    "last_attempt_date": "2026-11-19",
+                    "last_attempt_date": "2026-11-20",
                     "ok_now": false
                   }
                 },
                 "weather": {
-                  "last_ok_date": "2026-11-20",
+                  "last_ok_date": "2026-11-21",
                   "consecutive_failures": 0,
-                  "last_attempt_date": "2026-11-20",
+                  "last_attempt_date": "2026-11-21",
                   "ok_now": true
                 },
                 "local_news": {
-                  "last_ok_date": "2026-11-20",
+                  "last_ok_date": "2026-11-21",
                   "consecutive_failures": 0,
-                  "last_attempt_date": "2026-11-20",
+                  "last_attempt_date": "2026-11-21",
                   "ok_now": true
                 },
                 "world_news": {
-                  "last_ok_date": "2026-11-20",
+                  "last_ok_date": "2026-11-21",
                   "consecutive_failures": 0,
-                  "last_attempt_date": "2026-11-20",
+                  "last_attempt_date": "2026-11-21",
                   "ok_now": true
                 },
                 "traffic": {
-                  "last_ok_date": "2026-11-20",
+                  "last_ok_date": "2026-11-21",
                   "consecutive_failures": 0,
-                  "last_attempt_date": "2026-11-20",
+                  "last_attempt_date": "2026-11-21",
                   "ok_now": true
                 },
                 "quakes": {
-                  "last_ok_date": "2026-11-20",
+                  "last_ok_date": "2026-11-21",
                   "consecutive_failures": 0,
-                  "last_attempt_date": "2026-11-20",
+                  "last_attempt_date": "2026-11-21",
                   "ok_now": true
                 },
                 "schumann": {
-                  "last_ok_date": "2026-11-20",
+                  "last_ok_date": "2026-11-21",
                   "consecutive_failures": 0,
-                  "last_attempt_date": "2026-11-20",
+                  "last_attempt_date": "2026-11-21",
                   "ok_now": true
                 },
                 "space_weather": {
-                  "last_ok_date": "2026-11-20",
+                  "last_ok_date": "2026-11-21",
                   "consecutive_failures": 0,
-                  "last_attempt_date": "2026-11-20",
+                  "last_attempt_date": "2026-11-21",
                   "ok_now": true
                 },
                 "gw": {
-                  "last_ok_date": "2026-11-20",
+                  "last_ok_date": "2026-11-21",
                   "consecutive_failures": 0,
-                  "last_attempt_date": "2026-11-20",
+                  "last_attempt_date": "2026-11-21",
                   "ok_now": true
                 },
                 "space_news": {
-                  "last_ok_date": "2026-11-20",
+                  "last_ok_date": "2026-11-21",
                   "consecutive_failures": 0,
-                  "last_attempt_date": "2026-11-20",
+                  "last_attempt_date": "2026-11-21",
                   "ok_now": true
                 },
                 "facebook": {
-                  "last_ok_date": "2026-11-20",
+                  "last_ok_date": "2026-11-21",
                   "consecutive_failures": 0,
-                  "last_attempt_date": "2026-11-20",
+                  "last_attempt_date": "2026-11-21",
                   "ok_now": true
                 },
                 "moon_sky": {
-                  "last_ok_date": "2026-11-20",
+                  "last_ok_date": "2026-11-21",
                   "consecutive_failures": 0,
-                  "last_attempt_date": "2026-11-20",
+                  "last_attempt_date": "2026-11-21",
                   "ok_now": true
                 },
                 "cycles": {
-                  "last_ok_date": "2026-11-20",
+                  "last_ok_date": "2026-11-21",
                   "consecutive_failures": 0,
-                  "last_attempt_date": "2026-11-20",
+                  "last_attempt_date": "2026-11-21",
                   "ok_now": true
                 },
                 "earth_extras": {
-                  "last_ok_date": "2026-11-20",
+                  "last_ok_date": "2026-11-21",
                   "consecutive_failures": 0,
-                  "last_attempt_date": "2026-11-20",
+                  "last_attempt_date": "2026-11-21",
                   "ok_now": true
                 },
                 "human_world": {
-                  "last_ok_date": "2026-11-20",
+                  "last_ok_date": "2026-11-21",
                   "consecutive_failures": 0,
-                  "last_attempt_date": "2026-11-20",
+                  "last_attempt_date": "2026-11-21",
                   "ok_now": true
                 },
                 "earth2": {
-                  "last_ok_date": "2026-11-20",
+                  "last_ok_date": "2026-11-21",
                   "consecutive_failures": 0,
-                  "last_attempt_date": "2026-11-20",
+                  "last_attempt_date": "2026-11-21",
                   "ok_now": true
                 },
                 "deep2": {
-                  "last_ok_date": "2026-11-20",
+                  "last_ok_date": "2026-11-21",
                   "consecutive_failures": 0,
-                  "last_attempt_date": "2026-11-20",
+                  "last_attempt_date": "2026-11-21",
                   "ok_now": true
                 },
                 "sky_tonight": {
-                  "last_ok_date": "2026-11-20",
+                  "last_ok_date": "2026-11-21",
                   "consecutive_failures": 0,
-                  "last_attempt_date": "2026-11-20",
+                  "last_attempt_date": "2026-11-21",
                   "ok_now": true
                 },
                 "cycles_full": {
-                  "last_ok_date": "2026-11-20",
+                  "last_ok_date": "2026-11-21",
                   "consecutive_failures": 0,
-                  "last_attempt_date": "2026-11-20",
+                  "last_attempt_date": "2026-11-21",
                   "ok_now": true
                 },
                 "human2": {
-                  "last_ok_date": "2026-11-20",
+                  "last_ok_date": "2026-11-21",
                   "consecutive_failures": 0,
-                  "last_attempt_date": "2026-11-20",
+                  "last_attempt_date": "2026-11-21",
                   "ok_now": true
                 },
                 "findings": {
-                  "last_ok_date": "2026-11-20",
+                  "last_ok_date": "2026-11-21",
                   "consecutive_failures": 0,
-                  "last_attempt_date": "2026-11-20",
+                  "last_attempt_date": "2026-11-21",
                   "ok_now": true
                 },
                 "earth2.rivers": {
-                  "last_ok_date": "2026-11-20",
+                  "last_ok_date": "2026-11-21",
                   "consecutive_failures": 0,
-                  "last_attempt_date": "2026-11-20",
+                  "last_attempt_date": "2026-11-21",
                   "ok_now": true
                 },
                 "earth2.tsunami": {
-                  "last_ok_date": "2026-11-20",
+                  "last_ok_date": "2026-11-21",
                   "consecutive_failures": 0,
-                  "last_attempt_date": "2026-11-20",
+                  "last_attempt_date": "2026-11-21",
                   "ok_now": true
                 },
                 "earth2.drought": {
-                  "last_ok_date": "2026-11-20",
+                  "last_ok_date": "2026-11-21",
                   "consecutive_failures": 0,
-                  "last_attempt_date": "2026-11-20",
+                  "last_attempt_date": "2026-11-21",
                   "ok_now": true
                 },
                 "earth2.oni": {
-                  "last_ok_date": "2026-11-20",
+                  "last_ok_date": "2026-11-21",
                   "consecutive_failures": 0,
-                  "last_attempt_date": "2026-11-20",
+                  "last_attempt_date": "2026-11-21",
                   "ok_now": true
                 },
                 "earth2.co2": {
-                  "last_ok_date": "2026-11-20",
+                  "last_ok_date": "2026-11-21",
                   "consecutive_failures": 0,
-                  "last_attempt_date": "2026-11-20",
+                  "last_attempt_date": "2026-11-21",
                   "ok_now": true
                 },
                 "earth2.spc": {
-                  "last_ok_date": "2026-11-20",
+                  "last_ok_date": "2026-11-21",
                   "consecutive_failures": 0,
-                  "last_attempt_date": "2026-11-20",
+                  "last_attempt_date": "2026-11-21",
                   "ok_now": true
                 },
                 "earth2.nhc": {
-                  "last_ok_date": "2026-11-20",
+                  "last_ok_date": "2026-11-21",
                   "consecutive_failures": 0,
-                  "last_attempt_date": "2026-11-20",
+                  "last_attempt_date": "2026-11-21",
                   "ok_now": true
                 },
                 "deep2.scales": {
-                  "last_ok_date": "2026-11-20",
+                  "last_ok_date": "2026-11-21",
                   "consecutive_failures": 0,
-                  "last_attempt_date": "2026-11-20",
+                  "last_attempt_date": "2026-11-21",
                   "ok_now": true
                 },
                 "deep2.sun": {
-                  "last_ok_date": "2026-11-20",
+                  "last_ok_date": "2026-11-21",
                   "consecutive_failures": 0,
-                  "last_attempt_date": "2026-11-20",
+                  "last_attempt_date": "2026-11-21",
                   "ok_now": true
                 },
                 "deep2.cme": {
-                  "last_ok_date": "2026-11-20",
+                  "last_ok_date": "2026-11-21",
                   "consecutive_failures": 0,
-                  "last_attempt_date": "2026-11-20",
+                  "last_attempt_date": "2026-11-21",
                   "ok_now": true
                 },
                 "deep2.sentry": {
-                  "last_ok_date": "2026-11-20",
+                  "last_ok_date": "2026-11-21",
                   "consecutive_failures": 0,
-                  "last_attempt_date": "2026-11-20",
+                  "last_attempt_date": "2026-11-21",
                   "ok_now": true
                 },
                 "deep2.fireball": {
-                  "last_ok_date": "2026-11-20",
+                  "last_ok_date": "2026-11-21",
                   "consecutive_failures": 0,
-                  "last_attempt_date": "2026-11-20",
+                  "last_attempt_date": "2026-11-21",
                   "ok_now": true
                 },
                 "deep2.dsn": {
-                  "last_ok_date": "2026-11-20",
+                  "last_ok_date": "2026-11-21",
                   "consecutive_failures": 0,
-                  "last_attempt_date": "2026-11-20",
+                  "last_attempt_date": "2026-11-21",
                   "ok_now": true
                 },
                 "human2.fema": {
-                  "last_ok_date": "2026-11-20",
+                  "last_ok_date": "2026-11-21",
                   "consecutive_failures": 0,
-                  "last_attempt_date": "2026-11-20",
+                  "last_attempt_date": "2026-11-21",
                   "ok_now": true
                 },
                 "human2.fda": {
-                  "last_ok_date": "2026-11-20",
+                  "last_ok_date": "2026-11-21",
                   "consecutive_failures": 0,
-                  "last_attempt_date": "2026-11-20",
+                  "last_attempt_date": "2026-11-21",
                   "ok_now": true
                 },
                 "human2.powerball": {
-                  "last_ok_date": "2026-11-20",
+                  "last_ok_date": "2026-11-21",
                   "consecutive_failures": 0,
-                  "last_attempt_date": "2026-11-20",
+                  "last_attempt_date": "2026-11-21",
                   "ok_now": true
                 },
                 "human2.eth": {
-                  "last_ok_date": "2026-11-20",
+                  "last_ok_date": "2026-11-21",
                   "consecutive_failures": 0,
-                  "last_attempt_date": "2026-11-20",
+                  "last_attempt_date": "2026-11-21",
                   "ok_now": true
                 },
                 "human2.metals": {
                   "last_ok_date": null,
                   "consecutive_failures": 1,
-                  "last_attempt_date": "2026-11-20",
+                  "last_attempt_date": "2026-11-21",
                   "ok_now": false
                 }
               },
               "weather": {
-                "last_ok_date": "2026-11-21",
+                "last_ok_date": "2026-11-22",
                 "consecutive_failures": 0,
-                "last_attempt_date": "2026-11-21",
+                "last_attempt_date": "2026-11-22",
                 "ok_now": true
               },
               "local_news": {
-                "last_ok_date": "2026-11-21",
+                "last_ok_date": "2026-11-22",
                 "consecutive_failures": 0,
-                "last_attempt_date": "2026-11-21",
+                "last_attempt_date": "2026-11-22",
                 "ok_now": true
               },
               "world_news": {
-                "last_ok_date": "2026-11-21",
+                "last_ok_date": "2026-11-22",
                 "consecutive_failures": 0,
-                "last_attempt_date": "2026-11-21",
+                "last_attempt_date": "2026-11-22",
                 "ok_now": true
               },
               "traffic": {
-                "last_ok_date": "2026-11-21",
+                "last_ok_date": "2026-11-22",
                 "consecutive_failures": 0,
-                "last_attempt_date": "2026-11-21",
+                "last_attempt_date": "2026-11-22",
                 "ok_now": true
               },
               "quakes": {
-                "last_ok_date": "2026-11-21",
+                "last_ok_date": "2026-11-22",
                 "consecutive_failures": 0,
-                "last_attempt_date": "2026-11-21",
+                "last_attempt_date": "2026-11-22",
                 "ok_now": true
               },
               "schumann": {
-                "last_ok_date": "2026-11-21",
+                "last_ok_date": "2026-11-22",
                 "consecutive_failures": 0,
-                "last_attempt_date": "2026-11-21",
+                "last_attempt_date": "2026-11-22",
                 "ok_now": true
               },
               "space_weather": {
-                "last_ok_date": "2026-11-21",
+                "last_ok_date": "2026-11-22",
                 "consecutive_failures": 0,
-                "last_attempt_date": "2026-11-21",
+                "last_attempt_date": "2026-11-22",
                 "ok_now": true
               },
               "gw": {
-                "last_ok_date": "2026-11-21",
+                "last_ok_date": "2026-11-22",
                 "consecutive_failures": 0,
-                "last_attempt_date": "2026-11-21",
+                "last_attempt_date": "2026-11-22",
                 "ok_now": true
               },
               "space_news": {
-                "last_ok_date": "2026-11-21",
+                "last_ok_date": "2026-11-22",
                 "consecutive_failures": 0,
-                "last_attempt_date": "2026-11-21",
+                "last_attempt_date": "2026-11-22",
                 "ok_now": true
               },
               "facebook": {
-                "last_ok_date": "2026-11-21",
+                "last_ok_date": "2026-11-22",
                 "consecutive_failures": 0,
-                "last_attempt_date": "2026-11-21",
+                "last_attempt_date": "2026-11-22",
                 "ok_now": true
               },
               "moon_sky": {
-                "last_ok_date": "2026-11-21",
+                "last_ok_date": "2026-11-22",
                 "consecutive_failures": 0,
-                "last_attempt_date": "2026-11-21",
+                "last_attempt_date": "2026-11-22",
                 "ok_now": true
               },
               "cycles": {
-                "last_ok_date": "2026-11-21",
+                "last_ok_date": "2026-11-22",
                 "consecutive_failures": 0,
-                "last_attempt_date": "2026-11-21",
+                "last_attempt_date": "2026-11-22",
                 "ok_now": true
               },
               "earth_extras": {
-                "last_ok_date": "2026-11-21",
+                "last_ok_date": "2026-11-22",
                 "consecutive_failures": 0,
-                "last_attempt_date": "2026-11-21",
+                "last_attempt_date": "2026-11-22",
                 "ok_now": true
               },
               "human_world": {
-                "last_ok_date": "2026-11-21",
+                "last_ok_date": "2026-11-22",
                 "consecutive_failures": 0,
-                "last_attempt_date": "2026-11-21",
+                "last_attempt_date": "2026-11-22",
                 "ok_now": true
               },
               "earth2": {
-                "last_ok_date": "2026-11-21",
+                "last_ok_date": "2026-11-22",
                 "consecutive_failures": 0,
-                "last_attempt_date": "2026-11-21",
+                "last_attempt_date": "2026-11-22",
                 "ok_now": true
               },
               "deep2": {
-                "last_ok_date": "2026-11-21",
+                "last_ok_date": "2026-11-22",
                 "consecutive_failures": 0,
-                "last_attempt_date": "2026-11-21",
+                "last_attempt_date": "2026-11-22",
                 "ok_now": true
               },
               "sky_tonight": {
-                "last_ok_date": "2026-11-21",
+                "last_ok_date": "2026-11-22",
                 "consecutive_failures": 0,
-                "last_attempt_date": "2026-11-21",
+                "last_attempt_date": "2026-11-22",
                 "ok_now": true
               },
               "cycles_full": {
-                "last_ok_date": "2026-11-21",
+                "last_ok_date": "2026-11-22",
                 "consecutive_failures": 0,
-                "last_attempt_date": "2026-11-21",
+                "last_attempt_date": "2026-11-22",
                 "ok_now": true
               },
               "human2": {
-                "last_ok_date": "2026-11-21",
+                "last_ok_date": "2026-11-22",
                 "consecutive_failures": 0,
-                "last_attempt_date": "2026-11-21",
+                "last_attempt_date": "2026-11-22",
                 "ok_now": true
               },
               "findings": {
-                "last_ok_date": "2026-11-21",
+                "last_ok_date": "2026-11-22",
                 "consecutive_failures": 0,
-                "last_attempt_date": "2026-11-21",
+                "last_attempt_date": "2026-11-22",
                 "ok_now": true
               },
               "earth2.rivers": {
-                "last_ok_date": "2026-11-21",
-                "consecutive_failures": 0,
-                "last_attempt_date": "2026-11-21",
-                "ok_now": true
+                "last_ok_date": null,
+                "consecutive_failures": 1,
+                "last_attempt_date": "2026-11-22",
+                "ok_now": false
               },
               "earth2.tsunami": {
-                "last_ok_date": "2026-11-21",
+                "last_ok_date": "2026-11-22",
                 "consecutive_failures": 0,
-                "last_attempt_date": "2026-11-21",
+                "last_attempt_date": "2026-11-22",
                 "ok_now": true
               },
               "earth2.drought": {
-                "last_ok_date": "2026-11-21",
+                "last_ok_date": "2026-11-22",
                 "consecutive_failures": 0,
-                "last_attempt_date": "2026-11-21",
+                "last_attempt_date": "2026-11-22",
                 "ok_now": true
               },
               "earth2.oni": {
-                "last_ok_date": "2026-11-21",
+                "last_ok_date": "2026-11-22",
                 "consecutive_failures": 0,
-                "last_attempt_date": "2026-11-21",
+                "last_attempt_date": "2026-11-22",
                 "ok_now": true
               },
               "earth2.co2": {
-                "last_ok_date": "2026-11-21",
+                "last_ok_date": "2026-11-22",
                 "consecutive_failures": 0,
-                "last_attempt_date": "2026-11-21",
+                "last_attempt_date": "2026-11-22",
                 "ok_now": true
               },
               "earth2.spc": {
-                "last_ok_date": "2026-11-21",
+                "last_ok_date": "2026-11-22",
                 "consecutive_failures": 0,
-                "last_attempt_date": "2026-11-21",
+                "last_attempt_date": "2026-11-22",
                 "ok_now": true
               },
               "earth2.nhc": {
-                "last_ok_date": "2026-11-21",
+                "last_ok_date": "2026-11-22",
                 "consecutive_failures": 0,
-                "last_attempt_date": "2026-11-21",
+                "last_attempt_date": "2026-11-22",
                 "ok_now": true
               },
               "deep2.scales": {
-                "last_ok_date": "2026-11-21",
+                "last_ok_date": "2026-11-22",
                 "consecutive_failures": 0,
-                "last_attempt_date": "2026-11-21",
+                "last_attempt_date": "2026-11-22",
                 "ok_now": true
               },
               "deep2.sun": {
-                "last_ok_date": "2026-11-21",
+                "last_ok_date": "2026-11-22",
                 "consecutive_failures": 0,
-                "last_attempt_date": "2026-11-21",
+                "last_attempt_date": "2026-11-22",
                 "ok_now": true
               },
               "deep2.cme": {
-                "last_ok_date": "2026-11-21",
+                "last_ok_date": "2026-11-22",
                 "consecutive_failures": 0,
-                "last_attempt_date": "2026-11-21",
+                "last_attempt_date": "2026-11-22",
                 "ok_now": true
               },
               "deep2.sentry": {
-                "last_ok_date": "2026-11-21",
+                "last_ok_date": "2026-11-22",
                 "consecutive_failures": 0,
-                "last_attempt_date": "2026-11-21",
+                "last_attempt_date": "2026-11-22",
                 "ok_now": true
               },
               "deep2.fireball": {
-                "last_ok_date": "2026-11-21",
+                "last_ok_date": "2026-11-22",
                 "consecutive_failures": 0,
-                "last_attempt_date": "2026-11-21",
+                "last_attempt_date": "2026-11-22",
                 "ok_now": true
               },
               "deep2.dsn": {
-                "last_ok_date": "2026-11-21",
+                "last_ok_date": "2026-11-22",
                 "consecutive_failures": 0,
-                "last_attempt_date": "2026-11-21",
+                "last_attempt_date": "2026-11-22",
                 "ok_now": true
               },
               "human2.fema": {
-                "last_ok_date": "2026-11-21",
+                "last_ok_date": "2026-11-22",
                 "consecutive_failures": 0,
-                "last_attempt_date": "2026-11-21",
+                "last_attempt_date": "2026-11-22",
                 "ok_now": true
               },
               "human2.fda": {
-                "last_ok_date": "2026-11-21",
+                "last_ok_date": "2026-11-22",
                 "consecutive_failures": 0,
-                "last_attempt_date": "2026-11-21",
+                "last_attempt_date": "2026-11-22",
                 "ok_now": true
               },
               "human2.powerball": {
-                "last_ok_date": "2026-11-21",
+                "last_ok_date": "2026-11-22",
                 "consecutive_failures": 0,
-                "last_attempt_date": "2026-11-21",
+                "last_attempt_date": "2026-11-22",
                 "ok_now": true
               },
               "human2.eth": {
-                "last_ok_date": "2026-11-21",
+                "last_ok_date": "2026-11-22",
                 "consecutive_failures": 0,
-                "last_attempt_date": "2026-11-21",
+                "last_attempt_date": "2026-11-22",
                 "ok_now": true
               },
               "human2.metals": {
                 "last_ok_date": null,
                 "consecutive_failures": 1,
-                "last_attempt_date": "2026-11-21",
+                "last_attempt_date": "2026-11-22",
                 "ok_now": false
               }
             },
             "weather": {
-              "last_ok_date": "2026-11-22",
+              "last_ok_date": "2026-11-23",
               "consecutive_failures": 0,
-              "last_attempt_date": "2026-11-22",
+              "last_attempt_date": "2026-11-23",
               "ok_now": true
             },
             "local_news": {
-              "last_ok_date": "2026-11-22",
+              "last_ok_date": "2026-11-23",
               "consecutive_failures": 0,
-              "last_attempt_date": "2026-11-22",
+              "last_attempt_date": "2026-11-23",
               "ok_now": true
             },
             "world_news": {
-              "last_ok_date": "2026-11-22",
+              "last_ok_date": "2026-11-23",
               "consecutive_failures": 0,
-              "last_attempt_date": "2026-11-22",
+              "last_attempt_date": "2026-11-23",
               "ok_now": true
             },
             "traffic": {
-              "last_ok_date": "2026-11-22",
+              "last_ok_date": "2026-11-23",
               "consecutive_failures": 0,
-              "last_attempt_date": "2026-11-22",
+              "last_attempt_date": "2026-11-23",
               "ok_now": true
             },
             "quakes": {
-              "last_ok_date": "2026-11-22",
+              "last_ok_date": "2026-11-23",
               "consecutive_failures": 0,
-              "last_attempt_date": "2026-11-22",
+              "last_attempt_date": "2026-11-23",
               "ok_now": true
             },
             "schumann": {
-              "last_ok_date": "2026-11-22",
+              "last_ok_date": "2026-11-23",
               "consecutive_failures": 0,
-              "last_attempt_date": "2026-11-22",
+              "last_attempt_date": "2026-11-23",
               "ok_now": true
             },
             "space_weather": {
-              "last_ok_date": "2026-11-22",
+              "last_ok_date": "2026-11-23",
               "consecutive_failures": 0,
-              "last_attempt_date": "2026-11-22",
+              "last_attempt_date": "2026-11-23",
               "ok_now": true
             },
             "gw": {
-              "last_ok_date": "2026-11-22",
+              "last_ok_date": "2026-11-23",
               "consecutive_failures": 0,
-              "last_attempt_date": "2026-11-22",
+              "last_attempt_date": "2026-11-23",
               "ok_now": true
             },
             "space_news": {
-              "last_ok_date": "2026-11-22",
+              "last_ok_date": "2026-11-23",
               "consecutive_failures": 0,
-              "last_attempt_date": "2026-11-22",
+              "last_attempt_date": "2026-11-23",
               "ok_now": true
             },
             "facebook": {
-              "last_ok_date": "2026-11-22",
+              "last_ok_date": "2026-11-23",
               "consecutive_failures": 0,
-              "last_attempt_date": "2026-11-22",
+              "last_attempt_date": "2026-11-23",
               "ok_now": true
             },
             "moon_sky": {
-              "last_ok_date": "2026-11-22",
+              "last_ok_date": "2026-11-23",
               "consecutive_failures": 0,
-              "last_attempt_date": "2026-11-22",
+              "last_attempt_date": "2026-11-23",
               "ok_now": true
             },
             "cycles": {
-              "last_ok_date": "2026-11-22",
+              "last_ok_date": "2026-11-23",
               "consecutive_failures": 0,
-              "last_attempt_date": "2026-11-22",
+              "last_attempt_date": "2026-11-23",
               "ok_now": true
             },
             "earth_extras": {
-              "last_ok_date": "2026-11-22",
+              "last_ok_date": "2026-11-23",
               "consecutive_failures": 0,
-              "last_attempt_date": "2026-11-22",
+              "last_attempt_date": "2026-11-23",
               "ok_now": true
             },
             "human_world": {
-              "last_ok_date": "2026-11-22",
+              "last_ok_date": "2026-11-23",
               "consecutive_failures": 0,
-              "last_attempt_date": "2026-11-22",
+              "last_attempt_date": "2026-11-23",
               "ok_now": true
             },
             "earth2": {
-              "last_ok_date": "2026-11-22",
+              "last_ok_date": "2026-11-23",
               "consecutive_failures": 0,
-              "last_attempt_date": "2026-11-22",
+              "last_attempt_date": "2026-11-23",
               "ok_now": true
             },
             "deep2": {
-              "last_ok_date": "2026-11-22",
+              "last_ok_date": "2026-11-23",
               "consecutive_failures": 0,
-              "last_attempt_date": "2026-11-22",
+              "last_attempt_date": "2026-11-23",
               "ok_now": true
             },
             "sky_tonight": {
-              "last_ok_date": "2026-11-22",
+              "last_ok_date": "2026-11-23",
               "consecutive_failures": 0,
-              "last_attempt_date": "2026-11-22",
+              "last_attempt_date": "2026-11-23",
               "ok_now": true
             },
             "cycles_full": {
-              "last_ok_date": "2026-11-22",
+              "last_ok_date": "2026-11-23",
               "consecutive_failures": 0,
-              "last_attempt_date": "2026-11-22",
+              "last_attempt_date": "2026-11-23",
               "ok_now": true
             },
             "human2": {
-              "last_ok_date": "2026-11-22",
+              "last_ok_date": "2026-11-23",
               "consecutive_failures": 0,
-              "last_attempt_date": "2026-11-22",
+              "last_attempt_date": "2026-11-23",
               "ok_now": true
             },
             "findings": {
-              "last_ok_date": "2026-11-22",
+              "last_ok_date": "2026-11-23",
               "consecutive_failures": 0,
-              "last_attempt_date": "2026-11-22",
+              "last_attempt_date": "2026-11-23",
               "ok_now": true
             },
             "earth2.rivers": {
               "last_ok_date": null,
               "consecutive_failures": 1,
-              "last_attempt_date": "2026-11-22",
+              "last_attempt_date": "2026-11-23",
               "ok_now": false
             },
             "earth2.tsunami": {
-              "last_ok_date": "2026-11-22",
+              "last_ok_date": "2026-11-23",
               "consecutive_failures": 0,
-              "last_attempt_date": "2026-11-22",
+              "last_attempt_date": "2026-11-23",
               "ok_now": true
             },
             "earth2.drought": {
-              "last_ok_date": "2026-11-22",
+              "last_ok_date": "2026-11-23",
               "consecutive_failures": 0,
-              "last_attempt_date": "2026-11-22",
+              "last_attempt_date": "2026-11-23",
               "ok_now": true
             },
             "earth2.oni": {
-              "last_ok_date": "2026-11-22",
+              "last_ok_date": "2026-11-23",
               "consecutive_failures": 0,
-              "last_attempt_date": "2026-11-22",
+              "last_attempt_date": "2026-11-23",
               "ok_now": true
             },
             "earth2.co2": {
-              "last_ok_date": "2026-11-22",
+              "last_ok_date": "2026-11-23",
               "consecutive_failures": 0,
-              "last_attempt_date": "2026-11-22",
+              "last_attempt_date": "2026-11-23",
               "ok_now": true
             },
             "earth2.spc": {
-              "last_ok_date": "2026-11-22",
+              "last_ok_date": "2026-11-23",
               "consecutive_failures": 0,
-              "last_attempt_date": "2026-11-22",
+              "last_attempt_date": "2026-11-23",
               "ok_now": true
             },
             "earth2.nhc": {
-              "last_ok_date": "2026-11-22",
+              "last_ok_date": "2026-11-23",
               "consecutive_failures": 0,
-              "last_attempt_date": "2026-11-22",
+              "last_attempt_date": "2026-11-23",
               "ok_now": true
             },
             "deep2.scales": {
-              "last_ok_date": "2026-11-22",
+              "last_ok_date": "2026-11-23",
               "consecutive_failures": 0,
-              "last_attempt_date": "2026-11-22",
+              "last_attempt_date": "2026-11-23",
               "ok_now": true
             },
             "deep2.sun": {
-              "last_ok_date": "2026-11-22",
+              "last_ok_date": "2026-11-23",
               "consecutive_failures": 0,
-              "last_attempt_date": "2026-11-22",
+              "last_attempt_date": "2026-11-23",
               "ok_now": true
             },
             "deep2.cme": {
-              "last_ok_date": "2026-11-22",
+              "last_ok_date": "2026-11-23",
               "consecutive_failures": 0,
-              "last_attempt_date": "2026-11-22",
+              "last_attempt_date": "2026-11-23",
               "ok_now": true
             },
             "deep2.sentry": {
-              "last_ok_date": "2026-11-22",
+              "last_ok_date": "2026-11-23",
               "consecutive_failures": 0,
-              "last_attempt_date": "2026-11-22",
+              "last_attempt_date": "2026-11-23",
               "ok_now": true
             },
             "deep2.fireball": {
-              "last_ok_date": "2026-11-22",
+              "last_ok_date": "2026-11-23",
               "consecutive_failures": 0,
-              "last_attempt_date": "2026-11-22",
+              "last_attempt_date": "2026-11-23",
               "ok_now": true
             },
             "deep2.dsn": {
-              "last_ok_date": "2026-11-22",
+              "last_ok_date": "2026-11-23",
               "consecutive_failures": 0,
-              "last_attempt_date": "2026-11-22",
+              "last_attempt_date": "2026-11-23",
               "ok_now": true
             },
             "human2.fema": {
-              "last_ok_date": "2026-11-22",
+              "last_ok_date": "2026-11-23",
               "consecutive_failures": 0,
-              "last_attempt_date": "2026-11-22",
+              "last_attempt_date": "2026-11-23",
               "ok_now": true
             },
             "human2.fda": {
-              "last_ok_date": "2026-11-22",
+              "last_ok_date": "2026-11-23",
               "consecutive_failures": 0,
-              "last_attempt_date": "2026-11-22",
+              "last_attempt_date": "2026-11-23",
               "ok_now": true
             },
             "human2.powerball": {
-              "last_ok_date": "2026-11-22",
+              "last_ok_date": "2026-11-23",
               "consecutive_failures": 0,
-              "last_attempt_date": "2026-11-22",
+              "last_attempt_date": "2026-11-23",
               "ok_now": true
             },
             "human2.eth": {
-              "last_ok_date": "2026-11-22",
+              "last_ok_date": "2026-11-23",
               "consecutive_failures": 0,
-              "last_attempt_date": "2026-11-22",
+              "last_attempt_date": "2026-11-23",
               "ok_now": true
             },
             "human2.metals": {
               "last_ok_date": null,
               "consecutive_failures": 1,
-              "last_attempt_date": "2026-11-22",
+              "last_attempt_date": "2026-11-23",
               "ok_now": false
             }
           },
           "weather": {
-            "last_ok_date": "2026-11-23",
+            "last_ok_date": "2026-11-24",
             "consecutive_failures": 0,
-            "last_attempt_date": "2026-11-23",
+            "last_attempt_date": "2026-11-24",
             "ok_now": true
           },
           "local_news": {
-            "last_ok_date": "2026-11-23",
+            "last_ok_date": "2026-11-24",
             "consecutive_failures": 0,
-            "last_attempt_date": "2026-11-23",
+            "last_attempt_date": "2026-11-24",
             "ok_now": true
           },
           "world_news": {
-            "last_ok_date": "2026-11-23",
+            "last_ok_date": "2026-11-24",
             "consecutive_failures": 0,
-            "last_attempt_date": "2026-11-23",
+            "last_attempt_date": "2026-11-24",
             "ok_now": true
           },
           "traffic": {
-            "last_ok_date": "2026-11-23",
+            "last_ok_date": "2026-11-24",
             "consecutive_failures": 0,
-            "last_attempt_date": "2026-11-23",
+            "last_attempt_date": "2026-11-24",
             "ok_now": true
           },
           "quakes": {
-            "last_ok_date": "2026-11-23",
+            "last_ok_date": "2026-11-24",
             "consecutive_failures": 0,
-            "last_attempt_date": "2026-11-23",
+            "last_attempt_date": "2026-11-24",
             "ok_now": true
           },
           "schumann": {
-            "last_ok_date": "2026-11-23",
+            "last_ok_date": "2026-11-24",
             "consecutive_failures": 0,
-            "last_attempt_date": "2026-11-23",
+            "last_attempt_date": "2026-11-24",
             "ok_now": true
           },
           "space_weather": {
-            "last_ok_date": "2026-11-23",
+            "last_ok_date": "2026-11-24",
             "consecutive_failures": 0,
-            "last_attempt_date": "2026-11-23",
+            "last_attempt_date": "2026-11-24",
             "ok_now": true
           },
           "gw": {
-            "last_ok_date": "2026-11-23",
+            "last_ok_date": "2026-11-24",
             "consecutive_failures": 0,
-            "last_attempt_date": "2026-11-23",
+            "last_attempt_date": "2026-11-24",
             "ok_now": true
           },
           "space_news": {
-            "last_ok_date": "2026-11-23",
+            "last_ok_date": "2026-11-24",
             "consecutive_failures": 0,
-            "last_attempt_date": "2026-11-23",
+            "last_attempt_date": "2026-11-24",
             "ok_now": true
           },
           "facebook": {
-            "last_ok_date": "2026-11-23",
+            "last_ok_date": "2026-11-24",
             "consecutive_failures": 0,
-            "last_attempt_date": "2026-11-23",
+            "last_attempt_date": "2026-11-24",
             "ok_now": true
           },
           "moon_sky": {
-            "last_ok_date": "2026-11-23",
+            "last_ok_date": "2026-11-24",
             "consecutive_failures": 0,
-            "last_attempt_date": "2026-11-23",
+            "last_attempt_date": "2026-11-24",
             "ok_now": true
           },
           "cycles": {
-            "last_ok_date": "2026-11-23",
+            "last_ok_date": "2026-11-24",
             "consecutive_failures": 0,
-            "last_attempt_date": "2026-11-23",
+            "last_attempt_date": "2026-11-24",
             "ok_now": true
           },
           "earth_extras": {
-            "last_ok_date": "2026-11-23",
+            "last_ok_date": "2026-11-24",
             "consecutive_failures": 0,
-            "last_attempt_date": "2026-11-23",
+            "last_attempt_date": "2026-11-24",
             "ok_now": true
           },
           "human_world": {
-            "last_ok_date": "2026-11-23",
+            "last_ok_date": "2026-11-24",
             "consecutive_failures": 0,
-            "last_attempt_date": "2026-11-23",
+            "last_attempt_date": "2026-11-24",
             "ok_now": true
           },
           "earth2": {
-            "last_ok_date": "2026-11-23",
+            "last_ok_date": "2026-11-24",
             "consecutive_failures": 0,
-            "last_attempt_date": "2026-11-23",
+            "last_attempt_date": "2026-11-24",
             "ok_now": true
           },
           "deep2": {
-            "last_ok_date": "2026-11-23",
+            "last_ok_date": "2026-11-24",
             "consecutive_failures": 0,
-            "last_attempt_date": "2026-11-23",
+            "last_attempt_date": "2026-11-24",
             "ok_now": true
           },
           "sky_tonight": {
-            "last_ok_date": "2026-11-23",
+            "last_ok_date": "2026-11-24",
             "consecutive_failures": 0,
-            "last_attempt_date": "2026-11-23",
+            "last_attempt_date": "2026-11-24",
             "ok_now": true
           },
           "cycles_full": {
-            "last_ok_date": "2026-11-23",
+            "last_ok_date": "2026-11-24",
             "consecutive_failures": 0,
-            "last_attempt_date": "2026-11-23",
+            "last_attempt_date": "2026-11-24",
             "ok_now": true
           },
           "human2": {
-            "last_ok_date": "2026-11-23",
+            "last_ok_date": "2026-11-24",
             "consecutive_failures": 0,
-            "last_attempt_date": "2026-11-23",
+            "last_attempt_date": "2026-11-24",
             "ok_now": true
           },
           "findings": {
-            "last_ok_date": "2026-11-23",
+            "last_ok_date": "2026-11-24",
             "consecutive_failures": 0,
-            "last_attempt_date": "2026-11-23",
+            "last_attempt_date": "2026-11-24",
             "ok_now": true
           },
           "earth2.rivers": {
-            "last_ok_date": null,
-            "consecutive_failures": 1,
-            "last_attempt_date": "2026-11-23",
-            "ok_now": false
+            "last_ok_date": "2026-11-24",
+            "consecutive_failures": 0,
+            "last_attempt_date": "2026-11-24",
+            "ok_now": true
           },
           "earth2.tsunami": {
-            "last_ok_date": "2026-11-23",
+            "last_ok_date": "2026-11-24",
             "consecutive_failures": 0,
-            "last_attempt_date": "2026-11-23",
+            "last_attempt_date": "2026-11-24",
             "ok_now": true
           },
           "earth2.drought": {
-            "last_ok_date": "2026-11-23",
+            "last_ok_date": "2026-11-24",
             "consecutive_failures": 0,
-            "last_attempt_date": "2026-11-23",
+            "last_attempt_date": "2026-11-24",
             "ok_now": true
           },
           "earth2.oni": {
-            "last_ok_date": "2026-11-23",
+            "last_ok_date": "2026-11-24",
             "consecutive_failures": 0,
-            "last_attempt_date": "2026-11-23",
+            "last_attempt_date": "2026-11-24",
             "ok_now": true
           },
           "earth2.co2": {
-            "last_ok_date": "2026-11-23",
+            "last_ok_date": "2026-11-24",
             "consecutive_failures": 0,
-            "last_attempt_date": "2026-11-23",
+            "last_attempt_date": "2026-11-24",
             "ok_now": true
           },
           "earth2.spc": {
-            "last_ok_date": "2026-11-23",
+            "last_ok_date": "2026-11-24",
             "consecutive_failures": 0,
-            "last_attempt_date": "2026-11-23",
+            "last_attempt_date": "2026-11-24",
             "ok_now": true
           },
           "earth2.nhc": {
-            "last_ok_date": "2026-11-23",
+            "last_ok_date": "2026-11-24",
             "consecutive_failures": 0,
-            "last_attempt_date": "2026-11-23",
+            "last_attempt_date": "2026-11-24",
             "ok_now": true
           },
           "deep2.scales": {
-            "last_ok_date": "2026-11-23",
+            "last_ok_date": "2026-11-24",
             "consecutive_failures": 0,
-            "last_attempt_date": "2026-11-23",
+            "last_attempt_date": "2026-11-24",
             "ok_now": true
           },
           "deep2.sun": {
-            "last_ok_date": "2026-11-23",
+            "last_ok_date": "2026-11-24",
             "consecutive_failures": 0,
-            "last_attempt_date": "2026-11-23",
+            "last_attempt_date": "2026-11-24",
             "ok_now": true
           },
           "deep2.cme": {
-            "last_ok_date": "2026-11-23",
+            "last_ok_date": "2026-11-24",
             "consecutive_failures": 0,
-            "last_attempt_date": "2026-11-23",
+            "last_attempt_date": "2026-11-24",
             "ok_now": true
           },
           "deep2.sentry": {
-            "last_ok_date": "2026-11-23",
+            "last_ok_date": "2026-11-24",
             "consecutive_failures": 0,
-            "last_attempt_date": "2026-11-23",
+            "last_attempt_date": "2026-11-24",
             "ok_now": true
           },
           "deep2.fireball": {
-            "last_ok_date": "2026-11-23",
+            "last_ok_date": "2026-11-24",
             "consecutive_failures": 0,
-            "last_attempt_date": "2026-11-23",
+            "last_attempt_date": "2026-11-24",
             "ok_now": true
           },
           "deep2.dsn": {
-            "last_ok_date": "2026-11-23",
+            "last_ok_date": "2026-11-24",
             "consecutive_failures": 0,
-            "last_attempt_date": "2026-11-23",
+            "last_attempt_date": "2026-11-24",
             "ok_now": true
           },
           "human2.fema": {
-            "last_ok_date": "2026-11-23",
+            "last_ok_date": "2026-11-24",
             "consecutive_failures": 0,
-            "last_attempt_date": "2026-11-23",
+            "last_attempt_date": "2026-11-24",
             "ok_now": true
           },
           "human2.fda": {
-            "last_ok_date": "2026-11-23",
+            "last_ok_date": "2026-11-24",
             "consecutive_failures": 0,
-            "last_attempt_date": "2026-11-23",
+            "last_attempt_date": "2026-11-24",
             "ok_now": true
           },
           "human2.powerball": {
-            "last_ok_date": "2026-11-23",
+            "last_ok_date": "2026-11-24",
             "consecutive_failures": 0,
-            "last_attempt_date": "2026-11-23",
+            "last_attempt_date": "2026-11-24",
             "ok_now": true
           },
           "human2.eth": {
-            "last_ok_date": "2026-11-23",
+            "last_ok_date": "2026-11-24",
             "consecutive_failures": 0,
-            "last_attempt_date": "2026-11-23",
+            "last_attempt_date": "2026-11-24",
             "ok_now": true
           },
           "human2.metals": {
             "last_ok_date": null,
             "consecutive_failures": 1,
-            "last_attempt_date": "2026-11-23",
+            "last_attempt_date": "2026-11-24",
             "ok_now": false
           }
         },
         "weather": {
-          "last_ok_date": "2026-11-24",
+          "last_ok_date": "2026-11-25",
           "consecutive_failures": 0,
-          "last_attempt_date": "2026-11-24",
+          "last_attempt_date": "2026-11-25",
           "ok_now": true
         },
         "local_news": {
-          "last_ok_date": "2026-11-24",
+          "last_ok_date": "2026-11-25",
           "consecutive_failures": 0,
-          "last_attempt_date": "2026-11-24",
+          "last_attempt_date": "2026-11-25",
           "ok_now": true
         },
         "world_news": {
-          "last_ok_date": "2026-11-24",
+          "last_ok_date": "2026-11-25",
           "consecutive_failures": 0,
-          "last_attempt_date": "2026-11-24",
+          "last_attempt_date": "2026-11-25",
           "ok_now": true
         },
         "traffic": {
-          "last_ok_date": "2026-11-24",
+          "last_ok_date": "2026-11-25",
           "consecutive_failures": 0,
-          "last_attempt_date": "2026-11-24",
+          "last_attempt_date": "2026-11-25",
           "ok_now": true
         },
         "quakes": {
-          "last_ok_date": "2026-11-24",
+          "last_ok_date": "2026-11-25",
           "consecutive_failures": 0,
-          "last_attempt_date": "2026-11-24",
+          "last_attempt_date": "2026-11-25",
           "ok_now": true
         },
         "schumann": {
-          "last_ok_date": "2026-11-24",
+          "last_ok_date": "2026-11-25",
           "consecutive_failures": 0,
-          "last_attempt_date": "2026-11-24",
+          "last_attempt_date": "2026-11-25",
           "ok_now": true
         },
         "space_weather": {
-          "last_ok_date": "2026-11-24",
+          "last_ok_date": "2026-11-25",
           "consecutive_failures": 0,
-          "last_attempt_date": "2026-11-24",
+          "last_attempt_date": "2026-11-25",
           "ok_now": true
         },
         "gw": {
-          "last_ok_date": "2026-11-24",
+          "last_ok_date": "2026-11-25",
           "consecutive_failures": 0,
-          "last_attempt_date": "2026-11-24",
+          "last_attempt_date": "2026-11-25",
           "ok_now": true
         },
         "space_news": {
-          "last_ok_date": "2026-11-24",
+          "last_ok_date": "2026-11-25",
           "consecutive_failures": 0,
-          "last_attempt_date": "2026-11-24",
+          "last_attempt_date": "2026-11-25",
           "ok_now": true
         },
         "facebook": {
-          "last_ok_date": "2026-11-24",
+          "last_ok_date": "2026-11-25",
           "consecutive_failures": 0,
-          "last_attempt_date": "2026-11-24",
+          "last_attempt_date": "2026-11-25",
           "ok_now": true
         },
         "moon_sky": {
-          "last_ok_date": "2026-11-24",
+          "last_ok_date": "2026-11-25",
           "consecutive_failures": 0,
-          "last_attempt_date": "2026-11-24",
+          "last_attempt_date": "2026-11-25",
           "ok_now": true
         },
         "cycles": {
-          "last_ok_date": "2026-11-24",
+          "last_ok_date": "2026-11-25",
           "consecutive_failures": 0,
-          "last_attempt_date": "2026-11-24",
+          "last_attempt_date": "2026-11-25",
           "ok_now": true
         },
         "earth_extras": {
-          "last_ok_date": "2026-11-24",
+          "last_ok_date": "2026-11-25",
           "consecutive_failures": 0,
-          "last_attempt_date": "2026-11-24",
+          "last_attempt_date": "2026-11-25",
           "ok_now": true
         },
         "human_world": {
-          "last_ok_date": "2026-11-24",
+          "last_ok_date": "2026-11-25",
           "consecutive_failures": 0,
-          "last_attempt_date": "2026-11-24",
+          "last_attempt_date": "2026-11-25",
           "ok_now": true
         },
         "earth2": {
-          "last_ok_date": "2026-11-24",
+          "last_ok_date": "2026-11-25",
           "consecutive_failures": 0,
-          "last_attempt_date": "2026-11-24",
+          "last_attempt_date": "2026-11-25",
           "ok_now": true
         },
         "deep2": {
-          "last_ok_date": "2026-11-24",
+          "last_ok_date": "2026-11-25",
           "consecutive_failures": 0,
-          "last_attempt_date": "2026-11-24",
+          "last_attempt_date": "2026-11-25",
           "ok_now": true
         },
         "sky_tonight": {
-          "last_ok_date": "2026-11-24",
+          "last_ok_date": "2026-11-25",
           "consecutive_failures": 0,
-          "last_attempt_date": "2026-11-24",
+          "last_attempt_date": "2026-11-25",
           "ok_now": true
         },
         "cycles_full": {
-          "last_ok_date": "2026-11-24",
+          "last_ok_date": "2026-11-25",
           "consecutive_failures": 0,
-          "last_attempt_date": "2026-11-24",
+          "last_attempt_date": "2026-11-25",
           "ok_now": true
         },
         "human2": {
-          "last_ok_date": "2026-11-24",
+          "last_ok_date": "2026-11-25",
           "consecutive_failures": 0,
-          "last_attempt_date": "2026-11-24",
+          "last_attempt_date": "2026-11-25",
           "ok_now": true
         },
         "findings": {
-          "last_ok_date": "2026-11-24",
+          "last_ok_date": "2026-11-25",
           "consecutive_failures": 0,
-          "last_attempt_date": "2026-11-24",
+          "last_attempt_date": "2026-11-25",
           "ok_now": true
         },
         "earth2.rivers": {
-          "last_ok_date": "2026-11-24",
-          "consecutive_failures": 0,
-          "last_attempt_date": "2026-11-24",
-          "ok_now": true
+          "last_ok_date": null,
+          "consecutive_failures": 1,
+          "last_attempt_date": "2026-11-25",
+          "ok_now": false
         },
         "earth2.tsunami": {
-          "last_ok_date": "2026-11-24",
+          "last_ok_date": "2026-11-25",
           "consecutive_failures": 0,
-          "last_attempt_date": "2026-11-24",
+          "last_attempt_date": "2026-11-25",
           "ok_now": true
         },
         "earth2.drought": {
-          "last_ok_date": "2026-11-24",
+          "last_ok_date": "2026-11-25",
           "consecutive_failures": 0,
-          "last_attempt_date": "2026-11-24",
+          "last_attempt_date": "2026-11-25",
           "ok_now": true
         },
         "earth2.oni": {
-          "last_ok_date": "2026-11-24",
+          "last_ok_date": "2026-11-25",
           "consecutive_failures": 0,
-          "last_attempt_date": "2026-11-24",
+          "last_attempt_date": "2026-11-25",
           "ok_now": true
         },
         "earth2.co2": {
-          "last_ok_date": "2026-11-24",
+          "last_ok_date": "2026-11-25",
           "consecutive_failures": 0,
-          "last_attempt_date": "2026-11-24",
+          "last_attempt_date": "2026-11-25",
           "ok_now": true
         },
         "earth2.spc": {
-          "last_ok_date": "2026-11-24",
+          "last_ok_date": "2026-11-25",
           "consecutive_failures": 0,
-          "last_attempt_date": "2026-11-24",
+          "last_attempt_date": "2026-11-25",
           "ok_now": true
         },
         "earth2.nhc": {
-          "last_ok_date": "2026-11-24",
+          "last_ok_date": "2026-11-25",
           "consecutive_failures": 0,
-          "last_attempt_date": "2026-11-24",
+          "last_attempt_date": "2026-11-25",
           "ok_now": true
         },
         "deep2.scales": {
-          "last_ok_date": "2026-11-24",
+          "last_ok_date": "2026-11-25",
           "consecutive_failures": 0,
-          "last_attempt_date": "2026-11-24",
+          "last_attempt_date": "2026-11-25",
           "ok_now": true
         },
         "deep2.sun": {
-          "last_ok_date": "2026-11-24",
+          "last_ok_date": "2026-11-25",
           "consecutive_failures": 0,
-          "last_attempt_date": "2026-11-24",
+          "last_attempt_date": "2026-11-25",
           "ok_now": true
         },
         "deep2.cme": {
-          "last_ok_date": "2026-11-24",
+          "last_ok_date": "2026-11-25",
           "consecutive_failures": 0,
-          "last_attempt_date": "2026-11-24",
+          "last_attempt_date": "2026-11-25",
           "ok_now": true
         },
         "deep2.sentry": {
-          "last_ok_date": "2026-11-24",
+          "last_ok_date": "2026-11-25",
           "consecutive_failures": 0,
-          "last_attempt_date": "2026-11-24",
+          "last_attempt_date": "2026-11-25",
           "ok_now": true
         },
         "deep2.fireball": {
-          "last_ok_date": "2026-11-24",
+          "last_ok_date": "2026-11-25",
           "consecutive_failures": 0,
-          "last_attempt_date": "2026-11-24",
+          "last_attempt_date": "2026-11-25",
           "ok_now": true
         },
         "deep2.dsn": {
-          "last_ok_date": "2026-11-24",
+          "last_ok_date": "2026-11-25",
           "consecutive_failures": 0,
-          "last_attempt_date": "2026-11-24",
+          "last_attempt_date": "2026-11-25",
           "ok_now": true
         },
         "human2.fema": {
-          "last_ok_date": "2026-11-24",
+          "last_ok_date": "2026-11-25",
           "consecutive_failures": 0,
-          "last_attempt_date": "2026-11-24",
+          "last_attempt_date": "2026-11-25",
           "ok_now": true
         },
         "human2.fda": {
-          "last_ok_date": "2026-11-24",
+          "last_ok_date": "2026-11-25",
           "consecutive_failures": 0,
-          "last_attempt_date": "2026-11-24",
+          "last_attempt_date": "2026-11-25",
           "ok_now": true
         },
         "human2.powerball": {
-          "last_ok_date": "2026-11-24",
+          "last_ok_date": "2026-11-25",
           "consecutive_failures": 0,
-          "last_attempt_date": "2026-11-24",
+          "last_attempt_date": "2026-11-25",
           "ok_now": true
         },
         "human2.eth": {
-          "last_ok_date": "2026-11-24",
+          "last_ok_date": "2026-11-25",
           "consecutive_failures": 0,
-          "last_attempt_date": "2026-11-24",
+          "last_attempt_date": "2026-11-25",
           "ok_now": true
         },
         "human2.metals": {
           "last_ok_date": null,
           "consecutive_failures": 1,
-          "last_attempt_date": "2026-11-24",
+          "last_attempt_date": "2026-11-25",
           "ok_now": false
         }
       },
       "weather": {
-        "last_ok_date": "2026-11-25",
+        "last_ok_date": "2026-11-26",
         "consecutive_failures": 0,
-        "last_attempt_date": "2026-11-25",
+        "last_attempt_date": "2026-11-26",
         "ok_now": true
       },
       "local_news": {
-        "last_ok_date": "2026-11-25",
+        "last_ok_date": "2026-11-26",
         "consecutive_failures": 0,
-        "last_attempt_date": "2026-11-25",
+        "last_attempt_date": "2026-11-26",
         "ok_now": true
       },
       "world_news": {
-        "last_ok_date": "2026-11-25",
+        "last_ok_date": "2026-11-26",
         "consecutive_failures": 0,
-        "last_attempt_date": "2026-11-25",
+        "last_attempt_date": "2026-11-26",
         "ok_now": true
       },
       "traffic": {
-        "last_ok_date": "2026-11-25",
+        "last_ok_date": "2026-11-26",
         "consecutive_failures": 0,
-        "last_attempt_date": "2026-11-25",
+        "last_attempt_date": "2026-11-26",
         "ok_now": true
       },
       "quakes": {
-        "last_ok_date": "2026-11-25",
+        "last_ok_date": "2026-11-26",
         "consecutive_failures": 0,
-        "last_attempt_date": "2026-11-25",
+        "last_attempt_date": "2026-11-26",
         "ok_now": true
       },
       "schumann": {
-        "last_ok_date": "2026-11-25",
+        "last_ok_date": "2026-11-26",
         "consecutive_failures": 0,
-        "last_attempt_date": "2026-11-25",
+        "last_attempt_date": "2026-11-26",
         "ok_now": true
       },
       "space_weather": {
-        "last_ok_date": "2026-11-25",
+        "last_ok_date": "2026-11-26",
         "consecutive_failures": 0,
-        "last_attempt_date": "2026-11-25",
+        "last_attempt_date": "2026-11-26",
         "ok_now": true
       },
       "gw": {
-        "last_ok_date": "2026-11-25",
+        "last_ok_date": "2026-11-26",
         "consecutive_failures": 0,
-        "last_attempt_date": "2026-11-25",
+        "last_attempt_date": "2026-11-26",
         "ok_now": true
       },
       "space_news": {
-        "last_ok_date": "2026-11-25",
+        "last_ok_date": "2026-11-26",
         "consecutive_failures": 0,
-        "last_attempt_date": "2026-11-25",
+        "last_attempt_date": "2026-11-26",
         "ok_now": true
       },
       "facebook": {
-        "last_ok_date": "2026-11-25",
+        "last_ok_date": "2026-11-26",
         "consecutive_failures": 0,
-        "last_attempt_date": "2026-11-25",
+        "last_attempt_date": "2026-11-26",
         "ok_now": true
       },
       "moon_sky": {
-        "last_ok_date": "2026-11-25",
+        "last_ok_date": "2026-11-26",
         "consecutive_failures": 0,
-        "last_attempt_date": "2026-11-25",
+        "last_attempt_date": "2026-11-26",
         "ok_now": true
       },
       "cycles": {
-        "last_ok_date": "2026-11-25",
+        "last_ok_date": "2026-11-26",
         "consecutive_failures": 0,
-        "last_attempt_date": "2026-11-25",
+        "last_attempt_date": "2026-11-26",
         "ok_now": true
       },
       "earth_extras": {
-        "last_ok_date": "2026-11-25",
+        "last_ok_date": "2026-11-26",
         "consecutive_failures": 0,
-        "last_attempt_date": "2026-11-25",
+        "last_attempt_date": "2026-11-26",
         "ok_now": true
       },
       "human_world": {
-        "last_ok_date": "2026-11-25",
+        "last_ok_date": "2026-11-26",
         "consecutive_failures": 0,
-        "last_attempt_date": "2026-11-25",
+        "last_attempt_date": "2026-11-26",
         "ok_now": true
       },
       "earth2": {
-        "last_ok_date": "2026-11-25",
+        "last_ok_date": "2026-11-26",
         "consecutive_failures": 0,
-        "last_attempt_date": "2026-11-25",
+        "last_attempt_date": "2026-11-26",
         "ok_now": true
       },
       "deep2": {
-        "last_ok_date": "2026-11-25",
+        "last_ok_date": "2026-11-26",
         "consecutive_failures": 0,
-        "last_attempt_date": "2026-11-25",
+        "last_attempt_date": "2026-11-26",
         "ok_now": true
       },
       "sky_tonight": {
-        "last_ok_date": "2026-11-25",
+        "last_ok_date": "2026-11-26",
         "consecutive_failures": 0,
-        "last_attempt_date": "2026-11-25",
+        "last_attempt_date": "2026-11-26",
         "ok_now": true
       },
       "cycles_full": {
-        "last_ok_date": "2026-11-25",
+        "last_ok_date": "2026-11-26",
         "consecutive_failures": 0,
-        "last_attempt_date": "2026-11-25",
+        "last_attempt_date": "2026-11-26",
         "ok_now": true
       },
       "human2": {
-        "last_ok_date": "2026-11-25",
+        "last_ok_date": "2026-11-26",
         "consecutive_failures": 0,
-        "last_attempt_date": "2026-11-25",
+        "last_attempt_date": "2026-11-26",
         "ok_now": true
       },
       "findings": {
-        "last_ok_date": "2026-11-25",
+        "last_ok_date": "2026-11-26",
         "consecutive_failures": 0,
-        "last_attempt_date": "2026-11-25",
+        "last_attempt_date": "2026-11-26",
         "ok_now": true
       },
       "earth2.rivers": {
-        "last_ok_date": null,
-        "consecutive_failures": 1,
-        "last_attempt_date": "2026-11-25",
-        "ok_now": false
+        "last_ok_date": "2026-11-26",
+        "consecutive_failures": 0,
+        "last_attempt_date": "2026-11-26",
+        "ok_now": true
       },
       "earth2.tsunami": {
-        "last_ok_date": "2026-11-25",
+        "last_ok_date": "2026-11-26",
         "consecutive_failures": 0,
-        "last_attempt_date": "2026-11-25",
+        "last_attempt_date": "2026-11-26",
         "ok_now": true
       },
       "earth2.drought": {
-        "last_ok_date": "2026-11-25",
+        "last_ok_date": "2026-11-26",
         "consecutive_failures": 0,
-        "last_attempt_date": "2026-11-25",
+        "last_attempt_date": "2026-11-26",
         "ok_now": true
       },
       "earth2.oni": {
-        "last_ok_date": "2026-11-25",
+        "last_ok_date": "2026-11-26",
         "consecutive_failures": 0,
-        "last_attempt_date": "2026-11-25",
+        "last_attempt_date": "2026-11-26",
         "ok_now": true
       },
       "earth2.co2": {
-        "last_ok_date": "2026-11-25",
-        "consecutive_failures": 0,
-        "last_attempt_date": "2026-11-25",
-        "ok_now": true
+        "last_ok_date": null,
+        "consecutive_failures": 1,
+        "last_attempt_date": "2026-11-26",
+        "ok_now": false
       },
       "earth2.spc": {
-        "last_ok_date": "2026-11-25",
+        "last_ok_date": "2026-11-26",
         "consecutive_failures": 0,
-        "last_attempt_date": "2026-11-25",
+        "last_attempt_date": "2026-11-26",
         "ok_now": true
       },
       "earth2.nhc": {
-        "last_ok_date": "2026-11-25",
+        "last_ok_date": "2026-11-26",
         "consecutive_failures": 0,
-        "last_attempt_date": "2026-11-25",
+        "last_attempt_date": "2026-11-26",
         "ok_now": true
       },
       "deep2.scales": {
-        "last_ok_date": "2026-11-25",
+        "last_ok_date": "2026-11-26",
         "consecutive_failures": 0,
-        "last_attempt_date": "2026-11-25",
+        "last_attempt_date": "2026-11-26",
         "ok_now": true
       },
       "deep2.sun": {
-        "last_ok_date": "2026-11-25",
+        "last_ok_date": "2026-11-26",
         "consecutive_failures": 0,
-        "last_attempt_date": "2026-11-25",
+        "last_attempt_date": "2026-11-26",
         "ok_now": true
       },
       "deep2.cme": {
-        "last_ok_date": "2026-11-25",
+        "last_ok_date": "2026-11-26",
         "consecutive_failures": 0,
-        "last_attempt_date": "2026-11-25",
+        "last_attempt_date": "2026-11-26",
         "ok_now": true
       },
       "deep2.sentry": {
-        "last_ok_date": "2026-11-25",
+        "last_ok_date": "2026-11-26",
         "consecutive_failures": 0,
-        "last_attempt_date": "2026-11-25",
+        "last_attempt_date": "2026-11-26",
         "ok_now": true
       },
       "deep2.fireball": {
-        "last_ok_date": "2026-11-25",
+        "last_ok_date": "2026-11-26",
         "consecutive_failures": 0,
-        "last_attempt_date": "2026-11-25",
+        "last_attempt_date": "2026-11-26",
         "ok_now": true
       },
       "deep2.dsn": {
-        "last_ok_date": "2026-11-25",
+        "last_ok_date": "2026-11-26",
         "consecutive_failures": 0,
-        "last_attempt_date": "2026-11-25",
+        "last_attempt_date": "2026-11-26",
         "ok_now": true
       },
       "human2.fema": {
-        "last_ok_date": "2026-11-25",
+        "last_ok_date": "2026-11-26",
         "consecutive_failures": 0,
-        "last_attempt_date": "2026-11-25",
+        "last_attempt_date": "2026-11-26",
         "ok_now": true
       },
       "human2.fda": {
-        "last_ok_date": "2026-11-25",
+        "last_ok_date": "2026-11-26",
         "consecutive_failures": 0,
-        "last_attempt_date": "2026-11-25",
+        "last_attempt_date": "2026-11-26",
         "ok_now": true
       },
       "human2.powerball": {
-        "last_ok_date": "2026-11-25",
+        "last_ok_date": "2026-11-26",
         "consecutive_failures": 0,
-        "last_attempt_date": "2026-11-25",
+        "last_attempt_date": "2026-11-26",
         "ok_now": true
       },
       "human2.eth": {
-        "last_ok_date": "2026-11-25",
+        "last_ok_date": "2026-11-26",
         "consecutive_failures": 0,
-        "last_attempt_date": "2026-11-25",
+        "last_attempt_date": "2026-11-26",
         "ok_now": true
       },
       "human2.metals": {
         "last_ok_date": null,
         "consecutive_failures": 1,
-        "last_attempt_date": "2026-11-25",
+        "last_attempt_date": "2026-11-26",
         "ok_now": false
       }
     },
     "weather": {
-      "last_ok_date": "2026-11-26",
+      "last_ok_date": "2026-11-27",
       "consecutive_failures": 0,
-      "last_attempt_date": "2026-11-26",
+      "last_attempt_date": "2026-11-27",
       "ok_now": true
     },
     "local_news": {
-      "last_ok_date": "2026-11-26",
+      "last_ok_date": "2026-11-27",
       "consecutive_failures": 0,
-      "last_attempt_date": "2026-11-26",
+      "last_attempt_date": "2026-11-27",
       "ok_now": true
     },
     "world_news": {
-      "last_ok_date": "2026-11-26",
+      "last_ok_date": "2026-11-27",
       "consecutive_failures": 0,
-      "last_attempt_date": "2026-11-26",
+      "last_attempt_date": "2026-11-27",
       "ok_now": true
     },
     "traffic": {
-      "last_ok_date": "2026-11-26",
+      "last_ok_date": "2026-11-27",
       "consecutive_failures": 0,
-      "last_attempt_date": "2026-11-26",
+      "last_attempt_date": "2026-11-27",
       "ok_now": true
     },
     "quakes": {
-      "last_ok_date": "2026-11-26",
+      "last_ok_date": "2026-11-27",
       "consecutive_failures": 0,
-      "last_attempt_date": "2026-11-26",
+      "last_attempt_date": "2026-11-27",
       "ok_now": true
     },
     "schumann": {
-      "last_ok_date": "2026-11-26",
+      "last_ok_date": "2026-11-27",
       "consecutive_failures": 0,
-      "last_attempt_date": "2026-11-26",
+      "last_attempt_date": "2026-11-27",
       "ok_now": true
     },
     "space_weather": {
-      "last_ok_date": "2026-11-26",
+      "last_ok_date": "2026-11-27",
       "consecutive_failures": 0,
-      "last_attempt_date": "2026-11-26",
+      "last_attempt_date": "2026-11-27",
       "ok_now": true
     },
     "gw": {
-      "last_ok_date": "2026-11-26",
+      "last_ok_date": "2026-11-27",
       "consecutive_failures": 0,
-      "last_attempt_date": "2026-11-26",
+      "last_attempt_date": "2026-11-27",
       "ok_now": true
     },
     "space_news": {
-      "last_ok_date": "2026-11-26",
+      "last_ok_date": "2026-11-27",
       "consecutive_failures": 0,
-      "last_attempt_date": "2026-11-26",
+      "last_attempt_date": "2026-11-27",
       "ok_now": true
     },
     "facebook": {
-      "last_ok_date": "2026-11-26",
+      "last_ok_date": "2026-11-27",
       "consecutive_failures": 0,
-      "last_attempt_date": "2026-11-26",
+      "last_attempt_date": "2026-11-27",
       "ok_now": true
     },
     "moon_sky": {
-      "last_ok_date": "2026-11-26",
+      "last_ok_date": "2026-11-27",
       "consecutive_failures": 0,
-      "last_attempt_date": "2026-11-26",
+      "last_attempt_date": "2026-11-27",
       "ok_now": true
     },
     "cycles": {
-      "last_ok_date": "2026-11-26",
+      "last_ok_date": "2026-11-27",
       "consecutive_failures": 0,
-      "last_attempt_date": "2026-11-26",
+      "last_attempt_date": "2026-11-27",
       "ok_now": true
     },
     "earth_extras": {
-      "last_ok_date": "2026-11-26",
+      "last_ok_date": "2026-11-27",
       "consecutive_failures": 0,
-      "last_attempt_date": "2026-11-26",
+      "last_attempt_date": "2026-11-27",
       "ok_now": true
     },
     "human_world": {
-      "last_ok_date": "2026-11-26",
+      "last_ok_date": "2026-11-27",
       "consecutive_failures": 0,
-      "last_attempt_date": "2026-11-26",
+      "last_attempt_date": "2026-11-27",
       "ok_now": true
     },
     "earth2": {
-      "last_ok_date": "2026-11-26",
+      "last_ok_date": "2026-11-27",
       "consecutive_failures": 0,
-      "last_attempt_date": "2026-11-26",
+      "last_attempt_date": "2026-11-27",
       "ok_now": true
     },
     "deep2": {
-      "last_ok_date": "2026-11-26",
+      "last_ok_date": "2026-11-27",
       "consecutive_failures": 0,
-      "last_attempt_date": "2026-11-26",
+      "last_attempt_date": "2026-11-27",
       "ok_now": true
     },
     "sky_tonight": {
-      "last_ok_date": "2026-11-26",
+      "last_ok_date": "2026-11-27",
       "consecutive_failures": 0,
-      "last_attempt_date": "2026-11-26",
+      "last_attempt_date": "2026-11-27",
       "ok_now": true
     },
     "cycles_full": {
-      "last_ok_date": "2026-11-26",
+      "last_ok_date": "2026-11-27",
       "consecutive_failures": 0,
-      "last_attempt_date": "2026-11-26",
+      "last_attempt_date": "2026-11-27",
       "ok_now": true
     },
     "human2": {
-      "last_ok_date": "2026-11-26",
+      "last_ok_date": "2026-11-27",
       "consecutive_failures": 0,
-      "last_attempt_date": "2026-11-26",
+      "last_attempt_date": "2026-11-27",
       "ok_now": true
     },
     "findings": {
-      "last_ok_date": "2026-11-26",
+      "last_ok_date": "2026-11-27",
       "consecutive_failures": 0,
-      "last_attempt_date": "2026-11-26",
+      "last_attempt_date": "2026-11-27",
       "ok_now": true
     },
     "earth2.rivers": {
-      "last_ok_date": "2026-11-26",
-      "consecutive_failures": 0,
-      "last_attempt_date": "2026-11-26",
-      "ok_now": true
+      "last_ok_date": null,
+      "consecutive_failures": 1,
+      "last_attempt_date": "2026-11-27",
+      "ok_now": false
     },
     "earth2.tsunami": {
-      "last_ok_date": "2026-11-26",
+      "last_ok_date": "2026-11-27",
       "consecutive_failures": 0,
-      "last_attempt_date": "2026-11-26",
+      "last_attempt_date": "2026-11-27",
       "ok_now": true
     },
     "earth2.drought": {
-      "last_ok_date": "2026-11-26",
+      "last_ok_date": "2026-11-27",
       "consecutive_failures": 0,
-      "last_attempt_date": "2026-11-26",
+      "last_attempt_date": "2026-11-27",
       "ok_now": true
     },
     "earth2.oni": {
-      "last_ok_date": "2026-11-26",
+      "last_ok_date": "2026-11-27",
       "consecutive_failures": 0,
-      "last_attempt_date": "2026-11-26",
+      "last_attempt_date": "2026-11-27",
       "ok_now": true
     },
     "earth2.co2": {
       "last_ok_date": null,
       "consecutive_failures": 1,
-      "last_attempt_date": "2026-11-26",
+      "last_attempt_date": "2026-11-27",
       "ok_now": false
     },
     "earth2.spc": {
-      "last_ok_date": "2026-11-26",
+      "last_ok_date": "2026-11-27",
       "consecutive_failures": 0,
-      "last_attempt_date": "2026-11-26",
+      "last_attempt_date": "2026-11-27",
       "ok_now": true
     },
     "earth2.nhc": {
-      "last_ok_date": "2026-11-26",
+      "last_ok_date": "2026-11-27",
       "consecutive_failures": 0,
-      "last_attempt_date": "2026-11-26",
+      "last_attempt_date": "2026-11-27",
       "ok_now": true
     },
     "deep2.scales": {
-      "last_ok_date": "2026-11-26",
+      "last_ok_date": "2026-11-27",
       "consecutive_failures": 0,
-      "last_attempt_date": "2026-11-26",
+      "last_attempt_date": "2026-11-27",
       "ok_now": true
     },
     "deep2.sun": {
-      "last_ok_date": "2026-11-26",
+      "last_ok_date": "2026-11-27",
       "consecutive_failures": 0,
-      "last_attempt_date": "2026-11-26",
+      "last_attempt_date": "2026-11-27",
       "ok_now": true
     },
     "deep2.cme": {
-      "last_ok_date": "2026-11-26",
+      "last_ok_date": "2026-11-27",
       "consecutive_failures": 0,
-      "last_attempt_date": "2026-11-26",
+      "last_attempt_date": "2026-11-27",
       "ok_now": true
     },
     "deep2.sentry": {
-      "last_ok_date": "2026-11-26",
+      "last_ok_date": "2026-11-27",
       "consecutive_failures": 0,
-      "last_attempt_date": "2026-11-26",
+      "last_attempt_date": "2026-11-27",
       "ok_now": true
     },
     "deep2.fireball": {
-      "last_ok_date": "2026-11-26",
+      "last_ok_date": "2026-11-27",
       "consecutive_failures": 0,
-      "last_attempt_date": "2026-11-26",
+      "last_attempt_date": "2026-11-27",
       "ok_now": true
     },
     "deep2.dsn": {
-      "last_ok_date": "2026-11-26",
+      "last_ok_date": "2026-11-27",
       "consecutive_failures": 0,
-      "last_attempt_date": "2026-11-26",
+      "last_attempt_date": "2026-11-27",
       "ok_now": true
     },
     "human2.fema": {
-      "last_ok_date": "2026-11-26",
+      "last_ok_date": "2026-11-27",
       "consecutive_failures": 0,
-      "last_attempt_date": "2026-11-26",
+      "last_attempt_date": "2026-11-27",
       "ok_now": true
     },
     "human2.fda": {
-      "last_ok_date": "2026-11-26",
+      "last_ok_date": "2026-11-27",
       "consecutive_failures": 0,
-      "last_attempt_date": "2026-11-26",
+      "last_attempt_date": "2026-11-27",
       "ok_now": true
     },
     "human2.powerball": {
-      "last_ok_date": "2026-11-26",
+      "last_ok_date": "2026-11-27",
       "consecutive_failures": 0,
-      "last_attempt_date": "2026-11-26",
+      "last_attempt_date": "2026-11-27",
       "ok_now": true
     },
     "human2.eth": {
-      "last_ok_date": "2026-11-26",
+      "last_ok_date": "2026-11-27",
       "consecutive_failures": 0,
-      "last_attempt_date": "2026-11-26",
+      "last_attempt_date": "2026-11-27",
       "ok_now": true
     },
     "human2.metals": {
       "last_ok_date": null,
       "consecutive_failures": 1,
-      "last_attempt_date": "2026-11-26",
+      "last_attempt_date": "2026-11-27",
       "ok_now": false
     }
   }

@@ -1,5 +1,36 @@
 [
   {
+    "date": "2026-11-27",
+    "anomalies": [],
+    "counts": {
+      "quakes_global_m45": 7,
+      "quakes_local_m25": 0,
+      "biggest_quake_mag": 5.7,
+      "gw_alerts_week": 0,
+      "kp_latest": 0.33,
+      "kp_max_today": 2,
+      "aqi_max_today": 23,
+      "closest_neo_km": 20445653,
+      "moon_illum_pct": 89,
+      "space_headlines": 5,
+      "local_outlets_live": 1
+    },
+    "snapshot": {
+      "kp_latest": 0.33,
+      "kp_max_today": 2,
+      "biggest_quake_mag": 5.7,
+      "closest_neo_km": 20445653,
+      "aqi_max_today": 23,
+      "moon_illum_pct": 89,
+      "gw_alerts_week": 0,
+      "btc_usd": 61577,
+      "co2_ppm": null,
+      "oni_anomaly": "+2.46"
+    },
+    "prev_hash": "45e00c4aa9fea3f0c69953aedb59fd468aee4446880edfdeca614521d2f7b928",
+    "hash": "fbf691e28f110ec7e6398848dadfb096767b7bf1c88d04b2425cff74804659ca"
+  },
+  {
     "date": "2026-11-26",
     "anomalies": [],
     "counts": {
